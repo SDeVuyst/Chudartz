@@ -1,0 +1,37 @@
+.recent-posts-widget {
+  .post-item {
+    display: flex;
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    img {
+      width: 80px;
+      margin-right: 15px;
+    }
+
+    h4 {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 5px;
+
+      a {
+        color: var(--default-color);
+        transition: 0.3s;
+
+        &:hover {
+          color: var(--accent-color);
+        }
+      }
+    }
+
+    time {
+      display: block;
+      font-style: italic;
+      font-size: 14px;
+      color: color-mix(in srgb, var(--default-color), transparent 50%);
+    }
+  }
+}

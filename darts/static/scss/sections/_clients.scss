@@ -1,0 +1,31 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Clients Section
+--------------------------------------------------------------*/
+.clients {
+  padding: 20px 0;
+
+  .client-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    img {
+      padding: 20px 40px;
+      max-width: 90%;
+      transition: 0.3s;
+      opacity: 0.5;
+      filter: grayscale(100);
+
+      &:hover {
+        filter: none;
+        opacity: 1;
+      }
+
+      @media (max-width: 640px) {
+        padding: 20px;
+      }
+    }
+  }
+}

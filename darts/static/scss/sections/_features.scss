@@ -1,0 +1,98 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Features Section
+--------------------------------------------------------------*/
+.features {
+  .features-item {
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+
+    &+.features-item {
+      margin-top: 100px;
+
+      @media (max-width: 768px) {
+        margin-top: 40px;
+      }
+    }
+
+    h3 {
+      font-weight: 700;
+      font-size: 26px;
+    }
+
+    .btn-get-started {
+      background-color: var(--accent-color);
+      color: var(--contrast-color);
+      padding: 8px 30px 10px 30px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--accent-color), transparent 10%);
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding-bottom: 10px;
+        display: flex;
+        align-items: flex-start;
+
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+      i {
+        font-size: 20px;
+        padding-right: 4px;
+        color: var(--accent-color);
+      }
+    }
+
+    img {
+      border: 6px solid var(--surface-color);
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .features-img-bg {
+      position: relative;
+      min-height: 500px;
+
+      @media (max-width: 640px) {
+        min-height: 300px;
+      }
+
+      img {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .image-stack {
+      display: grid;
+      position: relative;
+      grid-template-columns: repeat(12, 1fr);
+
+      .stack-back {
+        grid-column: 4 / -1;
+        grid-row: 1;
+        width: 100%;
+        z-index: 1;
+      }
+
+      .stack-front {
+        grid-row: 1;
+        grid-column: 1 / span 8;
+        margin-top: 20%;
+        width: 100%;
+        z-index: 2;
+      }
+    }
+  }
+}

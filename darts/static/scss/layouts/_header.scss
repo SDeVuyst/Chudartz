@@ -1,0 +1,89 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Global Header
+--------------------------------------------------------------*/
+.header {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 20px 0;
+  transition: all 0.5s;
+  z-index: 997;
+
+  .logo {
+    line-height: 1;
+
+    img {
+      max-height: 72px;
+      margin-right: 8px;
+      margin-left: 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 600;
+      color: var(--heading-color);
+    }
+
+    span {
+      color: var(--accent-color);
+      font-size: 24px;
+      font-weight: 600;
+      padding-left: 3px;
+    }
+  }
+
+  .btn-getstarted,
+  .btn-getstarted:focus {
+    color: var(--contrast-color);
+    background: var(--accent-color);
+    font-size: 14px;
+    padding: 8px 26px;
+    margin: 0;
+    border-radius: 4px;
+    transition: 0.3s;
+
+    &:hover {
+      color: var(--contrast-color);
+      background: color-mix(in srgb, var(--accent-color), transparent 15%);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .logo {
+      order: 1;
+    }
+
+    .btn-getstarted {
+      order: 2;
+      margin: 0 15px 0 0;
+      padding: 6px 20px;
+    }
+
+    .navmenu {
+      order: 3;
+    }
+  }
+}
+
+.scrolled .header {
+  box-shadow: 0 0 30px 10px rgba(0, 0, 0, .1);
+}
+
+/* Index Page Header
+------------------------------*/
+.index-page .header {
+  --background-color: rgba(255, 255, 255, 0);
+  --heading-color: #ffffff;
+  --nav-color: rgba(255, 255, 255, 0.5);
+  --nav-hover-color: #ffffff;
+}
+
+/* Index Page Header on Scroll
+------------------------------*/
+.index-page.scrolled .header {
+  --background-color: #ffffff;
+  --heading-color: #32353a;
+  --nav-color: #3a3939;
+  --nav-hover-color: #e84545;
+}

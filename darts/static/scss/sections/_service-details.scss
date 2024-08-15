@@ -1,0 +1,138 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Service Details Section
+--------------------------------------------------------------*/
+.service-details {
+  .service-box {
+    background-color: var(--surface-color);
+    padding: 20px;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+
+    &+.service-box {
+      margin-top: 30px;
+    }
+
+    h4 {
+      font-size: 20px;
+      font-weight: 700;
+      border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .services-list {
+    background-color: var(--surface-color);
+
+    a {
+      color: color-mix(in srgb, var(--default-color), transparent 20%);
+      background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      margin-top: 15px;
+      transition: 0.3s;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      i {
+        font-size: 16px;
+        margin-right: 8px;
+        color: var(--accent-color);
+      }
+
+      &.active {
+        color: var(--contrast-color);
+        background-color: var(--accent-color);
+
+        i {
+          color: var(--contrast-color);
+        }
+      }
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+        color: var(--accent-color);
+      }
+    }
+  }
+
+  .download-catalog {
+    a {
+      color: var(--default-color);
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      transition: 0.3s;
+      border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+
+      &:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      i {
+        font-size: 24px;
+        margin-right: 8px;
+        color: var(--accent-color);
+      }
+
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+  }
+
+  .help-box {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    margin-top: 30px;
+    padding: 30px 15px;
+
+    .help-icon {
+      font-size: 48px;
+    }
+
+    h4,
+    a {
+      color: var(--contrast-color);
+    }
+  }
+
+  .services-img {
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    font-size: 15px;
+
+    li {
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    i {
+      font-size: 20px;
+      margin-right: 8px;
+      color: var(--accent-color);
+    }
+  }
+}

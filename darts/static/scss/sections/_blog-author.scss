@@ -1,0 +1,41 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Blog Author Section
+--------------------------------------------------------------*/
+.blog-author {
+  padding: 10px 0 40px 0;
+
+  .author-container {
+    background-color: var(--surface-color);
+    padding: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    max-width: 120px;
+    margin-right: 20px;
+  }
+
+  h4 {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 0px;
+    padding: 0;
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+  }
+
+  .social-links {
+    margin: 0 10px 10px 0;
+
+    a {
+      color: color-mix(in srgb, var(--default-color), transparent 60%);
+      margin-right: 5px;
+    }
+  }
+
+  p {
+    font-style: italic;
+    color: color-mix(in srgb, var(--default-color), transparent 30%);
+    margin-bottom: 0;
+  }
+}

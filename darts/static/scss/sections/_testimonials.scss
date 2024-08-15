@@ -1,0 +1,118 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Testimonials Section
+--------------------------------------------------------------*/
+.testimonials {
+  .info {
+    h3 {
+      font-weight: 700;
+      font-size: 32px;
+    }
+  }
+
+  .swiper {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .05);
+    background-color: var(--surface-color);
+  }
+
+  .testimonials-carousel,
+  .testimonials-slider {
+    overflow: hidden;
+  }
+
+  .testimonial-item {
+    box-sizing: content-box;
+    min-height: 200px;
+    position: relative;
+    margin: 30px;
+
+    .testimonial-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50px;
+      border: 6px solid var(--background-color);
+      margin-right: 10px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+    }
+
+    h4 {
+      color: color-mix(in srgb, var(--default-color), transparent 50%);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .stars {
+      margin: 10px 0;
+
+      i {
+        color: #ffc107;
+        margin: 0 1px;
+      }
+    }
+
+    .quote-icon-left,
+    .quote-icon-right {
+      color: color-mix(in srgb, var(--accent-color), transparent 60%);
+      font-size: 26px;
+      line-height: 0;
+    }
+
+    .quote-icon-left {
+      display: inline-block;
+      left: -5px;
+      position: relative;
+    }
+
+    .quote-icon-right {
+      display: inline-block;
+      right: -5px;
+      position: relative;
+      top: 10px;
+      transform: scale(-1, -1);
+    }
+
+    p {
+      font-style: italic;
+      margin: 15px auto 15px auto;
+    }
+  }
+
+  .swiper-wrapper {
+    height: auto;
+  }
+
+  .swiper-pagination {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+
+    .swiper-pagination-bullet {
+      width: 10px;
+      height: 10px;
+      background-color: color-mix(in srgb, var(--default-color), transparent 85%);
+      opacity: 1;
+      border: none;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: var(--accent-color);
+    }
+  }
+
+  @media (max-width: 767px) {
+
+    .testimonials-carousel,
+    .testimonials-slider {
+      overflow: hidden;
+    }
+
+    .testimonial-item {
+      margin: 15px;
+    }
+  }
+}

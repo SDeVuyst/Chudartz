@@ -1,0 +1,153 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Blog Details Section
+--------------------------------------------------------------*/
+.blog-details {
+  padding-bottom: 30px;
+
+  .article {
+    background-color: var(--surface-color);
+    padding: 30px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-img {
+    margin: -30px -30px 20px -30px;
+    overflow: hidden;
+  }
+
+  .title {
+    color: var(--heading-color);
+    font-size: 28px;
+    font-weight: 700;
+    padding: 0;
+    margin: 30px 0;
+  }
+
+  .content {
+    margin-top: 20px;
+
+    h3 {
+      font-size: 22px;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+
+    blockquote {
+      overflow: hidden;
+      background-color: color-mix(in srgb, var(--default-color), transparent 95%);
+      padding: 60px;
+      position: relative;
+      text-align: center;
+      margin: 20px 0;
+
+      p {
+        color: var(--default-color);
+        line-height: 1.6;
+        margin-bottom: 0;
+        font-style: italic;
+        font-weight: 500;
+        font-size: 22px;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: var(--accent-color);
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .meta-top {
+    margin-top: 20px;
+    color: color-mix(in srgb, var(--default-color), transparent 40%);
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+
+      li+li {
+        padding-left: 20px;
+      }
+    }
+
+    i {
+      font-size: 16px;
+      margin-right: 8px;
+      line-height: 0;
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
+    }
+
+    a {
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
+      font-size: 14px;
+      display: inline-block;
+      line-height: 1;
+    }
+  }
+
+  .meta-bottom {
+    padding-top: 10px;
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+
+    i {
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
+      display: inline;
+    }
+
+    a {
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
+      transition: 0.3s;
+
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+
+    .cats {
+      list-style: none;
+      display: inline;
+      padding: 0 20px 0 0;
+      font-size: 14px;
+
+      li {
+        display: inline-block;
+      }
+    }
+
+    .tags {
+      list-style: none;
+      display: inline;
+      padding: 0;
+      font-size: 14px;
+
+      li {
+        display: inline-block;
+      }
+
+      li+li::before {
+        padding-right: 6px;
+        color: var(--default-color);
+        content: ",";
+      }
+    }
+
+    .share {
+      font-size: 16px;
+
+      i {
+        padding-left: 5px;
+      }
+    }
+  }
+}
