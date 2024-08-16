@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block title %}
+Chudarts | About
+{% endblock %}
+
+{% block body %}
+<body class="about-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% include 'blocks/page-title.html' with name="Over Ons" description="Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." %}
+
+    <!-- Portfolio Details Section -->
+    <section id="portfolio-details" class="portfolio-details section"> 
+      <!-- TODO VERANDER NAMEN VAN CSS CLASSES EN IDS -->
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div data-aos="fade-up">
+            <div class="portfolio-description">
+              <h2>Onze Missie en Visie</h2>
+              <p>
+                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+              </p>
+              <p>
+                Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
+              </p>
+
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Een leermeester hoeft niet perfect te zijn, zolang de leerling maar uitblinkt.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <div>
+                  <img src="{% static "img/testimonials/testimonials-2.jpg" %}" class="testimonial-img" alt="">
+                  <h3>Frederick De Mey</h3>
+                  <h4>Trainer & Eigenaar</h4>
+                </div>
+              </div>
+
+              <p>
+                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
+              </p>
+
+              <p>
+                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Portfolio Details Section -->
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

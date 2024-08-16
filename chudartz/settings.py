@@ -177,17 +177,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Unfold
+
 UNFOLD = {
     "SITE_TITLE": "Chudartz Admin",
     "SITE_HEADER": "Chudartz Admin",
     "SITE_URL": "/",
 
-    "SITE_SYMBOL": "volunteer_activism",
+    "SITE_SYMBOL": "target",
     "SHOW_HISTORY": True, 
     "SHOW_VIEW_ON_SITE": True,
 
     "COLORS": {
-        "primary": {
+        "primary": { #TODO
             "50": "250 245 255",
             "100": "243 232 255",
             "200": "233 213 255",
@@ -210,9 +212,9 @@ UNFOLD = {
                 "title": _("Navigation"),
                 "items": [
                     {
-                        "title": _("Children"),
-                        "icon": "sentiment_very_satisfied",
-                        "link": "/admin/admin_app/child/",
+                        "title": _("Evenement"),
+                        "icon": "event",
+                        "link": "/admin/darts/evenement/",
                     },
                 ],
             },

@@ -19,12 +19,23 @@
       padding-bottom: 15px;
       margin-bottom: 15px;
     }
+
+    .btn-get-started {
+      background-color: var(--accent-color);
+      color: var(--contrast-color);
+      padding: 8px 30px 10px 30px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+      }
+    }
   }
 
   .services-list {
     background-color: var(--surface-color);
 
-    a {
+    p {
       color: color-mix(in srgb, var(--default-color), transparent 20%);
       background-color: color-mix(in srgb, var(--default-color), transparent 96%);
       display: flex;
@@ -50,11 +61,6 @@
         i {
           color: var(--contrast-color);
         }
-      }
-
-      &:hover {
-        background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
-        color: var(--accent-color);
       }
     }
   }

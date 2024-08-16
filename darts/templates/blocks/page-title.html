@@ -1,0 +1,26 @@
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+    <div class="heading">
+      <div class="container">
+        <div class="row d-flex justify-content-center text-center">
+          <div class="col-lg-8">
+            <h1>{{ name }}</h1>
+            {% if description %}
+            <p class="mb-0">{{ description }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="breadcrumbs">
+      <div class="container">
+        <ol>
+          <li><a href="/">Home</a></li>
+          {% if previous_crumb %}
+          <li><a href="{{ previous_crumb_link }}">{{ previous_crumb }}</a></li>
+          {% endif %}
+          <li class="current">{{ name }}</li>
+        </ol>
+      </div>
+    </nav>
+  </div><!-- End Page Title -->

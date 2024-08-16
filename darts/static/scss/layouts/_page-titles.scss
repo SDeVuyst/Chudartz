@@ -14,6 +14,23 @@
     h1 {
       font-size: 38px;
       font-weight: 700;
+
+      &:before,
+      &:after {
+        content: '';
+        width: 50px;
+        height: 2px;
+        background: var(--accent-color);
+        display: inline-block;
+      }
+
+      &:before {
+        margin: 0 15px 10px 0;
+      }
+
+      &:after {
+        margin: 0 0 10px 15px;
+      }
     }
   }
 

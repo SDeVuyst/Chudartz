@@ -10,3 +10,6 @@ django-money
 django-ckeditor
 gunicorn
 mollie-api-python
+qrcode[pil]
+reportlab
+pypdf

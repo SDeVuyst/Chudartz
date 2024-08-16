@@ -30,7 +30,9 @@ section,
     font-size: 32px;
     font-weight: 700;
     position: relative;
+  }
 
+  h2:not(.no-lines) {
     &:before,
     &:after {
       content: '';

@@ -100,7 +100,7 @@ h6 {
 
 /* PHP Email Form Messages
 ------------------------------*/
-.php-email-form .error-message {
+.email-form .error-message {
   display: none;
   background: #df1529;
   color: #ffffff;
@@ -110,7 +110,7 @@ h6 {
   font-weight: 600;
 }
 
-.php-email-form .sent-message {
+.email-form .sent-message {
   display: none;
   color: #ffffff;
   background: #059652;
@@ -120,7 +120,7 @@ h6 {
   font-weight: 600;
 }
 
-.php-email-form .loading {
+.email-form .loading {
   display: none;
   background: var(--surface-color);
   text-align: center;
@@ -128,7 +128,7 @@ h6 {
   margin-bottom: 24px;
 }
 
-.php-email-form .loading:before {
+.email-form .loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
@@ -137,10 +137,10 @@ h6 {
   margin: 0 10px -6px 0;
   border: 3px solid var(--accent-color);
   border-top-color: var(--surface-color);
-  animation: php-email-form-loading 1s linear infinite;
+  animation: email-form-loading 1s linear infinite;
 }
 
-@keyframes php-email-form-loading {
+@keyframes email-form-loading {
   0% {
     transform: rotate(0deg);
   }
@@ -198,7 +198,7 @@ h6 {
 .header .btn-getstarted:hover,
 .header .btn-getstarted:focus:hover {
   color: var(--contrast-color);
-  background: color-mix(in srgb, var(--accent-color), transparent 15%);
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
 @media (max-width: 1200px) {
@@ -659,6 +659,22 @@ h6 {
   font-weight: 700;
 }
 
+.page-title .heading h1:before, .page-title .heading h1:after {
+  content: '';
+  width: 50px;
+  height: 2px;
+  background: var(--accent-color);
+  display: inline-block;
+}
+
+.page-title .heading h1:before {
+  margin: 0 15px 10px 0;
+}
+
+.page-title .heading h1:after {
+  margin: 0 0 10px 15px;
+}
+
 .page-title nav {
   background-color: color-mix(in srgb, var(--default-color), transparent 95%);
   padding: 20px 0;
@@ -718,7 +734,7 @@ section,
   position: relative;
 }
 
-.section-title h2:before, .section-title h2:after {
+.section-title h2:not(.no-lines):before, .section-title h2:not(.no-lines):after {
   content: '';
   width: 50px;
   height: 2px;
@@ -726,11 +742,11 @@ section,
   display: inline-block;
 }
 
-.section-title h2:before {
+.section-title h2:not(.no-lines):before {
   margin: 0 15px 10px 0;
 }
 
-.section-title h2:after {
+.section-title h2:not(.no-lines):after {
   margin: 0 0 10px 15px;
 }
 
@@ -1133,7 +1149,7 @@ section,
 }
 
 .features .features-item .btn-get-started:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 10%);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
 .features .features-item ul {
@@ -1880,15 +1896,15 @@ section,
   margin-bottom: 0;
 }
 
-.contact .php-email-form {
+.contact .email-form {
   background: color-mix(in srgb, var(--default-color), transparent 96%);
   padding: 30px;
   height: 100%;
 }
 
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email],
-.contact .php-email-form textarea {
+.contact .email-form input[type=text],
+.contact .email-form input[type=email],
+.contact .email-form textarea {
   font-size: 14px;
   padding: 10px 15px;
   box-shadow: none;
@@ -1898,19 +1914,19 @@ section,
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=email]:focus,
-.contact .php-email-form textarea:focus {
+.contact .email-form input[type=text]:focus,
+.contact .email-form input[type=email]:focus,
+.contact .email-form textarea:focus {
   border-color: var(--accent-color);
 }
 
-.contact .php-email-form input[type=text]::placeholder,
-.contact .php-email-form input[type=email]::placeholder,
-.contact .php-email-form textarea::placeholder {
+.contact .email-form input[type=text]::placeholder,
+.contact .email-form input[type=email]::placeholder,
+.contact .email-form textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .php-email-form button[type="submit"] {
+.contact .email-form button[type="submit"] {
   background: var(--accent-color);
   color: var(--contrast-color);
   border: 0;
@@ -1919,7 +1935,7 @@ section,
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type="submit"]:hover {
+.contact .email-form button[type="submit"]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
@@ -2118,11 +2134,22 @@ section,
   margin-bottom: 15px;
 }
 
+.service-details .service-box .btn-get-started {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 8px 30px 10px 30px;
+  border-radius: 4px;
+}
+
+.service-details .service-box .btn-get-started:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
 .service-details .services-list {
   background-color: var(--surface-color);
 }
 
-.service-details .services-list a {
+.service-details .services-list p {
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   background-color: color-mix(in srgb, var(--default-color), transparent 96%);
   display: flex;
@@ -2132,28 +2159,23 @@ section,
   transition: 0.3s;
 }
 
-.service-details .services-list a:first-child {
+.service-details .services-list p:first-child {
   margin-top: 0;
 }
 
-.service-details .services-list a i {
+.service-details .services-list p i {
   font-size: 16px;
   margin-right: 8px;
   color: var(--accent-color);
 }
 
-.service-details .services-list a.active {
+.service-details .services-list p.active {
   color: var(--contrast-color);
   background-color: var(--accent-color);
 }
 
-.service-details .services-list a.active i {
+.service-details .services-list p.active i {
   color: var(--contrast-color);
-}
-
-.service-details .services-list a:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
-  color: var(--accent-color);
 }
 
 .service-details .download-catalog a {
