@@ -1,6 +1,8 @@
 <!-- Page Title -->
 <div class="page-title" data-aos="fade">
-    <div class="heading">
+    <div class="heading
+     {% if background %}background{% endif %} 
+     {% if backgroundsecond %}background background2{% endif %}">
       <div class="container">
         <div class="row d-flex justify-content-center text-center">
           <div class="col-lg-8">
@@ -16,9 +18,15 @@
       <div class="container">
         <ol>
           <li><a href="/">Home</a></li>
+
+          {% if second_previous_crumb %}
+          <li><a href="{{ second_previous_crumb_link }}">{{ second_previous_crumb }}</a></li>
+          {% endif %}
+
           {% if previous_crumb %}
           <li><a href="{{ previous_crumb_link }}">{{ previous_crumb }}</a></li>
           {% endif %}
+          
           <li class="current">{{ name }}</li>
         </ol>
       </div>

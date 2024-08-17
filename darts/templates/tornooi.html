@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 
-{% load static %}
+{% load static dutch_date %}
 
 {% block title %}
 Chudarts | {{ tornooi.titel}}
@@ -13,7 +13,7 @@ Chudarts | {{ tornooi.titel}}
 
   <main class="main">
 
-    {% include 'blocks/page-title.html' with name=tornooi.titel previous_crumb="Dartstornooien" previous_crumb_link="/dartstornooien" %}
+    {% include 'blocks/page-title.html' with name=tornooi.titel previous_crumb="Tornooien" previous_crumb_link="/tornooien" background="true" %}
 
     <!-- Service Details Section -->
     <section id="service-details" class="service-details section">
@@ -25,19 +25,44 @@ Chudarts | {{ tornooi.titel}}
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
             <div class="service-box">
+              <h4>Tijd & Locatie</h4>
+              <div class="services-list">
+                {% if tornooi.is_same_day %}
+                <p><i class="bi bi-calendar4-event"></i><span>
+                  {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_time }}
+                </span></p>
+                {% else %}
+                <p><i class="bi bi-calendar4-week"></i><span>
+                  {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_datetime }}
+                </span></p>
+                {% endif %}
+                
+                <p><i class="bi bi-geo-alt"></i><span>
+                  {{ tornooi.locatie_lang }}
+                </span></p>
+              </div>
+
+              <!-- Inschrijven knop -->
+              {% if tornooi.is_in_future and not tornooi.is_sold_out %}
+                <a href="{{ request.path }}inschrijven" class="btn btn-get-started align-self-start">Schrijf je in</a>
+              {% else %}
+                {% if tornooi.is_in_future %}
+                  <a href="#" class="btn disabled btn-get-started align-self-start">Schrijf je in</a>
+                {% else %}
+                <a href="#" class="btn disabled btn-get-started align-self-start">Uitverkocht!</a>
+                {% endif %}
+              {% endif %}
+
+            </div><!-- End Services List -->
+
+            <div class="service-box">
               <h4>Vereisten</h4>
               <div class="services-list">
                 {% for vereiste in tornooi.vereisten_lijst %}
                 <p><i class="bi bi-check"></i><span>{{ vereiste }}</span></p>
                 {% endfor %}
               </div>
-              {% if tornooi.is_in_future and not tornooi.is_sold_out %}
-                <a href="#" class="btn btn-get-started align-self-start">Schrijf je in</a>
-              {% endif %}
-
             </div><!-- End Services List -->
-
-            
             
             {% if tornooi.afbeeldingen_download_url %}
             <div class="service-box">
@@ -50,25 +75,9 @@ Chudarts | {{ tornooi.titel}}
 
           </div>  
           
-          <!-- TODO info over evenement (tijd etc) + beschrijving -->
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/services.jpg" alt="" class="img-fluid services-img">
-            <h3>Temporibus et in vero dicta aut eius lidero plastis trand lined voluptas dolorem ut voluptas</h3>
-            <p>
-              Blanditiis voluptate odit ex error ea sed officiis deserunt. Cupiditate non consequatur et doloremque consequuntur. Accusantium labore reprehenderit error temporibus saepe perferendis fuga doloribus vero. Qui omnis quo sit. Dolorem architecto eum et quos deleniti officia qui.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Aut eum totam accusantium voluptatem.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Assumenda et porro nisi nihil nesciunt voluptatibus.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
-            </ul>
-            <p>
-              Est reprehenderit voluptatem necessitatibus asperiores neque sed ea illo. Deleniti quam sequi optio iste veniam repellat odit. Aut pariatur itaque nesciunt fuga.
-            </p>
-            <p>
-              Sunt rem odit accusantium omnis perspiciatis officia. Laboriosam aut consequuntur recusandae mollitia doloremque est architecto cupiditate ullam. Quia est ut occaecati fuga. Distinctio ex repellendus eveniet velit sint quia sapiente cumque. Et ipsa perferendis ut nihil. Laboriosam vel voluptates tenetur nostrum. Eaque iusto cupiditate et totam et quia dolorum in. Sunt molestiae ipsum at consequatur vero. Architecto ut pariatur autem ad non cumque nesciunt qui maxime. Sunt eum quia impedit dolore alias explicabo ea.
-            </p>
-          </div>
+            {{ tornooi.beschrijving|safe }}
+          </div>          
 
         </div>
 

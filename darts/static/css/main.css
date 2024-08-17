@@ -102,8 +102,6 @@ h6 {
 ------------------------------*/
 .email-form .error-message {
   display: none;
-  background: #df1529;
-  color: #ffffff;
   text-align: left;
   padding: 15px;
   margin-bottom: 24px;
@@ -112,8 +110,6 @@ h6 {
 
 .email-form .sent-message {
   display: none;
-  color: #ffffff;
-  background: #059652;
   text-align: center;
   padding: 15px;
   margin-bottom: 24px;
@@ -675,6 +671,26 @@ h6 {
   margin: 0 0 10px 15px;
 }
 
+.page-title .heading.background {
+  background-image: url("/static/img/headers/dart-bg-1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-title .heading.background h1, .page-title .heading.background p {
+  color: var(--contrast-color);
+  text-shadow: 1px 2px 5px black;
+}
+
+.page-title .heading.background p {
+  backdrop-filter: blur(2px) saturate(75%);
+}
+
+.page-title .heading.background2 {
+  background-image: url("/static/img/headers/dart-bg-2.jpg");
+}
+
 .page-title nav {
   background-color: color-mix(in srgb, var(--default-color), transparent 95%);
   padding: 20px 0;
@@ -890,7 +906,7 @@ section,
 /*--------------------------------------------------------------
 # About Section
 --------------------------------------------------------------*/
-.about .content h3 {
+.over-ons .content h3 {
   font-size: 16px;
   font-weight: 500;
   line-height: 19px;
@@ -901,15 +917,15 @@ section,
   display: inline-block;
 }
 
-.about .content h2 {
+.over-ons .content h2 {
   font-weight: 700;
 }
 
-.about .content p:last-child {
+.over-ons .content p:last-child {
   margin-bottom: 0;
 }
 
-.about .content .read-more {
+.over-ons .content .read-more {
   background: var(--accent-color);
   color: var(--contrast-color);
   font-family: var(--heading-font);
@@ -924,23 +940,23 @@ section,
   justify-content: center;
 }
 
-.about .content .read-more i {
+.over-ons .content .read-more i {
   font-size: 18px;
   margin-left: 5px;
   line-height: 0;
   transition: 0.3s;
 }
 
-.about .content .read-more:hover {
+.over-ons .content .read-more:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
   padding-right: 19px;
 }
 
-.about .content .read-more:hover i {
+.over-ons .content .read-more:hover i {
   margin-left: 10px;
 }
 
-.about .icon-box {
+.over-ons .icon-box {
   background-color: var(--surface-color);
   padding: 50px 40px;
   box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
@@ -948,7 +964,7 @@ section,
   transition: all 0.3s ease-out 0s;
 }
 
-.about .icon-box i {
+.over-ons .icon-box i {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -963,29 +979,29 @@ section,
   color: var(--accent-color);
 }
 
-.about .icon-box h3 {
+.over-ons .icon-box h3 {
   margin-bottom: 10px;
   font-size: 24px;
   font-weight: 700;
 }
 
-.about .icon-box p {
+.over-ons .icon-box p {
   margin-bottom: 0;
 }
 
-.about .icon-box:hover i {
+.over-ons .icon-box:hover i {
   background-color: var(--accent-color);
   color: var(--contrast-color);
 }
 
-.about .icon-boxes .col-md-6:nth-child(2) .icon-box,
-.about .icon-boxes .col-md-6:nth-child(4) .icon-box {
+.over-ons .icon-boxes .col-md-6:nth-child(2) .icon-box,
+.over-ons .icon-boxes .col-md-6:nth-child(4) .icon-box {
   margin-top: -40px;
 }
 
 @media (max-width: 768px) {
-  .about .icon-boxes .col-md-6:nth-child(2) .icon-box,
-.about .icon-boxes .col-md-6:nth-child(4) .icon-box {
+  .over-ons .icon-boxes .col-md-6:nth-child(2) .icon-box,
+.over-ons .icon-boxes .col-md-6:nth-child(4) .icon-box {
     margin-top: 0;
   }
 }
@@ -1872,31 +1888,31 @@ section,
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
-.contact .info-item {
+.contact .info-item, .register .info-item {
   background: color-mix(in srgb, var(--default-color), transparent 96%);
   padding: 30px;
 }
 
-.contact .info-item i {
+.contact .info-item i, .register .info-item i {
   font-size: 38px;
   line-height: 0;
   color: var(--accent-color);
 }
 
-.contact .info-item h3 {
+.contact .info-item h3, .register .info-item h3 {
   font-size: 20px;
   font-weight: 700;
   margin: 20px 0 10px 0;
 }
 
-.contact .info-item p {
+.contact .info-item p, .register .info-item p {
   padding: 0;
   line-height: 24px;
   font-size: 14px;
   margin-bottom: 0;
 }
 
-.contact .email-form {
+.contact .email-form, .contact .register-form, .register .email-form, .register .register-form {
   background: color-mix(in srgb, var(--default-color), transparent 96%);
   padding: 30px;
   height: 100%;
@@ -1904,7 +1920,21 @@ section,
 
 .contact .email-form input[type=text],
 .contact .email-form input[type=email],
-.contact .email-form textarea {
+.contact .email-form input[type=number],
+.contact .email-form select,
+.contact .email-form textarea, .contact .register-form input[type=text],
+.contact .register-form input[type=email],
+.contact .register-form input[type=number],
+.contact .register-form select,
+.contact .register-form textarea, .register .email-form input[type=text],
+.register .email-form input[type=email],
+.register .email-form input[type=number],
+.register .email-form select,
+.register .email-form textarea, .register .register-form input[type=text],
+.register .register-form input[type=email],
+.register .register-form input[type=number],
+.register .register-form select,
+.register .register-form textarea {
   font-size: 14px;
   padding: 10px 15px;
   box-shadow: none;
@@ -1916,17 +1946,69 @@ section,
 
 .contact .email-form input[type=text]:focus,
 .contact .email-form input[type=email]:focus,
-.contact .email-form textarea:focus {
+.contact .email-form input[type=number]:focus,
+.contact .email-form select:focus,
+.contact .email-form textarea:focus, .contact .register-form input[type=text]:focus,
+.contact .register-form input[type=email]:focus,
+.contact .register-form input[type=number]:focus,
+.contact .register-form select:focus,
+.contact .register-form textarea:focus, .register .email-form input[type=text]:focus,
+.register .email-form input[type=email]:focus,
+.register .email-form input[type=number]:focus,
+.register .email-form select:focus,
+.register .email-form textarea:focus, .register .register-form input[type=text]:focus,
+.register .register-form input[type=email]:focus,
+.register .register-form input[type=number]:focus,
+.register .register-form select:focus,
+.register .register-form textarea:focus {
   border-color: var(--accent-color);
 }
 
 .contact .email-form input[type=text]::placeholder,
 .contact .email-form input[type=email]::placeholder,
-.contact .email-form textarea::placeholder {
+.contact .email-form input[type=number]::placeholder,
+.contact .email-form select::placeholder,
+.contact .email-form textarea::placeholder, .contact .register-form input[type=text]::placeholder,
+.contact .register-form input[type=email]::placeholder,
+.contact .register-form input[type=number]::placeholder,
+.contact .register-form select::placeholder,
+.contact .register-form textarea::placeholder, .register .email-form input[type=text]::placeholder,
+.register .email-form input[type=email]::placeholder,
+.register .email-form input[type=number]::placeholder,
+.register .email-form select::placeholder,
+.register .email-form textarea::placeholder, .register .register-form input[type=text]::placeholder,
+.register .register-form input[type=email]::placeholder,
+.register .register-form input[type=number]::placeholder,
+.register .register-form select::placeholder,
+.register .register-form textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .email-form button[type="submit"] {
+.contact .email-form input[type=text] .valid,
+.contact .email-form input[type=email] .valid,
+.contact .email-form input[type=number] .valid,
+.contact .email-form select .valid,
+.contact .email-form textarea .valid, .contact .register-form input[type=text] .valid,
+.contact .register-form input[type=email] .valid,
+.contact .register-form input[type=number] .valid,
+.contact .register-form select .valid,
+.contact .register-form textarea .valid, .register .email-form input[type=text] .valid,
+.register .email-form input[type=email] .valid,
+.register .email-form input[type=number] .valid,
+.register .email-form select .valid,
+.register .email-form textarea .valid, .register .register-form input[type=text] .valid,
+.register .register-form input[type=email] .valid,
+.register .register-form input[type=number] .valid,
+.register .register-form select .valid,
+.register .register-form textarea .valid {
+  color: var(--default-color) !important;
+}
+
+.contact .email-form select:not(:valid), .contact .register-form select:not(:valid), .register .email-form select:not(:valid), .register .register-form select:not(:valid) {
+  color: color-mix(in srgb, var(--default-color), transparent 70%);
+}
+
+.contact .email-form button[type="submit"], .contact .register-form button[type="submit"], .register .email-form button[type="submit"], .register .register-form button[type="submit"] {
   background: var(--accent-color);
   color: var(--contrast-color);
   border: 0;
@@ -1935,7 +2017,7 @@ section,
   border-radius: 4px;
 }
 
-.contact .email-form button[type="submit"]:hover {
+.contact .email-form button[type="submit"]:hover, .contact .register-form button[type="submit"]:hover, .register .email-form button[type="submit"]:hover, .register .register-form button[type="submit"]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 

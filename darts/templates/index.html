@@ -2,6 +2,11 @@
 
 {% load static %}
 
+{% block meta %}
+<meta name="description" content="">
+<!-- todo -->
+{% endblock %}
+
 {% block body %}
 <body class="index-page">
 
@@ -33,45 +38,8 @@
 
     </section><!-- /Hero Section -->
 
-    <!-- Clients Section -->
-    <section id="clients" class="clients section">
-
-      <div class="container" data-aos="fade-up">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{% static "img/clients/client-1.png" %}" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{% static "img/clients/client-2.png" %}" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{% static "img/clients/client-3.png" %}" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{% static "img/clients/client-4.png" %}" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{% static "img/clients/client-5.png" %}" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{% static "img/clients/client-6.png" %}" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Clients Section -->
-
     <!-- About Section -->
-    <section id="about" class="about section light-background">
+    <section id="over-ons" class="over-ons section light-background">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row align-items-xl-center gy-5">
@@ -80,7 +48,7 @@
             <h3>Over Ons</h3>
             <h2>Onze Missie en Visie</h2>
             <p>Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti soluta.</p>
-            <a href="/about" class="read-more"><span>Lees Meer</span><i class="bi bi-arrow-right"></i></a>
+            <a href="/over-ons" class="read-more"><span>Lees Meer</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
           <div class="col-xl-7">
@@ -99,8 +67,8 @@
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box">
-                  <a href="/dartstornooien"><i class="bi bi-trophy"></i></a>
-                  <h3>Dartstornooien</h3>
+                  <a href="/tornooien"><i class="bi bi-trophy"></i></a>
+                  <h3>Tornooien</h3>
                   <p>
                     Wij organiseren regelmatig darttoernooien waar zowel amateurs als professionals kunnen deelnemen. 
                   </p>
@@ -109,9 +77,9 @@
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
                 <div class="icon-box">
-                  <a href="#"><i class="bi bi-lightning"></i></a>
-                  <h3>Pokémon</h3>
-                  <p>Naast darts, zijn we ook actief in de Pokémon-wereld. We organizeren beurzen, evenementen & nog veel meer.</p>
+                  <a href="#"><i class="bi bi-door-open"></i></a>
+                  <h3>Privélessen</h3>
+                  <p>We staan ook altijd open voor privélessen, gelieve ons te contacteren via ons <a href="/#contact">formulier.</a></p>
                 </div>
               </div> <!-- End Icon Box -->
               
@@ -135,129 +103,6 @@
 
     </section><!-- /About Section -->
 
-    <!-- Stats Section -->
-    <section id="stats" class="stats section dark-background">
-
-      <img src="{% static "img/stats-bg.jpg" %}" alt="" data-aos="fade-in">
-
-      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Clients</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Workers</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Stats Section -->
-
-    <!-- Services Section -->
-    <section id="services" class="services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
-              <div>
-                <h4 class="title"><a href="services-details.html" class="stretched-link">Lorem Ipsum</a></h4>
-                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-              </div>
-            </div>
-          </div>
-          <!-- End Service Item -->
-
-          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-              <div>
-                <h4 class="title"><a href="services-details.html" class="stretched-link">Dolor Sitema</a></h4>
-                <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
-              <div>
-                <h4 class="title"><a href="services-details.html" class="stretched-link">Sed ut perspiciatis</a></h4>
-                <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-binoculars"></i></div>
-              <div>
-                <h4 class="title"><a href="services-details.html" class="stretched-link">Magni Dolores</a></h4>
-                <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="500">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-brightness-high"></i></div>
-              <div>
-                <h4 class="title"><a href="services-details.html" class="stretched-link">Nemo Enim</a></h4>
-                <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="600">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
-              <div>
-                <h4 class="title"><a href="services-details.html" class="stretched-link">Eiusmod Tempor</a></h4>
-                <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Services Section -->
-    
     <!-- Call To Action Section -->
     <section id="call-to-action" class="call-to-action section dark-background">
 
@@ -267,9 +112,10 @@
         <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-xl-10">
             <div class="text-center">
-              <h3>Call To Action</h3>
+              <h3>Webshop</h3>
               <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              <a class="cta-btn" href="#">Call To Action</a>
+              <a class="cta-btn" href="#">Bekijk onze Artikelen</a>
+              <!-- TODO -->
             </div>
           </div>
         </div>
@@ -299,83 +145,56 @@
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-school">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-1.jpg" %}" class="img-fluid" alt="">
+              <img src="{% static "img/album/album-1.jpg" %}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>App 1</h4>
                 <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-1.jpg" %}" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="{% static "img/album/album-1.jpg" %}" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-tornooi">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-2.jpg" %}" class="img-fluid" alt="">
+              <img src="{% static "img/album/album-2.jpg" %}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>Product 1</h4>
                 <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-2.jpg" %}" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="{% static "img/album/album-2.jpg" %}" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-3.jpg" %}" class="img-fluid" alt="">
+              <img src="{% static "img/album/album-3.jpg" %}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>Branding 1</h4>
                 <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-3.jpg" %}" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="{% static "img/album/album-3.jpg" %}" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-school">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-4.jpg" %}" class="img-fluid" alt="">
+              <img src="{% static "img/album/album-4.jpg" %}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>App 2</h4>
                 <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-4.jpg" %}" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="{% static "img/album/album-4.jpg" %}" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-tornooi">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-5.jpg" %}" class="img-fluid" alt="">
+              <img src="{% static "img/album/album-5.jpg" %}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>Product 2</h4>
                 <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-5.jpg" %}" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="{% static "img/album/album-5.jpg" %}" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-6.jpg" %}" class="img-fluid" alt="">
+              <img src="{% static "img/album/album-6.jpg" %}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>Branding 2</h4>
                 <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-6.jpg" %}" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-school">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-7.jpg" %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-7.jpg" %}" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-tornooi">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-8.jpg" %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Product 3</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-8.jpg" %}" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <img src="{% static "img/masonry-portfolio/masonry-portfolio-9.jpg" %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Branding 3</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="{% static "img/masonry-portfolio/masonry-portfolio-9.jpg" %}" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="{% static "img/album/album-6.jpg" %}" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
@@ -512,36 +331,41 @@
           </div>
 
           <div class="col-lg-6"> 
-            <!-- TODO max lengths van inputs -->
             <form action="/contact" method="post" id="email-form" class="email-form" data-aos="fade-up" data-aos-delay="200">
               {% csrf_token %}
               <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Naam" required>
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Email" required>
-                </div>
-
-                <div class="col-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Onderwerp" required>
-                </div>
-
-                <div class="col-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Bericht" required></textarea>
-                </div>
-
-                <div class="col-12 text-center">
-                  <div class="loading" style="display:none;">Laden...</div>
-                  <div class="error-message" style="display:none;"></div>
-                  <div class="sent-message" style="display:none;">Uw bericht is verzonden. Bedankt!</div>
-                  <button type="submit">Stuur bericht</button>
-                </div>
-
+          
+                  <!-- Name -->
+                  <div class="col-md-6">
+                      <input type="text" name="name" class="form-control" placeholder="Naam" maxlength="100" required>
+                  </div>
+          
+                  <!-- Email -->
+                  <div class="col-md-6">
+                      <input type="email" class="form-control" name="email" placeholder="Email" maxlength="254" required>
+                  </div>
+          
+                  <!-- Subject -->
+                  <div class="col-12">
+                      <input type="text" class="form-control" name="subject" placeholder="Onderwerp" maxlength="100" required>
+                  </div>
+          
+                  <!-- Message -->
+                  <div class="col-12">
+                      <textarea class="form-control" name="message" rows="6" placeholder="Bericht" required></textarea>
+                  </div>
+          
+                  <!-- Submit Button and Feedback Messages -->
+                  <div class="col-12 text-center">
+                      <div class="loading" style="display:none;">Laden...</div>
+                      <div class="error-message" style="display:none;"></div>
+                      <div class="sent-message" style="display:none;">Uw bericht is verzonden. Bedankt!</div>
+                      <button type="submit">Stuur bericht</button>
+                  </div>
+          
               </div>
             </form>
+          
           </div><!-- End Contact Form -->
 
         </div>

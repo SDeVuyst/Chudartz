@@ -2,7 +2,7 @@
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
-.contact {
+.contact, .register {
   .info-item {
     background: color-mix(in srgb, var(--default-color), transparent 96%);
     padding: 30px;
@@ -27,13 +27,15 @@
     }
   }
 
-  .email-form {
+  .email-form, .register-form {
     background: color-mix(in srgb, var(--default-color), transparent 96%);
     padding: 30px;
     height: 100%;
 
     input[type=text],
     input[type=email],
+    input[type=number],
+    select,
     textarea {
       font-size: 14px;
       padding: 10px 15px;
@@ -50,6 +52,14 @@
       &::placeholder {
         color: color-mix(in srgb, var(--default-color), transparent 70%);
       }
+
+      .valid {
+        color: var(--default-color) !important;
+      }
+    }
+
+    select:not(:valid) {
+      color: color-mix(in srgb, var(--default-color), transparent 70%);
     }
 
     button[type="submit"] {

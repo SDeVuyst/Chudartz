@@ -1,0 +1,130 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date %}
+
+{% block title %}
+Chudarts | {{ tornooi.titel}}
+{% endblock %}
+
+{% block body %}
+<body class="services-details-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% include 'blocks/page-title.html' with name="Inschrijven" description=tornooi.titel second_previous_crumb="Tornooien" second_previous_crumb_link="/tornooien" previous_crumb=tornooi.titel previous_crumb_link=tornooi.get_absolute_url %}
+
+    <!-- Service Details Section -->
+    <section id="service-details" class="service-details section">
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-box">
+              <h4>Tijd & Locatie</h4>
+              <div class="services-list">
+                {% if tornooi.is_same_day %}
+                <p><i class="bi bi-calendar4-event"></i><span>
+                  {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_time }}
+                </span></p>
+                {% else %}
+                <p><i class="bi bi-calendar4-week"></i><span>
+                  {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_datetime }}
+                </span></p>
+                {% endif %}
+                
+                <p><i class="bi bi-geo-alt"></i><span>
+                  {{ tornooi.locatie_lang }}
+                </span></p>
+              </div>
+            </div><!-- End Services List -->
+
+            <div class="service-box">
+              <h4>Vereisten</h4>
+              <div class="services-list">
+                {% for vereiste in tornooi.vereisten_lijst %}
+                <p><i class="bi bi-check"></i><span>{{ vereiste }}</span></p>
+                {% endfor %}
+              </div>
+
+            </div><!-- End Services List -->
+
+          </div>  
+          
+          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-box register">
+              <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+                {% csrf_token %}
+                <div class="row gy-4">
+                    
+                    <!-- Voornaam -->
+                    <div class="col-md-6">
+                        <input type="text" name="voornaam" class="form-control" placeholder="Voornaam" maxlength="100" required>
+                    </div>
+            
+                    <!-- Achternaam -->
+                    <div class="col-md-6">
+                        <input type="text" name="achternaam" class="form-control" placeholder="Achternaam" maxlength="100" required>
+                    </div>
+            
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <input type="email" name="email" class="form-control" placeholder="Email" maxlength="254" required>
+                    </div>
+            
+                    <!-- Niveau -->
+                    <div class="col-md-6">
+                        <select name="niveau" class="form-select" required>
+                            <option value="" disabled selected hidden>Selecteer je niveau</option>
+                            {% for value, label in skill_level_choices %}
+                                <option value="{{ value }}" class="valid">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+            
+                    <!-- Straatnaam -->
+                    <div class="col-md-8">
+                        <input type="text" name="straatnaam" class="form-control" placeholder="Straatnaam" maxlength="100" required>
+                    </div>
+            
+                    <!-- Nummer -->
+                    <div class="col-md-4">
+                        <input type="text" name="nummer" class="form-control" placeholder="Nummer" maxlength="6" required>
+                    </div>
+            
+                    <!-- Postcode -->
+                    <div class="col-md-4">
+                        <input type="number" name="postcode" class="form-control" placeholder="Postcode" min="0" max="9999" required>
+                    </div>
+            
+                    <!-- Stad -->
+                    <div class="col-md-6">
+                        <input type="text" name="stad" class="form-control" placeholder="Stad" maxlength="40" required>
+                    </div>
+            
+                    <!-- Submit Button -->
+                    <div class="col-12 text-center">
+                        <button type="submit">Inschrijven</button>
+                    </div>
+                    
+                </div>
+              </form>
+            
+            </div>
+          </div>          
+
+        </div>
+
+      </div>
+
+    </section><!-- /Service Details Section -->
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

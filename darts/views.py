@@ -1,11 +1,11 @@
 from email.utils import formataddr
 from django.conf import settings
-from django.http import BadHeaderError, JsonResponse
+from django.http import BadHeaderError, HttpResponse, JsonResponse
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.template.response import TemplateResponse
-from .forms import ContactForm
-from .models import Evenement
+from .forms import ContactForm, TornooiForm
+from .models import Evenement, SkillLevel
 
 def index(request):
     context = {
@@ -19,7 +19,7 @@ def dartschool(request):
     return TemplateResponse(request, 'dartschool.html', context)
 
 
-def dartstornooien(request):
+def tornooien(request):
     evenementen = Evenement.objects.all()
     paginator = Paginator(evenementen, 6)
 
@@ -30,7 +30,7 @@ def dartstornooien(request):
         "tornooien": page_obj,
         "enable_pagination": paginator.num_pages > 1
     }
-    return TemplateResponse(request, 'dartstornooien.html', context)
+    return TemplateResponse(request, 'tornooien.html', context)
 
 
 def tornooi(request, slug):
@@ -39,6 +39,34 @@ def tornooi(request, slug):
         "tornooi": evenement
     }
     return TemplateResponse(request, 'tornooi.html', context)
+
+
+def inschrijven_tornooi(request, slug):
+    if request.method == 'POST':
+        form = TornooiForm(request.POST)
+        if form.is_valid():
+            voornaam = form.cleaned_data['voornaam']
+            achternaam = form.cleaned_data['achternaam']
+            email = form.cleaned_data['email']
+            straatnaam = form.cleaned_data['straatnaam']
+            nummer = form.cleaned_data['nummer']
+            postcode = form.cleaned_data['postcode']
+            stad = form.cleaned_data['stad']
+            niveau = form.cleaned_data['niveau']
+
+            # TODO
+            return HttpResponse(status=200)
+
+        else:
+            return JsonResponse({'error':'Invalid form.'},status=400)
+    
+    # GET request
+    evenement = Evenement.objects.get(slug=slug)
+    context = {
+        "tornooi": evenement,
+        'skill_level_choices': SkillLevel.CHOICES,
+    }
+    return TemplateResponse(request, 'tornooi-inschrijving.html', context)
 
 
 def about(request):

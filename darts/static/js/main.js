@@ -199,19 +199,53 @@
   let navmenulinks = document.querySelectorAll('.navmenu a');
 
   function navmenuScrollspy() {
+    let currentPage = window.location.pathname; // Get current path
+    let hasLinkSet = false;
+
     navmenulinks.forEach(navmenulink => {
-      if (!navmenulink.hash) return;
-      let section = document.querySelector(navmenulink.hash);
-      if (!section) return;
-      let position = window.scrollY + 200;
-      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+      let navLinkHref = navmenulink.getAttribute('href');
+      if (!navLinkHref) return;
+
+      // Check if it's a full URL or relative link and get the path only
+      let navLinkPath = new URL(navLinkHref, window.location.origin).pathname;
+
+      // Check if current page matches the nav link
+      if (hasFourConsecutiveChars(currentPage, navLinkPath)) {
         document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
         navmenulink.classList.add('active');
-      } else {
-        navmenulink.classList.remove('active');
+        hasLinkSet = true;
       }
-    })
+
+      // For scrollspy functionality within the same page
+      if (navmenulink.hash) {
+        let section = document.querySelector(navmenulink.hash);
+        if (!section) return;
+        let position = window.scrollY + 200;
+        if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+          document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
+          navmenulink.classList.add('active');
+          hasLinkSet = true;
+        } else {
+          navmenulink.classList.remove('active');
+        }
+      }
+    });
+
+    if (!hasLinkSet) {
+      navmenulinks[0].classList.add('active');
+    }
   }
+
+  function hasFourConsecutiveChars(currentPage, navLinkPath) {
+    for (let i = 0; i <= navLinkPath.length - 4; i++) {
+        let substring = navLinkPath.substring(i, i + 4);
+        if (currentPage.includes(substring)) {
+            return true;
+        }
+    }
+    return false;
+}
+
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 

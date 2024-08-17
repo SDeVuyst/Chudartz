@@ -46,7 +46,7 @@ class Evenement(models.Model):
     einde_datum = models.DateTimeField(verbose_name=_("Eind Datum"))
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
     locatie_kort = models.CharField(max_length=25, verbose_name=_("Locatie (kort)"))
-    locatie_lang = RichTextField(verbose_name=_("Locatie (lang)"))
+    locatie_lang = models.TextField(verbose_name=_("Locatie (lang)"))
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="darts")
     afbeeldingen_download_url = models.URLField(verbose_name=_("Download afbeeldingen URL"), blank=True, null=True)
 
@@ -253,10 +253,12 @@ class Participant(models.Model):
     first_name = models.CharField(max_length=50, verbose_name=_("Voornaam"))
     last_name = models.CharField(max_length=50, verbose_name=_("Achternaam"))
     mail = models.EmailField(verbose_name=_("Email"), max_length=254)
-    # TODO adress
+    straatnaam = models.CharField(verbose_name=_("Straatnaam"), max_length=100)
+    nummer = models.CharField(verbose_name=_("Nummer"), max_length=6)
+    stad = models.CharField(verbose_name=_("Stad"), max_length=40)
     level = models.CharField(max_length=10, choices=SkillLevel.CHOICES, default=SkillLevel.GEMIDDELD)
     payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
-    attended = models.BooleanField(verbose_name=_("Attended"))
+    attended = models.BooleanField(verbose_name=_("Attended"), default=False)
     beschrijving = models.TextField(blank=True, null=True, verbose_name=_("beschrijving"))
     ticket = models.ForeignKey(Ticket, verbose_name=_("Ticket"), on_delete=models.RESTRICT)
 

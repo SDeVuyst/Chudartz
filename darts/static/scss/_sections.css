@@ -1432,11 +1432,22 @@ section,
   margin-bottom: 15px;
 }
 
+.service-details .service-box .btn-get-started {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 8px 30px 10px 30px;
+  border-radius: 4px;
+}
+
+.service-details .service-box .btn-get-started:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
 .service-details .services-list {
   background-color: var(--surface-color);
 }
 
-.service-details .services-list a {
+.service-details .services-list p {
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   background-color: color-mix(in srgb, var(--default-color), transparent 96%);
   display: flex;
@@ -1446,28 +1457,23 @@ section,
   transition: 0.3s;
 }
 
-.service-details .services-list a:first-child {
+.service-details .services-list p:first-child {
   margin-top: 0;
 }
 
-.service-details .services-list a i {
+.service-details .services-list p i {
   font-size: 16px;
   margin-right: 8px;
   color: var(--accent-color);
 }
 
-.service-details .services-list a.active {
+.service-details .services-list p.active {
   color: var(--contrast-color);
   background-color: var(--accent-color);
 }
 
-.service-details .services-list a.active i {
+.service-details .services-list p.active i {
   color: var(--contrast-color);
-}
-
-.service-details .services-list a:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
-  color: var(--accent-color);
 }
 
 .service-details .download-catalog a {
@@ -1976,6 +1982,69 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+.register .info-item {
+  background: color-mix(in srgb, var(--default-color), transparent 96%);
+  padding: 30px;
+}
+
+.register .info-item i {
+  font-size: 38px;
+  line-height: 0;
+  color: var(--accent-color);
+}
+
+.register .info-item h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 20px 0 10px 0;
+}
+
+.register .info-item p {
+  padding: 0;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.register .register-form {
+  background: color-mix(in srgb, var(--default-color), transparent 96%);
+  padding: 30px;
+  height: 100%;
+}
+
+.register .register-form input[type=text],
+.register .register-form input[type=email],
+.register .register-form textarea {
+  font-size: 14px;
+  padding: 10px 15px;
+  box-shadow: none;
+  border-radius: 0;
+  color: var(--default-color);
+  background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+}
+
+.register .register-form input[type=text]:focus,
+.register .register-form input[type=email]:focus,
+.register .register-form textarea:focus {
+  border-color: var(--accent-color);
+}
+
+.register .register-form input[type=text]::placeholder,
+.register .register-form input[type=email]::placeholder,
+.register .register-form textarea::placeholder {
+  color: color-mix(in srgb, var(--default-color), transparent 70%);
+}
+
+.register .register-form button[type="submit"] {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border: 0;
+  padding: 10px 30px;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+
+.register .register-form button[type="submit"]:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
