@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date %}
+
+{% block title %}
+Chudarts | {{ tornooi.titel}}
+{% endblock %}
+
+{% block body %}
+<body class="tornooi-inschrijving-response-page">
+
+    {% include 'blocks/header-sticky.html' %}
+
+    <main class="main">
+        <div class="container d-flex justify-content-center align-items-center mt-5 mb-5">
+            <div class="text-center">
+                
+                {% if success %}
+
+                    <h1>>Ingeschreven!</h1>
+                    <p>Uw toegangsticket komt binnenkort aan in uw mailbox!</p>
+
+                {% else %}
+
+                    <h1>Er is iets misgegaan.</h1>
+                    <p>Gelieve contact op te nemen via <a href="/#contact">dit formulier.</a></p>
+                    
+                {% endif %}%
+                
+                <a href="{{ tornooi.get_absolute_url }}" class="btn btn-back align-self-start mt-4">Ga terug naar tornooi</a>         
+            </div>
+        </div>
+        
+
+        
+    </main>
+
+    {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

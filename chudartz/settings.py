@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
-
+from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -183,6 +183,8 @@ UNFOLD = {
     "SITE_TITLE": "Chudartz Admin",
     "SITE_HEADER": "Chudartz Admin",
     "SITE_URL": "/",
+
+    "SITE_LOGO": lambda request: static("img/logo-black.png"),
 
     "SITE_SYMBOL": "target",
     "SHOW_HISTORY": True, 
