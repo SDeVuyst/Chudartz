@@ -13,7 +13,7 @@ Chudarts | {{ tornooi.titel}}
 
   <main class="main">
 
-    {% include 'blocks/page-title.html' with name="Inschrijven" description=tornooi.titel second_previous_crumb="Tornooien" second_previous_crumb_link="/tornooien" previous_crumb=tornooi.titel previous_crumb_link=tornooi.get_absolute_url %}
+    {% include 'blocks/page-title.html' with name="Inschrijven" description="Dartschool" previous_crumb="Dartschool" previous_crumb_link="/dartschool" %}
 
     <!-- Service Details Section -->
     <section id="service-details" class="service-details section">
@@ -24,9 +24,9 @@ Chudarts | {{ tornooi.titel}}
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            {% include 'blocks/tijd-en-locatie.html' with tornooi=tornooi %}
+            {% include 'blcoks/tijd-en-locatie.html' with static_data={'tijd': 'Elke woensdag & vrijdag van 14u-16u', 'locatie': 'Torhoutsesteenweg 441, Zedelgem'} %}
 
-            {% include 'blocks/vereisten.html' with vereisten=tornooi.vereisten_lijst %}
+            {% include 'blocks/vereisten.html' with vereisten=["10 jaar oud", "blabla", "etc"] %}
 
           </div>  
           
@@ -49,16 +49,6 @@ Chudarts | {{ tornooi.titel}}
                     <!-- Email -->
                     <div class="col-md-6">
                         <input type="email" name="email" class="form-control" placeholder="Email" maxlength="254" required>
-                    </div>
-            
-                    <!-- Niveau -->
-                    <div class="col-md-6">
-                        <select name="niveau" class="form-select" required>
-                            <option value="" disabled selected hidden>Selecteer je niveau</option>
-                            {% for value, label in skill_level_choices %}
-                                <option value="{{ value }}" class="valid">{{ label }}</option>
-                            {% endfor %}
-                        </select>
                     </div>
             
                     <!-- Straatnaam -->

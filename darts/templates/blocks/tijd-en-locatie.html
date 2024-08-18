@@ -1,0 +1,43 @@
+{% load static dutch_date %}
+
+<div class="service-box">
+    <h4>Tijd & Locatie</h4>
+    <div class="services-list">
+        {% if static_data %}
+            <p><i class="bi bi-calendar4-event"></i><span>
+                {{ static_data.tijd }}
+            </span></p>                
+            <p><i class="bi bi-geo-alt"></i><span>
+                {{ static_data.locatie }}
+            </span></p>
+        {% else %}
+            {% if tornooi.is_same_day %}
+            <p><i class="bi bi-calendar4-event"></i><span>
+                {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_time }}
+            </span></p>
+            {% else %}
+            <p><i class="bi bi-calendar4-week"></i><span>
+                {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_datetime }}
+            </span></p>
+            {% endif %}
+            <p><i class="bi bi-geo-alt"></i><span>
+                {{ tornooi.locatie_lang }}
+            </span></p>
+        {% endif %}
+    </div>
+
+    {% if inschrijven %}
+    <!-- Inschrijven knop -->
+    {% if tornooi.is_in_future and not tornooi.is_sold_out %}
+        <a href="{{ request.path }}inschrijven" class="btn btn-get-started align-self-start">Schrijf je in</a>
+    {% else %}
+        {% if tornooi.is_in_future %}
+        <a href="#" class="btn disabled btn-get-started align-self-start">Schrijf je in</a>
+        {% else %}
+        <a href="#" class="btn disabled btn-get-started align-self-start">Uitverkocht!</a>
+        {% endif %}
+    {% endif %}
+
+    {% endif %}
+    
+</div><!-- End Services List -->

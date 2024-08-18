@@ -1,0 +1,32 @@
+{% load static %}
+
+{% if enable_pagination %}
+<section id="blog-pagination" class="blog-pagination section">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <ul>
+                <!-- previous page -->
+                {% if page_obj.has_previous %}
+                    <li><a href="{% url pagination_url_name page_obj.previous_page_number %}"><i class="bi bi-chevron-left"></i></a></li>
+                {% endif %}
+
+                <!-- elided numbers -->
+                {% for page_number in page_obj.paginator.get_elided_page_range %}
+                    {% if page_number == page_obj.paginator.ELLIPSIS %}
+                        <li>...</li>
+                    {% else %}
+                        <a href="{% url pagination_url_name page_number %}" class="{% if page_number == page_obj.number %}active{% endif %}">
+                            {{ page_number }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- next page -->
+                {% if page_obj.has_next %}
+                    <li><a href="{% url pagination_url_name page_obj.next_page_number %}"><i class="bi bi-chevron-right"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endif %}

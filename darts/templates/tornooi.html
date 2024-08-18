@@ -23,54 +23,13 @@ Chudarts | {{ tornooi.titel}}
         <div class="row gy-5">
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            
+            {% include 'blocks/tijd-en-locatie.html' with tornooi=tornooi inschrijven="true" %}
 
-            <div class="service-box">
-              <h4>Tijd & Locatie</h4>
-              <div class="services-list">
-                {% if tornooi.is_same_day %}
-                <p><i class="bi bi-calendar4-event"></i><span>
-                  {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_time }}
-                </span></p>
-                {% else %}
-                <p><i class="bi bi-calendar4-week"></i><span>
-                  {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_datetime }}
-                </span></p>
-                {% endif %}
-                
-                <p><i class="bi bi-geo-alt"></i><span>
-                  {{ tornooi.locatie_lang }}
-                </span></p>
-              </div>
-
-              <!-- Inschrijven knop -->
-              {% if tornooi.is_in_future and not tornooi.is_sold_out %}
-                <a href="{{ request.path }}inschrijven" class="btn btn-get-started align-self-start">Schrijf je in</a>
-              {% else %}
-                {% if tornooi.is_in_future %}
-                  <a href="#" class="btn disabled btn-get-started align-self-start">Schrijf je in</a>
-                {% else %}
-                <a href="#" class="btn disabled btn-get-started align-self-start">Uitverkocht!</a>
-                {% endif %}
-              {% endif %}
-
-            </div><!-- End Services List -->
-
-            <div class="service-box">
-              <h4>Vereisten</h4>
-              <div class="services-list">
-                {% for vereiste in tornooi.vereisten_lijst %}
-                <p><i class="bi bi-check"></i><span>{{ vereiste }}</span></p>
-                {% endfor %}
-              </div>
-            </div><!-- End Services List -->
+            {% include 'blocks/vereisten.html' with vereisten=tornooi.vereisten_lijst %}
             
             {% if tornooi.afbeeldingen_download_url %}
-            <div class="service-box">
-              <h4>Download Afbeeldingen</h4>
-              <div class="download-catalog">
-                <a href="{{ tornooi.afbeeldingen_download_url }}"><i class="bi bi-images"></i><span>Downloaden</span></a>
-              </div>
-            </div><!-- End Services List -->
+            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=tornooi.afbeeldingen_download_url %}
             {% endif %}
 
           </div>  

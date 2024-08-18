@@ -19,6 +19,11 @@ def dartschool(request):
     return TemplateResponse(request, 'dartschool.html', context)
 
 
+def inschrijven_dartschool(request):
+    context = {}
+    return TemplateResponse(request, 'dartschool-inschrijving.html', context)
+
+
 def tornooien(request):
     evenementen = Evenement.objects.all()
     paginator = Paginator(evenementen, 6)
