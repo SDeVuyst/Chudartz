@@ -155,10 +155,10 @@ class Payment(models.Model):
     def save(self, *args, **kwargs):
         # Check if payment is received
         if self.status == PaymentStatus.PAID:
-            self.send_mail()
+            # TODO get participant gelinkt aan deze betaling, en stuur mail vanuit dat object
+            pass
 
         super().save(*args, **kwargs)
-
 
     mollie_id = models.CharField(verbose_name=_("Mollie id"), blank=True, null=True)
     first_name = models.CharField(max_length=50, verbose_name=_("Voornaam"), blank=True, null=True)
@@ -168,12 +168,6 @@ class Payment(models.Model):
     amount = MoneyField(verbose_name="Prijs", default_currency="EUR", max_digits=10, decimal_places=2, blank=True, null=True)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
-
-    @property
-    def success_url(self) -> str:
-        # Return a URL where users are redirected after
-        # they successfully complete a payment:
-        return f"http://vanakaam.be/events/ticket/{self.pk}/success"
 
 
 class SkillLevel:
@@ -241,6 +235,7 @@ class Participant(models.Model):
 
         return qr.make_image(fill='black', back_color='white')
     
+    # TODO formatering, shit is cooked nu
     def generate_ticket(self, return_as_http=True):
         # Create a buffer to hold the PDF data
         buffer = BytesIO()
@@ -327,6 +322,7 @@ class Participant(models.Model):
         # add tickets as attachment
         email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
 
+        # TODO deze images
         helpers.attach_image(email, "logo")
         helpers.attach_image(email, "facebook")
         helpers.attach_image(email, "mail")

@@ -1,12 +1,17 @@
+from decimal import Decimal
 from email.utils import formataddr
 from django.conf import settings
-from django.http import BadHeaderError, HttpResponse, JsonResponse
+from django.http import BadHeaderError, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+
+from darts.payment import MollieClient
 from .forms import ContactForm, TornooiForm
-from .models import Evenement, Participant, SkillLevel, Ticket
+from .models import Evenement, Participant, Payment, SkillLevel, Ticket
 
 def index(request):
     context = {
@@ -64,6 +69,15 @@ def inschrijven_tornooi(request, slug):
             niveau = form.cleaned_data['niveau']
             ticket_id = form.cleaned_data['ticket']
 
+            price = Decimal(Ticket.objects.get(pk=ticket_id).price.amount)
+
+            payment = Payment.objects.create(
+                first_name=voornaam,
+                last_name=achternaam,
+                mail=email,
+                amount=price
+            )
+
             Participant.objects.create(
                 voornaam=voornaam,
                 achternaam=achternaam,
@@ -74,15 +88,30 @@ def inschrijven_tornooi(request, slug):
                 stad=stad,
                 niveau=niveau,
 
+                payment_id = payment.pk,
                 ticket=Ticket.objects.get(pk=ticket_id),
             )
 
-        # response
+            # create the mollie payment
+            mollie_payment = MollieClient().create_mollie_payment(
+                amount=price,
+                description="TESTING", # TODO
+                slug=slug
+            )
+
+            payment.mollie_id = mollie_payment.id
+            payment.save()
+            
+            return redirect(mollie_payment.checkout_url)
+        
+
+        # form was not valid, send to error page
         context = {
-            "success": form.is_valid(),
+            "success": False,
             "tornooi": Evenement.objects.get(slug=slug)
         }
         return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
+        
     
     # GET request
     evenement = Evenement.objects.get(slug=slug)
@@ -94,6 +123,14 @@ def inschrijven_tornooi(request, slug):
         'skill_level_choices': SkillLevel.CHOICES,
     }
     return TemplateResponse(request, 'pages/tornooi-inschrijving.html', context)
+
+
+def inschrijven_tornooi_success(request, slug):
+    context = {
+        "success": True,
+        "tornooi": Evenement.objects.get(slug=slug)
+    }
+    return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
 
 
 def about(request):
@@ -145,3 +182,21 @@ def contact(request):
 @staff_member_required
 def scanner(request):
     return TemplateResponse(request, "admin/scanner.html")
+
+
+@csrf_exempt
+def mollie_webhook(request):
+    if request.method == 'POST':
+        if 'id' not in request.POST:
+            return HttpResponse(status=400)
+
+        mollie_payment_id = request.POST['id']
+        mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
+        payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
+
+        payment.status = mollie_payment.get("status").lower()
+        payment.save()
+
+        return HttpResponse(status=200)
+
+    return HttpResponseNotFound("Invalid request method")

@@ -52,22 +52,24 @@ class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Participant)
 class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ['voornaam', 'achternaam', 'attendance']
+    list_display = ['voornaam', 'achternaam', 'payment_status', 'attendance']
     ordering = ('id',)
 
-    # @display(
-    #     description=_('Payment Status'), 
-    #     label={
-    #         PaymentStatus.PAID: "success",
-    #         PaymentStatus.OPEN: "warning",
-    #         PaymentStatus.CANCELED: "danger",
-    #         PaymentStatus.EXPIRED: "danger",
-    #         PaymentStatus.FAILED: "danger",
-    #     },
-    #     header=True,
-    # )
-    # def payment_status(self, obj):
-    #     return obj.payment.status
+    @display(
+        description=_('Payment Status'), 
+        label={
+            PaymentStatus.PAID: "success",
+            PaymentStatus.OPEN: "warning",
+            PaymentStatus.CANCELED: "danger",
+            PaymentStatus.EXPIRED: "danger",
+            PaymentStatus.FAILED: "danger",
+        },
+        header=True,
+    )
+    def payment_status(self, obj):
+        if obj.payment is None: return PaymentStatus.OPEN
+
+        return obj.payment.status
     
     @display(
         description=_("Attended"),
