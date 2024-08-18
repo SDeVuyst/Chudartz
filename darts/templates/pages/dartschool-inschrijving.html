@@ -3,7 +3,21 @@
 {% load static dutch_date %}
 
 {% block title %}
-Chudarts | {{ tornooi.titel}}
+Chudarts | {{ tornooi.titel}} Inschrijven
+{% endblock %}
+
+
+{% block meta %}
+<meta name="robots" content="noindex, nofollow">
+<!-- TODO -->
+<meta property="og:title" content="ChuDartz | Dartschool">
+<meta property="og:description" content="TODO">
+<meta property="og:image" content="https://www.example.com/images/og-image.jpg">
+<meta property="og:url" content="https://www.example.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChuDartz | Dartschool">
+<meta name="twitter:description" content="TODO">
+<meta name="twitter:image" content="https://www.example.com/images/twitter-image.jpg">
 {% endblock %}
 
 {% block body %}
