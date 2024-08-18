@@ -1238,14 +1238,14 @@ section,
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
-.portfolio .portfolio-filters {
+.portfolio .afbeelding-filters {
   padding: 0;
   margin: 0 auto 20px auto;
   list-style: none;
   text-align: center;
 }
 
-.portfolio .portfolio-filters li {
+.portfolio .afbeelding-filters li {
   cursor: pointer;
   display: inline-block;
   padding: 8px 20px 10px 20px;
@@ -1259,32 +1259,32 @@ section,
   font-family: var(--heading-font);
 }
 
-.portfolio .portfolio-filters li:hover, .portfolio .portfolio-filters li.filter-active {
+.portfolio .afbeelding-filters li:hover, .portfolio .afbeelding-filters li.filter-active {
   color: var(--contrast-color);
   background-color: var(--accent-color);
 }
 
-.portfolio .portfolio-filters li:first-child {
+.portfolio .afbeelding-filters li:first-child {
   margin-left: 0;
 }
 
-.portfolio .portfolio-filters li:last-child {
+.portfolio .afbeelding-filters li:last-child {
   margin-right: 0;
 }
 
 @media (max-width: 575px) {
-  .portfolio .portfolio-filters li {
+  .portfolio .afbeelding-filters li {
     font-size: 14px;
     margin: 0 0 10px 0;
   }
 }
 
-.portfolio .portfolio-item {
+.portfolio .afbeelding-item {
   position: relative;
   overflow: hidden;
 }
 
-.portfolio .portfolio-item .portfolio-info {
+.portfolio .afbeelding-item .portfolio-info {
   opacity: 0;
   position: absolute;
   left: 12px;
@@ -1296,21 +1296,21 @@ section,
   padding: 15px;
 }
 
-.portfolio .portfolio-item .portfolio-info h4 {
+.portfolio .afbeelding-item .portfolio-info h4 {
   font-size: 18px;
   font-weight: 600;
   padding-right: 50px;
 }
 
-.portfolio .portfolio-item .portfolio-info p {
+.portfolio .afbeelding-item .portfolio-info p {
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   font-size: 14px;
   margin-bottom: 0;
   padding-right: 50px;
 }
 
-.portfolio .portfolio-item .portfolio-info .preview-link,
-.portfolio .portfolio-item .portfolio-info .details-link {
+.portfolio .afbeelding-item .portfolio-info .preview-link,
+.portfolio .afbeelding-item .portfolio-info .details-link {
   position: absolute;
   right: 50px;
   font-size: 24px;
@@ -1320,17 +1320,17 @@ section,
   line-height: 0;
 }
 
-.portfolio .portfolio-item .portfolio-info .preview-link:hover,
-.portfolio .portfolio-item .portfolio-info .details-link:hover {
+.portfolio .afbeelding-item .portfolio-info .preview-link:hover,
+.portfolio .afbeelding-item .portfolio-info .details-link:hover {
   color: var(--accent-color);
 }
 
-.portfolio .portfolio-item .portfolio-info .details-link {
+.portfolio .afbeelding-item .portfolio-info .details-link {
   right: 14px;
   font-size: 28px;
 }
 
-.portfolio .portfolio-item:hover .portfolio-info {
+.portfolio .afbeelding-item:hover .portfolio-info {
   opacity: 1;
   bottom: 0;
 }

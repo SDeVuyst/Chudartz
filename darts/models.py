@@ -101,7 +101,7 @@ class Evenement(models.Model):
 class Ticket(models.Model):
 
     def __str__(self) -> str:
-        return self.titel
+        return f"{self.titel} - {self.price}"
     
     titel = models.CharField(max_length=100, verbose_name=_("titel"))
     price = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
@@ -176,59 +176,6 @@ class Payment(models.Model):
         return f"http://vanakaam.be/events/ticket/{self.pk}/success"
 
 
-    def generate_ticket(self, for_email=False):
-        participants = Participant.objects.filter(payment=self)
-        tickets = []
-        for p in participants:
-            ticket = p.generate_ticket(return_as_http=False) 
-
-            tickets.append(ticket)
-
-            
-        merged_buffer = helpers.merge_pdfs(tickets)
-        if for_email: return merged_buffer
-
-        response = HttpResponse(merged_buffer, content_type='application/pdf')
-        response['Content-Disposition'] = f'inline; filename="tickets-{self.pk}.pdf"'
-
-        return response
-
-    def send_mail(self):
-        # we only need first because all info is the same for the matching participants
-        participant = Participant.objects.filter(payment=self).first()
-        print(participant)
-        event = participant.ticket.event
-        print(event)
-        
-        email_body = render_to_string('confirmation-email.html', {
-            'event': event,
-            'participant': participant,
-        })
-
-        # Generate tickets PDF
-        tickets_pdf = self.generate_ticket(for_email=True)
-
-        email = EmailMessage(
-            'ChuDartz | Bevestiging',
-            email_body,
-            formataddr(('Evenementen | Saranalaya', settings.EMAIL_HOST_USER)),
-            [participant.mail],
-            bcc=[settings.EMAIL_HOST_USER]
-        )
-        email.content_subtype = 'html'
-
-        # add tickets as attachment
-        email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
-
-        helpers.attach_image(email, "logo")
-        helpers.attach_image(email, "facebook")
-        helpers.attach_image(email, "mail")
-
-        # Send the email
-        email.send()
-
-
-
 class SkillLevel:
     BEGINNER = "beginner"
     GEMIDDELD  = "gemiddeld"
@@ -242,21 +189,24 @@ class SkillLevel:
 
 
 
+# Deelnemer van tornooi
 class Participant(models.Model):
 
     def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name}" 
+        return f"{self.voornaam} {self.achternaam}" 
     
     class Meta:
         get_latest_by = "pk"
     
-    first_name = models.CharField(max_length=50, verbose_name=_("Voornaam"))
-    last_name = models.CharField(max_length=50, verbose_name=_("Achternaam"))
-    mail = models.EmailField(verbose_name=_("Email"), max_length=254)
+    voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
+    achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
+    email = models.EmailField(verbose_name=_("Email"), max_length=254)
     straatnaam = models.CharField(verbose_name=_("Straatnaam"), max_length=100)
     nummer = models.CharField(verbose_name=_("Nummer"), max_length=6)
+    postcode = models.IntegerField(verbose_name=_("Postcode"))
     stad = models.CharField(verbose_name=_("Stad"), max_length=40)
-    level = models.CharField(max_length=10, choices=SkillLevel.CHOICES, default=SkillLevel.GEMIDDELD)
+    niveau = models.CharField(max_length=10, choices=SkillLevel.CHOICES, default=SkillLevel.GEMIDDELD)
+    
     payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
     attended = models.BooleanField(verbose_name=_("Attended"), default=False)
     beschrijving = models.TextField(blank=True, null=True, verbose_name=_("beschrijving"))
@@ -352,3 +302,35 @@ class Participant(models.Model):
         response['Content-Disposition'] = f'inline; filename="ticket-{self.pk}.pdf"'
 
         return response
+    
+    def send_mail(self):
+        event = self.ticket.event
+        print(event)
+        
+        email_body = render_to_string('email/confirmation-email.html', {
+            'event': event,
+            'participant': self,
+        })
+
+        # Generate tickets PDF
+        tickets_pdf = self.generate_ticket(for_email=True)
+
+        email = EmailMessage(
+            'ChuDartz | Bevestiging',
+            email_body,
+            formataddr(('Tornooien | Chudartz', settings.EMAIL_HOST_USER)),
+            [self.email],
+            bcc=[settings.EMAIL_HOST_USER]
+        )
+        email.content_subtype = 'html'
+
+        # add tickets as attachment
+        email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
+
+        helpers.attach_image(email, "logo")
+        helpers.attach_image(email, "facebook")
+        helpers.attach_image(email, "mail")
+
+        # Send the email
+        email.send()
+

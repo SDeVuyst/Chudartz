@@ -12,4 +12,6 @@ urlpatterns = [
     path('terms-of-service', views.terms_of_service, name="terms of service"),
     path('privacy-policy', views.privacy_policy, name="privacy policy"),
     path('contact', views.contact, name='contact'),
+
+    path("darts/scanner/", views.scanner),
 ]

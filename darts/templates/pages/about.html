@@ -15,7 +15,6 @@ Chudarts | Over Ons
 
     {% include 'blocks/page-title.html' with name="Over Ons" description="Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." %}
 
-    <!-- Portfolio Details Section -->
     <section id="portfolio-details" class="portfolio-details section"> 
       <!-- TODO VERANDER NAMEN VAN CSS CLASSES EN IDS -->
 
@@ -33,12 +32,7 @@ Chudarts | Over Ons
                 Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
               </p>
 
-              {% include 'blocks/quote.html' with testimonial={
-                'quote': 'Een leermeester hoeft niet perfect te zijn, zolang de leerling maar uitblinkt.',
-                'image_url': "{% static 'img/quotes/testimonials-2.jpg' %}",
-                'name': 'Frederick De Mey',
-                'title': 'Trainer & Eigenaar'
-              } %}
+              {% include 'blocks/quote.html' with quote='Een leermeester hoeft niet perfect te zijn, zolang de leerling maar uitblinkt.' image_url='static/img/quotes/testimonials-2.jpg' name='Frederick De Mey' title='Trainer & Eigenaar' %}
 
               <p>
                 Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.

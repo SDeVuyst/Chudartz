@@ -52,22 +52,22 @@ class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Participant)
 class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ['first_name', 'last_name', 'payment_status', 'attendance']
+    list_display = ['voornaam', 'achternaam', 'attendance']
     ordering = ('id',)
 
-    @display(
-        description=_('Payment Status'), 
-        label={
-            PaymentStatus.PAID: "success",
-            PaymentStatus.OPEN: "warning",
-            PaymentStatus.CANCELED: "danger",
-            PaymentStatus.EXPIRED: "danger",
-            PaymentStatus.FAILED: "danger",
-        },
-        header=True,
-    )
-    def payment_status(self, obj):
-        return obj.payment.status
+    # @display(
+    #     description=_('Payment Status'), 
+    #     label={
+    #         PaymentStatus.PAID: "success",
+    #         PaymentStatus.OPEN: "warning",
+    #         PaymentStatus.CANCELED: "danger",
+    #         PaymentStatus.EXPIRED: "danger",
+    #         PaymentStatus.FAILED: "danger",
+    #     },
+    #     header=True,
+    # )
+    # def payment_status(self, obj):
+    #     return obj.payment.status
     
     @display(
         description=_("Attended"),
@@ -81,14 +81,14 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
         return obj.attended, label
     
 
-    search_fields = ('first_name', 'last_name', 'mail')
+    search_fields = ('voornaam', 'achternaam', 'email')
     list_filter = (
         ('attended', admin.BooleanFieldListFilter),
         ('ticket', RelatedDropdownFilter),
     )
 
     list_filter_submit = True
-    actions_detail = ["generate_tickets", "generate_ticket", "generate_qr_code"]
+    actions_detail = ["generate_ticket", "generate_qr_code"]
 
     @action(description=_("Generate QR-code"))
     def generate_qr_code(modeladmin, request, object_id: int):
@@ -103,13 +103,6 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
         response = HttpResponse(buffer, content_type='image/png')
         response['Content-Disposition'] = f'attachment; filename=ticket_{object_id}_qr.png'
         return response
-    
-    @action(description=_("Generate All Tickets"))
-    def generate_tickets(modeladmin, request, object_id: int):
-        participant = get_object_or_404(Participant, pk=object_id)
-        payment = get_object_or_404(Payment, pk=participant.payment.id)
-
-        return payment.generate_ticket()
     
     @action(description=_("Generate Ticket"))
     def generate_ticket(modeladmin, request, object_id: int):

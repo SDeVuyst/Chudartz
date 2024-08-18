@@ -16,3 +16,4 @@ class TornooiForm(forms.Form):
     postcode = forms.IntegerField()
     stad = forms.CharField(max_length=40)
     niveau = forms.ChoiceField(choices=SkillLevel.CHOICES)
+    ticket = forms.CharField()

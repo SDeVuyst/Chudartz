@@ -5,10 +5,10 @@
     <div class="services-list">
         {% if static_data %}
             <p><i class="bi bi-calendar4-event"></i><span>
-                {{ static_data.tijd }}
+                {{ tijd }}
             </span></p>                
             <p><i class="bi bi-geo-alt"></i><span>
-                {{ static_data.locatie }}
+                {{ locatie }}
             </span></p>
         {% else %}
             {% if tornooi.is_same_day %}

@@ -3,25 +3,28 @@ from django.conf import settings
 from django.http import BadHeaderError, HttpResponse, JsonResponse
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
+from django.contrib.admin.views.decorators import staff_member_required
 from django.template.response import TemplateResponse
 from .forms import ContactForm, TornooiForm
-from .models import Evenement, SkillLevel
+from .models import Evenement, Participant, SkillLevel, Ticket
 
 def index(request):
     context = {
         'form': ContactForm()
     }
-    return TemplateResponse(request, 'index.html', context)
+    return TemplateResponse(request, 'pages/index.html', context)
 
 
 def dartschool(request):
     context = {}
-    return TemplateResponse(request, 'dartschool.html', context)
+    return TemplateResponse(request, 'pages/dartschool.html', context)
 
 
 def inschrijven_dartschool(request):
-    context = {}
-    return TemplateResponse(request, 'dartschool-inschrijving.html', context)
+    context = {
+        "vereisten": ["10 jaar oud", "blabla", "etc"]
+    }
+    return TemplateResponse(request, 'pages/dartschool-inschrijving.html', context)
 
 
 def tornooien(request):
@@ -35,7 +38,7 @@ def tornooien(request):
         "tornooien": page_obj,
         "enable_pagination": paginator.num_pages > 1
     }
-    return TemplateResponse(request, 'tornooien.html', context)
+    return TemplateResponse(request, 'pages/tornooien.html', context)
 
 
 def tornooi(request, slug):
@@ -43,7 +46,7 @@ def tornooi(request, slug):
     context = {
         "tornooi": evenement
     }
-    return TemplateResponse(request, 'tornooi.html', context)
+    return TemplateResponse(request, 'pages/tornooi.html', context)
 
 
 def inschrijven_tornooi(request, slug):
@@ -58,8 +61,22 @@ def inschrijven_tornooi(request, slug):
             postcode = form.cleaned_data['postcode']
             stad = form.cleaned_data['stad']
             niveau = form.cleaned_data['niveau']
+            ticket_id = form.cleaned_data['ticket']
 
-            # TODO
+            Participant.objects.create(
+                voornaam=voornaam,
+                achternaam=achternaam,
+                email=email,
+                straatnaam=straatnaam,
+                nummer=nummer,
+                postcode=postcode,
+                stad=stad,
+                niveau=niveau,
+
+                ticket=Ticket.objects.get(pk=ticket_id),
+            )
+
+            # TODO confirmation
             return HttpResponse(status=200)
 
         else:
@@ -67,26 +84,29 @@ def inschrijven_tornooi(request, slug):
     
     # GET request
     evenement = Evenement.objects.get(slug=slug)
+    tickets = Ticket.objects.filter(event=evenement)
+    
     context = {
         "tornooi": evenement,
+        "tickets": tickets,
         'skill_level_choices': SkillLevel.CHOICES,
     }
-    return TemplateResponse(request, 'tornooi-inschrijving.html', context)
+    return TemplateResponse(request, 'pages/tornooi-inschrijving.html', context)
 
 
 def about(request):
     context = {}
-    return TemplateResponse(request, 'about.html', context)
+    return TemplateResponse(request, 'pages/about.html', context)
 
 
 def terms_of_service(request):
     context = {}
-    return TemplateResponse(request, 'terms-of-service.html', context)
+    return TemplateResponse(request, 'pages/terms-of-service.html', context)
 
 
 def privacy_policy(request):
     context = {}
-    return TemplateResponse(request, 'privacy-policy.html', context)
+    return TemplateResponse(request, 'pages/privacy-policy.html', context)
 
 
 def contact(request):
@@ -115,3 +135,9 @@ def contact(request):
             return JsonResponse({'success': False, 'error': 'Form is not valid.'})
 
     return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+
+
+
+@staff_member_required
+def scanner(request):
+    return TemplateResponse(request, "admin/scanner.html")
