@@ -14,6 +14,12 @@ a {
   transition: 0.3s;
 }
 
+a.active {
+  color: var(--nav-dropdown-hover-color);
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
   text-decoration: none;

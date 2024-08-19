@@ -28,17 +28,16 @@ Chudarts | tornooien
 
     {% include 'blocks/page-title.html' with name="Tornooien" background="true" description="Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." %}
 
-     <!-- Blog Posts Section -->
      <section id="blog-posts" class="blog-posts section">
 
       <div class="container">
 
         {% if tornooien %}
-
+        <div class="row gy-4">
           {% for tornooi in tornooien %}
             {% include 'blocks/tornooi-card.html' with tornooi=tornooi %}
           {% endfor %}
-
+        </div>
         {% else %}
 
           <div class="justify-content-center text-center">
@@ -49,10 +48,10 @@ Chudarts | tornooien
 
       </div>
 
-    </section><!-- /Blog Posts Section -->
+    </section>
 
     
-    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=page_obj pagination_url_name=pagination_url_name %}
+    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=tornooien pagination_url_name='tornooien' %}
     
 
   </main>

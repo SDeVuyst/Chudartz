@@ -34,9 +34,9 @@ def inschrijven_dartschool(request):
 
 def tornooien(request):
     evenementen = Evenement.objects.all()
-    paginator = Paginator(evenementen, 6)
+    paginator = Paginator(evenementen, 1)
 
-    page_number = request.GET.get("page", 1)
+    page_number = request.GET.get("page", 6)
     page_obj = paginator.get_page(page_number)
 
     context = {
