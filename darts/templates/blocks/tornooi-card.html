@@ -1,4 +1,4 @@
-{% load static dutch_date %}
+{% load static dutch_date i18n %}
 
 <div class="row gy-4">
 
@@ -12,7 +12,7 @@
         <p class="post-category">{{ tornooi.locatie_kort }}</p>
 
         <h2 class="title">
-          <a href="/tornooien/{{ tornooi.slug }}">{{ tornooi.titel }}</a>
+          <a href="{% url 'tornooi' slug=tornooi.slug %}">{{ tornooi.titel }}</a>
         </h2>
 
         <div class="d-flex align-items-center">

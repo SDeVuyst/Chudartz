@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
 Chudarts | Dartschool
@@ -54,7 +54,7 @@ Chudarts | Dartschool
                         <li><i class="bi bi-check"></i><span>Persoonlijke Groei en Zelfvertrouwen</span></li>
                         <li><i class="bi bi-check"></i><span>Educatieve en Leuke Activiteiten</span></li>
                     </ul>
-                    <a href="{{ request.path }}/inschrijven" class="btn btn-get-started">Schrijf je in</a>
+                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started">Schrijf je in</a>
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
                     <div class="image-stack">
@@ -81,7 +81,7 @@ Chudarts | Dartschool
                         <li><i class="bi bi-check"></i><span>Zowel beginners als gevorderden</span></li>
                         <li><i class="bi bi-check"></i><span>Gratis proefles</span></li>
                     </ul>
-                    <a href="{{ request.path }}/inschrijven" class="btn btn-get-started align-self-start">Schrijf je in</a>
+                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
                     </div>
                 </div><!-- Features Item -->
 
@@ -97,7 +97,7 @@ Chudarts | Dartschool
                       <li><i class="bi bi-dot"></i><span>lidgeld: € 45/jaar</span></li>
                       <li><i class="bi bi-dot"></i><span>lesgeld: € TODO/jaar</span></li>
                   </ul>
-                  <a href="{{ request.path }}/inschrijven" class="btn btn-get-started align-self-start">Schrijf je in</a>
+                  <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
                   </div>
                   <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
                     <img src="{% static "img/school/school-4.jpg" %}" class="img-fluid" alt="">

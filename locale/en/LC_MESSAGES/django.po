@@ -1,0 +1,308 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-19 15:01+0200\n"
+"PO-Revision-Date: 2024-08-19 15:06+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: .\chudartz\settings.py:214
+msgid "Navigation"
+msgstr ""
+
+#: .\chudartz\settings.py:217 .\darts\models.py:109
+msgid "Evenement"
+msgstr ""
+
+#: .\chudartz\settings.py:223
+msgid "Deelnemer"
+msgstr ""
+
+#: .\chudartz\settings.py:234
+msgid "Scanner"
+msgstr ""
+
+#: .\darts\admin.py:19
+msgid "Evenement Ticket"
+msgstr ""
+
+#: .\darts\admin.py:20
+msgid "Evenement Tickets"
+msgstr ""
+
+#: .\darts\admin.py:39
+msgid "Uitverkocht"
+msgstr ""
+
+#: .\darts\admin.py:46 .\darts\admin.py:143
+msgid "Sold out!"
+msgstr ""
+
+#: .\darts\admin.py:46 .\darts\admin.py:143
+msgid "Available"
+msgstr ""
+
+#: .\darts\admin.py:59
+msgid "Payment Status"
+msgstr ""
+
+#: .\darts\admin.py:75 .\darts\models.py:205
+msgid "Attended"
+msgstr ""
+
+#: .\darts\admin.py:82
+msgid "Yes"
+msgstr ""
+
+#: .\darts\admin.py:82
+msgid "No"
+msgstr ""
+
+#: .\darts\admin.py:95
+msgid "Generate QR-code"
+msgstr ""
+
+#: .\darts\admin.py:109 .\darts\admin.py:121
+msgid "Generate Ticket"
+msgstr ""
+
+#: .\darts\admin.py:136
+msgid "Sold out"
+msgstr ""
+
+#: .\darts\models.py:41
+msgid "Titel"
+msgstr ""
+
+#: .\darts\models.py:43
+msgid "Beschrijving"
+msgstr ""
+
+#: .\darts\models.py:44
+msgid "Vereisten (Elk op een nieuwe lijn)"
+msgstr ""
+
+#: .\darts\models.py:45
+msgid "Start Datum"
+msgstr ""
+
+#: .\darts\models.py:46
+msgid "Eind Datum"
+msgstr ""
+
+#: .\darts\models.py:47 .\darts\models.py:108
+msgid "Max Deelnemers"
+msgstr ""
+
+#: .\darts\models.py:48
+msgid "Locatie (kort)"
+msgstr ""
+
+#: .\darts\models.py:49
+msgid "Locatie (lang)"
+msgstr ""
+
+#: .\darts\models.py:50
+msgid "afbeelding"
+msgstr ""
+
+#: .\darts\models.py:51
+msgid "Download afbeeldingen URL"
+msgstr ""
+
+#: .\darts\models.py:53
+msgid "Inschrijvingen Inschakelen"
+msgstr ""
+
+#: .\darts\models.py:55 .\darts\models.py:111 .\darts\models.py:170
+msgid "Geschiedenis"
+msgstr ""
+
+#: .\darts\models.py:106
+msgid "titel"
+msgstr ""
+
+#: .\darts\models.py:145
+msgctxt "payment status"
+msgid "Betaald"
+msgstr ""
+
+#: .\darts\models.py:146
+msgctxt "payment status"
+msgid "Open"
+msgstr ""
+
+#: .\darts\models.py:147
+msgctxt "payment status"
+msgid "Geannuleerd"
+msgstr ""
+
+#: .\darts\models.py:148
+msgctxt "payment status"
+msgid "Verlopen"
+msgstr ""
+
+#: .\darts\models.py:149
+msgctxt "payment status"
+msgid "Gefaald"
+msgstr ""
+
+#: .\darts\models.py:163
+msgid "Mollie id"
+msgstr ""
+
+#: .\darts\models.py:164 .\darts\models.py:195
+msgid "Voornaam"
+msgstr ""
+
+#: .\darts\models.py:165 .\darts\models.py:196
+msgid "Achternaam"
+msgstr ""
+
+#: .\darts\models.py:166 .\darts\models.py:197
+msgid "Email"
+msgstr ""
+
+#: .\darts\models.py:179
+msgctxt "skill level"
+msgid "Beginner"
+msgstr ""
+
+#: .\darts\models.py:180
+msgctxt "skill level"
+msgid "Gemiddeld"
+msgstr ""
+
+#: .\darts\models.py:181
+msgctxt "skill level"
+msgid "Geoefend"
+msgstr ""
+
+#: .\darts\models.py:198
+msgid "Straatnaam"
+msgstr ""
+
+#: .\darts\models.py:199
+msgid "Nummer"
+msgstr ""
+
+#: .\darts\models.py:200
+msgid "Postcode"
+msgstr ""
+
+#: .\darts\models.py:201
+msgid "Stad"
+msgstr ""
+
+#: .\darts\models.py:206
+msgid "beschrijving"
+msgstr ""
+
+#: .\darts\models.py:207
+msgid "Ticket"
+msgstr ""
+
+#: .\darts\models.py:212
+msgid "History"
+msgstr ""
+
+#: .\darts\templates\blocks\header.html:13
+msgid "Home"
+msgstr "Home"
+
+#: .\darts\templates\blocks\header.html:14
+msgid "Over Ons"
+msgstr "About Us"
+
+#: .\darts\templates\blocks\header.html:15
+msgid "Dartschool"
+msgstr "Darts School"
+
+#: .\darts\templates\blocks\header.html:16
+msgid "Tornooien"
+msgstr "Tournaments"
+
+#: .\darts\templates\blocks\header.html:17
+msgid "Webshop"
+msgstr "Webshop"
+
+#: .\darts\templates\blocks\header.html:18
+msgid "Contact"
+msgstr "Contact"
+
+#: .\darts\templates\blocks\header.html:20
+msgid "Taal"
+msgstr "Language"
+
+#: .\darts\templates\blocks\header.html:44
+msgid "Begin Nu"
+msgstr "Get Started"
+
+#: .\darts\templates\pages\index.html:35
+msgid "Welkom bij"
+msgstr "Welcome to"
+
+#: .\darts\templates\pages\index.html:37
+msgid "Uw ultieme bestemming voor alles wat met darts te maken heeft."
+msgstr "Your ultimate destination for all things darts."
+
+#: .\darts\urls.py:8
+msgid "dartschool"
+msgstr "dartschool"
+
+#: .\darts\urls.py:9
+msgid "dartschool/inschrijven/"
+msgstr "dartschool/enroll/"
+
+#: .\darts\urls.py:11
+msgid "tornooien"
+msgstr "tournaments"
+
+#: .\darts\urls.py:12
+msgid "tornooien/<slug:slug>/"
+msgstr "tournaments/<slug:slug>/"
+
+#: .\darts\urls.py:13
+msgid "tornooien/<slug:slug>/inschrijven"
+msgstr "tournaments/<slug:slug>/enroll"
+
+#: .\darts\urls.py:14
+msgid "tornooien/<slug:slug>/inschrijven/success"
+msgstr "tournaments/<slug:slug>/enroll/success"
+
+#: .\darts\urls.py:16
+msgid "over-ons"
+msgstr "about-us"
+
+#: .\darts\urls.py:17
+msgid "terms-of-service"
+msgstr "terms-of-service"
+
+#: .\darts\urls.py:18
+msgid "privacy-policy"
+msgstr "privacy-policy"
+
+#: .\darts\urls.py:19
+msgid "contact"
+msgstr "contact"
+
+#: .\darts\urls.py:21
+msgid "darts/scanner/"
+msgstr ""
+
+#: .\darts\urls.py:22
+msgid "mollie-webhook/"
+msgstr ""

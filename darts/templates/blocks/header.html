@@ -1,25 +1,46 @@
-{% load static %}
+{% load static i18n %}
 
 <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
   
-    <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <img src="{% static "img/logo-black.png" %}" alt="">
-      <!-- <h1 class="sitename">Append</h1><span>.</span> -->
-    </a>
+  <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+    <!-- Uncomment the line below if you also wish to use an image logo -->
+    <img src="{% static "img/logo-black.png" %}" alt="">
+    <!-- <h1 class="sitename">Append</h1><span>.</span> -->
+  </a>
 
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="/#hero" class="active">Home</a></li>
-        <li><a href="/over-ons">Over Ons</a></li>
-        <li><a href="/dartschool">Dartschool</a></li>
-        <li><a href="/tornooien">Tornooien</a></li>
-        <li><a href="#">Webshop</a></li>
-        <li><a href="/#contact">Contact</a></li>
-      </ul>
-      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-    </nav>
+  <nav id="navmenu" class="navmenu">
+    <ul>
+      <li><a href="{% url 'index' %}#hero" class="active">Home</a></li>
+      <li><a href="{% url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
+      <li><a href="{% url 'dartschool' %}">{% trans 'Dartschool' %}</a></li>
+      <li><a href="{% url 'tornooien' %}">{% trans 'Tornooien' %}</a></li>
+      <li><a href="#">{% trans 'Webshop' %}</a></li>
+      <li><a href="{% url 'index' %}#contact">{% trans 'Contact' %}</a></li>
+      <li class="dropdown">
+        <a href="#"><span>{% trans 'Taal' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <ul>
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_available_languages as LANGUAGES %}
+          {% for lang_code, lang_name in LANGUAGES %}
+            <li>
+              <a href="" data-language="{{ lang_code }}" class="language-switcher">{{ lang_name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    </ul>
+    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    
+    <!-- Lang switcher form -->
+    <form id="language-form" action="{% url 'set_language' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="language" value="">
+      <input type="hidden" name="next" value="{{ request.path }}">
+    </form>
 
-    <a class="btn-getstarted" href="/#over-ons">Begin Nu</a>
+
+  </nav>
+
+  <a class="btn-getstarted" href="{% url 'index' %}#over-ons">{% trans 'Begin Nu' %}</a>
 
   </div>

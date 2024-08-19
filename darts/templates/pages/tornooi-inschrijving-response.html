@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 
-{% load static dutch_date %}
+{% load static dutch_date i18n %}
 
 {% block title %}
 Chudarts | {{ tornooi.titel}}
@@ -27,7 +27,7 @@ Chudarts | {{ tornooi.titel}}
                 {% else %}
 
                     <h1>Er is iets misgegaan.</h1>
-                    <p>Gelieve contact op te nemen via <a href="/#contact">dit formulier.</a></p>
+                    <p>Gelieve contact op te nemen via <a href="{% url 'index' %}#contact">dit formulier.</a></p>
                     
                 {% endif %}
                 

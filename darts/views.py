@@ -133,7 +133,7 @@ def inschrijven_tornooi_success(request, slug):
     return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
 
 
-def about(request):
+def over_ons(request):
     context = {}
     return TemplateResponse(request, 'pages/about.html', context)
 
