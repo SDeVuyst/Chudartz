@@ -259,7 +259,7 @@ class Participant(models.Model):
 
         # Add  logo
         logo_path = finders.find('img/logo-black.png')
-        p.drawImage(logo_path, 100, 730, 427 * 0.3, 58 * 0.3)
+        p.drawImage(logo_path, 75, 715, 906 * 0.15, 345 * 0.15)
 
         # get info about event
         event = self.ticket.event
@@ -272,17 +272,20 @@ class Participant(models.Model):
         # Set correct font for titel
         font_path = finders.find('fonts/outfit/Outfit-Bold.ttf')
         pdfmetrics.registerFont(TTFont('Outfit', font_path))
-        p.setFont("Outfit", 25)
-        p.drawString(100, 690, str(event))
+        p.setFont("Outfit", 18)
+        if len(str(event)) > 30:
+            p.drawString(75, 690, f"{str(event)[:28]}...")
+        else:
+            p.drawString(75, 690, str(event))
 
         # Set correct font for beschrijving
         font_path = finders.find('fonts/outfit/Outfit-Regular.ttf')
         pdfmetrics.registerFont(TTFont('Outfit', font_path))
-        p.setFont("Outfit", 18)
+        p.setFont("Outfit", 14)
 
-        p.drawString(100, 660, formatted_date)
-        p.drawString(100, 635, str(self.ticket))
-        p.drawString(100, 610, strip_tags(event.locatie_kort))
+        p.drawString(75, 660, formatted_date)
+        p.drawString(75, 635, str(self.ticket))
+        p.drawString(75, 610, strip_tags(event.locatie_kort))
 
         # Finalize the PDF
         p.save()
@@ -320,7 +323,7 @@ class Participant(models.Model):
         email.content_subtype = 'html'
 
         # add tickets as attachment
-        email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
+        email.attach(f'ticket.pdf', tickets_pdf.getvalue(), 'application/pdf')
 
         # TODO deze images
         helpers.attach_image(email, "logo")

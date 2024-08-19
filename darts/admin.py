@@ -90,21 +90,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
 
     list_filter_submit = True
-    actions_detail = ["generate_ticket", "generate_qr_code"]
-
-    @action(description=_("Generate QR-code"))
-    def generate_qr_code(modeladmin, request, object_id: int):
-
-        participant = get_object_or_404(Participant, pk=object_id)
-
-        img = participant.generate_qr_code()
-        buffer = BytesIO()
-        img.save(buffer, format='PNG')
-        buffer.seek(0)
-
-        response = HttpResponse(buffer, content_type='image/png')
-        response['Content-Disposition'] = f'attachment; filename=ticket_{object_id}_qr.png'
-        return response
+    actions_detail = ["generate_ticket",]
     
     @action(description=_("Generate Ticket"))
     def generate_ticket(modeladmin, request, object_id: int):
