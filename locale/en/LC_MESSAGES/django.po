@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-19 15:01+0200\n"
-"PO-Revision-Date: 2024-08-19 15:06+0200\n"
+"POT-Creation-Date: 2024-08-19 16:57+0200\n"
+"PO-Revision-Date: 2024-08-19 16:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -219,45 +219,77 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: .\darts\templates\blocks\header.html:13
-msgid "Home"
-msgstr "Home"
+#: .\darts\templates\blocks\footer.html:11
+#: .\darts\templates\pages\index.html:37
+msgid "Uw ultieme bestemming voor alles wat met darts te maken heeft."
+msgstr "Your ultimate destination for all things darts."
 
-#: .\darts\templates\blocks\header.html:14
+#: .\darts\templates\blocks\footer.html:20
+msgid "Handige Links"
+msgstr "Useful Links"
+
+#: .\darts\templates\blocks\footer.html:23
+#: .\darts\templates\blocks\header.html:12
 msgid "Over Ons"
 msgstr "About Us"
 
-#: .\darts\templates\blocks\header.html:15
+#: .\darts\templates\blocks\footer.html:24
+msgid "Terms of service"
+msgstr "Terms of service"
+
+#: .\darts\templates\blocks\footer.html:25
+msgid "Privacy policy"
+msgstr "Privacy policy"
+
+#: .\darts\templates\blocks\footer.html:30
+msgid "Onze Diensten"
+msgstr "Our Services"
+
+#: .\darts\templates\blocks\footer.html:32
+#: .\darts\templates\blocks\header.html:13
 msgid "Dartschool"
 msgstr "Darts School"
 
-#: .\darts\templates\blocks\header.html:16
+#: .\darts\templates\blocks\footer.html:33
+#: .\darts\templates\blocks\header.html:14
 msgid "Tornooien"
 msgstr "Tournaments"
 
-#: .\darts\templates\blocks\header.html:17
+#: .\darts\templates\blocks\footer.html:34
+msgid "Verkoop van darts"
+msgstr "Sale of darts"
+
+#: .\darts\templates\blocks\footer.html:40
+msgid "Contacteer Ons"
+msgstr "Contact Us"
+
+#: .\darts\templates\blocks\footer.html:44
+msgid "Telefoon"
+msgstr "Phone"
+
+#: .\darts\templates\blocks\footer.html:52
+msgid "alle rechten voorbehouden"
+msgstr "all rights reserved"
+
+#: .\darts\templates\blocks\header.html:15
 msgid "Webshop"
 msgstr "Webshop"
 
-#: .\darts\templates\blocks\header.html:18
+#: .\darts\templates\blocks\header.html:16
 msgid "Contact"
 msgstr "Contact"
 
-#: .\darts\templates\blocks\header.html:20
+#: .\darts\templates\blocks\header.html:18
 msgid "Taal"
 msgstr "Language"
 
-#: .\darts\templates\blocks\header.html:44
+#: .\darts\templates\blocks\header.html:42
 msgid "Begin Nu"
 msgstr "Get Started"
 
 #: .\darts\templates\pages\index.html:35
 msgid "Welkom bij"
 msgstr "Welcome to"
-
-#: .\darts\templates\pages\index.html:37
-msgid "Uw ultieme bestemming voor alles wat met darts te maken heeft."
-msgstr "Your ultimate destination for all things darts."
 
 #: .\darts\urls.py:8
 msgid "dartschool"
@@ -306,3 +338,6 @@ msgstr ""
 #: .\darts\urls.py:22
 msgid "mollie-webhook/"
 msgstr ""
+
+#~ msgid "Home"
+#~ msgstr "Home"

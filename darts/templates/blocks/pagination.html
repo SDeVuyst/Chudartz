@@ -13,9 +13,9 @@
                 <!-- elided numbers -->
                 {% for page_number in page_obj.paginator.get_elided_page_range %}
                     {% if page_number == page_obj.paginator.ELLIPSIS %}
-                        <li class="p-2">...</li>
+                        <li class="p-2 pagination">...</li>
                     {% else %}
-                        <a href="{% url pagination_url_name %}?page={{ page_number }}" class="{% if page_number == page_obj.number %}active{% endif %} p-2">
+                        <a href="{% url pagination_url_name %}?page={{ page_number }}" class="{% if page_number == page_obj.number %}active{% endif %} p-2 pagination">
                             {{ page_number }}
                         </a>
                     {% endif %}

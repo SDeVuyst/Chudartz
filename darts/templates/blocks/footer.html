@@ -8,41 +8,40 @@
         <a href="{% url 'index' %}" class="logo d-flex align-items-center">
           <span class="sitename">ChuDartz</span>
         </a>
-        <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+        <p>{% trans 'Uw ultieme bestemming voor alles wat met darts te maken heeft.' %}</p>
         <div class="social-links d-flex mt-4">
-          <a href=""><i class="bi bi-twitter-x"></i></a>
           <a href=""><i class="bi bi-facebook"></i></a>
           <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
+          <a href="https://github.com/SDeVuyst/Chudartz"><i class="bi bi-github"></i></a>
         </div>
       </div>
 
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Handige Links</h4>
+        <h4>{% trans 'Handige Links' %}</h4>
         <ul>
           <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'over_ons' %}">Over Ons</a></li>
-          <li><a href="{% url 'terms_of_service' %}">Terms of service</a></li>
-          <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
+          <li><a href="{% url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
+          <li><a href="{% url 'terms_of_service' %}">{% trans 'Terms of service' %}</a></li>
+          <li><a href="{% url 'privacy_policy' %}">{% trans 'Privacy policy' %}</a></li>
         </ul>
       </div>
 
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Onze Diensten</h4>
+        <h4>{% trans 'Onze Diensten' %}</h4>
         <ul>
-          <li><a href="{% url 'dartschool' %}">Dartschool</a></li>
-          <li><a href="{% url 'tornooien' %}">tornooien</a></li>
-          <li><a href="#">Verkoop van darts</a></li> <!-- TODO -->
+          <li><a href="{% url 'dartschool' %}">{% trans 'Dartschool' %}</a></li>
+          <li><a href="{% url 'tornooien' %}">{% trans 'Tornooien' %}</a></li>
+          <li><a href="#">{% trans 'Verkoop van darts' %}</a></li> <!-- TODO -->
           
         </ul>
       </div>
 
       <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-        <h4>Contacteer Ons</h4>
+        <h4>{% trans 'Contacteer Ons' %}</h4>
         <p>A108 Adam Street</p>
-        <p>New York, NY 535022</p>
-        <p>United States</p>
-        <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+        <p>Zedelgem, 8210</p>
+        <p>België</p>
+        <p class="mt-4"><strong>{% trans 'Telefoon' %}:</strong> <span>+1 5589 55488 55</span></p>
         <p><strong>Email:</strong> <span>info@example.com</span></p>
       </div>
 
@@ -50,7 +49,7 @@
   </div>
 
   <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="sitename">ChuDartz</strong> <span>All Rights Reserved</span></p>
+    <p>© <span>Copyright</span> <strong class="sitename">ChuDartz</strong> <span>{% trans 'alle rechten voorbehouden' %}</span></p>
   </div>
 
 </footer>

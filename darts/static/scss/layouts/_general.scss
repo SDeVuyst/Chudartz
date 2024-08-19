@@ -14,7 +14,7 @@ a {
   transition: 0.3s;
 }
 
-a.active {
+.pagination.active {
   color: var(--nav-dropdown-hover-color);
   text-decoration: underline;
   transition: 0.3s;
