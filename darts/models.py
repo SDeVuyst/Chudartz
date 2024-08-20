@@ -37,6 +37,7 @@ class Evenement(models.Model):
     
     class Meta:
         get_latest_by = "start_datum"
+        ordering = ['-start_datum']
     
     titel = models.CharField(max_length=100, verbose_name=_("Titel"))
     slug = models.SlugField(unique=True)
