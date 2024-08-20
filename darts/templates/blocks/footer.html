@@ -4,7 +4,7 @@
 
   <div class="container footer-top">
     <div class="row gy-4">
-      <div class="col-lg-{% if sponsors|has_to_show_sponsors_footer %}4{% else %}5{% endif %} col-md-12 footer-about">
+      <div class="col-lg-{% if sponsors|has_to_show_sponsors_footer %}5{% else %}6{% endif %} col-md-12 footer-about">
         <a href="{% url 'index' %}" class="logo d-flex align-items-center">
           <span class="sitename">ChuDartz</span>
         </a>
@@ -20,6 +20,7 @@
       <div class="col-lg-2 col-6 footer-links">
         <h4>{% trans 'Sponsors' %}</h4>
         <ul>
+          <li><a href="{% url 'sponsors' %}">{% trans 'Alle Sponsors' %}</a></li>
           {% for sponsor in sponsors %}
           {% if sponsor.toon_in_footer %}
           <li><a href="{{ sponsor.website_url }}">{{ sponsor.naam }}</a></li>
@@ -39,17 +40,7 @@
         </ul>
       </div>
 
-      <div class="col-lg-2 col-6 footer-links">
-        <h4>{% trans 'Onze Diensten' %}</h4>
-        <ul>
-          <li><a href="{% url 'dartschool' %}">{% trans 'Dartschool' %}</a></li>
-          <li><a href="{% url 'tornooien' %}">{% trans 'Tornooien' %}</a></li>
-          <li><a href="#">{% trans 'Verkoop van darts' %}</a></li> <!-- TODO -->
-          
-        </ul>
-      </div>
-
-      <div class="col-lg-{% if sponsors|has_to_show_sponsors_footer %}2{% else %}3{% endif %} col-md-12 footer-contact text-center text-md-start">
+      <div class="col-lg-{% if sponsors|has_to_show_sponsors_footer %}3{% else %}4{% endif %} col-md-12 footer-contact text-center text-md-start">
         <h4>{% trans 'Contacteer Ons' %}</h4>
         <p>A108 Adam Street</p>
         <p>Zedelgem, 8210</p>
