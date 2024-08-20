@@ -329,3 +329,16 @@ class Participant(models.Model):
 
         # Send the email
         email.send()
+
+
+class Sponsor(models.Model):
+    naam = models.CharField(max_length=50, verbose_name=_("Naam"))
+    website_url = models.URLField(verbose_name=_("Website URL"))
+    info = RichTextField(verbose_name=_("Info over Sponsor"))
+    toon_op_index = models.BooleanField(verbose_name=_("Toon Op Voorpagina"), default=True)
+    toon_in_footer = models.BooleanField(verbose_name=_("Toon in footer"), default=True)
+    toon_op_sponsors_pagina = models.BooleanField(verbose_name=_("Toon op sponsor pagina"), default=True)
+    logo = models.ImageField(verbose_name=_("Logo"), upload_to="sponsor")
+    afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="sponsor")
+
+    history = HistoricalRecords(verbose_name=_("History"))

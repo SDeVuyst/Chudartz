@@ -31,32 +31,23 @@ Chudarts | Sponsors
         
               <div class="container">
         
-                <div class="row gy-4 align-items-stretch justify-content-between features-item">
-                    <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
-                    <img src="{% static "img/school/school-3.jpg" %}" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
-                    <h3 id="sponsor-a">Sponsor A</h3>
-                    <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem ex neque molestias rerum in dolores, unde quia eos soluta earum totam ipsam, enim tempore est repudiandae ullam reiciendis accusantium iste.
-                    </p>
-                    <a href="#" target="_blank" class="btn btn-get-started align-self-start">Bezoek Website</a>
-                    </div>
-                </div>
+                {% for sponsor in sponsors %}
+                {% if sponsor.toon_op_sponsors_pagina %}
 
                 <div class="row gy-4 align-items-stretch justify-content-between features-item">
                   <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
-                  <h3 id="sponsor-b">Sponsor B</h3>
-                  <p> 
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem consectetur explicabo ipsam, magnam nisi placeat blanditiis alias? Earum expedita mollitia totam consequuntur minus at placeat aut odit? Vero, vel iusto.
-                  </p>
-                  <a href="#" target="_blank" class="btn btn-get-started align-self-start">Bezoek Website</a>
+                  <h3>{{ sponsor.naam }}</h3>
+                  {{ sponsor.info|safe }}
+                  <a href="{{ sponsor.website_url }}" target="_blank" class="btn btn-get-started align-self-start">Bezoek Website</a>
                   </div>
                   <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
-                    <img src="{% static "img/school/school-4.jpg" %}" class="img-fluid" alt="">
+                    <img src="{{ sponsor.afbeelding.url }}" class="img-fluid" alt="Afbeelding {{ sponsor.naam }}">
                   </div>
                 </div>
-        
+
+                {% endif %}
+                {% endfor %}
+                
               </div>
         
             </section>

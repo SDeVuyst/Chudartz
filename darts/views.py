@@ -11,23 +11,27 @@ from django.template.response import TemplateResponse
 
 from darts.payment import MollieClient
 from .forms import ContactForm, TornooiForm
-from .models import Evenement, Participant, Payment, SkillLevel, Ticket
+from .models import Evenement, Participant, Payment, SkillLevel, Ticket, Sponsor
 
 def index(request):
     context = {
-        'form': ContactForm()
+        'form': ContactForm(),
+        'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/index.html', context)
 
 
 def dartschool(request):
-    context = {}
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
     return TemplateResponse(request, 'pages/dartschool.html', context)
 
 
 def inschrijven_dartschool(request):
     context = {
-        "vereisten": ["10 jaar oud", "blabla", "etc"]
+        "vereisten": ["10 jaar oud", "blabla", "etc"],
+        'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/dartschool-inschrijving.html', context)
 
@@ -41,7 +45,8 @@ def tornooien(request):
 
     context = {
         "tornooien": page_obj,
-        "enable_pagination": paginator.num_pages > 1
+        "enable_pagination": paginator.num_pages > 1,
+        'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/tornooien.html', context)
 
@@ -49,7 +54,8 @@ def tornooien(request):
 def tornooi(request, slug):
     evenement = Evenement.objects.get(slug=slug)
     context = {
-        "tornooi": evenement
+        "tornooi": evenement,
+        'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/tornooi.html', context)
 
@@ -108,7 +114,8 @@ def inschrijven_tornooi(request, slug):
         # form was not valid, send to error page
         context = {
             "success": False,
-            "tornooi": Evenement.objects.get(slug=slug)
+            "tornooi": Evenement.objects.get(slug=slug),
+            'sponsors': Sponsor.objects.all()
         }
         return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
         
@@ -121,6 +128,7 @@ def inschrijven_tornooi(request, slug):
         "tornooi": evenement,
         "tickets": tickets,
         'skill_level_choices': SkillLevel.CHOICES,
+        'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/tornooi-inschrijving.html', context)
 
@@ -128,23 +136,30 @@ def inschrijven_tornooi(request, slug):
 def inschrijven_tornooi_success(request, slug):
     context = {
         "success": True,
-        "tornooi": Evenement.objects.get(slug=slug)
+        "tornooi": Evenement.objects.get(slug=slug),
+        'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
 
 
 def over_ons(request):
-    context = {}
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
     return TemplateResponse(request, 'pages/about.html', context)
 
 
 def terms_of_service(request):
-    context = {}
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
     return TemplateResponse(request, 'pages/terms-of-service.html', context)
 
 
 def privacy_policy(request):
-    context = {}
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
     return TemplateResponse(request, 'pages/privacy-policy.html', context)
 
 
@@ -180,7 +195,9 @@ def contact(request):
 
 
 def sponsors(request):
-    context = {}
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
     return TemplateResponse(request, 'pages/sponsors.html', context)
 
               
