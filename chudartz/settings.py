@@ -214,17 +214,28 @@ UNFOLD = {
                 "title": _("Navigation"),
                 "items": [
                     {
-                        "title": _("Evenement"),
+                        "title": _("Evenementen"),
                         "icon": "event",
                         "link": "/admin/darts/evenement/",
                     },
 
                     {
-                        "title": _("Deelnemer"),
+                        "title": _("Deelnemers"),
                         "icon": "group",
                         "link": "/admin/darts/participant/",
                     },
                 ],
+            },
+
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Sponsors"),
+                        "icon": "checkbook",
+                        "link": "/admin/darts/sponsor/",
+                    },
+                ]
             },
 
             {
