@@ -1,8 +1,6 @@
-from io import BytesIO
-
+from django.contrib import messages
 from django.contrib import admin
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
@@ -90,13 +88,28 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
 
     list_filter_submit = True
-    actions_detail = ["generate_ticket",]
+    actions_detail = ["generate_ticket", "send_confirmation_mail"]
     
-    @action(description=_("Generate Ticket"))
+    @action(description=_("Genereer Ticket"))
     def generate_ticket(modeladmin, request, object_id: int):
         participant = get_object_or_404(Participant, pk=object_id)
 
         return participant.generate_ticket()
+
+    @action(description=_("Stuur bevestiging mail"))
+    def send_confirmation_mail(modeladmin, request, object_id: int):
+        participant = get_object_or_404(Participant, pk=object_id)
+
+        try:
+            participant.send_mail()
+            messages.success(request, _("Bevestigings mail is verstuurd!"))
+        
+        except Exception as e:
+            messages.error(request, _("Bevestigings mail versturen mislukt. Error: ") + str(e))
+        
+
+        return redirect(reverse('admin:darts_participant_change', args=[participant.pk]))
+
 
 
 

@@ -9,61 +9,6 @@
     }
   }
 
-  .swiper-wrapper {
-    height: auto;
-  }
-
-  .swiper-button-prev,
-  .swiper-button-next {
-    width: 48px;
-    height: 48px;
-  }
-
-  .swiper-button-prev:after,
-  .swiper-button-next:after {
-    color: rgba(255, 255, 255, .8);
-    background-color: rgba(0, 0, 0, .15);
-    font-size: 24px;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-  }
-
-  .swiper-button-prev:hover,
-  .swiper-button-next:hover {
-    &:after {
-      background-color: rgba(0, 0, 0, .3);
-    }
-  }
-
-  @media (max-width: 575px) {
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      display: none;
-    }
-  }
-
-  .swiper-pagination {
-    margin-top: 20px;
-    position: relative;
-
-    .swiper-pagination-bullet {
-      width: 10px;
-      height: 10px;
-      background-color: color-mix(in srgb, var(--default-color), transparent 85%);
-      opacity: 1;
-    }
-
-    .swiper-pagination-bullet-active {
-      background-color: var(--accent-color);
-    }
-  }
-
   .portfolio-info {
     h3 {
       font-size: 22px;

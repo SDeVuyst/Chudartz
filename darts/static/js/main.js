@@ -110,11 +110,6 @@
   });
 
   /**
-   * Initiate Pure Counter
-   */
-  new PureCounter();
-
-  /**
    * Init isotope layout and filters
    */
   document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
@@ -156,24 +151,6 @@
     });
   });
 
-  /**
-   * Init swiper sliders
-   */
-  function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
-      let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
-      );
-
-      if (swiperElement.classList.contains("swiper-tab")) {
-        initSwiperWithCustomPagination(swiperElement, config);
-      } else {
-        new Swiper(swiperElement, config);
-      }
-    });
-  }
-
-  window.addEventListener("load", initSwiper);
 
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
@@ -241,8 +218,11 @@
   }
 
   function normalizePath(path) {
-      // Remove any leading or trailing slashes for consistent comparison
-      return path.replace(/\/+$/, '').replace(/^\//, '');
+    // Remove any leading or trailing slashes for consistent comparison
+    path = path.replace(/\/+$/, '').replace(/^\//, '');
+
+    // Remove the first occurrence of a language code pattern like "/en/" or "/nl/" at the start of the path
+    return path.replace(/^\/[a-zA-Z]{2}\//, '');
   }
 
   function hasFourConsecutiveChars(currentPage, navLinkPath) {

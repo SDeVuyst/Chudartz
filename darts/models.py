@@ -303,15 +303,14 @@ class Participant(models.Model):
     
     def send_mail(self):
         event = self.ticket.event
-        print(event)
         
-        email_body = render_to_string('email/confirmation-email.html', {
+        email_body = render_to_string('email/confirmation-mail.html', {
             'event': event,
             'participant': self,
         })
 
         # Generate tickets PDF
-        tickets_pdf = self.generate_ticket(for_email=True)
+        tickets_pdf = self.generate_ticket()
 
         email = EmailMessage(
             'ChuDartz | Bevestiging',
@@ -325,11 +324,7 @@ class Participant(models.Model):
         # add tickets as attachment
         email.attach(f'ticket.pdf', tickets_pdf.getvalue(), 'application/pdf')
 
-        # TODO deze images
-        helpers.attach_image(email, "logo")
-        helpers.attach_image(email, "facebook")
-        helpers.attach_image(email, "mail")
+        helpers.attach_image(email, "logo-black")
 
         # Send the email
         email.send()
-

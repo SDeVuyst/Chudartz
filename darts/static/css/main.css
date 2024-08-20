@@ -1730,11 +1730,6 @@ section,
   font-size: 32px;
 }
 
-.testimonials .swiper {
-  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05);
-  background-color: var(--surface-color);
-}
-
 .testimonials .testimonials-carousel,
 .testimonials .testimonials-slider {
   overflow: hidden;
@@ -1800,28 +1795,6 @@ section,
 .testimonials .testimonial-item p {
   font-style: italic;
   margin: 15px auto 15px auto;
-}
-
-.testimonials .swiper-wrapper {
-  height: auto;
-}
-
-.testimonials .swiper-pagination {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background-color: color-mix(in srgb, var(--default-color), transparent 85%);
-  opacity: 1;
-  border: none;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: var(--accent-color);
 }
 
 @media (max-width: 767px) {
@@ -2032,58 +2005,6 @@ section,
 --------------------------------------------------------------*/
 .portfolio-details .portfolio-details-slider img {
   width: 100%;
-}
-
-.portfolio-details .swiper-wrapper {
-  height: auto;
-}
-
-.portfolio-details .swiper-button-prev,
-.portfolio-details .swiper-button-next {
-  width: 48px;
-  height: 48px;
-}
-
-.portfolio-details .swiper-button-prev:after,
-.portfolio-details .swiper-button-next:after {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(0, 0, 0, 0.15);
-  font-size: 24px;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
-}
-
-.portfolio-details .swiper-button-prev:hover:after,
-.portfolio-details .swiper-button-next:hover:after {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-@media (max-width: 575px) {
-  .portfolio-details .swiper-button-prev,
-.portfolio-details .swiper-button-next {
-    display: none;
-  }
-}
-
-.portfolio-details .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.portfolio-details .swiper-pagination .swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background-color: color-mix(in srgb, var(--default-color), transparent 85%);
-  opacity: 1;
-}
-
-.portfolio-details .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: var(--accent-color);
 }
 
 .portfolio-details .portfolio-info h3 {

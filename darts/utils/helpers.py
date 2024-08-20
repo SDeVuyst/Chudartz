@@ -29,7 +29,7 @@ def merge_pdfs(pdf_buffers):
 
 
 def attach_image(email, filename):
-    logo_path = finders.find(f'images/{filename}.png')
+    logo_path = finders.find(f'img/{filename}.png')
     with open(logo_path, 'rb') as img_file:
         img = MIMEImage(img_file.read())
         img.add_header('Content-ID', f'<{filename}_image>')
