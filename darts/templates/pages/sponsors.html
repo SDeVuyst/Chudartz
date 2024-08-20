@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+Chudarts | Sponsors
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, nofollow">
+{% endblock %}
+
+{% block body %}
+<body class="sponsors-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% include 'blocks/page-title.html' with name="Sponsors" %}
+
+    <section id="portfolio-details" class="portfolio-details section pt-0"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div data-aos="fade-up">
+
+            <section id="features" class="features section p-0">
+        
+              <div class="container">
+        
+                <div class="row gy-4 align-items-stretch justify-content-between features-item">
+                    <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+                    <img src="{% static "img/school/school-3.jpg" %}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+                    <h3 id="sponsor-a">Sponsor A</h3>
+                    <p>
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem ex neque molestias rerum in dolores, unde quia eos soluta earum totam ipsam, enim tempore est repudiandae ullam reiciendis accusantium iste.
+                    </p>
+                    <a href="#" target="_blank" class="btn btn-get-started align-self-start">Bezoek Website</a>
+                    </div>
+                </div>
+
+                <div class="row gy-4 align-items-stretch justify-content-between features-item">
+                  <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+                  <h3 id="sponsor-b">Sponsor B</h3>
+                  <p> 
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem consectetur explicabo ipsam, magnam nisi placeat blanditiis alias? Earum expedita mollitia totam consequuntur minus at placeat aut odit? Vero, vel iusto.
+                  </p>
+                  <a href="#" target="_blank" class="btn btn-get-started align-self-start">Bezoek Website</a>
+                  </div>
+                  <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+                    <img src="{% static "img/school/school-4.jpg" %}" class="img-fluid" alt="">
+                  </div>
+                </div>
+        
+              </div>
+        
+            </section>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    </main>
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

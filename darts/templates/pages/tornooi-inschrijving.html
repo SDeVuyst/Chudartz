@@ -111,7 +111,28 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                         </select>
                       {% endif %}
                     </div>
-            
+
+                    <div class="col-md-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label text-muted small" for="flexCheckDefault">
+                          Door deel te nemen aan dit evenement, verklaart u zich akkoord met het verwerken van uw persoonsgegevens in overeenstemming met de wet op de privacy. Uw gegevens worden vertrouwelijk behandeld en uitsluitend gebruikt voor doeleinden gerelateerd aan dit evenement.
+                        </label>
+                      </div>
+                    </div>
+                    
+                    {% if tornooi.vereist_voogd_toestemming %}
+                    <div class="col-md-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label text-muted small" for="flexCheckDefault">
+                          Als ouder/voogd, geef ik toestemming aan mijn minderjarige kind om deel te nemen aan de wedstrijd en verklaar mij akkoord met het verwerken van diens persoonsgegevens in overeenstemming met de wet op de privacy. 
+                          Ik weet dat deze gegevens vertrouwelijk zullen worden behandeld en uitsluitend gebruikt zullen worden voor doeleinden gerelateerd aan dit evenement.
+                        </label>
+                      </div>
+                    </div>
+                    {% endif %}
+
                     <!-- Submit Button -->
                     <div class="col-12 text-center">
                         <button type="submit">Inschrijven</button>

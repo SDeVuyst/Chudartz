@@ -89,6 +89,10 @@ a {
   transition: 0.3s;
 }
 
+.form-check-input {
+  border-color: #000;
+}
+
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
   text-decoration: none;
@@ -879,18 +883,18 @@ section,
 /*--------------------------------------------------------------
 # Clients Section
 --------------------------------------------------------------*/
-.clients {
+.sponsors {
   padding: 20px 0;
 }
 
-.clients .client-logo {
+.sponsors .sponsor-logo {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-.clients .client-logo img {
+.sponsors .sponsor-logo img {
   padding: 20px 40px;
   max-width: 90%;
   transition: 0.3s;
@@ -898,13 +902,13 @@ section,
   filter: grayscale(100);
 }
 
-.clients .client-logo img:hover {
+.sponsors .sponsor-logo img:hover {
   filter: none;
   opacity: 1;
 }
 
 @media (max-width: 640px) {
-  .clients .client-logo img {
+  .sponsors .sponsor-logo img {
     padding: 20px;
   }
 }

@@ -17,6 +17,7 @@ urlpatterns = [
     path(_('terms-of-service'), views.terms_of_service, name="terms_of_service"),
     path(_('privacy-policy'), views.privacy_policy, name="privacy_policy"),
     path(_('contact'), views.contact, name='contact'),
+    path(_('sponsors'), views.sponsors, name='sponsors'),
 
     path(_('darts/scanner/'), views.scanner),
     path(_('mollie-webhook/'), views.mollie_webhook),

@@ -20,6 +20,10 @@ a {
   transition: 0.3s;
 }
 
+.form-check-input {
+  border-color: #000;
+}
+
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
   text-decoration: none;

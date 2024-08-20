@@ -212,7 +212,7 @@
         }
     });
 
-    if (!hasLinkSet) {
+    if (!(hasLinkSet)) {
         navmenulinks[0].classList.add('active');
     }
   }

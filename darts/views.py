@@ -34,9 +34,9 @@ def inschrijven_dartschool(request):
 
 def tornooien(request):
     evenementen = Evenement.objects.all()
-    paginator = Paginator(evenementen, 1)
+    paginator = Paginator(evenementen, 6)
 
-    page_number = request.GET.get("page", 6)
+    page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
     context = {
@@ -177,7 +177,12 @@ def contact(request):
         return JsonResponse({'success': False, 'error': 'Invalid header found.'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
-            
+
+
+def sponsors(request):
+    context = {}
+    return TemplateResponse(request, 'pages/sponsors.html', context)
+
               
 @staff_member_required
 def scanner(request):

@@ -21,7 +21,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
 {% endblock %}
 
 {% block body %}
-<body class="services-details-page">
+<body class="dartschool-inschrijven-page">
 
   {% include 'blocks/header-sticky.html' %}
 
@@ -82,6 +82,15 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                     <!-- Stad -->
                     <div class="col-md-6">
                         <input type="text" name="stad" class="form-control" placeholder="Stad" maxlength="40" required>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label text-muted small" for="flexCheckDefault">
+                          je gaat akkoord met de huisregels etc. TODO
+                        </label>
+                      </div>
                     </div>
             
                     <!-- Submit Button -->
