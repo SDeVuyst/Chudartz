@@ -26,7 +26,7 @@
         {% endif %}
     </div>
 
-    {% if inschrijven %}
+    {% if tornooi.enable_inschrijvingen %}
     <!-- Inschrijven knop -->
     {% if tornooi.is_in_future and not tornooi.is_sold_out %}
         <a href="{% url 'inschrijven_tornooi' slug=tornooi.slug %}" class="btn btn-get-started align-self-start">Schrijf je in</a>

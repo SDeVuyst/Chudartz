@@ -23,21 +23,23 @@
           {% endif %}
         </p>
         
-        <p class="post-date">
+        
+          {% if not tornooi.enable_inschrijvingen %}
+            <p class="post-date"><i class="bi bi-x-circle"></i><span> Inschrijvingen Gesloten</span></p>
+          {% endif %}
+
           {% if tornooi.is_sold_out %}
-            <i class="bi bi-exclamation-circle"></i><span> Uitverkocht!</span>
+            <p class="post-date"><i class="bi bi-exclamation-circle"></i><span> Uitverkocht</span></p>
           {% endif %}
-          {% if tornooi.is_sold_out and not tornooi.is_in_future %}
-            <i class="bi bi-dot"></i>
-          {% endif %}
+
           {% if not tornooi.is_in_future %}
             {% if tornooi.is_bezig %}
-            <i class="bi bi-hourglass-split"></i><span> Bezig</span>
+            <p class="post-date"><i class="bi bi-hourglass-split"></i><span> Bezig</span></p>
             {% else %}
-            <i class="bi bi-clock-history"></i><span> Afgelopen</span>
+            <p class="post-date"><i class="bi bi-clock-history"></i><span> Afgelopen</span></p>
             {% endif %}
           {% endif %}
-        </p>
+        
         
       </div>
     </div>
