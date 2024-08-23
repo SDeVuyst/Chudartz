@@ -1,0 +1,162 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+Chudarts | Teambuilding & Workshops
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<!-- TODO -->
+<meta property="og:title" content="ChuDartz | Teambuilding & Workshops">
+<meta property="og:description" content="TODO">
+<meta property="og:image" content="https://www.example.com/images/og-image.jpg">
+<meta property="og:url" content="https://www.example.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChuDartz | Dartschool">
+<meta name="twitter:description" content="TODO">
+<meta name="twitter:image" content="https://www.example.com/images/twitter-image.jpg">
+{% endblock %}
+
+{% block body %}
+<body class="dartschool-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% include 'blocks/page-title.html' with name="Teambuilding & Workshops" description="Bij ChuDartz weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen." backgroundsecond="true" %}
+
+    <section id="portfolio-details" class="portfolio-details section pt-0"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div data-aos="fade-up">
+
+            <section id="features" class="features section p-0">
+        
+              <div class="container">
+        
+                <div class="row gy-4 align-items-center features-item">
+                    <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Teambuilding</h3>
+                    <p>
+                        Een dag vol spannende dartscompetities, uitdagende teamspellen en een overvloed aan plezier en camaraderie. Of je nu een doorgewinterde darter bent of net begint, deze teambuilding is ontworpen om onze band te versterken en onze gezamenlijke vaardigheden te verbeteren.
+                    </p>
+                    <ul>
+                        <li><i class="bi bi-check"></i><span>Versterk je Team</span></li>
+                        <li><i class="bi bi-check"></i><span>Verbeter je Spel</span></li>
+                        <li><i class="bi bi-check"></i><span>Plezer & Ontspaning</span></li>
+                        <li><i class="bi bi-check"></i><span>Onvergetelijke Ervaring</span></li>
+                    </ul>
+                    <a href="{% url 'index' %}#contact" class="btn btn-get-started">Contacteer Ons</a>
+                    </div>
+                    <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+                    <div class="image-stack">
+                        <img src="{% static "img/school/school-1.jpg" %}" alt="" class="stack-front">
+                        <img src="{% static "img/school/school-2.jpg" %}" alt="" class="stack-back">
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Section -->
+                <section id="pricing" class="pricing section">
+            
+                    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+            
+                    <div class="row g-4 pt-5">
+            
+                        <div class="col-lg-4">
+                        <div class="pricing-item">
+                            <h3>Plan Bullseye</h3>
+                            <div class="icon">
+                            <i class="bi bi-box"></i>
+                            </div>
+                            <h4><sup>€</sup>100</h4>
+                            <ul>
+                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                            <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                            <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
+                            <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                            </ul>
+                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">Contacteer Ons</a></div>
+                        </div>
+                        </div><!-- End Pricing Item -->
+            
+                        <div class="col-lg-4">
+                        <div class="pricing-item featured">
+                            <h3>Plan Double-Trouble</h3>
+                            <div class="icon">
+                            <i class="bi bi-rocket"></i>
+                            </div>
+            
+                            <h4><sup>€</sup>29</h4>
+                            <ul>
+                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                            <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                            <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
+                            <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                            </ul>
+                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">Contacteer Ons</a></div>
+                        </div>
+                        </div><!-- End Pricing Item -->
+            
+                        <div class="col-lg-4">
+                        <div class="pricing-item">
+                            <h3>Plan Easy In, Easy Out</h3>
+                            <div class="icon">
+                            <i class="bi bi-send"></i>
+                            </div>
+                            <h4><sup>€</sup>49</h4>
+                            <ul>
+                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                            <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                            <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
+                            <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                            </ul>
+                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">Contacteer Ons</a></div>
+                        </div>
+                        </div><!-- End Pricing Item -->
+            
+                    </div>
+            
+                    </div>
+            
+                </section><!-- /Pricing Section -->
+        
+                <div class="row gy-4 align-items-stretch justify-content-between features-item ">
+                    <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+                    <img src="{% static "img/school/school-3.jpg" %}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+                    <h3>Workshops</h3>
+                    <p>
+                      Coming soon!
+                    </p>
+                    <!-- <a href="{% url 'index' %}"#contact class="btn btn-get-started align-self-start btn-disabled">Contacteer Ons</a> -->
+                    </div>
+                </div>
+
+        
+              </div>
+        
+            </section>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    </main>
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

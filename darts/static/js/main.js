@@ -191,7 +191,7 @@
         currentPage = normalizePath(currentPage);
 
         // Check if current page matches the nav link
-        if (hasFourConsecutiveChars(currentPage, navLinkPath)) {
+        if (hasFiveConsecutiveChars(currentPage, navLinkPath)) {
             document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
             navmenulink.classList.add('active');
             hasLinkSet = true;
@@ -212,8 +212,10 @@
         }
     });
 
-    if (!(hasLinkSet)) {
+    if ((!hasLinkSet) && currentPage.length < 3) {
         navmenulinks[0].classList.add('active');
+    } else if (!hasLinkSet) {
+      document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
     }
   }
 
@@ -225,9 +227,9 @@
     return path.replace(/^\/[a-zA-Z]{2}\//, '');
   }
 
-  function hasFourConsecutiveChars(currentPage, navLinkPath) {
-      for (let i = 0; i <= navLinkPath.length - 4; i++) {
-          let substring = navLinkPath.substring(i, i + 4);
+  function hasFiveConsecutiveChars(currentPage, navLinkPath) {
+      for (let i = 0; i <= navLinkPath.length - 5; i++) {
+          let substring = navLinkPath.substring(i, i + 5);
           if (currentPage.includes(substring)) {
               return true;
           }

@@ -13,6 +13,7 @@ urlpatterns = [
     path(_('tornooien/<slug:slug>/inschrijven'), views.inschrijven_tornooi, name='inschrijven_tornooi'),
     path(_('tornooien/<slug:slug>/inschrijven/success'), views.inschrijven_tornooi_success, name='inschrijven_tornooi_success'),
 
+    path(_('teambuildings-en-workshops'), views.teambuildings_en_workshops, name="teambuildings_en_workshops"),
     path(_('over-ons'), views.over_ons, name="over_ons"),
     path(_('terms-of-service'), views.terms_of_service, name="terms_of_service"),
     path(_('privacy-policy'), views.privacy_policy, name="privacy_policy"),

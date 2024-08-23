@@ -142,6 +142,13 @@ def inschrijven_tornooi_success(request, slug):
     return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
 
 
+def teambuildings_en_workshops(request):
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/teambuildings-en-workshops.html', context)
+
+
 def over_ons(request):
     context = {
         'sponsors': Sponsor.objects.all()
