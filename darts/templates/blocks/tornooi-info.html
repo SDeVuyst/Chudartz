@@ -1,0 +1,27 @@
+{% load i18n %}
+
+{% if not tornooi.enable_inschrijvingen or not tornooi.is_in_future or tornooi.is_sold_out %}
+<div class="service-box">
+    <h4>Belangrijk!</h4>
+    <div class="services-list">
+
+        {% if not tornooi.enable_inschrijvingen %}
+            <p><i class="bi bi-x-circle"></i><span> Inschrijvingen Gesloten</span></p>
+        {% endif %}
+
+        {% if tornooi.is_sold_out %}
+            <p class="post-date"><i class="bi bi-exclamation-circle"></i><span> Uitverkocht</span></p>
+        {% endif %}
+        
+        {% if not tornooi.is_in_future %}
+            {% if tornooi.is_bezig %}
+                <p class="post-date"><i class="bi bi-hourglass-split"></i><span> Bezig</span></p>
+            {% else %}
+                <p class="post-date"><i class="bi bi-clock-history"></i><span> Afgelopen</span></p>
+            {% endif %}
+        {% endif %}
+
+    </div>
+    
+</div>
+{% endif %}

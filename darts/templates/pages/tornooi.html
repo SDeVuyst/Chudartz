@@ -35,6 +35,8 @@ Chudarts | {{ tornooi.titel}}
         <div class="row gy-5">
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+
+            {% include 'blocks/tornooi-info.html' with tornooi=tornooi %}
             
             {% include 'blocks/tijd-en-locatie.html' with tornooi=tornooi %}
 
