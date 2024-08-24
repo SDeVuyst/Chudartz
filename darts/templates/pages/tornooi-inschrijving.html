@@ -10,12 +10,12 @@ Chudarts | {{ tornooi.titel}} Inschrijven
 {% block meta %}
 <meta name="robots" content="noindex, nofollow">
 <!-- TODO -->
-<meta property="og:title" content="ChuDartz | {{ tornooi.titel }}">
+<meta property="og:title" content="ChudartZ | {{ tornooi.titel }}">
 <meta property="og:description" content="TODO">
 <meta property="og:image" content="https://www.example.com/images/og-image.jpg">
 <meta property="og:url" content="https://www.example.com">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ChuDartz | {{ tornooi.titel }}">
+<meta name="twitter:title" content="ChudartZ | {{ tornooi.titel }}">
 <meta name="twitter:description" content="TODO">
 <meta name="twitter:image" content="https://www.example.com/images/twitter-image.jpg">
 {% endblock %}
@@ -116,7 +116,16 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          Door deel te nemen aan dit evenement, verklaart u zich akkoord met het verwerken van uw persoonsgegevens in overeenstemming met de wet op de privacy. Uw gegevens worden vertrouwelijk behandeld en uitsluitend gebruikt voor doeleinden gerelateerd aan dit evenement.
+                          Ik ga akkoord met de <a href="{% url 'algemene_voorwaarden' %}">Algemene voorwaarden</a> van ChudartZ.
+                        </label>
+                      </div>  
+                    </div>
+                    
+                    <div class="col-md-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label text-muted small" for="flexCheckDefault">
+                          Ik ga akkoord met het <a href="{% url 'reglement_tornooien' %}">Algemeen reglement</a> voor darttornooien.
                         </label>
                       </div>  
                     </div>
@@ -132,6 +141,15 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                       </div>
                     </div>
                     {% endif %}
+
+                    <div class="col-md-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label text-muted small" for="flexCheckDefault">
+                          Ik ga akkoord met de <a href="{% url 'disclaimer' %}">Disclaimer</a> van ChudartZ.
+                        </label>
+                      </div>  
+                    </div>
 
                     <!-- Submit Button -->
                     <div class="col-12 text-center">

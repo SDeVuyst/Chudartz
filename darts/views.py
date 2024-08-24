@@ -156,6 +156,27 @@ def over_ons(request):
     return TemplateResponse(request, 'pages/about.html', context)
 
 
+def algemene_voorwaarden(request):
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/algemene-voorwaarden.html', context)
+
+
+def reglement_tornooien(request):
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/algemeen-reglement.html', context)
+
+
+def disclaimer(request):
+    context = {
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/disclaimer.html', context)
+
+
 def terms_of_service(request):
     context = {
         'sponsors': Sponsor.objects.all()
@@ -189,7 +210,7 @@ def contact(request):
         send_mail(
             f'Contact Form - {subject}',
             f'Name: {name}\nEmail: {email}\nMessage: {message}',
-            formataddr(('Contact | ChuDartz', settings.EMAIL_HOST_USER)),
+            formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
                 ['silasdevuyst@hotmail.com'], # TODO wie krijgt bericht?
                 fail_silently=False,
         )

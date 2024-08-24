@@ -15,8 +15,9 @@ urlpatterns = [
 
     path(_('teambuildings-en-workshops'), views.teambuildings_en_workshops, name="teambuildings_en_workshops"),
     path(_('over-ons'), views.over_ons, name="over_ons"),
-    path(_('terms-of-service'), views.terms_of_service, name="terms_of_service"),
-    path(_('privacy-policy'), views.privacy_policy, name="privacy_policy"),
+    path(_('algemene-voorwaarden'), views.algemene_voorwaarden, name="algemene_voorwaarden"),
+    path(_('reglement-tornooien'), views.reglement_tornooien, name="reglement_tornooien"),
+    path(_('disclaimer'), views.disclaimer, name="disclaimer"),
     path(_('contact'), views.contact, name='contact'),
     path(_('sponsors'), views.sponsors, name='sponsors'),
 

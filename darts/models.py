@@ -30,6 +30,7 @@ from .templatetags import dutch_date
 from .utils import helpers
 
 
+#TODO wachtlijst
 class Evenement(models.Model):
 
     def __str__(self) -> str:
@@ -315,7 +316,7 @@ class Participant(models.Model):
         tickets_pdf = self.generate_ticket()
 
         email = EmailMessage(
-            'ChuDartz | Bevestiging',
+            'ChudartZ | Bevestiging',
             email_body,
             formataddr(('Tornooien | Chudartz', settings.EMAIL_HOST_USER)),
             [self.email],
