@@ -28,8 +28,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1'] # todo
-# CSRF_TRUSTED_ORIGINS = ['https://vanakaam.be', 'https://www.vanakaam.be'] # todo
+ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'chudartz.com']
+CSRF_TRUSTED_ORIGINS = ['https://chudartz.com', 'https://www.chudartz.com']
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DBBACKUP_STORAGE_OPTIONS = {
