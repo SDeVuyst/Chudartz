@@ -149,3 +149,12 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('id',)
 
     search_fields = ('naam', 'info', )
+
+
+@admin.register(Leerling)
+class LeerlingAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('voornaam', 'achternaam', 'resterende_beurten', 'code')
+    readonly_fields=('code',)
+    ordering = ('voornaam', 'achternaam')
+
+    search_fields = ('voornaam', 'achternaam', 'extra_info')

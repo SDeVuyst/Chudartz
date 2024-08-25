@@ -237,8 +237,14 @@ UNFOLD = {
                 "items": [
                     {
                         "title": _("Dartschool"),
-                        "icon": "event",
+                        "icon": "school",
                         "link": "https://app.cal.com/bookings/upcoming",
+                    },
+
+                    {
+                        "title": _("Leerlingen"),
+                        "icon": "patient_list",
+                        "link": "/admin/darts/leerling/",
                     },
                 ]
             },

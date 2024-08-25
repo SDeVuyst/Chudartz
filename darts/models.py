@@ -1,3 +1,4 @@
+import random
 import secrets
 import string
 from email.utils import formataddr
@@ -344,3 +345,30 @@ class Sponsor(models.Model):
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="sponsor")
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+
+class Leerling(models.Model):
+    voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
+    achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
+    email = models.EmailField(verbose_name=_("Email"), max_length=254)
+    extra_info = RichTextField(verbose_name=_("Extra Info"), blank=True, null=True)
+
+    resterende_beurten = models.PositiveSmallIntegerField(verbose_name=_("Resterende Beuren"), default=5)
+
+    code = models.CharField(max_length=6, verbose_name=_("Code"), unique=True)
+
+    history = HistoricalRecords(verbose_name=_("History"))
+
+    def generate_unique_code(self):
+        while True:
+            # Generate a random 6-digit code
+            code = f'{random.randint(100000, 999999)}'
+            # Check if the code is unique
+            if not Leerling.objects.filter(code=code).exists():
+                return code
+
+    def save(self, *args, **kwargs):
+        # Set code if it's not already set (e.g., on creation)
+        if not self.code:
+            self.code = self.generate_unique_code()
+        super().save(*args, **kwargs)
