@@ -2007,7 +2007,7 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .email-form button[type="submit"], .contact .register-form button[type="submit"], .register .email-form button[type="submit"], .register .register-form button[type="submit"] {
+.contact .email-form button, .contact .register-form button, .register .email-form button, .register .register-form button {
   background: var(--accent-color);
   color: var(--contrast-color);
   border: 0;
@@ -2016,7 +2016,7 @@ section,
   border-radius: 4px;
 }
 
-.contact .email-form button[type="submit"]:hover, .contact .register-form button[type="submit"]:hover, .register .email-form button[type="submit"]:hover, .register .register-form button[type="submit"]:hover {
+.contact .email-form button:hover, .contact .register-form button:hover, .register .email-form button:hover, .register .register-form button:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 

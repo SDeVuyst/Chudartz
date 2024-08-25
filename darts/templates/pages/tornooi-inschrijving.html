@@ -13,7 +13,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
 <meta property="og:title" content="ChudartZ | {{ tornooi.titel }}">
 <meta property="og:description" content="TODO">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
-<meta property="og:url" content="https://www.example.com">
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ChudartZ | {{ tornooi.titel }}">
 <meta name="twitter:description" content="TODO">
@@ -41,7 +41,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            {% include 'blocks/tijd-en-locatie.html' with tornooi=tornooi %}
+            {% include 'blocks/tijd-en-locatie.html' with tornooi=tornooi disable_inschrijvingen_knop="true" %}
 
             {% include 'blocks/vereisten.html' with vereisten=tornooi.vereisten_lijst %}
 
@@ -129,7 +129,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% trans 'Ik ga akkoord met het' %} <a href="{% url 'reglement_tornooien' %}">{% trans 'Algemeen reglement' %}</a>{% trans 'voor darttornooien. '%}
+                          {% trans 'Ik ga akkoord met het' %} <a href="{% url 'reglement_tornooien' %}">{% trans 'Algemeen reglement' %}</a> {% trans 'voor darttornooien. '%}
                         </label>
                       </div>  
                     </div>

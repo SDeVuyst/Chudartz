@@ -26,6 +26,7 @@
         {% endif %}
     </div>
 
+    {% if not disable_inschrijvingen_knop %}
     {% if tornooi.enable_inschrijvingen %}
     <!-- Inschrijven knop -->
     {% if tornooi.is_in_future and not tornooi.is_sold_out %}
@@ -38,6 +39,7 @@
         {% endif %}
     {% endif %}
 
+    {% endif %}
     {% endif %}
     
 </div>

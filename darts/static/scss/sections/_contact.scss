@@ -65,7 +65,7 @@
       color: color-mix(in srgb, var(--default-color), transparent 70%);
     }
 
-    button[type="submit"] {
+    button {
       background: var(--accent-color);
       color: var(--contrast-color);
       border: 0;

@@ -211,11 +211,10 @@ UNFOLD = {
         "show_all_applications": True,
         "navigation": [
             {
-                "title": _("Navigation"),
                 "items": [
                     {
-                        "title": _("Evenementen"),
-                        "icon": "event",
+                        "title": _("Tornooien"),
+                        "icon": "trophy",
                         "link": "/admin/darts/evenement/",
                     },
 
@@ -224,7 +223,24 @@ UNFOLD = {
                         "icon": "group",
                         "link": "/admin/darts/participant/",
                     },
+
+                    {
+                        "title": _("Scanner"),
+                        "icon": "qr_code_scanner",
+                        "link": "/darts/scanner/",
+                    },
                 ],
+            },
+
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Dartschool"),
+                        "icon": "event",
+                        "link": "https://app.cal.com/bookings/upcoming",
+                    },
+                ]
             },
 
             {
@@ -238,16 +254,6 @@ UNFOLD = {
                 ]
             },
 
-            {
-                "separator": True,
-                "items": [
-                    {
-                        "title": _("Scanner"),
-                        "icon": "qr_code_scanner",
-                        "link": "/darts/scanner/",
-                    },
-                ]
-            }
         ],
     },
 }
