@@ -27,7 +27,13 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-      <img src="{% static "img/hero-bg.jpg" %}" alt="" data-aos="fade-in">
+      <!-- Image background in case the video is not supported -->
+      <img src="{% static "img/school/school-3.jpg" %}" alt="" data-aos="fade-in">
+
+      <!-- Video background -->
+      <video autoplay muted loop playsinline class="video-background">
+        <source src="{% static 'video/hero-bg.mp4' %}" type="video/mp4">
+      </video>
 
       <div class="container">
         <div class="row">
@@ -147,7 +153,7 @@
     <!-- Call To Action Section -->
     <section id="call-to-action" class="call-to-action section dark-background">
 
-      <img src="{% static "img/cta-bg.jpg" %}" alt="">
+      <img src="{% static "img/school/school-3.jpg" %}" alt="">
 
       <div class="container">
         <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
@@ -337,26 +343,24 @@
 
               <div class="col-md-6">
                 <div class="info-item" data-aos="fade" data-aos-delay="300">
-                  <i class="bi bi-telephone"></i>
-                  <h3>{% trans 'Bel ons' %}</h3>
-                  <p>+1 5589 55488 55</p>
-                  <p>+1 6678 254445 41</p>
+                  <a href="tel:+32471237769"><i class="bi bi-telephone"></i></a>
+                  <h3>{% trans 'Bel/Whatsapp ons' %}</h3>
+                  <p><a href="tel:+32471237769">+32471/23/77/69</a></p>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="info-item" data-aos="fade" data-aos-delay="200">
-                  <i class="bi bi-envelope"></i>
+                  <a href="mailto:chudartz@gmail.com"><i class="bi bi-envelope"></i></a>
                   <h3>{% trans 'Email ons' %}</h3>
-                  <p>info@example.com</p>
-                  <p>contact@example.com</p>
+                  <p><a href="mailto:chudartz@gmail.com">chudartz@gamil.com</a></p>
                 </div>
               </div>
 
               <div class="col-md-12">
                 <div class="info-item" data-aos="fade" data-aos-delay="200">
                   <div id="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2503.708431907577!2d3.1689395764941453!3d51.13228593803756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c34e1c6c98cbb9%3A0x7b40593768943baf!2sWilgenlaan%2035%2C%208210%20Zedelgem!5e0!3m2!1snl!2sbe!4v1724578559432!5m2!1snl!2sbe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2503.708431907577!2d3.1689395764941453!3d51.13228593803756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c34e1c6c98cbb9%3A0x7b40593768943baf!2sWilgenlaan%2035%2C%208210%20Zedelgem!5e0!3m2!1snl!2sbe!4v1724578559432!5m2!1snl!2sbe" width="100%" height="295" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                   </div>
                 </div>
               </div>
