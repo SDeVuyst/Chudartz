@@ -1895,8 +1895,11 @@ section,
   margin-bottom: 0;
 }
 
-.contact .email-form, .contact .register-form, .register .email-form, .register .register-form {
+.contact .register-form, .register .register-form {
   background: color-mix(in srgb, var(--default-color), transparent 96%);
+}
+
+.contact .email-form, .contact .register-form, .register .email-form, .register .register-form {
   padding: 30px;
   height: 100%;
 }

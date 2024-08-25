@@ -207,13 +207,24 @@ def contact(request):
     message = form.cleaned_data['message']
 
     try:
+        # Send mail to admins
         send_mail(
             f'Contact Form - {subject}',
             f'Name: {name}\nEmail: {email}\nMessage: {message}',
             formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
-                ['silasdevuyst@hotmail.com'], # TODO wie krijgt bericht?
-                fail_silently=False,
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
         )
+
+        # Send confirmation mail to user
+        send_mail(
+            'Chudartz | Bericht Ontvangen',
+            "Beste\n\nBedankt voor het invullen van het contactformulier. Wij hebben uw bericht in goede orde ontvangen en zullen zo snel mogelijk contact met u opnemen.\n\nMet vriendelijke groeten\n\nTeam ChudartZ",
+            formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
+            [email],
+            fail_silently=False
+        )
+
         return JsonResponse({'success': True})
     
     except BadHeaderError:

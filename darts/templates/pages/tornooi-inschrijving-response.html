@@ -21,17 +21,17 @@ Chudarts | {{ tornooi.titel}}
                 
                 {% if success %}
 
-                    <h1>Ingeschreven!</h1>
-                    <p>Uw toegangsticket komt binnenkort aan in uw mailbox!</p>
+                    <h1>{% trans 'Ingeschreven!' %}</h1>
+                    <p>{% trans 'Uw toegangsticket komt binnenkort aan in uw mailbox!' %}</p>
 
                 {% else %}
 
-                    <h1>Er is iets misgegaan.</h1>
-                    <p>Gelieve contact op te nemen via <a href="{% url 'index' %}#contact">dit formulier.</a></p>
+                    <h1>{% trans 'Er is iets misgegaan.' %}</h1>
+                    <p>{% trans 'Gelieve contact op te nemen via <a href="{% url 'index' %}#contact">dit formulier.</a>' %}</p>
                     
                 {% endif %}
                 
-                <a href="{{ tornooi.get_absolute_url }}" class="btn btn-back align-self-start mt-4">Ga terug naar tornooi</a>         
+                <a href="{{ tornooi.get_absolute_url }}" class="btn btn-back align-self-start mt-4">{% trans 'Ga terug naar tornooi' %}</a>         
             </div>
         </div>
         

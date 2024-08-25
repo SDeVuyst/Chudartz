@@ -25,8 +25,10 @@ Chudarts | Teambuilding & Workshops
   {% include 'blocks/header-sticky.html' %}
 
   <main class="main">
+    {% trans "Teambuilding & Workshops" as page_name %}
+    {% trans "Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen." as page_description %}
 
-    {% include 'blocks/page-title.html' with name="Teambuilding & Workshops" description="Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen." backgroundsecond="true" %}
+    {% include 'blocks/page-title.html' with name=page_name description=page_description backgroundsecond="true" %}
 
     <section id="portfolio-details" class="portfolio-details section pt-0"> 
 
@@ -42,17 +44,19 @@ Chudarts | Teambuilding & Workshops
         
                 <div class="row gy-4 align-items-center features-item">
                     <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Teambuilding</h3>
+                    <h3>{% trans 'Teambuilding' %}</h3>
                     <p>
-                        Een dag vol spannende dartscompetities, uitdagende teamspellen en een overvloed aan plezier en camaraderie. Of je nu een doorgewinterde darter bent of net begint, deze teambuilding is ontworpen om onze band te versterken en onze gezamenlijke vaardigheden te verbeteren.
+                    {% blocktrans %}
+                      Een dag vol spannende dartscompetities, uitdagende teamspellen en een overvloed aan plezier en camaraderie. Of je nu een doorgewinterde darter bent of net begint, deze teambuilding is ontworpen om onze band te versterken en onze gezamenlijke vaardigheden te verbeteren.
+                    {% endblocktrans %}
                     </p>
                     <ul>
-                        <li><i class="bi bi-check"></i><span>Versterk je Team</span></li>
-                        <li><i class="bi bi-check"></i><span>Verbeter je Spel</span></li>
-                        <li><i class="bi bi-check"></i><span>Plezer & Ontspaning</span></li>
-                        <li><i class="bi bi-check"></i><span>Onvergetelijke Ervaring</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Versterk je Team' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Verbeter je Spel' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Plezer & Ontspaning' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Onvergetelijke Ervaring' %}</span></li>
                     </ul>
-                    <a href="{% url 'index' %}#contact" class="btn btn-get-started">Contacteer Ons</a>
+                    <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Contacteer Ons' %}</a>
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
                     <div class="image-stack">
@@ -71,56 +75,56 @@ Chudarts | Teambuilding & Workshops
             
                         <div class="col-lg-4">
                         <div class="pricing-item">
-                            <h3>Plan Bullseye</h3>
+                            <h3>{% trans 'Plan Bullseye' %}</h3>
                             <div class="icon">
                             <i class="bi bi-box"></i>
                             </div>
                             <h4><sup>€</sup>100</h4>
                             <ul>
-                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                            <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-                            <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Quam adipiscing vitae proin' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Nec feugiat nisl pretium' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Nulla at volutpat diam uteera' %}</span></li>
+                            <li class="na"><i class="bi bi-x"></i> <span>{% trans 'Pharetra massa massa ultricies' %}</span></li>
+                            <li class="na"><i class="bi bi-x"></i> <span>{% trans 'Massa ultricies mi quis hendrerit' %}</span></li>
                             </ul>
-                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">Contacteer Ons</a></div>
+                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
                         </div>
                         </div><!-- End Pricing Item -->
             
                         <div class="col-lg-4">
                         <div class="pricing-item featured">
-                            <h3>Plan Double-Trouble</h3>
+                            <h3>{% trans 'Plan Double-Trouble' %}</h3>
                             <div class="icon">
                             <i class="bi bi-rocket"></i>
                             </div>
             
                             <h4><sup>€</sup>29</h4>
                             <ul>
-                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                            <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                            <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Quam adipiscing vitae proin' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Nec feugiat nisl pretium' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Nulla at volutpat diam uteera' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Pharetra massa massa ultricies' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Massa ultricies mi quis hendrerit' %}</span></li>
                             </ul>
-                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">Contacteer Ons</a></div>
+                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
                         </div>
                         </div><!-- End Pricing Item -->
             
                         <div class="col-lg-4">
                         <div class="pricing-item">
-                            <h3>Plan Easy In, Easy Out</h3>
+                            <h3>{% trans 'Plan Easy In, Easy Out' %}</h3>
                             <div class="icon">
                             <i class="bi bi-send"></i>
                             </div>
                             <h4><sup>€</sup>49</h4>
                             <ul>
-                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                            <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                            <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Quam adipiscing vitae proin' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Nec feugiat nisl pretium' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Nulla at volutpat diam uteera' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Pharetra massa massa ultricies' %}</span></li>
+                            <li><i class="bi bi-check"></i> <span>{% trans 'Massa ultricies mi quis hendrerit' %}</span></li>
                             </ul>
-                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">Contacteer Ons</a></div>
+                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
                         </div>
                         </div><!-- End Pricing Item -->
             
@@ -135,9 +139,9 @@ Chudarts | Teambuilding & Workshops
                     <img src="{% static "img/school/school-3.jpg" %}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
-                    <h3>Workshops</h3>
+                    <h3>{% trans 'Workshops' %}</h3>
                     <p>
-                      Coming soon!
+                      {% trans 'Binnenkort!' %}
                     </p>
                     <!-- <a href="{% url 'index' %}"#contact class="btn btn-get-started align-self-start btn-disabled">Contacteer Ons</a> -->
                     </div>

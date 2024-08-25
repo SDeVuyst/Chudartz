@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Create FormData object from the form
       const formData = new FormData(form);
 
-      fetch('/contact', {
+      fetch(form.action, {
           method: 'POST',
           body: formData,
           headers: {

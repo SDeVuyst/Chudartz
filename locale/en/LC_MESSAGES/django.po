@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-19 16:57+0200\n"
-"PO-Revision-Date: 2024-08-19 16:59+0200\n"
+"POT-Creation-Date: 2024-08-25 13:15+0200\n"
+"PO-Revision-Date: 2024-08-25 13:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -21,275 +21,2095 @@ msgstr ""
 
 #: .\chudartz\settings.py:214
 msgid "Navigation"
-msgstr ""
+msgstr "Navigation"
 
-#: .\chudartz\settings.py:217 .\darts\models.py:109
-msgid "Evenement"
-msgstr ""
+#: .\chudartz\settings.py:217
+msgid "Evenementen"
+msgstr "Events"
 
 #: .\chudartz\settings.py:223
-msgid "Deelnemer"
-msgstr ""
+msgid "Deelnemers"
+msgstr "Participants"
 
-#: .\chudartz\settings.py:234
+#: .\chudartz\settings.py:234 .\darts\templates\blocks\footer.html:23
+#: .\darts\templates\pages\sponsors.html:20
+msgid "Sponsors"
+msgstr "Sponsors"
+
+#: .\chudartz\settings.py:245
 msgid "Scanner"
-msgstr ""
+msgstr "Scanner"
 
-#: .\darts\admin.py:19
+#: .\darts\admin.py:17
 msgid "Evenement Ticket"
-msgstr ""
+msgstr "Event Ticket"
 
-#: .\darts\admin.py:20
+#: .\darts\admin.py:18
 msgid "Evenement Tickets"
-msgstr ""
+msgstr "Event Tickets"
 
-#: .\darts\admin.py:39
+#: .\darts\admin.py:37
 msgid "Uitverkocht"
-msgstr ""
+msgstr "Exhausted"
 
-#: .\darts\admin.py:46 .\darts\admin.py:143
+#: .\darts\admin.py:44 .\darts\admin.py:142
 msgid "Sold out!"
-msgstr ""
+msgstr "Sold out!"
 
-#: .\darts\admin.py:46 .\darts\admin.py:143
+#: .\darts\admin.py:44 .\darts\admin.py:142
 msgid "Available"
-msgstr ""
+msgstr "Available"
 
-#: .\darts\admin.py:59
+#: .\darts\admin.py:57
 msgid "Payment Status"
-msgstr ""
+msgstr "Payment Status"
 
-#: .\darts\admin.py:75 .\darts\models.py:205
+#: .\darts\admin.py:73 .\darts\models.py:208
 msgid "Attended"
-msgstr ""
+msgstr "Attended"
 
-#: .\darts\admin.py:82
+#: .\darts\admin.py:80
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
-#: .\darts\admin.py:82
+#: .\darts\admin.py:80
 msgid "No"
-msgstr ""
+msgstr "No"
 
-#: .\darts\admin.py:95
-msgid "Generate QR-code"
-msgstr ""
+#: .\darts\admin.py:93
+msgid "Genereer Ticket"
+msgstr "Generate Ticket"
 
-#: .\darts\admin.py:109 .\darts\admin.py:121
+#: .\darts\admin.py:99
+msgid "Stuur bevestiging mail"
+msgstr "Send confirmation email"
+
+#: .\darts\admin.py:105
+msgid "Bevestigings mail is verstuurd!"
+msgstr "Confirmation email has been sent!"
+
+#: .\darts\admin.py:108
+msgid "Bevestigings mail versturen mislukt. Error: "
+msgstr "Confirmation email sent failed. Error: "
+
+#: .\darts\admin.py:120
 msgid "Generate Ticket"
-msgstr ""
+msgstr "Generate Ticket"
 
-#: .\darts\admin.py:136
+#: .\darts\admin.py:135
 msgid "Sold out"
-msgstr ""
-
-#: .\darts\models.py:41
-msgid "Titel"
-msgstr ""
+msgstr "Sold out"
 
 #: .\darts\models.py:43
-msgid "Beschrijving"
-msgstr ""
-
-#: .\darts\models.py:44
-msgid "Vereisten (Elk op een nieuwe lijn)"
-msgstr ""
+msgid "Titel"
+msgstr "Title"
 
 #: .\darts\models.py:45
-msgid "Start Datum"
-msgstr ""
+msgid "Beschrijving"
+msgstr "Description"
 
 #: .\darts\models.py:46
-msgid "Eind Datum"
-msgstr ""
+msgid "Vereisten (Elk op een nieuwe lijn)"
+msgstr "Prerequisites (Each on a new line)"
 
-#: .\darts\models.py:47 .\darts\models.py:108
-msgid "Max Deelnemers"
-msgstr ""
+#: .\darts\models.py:47
+msgid "Start Datum"
+msgstr "Start Date"
 
 #: .\darts\models.py:48
-msgid "Locatie (kort)"
-msgstr ""
+msgid "Eind Datum"
+msgstr "End date"
 
-#: .\darts\models.py:49
-msgid "Locatie (lang)"
-msgstr ""
+#: .\darts\models.py:49 .\darts\models.py:111
+msgid "Max Deelnemers"
+msgstr "Max Participants"
 
 #: .\darts\models.py:50
-msgid "afbeelding"
-msgstr ""
+msgid "Locatie (kort)"
+msgstr "Location (short)"
 
 #: .\darts\models.py:51
-msgid "Download afbeeldingen URL"
-msgstr ""
+msgid "Locatie (lang)"
+msgstr "Location (long)"
+
+#: .\darts\models.py:52 .\darts\models.py:344
+msgid "afbeelding"
+msgstr "image"
 
 #: .\darts\models.py:53
+msgid "Download afbeeldingen URL"
+msgstr "Download images URL"
+
+#: .\darts\models.py:54
+msgid "Toestemming van voogd verist"
+msgstr "Guardian's consent is required"
+
+#: .\darts\models.py:56
 msgid "Inschrijvingen Inschakelen"
-msgstr ""
+msgstr "Enable enrollments"
 
-#: .\darts\models.py:55 .\darts\models.py:111 .\darts\models.py:170
+#: .\darts\models.py:58 .\darts\models.py:114 .\darts\models.py:173
 msgid "Geschiedenis"
-msgstr ""
+msgstr "History"
 
-#: .\darts\models.py:106
+#: .\darts\models.py:109
 msgid "titel"
-msgstr ""
+msgstr "title"
 
-#: .\darts\models.py:145
-msgctxt "payment status"
-msgid "Betaald"
-msgstr ""
-
-#: .\darts\models.py:146
-msgctxt "payment status"
-msgid "Open"
-msgstr ""
-
-#: .\darts\models.py:147
-msgctxt "payment status"
-msgid "Geannuleerd"
-msgstr ""
+#: .\darts\models.py:112
+msgid "Evenement"
+msgstr "Event"
 
 #: .\darts\models.py:148
 msgctxt "payment status"
-msgid "Verlopen"
-msgstr ""
+msgid "Betaald"
+msgstr "Paid"
 
 #: .\darts\models.py:149
 msgctxt "payment status"
+msgid "Open"
+msgstr "Open"
+
+#: .\darts\models.py:150
+msgctxt "payment status"
+msgid "Geannuleerd"
+msgstr "Cancelled"
+
+#: .\darts\models.py:151
+msgctxt "payment status"
+msgid "Verlopen"
+msgstr "Expire"
+
+#: .\darts\models.py:152
+msgctxt "payment status"
 msgid "Gefaald"
-msgstr ""
+msgstr "Failed"
 
-#: .\darts\models.py:163
+#: .\darts\models.py:166
 msgid "Mollie id"
-msgstr ""
+msgstr "Mollie id"
 
-#: .\darts\models.py:164 .\darts\models.py:195
+#: .\darts\models.py:167 .\darts\models.py:198
+#: .\darts\templates\pages\dartschool-inschrijving.html:61
+#: .\darts\templates\pages\tornooi-inschrijving.html:58
 msgid "Voornaam"
-msgstr ""
+msgstr "First name"
 
-#: .\darts\models.py:165 .\darts\models.py:196
+#: .\darts\models.py:168 .\darts\models.py:199
+#: .\darts\templates\pages\dartschool-inschrijving.html:66
+#: .\darts\templates\pages\tornooi-inschrijving.html:63
 msgid "Achternaam"
-msgstr ""
+msgstr "Last name"
 
-#: .\darts\models.py:166 .\darts\models.py:197
+#: .\darts\models.py:169 .\darts\models.py:200
+#: .\darts\templates\pages\dartschool-inschrijving.html:71
+#: .\darts\templates\pages\index.html:386
+#: .\darts\templates\pages\tornooi-inschrijving.html:68
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
-#: .\darts\models.py:179
+#: .\darts\models.py:182
 msgctxt "skill level"
 msgid "Beginner"
-msgstr ""
+msgstr "Beginner"
 
-#: .\darts\models.py:180
+#: .\darts\models.py:183
 msgctxt "skill level"
 msgid "Gemiddeld"
-msgstr ""
+msgstr "Average"
 
-#: .\darts\models.py:181
+#: .\darts\models.py:184
 msgctxt "skill level"
 msgid "Geoefend"
-msgstr ""
-
-#: .\darts\models.py:198
-msgid "Straatnaam"
-msgstr ""
-
-#: .\darts\models.py:199
-msgid "Nummer"
-msgstr ""
-
-#: .\darts\models.py:200
-msgid "Postcode"
-msgstr ""
+msgstr "Practiced"
 
 #: .\darts\models.py:201
+#: .\darts\templates\pages\dartschool-inschrijving.html:76
+#: .\darts\templates\pages\tornooi-inschrijving.html:83
+msgid "Straatnaam"
+msgstr "Street name"
+
+#: .\darts\models.py:202
+#: .\darts\templates\pages\dartschool-inschrijving.html:81
+#: .\darts\templates\pages\tornooi-inschrijving.html:88
+msgid "Nummer"
+msgstr "Number"
+
+#: .\darts\models.py:203
+#: .\darts\templates\pages\dartschool-inschrijving.html:86
+#: .\darts\templates\pages\tornooi-inschrijving.html:93
+msgid "Postcode"
+msgstr "Postal code"
+
+#: .\darts\models.py:204
+#: .\darts\templates\pages\dartschool-inschrijving.html:91
+#: .\darts\templates\pages\tornooi-inschrijving.html:98
 msgid "Stad"
-msgstr ""
+msgstr "Town"
 
-#: .\darts\models.py:206
+#: .\darts\models.py:209
 msgid "beschrijving"
-msgstr ""
+msgstr "description"
 
-#: .\darts\models.py:207
+#: .\darts\models.py:210
 msgid "Ticket"
-msgstr ""
+msgstr "E-tiket"
 
-#: .\darts\models.py:212
+#: .\darts\models.py:215 .\darts\models.py:346
 msgid "History"
-msgstr ""
+msgstr "History"
 
-#: .\darts\templates\blocks\footer.html:11
-#: .\darts\templates\pages\index.html:37
-msgid "Uw ultieme bestemming voor alles wat met darts te maken heeft."
-msgstr "Your ultimate destination for all things darts."
+#: .\darts\models.py:337 .\darts\templates\pages\index.html:381
+msgid "Naam"
+msgstr "Name"
 
-#: .\darts\templates\blocks\footer.html:20
+#: .\darts\models.py:338
+msgid "Website URL"
+msgstr "Website URL"
+
+#: .\darts\models.py:339
+msgid "Info over Sponsor"
+msgstr "About Sponsor"
+
+#: .\darts\models.py:340
+msgid "Toon Op Voorpagina"
+msgstr "Show on front page"
+
+#: .\darts\models.py:341
+msgid "Toon in footer"
+msgstr "Show in footer"
+
+#: .\darts\models.py:342
+msgid "Toon op sponsor pagina"
+msgstr "Show on sponsor page"
+
+#: .\darts\models.py:343
+msgid "Logo"
+msgstr "Logo"
+
+#: .\darts\templates\blocks\footer.html:12
+msgid "Gemaakt door"
+msgstr "Created by"
+
+#: .\darts\templates\blocks\footer.html:25
+msgid "Alle Sponsors"
+msgstr "All Sponsors"
+
+#: .\darts\templates\blocks\footer.html:36
 msgid "Handige Links"
 msgstr "Useful Links"
 
-#: .\darts\templates\blocks\footer.html:23
+#: .\darts\templates\blocks\footer.html:39
 #: .\darts\templates\blocks\header.html:12
+#: .\darts\templates\pages\about.html:20 .\darts\templates\pages\index.html:75
 msgid "Over Ons"
 msgstr "About Us"
 
-#: .\darts\templates\blocks\footer.html:24
-msgid "Terms of service"
-msgstr "Terms of service"
-
-#: .\darts\templates\blocks\footer.html:25
-msgid "Privacy policy"
-msgstr "Privacy policy"
-
-#: .\darts\templates\blocks\footer.html:30
-msgid "Onze Diensten"
-msgstr "Our Services"
-
-#: .\darts\templates\blocks\footer.html:32
-#: .\darts\templates\blocks\header.html:13
-msgid "Dartschool"
-msgstr "Darts School"
-
-#: .\darts\templates\blocks\footer.html:33
-#: .\darts\templates\blocks\header.html:14
-msgid "Tornooien"
-msgstr "Tournaments"
-
-#: .\darts\templates\blocks\footer.html:34
-msgid "Verkoop van darts"
-msgstr "Sale of darts"
-
 #: .\darts\templates\blocks\footer.html:40
+#: .\darts\templates\pages\algemene-voorwaarden.html:19
+msgid "Algemene Voorwaarden"
+msgstr "Terms and Conditions"
+
+#: .\darts\templates\blocks\footer.html:41
+#: .\darts\templates\pages\dartschool-inschrijving.html:128
+#: .\darts\templates\pages\disclaimer.html:19
+#: .\darts\templates\pages\tornooi-inschrijving.html:155
+msgid "Disclaimer"
+msgstr "Disclaimer"
+
+#: .\darts\templates\blocks\footer.html:42
+#: .\darts\templates\pages\algemeen-reglement.html:19
+msgid "Algemeen Reglement"
+msgstr "General Regulations"
+
+#: .\darts\templates\blocks\footer.html:47
+#: .\darts\templates\pages\teambuildings-en-workshops.html:59
+#: .\darts\templates\pages\teambuildings-en-workshops.html:90
+#: .\darts\templates\pages\teambuildings-en-workshops.html:109
+#: .\darts\templates\pages\teambuildings-en-workshops.html:127
 msgid "Contacteer Ons"
 msgstr "Contact Us"
 
-#: .\darts\templates\blocks\footer.html:44
+#: .\darts\templates\blocks\footer.html:51
 msgid "Telefoon"
 msgstr "Phone"
 
-#: .\darts\templates\blocks\footer.html:52
+#: .\darts\templates\blocks\footer.html:59
 msgid "alle rechten voorbehouden"
 msgstr "all rights reserved"
+
+#: .\darts\templates\blocks\header.html:13
+#: .\darts\templates\pages\dartschool-inschrijving.html:30
+#: .\darts\templates\pages\dartschool-inschrijving.html:31
+#: .\darts\templates\pages\dartschool.html:28
+#: .\darts\templates\pages\index.html:91
+msgid "Dartschool"
+msgstr "Darts School"
+
+#: .\darts\templates\blocks\header.html:14
+#: .\darts\templates\pages\index.html:104
+#: .\darts\templates\pages\index.html:185
+#: .\darts\templates\pages\tornooi-inschrijving.html:32
+#: .\darts\templates\pages\tornooi.html:30
+#: .\darts\templates\pages\tornooien.html:28
+msgid "Tornooien"
+msgstr "Tournaments"
 
 #: .\darts\templates\blocks\header.html:15
 msgid "Webshop"
 msgstr "Webshop"
 
 #: .\darts\templates\blocks\header.html:16
+#: .\darts\templates\pages\index.html:326
 msgid "Contact"
 msgstr "Contact"
 
-#: .\darts\templates\blocks\header.html:18
-msgid "Taal"
-msgstr "Language"
-
-#: .\darts\templates\blocks\header.html:42
+#: .\darts\templates\blocks\header.html:45
 msgid "Begin Nu"
 msgstr "Get Started"
+
+#: .\darts\templates\pages\about.html:21
+#: .\darts\templates\pages\tornooien.html:29
+msgid ""
+"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio "
+"sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis "
+"veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem."
+msgstr ""
+"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio "
+"sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis "
+"veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem."
+
+#: .\darts\templates\pages\about.html:33 .\darts\templates\pages\index.html:76
+msgid "Onze Missie en Visie"
+msgstr "Our Mission and Vision"
+
+#: .\darts\templates\pages\algemeen-reglement.html:31
+msgid "Deelnemen aan darttoernooien ingericht door ChudartZ"
+msgstr "Participate in darts tournaments organized by ChudartZ"
+
+#: .\darts\templates\pages\algemeen-reglement.html:33
+msgid "Termen:"
+msgstr "Terms:"
+
+#: .\darts\templates\pages\algemeen-reglement.html:36
+msgid "Singles (enkel): Dit kunnen mannen of vrouwen zijn vanaf 10 jaar tot …"
+msgstr "Singles (single): These can be men or women from 10 years old to ..."
+
+#: .\darts\templates\pages\algemeen-reglement.html:39
+msgid ""
+"Koppel: Dit kunnen mannen, vrouwen of gemengde teams zijn vanaf 10 jaar tot …"
+msgstr ""
+"Couple: These can be men, women, or mixed teams from 10 years old to ..."
+
+#: .\darts\templates\pages\algemeen-reglement.html:42
+msgid "Jeugd: Geschikt voor zowel jongens als meisjes van 10 tot 18 jaar."
+msgstr "Youth: Suitable for both boys and girls from 10 to 18 years old."
+
+#: .\darts\templates\pages\algemeen-reglement.html:46
+msgid "Regels:"
+msgstr "Rules:"
+
+#: .\darts\templates\pages\algemeen-reglement.html:49
+msgid ""
+"\n"
+"                      Jeugdspelers worden alleen toegelaten tot de "
+"jeugdcategorie als ze de leeftijd van 18 jaar nog niet bereikt \n"
+"                      hebben op datum van het evenement."
+msgstr ""
+"\n"
+"Youth players are only admitted to the youth category if they have not yet "
+"reached the age of 18 \n"
+"                      on the date of the event."
+
+#: .\darts\templates\pages\algemeen-reglement.html:54
+msgid ""
+"De leeftijd wordt gecontroleerd a.d.h.v. de identiteitskaart of een "
+"gelijkwaardig document bij het inchecken. Als \n"
+"                      een speler 18 jaar geworden is (of ouder is) op de dag "
+"van het toernooi, wordt de speler geweigerd voor het \n"
+"                      jeugd darttoernooi en is er geen recht op teruggave "
+"van het inschrijfgeld."
+msgstr ""
+"Age will be checked using the identity card or equivalent document at check-"
+"in. If \n"
+"                      a player has reached the age of 18 (or is older) on "
+"the day of the tournament, the player will be refused entry to the "
+"tournament. \n"
+"                      youth darts tournament and there is no right to a "
+"refund of the entry fee."
+
+#: .\darts\templates\pages\algemeen-reglement.html:59
+msgid ""
+"Het is de verantwoordelijkheid van de speler/ouder of voogd om dit van "
+"tevoren te controleren."
+msgstr ""
+"It is the responsibility of the player/parent or guardian to check this in "
+"advance."
+
+#: .\darts\templates\pages\algemeen-reglement.html:62
+msgid ""
+"Zodra een ticket/inschrijving is gekocht voor de \"jeugd\" categorie, gaat "
+"de speler akkoord met de regels \n"
+"                      vermeld in de vorige 3 punten."
+msgstr ""
+"Once a ticket/registration has been purchased for the \"youth\" category, "
+"the player agrees to the rules \n"
+"                      mentioned in the previous 3 points."
+
+#: .\darts\templates\pages\algemeen-reglement.html:68
+msgid "Aanmelden"
+msgstr "Sign in"
+
+#: .\darts\templates\pages\algemeen-reglement.html:72
+msgid ""
+"Alle spelers moeten zich 15 minuten voor aanvang van het toernooi aanmelden."
+msgstr ""
+"All players must register 15 minutes before the start of the tournament."
+
+#: .\darts\templates\pages\algemeen-reglement.html:75
+msgid ""
+"Als een speler zich niet 15 minuten van tevoren aanmeldt, kan zijn plaats/"
+"ticket voor het toernooi worden \n"
+"                      doorverkocht aan aanwezige deelnemers zonder geldig "
+"deelnameticket, en zeker als het toernooi volledig is \n"
+"                      volgeboekt."
+msgstr ""
+"If a player does not register 15 minutes in advance, their seat/ticket for "
+"the tournament can be \n"
+"                      resold to participants present without a valid "
+"participation ticket, and especially if the tournament is complete \n"
+"                      Booked."
+
+#: .\darts\templates\pages\algemeen-reglement.html:80
+msgid ""
+"Toegestane aantal spelers: Afhankelijk van het toernooi: zie website voor "
+"exacte aantallen !"
+msgstr ""
+"Number of players allowed: Depending on the tournament: see website for "
+"exact numbers !"
+
+#: .\darts\templates\pages\algemeen-reglement.html:85
+msgid "Gedrag tijdens het toernooi"
+msgstr "Behaviour during the tournament"
+
+#: .\darts\templates\pages\algemeen-reglement.html:87
+msgid ""
+"Tijdens een wedstrijd moeten spelers zich respectvol gedragen tegenover "
+"andere spelers en zich onthouden \n"
+"                  van het irriteren van andere spelers, het gebruik van "
+"beledigende taal of gebaren, en onsportief gedrag, zoals \n"
+"                  opzettelijk een leg of wedstrijd verliezen, opzettelijk "
+"een wedstrijd uitstellen of het verstoren van de worp van \n"
+"                  andere spelers."
+msgstr ""
+"During a match, players must behave respectfully towards other players and "
+"refrain \n"
+"                  annoying other players, using abusive language or "
+"gestures, and unsportsmanlike behavior, such as \n"
+"                  intentionally losing a leg or match, intentionally "
+"delaying a match or disrupting the throw of \n"
+"                  other players."
+
+#: .\darts\templates\pages\algemeen-reglement.html:92
+msgid "Dit geldt ook t.a.v. de caller, marker(s)."
+msgstr "This also applies to the caller, marker(s)."
+
+#: .\darts\templates\pages\algemeen-reglement.html:94
+msgid "Tijdens de toernooien werken we met aangewezen callers/markers."
+msgstr "During the tournaments we work with designated callers/markers."
+
+#: .\darts\templates\pages\algemeen-reglement.html:97
+msgid ""
+"In de poulefase zal voor elke wedstrijd een speler/team worden aangewezen om "
+"de rol van marker/caller \n"
+"                      te vervullen."
+msgstr ""
+"In the group stage, a player/team will be designated for each match to play "
+"the role of marker/caller \n"
+"                      to fulfil."
+
+#: .\darts\templates\pages\algemeen-reglement.html:101
+msgid ""
+"In de knock-outfase zal de toernooileiding scheidsrechters aanstellen "
+"voordat de knock-outs beginnen. \n"
+"                      Ook indien er met een A- en een B-ronde wordt gewerkt."
+msgstr ""
+"In the knockout stages, the tournament management will appoint referees "
+"before the knockouts begin. \n"
+"                      Even if an A and a B round are used."
+
+#: .\darts\templates\pages\algemeen-reglement.html:106
+msgid ""
+"Spelers die zich niet houden aan de ‘gedragsregels’ kunnen worden gestraft "
+"door de toernooileiding."
+msgstr ""
+"Players who do not comply with the 'rules of conduct' may be punished by the "
+"tournament management."
+
+#: .\darts\templates\pages\algemeen-reglement.html:107
+msgid "Mogelijke sancties:"
+msgstr "Possible sanctions:"
+
+#: .\darts\templates\pages\algemeen-reglement.html:110
+msgid "Forfait voor de betreffende wedstrijd"
+msgstr "Package for the match in question"
+
+#: .\darts\templates\pages\algemeen-reglement.html:113
+msgid "Uitsluiting van prijzengeld"
+msgstr "Exclusion from prize money"
+
+#: .\darts\templates\pages\algemeen-reglement.html:116
+msgid "Uitsluiting van het toernooi"
+msgstr "Exclusion from the tournament"
+
+#: .\darts\templates\pages\algemeen-reglement.html:119
+msgid "Uitsluiting van komende toernooien georganiseerd door ChudartZ"
+msgstr "Exclusion from upcoming tournaments organized by ChudartZ"
+
+#: .\darts\templates\pages\algemeen-reglement.html:124
+msgid "Loting"
+msgstr "Draw"
+
+#: .\darts\templates\pages\algemeen-reglement.html:128
+msgid " Poules worden voorafgaand aan het toernooi geloot."
+msgstr " Pools will be drawn prior to the tournament."
+
+#: .\darts\templates\pages\algemeen-reglement.html:131
+msgid ""
+"Poules bestaan uit 4,5 of 6 spelers, afhankelijk van het toernooi, het "
+"aantal inschrijvingen, dubbel of enkel. Zie \n"
+"                      details website: www.chudartz.com"
+msgstr ""
+"Pools consist of 4, 5 or 6 players, depending on the tournament, the number "
+"of registrations, doubles or singles. See \n"
+"                      Website details: www.chudartz.com"
+
+#: .\darts\templates\pages\algemeen-reglement.html:135
+msgid ""
+"Al naargelang het toernooi gaat de ‘eerste van de poule’, de beste 2 van de "
+"poule of de best geplaatste \n"
+"                      tweedes en/of derdes door naar de volgende ronde of A-"
+"reeks. "
+msgstr ""
+"Depending on the tournament, the 'first of the pool', the best 2 of the pool "
+"or the best placed \n"
+"                      runners-up and/or thirds through to the next round or "
+"A-series. "
+
+#: .\darts\templates\pages\algemeen-reglement.html:139
+msgid ""
+"Details afhankelijk van het toernooi zijn terug te vinden op de website."
+msgstr "Details depending on the tournament can be found on the website."
+
+#: .\darts\templates\pages\algemeen-reglement.html:142
+msgid ""
+"Eenmaal het toernooi is begonnen, zijn er geen vervangers meer toegestaan."
+msgstr "Once the tournament has started, no substitutes are allowed."
+
+#: .\darts\templates\pages\algemeen-reglement.html:147
+msgid "Worp"
+msgstr "Pitch"
+
+#: .\darts\templates\pages\algemeen-reglement.html:151
+msgid ""
+"Spelers moeten hun eigen darts voorzien die niet langer mogen zijn dan 30,5 "
+"cm totale lengte en niet meer \n"
+"                      dan 50 gram wegen."
+msgstr ""
+"Players must provide their own darts which must not exceed 30.5cm total "
+"length and no more \n"
+"                      weigh more than 50 grams."
+
+#: .\darts\templates\pages\algemeen-reglement.html:155
+msgid ""
+"Alle pijlen moeten opzettelijk, één voor één, met het naaldpunt naar voren, "
+"bovenhands uit de hand worden \n"
+"                      gegooid."
+msgstr ""
+"All arrows must be deliberately, one at a time, with the needle point "
+"forward, turned out of the hand overhand \n"
+"                      Thrown."
+
+#: .\darts\templates\pages\algemeen-reglement.html:159
+msgid "Een worp bestaat uit maximaal 'drie' darts."
+msgstr "A throw consists of a maximum of 'three' darts."
+
+#: .\darts\templates\pages\algemeen-reglement.html:162
+msgid ""
+"Als een speler tijdens een worp een dart aanraakt die zich in het dartbord "
+"bevindt, wordt die worp als voltooid \n"
+"                      beschouwd."
+msgstr ""
+"If a player touches a dart that is in the dartboard during a throw, that "
+"throw is deemed complete \n"
+"                      Considered."
+
+#: .\darts\templates\pages\algemeen-reglement.html:166
+msgid ""
+"Dartpijlen die uit het dartbord vallen, mogen niet opnieuw worden gegooid, "
+"ook niet als het om een ‘bouncer’ \n"
+"                      gaat (vb. raakt de ijzerdraad of een andere pijl en "
+"valt op de grond)."
+msgstr ""
+"Darts that fall out of the dartboard may not be thrown again, even if it is "
+"a 'bouncer' \n"
+"                      (e.g. hits the wire or another arrow and falls to the "
+"ground)."
+
+#: .\darts\templates\pages\algemeen-reglement.html:170
+msgid ""
+"Darts die uit het dartbord vallen voordat de worp is voltooid, tellen niet "
+"mee."
+msgstr ""
+"Darts that fall out of the dartboard before the throw is completed do not "
+"count."
+
+#: .\darts\templates\pages\algemeen-reglement.html:173
+msgid ""
+"Voordat de darts worden opgehaald na het voltooien van een worp, is het NIET "
+"toegestaan voor een speler of \n"
+"                      scorekeeper om een dart (of darts) in het bord te "
+"duwen om te voorkomen dat ze eruit vallen. Mocht dit \n"
+"                      gebeuren, dan worden de beïnvloede darts niet "
+"meegeteld."
+msgstr ""
+"Before the darts are retrieved after completing a throw, it is NOT allowed "
+"for any player or \n"
+"                      Scorekeeper to push a dart (or darts) into the board "
+"to prevent them from falling out. Should this be the case, \n"
+"                      the affected darts will not be counted."
+
+#: .\darts\templates\pages\algemeen-reglement.html:178
+msgid ""
+"Van zodra de score (puntenaantal) ‘genoemd’ werden door de caller en er valt "
+"alsnog een pijl uit het bord, dan \n"
+"                      tellen de genoemde punten."
+msgstr ""
+"As soon as the score (number of points) has been 'mentioned' by the caller "
+"and an arrow still falls from the board, then \n"
+"                      the points mentioned."
+
+#: .\darts\templates\pages\algemeen-reglement.html:184
+msgid "'Bord' & 'Oche' of werplijn"
+msgstr "'Plate' & 'Oche' or throwing line"
+
+#: .\darts\templates\pages\algemeen-reglement.html:188
+msgid ""
+"Het dartbord moet zodanig worden bevestigd dat de verticale hoogte vanaf de "
+"vloer tot aan een horizontale \n"
+"                      lijn door het midden van de \"Bull\" 1,73 meter meet."
+msgstr ""
+"The dartboard must be fixed in such a way that the vertical height from the "
+"floor to a horizontal \n"
+"                      line through the middle of the \"Bull\" measures 1.73 "
+"meters."
+
+#: .\darts\templates\pages\algemeen-reglement.html:192
+msgid ""
+"De diagonale afstand van het middelpunt van de bull tot de achterkant van de "
+"oche op vloerniveau moet 2,93 \n"
+"                      meter zijn."
+msgstr ""
+"The diagonal distance from the center of the bull to the back of the oche at "
+"floor level should be 2.93 \n"
+"                      meters."
+
+#: .\darts\templates\pages\algemeen-reglement.html:196
+msgid ""
+"Tijdens een wedstrijd mag geen enkele speler op enig deel van de verhoogde "
+"oche stappen, tenzij de speler \n"
+"                      zijn darts terughalen uit het dartbord."
+msgstr ""
+"During a match, no player may step on any part of the raised oche unless the "
+"player \n"
+"                      Retrieve his darts from the dartboard."
+
+#: .\darts\templates\pages\algemeen-reglement.html:200
+msgid ""
+"Bij het gooien van de darts naar het dartbord moeten de voeten van de "
+"werpende speler te allen tijde achter \n"
+"                      de oche blijven."
+msgstr ""
+"When throwing the darts at the dartboard, the feet of the throwing player "
+"must be behind at all times. \n"
+"                      the oche remain."
+
+#: .\darts\templates\pages\algemeen-reglement.html:204
+msgid ""
+"Een speler die een dart gooit vanuit een positie aan weerszijden van de "
+"verhoogde oche moet zijn of haar \n"
+"                      voeten achter een denkbeeldige rechte lijn houden die "
+"zich uitstrekt aan weerszijden van de verhoogde oche."
+msgstr ""
+"A player who throws a dart from a position on either side of the raised oche "
+"must keep his or her \n"
+"                      feet behind an imaginary straight line extending on "
+"either side of the raised oche."
+
+#: .\darts\templates\pages\algemeen-reglement.html:210
+msgid "Start en einde match"
+msgstr "Start and end of match"
+
+#: .\darts\templates\pages\algemeen-reglement.html:214
+msgid ""
+"Niemand mag het speelveld betreden, behalve de scheidsrechter, ‘caller’, "
+"marker(s), scorer(s), elektronische \n"
+"                      indicatoroperatoren en de aangewezen spelers."
+msgstr ""
+"No one is allowed to enter the field of play except the referee, caller, "
+"marker(s), scorer(s), electronic \n"
+"                      operators and the designated players."
+
+#: .\darts\templates\pages\algemeen-reglement.html:218
+msgid ""
+"Een wedstrijd kan pas beginnen als beide spelers en een schrijver/caller "
+"aanwezig zijn."
+msgstr ""
+"A match can only start when both players and a writer/caller are present."
+
+#: .\darts\templates\pages\algemeen-reglement.html:221
+msgid ""
+"Om te bepalen wie de match mag starten, gooien beide spelers één dart naar "
+"de \"bull\". De speler die als \n"
+"                      eerste naam staat ingevuld op het wedstrijdkaartje "
+"begint te ‘bullen’. De speler die het dichtst bij de \"inner \n"
+"                      bull\" gooit, zal starten aan de eerste leg."
+msgstr ""
+"To determine who gets to start the match, both players throw one dart at the "
+"bull. The player who is considered to be \n"
+"                      The first name is filled in on the match card and "
+"starts to 'bullish'. The player closest to the \"inner \n"
+"                      bull\", will start the first leg."
+
+#: .\darts\templates\pages\algemeen-reglement.html:226
+msgid ""
+"Indien de eerste speler in de inner of outer bull gooit, zal deze speler "
+"zijn dart verwijderen zodat de tweede \n"
+"                      speler een vrije bull heeft om naar te gooien."
+msgstr ""
+"If the first player throws into the inner or outer bull, this player will "
+"remove his dart so that the second player \n"
+"                      player has a free bull to throw at."
+
+#: .\darts\templates\pages\algemeen-reglement.html:230
+msgid ""
+"Als tijdens het gooien naar de bull een bouncer plaatsvindt of de dart uit "
+"het dartbord valt, mag men opnieuw \n"
+"                      1 pijl naar de bull gooien."
+msgstr ""
+"If a bouncer occurs while throwing to the bull or the dart falls out of the "
+"dartboard, one may be allowed to \n"
+"                      Throw 1 dart at the bull."
+
+#: .\darts\templates\pages\algemeen-reglement.html:234
+msgid ""
+"Als beide spelers de inner of outer bull niet raken, mag de speler die het "
+"dichtst bij de bull zit, beginnen."
+msgstr ""
+"If both players do not touch the inner or outer bull, the player closest to "
+"the bull may start."
+
+#: .\darts\templates\pages\algemeen-reglement.html:237
+msgid ""
+"Bij twijfel of gelijke afstand van de inner of outer bull, zullen beide "
+"spelers opnieuw bullen."
+msgstr ""
+"When in doubt or equal distance from the inner or outer bull, both players "
+"will bull again."
+
+#: .\darts\templates\pages\algemeen-reglement.html:240
+msgid ""
+"Om te beginnen met scoren, hoeft de speler alleen zijn darts te laten landen "
+"op het dartsbord binnen de \n"
+"                      buitenste dubbele draad."
+msgstr ""
+"To start scoring, the player only needs to land their darts on the dartboard "
+"within the \n"
+"                      outer double thread."
+
+#: .\darts\templates\pages\algemeen-reglement.html:244
+msgid ""
+"Elke wedstrijd of leg wordt gespeeld met een dubbele finish, d.w.z. om te "
+"winnen en uit te gooien moet een \n"
+"                      dart landen in de dubbele (Double Ring of Bull) van "
+"het getal gelijk aan de helft van de resterende score."
+msgstr ""
+"Each match or leg is played with a double finish, i.e. in order to win and "
+"throw out, a \n"
+"                      darts land in the Double Ring (Bull) of the number "
+"equal to half of the remaining score."
+
+#: .\darts\templates\pages\algemeen-reglement.html:248
+msgid ""
+"De Bull (inner bull, rood) telt als \"50\" en als de score vereist is voor "
+"\"50\" om een leg of wedstrijd te voltooien. \n"
+"                      De Bull (inner bull, rood) telt dus eigenlijk als "
+"dubbel \"25”."
+msgstr ""
+"The Bull (inner bull, red) counts as \"50\" and if the score is required for "
+"\"50\" to complete a leg or match. \n"
+"                      So the Bull (inner bull, red) actually counts as "
+"double \"25\"."
+
+#: .\darts\templates\pages\algemeen-reglement.html:252
+msgid ""
+"De Bust Rule is van toepassing, dat wil zeggen, als een speler in een worp "
+"meer punten scoort dan nodig zijn \n"
+"                      om de leg of match te winnen, of dezelfde punten "
+"scoort zonder op een dubbel te eindigen, of een score \n"
+"                      achterlaat van één, dan telt die worp niet en blijft "
+"de score zoals die was voor de worp."
+msgstr ""
+"The Bust Rule applies, that is, if a player scores more points than "
+"necessary in a roll \n"
+"                      to win the leg or match, or score the same points "
+"without ending on a double, or a score \n"
+"                      If you leave one behind, that throw does not count and "
+"the score remains as it was before the throw."
+
+#: .\darts\templates\pages\algemeen-reglement.html:257
+msgid ""
+"De eerste speler die eindigt door de vereiste double out te verkrijgen, "
+"wordt de winnaar van die leg, set of \n"
+"                      wedstrijd, afhankelijk van wat van toepassing is. Een "
+"dart gegooid door een speler na het voltooien telt niet \n"
+"                      mee."
+msgstr ""
+"The first player to finish by obtaining the required double out will be the "
+"winner of that leg, set or \n"
+"                      contest, depending on what is applicable. A dart "
+"thrown by a player after completion does not count \n"
+"                      mead."
+
+#: .\darts\templates\pages\algemeen-reglement.html:262
+msgid ""
+"In een wedstrijd of set verdeeld in legs, wordt de wedstrijd of set gespeeld "
+"als 'best of drie’ (vijf, zeven, enz.) \n"
+"                      legs. Bijvoorbeeld, de eerste speler die een "
+"meerderheid van het gegeven aantal legs wint, moet de winnaar van \n"
+"                      de wedstrijd of set zijn, en de resterende legs, "
+"indien aanwezig, mogen niet meer worden gespeeld."
+msgstr ""
+"In a match or set divided into legs, the match or set is played as a 'best "
+"of three' (five, seven, etc.) \n"
+"                      legs. For example, the first player to win a majority "
+"of the given number of legs must be the winner of \n"
+"                      the match or set, and the remaining legs, if any, may "
+"not be played again."
+
+#: .\darts\templates\pages\algemeen-reglement.html:267
+msgid ""
+"Na afloop van de wedstrijd zal de schrijver/marker de uitslag melden aan de "
+"wedstrijdtafel."
+msgstr ""
+"At the end of the match, the writer/marker will report the result to the "
+"competition table."
+
+#: .\darts\templates\pages\algemeen-reglement.html:272
+msgid "Scoring"
+msgstr "Scoring"
+
+#: .\darts\templates\pages\algemeen-reglement.html:276
+msgid ""
+"Tijdens de toernooien gebruikt men wedstrijden of legs met een vast oneven "
+"aantal, meest voor de hand \n"
+"                      liggende 501, maar afwijkend kan ook van 301, 701 of "
+"1001 gespeeld worden. Alle gemaakte scores worden \n"
+"                      afgetrokken van het totale gegeven aantal of de score "
+"die overblijft na de vorige worp."
+msgstr ""
+"During the tournaments, matches or legs with a fixed odd number are used, "
+"most of which are obvious \n"
+"                      501, but 301, 701 or 1001 can also be played. All "
+"scores made will be \n"
+"                      subtracted from the total number given or the score "
+"remaining after the previous roll."
+
+#: .\darts\templates\pages\algemeen-reglement.html:281
+msgid ""
+"Een dartpijl scoort alleen als het punt in het dartbord blijft of het "
+"oppervlak van het dartbord raakt binnen de \n"
+"                      buitenste dubbele draad, nadat de worp is voltooid en "
+"de score is aangekondigd en/of genoteerd op het \n"
+"                      scorebord."
+msgstr ""
+"A dart only scores if the point remains in the dartboard or touches the "
+"surface of the dartboard within the \n"
+"                      outer double thread, after the roll is completed and "
+"the score has been announced and/or noted on the \n"
+"                      scoreboard."
+
+#: .\darts\templates\pages\algemeen-reglement.html:286
+msgid ""
+"Darts worden uit het dartbord gehaald door de werper, behalve in gevallen "
+"waarin een fysieke handicap of \n"
+"                      letsel vereist dat een speler assistentie krijgt, maar "
+"alleen nadat de score is vastgelegd door de marker."
+msgstr ""
+"Darts shall be removed from the dartboard by the thrower, except in cases "
+"where a physical disability or \n"
+"                      Injury requires a player to receive assistance, but "
+"only after the score has been recorded by the marker."
+
+#: .\darts\templates\pages\algemeen-reglement.html:290
+msgid ""
+"Protesten met betrekking tot een behaalde score kunnen niet worden ingediend "
+"nadat de score is vastgelegd \n"
+"                      door de marker en de darts zijn opgehaald. Als een "
+"onjuiste score leidt tot een leg-overwinning, blijft het \n"
+"                      resultaat staan."
+msgstr ""
+"Protests regarding a score obtained cannot be submitted after the score has "
+"been recorded \n"
+"                      by the marker and the darts. If an incorrect score "
+"leads to a leg win, it remains \n"
+"                      result."
+
+#: .\darts\templates\pages\algemeen-reglement.html:295
+msgid ""
+"Rekenfouten blijven zoals ze op het scorebord staan, tenzij ze vóór de "
+"volgende worp van de speler wiens \n"
+"                      score fout is, worden gecorrigeerd."
+msgstr ""
+"Calculation errors remain as they appear on the scoreboard unless they "
+"appear before the next roll of the player whose \n"
+"                      score is wrong, will be corrected."
+
+#: .\darts\templates\pages\algemeen-reglement.html:299
+msgid ""
+"De werkelijke score die een speler nodig heeft, moet duidelijk zichtbaar op "
+"ooghoogte op het scorebord \n"
+"                      worden weergegeven, zowel voor de spelers als voor de "
+"Board Marker."
+msgstr ""
+"The actual score a player needs should be clearly visible at eye level on "
+"the scoreboard \n"
+"                      are displayed, both for the players and for the Board "
+"Marker."
+
+#: .\darts\templates\pages\algemeen-reglement.html:303
+msgid ""
+"Er mag geen indicatie worden gegeven van de vereiste 'double out' door de "
+"scheidsrechter, caller, marker of \n"
+"                      scorer, bijvoorbeeld '32' niet 'dubbel 16'."
+msgstr ""
+"No indication of the required 'double out' by the referee, caller, marker "
+"or \n"
+"                      scorer, e.g. '32' not 'double 16'."
+
+#: .\darts\templates\pages\algemeen-reglement.html:307
+msgid ""
+"De Board Marker treedt op als scheidsrechter in alle zaken met betrekking "
+"tot de spelregels van het \n"
+"                      organiseren van een dartswedstrijd en zal indien nodig "
+"overleg plegen met de aangewezen toernooiofficials \n"
+"                      voordat beslissingen worden genomen die invloed hebben "
+"op een wedstrijd."
+msgstr ""
+"The Board Marker acts as an arbiter in all matters relating to the Laws of "
+"the Constitution of the \n"
+"                      organising a darts match and will consult with the "
+"designated tournament officials if necessary \n"
+"                      before decisions are made that affect a match."
+
+#: .\darts\templates\pages\algemeen-reglement.html:314
+msgid "Tijdens de wedstrijd"
+msgstr "During the match"
+
+#: .\darts\templates\pages\algemeen-reglement.html:318
+msgid ""
+"De dartpijlen mogen pas uit het bord verwijderd worden nadat de caller de "
+"score/checkout heeft vastgesteld \n"
+"                      en opgeschreven."
+msgstr ""
+"The darts may only be removed from the board after the caller has determined "
+"the score/checkout \n"
+"                      and written down."
+
+#: .\darts\templates\pages\algemeen-reglement.html:322
+msgid ""
+"Als men 1 of meerdere darts voorafgaand aan het vaststellen van de score/"
+"checkout uit het dartbord haalt, zal \n"
+"                      deze beurt beschouwd worden als een no-score (0 punten "
+"aftrek)."
+msgstr ""
+"If 1 or more darts are removed from the dartboard prior to the score/"
+"checkout, the \n"
+"                      This turn will be considered as a no-score (0 point "
+"deduction)."
+
+#: .\darts\templates\pages\algemeen-reglement.html:326
+msgid ""
+"De spelers worden geacht na elke beurt, die op het scorebord genoteerd "
+"wordt, overeen te komen met de \n"
+"                      gegooide waarde."
+msgstr ""
+"Players are expected to match the match after each turn, which is recorded "
+"on the scoreboard. \n"
+"                      value thrown."
+
+#: .\darts\templates\pages\algemeen-reglement.html:330
+msgid ""
+"Latere beslissingen over foutief rekenen/verkeerd genoteerde scores kunnen "
+"niet meer gewijzigd worden, \n"
+"                      tenzij beide spelers akkoord gaan."
+msgstr ""
+"Subsequent decisions about incorrect calculations/incorrectly recorded "
+"scores can no longer be changed, \n"
+"                      unless both players agree."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:32
+msgid "Inschrijving en deelname"
+msgstr "Registration and participation"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:36
+msgid ""
+"Deelname aan het toernooi is alleen geldig na succesvolle inschrijving en "
+"betaling van het \n"
+"                            inschrijfgeld."
+msgstr ""
+"Participation in the tournament is only valid after successful registration "
+"and payment of the \n"
+"                            Registration fee."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:40
+msgid ""
+"Door zich in te schrijven verklaart de deelnemer naar eer en geweten dat "
+"alle verstrekte informatie \n"
+"                            juist en volledig is. De deelnemer accepteert "
+"alle verantwoordelijkheden die voortvloeien uit \n"
+"                            deelname aan het evenement, inclusief het "
+"naleven van de regels en het nemen van de nodige \n"
+"                            voorzorgsmaatregelen."
+msgstr ""
+"By registering, the participant declares to the best of his knowledge and "
+"knowledge that all information provided \n"
+"                            accurate and complete. The participant accepts "
+"all responsibilities arising from \n"
+"                            participation in the event, including complying "
+"with the rules and taking the necessary steps to \n"
+"                            precautionary measures."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:46
+msgid ""
+"Inschrijvingen zijn persoonlijk en kunnen niet worden overgedragen aan "
+"anderen."
+msgstr "Registrations are personal and cannot be transferred to others."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:49
+msgid ""
+"De inschrijvingsdeadline wordt strikt nageleefd. Laatkomers kunnen worden "
+"geweigerd."
+msgstr ""
+"The registration deadline is strictly adhered to. Latecomers may be refused."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:54
+msgid "Leeftijdsbeperkingen"
+msgstr "Age Restrictions"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:58
+msgid ""
+"Deelnemers moeten minimaal 10 jaar oud zijn om deel te nemen aan het "
+"toernooi."
+msgstr ""
+"Participants must be at least 10 years old to participate in the tournament."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:61
+msgid ""
+"Minderjarige deelnemers moeten toestemming hebben van een ouder of voogd, "
+"die schriftelijk moet \n"
+"                            worden ingediend."
+msgstr ""
+"Underage participants must have the consent of a parent or guardian, who "
+"must be in writing \n"
+"                            be submitted."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:65
+msgid ""
+"Voor de inschrijving zal het ‘toestemmingsformulier minderjarige deelnemers’ "
+"door 1 van de ouders \n"
+"                            of de voogd worden ingevuld en ondertekend."
+msgstr ""
+"For registration, the 'consent form for minor participants' will be "
+"submitted by 1 of the parents \n"
+"                            or the guardian must be completed and signed."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:71
+msgid "Regels en gedragscode"
+msgstr "Rules and Code of Conduct"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:75
+msgid ""
+"Alle deelnemers moeten zich houden aan de officiële dartregels, waaronder "
+"ook de dartregels die \n"
+"                            werden opgesteld door de toernooiorganisatie."
+msgstr ""
+"All entrants must abide by the official darts rules, including the darts "
+"rules that \n"
+"                            were drawn up by the tournament organization."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:79
+msgid ""
+"Onsportief gedrag, inclusief verbaal of fysiek misbruik, leidt tot "
+"onmiddellijke diskwalificatie zonder \n"
+"                            terugbetaling van inschrijfgeld."
+msgstr ""
+"Unsportsmanlike conduct, including verbal or physical abuse, will result in "
+"immediate disqualification without \n"
+"                            Refund of registration fee."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:83
+msgid ""
+"De organisatie behoudt zich het recht voor om deelnemers die zich niet aan "
+"de regels houden, uit te \n"
+"                            sluiten van verdere deelname van het toernooi of "
+"andere evenementen ingericht door de \n"
+"                            organisator."
+msgstr ""
+"The organization reserves the right to expel participants who do not comply "
+"with the rules. \n"
+"                            conclusion of further participation in the "
+"tournament or other events organised by the \n"
+"                            organizer."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:90
+msgid "Gebruik van materiaal"
+msgstr "Use of materials"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:94
+msgid ""
+"Deelnemers dienen hun eigen dartpijlen mee te brengen die voldoen aan de "
+"gestelde specificaties."
+msgstr ""
+"Participants must bring their own darts that meet the set specifications."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:97
+msgid ""
+"Schade aan de locatie of apparatuur door een deelnemer zal op kosten van de "
+"deelnemer worden \n"
+"                            hersteld."
+msgstr ""
+"Damage to the venue or equipment by a participant will be at the expense of "
+"the participant. \n"
+"                            Restored."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:103
+msgid "Verantwoordelijkheid en verzekering"
+msgstr "Responsibility and insurance"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:107
+msgid ""
+"De organisatie is niet verantwoordelijk voor verlies, diefstal, of schade "
+"aan persoonlijke \n"
+"                            eigendommen van deelnemers."
+msgstr ""
+"The organization is not responsible for loss, theft, or damage to personal "
+"data. \n"
+"                            Participants' property."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:111
+msgid ""
+"Deelname aan het toernooi is geheel op eigen risico. De organisatie is niet "
+"aansprakelijk voor \n"
+"                            eventuele verwondingen of ongevallen, tenzij "
+"deze direct te wijten is aan opzet of grove nalatigheid \n"
+"                            van de organisator."
+msgstr ""
+"Participation in the tournament is entirely at your own risk. The "
+"organisation is not liable for \n"
+"                            any injuries or accidents, unless directly "
+"attributable to intent or gross negligence \n"
+"                            of the organiser."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:116
+msgid ""
+"Deelnemers kunnen mogelijk een beroep doen op hun eigen verzekering, zoals "
+"een \n"
+"                            aansprakelijkheids- of ongevallenverzekering, "
+"voor dekking van schade die zij hebben veroorzaakt \n"
+"                            of opgelopen."
+msgstr ""
+"Participants may be able to rely on their own insurance, such as a \n"
+"                            liability or accident insurance, for coverage of "
+"damage they have caused \n"
+"                            or contracted."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:121
+msgid ""
+"De organisatie is enkel aansprakelijk voor gebeurtenissen (die te wijten "
+"zijn aan opzet of grove \n"
+"                            nalatigheid van de organisator) tijdens het "
+"evenement zelf, maar nooit voor incidenten onderweg \n"
+"                            naar of terug van het evenement."
+msgstr ""
+"The organisation is only liable for events (which are due to intent or gross "
+"negligence) \n"
+"                            negligence of the organiser) during the event "
+"itself, but never for incidents along the way \n"
+"                            to or back from the event."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:126
+msgid ""
+"Deelnemers dienen zich bewust te zijn van hun eigen fysieke en mentale "
+"gesteldheid en \n"
+"                            verantwoordelijk te handelen."
+msgstr ""
+"Participants should be aware of their own physical and mental condition "
+"and \n"
+"                            act responsibly."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:132
+msgid "Aansprakelijkheid en rechtsbijstand"
+msgstr "Liability and legal assistance"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:136
+msgid ""
+"De organisatie behoudt zich het recht voor om de toernooilocatie, het schema "
+"of andere aspecten \n"
+"                            van het toernooi te wijzigen indien "
+"noodzakelijk, met of zonder voorafgaande kennisgeving, \n"
+"                            afhankelijk van externe factoren waarover de "
+"organisatie geen volledige controle heeft."
+msgstr ""
+"The organization reserves the right to change the tournament location, "
+"schedule or other aspects \n"
+"                            of the tournament if necessary, with or without "
+"prior notice, \n"
+"                            depending on external factors over which the "
+"organization does not have full control."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:141
+msgid ""
+"In geval van overmacht (bijvoorbeeld pandemieën, natuurgeweld) kan het "
+"toernooi worden \n"
+"                            uitgesteld of geannuleerd zonder restitutie van "
+"inschrijfgeld."
+msgstr ""
+"In the event of force majeure (e.g. pandemics, natural disasters), the "
+"tournament may be cancelled \n"
+"                            postponed or cancelled without refund of "
+"registration fee."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:147
+msgid "Privacy en gebruik van beeldmateriaal"
+msgstr "Privacy and use of imagery"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:151
+msgid ""
+"Door deel te nemen aan het toernooi en/of het betreden van een evenement "
+"gaat u akkoord met het \n"
+"                            feit dat u gefotografeerd of gefilmd kunt worden "
+"en dat deze beelden gebruikt kunnen worden voor \n"
+"                            promotionele doeleinden zonder enige compensatie."
+msgstr ""
+"By participating in the tournament and/or entering an event, you agree to "
+"the right to \n"
+"                            that you may be photographed or filmed and that "
+"these images may be used for \n"
+"                            promotional purposes without any compensation."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:156
+msgid ""
+"Persoonlijke gegevens die tijdens de inschrijving worden verzameld, worden "
+"uitsluitend gebruikt \n"
+"                            voor de organisatie van het toernooi en niet "
+"gedeeld met derden, behalve voor het publiceren van \n"
+"                            een rangschikking met de namen van de deelnemers "
+"op de website van de organisator."
+msgstr ""
+"Personal data collected during registration will be used exclusively \n"
+"                            for the organisation of the tournament and not "
+"shared with third parties, except for the publication of \n"
+"                            a ranking with the names of the participants on "
+"the organiser's website."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:163
+msgid "Disputen"
+msgstr "Disputes"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:167
+msgid ""
+"Eventuele geschillen die voortkomen uit de deelname aan het toernooi worden "
+"voorgelegd aan de \n"
+"                            organisatie, wiens beslissing bindend is."
+msgstr ""
+"Any disputes arising from participation in the tournament will be submitted "
+"to the \n"
+"                            organisation, whose decision is binding."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:171
+msgid ""
+"Geschillen over de spelregels worden onmiddellijk beslecht door de "
+"aangewezen scheidsrechter."
+msgstr ""
+"Disputes about the laws of the game will be settled immediately by the "
+"designated referee."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:176
+msgid "Wijzigingen en aanpassingen"
+msgstr "Changes and modifications"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:180
+msgid ""
+"De organisatie behoudt zich het recht voor om deze algemene voorwaarden op "
+"elk moment te \n"
+"                            wijzigen. Eventuele wijzigingen worden "
+"voorafgaand aan het toernooi gecommuniceerd."
+msgstr ""
+"The organisation reserves the right to amend these terms and conditions at "
+"any time. \n"
+"                            modify. Any changes will be communicated prior "
+"to the tournament."
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:186
+msgid "Acceptatie van de voorwaarden"
+msgstr "Acceptance of the Terms"
+
+#: .\darts\templates\pages\algemene-voorwaarden.html:190
+msgid ""
+"Door deel te nemen aan het toernooi, accepteert de deelnemer automatisch de "
+"bovenstaande \n"
+"                            algemene voorwaarden"
+msgstr ""
+"By participating in the tournament, the participant automatically accepts "
+"the above \n"
+"                            General"
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:29
+#: .\darts\templates\pages\dartschool-inschrijving.html:135
+#: .\darts\templates\pages\tornooi-inschrijving.html:30
+#: .\darts\templates\pages\tornooi-inschrijving.html:162
+msgid "Inschrijven"
+msgstr "Subscribe"
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:32
+msgid "/dartschool"
+msgstr "/dartschool"
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:44
+msgid "maandag t.e.m. donderdag van 19u tot 21.30u"
+msgstr "Monday to Thursday from 7 p.m. to 9.30 p.m."
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:45
+msgid "Torhoutsesteenweg 441, Zedelgem TODO"
+msgstr "Torhoutsesteenweg 441, Zedelgem TODO"
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:98
+#: .\darts\templates\pages\tornooi-inschrijving.html:123
+msgid "Ik ga akkoord met de "
+msgstr "I accept the "
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:98
+#: .\darts\templates\pages\tornooi-inschrijving.html:123
+msgid "Algemene voorwaarden"
+msgstr "Terms and conditions"
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:98
+#: .\darts\templates\pages\dartschool-inschrijving.html:128
+#: .\darts\templates\pages\tornooi-inschrijving.html:123
+#: .\darts\templates\pages\tornooi-inschrijving.html:155
+msgid "van ChudartZ."
+msgstr "by ChudartZ."
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:107
+#: .\darts\templates\pages\tornooi-inschrijving.html:132
+msgid "Ik ga akkoord met het"
+msgstr "I agree with the"
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:107
+#: .\darts\templates\pages\tornooi-inschrijving.html:132
+msgid "Algemeen reglement"
+msgstr "General Regulations"
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:107
+#: .\darts\templates\pages\tornooi-inschrijving.html:132
+msgid "voor darttornooien. "
+msgstr "for darts tournaments. "
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:116
+#: .\darts\templates\pages\tornooi-inschrijving.html:142
+msgid ""
+"\n"
+"                          Als ouder/voogd, geef ik toestemming aan mijn "
+"minderjarige kind om deel te nemen aan de wedstrijd en verklaar mij akkoord "
+"met het verwerken van diens persoonsgegevens in overeenstemming met de wet "
+"op de privacy. \n"
+"                          Ik weet dat deze gegevens vertrouwelijk zullen "
+"worden behandeld en uitsluitend gebruikt zullen worden voor doeleinden "
+"gerelateerd aan dit evenement.\n"
+"                          "
+msgstr ""
+"\n"
+"As a parent/guardian, I consent to my minor child to participate in the "
+"competition and declare my consent to the processing of their personal data "
+"in accordance with the law on privacy. \n"
+"                          I know that this information will be kept "
+"confidential and will only be used for purposes related to this event.\n"
+"                          "
+
+#: .\darts\templates\pages\dartschool-inschrijving.html:128
+#: .\darts\templates\pages\tornooi-inschrijving.html:155
+msgid "Ik ga akkoord met de"
+msgstr "I agree with the %s"
+
+#: .\darts\templates\pages\dartschool.html:29
+msgid ""
+"Ben je klaar om je dartskills naar een hoger niveau te tillen? Welkom bij "
+"ChudartZ! De plek waar jongeren kunnen samenkomen om de kunst van het darten "
+"te leren en perfectioneren!"
+msgstr ""
+"Are you ready to take your darts skills to the next level? Welcome to "
+"ChudartZ! The place where young people can come together to learn and "
+"perfect the art of darts!"
+
+#: .\darts\templates\pages\dartschool.html:47
+msgid "Ons Doel"
+msgstr "Our Goal"
+
+#: .\darts\templates\pages\dartschool.html:49
+msgid ""
+"\n"
+"                        Onze missie is om een plek te creëren in de ruime "
+"regio Zedelgem waar jongeren zich kunnen ontwikkelen, nieuwe vrienden kunnen "
+"maken en hun passie kunnen ontdekken en zich vervolmaken in het darts.\n"
+"                        We streven ernaar om in de dartsschool op een "
+"educatieve manier het individuele niveau omhoog te krikken.\n"
+"                        "
+msgstr ""
+"\n"
+"Our mission is to create a place in the wider Zedelgem region where young "
+"people can develop, make new friends and discover their passion and perfect "
+"themselves in darts.\n"
+"                        We strive to raise the individual level in the darts "
+"school in an educational way.\n"
+"                        "
+
+#: .\darts\templates\pages\dartschool.html:55
+msgid "Ontwikkeling van Basisvaardigheden"
+msgstr "Basic Skills Development"
+
+#: .\darts\templates\pages\dartschool.html:56
+msgid "Persoonlijke Groei en Zelfvertrouwen"
+msgstr "Personal growth and self-confidence"
+
+#: .\darts\templates\pages\dartschool.html:57
+msgid "Educatieve en Leuke Activiteiten"
+msgstr "Educational and fun activities"
+
+#: .\darts\templates\pages\dartschool.html:59
+#: .\darts\templates\pages\dartschool.html:88
+#: .\darts\templates\pages\dartschool.html:107
+msgid "Schrijf je in"
+msgstr "Sign up"
+
+#: .\darts\templates\pages\dartschool.html:74
+msgid "Voor Wie"
+msgstr "Who is it for?"
+
+#: .\darts\templates\pages\dartschool.html:76
+msgid ""
+"\n"
+"                      Heb je als ouder het gevoel dat jouw kind een "
+"uitzonderlijk talent heeft,\n"
+"                      of denk je dat 10 jaar misschien al te laat is om met "
+"darten te beginnen? Geen zorgen! \n"
+"                      Kom gerust langs voor een gratis proefles.\n"
+"                      Zowel kinderen jonger dan 10 jaar als oudere beginners "
+"kunnen vrijblijvend ontdekken of ze een (uitzonderlijk) talent zijn en of "
+"darten iets voor hen is.\n"
+"                      "
+msgstr ""
+"\n"
+"As a parent, do you feel that your child has an exceptional talent?\n"
+"                      Or do you think that 10 years might already be too "
+"late to start playing darts? Don't worry! \n"
+"                      Feel free to drop by for a free trial lesson.\n"
+"                      Both children under the age of 10 and older beginners "
+"can discover whether they are an (exceptional) talent and whether darts is "
+"something for them.\n"
+"                      "
+
+#: .\darts\templates\pages\dartschool.html:84
+msgid "Vanaf 10 jaar"
+msgstr "From 10 years old"
+
+#: .\darts\templates\pages\dartschool.html:85
+msgid "Zowel beginners als gevorderden"
+msgstr "Both beginners and advanced"
+
+#: .\darts\templates\pages\dartschool.html:86
+msgid "Gratis proefles"
+msgstr "Free trial lesson"
+
+#: .\darts\templates\pages\dartschool.html:94
+msgid "Prijzen"
+msgstr "Prices"
+
+#: .\darts\templates\pages\dartschool.html:96
+msgid ""
+"\n"
+"                    De leden kunnen gebruik maken van het materiaal "
+"(borden), \n"
+"                    de accommodatie, gratis (spuit)water, verzekering * "
+"tijdens de training (niet het traject naar (heen) en van de dartschool "
+"(terugweg)), \n"
+"                    voorrang en ondersteuning bij het spelen van tornooien, "
+"jeugd- en/of clubcompetitie.\n"
+"                    "
+msgstr ""
+"\n"
+"Members can use the material (boards), \n"
+"                    the accommodation, free (squeaking) water, insurance * "
+"during the training (not the route to (there) and from the dart school "
+"(return)), \n"
+"                    Priority and support when playing tournaments, youth and/"
+"or club competitions.\n"
+"                    "
+
+#: .\darts\templates\pages\dartschool.html:103
+msgid "lidgeld: € 50/jaar"
+msgstr "Membership fee: € 50/year"
+
+#: .\darts\templates\pages\dartschool.html:104
+msgid "lesgeld: € 15/maand (max. 10 lessen per maand)"
+msgstr "Tuition: €15/month (max. 10 lessons per month)"
+
+#: .\darts\templates\pages\dartschool.html:105
+msgid "10-beurtenkaart: € 12.5/maand"
+msgstr "10-session card: €12.5/month"
+
+#: .\darts\templates\pages\disclaimer.html:30
+msgid "Privacybescherming"
+msgstr "Privacy"
+
+#: .\darts\templates\pages\disclaimer.html:32
+msgid ""
+"\n"
+"                  Wij nemen de bescherming van uw privacy zeer serieus. Alle "
+"persoonlijke gegevens die u via deze \n"
+"                  website en/of deelnameformulier verstrekt, worden met de "
+"grootste zorgvuldigheid behandeld en \n"
+"                  alleen gebruikt in overeenstemming met inachtneming van de "
+"privacy van het individu. Wij doen er \n"
+"                  alles aan om uw gegevens te beveiligen tegen "
+"ongeautoriseerde toegang, verlies of diefstal, maar \n"
+"                  kunnen geen absolute veiligheid garanderen.\n"
+"                  "
+msgstr ""
+"\n"
+"We take the protection of your privacy very seriously. Any personal data you "
+"may receive through this \n"
+"                  website and/or participation form will be treated with the "
+"utmost care and will be \n"
+"                  Used only in accordance with the individual's privacy. We "
+"do it \n"
+"                  to protect your data from unauthorized access, loss, or "
+"theft, but \n"
+"                  cannot guarantee absolute security.\n"
+"                  "
+
+#: .\darts\templates\pages\disclaimer.html:41
+msgid "Aansprakelijkheidsuitsluiting"
+msgstr "Exclusion of liability"
+
+#: .\darts\templates\pages\disclaimer.html:43
+msgid ""
+"\n"
+"                  De informatie op deze website is uitsluitend bedoeld voor "
+"algemene informatiedoeleinden. Hoewel \n"
+"                  wij ons inspannen om de inhoud up-to-date en accuraat te "
+"houden, aanvaarden wij geen enkele \n"
+"                  verantwoordelijkheid of aansprakelijkheid voor de "
+"juistheid, volledigheid, of bruikbaarheid van de \n"
+"                  informatie, noch voor fouten of omissies daarin.\n"
+"                  Wij zijn niet aansprakelijk voor directe, indirecte, "
+"incidentele, gevolg- of enige andere schade die \n"
+"                  voortvloeit uit het gebruik van of het vertrouwen op de "
+"verstrekte informatie. Dit omvat, zonder \n"
+"                  beperking, verlies van gegevens of winst, schade aan "
+"eigendommen of schadeclaims van derden.\n"
+"                  "
+msgstr ""
+"\n"
+"The information on this website is for general information purposes only. "
+"Though \n"
+"                  endeavours to keep the content up-to-date and accurate, we "
+"do not accept any \n"
+"                  responsibility or liability for the accuracy, "
+"completeness, or usefulness of the \n"
+"                  information, nor for errors or omissions therein.\n"
+"                  We will not be liable for any direct, indirect, "
+"incidental, consequential or any other damages that may occur. \n"
+"                  arising from the use of or reliance on the information "
+"provided. This includes, without prejudice to \n"
+"                  limitation, loss of data or profits, damage to property or "
+"claims for damages from third parties.\n"
+"                  "
+
+#: .\darts\templates\pages\disclaimer.html:54
+msgid "Inschrijving en deelname op eigen risico"
+msgstr "Registration and participation at your own risk"
+
+#: .\darts\templates\pages\disclaimer.html:56
+msgid ""
+"\n"
+"                  Door u in te schrijven voor een evenement via deze website "
+"en/of deelnameformulier erkent u dat \n"
+"                  deelname geheel op eigen risico geschiedt. Wij zijn niet "
+"verantwoordelijk of aansprakelijk voor \n"
+"                  enige schade, letsel, of verlies dat voortvloeit uit "
+"deelname aan het evenement, tenzij deze schade \n"
+"                  direct te wijten is aan opzet of grove nalatigheid van de "
+"organisator.\n"
+"                  U wordt geadviseerd om uw eigen verzekeringen en "
+"voorzorgsmaatregelen te treffen.\n"
+"                  "
+msgstr ""
+"\n"
+"By registering for an event via this website and/or participation form, you "
+"acknowledge that \n"
+"                  Participation is entirely at your own risk. We are not "
+"responsible or liable for \n"
+"                  any damage, injury, or loss resulting from participation "
+"in the event, unless such damage \n"
+"                  directly attributable to intent or gross negligence on the "
+"part of the organiser.\n"
+"                  You are advised to take your own insurance and "
+"precautions.\n"
+"                  "
+
+#: .\darts\templates\pages\disclaimer.html:65
+msgid "Externe links"
+msgstr "External links"
+
+#: .\darts\templates\pages\disclaimer.html:67
+msgid ""
+"\n"
+"                  Deze website kan links bevatten naar externe websites of "
+"diensten die niet onder onze controle \n"
+"                  vallen. Wij zijn niet verantwoordelijk voor de inhoud, "
+"privacypraktijken of enige schade \n"
+"                  voortvloeiend uit het gebruik van dergelijke externe sites "
+"of diensten. Het opnemen van links \n"
+"                  betekent niet dat wij de inhoud of diensten goedkeuren.\n"
+"                  "
+msgstr ""
+"\n"
+"This website may contain links to external websites or services that are not "
+"under our control. \n"
+"                  fall. We are not responsible for the content, privacy "
+"practices, or any damages \n"
+"                  arising from the use of such external sites or services. "
+"Inclusion of links \n"
+"                  does not imply that we endorse the content or services.\n"
+"                  "
+
+#: .\darts\templates\pages\disclaimer.html:75
+msgid "Geen terugbetalingen"
+msgstr "No refunds"
+
+#: .\darts\templates\pages\disclaimer.html:77
+msgid ""
+"\n"
+"                  Gekochte tickets kunnen niet worden terugbetaald of "
+"omgeruild, behalve in gevallen van \n"
+"                  annulering van het evenement door de organisatie.\n"
+"                  "
+msgstr ""
+"\n"
+"Purchased tickets cannot be refunded or exchanged, except in cases of \n"
+"                  cancellation of the event by the organization.\n"
+"                  "
+
+#: .\darts\templates\pages\disclaimer.html:83
+msgid "Overdracht van tickets"
+msgstr "Transfer of tickets"
+
+#: .\darts\templates\pages\disclaimer.html:85
+msgid ""
+"\n"
+"                  Het is niet toegestaan om tickets door te verkopen of over "
+"te dragen zonder uitdrukkelijke \n"
+"                  toestemming van de organisator.\n"
+"                  "
+msgstr ""
+"\n"
+"It is not permitted to resell or transfer tickets without express \n"
+"                  permission of the organiser.\n"
+"                  "
+
+#: .\darts\templates\pages\disclaimer.html:91
+msgid "Toegang en beveiliging"
+msgstr "Access & Security"
+
+#: .\darts\templates\pages\disclaimer.html:93
+msgid ""
+"\n"
+"                  De organisator behoudt zich het recht voor om, zonder "
+"terugbetaling, toegang te weigeren of \n"
+"                  personen uit het evenement te verwijderen indien zij zich "
+"niet aan de regels houden of ongepast \n"
+"                  gedrag vertonen.\n"
+"                  "
+msgstr ""
+"\n"
+"The Promoter reserves the right, without refund, to refuse entry or \n"
+"                  remove people from the event if they do not comply with "
+"the rules or are inappropriate \n"
+"                  behaviour.\n"
+"                  "
+
+#: .\darts\templates\pages\disclaimer.html:101
+msgid "Wijzigingen"
+msgstr "Alterations"
+
+#: .\darts\templates\pages\disclaimer.html:103
+msgid ""
+"\n"
+"                  Wij behouden ons het recht voor om deze disclaimer en/of "
+"de algemene voorwaarden op elk \n"
+"                  moment te wijzigen. Het is uw verantwoordelijkheid om "
+"regelmatig deze disclaimer te raadplegen \n"
+"                  om op de hoogte te blijven van eventuele wijzigingen\n"
+"                  "
+msgstr ""
+"\n"
+"We reserve the right to change this disclaimer and/or the terms and "
+"conditions at any time. \n"
+"                  moment. It is your responsibility to periodically refer to "
+"this disclaimer \n"
+"                  to keep up to date with any changes\n"
+"                  "
 
 #: .\darts\templates\pages\index.html:35
 msgid "Welkom bij"
 msgstr "Welcome to"
+
+#: .\darts\templates\pages\index.html:37
+msgid "Uw ultieme bestemming voor alles wat met darts te maken heeft."
+msgstr "Your ultimate destination for all things darts."
+
+#: .\darts\templates\pages\index.html:78
+msgid ""
+"\n"
+"              Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor "
+"cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum "
+"quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora "
+"deleniti soluta.\n"
+"              "
+msgstr ""
+"\n"
+"Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias "
+"maxime. Enim reiciendis minus et rerum hic non. Dicta quas quia maiores "
+"iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti "
+"soluta.\n"
+"              "
+
+#: .\darts\templates\pages\index.html:82
+msgid "Lees Meer"
+msgstr "Read More"
+
+#: .\darts\templates\pages\index.html:93
+msgid ""
+"\n"
+"                    Bij Chudartz bieden we een professionele dartschool aan "
+"in Zedelgem, \n"
+"                    waar spelers van alle niveaus hun vaardigheden kunnen "
+"verbeteren. \n"
+"                    "
+msgstr ""
+"\n"
+"At Chudartz we offer a professional darts school in Zedelgem, \n"
+"                    where players of all skill levels can improve their "
+"skills. \n"
+"                    "
+
+#: .\darts\templates\pages\index.html:106
+msgid ""
+"\n"
+"                    Wij organiseren regelmatig darttoernooien waar zowel "
+"amateurs als professionals kunnen deelnemen.\n"
+"                    Aarzel niet om je in te schrijven! \n"
+"                    "
+msgstr ""
+"\n"
+"We regularly organize darts tournaments where both amateurs and "
+"professionals can participate.\n"
+"                    Don't hesitate to register! \n"
+"                    "
+
+#: .\darts\templates\pages\index.html:117
+msgid "Privélessen"
+msgstr "Private lessons"
+
+#: .\darts\templates\pages\index.html:119
+msgid ""
+"We staan ook altijd open voor privélessen, gelieve ons te contacteren via"
+msgstr "We are also always open to private lessons, please contact us at"
+
+#: .\darts\templates\pages\index.html:119
+msgid "dit formulier."
+msgstr "this form."
+
+#: .\darts\templates\pages\index.html:128
+msgid "Verkoop van Darts"
+msgstr "Sale of dart equipment."
+
+#: .\darts\templates\pages\index.html:130
+msgid ""
+"\n"
+"                    Bij Chudartz kunt u ook terecht voor een breed scala aan "
+"darts producten, \n"
+"                    van dartpijlen en borden tot accessoires.\n"
+"                    Ons assortiment is zorgvuldig samengesteld om aan de "
+"behoeften van elke darts-enthousiasteling te voldoen.\n"
+"                    "
+msgstr ""
+"\n"
+"At Chudartz you can also find a wide range of darts products, \n"
+"                    from darts and boards to accessories.\n"
+"                    Our range has been carefully curated to meet the needs "
+"of every darts enthusiast.\n"
+"                    "
+
+#: .\darts\templates\pages\index.html:156
+msgid "Teambuildings & Workshops"
+msgstr "Team Buildings & Workshops"
+
+#: .\darts\templates\pages\index.html:158
+msgid ""
+"\n"
+"                Bij ChudartZ weten we dat geweldige prestaties op de "
+"dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van "
+"de kracht van een hecht team. Daarom organiseren wij ook teambuilding-"
+"evenementen.\n"
+"                "
+msgstr ""
+"\n"
+"At ChudartZ, we know that great performance on the darts court doesn't just "
+"depend on individual skills, but above all on the strength of a close-knit "
+"team. That's why we also organize team building events.\n"
+"                "
+
+#: .\darts\templates\pages\index.html:162
+msgid "Meer Info"
+msgstr "More Info"
+
+#: .\darts\templates\pages\index.html:174
+msgid "Afbeeldingen"
+msgstr "Images"
+
+#: .\darts\templates\pages\index.html:175
+msgid ""
+"Laat je inspireren door de foto's van onze dartsevenementen en lessen, en "
+"ervaar de energie en gemeenschap van onze club."
+msgstr ""
+"Be inspired by the photos of our darts events and lessons, and experience "
+"the energy and community of our club."
+
+#: .\darts\templates\pages\index.html:183
+msgid "Alle"
+msgstr "All"
+
+#: .\darts\templates\pages\index.html:184
+msgid "School"
+msgstr "School"
+
+#: .\darts\templates\pages\index.html:261
+msgid "<span>Veel Gestelde</span><strong> Vragen</strong>"
+msgstr "<span>Frequently Asked</span><strong> Questions</strong>"
+
+#: .\darts\templates\pages\index.html:263
+msgid ""
+"\n"
+"                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed "
+"do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute "
+"irure dolor in reprehenderit\n"
+"                "
+msgstr ""
+"\n"
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in "
+"reprehenderit\n"
+"                "
+
+#: .\darts\templates\pages\index.html:327
+msgid "Aarzel niet om ons te contacteren!"
+msgstr "Don't hesitate to contact us!"
+
+#: .\darts\templates\pages\index.html:341
+msgid "Bel ons"
+msgstr "Call us"
+
+#: .\darts\templates\pages\index.html:350
+msgid "Email ons"
+msgstr "Email Us"
+
+#: .\darts\templates\pages\index.html:373
+msgid "Stuur ons een bericht"
+msgstr "Send us a message"
+
+#: .\darts\templates\pages\index.html:391
+msgid "Onderwerp"
+msgstr "Subject"
+
+#: .\darts\templates\pages\index.html:396
+msgid "Bericht"
+msgstr "Message"
+
+#: .\darts\templates\pages\index.html:401
+msgid "Laden..."
+msgstr "Import…"
+
+#: .\darts\templates\pages\index.html:403
+msgid "Uw bericht is verzonden. Bedankt!"
+msgstr "Your message has been sent. Thank you!"
+
+#: .\darts\templates\pages\index.html:404
+msgid "Stuur bericht"
+msgstr "Send message"
+
+#: .\darts\templates\pages\sponsors.html:43
+msgid "Bezoek Website"
+msgstr "Visit Website"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:28
+msgid "Teambuilding & Workshops"
+msgstr "Team Building & Workshops"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:29
+msgid ""
+"Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen "
+"afhangen van individuele vaardigheden, maar vooral van de kracht van een "
+"hecht team. Daarom organiseren wij ook teambuilding-evenementen."
+msgstr ""
+"At ChudartZ, we know that great performance on the darts court doesn't just "
+"depend on individual skills, but above all on the strength of a close-knit "
+"team. That's why we also organize team building events."
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:47
+msgid "Teambuilding"
+msgstr "Team building"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:49
+msgid ""
+"\n"
+"                      Een dag vol spannende dartscompetities, uitdagende "
+"teamspellen en een overvloed aan plezier en camaraderie. Of je nu een "
+"doorgewinterde darter bent of net begint, deze teambuilding is ontworpen om "
+"onze band te versterken en onze gezamenlijke vaardigheden te verbeteren.\n"
+"                    "
+msgstr ""
+"\n"
+"A day full of exciting darts competitions, challenging team games and an "
+"abundance of fun and camaraderie. Whether you're a seasoned darts player or "
+"just starting out, this team building is designed to strengthen our bond and "
+"improve our collective skills.\n"
+"                    "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:54
+msgid "Versterk je Team"
+msgstr "Empower your Team"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:55
+msgid "Verbeter je Spel"
+msgstr "Improve Your Game"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:56
+msgid "Plezer & Ontspaning"
+msgstr "Relaxation & Relaxation"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:57
+msgid "Onvergetelijke Ervaring"
+msgstr "Unforgettable Experience"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:78
+msgid "Plan Bullseye"
+msgstr "Plan Bullseye"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:84
+#: .\darts\templates\pages\teambuildings-en-workshops.html:103
+#: .\darts\templates\pages\teambuildings-en-workshops.html:121
+msgid "Quam adipiscing vitae proin"
+msgstr "Quam adipiscing vitae proin"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:85
+#: .\darts\templates\pages\teambuildings-en-workshops.html:104
+#: .\darts\templates\pages\teambuildings-en-workshops.html:122
+msgid "Nec feugiat nisl pretium"
+msgstr "Nec feugiat nisl pretium"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:86
+#: .\darts\templates\pages\teambuildings-en-workshops.html:105
+#: .\darts\templates\pages\teambuildings-en-workshops.html:123
+msgid "Nulla at volutpat diam uteera"
+msgstr "Nulla at volutpat diam uteera"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:87
+#: .\darts\templates\pages\teambuildings-en-workshops.html:106
+#: .\darts\templates\pages\teambuildings-en-workshops.html:124
+msgid "Pharetra massa massa ultricies"
+msgstr "Pharetra mass mass ultricies"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:88
+#: .\darts\templates\pages\teambuildings-en-workshops.html:107
+#: .\darts\templates\pages\teambuildings-en-workshops.html:125
+msgid "Massa ultricies mi quis hendrerit"
+msgstr "Massa ultricies mi quis hendrerit"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:96
+msgid "Plan Double-Trouble"
+msgstr "Plan Double-Trouble"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:115
+msgid "Plan Easy In, Easy Out"
+msgstr "Schedule Easy In, Easy Out"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:142
+msgid "Workshops"
+msgstr "Workshops"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:144
+msgid "Binnenkort!"
+msgstr "Soon!"
+
+#: .\darts\templates\pages\tornooi-inschrijving-response.html:24
+msgid "Ingeschreven!"
+msgstr "Registered!"
+
+#: .\darts\templates\pages\tornooi-inschrijving-response.html:25
+msgid "Uw toegangsticket komt binnenkort aan in uw mailbox!"
+msgstr "Your entrance ticket will arrive in your mailbox shortly!"
+
+#: .\darts\templates\pages\tornooi-inschrijving-response.html:29
+msgid "Er is iets misgegaan."
+msgstr "Something went wrong."
+
+#: .\darts\templates\pages\tornooi-inschrijving-response.html:30
+#, python-format
+msgid "Gelieve contact op te nemen via <a href=\"{%% url "
+msgstr "Please contact us at <a href=\"{%% url "
+
+#: .\darts\templates\pages\tornooi-inschrijving-response.html:34
+msgid "Ga terug naar tornooi"
+msgstr "Go back to tournament"
+
+#: .\darts\templates\pages\tornooi-inschrijving.html:31
+#: .\darts\templates\pages\tornooi.html:29
+msgid "/tornooien"
+msgstr "/tournaments"
+
+#: .\darts\templates\pages\tornooi-inschrijving.html:74
+msgid "Selecteer je niveau"
+msgstr "Select your level"
+
+#: .\darts\templates\pages\tornooi-inschrijving.html:111
+msgid "Selecteer je ticket"
+msgstr "Select your ticket"
+
+#: .\darts\templates\pages\tornooien.html:46
+msgid "Er zijn nog geen tornooien beschikbaar!"
+msgstr "There are no tournaments available yet!"
 
 #: .\darts\urls.py:8
 msgid "dartschool"
@@ -316,28 +2136,55 @@ msgid "tornooien/<slug:slug>/inschrijven/success"
 msgstr "tournaments/<slug:slug>/enroll/success"
 
 #: .\darts\urls.py:16
+msgid "teambuildings-en-workshops"
+msgstr "team-building-and-workshops"
+
+#: .\darts\urls.py:17
 msgid "over-ons"
 msgstr "about-us"
 
-#: .\darts\urls.py:17
-msgid "terms-of-service"
-msgstr "terms-of-service"
-
 #: .\darts\urls.py:18
-msgid "privacy-policy"
-msgstr "privacy-policy"
+msgid "algemene-voorwaarden"
+msgstr "Terms & Conditions"
 
 #: .\darts\urls.py:19
+msgid "reglement-tornooien"
+msgstr "/rules-tournaments"
+
+#: .\darts\urls.py:20
+msgid "disclaimer"
+msgstr "disclaimer"
+
+#: .\darts\urls.py:21
 msgid "contact"
 msgstr "contact"
 
-#: .\darts\urls.py:21
-msgid "darts/scanner/"
-msgstr ""
-
 #: .\darts\urls.py:22
+msgid "sponsors"
+msgstr "Sponsors"
+
+#: .\darts\urls.py:24
+msgid "darts/scanner/"
+msgstr "darts/scanner/"
+
+#: .\darts\urls.py:25
 msgid "mollie-webhook/"
-msgstr ""
+msgstr "mollie-webhook/"
+
+#~ msgid "Terms of service"
+#~ msgstr "Terms of service"
+
+#~ msgid "Privacy policy"
+#~ msgstr "Privacy policy"
+
+#~ msgid "Taal"
+#~ msgstr "Language"
+
+#~ msgid "terms-of-service"
+#~ msgstr "terms-of-service"
+
+#~ msgid "privacy-policy"
+#~ msgstr "privacy-policy"
 
 #~ msgid "Home"
 #~ msgstr "Home"

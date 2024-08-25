@@ -27,8 +27,11 @@
     }
   }
 
-  .email-form, .register-form {
+  .register-form {
     background: color-mix(in srgb, var(--default-color), transparent 96%);
+  }
+
+  .email-form, .register-form {
     padding: 30px;
     height: 100%;
 
@@ -57,7 +60,7 @@
         color: var(--default-color) !important;
       }
     }
-
+    
     select:not(:valid) {
       color: color-mix(in srgb, var(--default-color), transparent 70%);
     }

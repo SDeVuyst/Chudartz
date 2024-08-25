@@ -17,10 +17,12 @@ Chudarts | Over Ons
 
   <main class="main">
 
-    {% include 'blocks/page-title.html' with name="Over Ons" description="Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." %}
+    {% trans "Over Ons" as page_name %}
+    {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
+
+    {% include 'blocks/page-title.html' with name=page_name description=page_description %}
 
     <section id="portfolio-details" class="portfolio-details section"> 
-      <!-- TODO VERANDER NAMEN VAN CSS CLASSES EN IDS -->
 
       <div class="container" data-aos="fade-up">
 
@@ -28,7 +30,7 @@ Chudarts | Over Ons
 
           <div data-aos="fade-up">
             <div class="portfolio-description">
-              <h2>Onze Missie en Visie</h2>
+              <h2>{% trans 'Onze Missie en Visie' %}</h2>
               <p>
                 Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
               </p>

@@ -155,18 +155,18 @@ section,
 /*--------------------------------------------------------------
 # Clients Section
 --------------------------------------------------------------*/
-.clients {
+.sponsors {
   padding: 20px 0;
 }
 
-.clients .client-logo {
+.sponsors .sponsor-logo {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-.clients .client-logo img {
+.sponsors .sponsor-logo img {
   padding: 20px 40px;
   max-width: 90%;
   transition: 0.3s;
@@ -174,13 +174,13 @@ section,
   filter: grayscale(100);
 }
 
-.clients .client-logo img:hover {
+.sponsors .sponsor-logo img:hover {
   filter: none;
   opacity: 1;
 }
 
 @media (max-width: 640px) {
-  .clients .client-logo img {
+  .sponsors .sponsor-logo img {
     padding: 20px;
   }
 }
@@ -617,15 +617,6 @@ section,
   bottom: 0;
 }
 
-@keyframes spin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
 /*--------------------------------------------------------------
 # Pricing Section
 --------------------------------------------------------------*/
@@ -1015,24 +1006,19 @@ section,
   font-size: 32px;
 }
 
-.testimonials .swiper {
-  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05);
-  background-color: var(--surface-color);
-}
-
 .testimonials .testimonials-carousel,
 .testimonials .testimonials-slider {
   overflow: hidden;
 }
 
-.testimonials .quote-item {
+.testimonials .testimonial-item {
   box-sizing: content-box;
   min-height: 200px;
   position: relative;
   margin: 30px;
 }
 
-.testimonials .quote-item .testimonial-img {
+.testimonials .testimonial-item .testimonial-img {
   width: 90px;
   height: 90px;
   border-radius: 50px;
@@ -1040,41 +1026,41 @@ section,
   margin-right: 10px;
 }
 
-.testimonials .quote-item h3 {
+.testimonials .testimonial-item h3 {
   font-size: 18px;
   font-weight: bold;
   margin: 10px 0 5px 0;
 }
 
-.testimonials .quote-item h4 {
+.testimonials .testimonial-item h4 {
   color: color-mix(in srgb, var(--default-color), transparent 50%);
   font-size: 14px;
   margin: 0;
 }
 
-.testimonials .quote-item .stars {
+.testimonials .testimonial-item .stars {
   margin: 10px 0;
 }
 
-.testimonials .quote-item .stars i {
+.testimonials .testimonial-item .stars i {
   color: #ffc107;
   margin: 0 1px;
 }
 
-.testimonials .quote-item .quote-icon-left,
-.testimonials .quote-item .quote-icon-right {
+.testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
   color: color-mix(in srgb, var(--accent-color), transparent 60%);
   font-size: 26px;
   line-height: 0;
 }
 
-.testimonials .quote-item .quote-icon-left {
+.testimonials .testimonial-item .quote-icon-left {
   display: inline-block;
   left: -5px;
   position: relative;
 }
 
-.testimonials .quote-item .quote-icon-right {
+.testimonials .testimonial-item .quote-icon-right {
   display: inline-block;
   right: -5px;
   position: relative;
@@ -1082,31 +1068,9 @@ section,
   transform: scale(-1, -1);
 }
 
-.testimonials .quote-item p {
+.testimonials .testimonial-item p {
   font-style: italic;
   margin: 15px auto 15px auto;
-}
-
-.testimonials .swiper-wrapper {
-  height: auto;
-}
-
-.testimonials .swiper-pagination {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background-color: color-mix(in srgb, var(--default-color), transparent 85%);
-  opacity: 1;
-  border: none;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: var(--accent-color);
 }
 
 @media (max-width: 767px) {
@@ -1114,7 +1078,7 @@ section,
 .testimonials .testimonials-slider {
     overflow: hidden;
   }
-  .testimonials .quote-item {
+  .testimonials .testimonial-item {
     margin: 15px;
   }
 }
@@ -1203,8 +1167,11 @@ section,
   margin-bottom: 0;
 }
 
-.contact .email-form, .contact .register-form, .register .email-form, .register .register-form {
+.contact .register-form, .register .register-form {
   background: color-mix(in srgb, var(--default-color), transparent 96%);
+}
+
+.contact .email-form, .contact .register-form, .register .email-form, .register .register-form {
   padding: 30px;
   height: 100%;
 }
@@ -1319,58 +1286,6 @@ section,
   width: 100%;
 }
 
-.portfolio-details .swiper-wrapper {
-  height: auto;
-}
-
-.portfolio-details .swiper-button-prev,
-.portfolio-details .swiper-button-next {
-  width: 48px;
-  height: 48px;
-}
-
-.portfolio-details .swiper-button-prev:after,
-.portfolio-details .swiper-button-next:after {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(0, 0, 0, 0.15);
-  font-size: 24px;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
-}
-
-.portfolio-details .swiper-button-prev:hover:after,
-.portfolio-details .swiper-button-next:hover:after {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-@media (max-width: 575px) {
-  .portfolio-details .swiper-button-prev,
-.portfolio-details .swiper-button-next {
-    display: none;
-  }
-}
-
-.portfolio-details .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.portfolio-details .swiper-pagination .swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background-color: color-mix(in srgb, var(--default-color), transparent 85%);
-  opacity: 1;
-}
-
-.portfolio-details .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: var(--accent-color);
-}
-
 .portfolio-details .portfolio-info h3 {
   font-size: 22px;
   font-weight: 700;
@@ -1431,14 +1346,14 @@ section,
   padding: 0;
 }
 
-.portfolio-details .portfolio-description .quote-item {
+.portfolio-details .portfolio-description .testimonial-item {
   padding: 30px 30px 0 30px;
   position: relative;
   background: color-mix(in srgb, var(--default-color), transparent 97%);
   margin-bottom: 50px;
 }
 
-.portfolio-details .portfolio-description .quote-item .testimonial-img {
+.portfolio-details .portfolio-description .testimonial-item .testimonial-img {
   width: 90px;
   border-radius: 50px;
   border: 6px solid var(--background-color);
@@ -1446,33 +1361,33 @@ section,
   margin: 0 10px 0 0;
 }
 
-.portfolio-details .portfolio-description .quote-item h3 {
+.portfolio-details .portfolio-description .testimonial-item h3 {
   font-size: 18px;
   font-weight: bold;
   margin: 15px 0 5px 0;
   padding-top: 20px;
 }
 
-.portfolio-details .portfolio-description .quote-item h4 {
+.portfolio-details .portfolio-description .testimonial-item h4 {
   font-size: 14px;
   color: #6c757d;
   margin: 0;
 }
 
-.portfolio-details .portfolio-description .quote-item .quote-icon-left,
-.portfolio-details .portfolio-description .quote-item .quote-icon-right {
+.portfolio-details .portfolio-description .testimonial-item .quote-icon-left,
+.portfolio-details .portfolio-description .testimonial-item .quote-icon-right {
   color: color-mix(in srgb, var(--accent-color), transparent 50%);
   font-size: 26px;
   line-height: 0;
 }
 
-.portfolio-details .portfolio-description .quote-item .quote-icon-left {
+.portfolio-details .portfolio-description .testimonial-item .quote-icon-left {
   display: inline-block;
   left: -5px;
   position: relative;
 }
 
-.portfolio-details .portfolio-description .quote-item .quote-icon-right {
+.portfolio-details .portfolio-description .testimonial-item .quote-icon-right {
   display: inline-block;
   right: -5px;
   position: relative;
@@ -1480,7 +1395,7 @@ section,
   transform: scale(-1, -1);
 }
 
-.portfolio-details .portfolio-description .quote-item p {
+.portfolio-details .portfolio-description .testimonial-item p {
   font-style: italic;
   margin: 0 0 15px 0 0 0;
   padding: 0;
@@ -2057,6 +1972,19 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+.btn-back,
+.btn-back:focus {
+  color: var(--contrast-color);
+  background: var(--accent-color);
+  font-size: 14px;
+  padding: 8px 26px;
+  margin: 0;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.btn-back:hover,
+.btn-back:focus:hover {
+  color: var(--contrast-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }

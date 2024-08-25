@@ -25,11 +25,12 @@ Chudarts | Dartschool
   {% include 'blocks/header-sticky.html' %}
 
   <main class="main">
-
-    {% include 'blocks/page-title.html' with name="Dartschool" description="Ben je klaar om je dartskills naar een hoger niveau te tillen? Welkom bij ChudartZ! De plek waar jongeren kunnen samenkomen om de kunst van het darten te leren en perfectioneren!" backgroundsecond="true" %}
+    {% trans "Dartschool" as page_name %}
+    {% trans "Ben je klaar om je dartskills naar een hoger niveau te tillen? Welkom bij ChudartZ! De plek waar jongeren kunnen samenkomen om de kunst van het darten te leren en perfectioneren!" as page_description %}
+    
+    {% include 'blocks/page-title.html' with name=page_name description=page_description backgroundsecond="true" %}
 
     <section id="portfolio-details" class="portfolio-details section pt-0"> 
-      <!-- TODO VERANDER NAMEN VAN CSS CLASSES EN IDS -->
 
       <div class="container" data-aos="fade-up">
 
@@ -43,17 +44,19 @@ Chudarts | Dartschool
         
                 <div class="row gy-4 align-items-center features-item">
                     <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Ons Doel</h3>
+                    <h3>{% trans 'Ons Doel' %}</h3>
                     <p>
+                        {% blocktrans %}
                         Onze missie is om een plek te creëren in de ruime regio Zedelgem waar jongeren zich kunnen ontwikkelen, nieuwe vrienden kunnen maken en hun passie kunnen ontdekken en zich vervolmaken in het darts.
                         We streven ernaar om in de dartsschool op een educatieve manier het individuele niveau omhoog te krikken.
+                        {% endblocktrans %}
                     </p>
                     <ul>
-                        <li><i class="bi bi-check"></i><span>Ontwikkeling van Basisvaardigheden</span></li>
-                        <li><i class="bi bi-check"></i><span>Persoonlijke Groei en Zelfvertrouwen</span></li>
-                        <li><i class="bi bi-check"></i><span>Educatieve en Leuke Activiteiten</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Ontwikkeling van Basisvaardigheden' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Persoonlijke Groei en Zelfvertrouwen' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Educatieve en Leuke Activiteiten' %}</span></li>
                     </ul>
-                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started">Schrijf je in</a>
+                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started">{% trans 'Schrijf je in' %}</a>
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
                     <div class="image-stack">
@@ -68,36 +71,40 @@ Chudarts | Dartschool
                     <img src="{% static "img/school/school-3.jpg" %}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
-                    <h3>Voor Wie</h3>
+                    <h3>{% trans 'Voor Wie' %}</h3>
                     <p>
+                      {% blocktrans %}
                       Heb je als ouder het gevoel dat jouw kind een uitzonderlijk talent heeft,
                       of denk je dat 10 jaar misschien al te laat is om met darten te beginnen? Geen zorgen! 
                       Kom gerust langs voor een gratis proefles.
                       Zowel kinderen jonger dan 10 jaar als oudere beginners kunnen vrijblijvend ontdekken of ze een (uitzonderlijk) talent zijn en of darten iets voor hen is.
+                      {% endblocktrans %}
                     </p>
                     <ul>
-                        <li><i class="bi bi-check"></i><span>Vanaf 10 jaar</span></li>
-                        <li><i class="bi bi-check"></i><span>Zowel beginners als gevorderden</span></li>
-                        <li><i class="bi bi-check"></i><span>Gratis proefles</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Vanaf 10 jaar' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Zowel beginners als gevorderden' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Gratis proefles' %}</span></li>
                     </ul>
-                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
+                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">{% trans 'Schrijf je in' %}</a>
                     </div>
                 </div>
 
                 <div class="row gy-4 align-items-stretch justify-content-between features-item ">
                   <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
-                  <h3>Prijzen</h3>
+                  <h3>{% trans 'Prijzen' %}</h3>
                   <p> 
+                    {% blocktrans %}
                     De leden kunnen gebruik maken van het materiaal (borden), 
                     de accommodatie, gratis (spuit)water, verzekering * tijdens de training (niet het traject naar (heen) en van de dartschool (terugweg)), 
                     voorrang en ondersteuning bij het spelen van tornooien, jeugd- en/of clubcompetitie.
+                    {% endblocktrans %}
                   </p>
                   <ul>
-                      <li><i class="bi bi-dot"></i><span>lidgeld: € 50/jaar</span></li>
-                      <li><i class="bi bi-dot"></i><span>lesgeld: € 15/maand (max. 10 lessen per maand)</span></li>
-                      <li><i class="bi bi-dot"></i><span>10-beurtenkaart: € 12.5/maand</span></li>
+                      <li><i class="bi bi-dot"></i><span>{% trans 'lidgeld: € 50/jaar' %}</span></li>
+                      <li><i class="bi bi-dot"></i><span>{% trans 'lesgeld: € 15/maand (max. 10 lessen per maand)' %}</span></li>
+                      <li><i class="bi bi-dot"></i><span>{% trans '10-beurtenkaart: € 12.5/maand' %}</span></li>
                   </ul>
-                  <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
+                  <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">{% trans 'Schrijf je in' %}</a>
                   </div>
                   <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
                     <img src="{% static "img/school/school-4.jpg" %}" class="img-fluid" alt="">

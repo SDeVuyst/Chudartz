@@ -16,8 +16,8 @@ Chudarts | Disclaimer
   {% include 'blocks/header-sticky.html' %}
 
   <main class="main">
-
-    {% include 'blocks/page-title.html' with name="Disclaimer" %}
+    {% trans "Disclaimer" as page_title %}
+    {% include 'blocks/page-title.html' with name=page_title %}
 
     <section id="portfolio-details" class="portfolio-details section"> 
 
@@ -27,68 +27,84 @@ Chudarts | Disclaimer
 
           <div data-aos="fade-up">
             <div class="portfolio-description">
-                <h2>Privacybescherming</h2>
+                <h2>{% trans 'Privacybescherming' %}</h2>
                 <p>
-                    Wij nemen de bescherming van uw privacy zeer serieus. Alle persoonlijke gegevens die u via deze 
-                    website en/of deelnameformulier verstrekt, worden met de grootste zorgvuldigheid behandeld en 
-                    alleen gebruikt in overeenstemming met inachtneming van de privacy van het individu. Wij doen er 
-                    alles aan om uw gegevens te beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, maar 
-                    kunnen geen absolute veiligheid garanderen.
+                  {% blocktrans %}
+                  Wij nemen de bescherming van uw privacy zeer serieus. Alle persoonlijke gegevens die u via deze 
+                  website en/of deelnameformulier verstrekt, worden met de grootste zorgvuldigheid behandeld en 
+                  alleen gebruikt in overeenstemming met inachtneming van de privacy van het individu. Wij doen er 
+                  alles aan om uw gegevens te beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, maar 
+                  kunnen geen absolute veiligheid garanderen.
+                  {% endblocktrans %}
                 </p>
 
-                <h2 class="pt-5">Aansprakelijkheidsuitsluiting</h2>
+                <h2 class="pt-5">{% trans 'Aansprakelijkheidsuitsluiting' %}</h2>
                 <p>
-                    De informatie op deze website is uitsluitend bedoeld voor algemene informatiedoeleinden. Hoewel 
-                    wij ons inspannen om de inhoud up-to-date en accuraat te houden, aanvaarden wij geen enkele 
-                    verantwoordelijkheid of aansprakelijkheid voor de juistheid, volledigheid, of bruikbaarheid van de 
-                    informatie, noch voor fouten of omissies daarin.
-                    Wij zijn niet aansprakelijk voor directe, indirecte, incidentele, gevolg- of enige andere schade die 
-                    voortvloeit uit het gebruik van of het vertrouwen op de verstrekte informatie. Dit omvat, zonder 
-                    beperking, verlies van gegevens of winst, schade aan eigendommen of schadeclaims van derden.
+                  {% blocktrans %}
+                  De informatie op deze website is uitsluitend bedoeld voor algemene informatiedoeleinden. Hoewel 
+                  wij ons inspannen om de inhoud up-to-date en accuraat te houden, aanvaarden wij geen enkele 
+                  verantwoordelijkheid of aansprakelijkheid voor de juistheid, volledigheid, of bruikbaarheid van de 
+                  informatie, noch voor fouten of omissies daarin.
+                  Wij zijn niet aansprakelijk voor directe, indirecte, incidentele, gevolg- of enige andere schade die 
+                  voortvloeit uit het gebruik van of het vertrouwen op de verstrekte informatie. Dit omvat, zonder 
+                  beperking, verlies van gegevens of winst, schade aan eigendommen of schadeclaims van derden.
+                  {% endblocktrans %}
                 </p>
 
-                <h2 class="pt-5">Inschrijving en deelname op eigen risico</h2>
+                <h2 class="pt-5">{% trans 'Inschrijving en deelname op eigen risico' %}</h2>
                 <p>
-                    Door u in te schrijven voor een evenement via deze website en/of deelnameformulier erkent u dat 
-                    deelname geheel op eigen risico geschiedt. Wij zijn niet verantwoordelijk of aansprakelijk voor 
-                    enige schade, letsel, of verlies dat voortvloeit uit deelname aan het evenement, tenzij deze schade 
-                    direct te wijten is aan opzet of grove nalatigheid van de organisator.
-                    U wordt geadviseerd om uw eigen verzekeringen en voorzorgsmaatregelen te treffen.
+                  {% blocktrans %}
+                  Door u in te schrijven voor een evenement via deze website en/of deelnameformulier erkent u dat 
+                  deelname geheel op eigen risico geschiedt. Wij zijn niet verantwoordelijk of aansprakelijk voor 
+                  enige schade, letsel, of verlies dat voortvloeit uit deelname aan het evenement, tenzij deze schade 
+                  direct te wijten is aan opzet of grove nalatigheid van de organisator.
+                  U wordt geadviseerd om uw eigen verzekeringen en voorzorgsmaatregelen te treffen.
+                  {% endblocktrans %}
                 </p>
 
-                <h2 class="pt-5">Externe links</h2>
+                <h2 class="pt-5">{% trans 'Externe links' %}</h2>
                 <p>
-                    Deze website kan links bevatten naar externe websites of diensten die niet onder onze controle 
-                    vallen. Wij zijn niet verantwoordelijk voor de inhoud, privacypraktijken of enige schade 
-                    voortvloeiend uit het gebruik van dergelijke externe sites of diensten. Het opnemen van links 
-                    betekent niet dat wij de inhoud of diensten goedkeuren.
+                  {% blocktrans %}
+                  Deze website kan links bevatten naar externe websites of diensten die niet onder onze controle 
+                  vallen. Wij zijn niet verantwoordelijk voor de inhoud, privacypraktijken of enige schade 
+                  voortvloeiend uit het gebruik van dergelijke externe sites of diensten. Het opnemen van links 
+                  betekent niet dat wij de inhoud of diensten goedkeuren.
+                  {% endblocktrans %}
                 </p>
                 
-                <h2 class="pt-5">Geen terugbetalingen</h2>
+                <h2 class="pt-5">{% trans 'Geen terugbetalingen' %}</h2>
                 <p>
-                    Gekochte tickets kunnen niet worden terugbetaald of omgeruild, behalve in gevallen van 
-                    annulering van het evenement door de organisatie.
+                  {% blocktrans %}
+                  Gekochte tickets kunnen niet worden terugbetaald of omgeruild, behalve in gevallen van 
+                  annulering van het evenement door de organisatie.
+                  {% endblocktrans %}
                 </p>
 
-                <h2 class="pt-5">Overdracht van tickets</h2>
+                <h2 class="pt-5">{% trans 'Overdracht van tickets' %}</h2>
                 <p>
-                    Het is niet toegestaan om tickets door te verkopen of over te dragen zonder uitdrukkelijke 
-                    toestemming van de organisator.
+                  {% blocktrans %}
+                  Het is niet toegestaan om tickets door te verkopen of over te dragen zonder uitdrukkelijke 
+                  toestemming van de organisator.
+                  {% endblocktrans %}
                 </p>
                 
-                <h2 class="pt-5">Toegang en beveiliging</h2>
+                <h2 class="pt-5">{% trans 'Toegang en beveiliging' %}</h2>
                 <p>
-                    De organisator behoudt zich het recht voor om, zonder terugbetaling, toegang te weigeren of 
-                    personen uit het evenement te verwijderen indien zij zich niet aan de regels houden of ongepast 
-                    gedrag vertonen.
+                  {% blocktrans %}
+                  De organisator behoudt zich het recht voor om, zonder terugbetaling, toegang te weigeren of 
+                  personen uit het evenement te verwijderen indien zij zich niet aan de regels houden of ongepast 
+                  gedrag vertonen.
+                  {% endblocktrans %}
                 </p>
                 
 
-                <h2 class="pt-5">Wijzigingen</h2>
+                <h2 class="pt-5">{% trans 'Wijzigingen' %}</h2>
                 <p>
-                    Wij behouden ons het recht voor om deze disclaimer en/of de algemene voorwaarden op elk 
-                    moment te wijzigen. Het is uw verantwoordelijkheid om regelmatig deze disclaimer te raadplegen 
-                    om op de hoogte te blijven van eventuele wijzigingen
+                  {% blocktrans %}
+                  Wij behouden ons het recht voor om deze disclaimer en/of de algemene voorwaarden op elk 
+                  moment te wijzigen. Het is uw verantwoordelijkheid om regelmatig deze disclaimer te raadplegen 
+                  om op de hoogte te blijven van eventuele wijzigingen
+                  {% endblocktrans %}
                 </p>
                 
             </div>

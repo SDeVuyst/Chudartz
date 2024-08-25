@@ -72,10 +72,14 @@
         <div class="row align-items-xl-center gy-5">
 
           <div class="col-xl-5 content">
-            <h3>Over Ons</h3>
-            <h2>Onze Missie en Visie</h2>
-            <p>Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti soluta.</p>
-            <a href="{% url 'over_ons' %}" class="read-more"><span>Lees Meer</span><i class="bi bi-arrow-right"></i></a>
+            <h3>{% trans 'Over Ons' %}</h3>
+            <h2>{% trans 'Onze Missie en Visie' %}</h2>
+            <p>
+              {% blocktrans %}
+              Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti soluta.
+              {% endblocktrans %}
+            </p>
+            <a href="{% url 'over_ons' %}" class="read-more"><span>{% trans 'Lees Meer' %}</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
           <div class="col-xl-7">
@@ -84,10 +88,12 @@
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box">
                   <a href="{% url 'dartschool' %}"><i class="bi bi-buildings"></i></a>
-                  <h3>Dartschool</h3>
+                  <h3>{% trans 'Dartschool' %}</h3>
                   <p>
+                    {% blocktrans %}
                     Bij Chudartz bieden we een professionele dartschool aan in Zedelgem, 
                     waar spelers van alle niveaus hun vaardigheden kunnen verbeteren. 
+                    {% endblocktrans %}
                   </p>
                 </div>
               </div>
@@ -95,10 +101,12 @@
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box">
                   <a href="{% url 'tornooien' %}"><i class="bi bi-trophy"></i></a>
-                  <h3>Tornooien</h3>
+                  <h3>{% trans 'Tornooien' %}</h3>
                   <p>
+                    {% blocktrans %}
                     Wij organiseren regelmatig darttoernooien waar zowel amateurs als professionals kunnen deelnemen.
                     Aarzel niet om je in te schrijven! 
+                    {% endblocktrans %}
                   </p>
                 </div>
               </div>
@@ -106,19 +114,24 @@
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
                 <div class="icon-box">
                   <a href="#"><i class="bi bi-door-open"></i></a>
-                  <h3>Privélessen</h3>
-                  <p>We staan ook altijd open voor privélessen, gelieve ons te contacteren via <a href="{% url 'index' %}#contact">dit formulier.</a></p>
+                  <h3>{% trans 'Privélessen' %}</h3>
+                  <p>
+                    {% trans 'We staan ook altijd open voor privélessen, gelieve ons te contacteren via' %} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.'%}</a>
+                    
+                  </p>
                 </div>
               </div>
               
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
                 <div class="icon-box">
                   <a href="#"><i class="bi bi-shop"></i></a>
-                  <h3>Verkoop van Darts</h3>
+                  <h3>{% trans 'Verkoop van Darts' %}</h3>
                   <p>
+                    {% blocktrans %}
                     Bij Chudartz kunt u ook terecht voor een breed scala aan darts producten, 
                     van dartpijlen en borden tot accessoires.
                     Ons assortiment is zorgvuldig samengesteld om aan de behoeften van elke darts-enthousiasteling te voldoen.
+                    {% endblocktrans %}
                   </p>
                 </div>
               </div>
@@ -140,10 +153,13 @@
         <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-xl-10">
             <div class="text-center">
-              <h3>Teambuildings & Workshops</h3>
-              <p>Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen.</p>
-              <a class="cta-btn" href="{% url 'teambuildings_en_workshops' %}">Meer Info</a>
-              <!-- TODO -->
+              <h3>{% trans 'Teambuildings & Workshops' %}</h3>
+              <p>
+                {% blocktrans %}
+                Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen.
+                {% endblocktrans %}
+              </p>
+              <a class="cta-btn" href="{% url 'teambuildings_en_workshops' %}">{% trans 'Meer Info'%}</a>
             </div>
           </div>
         </div>
@@ -155,8 +171,8 @@
     <section id="portfolio" class="portfolio section">
 
       <div class="container section-title" data-aos="fade-up">
-        <h2>Afbeeldingen</h2>
-        <p>Laat je inspireren door de foto's van onze dartsevenementen en lessen, en ervaar de energie en gemeenschap van onze club.</p>
+        <h2>{% trans 'Afbeeldingen' %}</h2>
+        <p>{% trans "Laat je inspireren door de foto's van onze dartsevenementen en lessen, en ervaar de energie en gemeenschap van onze club." %}</p>
       </div>
 
       <div class="container">
@@ -164,9 +180,9 @@
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
           <ul class="afbeelding-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-school">School</li>
-            <li data-filter=".filter-tornooi">Tornooien</li>
+            <li data-filter="*" class="filter-active">{% trans 'Alle' %}</li>
+            <li data-filter=".filter-school">{% trans 'School' %}</li>
+            <li data-filter=".filter-tornooi">{% trans 'Tornooien' %}</li>
           </ul>
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
@@ -242,9 +258,11 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="content px-xl-5">
-              <h3><span>Frequently Asked </span><strong>Questions</strong></h3>
+              <h3>{% trans '<span>Veel Gestelde</span><strong> Vragen</strong>' %}</h3>
               <p>
+                {% blocktrans %}
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                {% endblocktrans %}
               </p>
             </div>
           </div>
@@ -305,8 +323,8 @@
     <section id="contact" class="contact section">
 
       <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Aarzel niet om ons te contacteren!</p>
+        <h2>{% trans 'Contact' %}</h2>
+        <p>{% trans 'Aarzel niet om ons te contacteren!' %}</p>
       </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -316,19 +334,11 @@
           <div class="col-lg-6">
 
             <div class="row gy-4">
-              <div class="col-md-6">
-                <div class="info-item" data-aos="fade" data-aos-delay="200">
-                  <i class="bi bi-geo-alt"></i>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street</p>
-                  <p>New York, NY 535022</p>
-                </div>
-              </div>
 
               <div class="col-md-6">
                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                   <i class="bi bi-telephone"></i>
-                  <h3>Call Us</h3>
+                  <h3>{% trans 'Bel ons' %}</h3>
                   <p>+1 5589 55488 55</p>
                   <p>+1 6678 254445 41</p>
                 </div>
@@ -337,18 +347,17 @@
               <div class="col-md-6">
                 <div class="info-item" data-aos="fade" data-aos-delay="200">
                   <i class="bi bi-envelope"></i>
-                  <h3>Email Us</h3>
+                  <h3>{% trans 'Email ons' %}</h3>
                   <p>info@example.com</p>
                   <p>contact@example.com</p>
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <div class="info-item" data-aos="fade" data-aos-delay="300">
-                  <i class="bi bi-clock"></i>
-                  <h3>Open Hours</h3>
-                  <p>Monday - Friday</p>
-                  <p>9:00AM - 05:00PM</p>
+              <div class="col-md-12">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                  <div id="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2503.708431907577!2d3.1689395764941453!3d51.13228593803756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c34e1c6c98cbb9%3A0x7b40593768943baf!2sWilgenlaan%2035%2C%208210%20Zedelgem!5e0!3m2!1snl!2sbe!4v1724578559432!5m2!1snl!2sbe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
                 </div>
               </div>
 
@@ -357,41 +366,47 @@
           </div>
 
           <div class="col-lg-6"> 
-            <form action="/contact" method="post" id="email-form" class="email-form" data-aos="fade-up" data-aos-delay="200">
-              {% csrf_token %}
-              <div class="row gy-4">
-          
-                  <!-- Name -->
-                  <div class="col-md-6">
-                      <input type="text" name="name" class="form-control" placeholder="Naam" maxlength="100" required>
-                  </div>
-          
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <input type="email" class="form-control" name="email" placeholder="Email" maxlength="254" required>
-                  </div>
-          
-                  <!-- Subject -->
-                  <div class="col-12">
-                      <input type="text" class="form-control" name="subject" placeholder="Onderwerp" maxlength="100" required>
-                  </div>
-          
-                  <!-- Message -->
-                  <div class="col-12">
-                      <textarea class="form-control" name="message" rows="6" placeholder="Bericht" required></textarea>
-                  </div>
-          
-                  <!-- Submit Button and Feedback Messages -->
-                  <div class="col-12 text-center">
-                      <div class="loading" style="display:none;">Laden...</div>
-                      <div class="error-message" style="display:none;"></div>
-                      <div class="sent-message" style="display:none;">Uw bericht is verzonden. Bedankt!</div>
-                      <button type="submit">Stuur bericht</button>
-                  </div>
-          
+            
+            <div class="info-item" data-aos="fade" data-aos-delay="200">
+              <div style="padding-left: 30px;">
+                <i class="bi bi-inbox"></i>
+                <h3>{% trans 'Stuur ons een bericht' %}</h3>
               </div>
-            </form>
-          
+              <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form">
+                {% csrf_token %}
+                <div class="row gy-4">
+            
+                    <!-- Name -->
+                    <div class="col-md-6">
+                        <input type="text" name="name" class="form-control" placeholder="{% trans 'Naam' %}" maxlength="100" required>
+                    </div>
+            
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" name="email" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                    </div>
+            
+                    <!-- Subject -->
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="subject" placeholder="{% trans 'Onderwerp' %}" maxlength="100" required>
+                    </div>
+            
+                    <!-- Message -->
+                    <div class="col-12">
+                        <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Bericht' %}" required></textarea>
+                    </div>
+            
+                    <!-- Submit Button and Feedback Messages -->
+                    <div class="col-12 text-center">
+                        <div class="loading" style="display:none;">{% trans 'Laden...' %}</div>
+                        <div class="error-message" style="display:none;"></div>
+                        <div class="sent-message" style="display:none;">{% trans 'Uw bericht is verzonden. Bedankt!' %}</div>
+                        <button type="submit">{% trans 'Stuur bericht' %}</button>
+                    </div>
+            
+                </div>
+              </form>
+            </div>
           </div>
 
         </div>
