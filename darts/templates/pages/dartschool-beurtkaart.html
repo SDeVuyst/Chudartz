@@ -1,0 +1,123 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+Chudarts | {{ tornooi.titel}} Inschrijven
+{% endblock %}
+
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<!-- TODO -->
+<meta property="og:title" content="ChudartZ | Dartschool Beurtkaart Kopen">
+<meta property="og:description" content="TODO">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | Dartschool">
+<meta name="twitter:description" content="TODO">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="dartschool-inschrijven-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Beurtkaart Kopen" as page_name %}
+    {% trans "Dartschool" as page_description %}
+    {% trans "Dartschool" as page_previous_crumb %}
+    {% trans "/dartschool" as page_previous_crumb_link %}
+    
+    {% include 'blocks/page-title.html' with name=page_name description=page_description previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link %}
+
+    <section id="service-details" class="service-details section">
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="service-box">
+                <h4>{% trans 'Hoe werkt het?' %}</h4>
+                <div class="services-list">
+                    <p>{% blocktrans %}
+                        blabla
+                    {% endblocktrans %}</p>
+                </div>
+            </div>
+
+            {% include 'blocks/options.html' with beurtkaarten=beurtkaarten %}
+
+          </div>  
+          
+          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-box register">
+              <h4>{% trans 'Koop uw beurtkaart' %}</h4>
+
+              <form action="{{ request.path }}" method="post" id="beurtkaart-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+                {% csrf_token %}
+                <div class="row gy-4">
+            
+                    <!-- beurtkaart -->
+                    <div class="col-md-6">
+                        <select name="beurtkaart" class="form-select" id="beurtkaart-select" required>
+                            <option value="" disabled selected hidden>{% trans 'Selecteer uw beurtkaart' %}</option>
+                            {% for beurtkaart in beurtkaarten %}
+                                <option value="{{ beurtkaart.id }}" class="valid">{{ beurtkaart.naam }}: {{ beurtkaart.prijs }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Code -->
+                    <div class="col-md-6">
+                        <input type="text" name="code" class="form-control" placeholder="{% trans 'Uw persoonlijke code' %}" maxlength="6" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12 text-center">
+                        <button type="submit" id="submit-button">{% trans 'Volgende' %}</button>
+                    </div>
+                    
+                </div>
+              </form>
+            
+            </div>
+
+            <div class="service-box register" style="display: none;" id="code-section">
+                <h4 id="beurtkaart-title"></h4>
+    
+                <form id="beurtkaart-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+                    <div class="row gy-4">
+                
+                        
+        
+                        <!-- Submit Button -->
+                        <div class="col-12 text-center">
+                            <button type="submit" id="submit-button">{% trans 'Betalen' %}</button>
+                        </div>
+                        
+                    </div>
+                </form>
+              
+            </div>
+
+          </div>    
+
+        </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  {% include 'blocks/footer.html' with disable_scroll_top="true" %} 
+
+</body>
+{% endblock %}

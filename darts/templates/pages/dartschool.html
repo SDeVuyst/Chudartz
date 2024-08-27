@@ -56,7 +56,8 @@ Chudarts | Dartschool
                         <li><i class="bi bi-check"></i><span>{% trans 'Persoonlijke Groei en Zelfvertrouwen' %}</span></li>
                         <li><i class="bi bi-check"></i><span>{% trans 'Educatieve en Leuke Activiteiten' %}</span></li>
                     </ul>
-                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started">{% trans 'Schrijf je in' %}</a>
+                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started">{% trans 'Gratis proefles boeken' %}</a>
+
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
                     <div class="image-stack">
@@ -85,8 +86,9 @@ Chudarts | Dartschool
                         <li><i class="bi bi-check"></i><span>{% trans 'Zowel beginners als gevorderden' %}</span></li>
                         <li><i class="bi bi-check"></i><span>{% trans 'Gratis proefles' %}</span></li>
                     </ul>
-                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">{% trans 'Schrijf je in' %}</a>
-                    </div>
+                    <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">{% trans 'Gratis proefles boeken' %}</a>
+  
+                  </div>
                 </div>
 
                 <div class="row gy-4 align-items-stretch justify-content-between features-item ">
@@ -100,12 +102,14 @@ Chudarts | Dartschool
                     {% endblocktrans %}
                   </p>
                   <ul>
-                      <li><i class="bi bi-dot"></i><span>{% trans 'lidgeld: € 50/jaar' %}</span></li>
-                      <li><i class="bi bi-dot"></i><span>{% trans 'lesgeld: € 15/maand (max. 10 lessen per maand)' %}</span></li>
-                      <li><i class="bi bi-dot"></i><span>{% trans '10-beurtenkaart: € 12.5/maand' %}</span></li>
+                      <li><i class="bi bi-dot"></i><span>{% trans 'lidgeld: € 60/jaar' %}</span></li>
+                      {% for beurtkaart in beurtkaarten %}
+                      <li><i class="bi bi-dot"></i><span>{{ beurtkaart.naam }}: {{ beurtkaart.prijs }}</span></li>
+                      {% endfor %}
                   </ul>
-                  <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">{% trans 'Schrijf je in' %}</a>
-                  </div>
+                  <a href="{% url 'inschrijven_dartschool' %}" class="btn btn-get-started align-self-start">{% trans 'Gratis proefles boeken' %}</a>
+  
+                </div>
                   <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
                     <img src="{% static "img/school/school-4.jpg" %}" class="img-fluid" alt="">
                   </div>

@@ -7,6 +7,8 @@ urlpatterns = [
 
     path(_('dartschool'), views.dartschool, name="dartschool"),
     path(_('dartschool/inschrijven/'), views.inschrijven_dartschool, name='inschrijven_dartschool'),
+    path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
+    path(_('dartschool/beurtkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),
 
     path(_('tornooien'), views.tornooien, name="tornooien"),
     path(_('tornooien/<slug:slug>/'), views.tornooi, name='tornooi'),
@@ -22,5 +24,8 @@ urlpatterns = [
     path(_('sponsors'), views.sponsors, name='sponsors'),
 
     path(_('darts/scanner/'), views.scanner),
-    path(_('mollie-webhook/'), views.mollie_webhook),
+    path('mollie-webhook/', views.mollie_webhook),
+    path('cal-webhook/', views.cal_webhook),
+
+    path('leerling/<int:code>/', views.leerling),
 ]

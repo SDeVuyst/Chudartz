@@ -1,8 +1,11 @@
+import hashlib
+import hmac
 import io
+import os
 import re
+import requests
 from email.mime.image import MIMEImage
 
-from django.contrib.auth.models import Group
 from django.contrib.staticfiles import finders
 from pypdf import PdfReader, PdfWriter
 
@@ -35,3 +38,34 @@ def attach_image(email, filename):
         img.add_header('Content-ID', f'<{filename}_image>')
         img.add_header('Content-Disposition', 'inline', filename=f'{filename}.png')
         email.attach(img)
+
+
+def verify_recaptcha(token):
+    response = requests.post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        data={'secret': os.environ.get('CAPTCHA_SECRET'), 'response': token}
+    )
+    result = response.json()
+    return result.get('success', False) and result.get('score', 0) >= 0.5
+
+
+
+def verify_webhook_signature(payload_body, received_signature):
+    """
+    Verifies the authenticity of a webhook payload.
+
+    :param secret_key: The secret key used to create the HMAC SHA256 hash.
+    :param payload_body: The raw JSON payload received from the webhook.
+    :param received_signature: The signature from the X-Cal-Signature-256 header.
+    :return: True if the signature is valid, False otherwise.
+    """
+    # Create the HMAC SHA256 signature using the secret key and the payload body
+    generated_signature = hmac.new(
+        os.environ.get("CAL_WEBHOOK_KEY").encode(),
+        payload_body.encode(),
+        hashlib.sha256
+    ).hexdigest()                    
+    
+    # Compare the generated signature with the received signature
+    return hmac.compare_digest(generated_signature, received_signature)
+

@@ -30,6 +30,19 @@
         background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
       }
     }
+
+    .btn-inverted {
+      background-color: var(--contrast-color);
+      color: var(--accent-color);
+      padding: 8px 30px 10px 30px;
+      border-radius: 4px;
+      border: 1px solid var(--accent-color);
+    
+      &:hover {
+        background-color: color-mix(in srgb, var(--contrast-color), transparent 20%);
+        color: var(--accent-color);
+      }
+    }
   }
 
   .services-list {

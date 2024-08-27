@@ -13,3 +13,4 @@ mollie-api-python
 qrcode[pil]
 reportlab
 pypdf
+requests

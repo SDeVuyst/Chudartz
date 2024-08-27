@@ -158,3 +158,11 @@ class LeerlingAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('voornaam', 'achternaam')
 
     search_fields = ('voornaam', 'achternaam', 'extra_info')
+
+
+@admin.register(Beurtkaart)
+class BeurtkaartAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('naam', 'aantal_beurten', 'prijs')
+    ordering = ('-aantal_beurten',)
+
+    search_fields = ('naam', 'aantal_beurten', 'prijs')

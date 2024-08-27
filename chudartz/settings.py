@@ -246,6 +246,12 @@ UNFOLD = {
                         "icon": "patient_list",
                         "link": "/admin/darts/leerling/",
                     },
+
+                    {
+                        "title": _("Beurtkaarten"),
+                        "icon": "confirmation_number",
+                        "link": "/admin/darts/beurtkaart/",
+                    },
                 ]
             },
 
@@ -256,6 +262,17 @@ UNFOLD = {
                         "title": _("Sponsors"),
                         "icon": "checkbook",
                         "link": "/admin/darts/sponsor/",
+                    },
+                ]
+            },
+
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Financiën"),
+                        "icon": "payments",
+                        "link": "https://www.mollie.com/", # TODO
                     },
                 ]
             },

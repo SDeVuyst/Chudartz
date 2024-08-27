@@ -4,6 +4,7 @@ import string
 from email.utils import formataddr
 from io import BytesIO
 
+from django.forms import ValidationError
 from django.urls import reverse
 import pytz
 import qrcode
@@ -346,6 +347,9 @@ class Sponsor(models.Model):
 
     history = HistoricalRecords(verbose_name=_("History"))
 
+    def __str__(self):
+        return self.naam
+
 
 class Leerling(models.Model):
     voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
@@ -359,6 +363,9 @@ class Leerling(models.Model):
 
     history = HistoricalRecords(verbose_name=_("History"))
 
+    def __str__(self):
+        return self.voornaam + " " + self.achternaam
+    
     def generate_unique_code(self):
         while True:
             # Generate a random 6-digit code
@@ -372,3 +379,19 @@ class Leerling(models.Model):
         if not self.code:
             self.code = self.generate_unique_code()
         super().save(*args, **kwargs)
+
+    def decrement_beurten(self):
+        if self.resterende_beurten == 0:
+            raise ValidationError(_("Geen resterende beurten meer!"))
+        
+        self.resterende_beurten -= 1
+        self.save()
+
+
+
+class Beurtkaart(models.Model):
+    naam = models.CharField(verbose_name=_("Naam"))
+    aantal_beurten = models.PositiveSmallIntegerField(verbose_name=_("Aantal Beurten"))
+    prijs = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
+
+    history = HistoricalRecords(verbose_name=_("History"))

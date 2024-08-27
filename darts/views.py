@@ -1,7 +1,8 @@
 from decimal import Decimal
 from email.utils import formataddr
+import json
 from django.conf import settings
-from django.http import BadHeaderError, HttpResponse, HttpResponseNotFound, JsonResponse
+from django.http import BadHeaderError, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.contrib.admin.views.decorators import staff_member_required
@@ -11,7 +12,9 @@ from django.template.response import TemplateResponse
 
 from darts.payment import MollieClient
 from .forms import ContactForm, TornooiForm
-from .models import Evenement, Participant, Payment, SkillLevel, Ticket, Sponsor
+from .models import *
+from .utils import helpers
+
 
 def index(request):
     context = {
@@ -23,7 +26,8 @@ def index(request):
 
 def dartschool(request):
     context = {
-        'sponsors': Sponsor.objects.all()
+        'sponsors': Sponsor.objects.all(),
+        'beurtkaarten': Beurtkaart.objects.all()
     }
     return TemplateResponse(request, 'pages/dartschool.html', context)
 
@@ -34,6 +38,23 @@ def inschrijven_dartschool(request):
         'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/dartschool-inschrijving.html', context)
+
+
+def reserveren_dartschool(request):
+    context = {
+        "vereisten": ["10 jaar oud", "blabla", "etc"],
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/dartschool-reserveren.html', context)
+
+
+def beurtkaart_kopen(request):
+    # TODO POST request
+    context = {
+        'beurtkaarten': Beurtkaart.objects.all(),
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/dartschool-beurtkaart.html', context)
 
 
 def tornooien(request):
@@ -261,3 +282,90 @@ def mollie_webhook(request):
         return HttpResponse(status=200)
 
     return HttpResponseNotFound("Invalid request method")
+
+
+@csrf_exempt #TODO verander webhook url in cal.com
+def cal_webhook(request):
+
+    if request.method != "POST": return HttpResponseNotFound("Invalid request method")
+
+    # check if request is authentic
+    received_signature = request.headers.get('X-Cal-Signature-256')
+    if not received_signature:
+        return HttpResponseBadRequest("Missing signature header")
+    
+    payload_body = request.body.decode('utf-8')
+
+    is_valid = helpers.verify_webhook_signature(payload_body, received_signature)
+
+    if not is_valid: return HttpResponseBadRequest("Invalid signature. The payload is not authentic.")
+
+    data = json.loads(request.body)
+
+    trigger = data.get('triggerEvent')
+    if trigger == "PING": return HttpResponse(status=200)
+    if trigger != "BOOKING_CREATED": return HttpResponseNotFound("Invalid event trigger.")
+
+    code: str = data.get('payload').get('responses').get('code').get('value')
+
+    # PROEFLES code, everthing ok
+    if code == "PROEFLES":
+        return HttpResponse(status=200)
+
+    # unknown code, cancel booking
+    if not Leerling.objects.filter(code=code).exists():
+        # stuur fraude-detectie mail
+        send_mail(
+            f'Mogelijkse fraude!',
+            f'{data.get('payload').get('attendees').get('name')} heeft geboekt met een ongeldige code.\nGelieve deze boeking zo snel mogelijk te annuleren.',
+            formataddr(('Fraudedetectie | ChudartZ', settings.EMAIL_HOST_USER)),
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
+        return HttpResponse(status=406)
+    
+    # custom code, decrement remaining uses
+    l = Leerling.objects.get(code=code)
+    try:
+        l.decrement_beurten()
+    
+    # user has no uses left
+    except ValidationError as e:
+        send_mail(
+            f'Mogelijkse fraude!',
+            f'{data.get('payload').get('attendees').get('name')} heeft geboekt met een lege beurtkaart.\nDit is enkel mogelijk door niet via de site te boeken.\nGelieve zo snel mogelijk contact op te nemen met deze persoon en deze afspraak af te zeggen.',
+            formataddr(('Fraudedetectie | ChudartZ', settings.EMAIL_HOST_USER)),
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
+
+        return HttpResponse(status=406)
+
+    return HttpResponse(status=200)
+
+
+def leerling(request, code):
+    if request.method != 'GET': return HttpResponseNotFound("Invalid request method")
+
+    # recaptcha check
+    if not helpers.verify_recaptcha(request.GET.get('recaptcha_token')):
+        return JsonResponse({
+            'success': False,
+            'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+        })
+
+    l = get_object_or_404(Leerling, code=str(code))
+
+    if l.resterende_beurten < 1:
+        return JsonResponse({
+            'success': False,
+            'error': "U heeft geen resterernde beurten meer. Gelieve een nieuwe beurtkaart te kopen."
+        })
+
+    return JsonResponse({
+        'success': True,
+        'voornaam': l.voornaam,
+        'achternaam': l.achternaam,
+        'email': l.email,
+        'resterende_beurten': l.resterende_beurten,
+    })

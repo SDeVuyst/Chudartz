@@ -61,15 +61,15 @@
 
 </footer>
 
+
 <!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" {% if not disable_scroll_top %}style="opacity: 0;"{% endif %}><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Preloader -->
 <div id="preloader"></div>
 
 <!-- Vendor JS Files -->
 <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-<script src="{% static "vendor/email-form/validate.js" %}" defer></script>
 <script src="{% static "vendor/aos/aos.js" %}" defer></script>
 <script src="{% static "vendor/glightbox/js/glightbox.min.js" %}"></script>
 <script src="{% static "vendor/imagesloaded/imagesloaded.pkgd.min.js" %}"></script>
