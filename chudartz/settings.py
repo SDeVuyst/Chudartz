@@ -217,12 +217,25 @@ UNFOLD = {
         "show_search": False,
         "show_all_applications": True,
         "navigation": [
+
             {
+                "items": [
+                    {
+                        "title": _("Financiën"),
+                        "icon": "payments",
+                        "link": "https://www.mollie.com/", # TODO
+                    },
+                ]
+            },
+            
+            {
+                "title": "Darts",
+                "separator": True,
                 "items": [
                     {
                         "title": _("Tornooien"),
                         "icon": "trophy",
-                        "link": "/admin/darts/evenement/",
+                        "link": "/admin/darts/tornooi/",
                     },
 
                     {
@@ -274,12 +287,13 @@ UNFOLD = {
             },
 
             {
+                "title": "Collectibles",
                 "separator": True,
                 "items": [
                     {
-                        "title": _("Financiën"),
-                        "icon": "payments",
-                        "link": "https://www.mollie.com/", # TODO
+                        "title": _("Evenementen"),
+                        "icon": "festival",
+                        "link": "/admin/pokemon/evenement",
                     },
                 ]
             },

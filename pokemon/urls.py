@@ -8,5 +8,8 @@ urlpatterns = i18n_patterns(
     path(_('over-ons'), views.over_ons, name="over_ons"),
     path(_('contact'), views.contact, name='contact'),
 
+    path(_('evenementen'), views.evenementen, name="evenementen"),
+    path(_('evenement/<slug:slug>/'), views.evenement, name='evenement'),
+
     path('i18n/', include('django.conf.urls.i18n')),
 )

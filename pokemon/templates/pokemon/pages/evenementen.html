@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+Chudarts Collectibles | Evenementen
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<!-- TODO -->
+<meta property="og:title" content="ChudartZ Collectibles | Evenementen">
+<meta property="og:description" content="TODO">
+<meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ Collectibles | Evenementen">
+<meta name="twitter:description" content="TODO">
+<meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="evenementen-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Evenementen" as page_name %}
+    {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
+    <!-- TODO: bg image of page-title -->
+    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
+
+     <section id="blog-posts" class="blog-posts section">
+
+      <div class="container">
+
+        {% if evenementen %}
+        <div class="row gy-4">
+          {% for evenement in evenementen %}
+            {% include 'blocks/tornooi-card.html' with tornooi=evenement %}
+          {% endfor %}
+        </div>
+        {% else %}
+
+          <div class="justify-content-center text-center">
+            <h2>{% trans 'Er zijn nog geen evenementen beschikbaar!'%}</h2>
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </section>
+
+    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=evenementen pagination_url_name="evenementen" %}
+    
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

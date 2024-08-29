@@ -33,7 +33,7 @@ from .utils import helpers
 
 
 #TODO wachtlijst
-class Evenement(models.Model):
+class Tornooi(models.Model):
 
     def __str__(self) -> str:
         return self.titel
@@ -111,7 +111,7 @@ class Ticket(models.Model):
     titel = models.CharField(max_length=100, verbose_name=_("titel"))
     price = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
-    event = models.ForeignKey(Evenement, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
+    event = models.ForeignKey(Tornooi, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 

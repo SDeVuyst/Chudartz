@@ -58,7 +58,7 @@ def beurtkaart_kopen(request):
 
 
 def tornooien(request):
-    evenementen = Evenement.objects.all()
+    evenementen = Tornooi.objects.all()
     paginator = Paginator(evenementen, 6)
 
     page_number = request.GET.get("page", 1)
@@ -73,7 +73,7 @@ def tornooien(request):
 
 
 def tornooi(request, slug):
-    evenement = Evenement.objects.get(slug=slug)
+    evenement = Tornooi.objects.get(slug=slug)
     context = {
         "tornooi": evenement,
         'sponsors': Sponsor.objects.all()
@@ -135,14 +135,14 @@ def inschrijven_tornooi(request, slug):
         # form was not valid, send to error page
         context = {
             "success": False,
-            "tornooi": Evenement.objects.get(slug=slug),
+            "tornooi": Tornooi.objects.get(slug=slug),
             'sponsors': Sponsor.objects.all()
         }
         return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
         
     
     # GET request
-    evenement = Evenement.objects.get(slug=slug)
+    evenement = Tornooi.objects.get(slug=slug)
     tickets = Ticket.objects.filter(event=evenement)
     
     context = {
@@ -157,7 +157,7 @@ def inschrijven_tornooi(request, slug):
 def inschrijven_tornooi_success(request, slug):
     context = {
         "success": True,
-        "tornooi": Evenement.objects.get(slug=slug),
+        "tornooi": Tornooi.objects.get(slug=slug),
         'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
@@ -315,9 +315,10 @@ def cal_webhook(request):
     # unknown code, cancel booking
     if not Leerling.objects.filter(code=code).exists():
         # stuur fraude-detectie mail
+        naam = data.get('payload').get('attendees').get('name')
         send_mail(
             f'Mogelijkse fraude!',
-            f'{data.get('payload').get('attendees').get('name')} heeft geboekt met een ongeldige code.\nGelieve deze boeking zo snel mogelijk te annuleren.',
+            f"{naam} heeft geboekt met een ongeldige code.\nGelieve deze boeking zo snel mogelijk te annuleren.",
             formataddr(('Fraudedetectie | ChudartZ', settings.EMAIL_HOST_USER)),
             [settings.EMAIL_HOST_USER],
             fail_silently=False,
@@ -331,9 +332,10 @@ def cal_webhook(request):
     
     # user has no uses left
     except ValidationError as e:
+        naam = data.get('payload').get('attendees').get('name')
         send_mail(
             f'Mogelijkse fraude!',
-            f'{data.get('payload').get('attendees').get('name')} heeft geboekt met een lege beurtkaart.\nDit is enkel mogelijk door niet via de site te boeken.\nGelieve zo snel mogelijk contact op te nemen met deze persoon en deze afspraak af te zeggen.',
+            f'{naam} heeft geboekt met een lege beurtkaart.\nDit is enkel mogelijk door niet via de site te boeken.\nGelieve zo snel mogelijk contact op te nemen met deze persoon en deze afspraak af te zeggen.',
             formataddr(('Fraudedetectie | ChudartZ', settings.EMAIL_HOST_USER)),
             [settings.EMAIL_HOST_USER],
             fail_silently=False,

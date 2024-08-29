@@ -22,8 +22,8 @@ class TicketInline(StackedInline):
 
 
 # MODELS #
-@admin.register(Evenement) # todo generate qr code with link to event page
-class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
+@admin.register(Tornooi) # todo generate qr code with link to event page
+class TornooiAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
     exclude = ('tickets',)

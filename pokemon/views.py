@@ -1,10 +1,12 @@
 from email.utils import formataddr
 from django.conf import settings
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.http import BadHeaderError, JsonResponse
 from django.template.response import TemplateResponse
 
 from pokemon.forms import ContactForm
+from pokemon.models import Evenement
 
 
 def index(request):
@@ -56,3 +58,25 @@ def contact(request):
         return JsonResponse({'success': False, 'error': 'Invalid header found.'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+
+
+def evenementen(request):
+    evenementen = Evenement.objects.all()
+    paginator = Paginator(evenementen, 6)
+
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "evenementen": page_obj,
+        "enable_pagination": paginator.num_pages > 1,
+    }
+    return TemplateResponse(request, 'pokemon/pages/evenementen.html', context)
+
+
+def evenement(request, slug):
+    evenement = Evenement.objects.get(slug=slug)
+    context = {
+        "evenement": evenement,
+    }
+    return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
