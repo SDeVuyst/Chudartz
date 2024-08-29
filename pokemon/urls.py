@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = i18n_patterns(
     path('', views.index, name="index"),
+    path(_('over-ons'), views.over_ons, name="over_ons"),
     path(_('contact'), views.contact, name='contact'),
 
     path('i18n/', include('django.conf.urls.i18n')),

@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+Chudarts Collectibles | Over Ons
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+{% endblock %}
+
+{% block body %}
+<body class="over-ons-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% trans "Over Ons" as page_name %}
+    {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
+
+    {% include 'blocks/page-title.html' with name=page_name description=page_description %}
+
+    <section id="portfolio-details" class="portfolio-details section"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div data-aos="fade-up">
+            <div class="portfolio-description">
+              <h2>{% trans 'Onze Missie en Visie' %}</h2>
+              <p>
+                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+              </p>
+              <p>
+                Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
+              </p>
+
+              {% include 'blocks/quote.html' with quote='Een leermeester hoeft niet perfect te zijn, zolang de leerling maar uitblinkt.' image_url='/static/img/quotes/testimonials-2.jpg' name='Frederick De Mey' title='Trainer & Eigenaar' %}
+
+              <p>
+                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
+              </p>
+
+              <p>
+                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

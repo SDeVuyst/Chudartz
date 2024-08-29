@@ -11,6 +11,10 @@ def index(request):
     context = {}
     return TemplateResponse(request, 'pokemon/pages/index.html', context)
 
+def over_ons(request):
+    context = {}
+    return TemplateResponse(request, 'pokemon/pages/about.html', context)
+
 
 def contact(request):
     # request must always be post
