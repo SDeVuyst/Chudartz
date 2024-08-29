@@ -1,0 +1,81 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Global Page Titles & Breadcrumbs
+--------------------------------------------------------------*/
+.page-title {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  position: relative;
+
+  .heading {
+    padding: 80px 0;
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+
+    h1 {
+      font-size: 38px;
+      font-weight: 700;
+
+      &:before,
+      &:after {
+        content: '';
+        width: 50px;
+        height: 2px;
+        background: var(--accent-color);
+        display: inline-block;
+      }
+
+      &:before {
+        margin: 0 15px 10px 0;
+      }
+
+      &:after {
+        margin: 0 0 10px 15px;
+      }
+    }
+  }
+
+  .heading.background {
+    background-image: url('/static/img/headers/dart-bg-1.jpg'); // https://www.pexels.com/photo/close-up-photo-of-dart-pins-on-dartboard-1424745/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    h1, p {
+      color: var(--contrast-color);
+      text-shadow: 1px 2px 5px black;
+    }
+
+    p { 
+      backdrop-filter: blur(2px) saturate(75%);
+    }
+  }
+
+  .heading.background2 {
+    background-image: url('/static/img/headers/dart-bg-2.jpg'); // https://www.pexels.com/photo/dartboard-hanging-on-wall-at-home-4061482/
+  }
+
+  nav {
+    background-color: color-mix(in srgb, var(--default-color), transparent 95%);
+    padding: 20px 0;
+
+    ol {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+
+      li+li {
+        padding-left: 10px;
+      }
+
+      li+li::before {
+        content: "/";
+        display: inline-block;
+        padding-right: 10px;
+        color: color-mix(in srgb, var(--default-color), transparent 70%);
+      }
+    }
+  }
+}

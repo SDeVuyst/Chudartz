@@ -1,0 +1,407 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block meta %}
+<meta name="description" content="TODO">
+<meta property="og:image" content="{% static 'TODO' %}" />
+<meta name="robots" content="index, follow">
+<!-- todo -->
+<meta property="og:title" content="ChudartZ collectibles">
+<meta property="og:description" content="TODO">
+<meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ">
+<meta name="twitter:description" content="TODO">
+<meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="index-page">
+
+  {% include 'pokemon/blocks/header-fixed.html' %}
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <!-- Image background in case the video is not supported -->
+      <img src="{% static "pokemon/img/school/school-3.jpg" %}" alt="" data-aos="fade-in">
+
+      <!-- Video background -->
+      <video autoplay muted loop playsinline class="video-background">
+        <source src="{% static 'pokemon/video/hero-bg.mp4' %}" type="video/mp4">
+      </video>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2 data-aos="fade-up" data-aos-delay="100">{% trans 'Welkom bij' %} <span class="kamikaze">ChudartZ collectibles</span></h2>
+            <p data-aos="fade-up" data-aos-delay="200">
+              {% trans 'Uw ultieme bestemming voor alles wat met darts te maken heeft.' %}
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+
+    <!-- About Section -->
+    <section id="over-ons" class="over-ons section light-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row align-items-xl-center gy-5">
+
+          <div class="col-xl-5 content">
+            <h3>{% trans 'Over Ons' %}</h3>
+            <h2>{% trans 'Onze Missie en Visie' %}</h2>
+            <p>
+              {% blocktrans %}
+              Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti soluta.
+              {% endblocktrans %}
+            </p>
+            <a href="" class="read-more"><span>{% trans 'Lees Meer' %}</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+          <div class="col-xl-7">
+            <div class="row gy-4 icon-boxes">
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box">
+                  <a href=""><i class="bi bi-buildings"></i></a>
+                  <h3>{% trans 'Dartschool' %}</h3>
+                  <p>
+                    {% blocktrans %}
+                    Bij Chudartz bieden we een professionele dartschool aan in Zedelgem, 
+                    waar spelers van alle niveaus hun vaardigheden kunnen verbeteren. 
+                    {% endblocktrans %}
+                  </p>
+                </div>
+              </div>
+              
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box">
+                  <a href=""><i class="bi bi-trophy"></i></a>
+                  <h3>{% trans 'Tornooien' %}</h3>
+                  <p>
+                    {% blocktrans %}
+                    Wij organiseren regelmatig darttoernooien waar zowel amateurs als professionals kunnen deelnemen.
+                    Aarzel niet om je in te schrijven! 
+                    {% endblocktrans %}
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="icon-box">
+                  <a href="#"><i class="bi bi-door-open"></i></a>
+                  <h3>{% trans 'Privélessen' %}</h3>
+                  <p>
+                    {% trans 'We staan ook altijd open voor privélessen, gelieve ons te contacteren via' %} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.'%}</a>
+                    
+                  </p>
+                </div>
+              </div>
+              
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="icon-box">
+                  <a href="#"><i class="bi bi-shop"></i></a>
+                  <h3>{% trans 'Verkoop van Darts' %}</h3>
+                  <p>
+                    {% blocktrans %}
+                    Bij Chudartz kunt u ook terecht voor een breed scala aan darts producten, 
+                    van dartpijlen en borden tot accessoires.
+                    Ons assortiment is zorgvuldig samengesteld om aan de behoeften van elke darts-enthousiasteling te voldoen.
+                    {% endblocktrans %}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section dark-background">
+
+      <img src="{% static "pokemon/img/school/school-3.jpg" %}" alt="">
+
+      <div class="container">
+        <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-10">
+            <div class="text-center">
+              <h3>{% trans 'Teambuildings & Workshops' %}</h3>
+              <p>
+                {% blocktrans %}
+                Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen.
+                {% endblocktrans %}
+              </p>
+              <a class="cta-btn" href="">{% trans 'Meer Info'%}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Call To Action Section -->
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <h2>{% trans 'Afbeeldingen' %}</h2>
+        <p>{% trans "Laat je inspireren door de foto's van onze dartsevenementen en lessen, en ervaar de energie en gemeenschap van onze club." %}</p>
+      </div>
+
+      <div class="container">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+          <ul class="afbeelding-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">{% trans 'Alle' %}</li>
+            <li data-filter=".filter-school">{% trans 'School' %}</li>
+            <li data-filter=".filter-tornooi">{% trans 'Tornooien' %}</li>
+          </ul>
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
+              <img src="{% static "pokemon/img/album/album-1.jpg" %}" class="img-fluid" alt="" loading="lazy">
+              <div class="portfolio-info">
+                <h4>App 1</h4>
+                <p>Lorem ipsum, dolor sit</p>
+                <a href="{% static "pokemon/img/album/album-1.jpg" %}" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-tornooi">
+              <img src="{% static "pokemon/img/album/album-2.jpg" %}" class="img-fluid" alt="" loading="lazy">
+              <div class="portfolio-info">
+                <h4>Product 1</h4>
+                <p>Lorem ipsum, dolor sit</p>
+                <a href="{% static "pokemon/img/album/album-2.jpg" %}" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-branding">
+              <img src="{% static "pokemon/img/album/album-3.jpg" %}" class="img-fluid" alt="" loading="lazy">
+              <div class="portfolio-info">
+                <h4>Branding 1</h4>
+                <p>Lorem ipsum, dolor sit</p>
+                <a href="{% static "pokemon/img/album/album-3.jpg" %}" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
+              <img src="{% static "pokemon/img/album/album-4.jpg" %}" class="img-fluid" alt="" loading="lazy">
+              <div class="portfolio-info">
+                <h4>App 2</h4>
+                <p>Lorem ipsum, dolor sit</p>
+                <a href="{% static "pokemon/img/album/album-4.jpg" %}" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-tornooi">
+              <img src="{% static "pokemon/img/album/album-5.jpg" %}" class="img-fluid" alt="" loading="lazy">
+              <div class="portfolio-info">
+                <h4>Product 2</h4>
+                <p>Lorem ipsum, dolor sit</p>
+                <a href="{% static "pokemon/img/album/album-5.jpg" %}" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-branding">
+              <img src="{% static "pokemon/img/album/album-6.jpg" %}" class="img-fluid" alt="" loading="lazy">
+              <div class="portfolio-info">
+                <h4>Branding 2</h4>
+                <p>Lorem ipsum, dolor sit</p>
+                <a href="{% static "pokemon/img/album/album-6.jpg" %}" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Portfolio Section -->
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="content px-xl-5">
+              <h3>{% trans '<span>Veel Gestelde</span><strong> Vragen</strong>' %}</h3>
+              <p>
+                {% blocktrans %}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                {% endblocktrans %}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="faq-container">
+              <div class="faq-item faq-active">
+                <h3><span class="num">1.</span> <span>Zijn er dartsmogelijkheden voor mensen met een beperking?</span></h3>
+                <div class="faq-content">
+                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item">
+                <h3><span class="num">2.</span> <span>Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</span></h3>
+                <div class="faq-content">
+                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item">
+                <h3><span class="num">3.</span> <span>Dolor sit amet consectetur adipiscing elit pellentesque?</span></h3>
+                <div class="faq-content">
+                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item">
+                <h3><span class="num">4.</span> <span>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</span></h3>
+                <div class="faq-content">
+                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item">
+                <h3><span class="num">5.</span> <span>Tempus quam pellentesque nec nam aliquam sem et tortor consequat?</span></h3>
+                <div class="faq-content">
+                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Faq Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <h2>{% trans 'Contact' %}</h2>
+        <p>{% trans 'Aarzel niet om ons te contacteren!' %}</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+
+            <div class="row gy-4">
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                  <a href="tel:+32471237769"><i class="bi bi-telephone"></i></a>
+                  <h3>{% trans 'Bel/Whatsapp ons' %}</h3>
+                  <p><a href="tel:+32471237769">+32471/23/77/69</a></p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                  <a href="mailto:chudartz@gmail.com"><i class="bi bi-envelope"></i></a>
+                  <h3>{% trans 'Email ons' %}</h3>
+                  <p><a href="mailto:chudartz@gmail.com">chudartz@gamil.com</a></p>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                  <div id="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2503.708431907577!2d3.1689395764941453!3d51.13228593803756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c34e1c6c98cbb9%3A0x7b40593768943baf!2sWilgenlaan%2035%2C%208210%20Zedelgem!5e0!3m2!1snl!2sbe!4v1724578559432!5m2!1snl!2sbe" width="100%" height="295" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6"> 
+            
+            <div class="info-item" data-aos="fade" data-aos-delay="200">
+              <div style="padding-left: 30px;">
+                <i class="bi bi-inbox"></i>
+                <h3>{% trans 'Stuur ons een bericht' %}</h3>
+              </div>
+              <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form">
+                {% csrf_token %}
+                <div class="row gy-4">
+            
+                    <!-- Name -->
+                    <div class="col-md-6">
+                        <input type="text" name="name" class="form-control" placeholder="{% trans 'Naam' %}" maxlength="100" required>
+                    </div>
+            
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" name="email" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                    </div>
+            
+                    <!-- Subject -->
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="subject" placeholder="{% trans 'Onderwerp' %}" maxlength="100" required>
+                    </div>
+            
+                    <!-- Message -->
+                    <div class="col-12">
+                        <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Bericht' %}" required></textarea>
+                    </div>
+            
+                    <!-- Submit Button and Feedback Messages -->
+                    <div class="col-12 text-center">
+                        <div class="loading" style="display:none;">{% trans 'Laden...' %}</div>
+                        <div class="error-message" style="display:none;"></div>
+                        <div class="sent-message" style="display:none;">{% trans 'Uw bericht is verzonden. Bedankt!' %}</div>
+                        <button type="submit">{% trans 'Stuur bericht' %}</button>
+                    </div>
+            
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+  <script src="{% static "pokemon/vendor/email-form/validate.js" %}" defer></script>
+
+</body>
+{% endblock %}

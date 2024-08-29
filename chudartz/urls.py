@@ -21,6 +21,6 @@ from django.urls import include, path
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
+    path("", include('darts.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
-    path("", include('darts.urls'))
 )

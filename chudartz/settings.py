@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'chudartz.com']
+ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'chudartz.com', 'pokemon.chudartz.com', 'pokemon.localhost', 'www.chudartz']
 CSRF_TRUSTED_ORIGINS = ['https://chudartz.com', 'https://www.chudartz.com']
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -61,11 +61,14 @@ INSTALLED_APPS = [
     'storages',
     'djmoney',
     'ckeditor',
+    'django_hosts',
 
     'darts',
+    'pokemon',
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -75,14 +78,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "simple_history.middleware.HistoryRequestMiddleware",
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
+
+ROOT_HOSTCONF = 'chudartz.hosts'
+DEFAULT_HOST = 'www'
 
 ROOT_URLCONF = 'chudartz.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'templates')),],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

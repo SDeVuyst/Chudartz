@@ -1,0 +1,79 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Services Section
+--------------------------------------------------------------*/
+.services {
+  .service-item {
+    position: relative;
+    padding-top: 40px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: color-mix(in srgb, var(--default-color), transparent 90%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--accent-color);
+      border-right: 5px solid var(--background-color);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      position: relative;
+      margin-right: 50px;
+      line-height: 0;
+
+      i {
+        color: color-mix(in srgb, var(--default-color), transparent 30%);
+        font-size: 56px;
+        transition: ease-in-out 0.3s;
+        z-index: 2;
+        position: relative;
+      }
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 30px;
+        width: 30px;
+        background: color-mix(in srgb, var(--accent-color), transparent 70%);
+        border-radius: 50px;
+        z-index: 1;
+        bottom: -15px;
+        right: -15px;
+        transition: 0.3s;
+      }
+    }
+
+    .title {
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-size: 18px;
+
+      a {
+        color: var(--heading-color);
+
+        &:hover {
+          color: var(--accent-color);
+        }
+      }
+    }
+
+    .description {
+      line-height: 24px;
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Blog Comments Section
+--------------------------------------------------------------*/
+.blog-comments {
+  padding: 10px 0;
+
+  .comments-count {
+    font-weight: bold;
+  }
+
+  .comment {
+    margin-top: 30px;
+    position: relative;
+
+    .comment-img {
+      margin-right: 14px;
+
+      img {
+        width: 60px;
+      }
+    }
+
+    h5 {
+      font-size: 16px;
+      margin-bottom: 2px;
+
+      a {
+        font-weight: bold;
+        color: var(--default-color);
+        transition: 0.3s;
+
+        &:hover {
+          color: var(--accent-color);
+        }
+      }
+
+      .reply {
+        padding-left: 10px;
+        color: color-mix(in srgb, var(--default-color), transparent 20%);
+
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+
+    time {
+      display: block;
+      font-size: 14px;
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
+      margin-bottom: 5px;
+    }
+
+    &.comment-reply {
+      padding-left: 40px;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{% load static i18n %}
+
+<footer id="footer" class="footer position-relative light-background">
+
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-6 col-md-12 footer-about">
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+          <span class="sitename">ChudartZ collectibles</span>
+        </a>
+        <p>Ondernemingsnummer: 0123.456.789</p>
+        <p>{% trans 'Gemaakt door' %}<a href="https://github.com/SDeVuyst/"> SDeVuyst</a>.</p>
+        <div class="social-links d-flex mt-4">
+          <a href=""><i class="bi bi-facebook"></i></a>
+          <a href=""><i class="bi bi-instagram"></i></a>
+          <a href=""><i class="bi bi-linkedin"></i></a>
+          <a href="https://github.com/SDeVuyst/Chudartz"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-6 footer-links">
+        <h4>{% trans 'Handige Links' %}</h4>
+        <ul>
+          <li><a href="{% url 'index' %}">Home</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-4 col-md-12 footer-contact text-center text-md-start">
+        <h4>{% trans 'Contacteer Ons' %}</h4>
+        <p>A108 Adam Street</p>
+        <p>Zedelgem, 8210</p>
+        <p>België</p>
+        <p class="mt-4"><strong>{% trans 'Telefoon' %}:</strong> <span>+1 5589 55488 55</span></p>
+        <p><strong>Email:</strong> <span>info@example.com</span></p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container copyright text-center mt-4">
+    <p>© <span>Copyright</span> <strong class="sitename">ChudartZ</strong> <span>{% trans 'alle rechten voorbehouden' %}</span></p>
+  </div>
+
+</footer>
+
+
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" {% if not disable_scroll_top %}style="opacity: 0;"{% endif %}><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Preloader -->
+<div id="preloader"></div>
+
+<!-- Vendor JS Files -->
+<script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+<script src="{% static "vendor/aos/aos.js" %}" defer></script>
+<script src="{% static "vendor/glightbox/js/glightbox.min.js" %}"></script>
+<script src="{% static "vendor/imagesloaded/imagesloaded.pkgd.min.js" %}"></script>
+<script src="{% static "vendor/isotope-layout/isotope.pkgd.min.js" %}" defer></script>
+
+<!-- Main JS File -->
+<script src="{% static "js/main.js" %}"></script>
+<script src="{% static "js/lang_switcher.js" %}"></script>
