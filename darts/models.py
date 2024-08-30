@@ -160,8 +160,20 @@ class Payment(models.Model):
     def save(self, *args, **kwargs):
         # Check if payment is received
         if self.status == PaymentStatus.PAID:
-            # TODO get participant gelinkt aan deze betaling, en stuur mail vanuit dat object
-            pass
+
+            # betaling van participant
+            try:
+                p = Participant.objects.get(payment=self)
+                p.send_mail()
+            except:
+                pass
+
+            # betaling van beurtenkaart
+            try:
+                b = BeurtkaartBetaling.objects.get(betaling=self)
+                b.add_uses_to_student()
+            except:
+                pass
 
         super().save(*args, **kwargs)
 
@@ -171,6 +183,7 @@ class Payment(models.Model):
     mail = models.EmailField(verbose_name=_("Email"), max_length=254, blank=True, null=True)
     status = models.CharField(max_length=10, choices=PaymentStatus.CHOICES, default=PaymentStatus.OPEN)
     amount = MoneyField(verbose_name="Prijs", default_currency="EUR", max_digits=10, decimal_places=2, blank=True, null=True)
+    description = models.TextField(verbose_name=_("Beschrijving"), blank=True, null=True)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
@@ -395,3 +408,13 @@ class Beurtkaart(models.Model):
     prijs = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+
+class BeurtkaartBetaling(models.Model):
+    beurtkaart = models.ForeignKey(Beurtkaart, verbose_name=_("Beurtkaart"), on_delete=models.CASCADE)
+    betaling = models.ForeignKey(Payment, verbose_name=_("Betaling"), on_delete=models.CASCADE)
+    leerling = models.ForeignKey(Leerling, verbose_name=_("Leerling"), on_delete=models.CASCADE)
+
+    def add_uses_to_student(self):
+        self.leerling.resterende_beurten += self.beurtkaart.aantal_beurten
+        self.leerling.save()

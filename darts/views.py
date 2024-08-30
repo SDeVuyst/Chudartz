@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 from darts.payment import MollieClient
-from .forms import ContactForm, TornooiForm
+from .forms import ContactForm, TornooiForm, BeurtkaartForm
 from .models import *
 from .utils import helpers
 
@@ -49,12 +49,65 @@ def reserveren_dartschool(request):
 
 
 def beurtkaart_kopen(request):
-    # TODO POST request
+    if request.method == 'POST':
+        form = BeurtkaartForm(request.POST)
+        
+        if form.is_valid():
+            beurtkaart = form.cleaned_data['beurtkaart']
+            code = form.cleaned_data['code']
+
+            print(code)
+
+            leerling = get_object_or_404(Leerling, code=str(code))
+
+            price = Decimal(beurtkaart.prijs.amount)
+
+            payment = Payment.objects.create(
+                first_name=leerling.voornaam,
+                last_name=leerling.achternaam,
+                amount=price,
+                description=beurtkaart.naam
+            )
+
+            BeurtkaartBetaling.objects.create(
+                beurtkaart=beurtkaart,
+                betaling=payment,
+                leerling=leerling
+            )
+
+            # create the mollie payment
+            mollie_payment = MollieClient().create_mollie_payment(
+                amount=price,
+                description=beurtkaart.naam,
+                redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/dartschool/beurtkaart-kopen/success/', # TODO
+            )
+
+            payment.mollie_id = mollie_payment.id
+            payment.save()
+            
+            return redirect(mollie_payment.checkout_url)
+        
+
+        # form was not valid, send to error page
+        context = {
+            "success": False,
+        }
+        return TemplateResponse(request, 'pages/dartschool-beurtkaart-response.html', context)
+       
+    # GET request
     context = {
         'beurtkaarten': Beurtkaart.objects.all(),
         'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/dartschool-beurtkaart.html', context)
+
+
+def beurtkaart_kopen_success(request):
+    context = {
+        "success": True,
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/dartschool-beurtkaart-response.html', context)
 
 
 def tornooien(request):
@@ -123,7 +176,7 @@ def inschrijven_tornooi(request, slug):
             mollie_payment = MollieClient().create_mollie_payment(
                 amount=price,
                 description="TESTING", # TODO
-                slug=slug
+                redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/tornooien/{slug}/inschrijven/success', #TODO
             )
 
             payment.mollie_id = mollie_payment.id

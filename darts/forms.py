@@ -1,5 +1,5 @@
 from django import forms
-from  .models import SkillLevel
+from  .models import Beurtkaart, SkillLevel
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -17,3 +17,7 @@ class TornooiForm(forms.Form):
     stad = forms.CharField(max_length=40)
     niveau = forms.ChoiceField(choices=SkillLevel.CHOICES)
     ticket = forms.CharField()
+
+class BeurtkaartForm(forms.Form):
+    beurtkaart = forms.ModelChoiceField(queryset=Beurtkaart.objects.all())
+    code = forms.CharField(max_length=6)

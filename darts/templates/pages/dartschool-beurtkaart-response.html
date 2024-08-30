@@ -21,8 +21,8 @@ Chudarts | {{ tornooi.titel}}
                 
                 {% if success %}
 
-                    <h1>{% trans 'Ingeschreven!' %}</h1>
-                    <p>{% trans 'Uw toegangsticket komt binnenkort aan in uw mailbox!' %}</p>
+                    <h1>{% trans 'Gelukt!' %}</h1>
+                    <p>{% trans 'Uw beurtenkaart is toegevoed aan uw account.' %}</p>
 
                 {% else %}
 
@@ -31,7 +31,7 @@ Chudarts | {{ tornooi.titel}}
                     
                 {% endif %}
                 
-                <a href="{{ tornooi.get_absolute_url }}" class="btn btn-back align-self-start mt-4">{% trans 'Ga terug naar tornooi' %}</a>         
+                <a href="{% url 'reserveren_dartschool' %}" class="btn btn-back align-self-start mt-4">{% trans 'Reserveer uw training' %}</a>         
             </div>
         </div>
         

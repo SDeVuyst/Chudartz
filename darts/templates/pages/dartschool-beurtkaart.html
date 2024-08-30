@@ -63,49 +63,54 @@ Chudarts | {{ tornooi.titel}} Inschrijven
               <form action="{{ request.path }}" method="post" id="beurtkaart-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
                 {% csrf_token %}
                 <div class="row gy-4">
-            
-                    <!-- beurtkaart -->
-                    <div class="col-md-6">
-                        <select name="beurtkaart" class="form-select" id="beurtkaart-select" required>
-                            <option value="" disabled selected hidden>{% trans 'Selecteer uw beurtkaart' %}</option>
-                            {% for beurtkaart in beurtkaarten %}
-                                <option value="{{ beurtkaart.id }}" class="valid">{{ beurtkaart.naam }}: {{ beurtkaart.prijs }}</option>
-                            {% endfor %}
-                        </select>
+                  <!-- First Column -->
+                  <div class="col-lg-5">
+                      <div class="row gy-4">
+                          <!-- beurtkaart -->
+                          <div class="col-md-12">
+                              <select name="beurtkaart" class="form-select" id="beurtkaart-select" required>
+                                  <option value="" disabled selected hidden>{% trans 'Selecteer uw beurtkaart' %}</option>
+                                  {% for beurtkaart in beurtkaarten %}
+                                      <option value="{{ beurtkaart.id }}" class="valid">{{ beurtkaart.naam }}: {{ beurtkaart.prijs }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+              
+                          <!-- Code -->
+                          <div class="col-md-12">
+                              <input type="text" name="code" class="form-control" placeholder="{% trans 'Uw persoonlijke code' %}" maxlength="6" required>
+                          </div>
+              
+                          <!-- Submit Button -->
+                          <div class="col-12 text-center">
+                              <button type="submit" id="submit-button">{% trans 'Betalen' %}</button>
+                          </div>
+                          <!-- TODO laat niet submitten als code niet bestaat -->
+                      </div>
+                  </div>
+              
+                  <!-- Divider -->
+                  <div class="col-lg-2 text-center">
+                      <div class="divider">
+                          <span class="label text-muted small">{% trans 'OF' %}</span>
+                      </div>
+                  </div>
+              
+                  <!-- Second Column -->
+                  <div class="col-lg-5 d-flex align-items-center justify-content-center">
+                    <div class="row gy-4">
+                        <div class="col-12 text-center">
+                            <button type="button" id="no-code-button">{% trans 'Ik heb geen code' %}</button>
+                        </div>
                     </div>
-
-                    <!-- Code -->
-                    <div class="col-md-6">
-                        <input type="text" name="code" class="form-control" placeholder="{% trans 'Uw persoonlijke code' %}" maxlength="6" required>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="col-12 text-center">
-                        <button type="submit" id="submit-button">{% trans 'Volgende' %}</button>
-                    </div>
-                    
+                  </div>
+                
                 </div>
+              
               </form>
             
             </div>
 
-            <div class="service-box register" style="display: none;" id="code-section">
-                <h4 id="beurtkaart-title"></h4>
-    
-                <form id="beurtkaart-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
-                    <div class="row gy-4">
-                
-                        
-        
-                        <!-- Submit Button -->
-                        <div class="col-12 text-center">
-                            <button type="submit" id="submit-button">{% trans 'Betalen' %}</button>
-                        </div>
-                        
-                    </div>
-                </form>
-              
-            </div>
 
           </div>    
 

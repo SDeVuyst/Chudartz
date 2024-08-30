@@ -2174,17 +2174,47 @@ section,
   background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
-.service-details .service-box .btn-inverted {
-  background-color: var(--contrast-color);
-  color: var(--accent-color);
-  padding: 8px 30px 10px 30px;
-  border-radius: 4px;
-  border: 1px solid var(--accent-color);
+.service-details .service-box .divider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.service-details .service-box .btn-inverted:hover {
-  background-color: color-mix(in srgb, var(--contrast-color), transparent 20%);
-  color: var(--accent-color);
+.service-details .service-box .divider::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+.service-details .service-box .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+.service-details .service-box .divider span {
+  margin: 5px 10px;
+  padding: 0 10px;
+  background-color: transparent;
+}
+
+@media (min-width: 992px) {
+  .service-details .service-box {
+    /* Start vertical at lg (992px) breakpoint */
+  }
+  .service-details .service-box .divider {
+    height: 100%;
+    flex-direction: column;
+  }
+  .service-details .service-box .divider::before,
+.service-details .service-box .divider::after {
+    width: 1px;
+    height: 50%;
+  }
 }
 
 .service-details .services-list {
