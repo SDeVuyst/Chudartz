@@ -61,9 +61,10 @@
 
 </footer>
 
-
+{% if not disable_scroll_top %}
 <!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" {% if not disable_scroll_top %}style="opacity: 0;"{% endif %}><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endif %}
 
 <!-- Preloader -->
 <div id="preloader"></div>

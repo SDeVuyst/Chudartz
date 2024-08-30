@@ -29,4 +29,5 @@ urlpatterns = [
     path('cal-webhook/', views.cal_webhook),
 
     path('leerling/<int:code>/', views.leerling),
+    path('code/<int:code>/', views.code_bestaat, name="code_bestaat"),
 ]

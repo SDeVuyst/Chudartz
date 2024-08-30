@@ -6,6 +6,9 @@
 Chudarts | {{ tornooi.titel}} Inschrijven
 {% endblock %}
 
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
+{% endblock %}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
@@ -80,6 +83,14 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                           <div class="col-md-12">
                               <input type="text" name="code" class="form-control" placeholder="{% trans 'Uw persoonlijke code' %}" maxlength="6" required>
                           </div>
+
+                          <div class="col-md-12">
+                            <div class="loading form-check-label text-muted small" style="display:none;">{% trans 'Laden...' %}</div>
+                            <div class="error-message form-check-label text-muted small" style="display:none;"></div>
+                          </div>
+
+                          <!-- captcha -->
+                          <input type="hidden" name="recaptcha_token" id="recaptcha_token">
               
                           <!-- Submit Button -->
                           <div class="col-12 text-center">
@@ -125,6 +136,55 @@ Chudarts | {{ tornooi.titel}} Inschrijven
   </main>
 
   {% include 'blocks/footer.html' with disable_scroll_top="true" %} 
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+    grecaptcha.ready(function() {
+
+      const loadingMessage = document.querySelector('.loading');
+      const errorMessage = document.querySelector('.error-message');
+
+      document.getElementById('beurtkaart-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        grecaptcha.execute('6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV', {action: 'submit'}).then(function(token) {
+    
+        // Collect the user's data from the form fields
+        const code = document.querySelector('input[name="code"]').value;
+        loadingMessage.style.display = 'block';
+
+        // fetch the student object
+        fetch(`/nl/code/${encodeURIComponent(code)}?recaptcha_token=${encodeURIComponent(token)}`, {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest', // Indicate AJAX request
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          loadingMessage.style.display = 'none';
+          if (data.success) {
+            document.getElementById("beurtkaart-form").submit();
+            
+          } else {
+            errorMessage.textContent = data.error || 'Er is iets misgegaan. Probeer binnen een paar minuten opnieuw.';
+            errorMessage.style.display = 'block';
+          }
+        })
+
+        .catch(() => {
+          loadingMessage.style.display = 'none';
+          errorMessage.textContent = 'Er is iets misgegaan. Probeer binnen een paar minuten opnieuw.';
+          errorMessage.style.display = 'block';
+        })});
+
+      });
+      
+    })
+  });
+
+    
+  </script>
 
 </body>
 {% endblock %}

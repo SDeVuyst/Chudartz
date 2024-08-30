@@ -409,6 +409,7 @@ def leerling(request, code):
             'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
         })
 
+    
     l = get_object_or_404(Leerling, code=str(code))
 
     if l.resterende_beurten < 1:
@@ -423,4 +424,20 @@ def leerling(request, code):
         'achternaam': l.achternaam,
         'email': l.email,
         'resterende_beurten': l.resterende_beurten,
+    })
+
+
+def code_bestaat(request, code):
+    if request.method != 'GET': return HttpResponseNotFound("Invalid request method")
+
+    # recaptcha check
+    if not helpers.verify_recaptcha(request.GET.get('recaptcha_token')):
+        return JsonResponse({
+            'success': False,
+            'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+        })
+
+    return JsonResponse({
+        'success': Leerling.objects.filter(code=code).exists(),
+        'error': "Foutieve code."
     })
