@@ -32,12 +32,12 @@ def dartschool(request):
     return TemplateResponse(request, 'pages/dartschool.html', context)
 
 
-def inschrijven_dartschool(request):
+def gratis_proefles(request):
     context = {
         "vereisten": ["10 jaar oud", "blabla", "etc"],
         'sponsors': Sponsor.objects.all()
     }
-    return TemplateResponse(request, 'pages/dartschool-inschrijving.html', context)
+    return TemplateResponse(request, 'pages/dartschool-gratis-proefles.html', context)
 
 
 def reserveren_dartschool(request):

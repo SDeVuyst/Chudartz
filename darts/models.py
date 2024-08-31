@@ -370,7 +370,7 @@ class Leerling(models.Model):
     email = models.EmailField(verbose_name=_("Email"), max_length=254)
     extra_info = RichTextField(verbose_name=_("Extra Info"), blank=True, null=True)
 
-    resterende_beurten = models.PositiveSmallIntegerField(verbose_name=_("Resterende Beuren"), default=5)
+    resterende_beurten = models.PositiveSmallIntegerField(verbose_name=_("Resterende Beuren"), default=0)
 
     code = models.CharField(max_length=6, verbose_name=_("Code"), unique=True)
 

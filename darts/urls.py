@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.index, name="index"),
 
     path(_('dartschool/'), views.dartschool, name="dartschool"),
-    path(_('dartschool/inschrijven/'), views.inschrijven_dartschool, name='inschrijven_dartschool'),
+    path(_('dartschool/gratis-proefles/'), views.gratis_proefles, name='gratis_proefles'),
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
     path(_('dartschool/beurtkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),
     path(_('dartschool/beurtkaart-kopen/success/'), views.beurtkaart_kopen_success, name='beurtkaart_kopen_success'),

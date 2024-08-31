@@ -60,7 +60,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
           </div>  
           
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-box register">
+            <div class="service-box register" id="beurtkaart-selecter">
               <h4>{% trans 'Koop uw beurtkaart' %}</h4>
 
               <form action="{{ request.path }}" method="post" id="beurtkaart-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
@@ -96,7 +96,6 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                           <div class="col-12 text-center">
                               <button type="submit" id="submit-button">{% trans 'Betalen' %}</button>
                           </div>
-                          <!-- TODO laat niet submitten als code niet bestaat -->
                       </div>
                   </div>
               
@@ -112,6 +111,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                     <div class="row gy-4">
                         <div class="col-12 text-center">
                             <button type="button" id="no-code-button">{% trans 'Ik heb geen code' %}</button>
+                            <!-- TODO trigger second form when this one is pressed -->
                         </div>
                     </div>
                   </div>
@@ -122,6 +122,76 @@ Chudarts | {{ tornooi.titel}} Inschrijven
             
             </div>
 
+            <div class="service-box register" id="no-code" style="display: none;">
+              <h4>{% trans 'Verkrijg uw code' %}</h4>
+
+              <form action="{{ request.path }}" method="post" id="beurtkaart-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+                {% csrf_token %}
+                <div class="row gy-4">
+                  <!-- Voornaam -->
+                  <div class="col-md-6">
+                    <input type="text" name="voornaam" class="form-control" placeholder="{% trans 'Voornaam' %}" maxlength="100" required>
+                  </div>
+          
+                  <!-- Achternaam -->
+                  <div class="col-md-6">
+                      <input type="text" name="achternaam" class="form-control" placeholder="{% trans 'Achternaam' %}" maxlength="100" required>
+                  </div>
+          
+                  <!-- Email -->
+                  <div class="col-md-12">
+                      <input type="email" name="email" class="form-control" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <label class="form-check-label text-muted small" for="flexCheckDefault">
+                        {% trans 'Ik ga akkoord met de ' %}<a href="{% url 'algemene_voorwaarden' %}">{% trans 'Algemene voorwaarden'%}</a> {% trans 'van ChudartZ.'%}
+                      </label>
+                    </div>  
+                  </div>
+                  
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <label class="form-check-label text-muted small" for="flexCheckDefault">
+                        {% trans 'Ik ga akkoord met het' %} <a href="{% url 'reglement_tornooien' %}">{% trans 'Algemeen reglement' %}</a> {% trans 'voor darttornooien. '%}
+                      </label>
+                    </div>  
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <label class="form-check-label text-muted small" for="flexCheckDefault">
+                        {% blocktrans %}
+                        Als ouder/voogd, geef ik toestemming aan mijn minderjarige kind om deel te nemen aan de wedstrijd en verklaar mij akkoord met het verwerken van diens persoonsgegevens in overeenstemming met de wet op de privacy. 
+                        Ik weet dat deze gegevens vertrouwelijk zullen worden behandeld en uitsluitend gebruikt zullen worden voor doeleinden gerelateerd aan dit evenement.
+                        {% endblocktrans %}
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <label class="form-check-label text-muted small" for="flexCheckDefault">
+                        {% trans 'Ik ga akkoord met de' %} <a href="{% url 'disclaimer' %}">{% trans 'Disclaimer' %}</a> {% trans 'van ChudartZ.' %}
+                      </label>
+                    </div>  
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="col-12 text-center">
+                    <button type="submit" id="submit-button">{% trans '€50 lidgeld betalen' %}</button>
+                  </div>
+                
+                </div>
+              
+              </form>
+            
+            </div>
 
           </div>    
 
@@ -184,6 +254,35 @@ Chudarts | {{ tornooi.titel}} Inschrijven
   });
 
     
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('no-code-button').addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const currentForm = document.getElementById('beurtkaart-selecter');
+      const nextForm = document.getElementById('no-code');
+
+      // Add a fade-out animation to the form
+      currentForm.style.transition = 'opacity 0.25s ease';
+      currentForm.style.opacity = 0;
+
+      setTimeout(() => {
+        currentForm.remove();
+
+        // Show the new form with a fade-in animation
+        nextForm.style.display = 'block';
+        nextForm.style.opacity = 0;
+        nextForm.style.transition = 'opacity 0.25s ease';
+        
+        setTimeout(() => {
+          nextForm.style.opacity = 1;
+        }, 50); // Slight delay to trigger the transition
+
+      }, 250); // Same duration as the fade-out transition
+    });
+    });
   </script>
 
 </body>
