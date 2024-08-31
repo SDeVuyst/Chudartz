@@ -86,7 +86,7 @@ Chudarts | Dartschool
                         <li><i class="bi bi-check"></i><span>{% trans 'Zowel beginners als gevorderden' %}</span></li>
                         <li><i class="bi bi-check"></i><span>{% trans 'Gratis proefles' %}</span></li>
                     </ul>
-                    <a href="{% url 'gratis_proefles' %}" class="btn btn-get-started align-self-start">{% trans 'Gratis proefles boeken' %}</a>
+                    <a href="{% url 'beurtkaart_kopen' %}" class="btn btn-get-started align-self-start">{% trans 'Inschrijven' %}</a>
   
                   </div>
                 </div>
@@ -102,12 +102,12 @@ Chudarts | Dartschool
                     {% endblocktrans %}
                   </p>
                   <ul>
-                      <li><i class="bi bi-dot"></i><span>{% trans 'lidgeld: € 60/jaar' %}</span></li>
+                      <li><i class="bi bi-dot"></i><span>{% trans 'lidgeld: € 50/jaar' %}</span></li>
                       {% for beurtkaart in beurtkaarten %}
                       <li><i class="bi bi-dot"></i><span>{{ beurtkaart.naam }}: {{ beurtkaart.prijs }}</span></li>
                       {% endfor %}
                   </ul>
-                  <a href="{% url 'gratis_proefles' %}" class="btn btn-get-started align-self-start">{% trans 'Gratis proefles boeken' %}</a>
+                  <a href="{% url 'beurtkaart_kopen' %}" class="btn btn-get-started align-self-start">{% trans 'Inschrijven' %}</a>
   
                 </div>
                   <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">

@@ -49,6 +49,8 @@ Chudarts | {{ tornooi.titel}} Inschrijven
           
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
             <div class="service-box register">
+              <h4>{% trans 'Schrijf je in' %}</h4>
+
               <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
                 {% csrf_token %}
                 <div class="row gy-4">
