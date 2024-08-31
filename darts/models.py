@@ -175,6 +175,13 @@ class Payment(models.Model):
             except:
                 pass
 
+            # betaling van lidgeld
+            try:
+                l = Leerling.objects.get(payment=self)
+                l.send_mail()
+            except:
+                pass
+
         super().save(*args, **kwargs)
 
     mollie_id = models.CharField(verbose_name=_("Mollie id"), blank=True, null=True)
@@ -322,7 +329,7 @@ class Participant(models.Model):
     def send_mail(self):
         event = self.ticket.event
         
-        email_body = render_to_string('email/confirmation-mail.html', {
+        email_body = render_to_string('email/confirmation-mail-participant.html', {
             'event': event,
             'participant': self,
         })
@@ -369,7 +376,7 @@ class Leerling(models.Model):
     achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
     email = models.EmailField(verbose_name=_("Email"), max_length=254)
     extra_info = RichTextField(verbose_name=_("Extra Info"), blank=True, null=True)
-
+    payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
     resterende_beurten = models.PositiveSmallIntegerField(verbose_name=_("Resterende Beuren"), default=0)
 
     code = models.CharField(max_length=6, verbose_name=_("Code"), unique=True)
@@ -399,6 +406,26 @@ class Leerling(models.Model):
         
         self.resterende_beurten -= 1
         self.save()
+
+    def send_mail(self):
+        
+        email_body = render_to_string('email/confirmation-mail-leerling.html', {
+            'leerling': self,
+        })
+
+        email = EmailMessage(
+            'ChudartZ | Bevestiging',
+            email_body,
+            formataddr(('Chudartz', settings.EMAIL_HOST_USER)),
+            [self.email],
+            bcc=[settings.EMAIL_HOST_USER]
+        )
+        email.content_subtype = 'html'
+
+        helpers.attach_image(email, "logo-black")
+
+        # Send the email
+        email.send()
 
 
 

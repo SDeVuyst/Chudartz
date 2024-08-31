@@ -10,6 +10,8 @@ urlpatterns = [
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
     path(_('dartschool/beurtkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),
     path(_('dartschool/beurtkaart-kopen/success/'), views.beurtkaart_kopen_success, name='beurtkaart_kopen_success'),
+    path(_('dartschool/lidgeld/'), views.dartschool_lidgeld, name='dartschool_lidgeld'),
+    path(_('dartschool/lidgeld/success/'), views.dartschool_lidgeld_success, name='dartschool_lidgeld_success'),
 
     path(_('tornooien/'), views.tornooien, name="tornooien"),
     path(_('tornooien/<slug:slug>/'), views.tornooi, name='tornooi'),

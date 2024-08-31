@@ -291,7 +291,7 @@ class Participant(models.Model):
     def send_mail(self):
         event = self.ticket.event
         
-        email_body = render_to_string('email/confirmation-mail.html', {
+        email_body = render_to_string('email/confirmation-mail-participant.html', {
             'event': event,
             'participant': self,
         })

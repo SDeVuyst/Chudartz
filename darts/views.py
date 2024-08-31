@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 from darts.payment import MollieClient
-from .forms import ContactForm, TornooiForm, BeurtkaartForm
+from .forms import ContactForm, TornooiForm, BeurtkaartForm, CodeForm
 from .models import *
 from .utils import helpers
 
@@ -55,8 +55,6 @@ def beurtkaart_kopen(request):
         if form.is_valid():
             beurtkaart = form.cleaned_data['beurtkaart']
             code = form.cleaned_data['code']
-
-            print(code)
 
             leerling = get_object_or_404(Leerling, code=str(code))
 
@@ -110,6 +108,62 @@ def beurtkaart_kopen_success(request):
     return TemplateResponse(request, 'pages/dartschool-beurtkaart-response.html', context)
 
 
+def dartschool_lidgeld(request):
+     # request must always be post
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    
+    form = CodeForm(request.POST)
+        
+    if not form.is_valid():
+        #form was not valid, send to error page
+        context = {
+            "success": False,
+            'sponsors': Sponsor.objects.all()
+        }
+        return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
+    
+    voornaam = form.cleaned_data['voornaam']
+    achternaam = form.cleaned_data['achternaam']
+    email = form.cleaned_data['email']
+
+    price = Decimal(50)
+
+    payment = Payment.objects.create(
+        first_name=voornaam,
+        last_name=achternaam,
+        mail=email,
+        amount=price
+    )
+
+    leerling = Leerling.objects.create(
+        voornaam=voornaam,
+        achternaam=achternaam,
+        email=email,
+        payment_id = payment.pk,
+    )
+
+    # create the mollie payment
+    mollie_payment = MollieClient().create_mollie_payment(
+        amount=price,
+        description="Lidgeld",
+        redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/dartschool/lidgeld/success', #TODO
+    )
+
+    payment.mollie_id = mollie_payment.id
+    payment.save()
+    
+    return redirect(mollie_payment.checkout_url)
+
+
+def dartschool_lidgeld_success(request):
+    context = {
+        "success": True,
+        'sponsors': Sponsor.objects.all()
+    }
+    return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
+
+
 def tornooien(request):
     evenementen = Tornooi.objects.all()
     paginator = Paginator(evenementen, 6)
@@ -138,60 +192,59 @@ def inschrijven_tornooi(request, slug):
     if request.method == 'POST':
         form = TornooiForm(request.POST)
         
-        if form.is_valid():
-            voornaam = form.cleaned_data['voornaam']
-            achternaam = form.cleaned_data['achternaam']
-            email = form.cleaned_data['email']
-            straatnaam = form.cleaned_data['straatnaam']
-            nummer = form.cleaned_data['nummer']
-            postcode = form.cleaned_data['postcode']
-            stad = form.cleaned_data['stad']
-            niveau = form.cleaned_data['niveau']
-            ticket_id = form.cleaned_data['ticket']
-
-            price = Decimal(Ticket.objects.get(pk=ticket_id).price.amount)
-
-            payment = Payment.objects.create(
-                first_name=voornaam,
-                last_name=achternaam,
-                mail=email,
-                amount=price
-            )
-
-            Participant.objects.create(
-                voornaam=voornaam,
-                achternaam=achternaam,
-                email=email,
-                straatnaam=straatnaam,
-                nummer=nummer,
-                postcode=postcode,
-                stad=stad,
-                niveau=niveau,
-
-                payment_id = payment.pk,
-                ticket=Ticket.objects.get(pk=ticket_id),
-            )
-
-            # create the mollie payment
-            mollie_payment = MollieClient().create_mollie_payment(
-                amount=price,
-                description="TESTING", # TODO
-                redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/tornooien/{slug}/inschrijven/success', #TODO
-            )
-
-            payment.mollie_id = mollie_payment.id
-            payment.save()
-            
-            return redirect(mollie_payment.checkout_url)
+        if not form.is_valid():
+            # form was not valid, send to error page
+            context = {
+                "success": False,
+                "tornooi": Tornooi.objects.get(slug=slug),
+                'sponsors': Sponsor.objects.all()
+            }
+            return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
         
+        voornaam = form.cleaned_data['voornaam']
+        achternaam = form.cleaned_data['achternaam']
+        email = form.cleaned_data['email']
+        straatnaam = form.cleaned_data['straatnaam']
+        nummer = form.cleaned_data['nummer']
+        postcode = form.cleaned_data['postcode']
+        stad = form.cleaned_data['stad']
+        niveau = form.cleaned_data['niveau']
+        ticket_id = form.cleaned_data['ticket']
 
-        # form was not valid, send to error page
-        context = {
-            "success": False,
-            "tornooi": Tornooi.objects.get(slug=slug),
-            'sponsors': Sponsor.objects.all()
-        }
-        return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
+        price = Decimal(Ticket.objects.get(pk=ticket_id).price.amount)
+
+        payment = Payment.objects.create(
+            first_name=voornaam,
+            last_name=achternaam,
+            mail=email,
+            amount=price
+        )
+
+        Participant.objects.create(
+            voornaam=voornaam,
+            achternaam=achternaam,
+            email=email,
+            straatnaam=straatnaam,
+            nummer=nummer,
+            postcode=postcode,
+            stad=stad,
+            niveau=niveau,
+
+            payment_id = payment.pk,
+            ticket=Ticket.objects.get(pk=ticket_id),
+        )
+
+        # create the mollie payment
+        mollie_payment = MollieClient().create_mollie_payment(
+            amount=price,
+            description="TESTING", # TODO
+            redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/tornooien/{slug}/inschrijven/success', #TODO
+        )
+
+        payment.mollie_id = mollie_payment.id
+        payment.save()
+        
+        return redirect(mollie_payment.checkout_url)
         
     
     # GET request

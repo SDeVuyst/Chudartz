@@ -54,7 +54,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('id',)
 
     @display(
-        description=_('Payment Status'), 
+        description=_('Status van Betaling'), 
         label={
             PaymentStatus.PAID: "success",
             PaymentStatus.OPEN: "warning",
@@ -153,11 +153,27 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Leerling)
 class LeerlingAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('voornaam', 'achternaam', 'resterende_beurten', 'code')
+    list_display = ('voornaam', 'achternaam', 'resterende_beurten', 'payment_status', 'code')
     readonly_fields=('code',)
     ordering = ('voornaam', 'achternaam')
 
     search_fields = ('voornaam', 'achternaam', 'extra_info')
+
+    @display(
+        description=_('Status van Betaling'), 
+        label={
+            PaymentStatus.PAID: "success",
+            PaymentStatus.OPEN: "warning",
+            PaymentStatus.CANCELED: "danger",
+            PaymentStatus.EXPIRED: "danger",
+            PaymentStatus.FAILED: "danger",
+        },
+        header=True,
+    )
+    def payment_status(self, obj):
+        if obj.payment is None: return PaymentStatus.OPEN
+
+        return obj.payment.status
 
 
 @admin.register(Beurtkaart)

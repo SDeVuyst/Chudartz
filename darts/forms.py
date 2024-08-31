@@ -21,3 +21,8 @@ class TornooiForm(forms.Form):
 class BeurtkaartForm(forms.Form):
     beurtkaart = forms.ModelChoiceField(queryset=Beurtkaart.objects.all())
     code = forms.CharField(max_length=6)
+
+class CodeForm(forms.Form):
+    voornaam = forms.CharField(max_length=100)
+    achternaam = forms.CharField(max_length=100)
+    email = forms.EmailField(max_length=254)
