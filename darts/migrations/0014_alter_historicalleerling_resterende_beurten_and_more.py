@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='historicalleerling',
             name='resterende_beurten',
-            field=models.PositiveSmallIntegerField(default=0, verbose_name='Resterende Beuren'),
+            field=models.PositiveSmallIntegerField(default=0, verbose_name='Resterende Beurten'),
         ),
         migrations.AlterField(
             model_name='leerling',
             name='resterende_beurten',
-            field=models.PositiveSmallIntegerField(default=0, verbose_name='Resterende Beuren'),
+            field=models.PositiveSmallIntegerField(default=0, verbose_name='Resterende Beurten'),
         ),
     ]
