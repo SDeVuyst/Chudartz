@@ -12,7 +12,7 @@ services:
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     ports:
-      - "8000:8000"
+      - "8003:8000"
     depends_on:
       - db
     working_dir: /app
@@ -42,13 +42,14 @@ services:
     image: nginx:alpine
     restart: always
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - nginx_volume:/etc/nginx/nginx.conf
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     ports:
-      - "80:80"
+      - "81:80"
 
 volumes:
-  postgres_date:
+  postgres_data:
+  nginx_volume:
   media_volume:
   static_volume:
