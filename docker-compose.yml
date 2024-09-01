@@ -42,7 +42,7 @@ services:
     image: nginx:alpine
     restart: always
     volumes:
-      - nginx_volume:/etc/nginx/nginx.conf
+      - nginx_volume:/etc/nginx
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     ports:
