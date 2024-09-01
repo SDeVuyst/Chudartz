@@ -25,7 +25,7 @@ COPY . /app/
 RUN python manage.py collectstatic --noinput
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8003
 
 # Start the server
-CMD ["gunicorn", "chudartz.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "chudartz.wsgi:application", "--bind", "0.0.0.0:8003"]
