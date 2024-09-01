@@ -26,9 +26,9 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     expose:
-      - "5433"
+      - "5434"
     ports:
-      - 5433:5433
+      - 5434:5433
 
   backup:
     image: eeshugerman/postgres-backup-s3:16
