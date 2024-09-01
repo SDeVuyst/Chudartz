@@ -22,7 +22,7 @@ class TicketInline(StackedInline):
 
 
 # MODELS #
-@admin.register(Tornooi) # todo generate qr code with link to event page
+@admin.register(Tornooi)
 class TornooiAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
@@ -32,6 +32,8 @@ class TornooiAdmin(SimpleHistoryAdmin, ModelAdmin):
     inlines = [
         TicketInline
     ]
+
+    actions_detail = ["generate_qr_code",]
 
     @display(
         description=_("Uitverkocht"),
@@ -46,6 +48,23 @@ class TornooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     def view_on_site(self, obj):
         return obj.get_absolute_url()
+    
+    @action(description=_("Genereer QR Code"))
+    def generate_qr_code(modeladmin, request, object_id: int):
+        tornooi = get_object_or_404(Tornooi, pk=object_id)
+
+        url = request.build_absolute_uri(tornooi.get_absolute_url())
+        qr = qrcode.make(url)
+
+        # Save the QR code to an in-memory file
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+        buffer.seek(0)
+
+        # Create an HTTP response with the image
+        response = HttpResponse(buffer, content_type="image/png")
+        response['Content-Disposition'] = f'attachment; filename=qr_{tornooi.titel}.png'
+        return response         
 
 
 @admin.register(Participant)

@@ -237,7 +237,7 @@ def inschrijven_tornooi(request, slug):
         # create the mollie payment
         mollie_payment = MollieClient().create_mollie_payment(
             amount=price,
-            description="TESTING", # TODO
+            description="Tornooi ChudartZ",
             redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/tornooien/{slug}/inschrijven/success', #TODO
         )
 
