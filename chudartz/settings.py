@@ -55,6 +55,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'darts',
+    'pokemon',
 
     'simple_history',
     'dbbackup',
@@ -62,9 +65,8 @@ INSTALLED_APPS = [
     'djmoney',
     'ckeditor',
     'django_hosts',
+    'lockdown',
 
-    'darts',
-    'pokemon',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "simple_history.middleware.HistoryRequestMiddleware",
     'django_hosts.middleware.HostsResponseMiddleware',
+    'lockdown.middleware.LockdownMiddleware',
 ]
 
 ROOT_HOSTCONF = 'chudartz.hosts'
@@ -89,7 +92,7 @@ ROOT_URLCONF = 'chudartz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,6 +107,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chudartz.wsgi.application'
 
+# Lockdown
+LOCKDOWN_PASSWORDS = (os.environ.get("LOCKDOWN_PASS"),)
+
+LOCKDOWN_URL_EXCEPTIONS = (
+    r'^/static/',
+)
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
