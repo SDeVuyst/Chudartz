@@ -17,6 +17,9 @@ from .utils import helpers
 
 
 def index(request):
+
+    print(request.LANGUAGE_CODE)
+
     context = {
         'form': ContactForm(),
         'sponsors': Sponsor.objects.all()

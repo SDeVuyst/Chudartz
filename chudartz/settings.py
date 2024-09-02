@@ -152,8 +152,9 @@ TIME_ZONE = 'Europe/Brussels'
 USE_I18N = True
 LANGUAGE_CODE = 'nl'
 
-
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 LANGUAGES = [
     ('nl', 'Nederlands'),
