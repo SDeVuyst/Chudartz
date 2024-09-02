@@ -76,7 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'chudartz.middleware.DomainMiddleware',
+    'darts.middleware.DomainMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'lockdown.middleware.LockdownMiddleware',
 ]
