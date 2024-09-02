@@ -19,11 +19,26 @@ from .utils import helpers
 def index(request):
 
     print(request.LANGUAGE_CODE)
-    # Get the LOCALE_PATHS setting
+   # Get the LOCALE_PATHS setting
     locale_paths = settings.LOCALE_PATHS
-    # Convert list to a string with each path on a new line
-    paths_display = "\n".join(locale_paths)
-    print(paths_display)
+
+    # Iterate through each locale path and print its contents
+    for path in locale_paths:
+        print(f"Locale Path: {path}")
+        
+        # Check if the path exists
+        if os.path.exists(path):
+            # Walk through the directory
+            for root, dirs, files in os.walk(path):
+                # Print subdirectories
+                for directory in dirs:
+                    print(f"Directory: {os.path.join(root, directory)}")
+                
+                # Print files
+                for file in files:
+                    print(f"File: {os.path.join(root, file)}")
+        else:
+            print(f"Path does not exist: {path}")
 
     context = {
         'form': ContactForm(),
