@@ -98,6 +98,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chudartz.wsgi.application'
 
+ROOT_URLCONF='chudartz.urls'
+
 # Lockdown
 LOCKDOWN_PASSWORDS = (os.environ.get("LOCKDOWN_PASS"),)
 
