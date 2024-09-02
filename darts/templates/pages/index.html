@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 
-{% load static i18n sponsors %}
+{% load static i18n sponsors hosts %}
 
 {% block meta %}
 <meta name="description" content="TODO">
@@ -58,7 +58,7 @@
           {% for sponsor in sponsors %}
           {% if sponsor.toon_op_index %}
           <div class="col-xl-2 col-md-3 col-6 sponsor-logo">
-            <a href="{% url 'sponsors' %}">
+            <a href="{% host_url 'sponsors' %}">
               <img src="{{ sponsor.logo.url }}" class="img-fluid" alt="Logo {{ sponsor.naam }}">
             </a>
           </div>
@@ -85,7 +85,7 @@
               Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti soluta.
               {% endblocktrans %}
             </p>
-            <a href="{% url 'over_ons' %}" class="read-more"><span>{% trans 'Lees Meer' %}</span><i class="bi bi-arrow-right"></i></a>
+            <a href="{% host_url 'over_ons' %}" class="read-more"><span>{% trans 'Lees Meer' %}</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
           <div class="col-xl-7">
@@ -93,7 +93,7 @@
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box">
-                  <a href="{% url 'dartschool' %}"><i class="bi bi-buildings"></i></a>
+                  <a href="{% host_url 'dartschool' %}"><i class="bi bi-buildings"></i></a>
                   <h3>{% trans 'Dartschool' %}</h3>
                   <p>
                     {% blocktrans %}
@@ -106,7 +106,7 @@
               
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box">
-                  <a href="{% url 'tornooien' %}"><i class="bi bi-trophy"></i></a>
+                  <a href="{% host_url 'tornooien' %}"><i class="bi bi-trophy"></i></a>
                   <h3>{% trans 'Tornooien' %}</h3>
                   <p>
                     {% blocktrans %}
@@ -122,7 +122,7 @@
                   <a href="#"><i class="bi bi-door-open"></i></a>
                   <h3>{% trans 'Privélessen' %}</h3>
                   <p>
-                    {% trans 'We staan ook altijd open voor privélessen, gelieve ons te contacteren via' %} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.'%}</a>
+                    {% trans 'We staan ook altijd open voor privélessen, gelieve ons te contacteren via' %} <a href="{% host_url 'index' %}#contact">{% trans 'dit formulier.'%}</a>
                     
                   </p>
                 </div>
@@ -165,7 +165,7 @@
                 Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen.
                 {% endblocktrans %}
               </p>
-              <a class="cta-btn" href="{% url 'teambuildings_en_workshops' %}">{% trans 'Meer Info'%}</a>
+              <a class="cta-btn" href="{% host_url 'teambuildings_en_workshops' %}">{% trans 'Meer Info'%}</a>
             </div>
           </div>
         </div>
@@ -376,7 +376,7 @@
                 <i class="bi bi-inbox"></i>
                 <h3>{% trans 'Stuur ons een bericht' %}</h3>
               </div>
-              <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form">
+              <form action="{% host_url 'contact' %}" method="POST" id="email-form" class="email-form">
                 {% csrf_token %}
                 <div class="row gy-4">
             

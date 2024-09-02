@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 
-{% load static i18n %}
+{% load static i18n hosts %}
 
 {% block title %}
 Chudarts | Teambuilding & Workshops
@@ -56,7 +56,7 @@ Chudarts | Teambuilding & Workshops
                         <li><i class="bi bi-check"></i><span>{% trans 'Plezer & Ontspaning' %}</span></li>
                         <li><i class="bi bi-check"></i><span>{% trans 'Onvergetelijke Ervaring' %}</span></li>
                     </ul>
-                    <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Contacteer Ons' %}</a>
+                    <a href="{% host_url 'index' %}#contact" class="btn btn-get-started">{% trans 'Contacteer Ons' %}</a>
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
                     <div class="image-stack">
@@ -87,7 +87,7 @@ Chudarts | Teambuilding & Workshops
                             <li class="na"><i class="bi bi-x"></i> <span>{% trans 'Pharetra massa massa ultricies' %}</span></li>
                             <li class="na"><i class="bi bi-x"></i> <span>{% trans 'Massa ultricies mi quis hendrerit' %}</span></li>
                             </ul>
-                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
+                            <div class="text-center"><a href="{% host_url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
                         </div>
                         </div><!-- End Pricing Item -->
             
@@ -106,7 +106,7 @@ Chudarts | Teambuilding & Workshops
                             <li><i class="bi bi-check"></i> <span>{% trans 'Pharetra massa massa ultricies' %}</span></li>
                             <li><i class="bi bi-check"></i> <span>{% trans 'Massa ultricies mi quis hendrerit' %}</span></li>
                             </ul>
-                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
+                            <div class="text-center"><a href="{% host_url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
                         </div>
                         </div><!-- End Pricing Item -->
             
@@ -124,7 +124,7 @@ Chudarts | Teambuilding & Workshops
                             <li><i class="bi bi-check"></i> <span>{% trans 'Pharetra massa massa ultricies' %}</span></li>
                             <li><i class="bi bi-check"></i> <span>{% trans 'Massa ultricies mi quis hendrerit' %}</span></li>
                             </ul>
-                            <div class="text-center"><a href="{% url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
+                            <div class="text-center"><a href="{% host_url 'index' %}#contact" class="buy-btn">{% trans 'Contacteer Ons' %}</a></div>
                         </div>
                         </div><!-- End Pricing Item -->
             
@@ -143,7 +143,7 @@ Chudarts | Teambuilding & Workshops
                     <p>
                       {% trans 'Binnenkort!' %}
                     </p>
-                    <!-- <a href="{% url 'index' %}"#contact class="btn btn-get-started align-self-start btn-disabled">Contacteer Ons</a> -->
+                    <!-- <a href="{% host_url 'index' %}"#contact class="btn btn-get-started align-self-start btn-disabled">Contacteer Ons</a> -->
                     </div>
                 </div>
 

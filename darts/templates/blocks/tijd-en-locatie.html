@@ -1,4 +1,4 @@
-{% load static dutch_date i18n %}
+{% load static dutch_date i18n hosts %}
 
 <div class="service-box">
     <h4>Tijd & Locatie</h4>
@@ -30,7 +30,7 @@
     {% if tornooi.enable_inschrijvingen %}
     <!-- Inschrijven knop -->
     {% if tornooi.is_in_future and not tornooi.is_sold_out %}
-        <a href="{% url 'inschrijven_tornooi' slug=tornooi.slug %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
+        <a href="{% host_url 'inschrijven_tornooi' slug=tornooi.slug %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
     {% else %}
         {% if tornooi.is_in_future %}
         <a href="#" class="btn disabled btn-get-started align-self-start">Schrijf je in</a>

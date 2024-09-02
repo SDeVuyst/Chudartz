@@ -80,8 +80,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "simple_history.middleware.HistoryRequestMiddleware",
-    'django_hosts.middleware.HostsResponseMiddleware',
     'lockdown.middleware.LockdownMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 ROOT_HOSTCONF = 'chudartz.hosts'

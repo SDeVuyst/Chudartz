@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n hosts %}
 
 <!-- Page Title -->
 <div class="page-title" data-aos="fade">
@@ -19,7 +19,7 @@
     <nav class="breadcrumbs">
       <div class="container">
         <ol>
-          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% host_url 'index' %}">Home</a></li>
 
           {% if second_previous_crumb %}
           <li><a href="{{ second_previous_crumb_link }}">{{ second_previous_crumb }}</a></li>

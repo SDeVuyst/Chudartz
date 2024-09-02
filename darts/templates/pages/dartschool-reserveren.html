@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 
-{% load static dutch_date i18n %}
+{% load static dutch_date i18n hosts %}
 
 {% block title %}
 Chudarts | {{ tornooi.titel}} Inschrijven
@@ -68,8 +68,8 @@ Chudarts | {{ tornooi.titel}} Inschrijven
 
                     <div class="col-md-12">
                         <p class="form-check-label text-muted small">
-                          {% trans 'U kan' %} <a href="{% url 'gratis_proefles' %}">{% trans 'hier' %}</a> {% trans 'een gratis proefles aanvragen.' %}<br>
-                          {% trans 'Heeft u nog geen toegangscode? Die kan u' %} <a href="{% url 'beurtkaart_kopen' %}">{% trans 'hier'%}</a> {% trans 'verkrijgen.'%}
+                          {% trans 'U kan' %} <a href="{% host_url 'gratis_proefles' %}">{% trans 'hier' %}</a> {% trans 'een gratis proefles aanvragen.' %}<br>
+                          {% trans 'Heeft u nog geen toegangscode? Die kan u' %} <a href="{% host_url 'beurtkaart_kopen' %}">{% trans 'hier'%}</a> {% trans 'verkrijgen.'%}
                         </p>
                     </div>
 

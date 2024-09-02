@@ -1,6 +1,6 @@
 {% extends 'pokemon/main.html' %}
 
-{% load static i18n %}
+{% load static i18n hosts %}
 
 {% block meta %}
 <meta name="description" content="TODO">
@@ -100,7 +100,7 @@
                   <a href="#"><i class="bi bi-door-open"></i></a>
                   <h3>{% trans 'Privélessen' %}</h3>
                   <p>
-                    {% trans 'We staan ook altijd open voor privélessen, gelieve ons te contacteren via' %} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.'%}</a>
+                    {% trans 'We staan ook altijd open voor privélessen, gelieve ons te contacteren via' %} <a href="{% host_url 'index' %}#contact">{% trans 'dit formulier.'%}</a>
                     
                   </p>
                 </div>
@@ -354,7 +354,7 @@
                 <i class="bi bi-inbox"></i>
                 <h3>{% trans 'Stuur ons een bericht' %}</h3>
               </div>
-              <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form">
+              <form action="{% host_url 'contact' %}" method="POST" id="email-form" class="email-form">
                 {% csrf_token %}
                 <div class="row gy-4">
             
