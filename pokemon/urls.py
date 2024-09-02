@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import include, path
 from . import views
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path(_('over-ons'), views.over_ons, name="over_ons"),
@@ -12,6 +12,4 @@ urlpatterns = i18n_patterns(
 
     path(_('evenementen'), views.evenementen, name="evenementen"),
     path(_('evenement/<slug:slug>/'), views.evenement, name='evenement'),
-
-    path('i18n/', include('django.conf.urls.i18n')),
-)
+]
