@@ -1,4 +1,4 @@
-{% load static dutch_date i18n hosts %}
+{% load static dutch_date i18n %}
 
 <div class="col-lg-4">
   <article>
@@ -10,7 +10,7 @@
     <p class="post-category">{{ tornooi.locatie_kort }}</p>
 
     <h2 class="title">
-      <a href="{% host_url 'tornooi' slug=tornooi.slug %}">{{ tornooi.titel }}</a>
+      <a href="{% url 'tornooi' slug=tornooi.slug %}">{{ tornooi.titel }}</a>
     </h2>
 
     <div class="d-flex align-items-center">

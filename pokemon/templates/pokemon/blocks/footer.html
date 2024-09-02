@@ -1,11 +1,11 @@
-{% load static i18n hosts %}
+{% load static i18n %}
 
 <footer id="footer" class="footer position-relative light-background">
 
   <div class="container footer-top">
     <div class="row gy-4">
       <div class="col-lg-6 col-md-12 footer-about">
-        <a href="{% host_url 'index' %}" class="logo d-flex align-items-center">
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
           <span class="sitename">ChudartZ collectibles</span>
         </a>
         <p>Ondernemingsnummer: 0123.456.789</p>
@@ -21,7 +21,7 @@
       <div class="col-lg-2 col-6 footer-links">
         <h4>{% trans 'Handige Links' %}</h4>
         <ul>
-          <li><a href="{% host_url 'index' %}">Home</a></li>
+          <li><a href="{% url 'index' %}">Home</a></li>
         </ul>
       </div>
 

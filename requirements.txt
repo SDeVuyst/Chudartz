@@ -14,5 +14,4 @@ qrcode[pil]
 reportlab
 pypdf
 requests
-django-hosts
 django-lockdown

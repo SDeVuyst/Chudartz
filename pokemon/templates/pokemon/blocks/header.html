@@ -1,18 +1,18 @@
-{% load static i18n hosts %}
+{% load static i18n %}
 
 <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
   
-  <a href="{% host_url 'index' %}" class="logo d-flex align-items-center me-auto me-xl-0">
+  <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto me-xl-0">
     <img src="{% static "pokemon/img/logo-black.png" %}" alt="">
   </a>
 
   <nav id="navmenu" class="navmenu">
     <ul>
-      <li><a href="{% host_url 'index' %}#hero" class="active">Home</a></li>
-      <li><a href="{% host_url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
-      <li><a href="{% host_url 'evenementen' %}">{% trans 'Evenementen' %}</a></li>
+      <li><a href="{% url 'index' %}#hero" class="active">Home</a></li>
+      <li><a href="{% url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
+      <li><a href="{% url 'evenementen' %}">{% trans 'Evenementen' %}</a></li>
       <li><a href="#">{% trans 'Webshop' %}</a></li>
-      <li><a href="{% host_url 'index' %}#contact">{% trans 'Contact' %}</a></li>
+      <li><a href="{% url 'index' %}#contact">{% trans 'Contact' %}</a></li>
 
       <li class="dropdown">
         {% get_current_language as LANGUAGE_CODE %}
@@ -32,7 +32,7 @@
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     
     <!-- Lang switcher form -->
-    <form id="language-form" action="{% host_url 'set_language' %}" method="post">
+    <form id="language-form" action="{% url 'set_language' %}" method="post">
       {% csrf_token %}
       <input type="hidden" name="language" value="">
       <input type="hidden" name="next" value="{{ request.path }}">
@@ -41,6 +41,6 @@
 
   </nav>
 
-  <a class="btn-getstarted" href="{% host_url 'index' %}#over-ons">{% trans 'Begin Nu' %}</a>
+  <a class="btn-getstarted" href="{% url 'index' %}#over-ons">{% trans 'Begin Nu' %}</a>
 
   </div>

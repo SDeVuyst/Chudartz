@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 
-{% load static dutch_date i18n hosts %}
+{% load static dutch_date i18n %}
 
 {% block title %}
 Chudarts | {{ tornooi.titel}} Inschrijven
@@ -76,7 +76,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% trans 'Ik ga akkoord met de ' %}<a href="{% host_url 'algemene_voorwaarden' %}">{% trans 'Algemene voorwaarden'%}</a> {% trans 'van ChudartZ.'%}
+                          {% trans 'Ik ga akkoord met de ' %}<a href="{% url 'algemene_voorwaarden' %}">{% trans 'Algemene voorwaarden'%}</a> {% trans 'van ChudartZ.'%}
                         </label>
                       </div>  
                     </div>
@@ -85,7 +85,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% trans 'Ik ga akkoord met het' %} <a href="{% host_url 'reglement_tornooien' %}">{% trans 'Algemeen reglement' %}</a> {% trans 'voor darttornooien. '%}
+                          {% trans 'Ik ga akkoord met het' %} <a href="{% url 'reglement_tornooien' %}">{% trans 'Algemeen reglement' %}</a> {% trans 'voor darttornooien. '%}
                         </label>
                       </div>  
                     </div>
@@ -106,7 +106,7 @@ Chudarts | {{ tornooi.titel}} Inschrijven
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% trans 'Ik ga akkoord met de' %} <a href="{% host_url 'disclaimer' %}">{% trans 'Disclaimer' %}</a> {% trans 'van ChudartZ.' %}
+                          {% trans 'Ik ga akkoord met de' %} <a href="{% url 'disclaimer' %}">{% trans 'Disclaimer' %}</a> {% trans 'van ChudartZ.' %}
                         </label>
                       </div>  
                     </div>

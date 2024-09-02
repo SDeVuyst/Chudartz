@@ -1,11 +1,11 @@
-{% load static i18n sponsors hosts %}
+{% load static i18n sponsors %}
 
 <footer id="footer" class="footer position-relative light-background">
 
   <div class="container footer-top">
     <div class="row gy-4">
       <div class="col-lg-{% if sponsors|has_to_show_sponsors_footer %}5{% else %}6{% endif %} col-md-12 footer-about">
-        <a href="{% host_url 'index' %}" class="logo d-flex align-items-center">
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
           <span class="sitename">ChudartZ</span>
         </a>
         <p>{% trans 'Ondernemingsnummer' %}: 0123.456.789</p>
@@ -23,7 +23,7 @@
       <div class="col-lg-2 col-6 footer-links">
         <h4>{% trans 'Sponsors' %}</h4>
         <ul>
-          <li><a href="{% host_url 'sponsors' %}">{% trans 'Alle Sponsors' %}</a></li>
+          <li><a href="{% url 'sponsors' %}">{% trans 'Alle Sponsors' %}</a></li>
           {% for sponsor in sponsors %}
           {% if sponsor.toon_in_footer %}
           <li><a href="{{ sponsor.website_url }}">{{ sponsor.naam }}</a></li>
@@ -36,11 +36,11 @@
       <div class="col-lg-2 col-6 footer-links">
         <h4>{% trans 'Handige Links' %}</h4>
         <ul>
-          <li><a href="{% host_url 'index' %}">Home</a></li>
-          <li><a href="{% host_url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
-          <li><a href="{% host_url 'algemene_voorwaarden' %}">{% trans 'Algemene Voorwaarden' %}</a></li>
-          <li><a href="{% host_url 'disclaimer' %}">{% trans 'Disclaimer' %}</a></li>
-          <li><a href="{% host_url 'reglement_tornooien' %}">{% trans 'Algemeen Reglement' %}</a></li>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
+          <li><a href="{% url 'algemene_voorwaarden' %}">{% trans 'Algemene Voorwaarden' %}</a></li>
+          <li><a href="{% url 'disclaimer' %}">{% trans 'Disclaimer' %}</a></li>
+          <li><a href="{% url 'reglement_tornooien' %}">{% trans 'Algemeen Reglement' %}</a></li>
         </ul>
       </div>
 

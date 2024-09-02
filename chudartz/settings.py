@@ -64,13 +64,10 @@ INSTALLED_APPS = [
     'storages',
     'djmoney',
     'ckeditor',
-    'django_hosts',
     'lockdown',
-
 ]
 
 MIDDLEWARE = [
-    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -81,13 +78,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "simple_history.middleware.HistoryRequestMiddleware",
     'lockdown.middleware.LockdownMiddleware',
-    'django_hosts.middleware.HostsResponseMiddleware',
 ]
-
-ROOT_HOSTCONF = 'chudartz.hosts'
-DEFAULT_HOST = 'darts'
-
-ROOT_URLCONF = 'chudartz.urls'
 
 TEMPLATES = [
     {
@@ -112,6 +103,8 @@ LOCKDOWN_PASSWORDS = (os.environ.get("LOCKDOWN_PASS"),)
 
 LOCKDOWN_URL_EXCEPTIONS = (
     r'^/static/',
+    r'cal-webhook/',
+    r'mollie-webhook/'
 )
 
 # Database
