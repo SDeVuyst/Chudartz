@@ -28,12 +28,12 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'chudartz.com', 'pokemon.chudartz.com', 'pokemon.localhost',]
-CSRF_TRUSTED_ORIGINS = ['https://chudartz.com', 'https://www.chudartz.com']
+ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'chudartz.com', 'chudartz-collectibles.com']
+CSRF_TRUSTED_ORIGINS = ['https://chudartz.com', 'https://chudartz-collectibles.com']
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DBBACKUP_STORAGE_OPTIONS = {
-    'access_key': os.environ.get('AWS_ACCESS_KEY'),
+    'access_key': os.environ.get('AWS_ACCESS_KEY'), 
     'secret_key': os.environ.get('AWS_SECRET_KEY'),
     'bucket_name': os.environ.get('AWS_STORAGE_BUCKET_NAME'),
     'default_acl': 'private',
@@ -76,7 +76,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "simple_history.middleware.HistoryRequestMiddleware",
+    'chudartz.middleware.DomainMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
     'lockdown.middleware.LockdownMiddleware',
 ]
 
