@@ -85,7 +85,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_HOSTCONF = 'chudartz.hosts'
-DEFAULT_HOST = ''
+DEFAULT_HOST = 'darts'
 
 ROOT_URLCONF = 'chudartz.urls'
 
