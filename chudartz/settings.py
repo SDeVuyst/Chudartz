@@ -153,7 +153,7 @@ USE_I18N = True
 LANGUAGE_CODE = 'nl'
 
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',
+    os.path.join(BASE_DIR, 'locale'),
 ]
 
 LANGUAGES = [

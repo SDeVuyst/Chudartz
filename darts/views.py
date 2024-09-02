@@ -19,6 +19,11 @@ from .utils import helpers
 def index(request):
 
     print(request.LANGUAGE_CODE)
+    # Get the LOCALE_PATHS setting
+    locale_paths = settings.LOCALE_PATHS
+    # Convert list to a string with each path on a new line
+    paths_display = "\n".join(locale_paths)
+    print(paths_display)
 
     context = {
         'form': ContactForm(),
