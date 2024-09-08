@@ -93,7 +93,7 @@ class Evenement(models.Model):
         return sum(ticket.participants_count for ticket in self.ticket_set.all())
     
     def get_absolute_url(self):
-        reverse('evenement', kwargs={'slug': self.slug})
+         return f'https://chudartz-collectibles.com/nl/evenement/{self.slug}/'
     
     @property
     def vereisten_lijst(self):
