@@ -93,7 +93,7 @@ class Evenement(models.Model):
         return sum(ticket.participants_count for ticket in self.ticket_set.all())
     
     def get_absolute_url(self):
-        return reverse('evenement', args=[str(self.slug)])
+        return reverse(f'evenement/{str(self.slug)}')
     
     @property
     def vereisten_lijst(self):

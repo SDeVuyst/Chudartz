@@ -20,12 +20,12 @@
         </ul>
       </li>
       <li><a href="{% url 'tornooien' %}">{% trans 'Tornooien' %}</a></li>
-      <li><a href="#">{% trans 'Webshop' %}</a></li>
+      <li><a href="{% url 'teambuildings_en_workshops' %}">{% trans 'Teambuilding' %}</a></li>
       <li><a href="{% url 'index' %}#contact">{% trans 'Contact' %}</a></li>
 
       <li class="dropdown">
         {% get_current_language as LANGUAGE_CODE %}
-        <a href="#"><span>{{ LANGUAGE_CODE }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <a href="#"><span>{% trans 'Taal' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
           
           {% get_available_languages as LANGUAGES %}
