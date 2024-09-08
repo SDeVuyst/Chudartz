@@ -39,6 +39,8 @@ class Evenement(models.Model):
     class Meta:
         get_latest_by = "start_datum"
         ordering = ['-start_datum']
+        verbose_name = "Evenement"
+        verbose_name_plural = "Evenementen"
     
     titel = models.CharField(max_length=100, verbose_name=_("Titel"))
     slug = models.SlugField(unique=True)
@@ -101,6 +103,9 @@ class Evenement(models.Model):
 
 
 class Ticket(models.Model):
+    class Meta:
+        verbose_name = "Ticket"
+        verbose_name_plural = "Tickets"
 
     def __str__(self) -> str:
         return f"{self.titel} - {self.price}"
@@ -179,6 +184,8 @@ class Participant(models.Model):
     
     class Meta:
         get_latest_by = "pk"
+        verbose_name = "Deelnemer"
+        verbose_name_plural = "Deelnemers"
     
     voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
     achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))

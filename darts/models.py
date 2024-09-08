@@ -32,7 +32,6 @@ from .templatetags import dutch_date
 from .utils import helpers
 
 
-#TODO wachtlijst
 class Tornooi(models.Model):
 
     def __str__(self) -> str:
@@ -41,6 +40,8 @@ class Tornooi(models.Model):
     class Meta:
         get_latest_by = "start_datum"
         ordering = ['-start_datum']
+        verbose_name = "Tornooi"
+        verbose_name_plural = "Tornooien"
     
     titel = models.CharField(max_length=100, verbose_name=_("Titel"))
     slug = models.SlugField(unique=True)
@@ -105,6 +106,10 @@ class Tornooi(models.Model):
 
 class Ticket(models.Model):
 
+    class Meta:
+        verbose_name = "Ticket"
+        verbose_name_plural = "Tickets"
+
     def __str__(self) -> str:
         return f"{self.titel} - {self.price}"
     
@@ -156,6 +161,10 @@ class PaymentStatus:
 
 
 class Payment(models.Model):
+
+    class Meta:
+        verbose_name = "Betaling"
+        verbose_name_plural = "Betalingen"
     
     def save(self, *args, **kwargs):
         # Check if payment is received
@@ -216,6 +225,8 @@ class Participant(models.Model):
     
     class Meta:
         get_latest_by = "pk"
+        verbose_name = "Deelnemer"
+        verbose_name_plural = "Deelnemers"
     
     voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
     achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
@@ -369,9 +380,17 @@ class Sponsor(models.Model):
 
     def __str__(self):
         return self.naam
+    
+    class Meta:
+        verbose_name = "Sponsor"
+        verbose_name_plural = "Sponsors"
 
 
 class Leerling(models.Model):
+    class Meta:
+        verbose_name = "Leerling"
+        verbose_name_plural = "Leerlingen"
+
     voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
     achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
     email = models.EmailField(verbose_name=_("Email"), max_length=254)
@@ -430,6 +449,10 @@ class Leerling(models.Model):
 
 
 class Beurtkaart(models.Model):
+    class Meta:
+        verbose_name = "Beurtkaart"
+        verbose_name_plural = "Beurtkaarten"
+
     naam = models.CharField(verbose_name=_("Naam"))
     aantal_beurten = models.PositiveSmallIntegerField(verbose_name=_("Aantal Beurten"))
     prijs = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
