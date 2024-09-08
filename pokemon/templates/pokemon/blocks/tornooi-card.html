@@ -1,0 +1,48 @@
+{% load static dutch_date i18n %}
+
+<div class="col-lg-4">
+  <article>
+
+    <div class="post-img">
+      <img src="{{ tornooi.afbeelding.url }}" alt="" class="img-fluid">
+    </div>
+
+    <p class="post-category">{{ tornooi.locatie_kort }}</p>
+
+    <h2 class="title">
+      <a href="#TODO">{{ tornooi.titel }}</a>
+    </h2>
+
+    <div class="d-flex align-items-center">
+      <div class="post-meta">
+        <p class="post-author">
+          {% if tornooi.is_same_day %}
+              {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_time }}
+          {% else %}
+              {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_datetime }}
+          {% endif %}
+        </p>
+        
+        
+          {% if not tornooi.enable_inschrijvingen %}
+            <p class="post-date"><i class="bi bi-x-circle"></i><span> Inschrijvingen Gesloten</span></p>
+          {% endif %}
+
+          {% if tornooi.is_sold_out %}
+            <p class="post-date"><i class="bi bi-exclamation-circle"></i><span> Uitverkocht</span></p>
+          {% endif %}
+
+          {% if not tornooi.is_in_future %}
+            {% if tornooi.is_bezig %}
+            <p class="post-date"><i class="bi bi-hourglass-split"></i><span> Bezig</span></p>
+            {% else %}
+            <p class="post-date"><i class="bi bi-clock-history"></i><span> Afgelopen</span></p>
+            {% endif %}
+          {% endif %}
+        
+        
+      </div>
+    </div>
+
+  </article>
+</div>
