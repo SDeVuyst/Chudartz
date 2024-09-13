@@ -3,7 +3,7 @@
 {% load static i18n %}
 
 {% block title %}
-Chudarts | Over Ons
+ChudartZ | Over Ons
 {% endblock %}
 
 {% block meta %}
@@ -30,22 +30,59 @@ Chudarts | Over Ons
 
           <div data-aos="fade-up">
             <div class="portfolio-description">
-              <h2>{% trans 'Onze Missie en Visie' %}</h2>
+              <h2>{% trans 'Ons logo en inspiratie' %}</h2>
               <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+                {% blocktrans %}
+                ChudartZ is een unieke samensmelting van de <a href="https://chudartz-collectibles.com/" target="_blank">Pokémon</a>- en dartswereld, verrijkt met een speciale Japanse twist.
+                {% endblocktrans %}
               </p>
+              <ul>
+                <li>
+                  {% blocktrans %}
+                  "Chu" komt van Pikachu, een van de meest iconische Pokémon, en vertegenwoordigt onze sterke band met het Pokémon-universum.
+                  {% endblocktrans %}
+                </li>
+                <li>
+                  {% blocktrans %}
+                  “Z” staat voor de krachtige Z-moves uit de Pokémon-games, die symbool staan voor kracht en dynamiek, vergelijkbaar met onze toewijding aan zowel de darts- als de collectibles wereld.
+                  {% endblocktrans %}
+                </li>
+                <li>
+                  {% blocktrans %}
+                  “DartZ” verwijst natuurlijk naar darten, een sport uit Engeland waar wij een diepe passie voor hebben.
+                  {% endblocktrans %}
+                </li>
+              </ul>
+
               <p>
-                Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
+                {% blocktrans %}
+                Ons logo, met de naam 'ChudartZ' in het Japans, vangt de unieke mix van darts en Pokémon, met een Japanse stijl die onze culturele verbondenheid en onderscheidende karakter benadrukt.
+                {% endblocktrans %}
               </p>
 
               {% include 'blocks/quote.html' with quote='Een leermeester hoeft niet perfect te zijn, zolang de leerling maar uitblinkt.' image_url='/static/img/quotes/testimonials-2.jpg' name='Frederick De Mey' title='Trainer & Eigenaar' %}
+              
+              <h2 class="pt-5 pb-3">{% trans 'Missie en Visie' %}</h2>
+
+              <h4>{% trans 'Missie' %}</h4>
 
               <p>
-                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
+                {% blocktrans %}
+                Onze missie is om een plek te creëren in de regio Zedelgem waar jongeren zich kunnen ontwikkelen, hun passie voor darts kunnen ontdekken en zich hierin verder kunnen verfijnen.
+                We streven ernaar om in de dartschool jongeren te inspireren, te begeleiden en op een educatieve manier het individuele niveau omhoog te krikken. 
+                Door middel van regelmatige trainingen streven we ernaar zowel technische vaardigheden als persoonlijke groei te bevorderen.
+                {% endblocktrans %}
               </p>
 
+              <h4>{% trans 'Visie' %}</h4>
+
               <p>
-                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
+                {% blocktrans %}
+                Onze visie bij ChudartZ is om een toonaangevende plek voor darts te worden, te beginnen met onze jeugd dartschool en zo door te groeien naar onze dartsclub. 
+                We willen een inspirerende omgeving creëren waar respect, doorzettingsvermogen en sportiviteit centraal staan. Ons doel is om een broedplaats voor talent te zijn, 
+                jongeren te helpen hun passie te ontdekken en hun ambities te realiseren. Tevens streven we ernaar bij te dragen aan de erkenning van darts als volwaardige sport in België 
+                en een sterke gemeenschap rond deze prachtige discipline op te bouwen.
+                {% endblocktrans %}
               </p>
 
             </div>
