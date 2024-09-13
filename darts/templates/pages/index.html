@@ -108,8 +108,9 @@
                   <h3>{% trans 'Tornooien' %}</h3>
                   <p>
                     {% blocktrans %}
-                    Wij organiseren regelmatig darttoernooien waar zowel amateurs als professionals kunnen deelnemen.
-                    Aarzel niet om je in te schrijven! 
+                    Doe mee aan onze darttoernooien!
+                    Of je nu een beginner bent of een doorgewinterde professional, onze darttoernooien staan voor jou open. Een geweldige kans om je skills te testen, plezier te maken én mooie prijzen te winnen.
+                    Schrijf je vandaag nog in en mis de actie niet!
                     {% endblocktrans %}
                   </p>
                 </div>
@@ -117,11 +118,13 @@
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
                 <div class="icon-box">
-                  <a href="#"><i class="bi bi-door-open"></i></a>
-                  <h3>{% trans 'Privélessen' %}</h3>
+                  <a href="{% url 'teambuildings_en_workshops' %}"><i class="bi bi-people"></i></a>
+                  <h3>{% trans 'Teambuilding' %}</h3>
                   <p>
-                    {% trans 'We staan ook altijd open voor privélessen, gelieve ons te contacteren via' %} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.'%}</a>
-                    
+                    {% blocktrans %}
+                    Op zoek naar een originele en sportieve teambuilding? Bij ChudartZ organiseren we dynamische dartsevents voor bedrijven, waar plezier, competitie en samenwerking centraal staan. Perfect voor alle ervaringsniveaus!
+                    Versterk de teamspirit en beleef een onvergetelijke dag met je collega's. Boek nu je teambuilding!
+                    {% endblocktrans %}
                   </p>
                 </div>
               </div>
@@ -265,7 +268,7 @@
               <h3>{% trans '<span>Veel Gestelde</span><strong> Vragen</strong>' %}</h3>
               <p>
                 {% blocktrans %}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                "Veelgestelde vragen" biedt antwoorden op de meest voorkomende vragen over een specifiek onderwerp. Hier vind je duidelijke en beknopte informatie om snel verder te kunnen.
                 {% endblocktrans %}
               </p>
             </div>
@@ -275,41 +278,49 @@
 
             <div class="faq-container">
               <div class="faq-item faq-active">
-                <h3><span class="num">1.</span> <span>Zijn er dartsmogelijkheden voor mensen met een beperking?</span></h3>
+                <h3><span class="num">1.</span> <span>{% blocktrans %}Hoe kan ik me inschrijven voor het toernooi?{% endblocktrans %}</span></h3>
                 <div class="faq-content">
-                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
+                  <p>{% blocktrans %}Inschrijven kan via {% endblocktrans %}<a href="{% url 'tornooien' %}">{% blocktrans %}onze website{% endblocktrans %}</a>{% blocktrans %} of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid{% endblocktrans %}</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item">
-                <h3><span class="num">2.</span> <span>Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</span></h3>
+                <h3><span class="num">2.</span> <span>{% blocktrans %}Wat zijn de dartregels ?{% endblocktrans %}</span></h3>
                 <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                  <p>{% blocktrans %}Onze dartregels kan u {% endblocktrans %}<a href="{% url 'reglement_tornooien' %}">{% blocktrans %}hier{% endblocktrans %}</a> {% blocktrans %}terugvinden.{% endblocktrans %}</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item">
-                <h3><span class="num">3.</span> <span>Dolor sit amet consectetur adipiscing elit pellentesque?</span></h3>
+                <h3><span class="num">3.</span> <span>{% blocktrans %}Is de dartschool toegankelijk voor mensen met een beperking?{% endblocktrans %}</span></h3>
                 <div class="faq-content">
-                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
+                  <p>{% blocktrans %}Hoewel we er alles aan doen om een gastvrije omgeving te bieden, willen we erop wijzen dat onze huidige locatie helaas niet volledig toegankelijk is voor mindervaliden vanwege de structuur van het gebouw. We waarderen uw begrip en werken eraan om in de toekomst meer toegankelijke faciliteiten te bieden.{% endblocktrans %}</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item">
-                <h3><span class="num">4.</span> <span>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</span></h3>
+                <h3><span class="num">4.</span> <span>{% blocktrans %}Is er een leeftijdsbeperking om lid te worden van de school of deel te nemen aan een toernooi?{% endblocktrans %}</span></h3>
                 <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                  <p>Onze school en toernooien staan open voor iedereen vanaf 10 jaar. In uitzonderlijke gevallen kunnen jongere talenten zich ook inschrijven. Ouderlijke toestemming is hierbij altijd vereist. Bij verdere vragen, neem gerust <a href="#contact">contact</a> met ons op.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item">
-                <h3><span class="num">5.</span> <span>Tempus quam pellentesque nec nam aliquam sem et tortor consequat?</span></h3>
+                <h3><span class="num">5.</span> <span>{% blocktrans %}Wat is de prijzenpot voor de winnaars?{% endblocktrans %}</span></h3>
                 <div class="faq-content">
-                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
+                  <p>{% blocktrans %}De prijzenpot verschilt per toernooi, maar bevat vaak geldprijzen, trofeeën en andere leuke verrassingen.{% endblocktrans %}</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item">
+                <h3><span class="num">6.</span> <span>{% blocktrans %}Kan ik mij op de dag zelf nog inschrijven voor een toernooi?{% endblocktrans %}</span></h3>
+                <div class="faq-content">
+                  <p>{% blocktrans %}Afhankelijk van de beschikbare plaatsen kun je je op de dag zelf nog inschrijven. We raden echter aan om vooraf te registreren om zeker te zijn van deelname.{% endblocktrans %}</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>

@@ -35,7 +35,12 @@ def dartschool(request):
 
 def gratis_proefles(request):
     context = {
-        "vereisten": ["10 jaar oud", "blabla", "etc"],
+        "vereisten": [
+            "Minimum 10 jaar oud", 
+            "Jonger dan 10 jaar kan, mits uitzonderlijk talent",
+            "Maximum 20 jaar oud (of geb. in 2005)", 
+            "Actieve interesse in darts"
+        ],
         'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/dartschool-gratis-proefles.html', context)
