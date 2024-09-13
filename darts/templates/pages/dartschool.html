@@ -8,14 +8,14 @@ ChudartZ | Dartschool
 
 {% block meta %}
 <meta name="robots" content="index, follow">
-<!-- TODO -->
+<meta name="keywords" content="chudartz, dart, school, zedelgem, jeugd, toernooien">
 <meta property="og:title" content="ChudartZ | Dartschool">
-<meta property="og:description" content="TODO">
+<meta property="og:description" content="{% blocktrans %}Bij ChudartZ bieden we een dartschool waar spelers van elk niveau hun vaardigheden kunnen verbeteren. De school verwelkomt enthousiaste jongeren vanaf 10 jaar. Of je nu een beginner bent die net zijn eerste pijlen gooit, of een ervaren speler die zijn techniek wil verfijnen, wij staan klaar om je te helpen. Met persoonlijke aandacht en deskundige begeleiding zorgen wij ervoor dat je het beste uit jezelf kunt halen.{% endblocktrans %}">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ChudartZ | Dartschool">
-<meta name="twitter:description" content="TODO">
+<meta name="twitter:description" content="{% blocktrans %}Bij ChudartZ bieden we een dartschool waar spelers van elk niveau hun vaardigheden kunnen verbeteren. De school verwelkomt enthousiaste jongeren vanaf 10 jaar. Of je nu een beginner bent die net zijn eerste pijlen gooit, of een ervaren speler die zijn techniek wil verfijnen, wij staan klaar om je te helpen. Met persoonlijke aandacht en deskundige begeleiding zorgen wij ervoor dat je het beste uit jezelf kunt halen.{% endblocktrans %}">
 <meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
 {% endblock %}
 
@@ -47,16 +47,16 @@ ChudartZ | Dartschool
                     <h3>{% trans 'Ons Doel' %}</h3>
                     <p>
                         {% blocktrans %}
-                        Onze missie is om een plek te creëren in de ruime regio Zedelgem waar jongeren zich kunnen ontwikkelen, nieuwe vrienden kunnen maken en hun passie kunnen ontdekken en zich vervolmaken in het darts.
-                        We streven ernaar om in de dartsschool op een educatieve manier het individuele niveau omhoog te krikken.
+                        Onze missie is om een plek te creëren in de ruime regio Zedelgem waar jongeren zich kunnen ontwikkelen, hun passie kunnen ontdekken en zich vervolmaken in het darts.
+                        We streven ernaar om in de dartschool op een educatieve manier het individuele niveau omhoog te krikken. Op die manier willen we een inspirator zijn voor de jeugd zodat ze gemotiveerd hun volledig potentieel kunnen bereiken.
                         {% endblocktrans %}
                     </p>
                     <ul>
                         <li><i class="bi bi-check"></i><span>{% trans 'Ontwikkeling van Basisvaardigheden' %}</span></li>
                         <li><i class="bi bi-check"></i><span>{% trans 'Persoonlijke Groei en Zelfvertrouwen' %}</span></li>
-                        <li><i class="bi bi-check"></i><span>{% trans 'Educatieve en Leuke Activiteiten' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Voorbereiden op competitieve darts' %}</span></li>
                     </ul>
-                    <a href="{% url 'over_ons' %}#TODO" class="btn btn-get-started">{% trans 'Meer Info' %}</a> 
+                    <a href="{% url 'over_ons' %}#dartschool" class="btn btn-get-started">{% trans 'Meer Info' %}</a> 
 
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
