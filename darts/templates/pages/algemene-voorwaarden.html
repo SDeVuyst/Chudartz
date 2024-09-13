@@ -18,7 +18,7 @@ ChudartZ | Algemene Voorwaarden
   <main class="main">
     {% trans "Algemene Voorwaarden" as page_name %}
 
-    {% include 'blocks/page-title.html' with name=page_name %}
+    {% include 'blocks/page-title.html' with name=page_name description='De Algemene Voorwaarden zijn van toepassing op elk evenement dat door ChudartZ wordt georganiseerd (zoals toernooien, dartschool, teambuilding, enz.).' %}
 
 
     <section id="portfolio-details" class="portfolio-details section"> 
@@ -29,11 +29,12 @@ ChudartZ | Algemene Voorwaarden
 
           <div data-aos="fade-up">
             <div class="portfolio-description">
+
                 <h2>{% trans 'Inschrijving en deelname' %}</h2>
                 <p>
                     <ul>
                         <li>
-                            {% blocktrans %}Deelname aan het toernooi is alleen geldig na succesvolle inschrijving en betaling van het 
+                            {% blocktrans %}Deelname aan het toernooi/dartschool is alleen geldig na succesvolle inschrijving en betaling van het 
                             inschrijfgeld.{% endblocktrans %}
                         </li>
                         <li>
@@ -48,6 +49,9 @@ ChudartZ | Algemene Voorwaarden
                         <li>
                             {% blocktrans %}De inschrijvingsdeadline wordt strikt nageleefd. Laatkomers kunnen worden geweigerd.{% endblocktrans %}
                         </li>
+                        <li>
+                            {% blocktrans %}Een annulering van een geboekte les op de dag zelf leidt niet tot terugbetaling van de beurt, tenzij er sprake is van overmacht, zoals (ernstige) ziekte, overlijden familielid, … .{% endblocktrans %}
+                        </li>
                     </ul>                  
                 </p>
 
@@ -55,14 +59,14 @@ ChudartZ | Algemene Voorwaarden
                 <p>
                     <ul>
                         <li>
-                            {% blocktrans %}Deelnemers moeten minimaal 10 jaar oud zijn om deel te nemen aan het toernooi.{% endblocktrans %}
+                            {% blocktrans %}Deelnemers moeten minimaal 10 jaar oud zijn om deel te nemen aan het toernooi/dartschool, m.u.v. uitzonderlijke, jongere talenten.{% endblocktrans %}
                         </li>
                         <li>
                             {% blocktrans %}Minderjarige deelnemers moeten toestemming hebben van een ouder of voogd, die schriftelijk moet 
                             worden ingediend.{% endblocktrans %}
                         </li>
                         <li>
-                            {% blocktrans %}Voor de inschrijving zal het ‘toestemmingsformulier minderjarige deelnemers’ door 1 van de ouders 
+                            {% blocktrans %}Na de inschrijving zal het ‘toestemmingsformulier minderjarige deelnemers’ door 1 van de ouders 
                             of de voogd worden ingevuld en ondertekend.{% endblocktrans %}
                         </li>
                     </ul>
