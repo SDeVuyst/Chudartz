@@ -4,36 +4,36 @@
   <article>
 
     <div class="post-img">
-      <img src="{{ tornooi.afbeelding.url }}" alt="" class="img-fluid">
+      <img src="{{ toernooi.afbeelding.url }}" alt="" class="img-fluid">
     </div>
 
-    <p class="post-category">{{ tornooi.locatie_kort }}</p>
+    <p class="post-category">{{ toernooi.locatie_kort }}</p>
 
     <h2 class="title">
-      <a href="{% url 'tornooi' slug=tornooi.slug %}">{{ tornooi.titel }}</a>
+      <a href="{% url 'toernooi' slug=toernooi.slug %}">{{ toernooi.titel }}</a>
     </h2>
 
     <div class="d-flex align-items-center">
       <div class="post-meta">
         <p class="post-author">
-          {% if tornooi.is_same_day %}
-              {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_time }}
+          {% if toernooi.is_same_day %}
+              {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_time }}
           {% else %}
-              {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_datetime }}
+              {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_datetime }}
           {% endif %}
         </p>
         
         
-          {% if not tornooi.enable_inschrijvingen %}
+          {% if not toernooi.enable_inschrijvingen %}
             <p class="post-date"><i class="bi bi-x-circle"></i><span> Inschrijvingen Gesloten</span></p>
           {% endif %}
 
-          {% if tornooi.is_sold_out %}
+          {% if toernooi.is_sold_out %}
             <p class="post-date"><i class="bi bi-exclamation-circle"></i><span> Uitverkocht</span></p>
           {% endif %}
 
-          {% if not tornooi.is_in_future %}
-            {% if tornooi.is_bezig %}
+          {% if not toernooi.is_in_future %}
+            {% if toernooi.is_bezig %}
             <p class="post-date"><i class="bi bi-hourglass-split"></i><span> Bezig</span></p>
             {% else %}
             <p class="post-date"><i class="bi bi-clock-history"></i><span> Afgelopen</span></p>

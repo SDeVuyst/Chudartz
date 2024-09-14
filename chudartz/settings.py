@@ -239,9 +239,9 @@ UNFOLD = {
                 "separator": True,
                 "items": [
                     {
-                        "title": _("Tornooien"),
+                        "title": _("Toernooien"),
                         "icon": "trophy",
-                        "link": "/admin/darts/tornooi/",
+                        "link": "/admin/darts/toernooi/",
                     },
 
                     {

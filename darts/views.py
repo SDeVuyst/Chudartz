@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 from darts.payment import MollieClient
-from .forms import ContactForm, TornooiForm, BeurtkaartForm, CodeForm
+from .forms import ContactForm, ToernooiForm, BeurtkaartForm, CodeForm
 from .models import *
 from .utils import helpers
 
@@ -83,7 +83,7 @@ def beurtkaart_kopen(request):
             mollie_payment = MollieClient().create_mollie_payment(
                 amount=price,
                 description=beurtkaart.naam,
-                redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/dartschool/beurtkaart-kopen/success/', # TODO
+                redirect_url=f'https://chudartz.com/nl/dartschool/beurtkaart-kopen/success/',
             )
 
             payment.mollie_id = mollie_payment.id
@@ -153,7 +153,7 @@ def dartschool_lidgeld(request):
     mollie_payment = MollieClient().create_mollie_payment(
         amount=price,
         description="Lidgeld",
-        redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/dartschool/lidgeld/success', #TODO
+        redirect_url=f'https://chudartz.com/nl/dartschool/lidgeld/success',
     )
 
     payment.mollie_id = mollie_payment.id
@@ -170,42 +170,42 @@ def dartschool_lidgeld_success(request):
     return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
 
 
-def tornooien(request):
-    evenementen = Tornooi.objects.all()
+def toernooien(request):
+    evenementen = Toernooi.objects.all()
     paginator = Paginator(evenementen, 6)
 
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
     context = {
-        "tornooien": page_obj,
+        "toernooien": page_obj,
         "enable_pagination": paginator.num_pages > 1,
         'sponsors': Sponsor.objects.all()
     }
-    return TemplateResponse(request, 'pages/tornooien.html', context)
+    return TemplateResponse(request, 'pages/toernooien.html', context)
 
 
-def tornooi(request, slug):
-    evenement = Tornooi.objects.get(slug=slug)
+def toernooi(request, slug):
+    evenement = Toernooi.objects.get(slug=slug)
     context = {
-        "tornooi": evenement,
+        "toernooi": evenement,
         'sponsors': Sponsor.objects.all()
     }
-    return TemplateResponse(request, 'pages/tornooi.html', context)
+    return TemplateResponse(request, 'pages/toernooi.html', context)
 
 
-def inschrijven_tornooi(request, slug):
+def inschrijven_toernooi(request, slug):
     if request.method == 'POST':
-        form = TornooiForm(request.POST)
+        form = ToernooiForm(request.POST)
         
         if not form.is_valid():
             # form was not valid, send to error page
             context = {
                 "success": False,
-                "tornooi": Tornooi.objects.get(slug=slug),
+                "toernooi": Toernooi.objects.get(slug=slug),
                 'sponsors': Sponsor.objects.all()
             }
-            return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
+            return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
         
         voornaam = form.cleaned_data['voornaam']
         achternaam = form.cleaned_data['achternaam']
@@ -243,8 +243,8 @@ def inschrijven_tornooi(request, slug):
         # create the mollie payment
         mollie_payment = MollieClient().create_mollie_payment(
             amount=price,
-            description="Tornooi ChudartZ",
-            redirect_url=f'https://g0tgths4-80.euw.devtunnels.ms/nl/tornooien/{slug}/inschrijven/success', #TODO
+            description="Toernooi ChudartZ",
+            redirect_url=f'https://chudartz.com/nl/toernooien/{slug}/inschrijven/success',
         )
 
         payment.mollie_id = mollie_payment.id
@@ -254,25 +254,25 @@ def inschrijven_tornooi(request, slug):
         
     
     # GET request
-    evenement = Tornooi.objects.get(slug=slug)
+    evenement = Toernooi.objects.get(slug=slug)
     tickets = Ticket.objects.filter(event=evenement)
     
     context = {
-        "tornooi": evenement,
+        "toernooi": evenement,
         "tickets": tickets,
         'skill_level_choices': SkillLevel.CHOICES,
         'sponsors': Sponsor.objects.all()
     }
-    return TemplateResponse(request, 'pages/tornooi-inschrijving.html', context)
+    return TemplateResponse(request, 'pages/toernooi-inschrijving.html', context)
 
 
-def inschrijven_tornooi_success(request, slug):
+def inschrijven_toernooi_success(request, slug):
     context = {
         "success": True,
-        "tornooi": Tornooi.objects.get(slug=slug),
+        "toernooi": Toernooi.objects.get(slug=slug),
         'sponsors': Sponsor.objects.all()
     }
-    return TemplateResponse(request, 'pages/tornooi-inschrijving-response.html', context)
+    return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
 
 
 def teambuildings_en_workshops(request):
@@ -296,7 +296,7 @@ def algemene_voorwaarden(request):
     return TemplateResponse(request, 'pages/algemene-voorwaarden.html', context)
 
 
-def reglement_tornooien(request):
+def reglement_toernooien(request):
     context = {
         'sponsors': Sponsor.objects.all()
     }
@@ -396,7 +396,7 @@ def mollie_webhook(request):
     return HttpResponseNotFound("Invalid request method")
 
 
-@csrf_exempt #TODO verander webhook url in cal.com
+@csrf_exempt
 def cal_webhook(request):
 
     if request.method != "POST": return HttpResponseNotFound("Invalid request method")

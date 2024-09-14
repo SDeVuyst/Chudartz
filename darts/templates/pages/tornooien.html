@@ -3,29 +3,29 @@
 {% load static dutch_date i18n %}
 
 {% block title %}
-ChudartZ | tornooien
+ChudartZ | toernooien
 {% endblock %}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
 <!-- TODO -->
-<meta property="og:title" content="ChudartZ | Tornooien">
+<meta property="og:title" content="ChudartZ | Toernooien">
 <meta property="og:description" content="TODO">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ChudartZ | Tornooien">
+<meta name="twitter:title" content="ChudartZ | Toernooien">
 <meta name="twitter:description" content="TODO">
 <meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
 {% endblock %}
 
 {% block body %}
-<body class="tornooien-page">
+<body class="toernooien-page">
 
   {% include 'blocks/header-sticky.html' %}
 
   <main class="main">
-    {% trans "Tornooien" as page_name %}
+    {% trans "Toernooien" as page_name %}
     {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
 
     {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
@@ -34,16 +34,16 @@ ChudartZ | tornooien
 
       <div class="container">
 
-        {% if tornooien %}
+        {% if toernooien %}
         <div class="row gy-4">
-          {% for tornooi in tornooien %}
-            {% include 'blocks/tornooi-card.html' with tornooi=tornooi %}
+          {% for toernooi in toernooien %}
+            {% include 'blocks/toernooi-card.html' with toernooi=toernooi %}
           {% endfor %}
         </div>
         {% else %}
 
           <div class="justify-content-center text-center">
-            <h2>{% trans 'Er zijn nog geen tornooien beschikbaar!'%}</h2>
+            <h2>{% trans 'Er zijn nog geen toernooien beschikbaar!'%}</h2>
           </div>
 
         {% endif %}
@@ -52,7 +52,7 @@ ChudartZ | tornooien
 
     </section>
 
-    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=tornooien pagination_url_name="tornooien" %}
+    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=toernooien pagination_url_name="toernooien" %}
     
 
   </main>

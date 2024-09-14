@@ -3,7 +3,7 @@
 {% load static dutch_date i18n %}
 
 {% block title %}
-ChudartZ | {{ tornooi.titel}} Inschrijven
+ChudartZ | {{ toernooi.titel}} Inschrijven
 {% endblock %}
 
 {% block head %}
@@ -155,7 +155,7 @@ ChudartZ | {{ tornooi.titel}} Inschrijven
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label text-muted small" for="flexCheckDefault">
-                        {% trans 'Ik ga akkoord met het' %} <a href="{% url 'reglement_tornooien' %}">{% trans 'Algemeen reglement' %}</a> {% trans 'voor darttornooien. '%}
+                        {% trans 'Ik ga akkoord met het' %} <a href="{% url 'reglement_toernooien' %}">{% trans 'Algemeen reglement' %}</a> {% trans 'voor darttoernooien. '%}
                       </label>
                     </div>  
                   </div>

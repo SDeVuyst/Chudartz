@@ -11,28 +11,28 @@
                 {{ locatie }}
             </span></p>
         {% else %}
-            {% if tornooi.is_same_day %}
+            {% if toernooi.is_same_day %}
             <p><i class="bi bi-calendar4-event"></i><span>
-                {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_time }}
+                {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_time }}
             </span></p>
             {% else %}
             <p><i class="bi bi-calendar4-week"></i><span>
-                {{ tornooi.start_datum|dutch_datetime }} - {{ tornooi.einde_datum|dutch_datetime }}
+                {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_datetime }}
             </span></p>
             {% endif %}
             <p><i class="bi bi-geo-alt"></i><span>
-                {{ tornooi.locatie_lang }}
+                {{ toernooi.locatie_lang }}
             </span></p>
         {% endif %}
     </div>
 
     {% if not disable_inschrijvingen_knop %}
-    {% if tornooi.enable_inschrijvingen %}
+    {% if toernooi.enable_inschrijvingen %}
     <!-- Inschrijven knop -->
-    {% if tornooi.is_in_future and not tornooi.is_sold_out %}
-        <a href="{% url 'inschrijven_tornooi' slug=tornooi.slug %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
+    {% if toernooi.is_in_future and not toernooi.is_sold_out %}
+        <a href="{% url 'inschrijven_toernooi' slug=toernooi.slug %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
     {% else %}
-        {% if tornooi.is_in_future %}
+        {% if toernooi.is_in_future %}
         <a href="#" class="btn disabled btn-get-started align-self-start">Schrijf je in</a>
         {% else %}
         <a href="#" class="btn disabled btn-get-started align-self-start">Uitverkocht!</a>

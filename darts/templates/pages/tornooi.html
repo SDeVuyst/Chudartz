@@ -3,18 +3,18 @@
 {% load static dutch_date i18n %}
 
 {% block title %}
-ChudartZ | {{ tornooi.titel}}
+ChudartZ | {{ toernooi.titel}}
 {% endblock %}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
 <!-- TODO -->
-<meta property="og:title" content="ChudartZ | {{ tornooi.titel }}">
+<meta property="og:title" content="ChudartZ | {{ toernooi.titel }}">
 <meta property="og:description" content="TODO">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ChudartZ | {{ tornooi.titel }}">
+<meta name="twitter:title" content="ChudartZ | {{ toernooi.titel }}">
 <meta name="twitter:description" content="TODO">
 <meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
 {% endblock %}
@@ -26,10 +26,10 @@ ChudartZ | {{ tornooi.titel}}
 
   <main class="main">
 
-    {% trans "/tornooien" as page_previous_crumb_link %}
-    {% trans "Tornooien" as page_previous_crumb %}
+    {% trans "/toernooien" as page_previous_crumb_link %}
+    {% trans "Toernooien" as page_previous_crumb %}
 
-    {% include 'blocks/page-title.html' with name=tornooi.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
+    {% include 'blocks/page-title.html' with name=toernooi.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
 
     <section id="service-details" class="service-details section">
 
@@ -39,20 +39,20 @@ ChudartZ | {{ tornooi.titel}}
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            {% include 'blocks/tornooi-info.html' with tornooi=tornooi %}
+            {% include 'blocks/toernooi-info.html' with toernooi=toernooi %}
             
-            {% include 'blocks/tijd-en-locatie.html' with tornooi=tornooi %}
+            {% include 'blocks/tijd-en-locatie.html' with toernooi=toernooi %}
 
-            {% include 'blocks/vereisten.html' with vereisten=tornooi.vereisten_lijst %}
+            {% include 'blocks/vereisten.html' with vereisten=toernooi.vereisten_lijst %}
             
-            {% if tornooi.afbeeldingen_download_url %}
-            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=tornooi.afbeeldingen_download_url %}
+            {% if toernooi.afbeeldingen_download_url %}
+            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=toernooi.afbeeldingen_download_url %}
             {% endif %}
 
           </div>  
           
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-            {{ tornooi.beschrijving|safe }}
+            {{ toernooi.beschrijving|safe }}
           </div>          
 
         </div>

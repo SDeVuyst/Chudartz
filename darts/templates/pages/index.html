@@ -104,8 +104,8 @@
               
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box">
-                  <a href="{% url 'tornooien' %}"><i class="bi bi-trophy"></i></a>
-                  <h3>{% trans 'Tornooien' %}</h3>
+                  <a href="{% url 'toernooien' %}"><i class="bi bi-trophy"></i></a>
+                  <h3>{% trans 'Toernooien' %}</h3>
                   <p>
                     {% blocktrans %}
                     Doe mee aan onze darttoernooien!
@@ -189,7 +189,7 @@
           <ul class="afbeelding-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
             <li data-filter="*" class="filter-active">{% trans 'Alle' %}</li>
             <li data-filter=".filter-school">{% trans 'School' %}</li>
-            <li data-filter=".filter-tornooi">{% trans 'Tornooien' %}</li>
+            <li data-filter=".filter-toernooi">{% trans 'Toernooien' %}</li>
           </ul>
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
@@ -203,7 +203,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-tornooi">
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-toernooi">
               <img src="{% static "img/album/album-2.jpg" %}" class="img-fluid" alt="" loading="lazy">
               <div class="portfolio-info">
                 <h4>Product 1</h4>
@@ -230,7 +230,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-tornooi">
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-toernooi">
               <img src="{% static "img/album/album-5.jpg" %}" class="img-fluid" alt="" loading="lazy">
               <div class="portfolio-info">
                 <h4>Product 2</h4>
@@ -280,7 +280,7 @@
               <div class="faq-item faq-active">
                 <h3><span class="num">1.</span> <span>{% blocktrans %}Hoe kan ik me inschrijven voor het toernooi?{% endblocktrans %}</span></h3>
                 <div class="faq-content">
-                  <p>{% blocktrans %}Inschrijven kan via {% endblocktrans %}<a href="{% url 'tornooien' %}">{% blocktrans %}onze website{% endblocktrans %}</a>{% blocktrans %} of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid{% endblocktrans %}</p>
+                  <p>{% blocktrans %}Inschrijven kan via {% endblocktrans %}<a href="{% url 'toernooien' %}">{% blocktrans %}onze website{% endblocktrans %}</a>{% blocktrans %} of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid{% endblocktrans %}</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
@@ -288,7 +288,7 @@
               <div class="faq-item">
                 <h3><span class="num">2.</span> <span>{% blocktrans %}Wat zijn de dartregels ?{% endblocktrans %}</span></h3>
                 <div class="faq-content">
-                  <p>{% blocktrans %}Onze dartregels kan u {% endblocktrans %}<a href="{% url 'reglement_tornooien' %}">{% blocktrans %}hier{% endblocktrans %}</a> {% blocktrans %}terugvinden.{% endblocktrans %}</p>
+                  <p>{% blocktrans %}Onze dartregels kan u {% endblocktrans %}<a href="{% url 'reglement_toernooien' %}">{% blocktrans %}hier{% endblocktrans %}</a> {% blocktrans %}terugvinden.{% endblocktrans %}</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>

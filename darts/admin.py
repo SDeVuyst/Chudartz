@@ -22,8 +22,8 @@ class TicketInline(StackedInline):
 
 
 # MODELS #
-@admin.register(Tornooi)
-class TornooiAdmin(SimpleHistoryAdmin, ModelAdmin):
+@admin.register(Toernooi)
+class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
     exclude = ('tickets',)
@@ -51,9 +51,9 @@ class TornooiAdmin(SimpleHistoryAdmin, ModelAdmin):
     
     @action(description=_("Genereer QR Code"))
     def generate_qr_code(modeladmin, request, object_id: int):
-        tornooi = get_object_or_404(Tornooi, pk=object_id)
+        toernooi = get_object_or_404(Toernooi, pk=object_id)
 
-        url = request.build_absolute_uri(tornooi.get_absolute_url())
+        url = request.build_absolute_uri(toernooi.get_absolute_url())
         qr = qrcode.make(url)
 
         # Save the QR code to an in-memory file
@@ -63,7 +63,7 @@ class TornooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
         # Create an HTTP response with the image
         response = HttpResponse(buffer, content_type="image/png")
-        response['Content-Disposition'] = f'attachment; filename=qr_{tornooi.titel}.png'
+        response['Content-Disposition'] = f'attachment; filename=qr_{toernooi.titel}.png'
         return response         
 
 

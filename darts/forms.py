@@ -7,7 +7,7 @@ class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField()
 
-class TornooiForm(forms.Form):
+class ToernooiForm(forms.Form):
     voornaam = forms.CharField(max_length=100)
     achternaam = forms.CharField(max_length=100)
     email = forms.EmailField(max_length=254)

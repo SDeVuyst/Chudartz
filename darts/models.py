@@ -32,7 +32,7 @@ from .templatetags import dutch_date
 from .utils import helpers
 
 
-class Tornooi(models.Model):
+class Toernooi(models.Model):
 
     def __str__(self) -> str:
         return self.titel
@@ -40,8 +40,8 @@ class Tornooi(models.Model):
     class Meta:
         get_latest_by = "start_datum"
         ordering = ['-start_datum']
-        verbose_name = "Tornooi"
-        verbose_name_plural = "Tornooien"
+        verbose_name = "Toernooi"
+        verbose_name_plural = "Toernooien"
     
     titel = models.CharField(max_length=100, verbose_name=_("Titel"))
     slug = models.SlugField(unique=True)
@@ -97,7 +97,7 @@ class Tornooi(models.Model):
         return sum(ticket.participants_count for ticket in self.ticket_set.all())
     
     def get_absolute_url(self):
-        return reverse('tornooi', args=[str(self.slug)])
+        return reverse('toernooi', args=[str(self.slug)])
     
     @property
     def vereisten_lijst(self):
@@ -116,7 +116,7 @@ class Ticket(models.Model):
     titel = models.CharField(max_length=100, verbose_name=_("titel"))
     price = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
-    event = models.ForeignKey(Tornooi, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
+    event = models.ForeignKey(Toernooi, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
@@ -217,7 +217,7 @@ class SkillLevel:
 
 
 
-# Deelnemer van tornooi
+# Deelnemer van toernooi
 class Participant(models.Model):
 
     def __str__(self) -> str:
@@ -351,7 +351,7 @@ class Participant(models.Model):
         email = EmailMessage(
             'ChudartZ | Bevestiging',
             email_body,
-            formataddr(('Tornooien | Chudartz', settings.EMAIL_HOST_USER)),
+            formataddr(('Toernooien | Chudartz', settings.EMAIL_HOST_USER)),
             [self.email],
             bcc=[settings.EMAIL_HOST_USER]
         )

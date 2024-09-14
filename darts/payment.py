@@ -15,5 +15,5 @@ class MollieClient():
             },
             'description': description,
             'redirectUrl': redirect_url,
-            'webhookUrl': 'https://g0tgths4-80.euw.devtunnels.ms/nl/mollie-webhook/', # TODO
+            'webhookUrl': 'https://chudartz.com/nl/mollie-webhook/',
         })
