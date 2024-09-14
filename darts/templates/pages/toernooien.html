@@ -8,14 +8,16 @@ ChudartZ | toernooien
 
 {% block meta %}
 <meta name="robots" content="index, follow">
-<!-- TODO -->
+<meta name="keywords" content="tornooien, toernooien, darts, school, zedelgem, Loppem, Aartrijke, Veldegem, provinciaal kampioenschap, G-darts, de beste darter van jouw regio">
+<meta name="description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+
 <meta property="og:title" content="ChudartZ | Toernooien">
-<meta property="og:description" content="TODO">
+<meta property="og:description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ChudartZ | Toernooien">
-<meta name="twitter:description" content="TODO">
+<meta name="twitter:description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
 <meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
 {% endblock %}
 
@@ -26,7 +28,7 @@ ChudartZ | toernooien
 
   <main class="main">
     {% trans "Toernooien" as page_name %}
-    {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
+    {% trans "Onze dartstoernooien zijn dé plek om uw vaardigheden te testen en de competitie aan te gaan. Iedereen is altijd welkom om deel te nemen en zich te meten met andere dartliefhebbers. Houd onze kalender in de gaten voor aankomende toernooien en neem een kijkje binnen 'Darttoernooien' (link naar deze sectie) voor een van onze spannende competities." as page_description %}
 
     {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
 
