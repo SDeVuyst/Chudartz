@@ -40,7 +40,11 @@ ChudartZ | Sponsors
                   <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
                   <h3>{{ sponsor.naam }}</h3>
                   {{ sponsor.info|safe }}
+
+                  {% if sponsor.toon_knop_op_sponsors_pagina %}
                   <a href="{{ sponsor.website_url }}" target="_blank" class="btn btn-get-started align-self-start">{% trans 'Bezoek Website' %}</a>
+                  {% endif %}
+                  
                   </div>
                   <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
                     <img src="{{ sponsor.afbeelding.url }}" class="img-fluid" alt="Afbeelding {{ sponsor.naam }}">

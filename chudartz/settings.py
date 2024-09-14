@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'djmoney',
     'ckeditor',
     'lockdown',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [
@@ -159,6 +160,7 @@ LOCALE_PATHS = [
 LANGUAGES = [
     ('nl', 'Nederlands'),
     ('en', 'English'),
+    ('fr', 'Français')
 ]
 
 # Emailing

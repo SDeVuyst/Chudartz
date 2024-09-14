@@ -309,7 +309,7 @@ class Participant(models.Model):
         email = EmailMessage(
             'ChudartZ | Bevestiging',
             email_body,
-            formataddr(('Tornooien | Chudartz', settings.EMAIL_HOST_USER)),
+            formataddr(('Toernooien | Chudartz', settings.EMAIL_HOST_USER)),
             [self.email],
             bcc=[settings.EMAIL_HOST_USER]
         )

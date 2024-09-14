@@ -27,6 +27,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from simple_history.models import HistoricalRecords
+from phonenumber_field.modelfields import PhoneNumberField
 
 from .templatetags import dutch_date
 from .utils import helpers
@@ -235,7 +236,8 @@ class Participant(models.Model):
     nummer = models.CharField(verbose_name=_("Nummer"), max_length=6)
     postcode = models.IntegerField(verbose_name=_("Postcode"))
     stad = models.CharField(verbose_name=_("Stad"), max_length=40)
-    niveau = models.CharField(max_length=10, choices=SkillLevel.CHOICES, default=SkillLevel.GEMIDDELD)
+    # niveau = models.CharField(max_length=10, choices=SkillLevel.CHOICES, default=SkillLevel.GEMIDDELD)
+    gsm = PhoneNumberField(verbose_name=_("GSM"), null=False, blank=False)
     
     payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
     attended = models.BooleanField(verbose_name=_("Attended"), default=False)
@@ -373,6 +375,7 @@ class Sponsor(models.Model):
     toon_op_index = models.BooleanField(verbose_name=_("Toon Op Voorpagina"), default=True)
     toon_in_footer = models.BooleanField(verbose_name=_("Toon in footer"), default=True)
     toon_op_sponsors_pagina = models.BooleanField(verbose_name=_("Toon op sponsor pagina"), default=True)
+    toon_knop_op_sponsors_pagina = models.BooleanField(verbose_name=_("Toon knop op sponsors pagina"), default=True)
     logo = models.ImageField(verbose_name=_("Logo"), upload_to="sponsor")
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="sponsor")
 

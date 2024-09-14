@@ -71,13 +71,17 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                     </div>
             
                     <!-- Niveau -->
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <select name="niveau" class="form-select" required>
                             <option value="" disabled selected hidden>{% trans 'Selecteer je niveau' %}</option>
                             {% for value, label in skill_level_choices %}
                                 <option value="{{ value }}" class="valid">{{ label }}</option>
                             {% endfor %}
                         </select>
+                    </div> -->
+
+                    <div class="col-md-6">
+                      <input type="tel" name="gsm" class="form-control" placeholder="{% trans 'Gsm-nummer' %}" required>
                     </div>
             
                     <!-- Straatnaam -->
@@ -96,7 +100,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                     </div>
             
                     <!-- Stad -->
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input type="text" name="stad" class="form-control" placeholder="{% trans 'Stad' %}" maxlength="40" required>
                     </div>
 

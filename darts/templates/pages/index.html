@@ -56,7 +56,7 @@
           {% for sponsor in sponsors %}
           {% if sponsor.toon_op_index %}
           <div class="col-xl-2 col-md-3 col-6 sponsor-logo">
-            <a href="{% url 'sponsors' %}">
+            <a href="{{ sponsor.website_url }}">
               <img src="{{ sponsor.logo.url }}" class="img-fluid" alt="Logo {{ sponsor.naam }}">
             </a>
           </div>

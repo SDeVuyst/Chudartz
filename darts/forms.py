@@ -1,5 +1,6 @@
 from django import forms
 from  .models import Beurtkaart, SkillLevel
+from phonenumber_field.formfields import PhoneNumberField
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -15,7 +16,8 @@ class ToernooiForm(forms.Form):
     nummer = forms.CharField(max_length=6)
     postcode = forms.IntegerField()
     stad = forms.CharField(max_length=40)
-    niveau = forms.ChoiceField(choices=SkillLevel.CHOICES)
+    # niveau = forms.ChoiceField(choices=SkillLevel.CHOICES)
+    gsm = PhoneNumberField()
     ticket = forms.CharField()
 
 class BeurtkaartForm(forms.Form):
