@@ -38,7 +38,7 @@ def contact(request):
         send_mail(
             f'Contact Form - {subject}',
             f'Name: {name}\nEmail: {email}\nMessage: {message}',
-            formataddr(('Contact | ChudartZ collectibles', settings.EMAIL_HOST_USER)),
+            formataddr(('Contact | ChudartZ Collectibles', settings.EMAIL_HOST_USER)),
             [settings.EMAIL_HOST_USER],
             fail_silently=False,
         )
