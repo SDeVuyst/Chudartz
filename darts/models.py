@@ -61,6 +61,20 @@ class Toernooi(models.Model):
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
+    # make tz aware
+    def save(self, *args, **kwargs):
+        # Get the Brussels timezone
+        brussels_tz = pytz.timezone('Europe/Brussels')
+
+        # Convert the fields to the Brussels timezone before saving
+        if self.start_datum and timezone.is_naive(self.start_datum):
+            self.start_datum = timezone.make_aware(self.start_datum, brussels_tz)
+
+        if self.einde_datum and timezone.is_naive(self.einde_datum):
+            self.einde_datum = timezone.make_aware(self.einde_datum, brussels_tz)
+
+        super().save(*args, **kwargs)
+
     @property
     def is_in_future(self):
         brussels_tz = pytz.timezone('Europe/Brussels')

@@ -1,5 +1,7 @@
 from django import template
+from django.utils import timezone
 import datetime
+import pytz
 
 register = template.Library()
 
@@ -32,6 +34,8 @@ def dutch_date(value):
 def dutch_datetime(value):
     if not isinstance(value, datetime.datetime):
         return value
+    
+    value = timezone.localtime(value, timezone=pytz.timezone('Europe/Brussels'))
 
     day = value.day
     month = MONTHS_DUTCH[value.month]
@@ -44,5 +48,7 @@ def dutch_datetime(value):
 def dutch_time(value):
     if not isinstance(value, datetime.datetime):
         return value
+
+    value = timezone.localtime(value, timezone=pytz.timezone('Europe/Brussels'))
 
     return value.strftime('%H:%M')
