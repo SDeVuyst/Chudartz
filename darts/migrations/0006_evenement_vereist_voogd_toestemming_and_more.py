@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='evenement',
             name='vereist_voogd_toestemming',
-            field=models.BooleanField(default=False, verbose_name='Toestemming van voogd verist'),
+            field=models.BooleanField(default=False, verbose_name='Toestemming van voogd vereist'),
         ),
         migrations.AddField(
             model_name='historicalevenement',
             name='vereist_voogd_toestemming',
-            field=models.BooleanField(default=False, verbose_name='Toestemming van voogd verist'),
+            field=models.BooleanField(default=False, verbose_name='Toestemming van voogd vereist'),
         ),
     ]

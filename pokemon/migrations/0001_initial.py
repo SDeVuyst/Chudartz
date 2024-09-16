@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('locatie_lang', models.TextField(verbose_name='Locatie (lang)')),
                 ('afbeelding', models.ImageField(upload_to='darts', verbose_name='afbeelding')),
                 ('afbeeldingen_download_url', models.URLField(blank=True, null=True, verbose_name='Download afbeeldingen URL')),
-                ('vereist_voogd_toestemming', models.BooleanField(default=False, verbose_name='Toestemming van voogd verist')),
+                ('vereist_voogd_toestemming', models.BooleanField(default=False, verbose_name='Toestemming van voogd vereist')),
                 ('enable_inschrijvingen', models.BooleanField(default=False, verbose_name='Inschrijvingen Inschakelen')),
             ],
             options={
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('locatie_lang', models.TextField(verbose_name='Locatie (lang)')),
                 ('afbeelding', models.TextField(max_length=100, verbose_name='afbeelding')),
                 ('afbeeldingen_download_url', models.URLField(blank=True, null=True, verbose_name='Download afbeeldingen URL')),
-                ('vereist_voogd_toestemming', models.BooleanField(default=False, verbose_name='Toestemming van voogd verist')),
+                ('vereist_voogd_toestemming', models.BooleanField(default=False, verbose_name='Toestemming van voogd vereist')),
                 ('enable_inschrijvingen', models.BooleanField(default=False, verbose_name='Inschrijvingen Inschakelen')),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
                 ('history_date', models.DateTimeField(db_index=True)),

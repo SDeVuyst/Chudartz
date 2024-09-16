@@ -180,7 +180,7 @@ msgid "Download afbeeldingen URL"
 msgstr "Télécharger l’URL des images"
 
 #: .\darts\models.py:58
-msgid "Toestemming van voogd verist"
+msgid "Toestemming van voogd vereist"
 msgstr "Le consentement du tuteur est requis"
 
 #: .\darts\models.py:60 .\pokemon\models.py:57
