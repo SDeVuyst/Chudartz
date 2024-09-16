@@ -9,6 +9,7 @@ urlpatterns = i18n_patterns(
     path('', views.index, name="index"),
 
     path(_('dartschool/'), views.dartschool, name="dartschool"),
+    path(_('dartschool/meer-info'), views.dartschool_meer_info, name="dartschool_meer_info"),    
     path(_('dartschool/gratis-proefles/'), views.gratis_proefles, name='gratis_proefles'),
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
     path(_('dartschool/beurtkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),
@@ -28,6 +29,7 @@ urlpatterns = i18n_patterns(
     path(_('disclaimer/'), views.disclaimer, name="disclaimer"),
     path(_('contact/'), views.contact, name='contact'),
     path(_('sponsors/'), views.sponsors, name='sponsors'),
+    path(_('faq/'), views.faq, name='faq'),
 
     path(_('darts/scanner/'), views.scanner),
     path('mollie-webhook/', views.mollie_webhook),

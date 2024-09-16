@@ -32,6 +32,12 @@ def dartschool(request):
     }
     return TemplateResponse(request, 'pages/dartschool.html', context)
 
+def dartschool_meer_info(request):
+    context = {
+        'sponsors': Sponsor.objects.all(),
+    }
+    return TemplateResponse(request, 'pages/dartschool-meer-info.html', context)
+
 
 def gratis_proefles(request):
     context = {
@@ -371,6 +377,12 @@ def sponsors(request):
         'sponsors': Sponsor.objects.all()
     }
     return TemplateResponse(request, 'pages/sponsors.html', context)
+
+def faq(request):
+    context = {
+        'sponsors': Sponsor.objects.all(),
+    }
+    return TemplateResponse(request, 'pages/faq.html', context)
 
               
 @staff_member_required
