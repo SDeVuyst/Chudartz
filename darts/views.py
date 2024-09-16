@@ -178,7 +178,7 @@ def dartschool_lidgeld_success(request):
 
 def toernooien(request):
     evenementen = Toernooi.objects.all()
-    paginator = Paginator(evenementen, 6)
+    paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
