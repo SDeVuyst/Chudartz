@@ -56,6 +56,7 @@ class Toernooi(models.Model):
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="darts")
     afbeeldingen_download_url = models.URLField(verbose_name=_("Download afbeeldingen URL"), blank=True, null=True)
     vereist_voogd_toestemming = models.BooleanField(verbose_name=_("Toestemming van voogd vereist"), default=False)
+    toon_op_site = models.BooleanField(verbose_name=_("Toon op site"), default=False)
 
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
 
