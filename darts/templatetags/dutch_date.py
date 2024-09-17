@@ -41,8 +41,9 @@ def dutch_datetime(value):
     month = MONTHS_DUTCH[value.month]
     year = value.year
     time = value.strftime('%H:%M')
+    weekday = WEEKDAYS_DUTCH[value.weekday()]
 
-    return f"{day} {month} {year}, {time}"
+    return f"{weekday} {day} {month} {year}, {time}"
 
 @register.filter
 def dutch_time(value):

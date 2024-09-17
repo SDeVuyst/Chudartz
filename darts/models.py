@@ -246,6 +246,7 @@ class Participant(models.Model):
     
     voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
     achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
+    geboortejaar = models.PositiveSmallIntegerField(verbose_name=_("Geboortejaar"))
     email = models.EmailField(verbose_name=_("Email"), max_length=254)
     straatnaam = models.CharField(verbose_name=_("Straatnaam"), max_length=100)
     nummer = models.CharField(verbose_name=_("Nummer"), max_length=6)

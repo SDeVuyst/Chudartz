@@ -11,6 +11,7 @@ class ContactForm(forms.Form):
 class ToernooiForm(forms.Form):
     voornaam = forms.CharField(max_length=100)
     achternaam = forms.CharField(max_length=100)
+    geboortejaar = forms.IntegerField()
     email = forms.EmailField(max_length=254)
     straatnaam = forms.CharField(max_length=100)
     nummer = forms.CharField(max_length=6)

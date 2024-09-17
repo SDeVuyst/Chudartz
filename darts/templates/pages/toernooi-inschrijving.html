@@ -64,9 +64,14 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                     <div class="col-md-6">
                         <input type="text" name="achternaam" class="form-control" placeholder="{% trans 'Achternaam' %}" maxlength="100" required>
                     </div>
+
+                    <!-- Geboortejaar -->
+                    <div class="col-md-4">
+                      <input type="number" name="geboortejaar" class="form-control" placeholder="{% trans 'Geboortejaar' %}" minlength="4"  maxlength="4" required>
+                    </div>
             
                     <!-- Email -->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <input type="email" name="email" class="form-control" placeholder="{% trans 'Email' %}" maxlength="254" required>
                     </div>
             
@@ -80,7 +85,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                         </select>
                     </div> -->
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <input type="tel" name="gsm" class="form-control" placeholder="{% trans 'Gsm-nummer' %}" required>
                     </div>
             
