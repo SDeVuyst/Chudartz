@@ -467,8 +467,8 @@ class Leerling(models.Model):
 
 class Beurtkaart(models.Model):
     class Meta:
-        verbose_name = "Beurtkaart"
-        verbose_name_plural = "Beurtkaarten"
+        verbose_name = "Beurtenkaart"
+        verbose_name_plural = "Beurtenkaarten"
 
     naam = models.CharField(verbose_name=_("Naam"))
     aantal_beurten = models.PositiveSmallIntegerField(verbose_name=_("Aantal Beurten"))

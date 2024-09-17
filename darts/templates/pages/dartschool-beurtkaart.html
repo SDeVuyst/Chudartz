@@ -13,7 +13,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 {% block meta %}
 <meta name="robots" content="index, follow">
 <!-- TODO -->
-<meta property="og:title" content="ChudartZ | Dartschool Beurtkaart Kopen">
+<meta property="og:title" content="ChudartZ | Dartschool Beurtenkaart Kopen">
 <meta property="og:description" content="TODO">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
 
@@ -29,7 +29,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
   {% include 'blocks/header-sticky.html' %}
 
   <main class="main">
-    {% trans "Beurtkaart Kopen" as page_name %}
+    {% trans "Beurtenkaart Kopen" as page_name %}
     {% trans "Dartschool" as page_description %}
     {% trans "Dartschool" as page_previous_crumb %}
     {% trans "/dartschool" as page_previous_crumb_link %}
@@ -61,7 +61,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
           
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
             <div class="service-box register" id="beurtkaart-selecter">
-              <h4>{% trans 'Koop uw beurtkaart' %}</h4>
+              <h4>{% trans 'Koop uw beurtenkaart' %}</h4>
 
               <form action="{{ request.path }}" method="post" id="beurtkaart-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
                 {% csrf_token %}
@@ -72,7 +72,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                           <!-- beurtkaart -->
                           <div class="col-md-12">
                               <select name="beurtkaart" class="form-select" id="beurtkaart-select" required>
-                                  <option value="" disabled selected hidden>{% trans 'Selecteer uw beurtkaart' %}</option>
+                                  <option value="" disabled selected hidden>{% trans 'Selecteer uw beurtenkaart' %}</option>
                                   {% for beurtkaart in beurtkaarten %}
                                       <option value="{{ beurtkaart.id }}" class="valid">{{ beurtkaart.naam }}: {{ beurtkaart.prijs }}</option>
                                   {% endfor %}

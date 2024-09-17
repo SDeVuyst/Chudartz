@@ -12,8 +12,8 @@ urlpatterns = i18n_patterns(
     path(_('dartschool/meer-info'), views.dartschool_meer_info, name="dartschool_meer_info"),    
     path(_('dartschool/gratis-proefles/'), views.gratis_proefles, name='gratis_proefles'),
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
-    path(_('dartschool/beurtkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),
-    path(_('dartschool/beurtkaart-kopen/success/'), views.beurtkaart_kopen_success, name='beurtkaart_kopen_success'),
+    path(_('dartschool/beurtenkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),
+    path(_('dartschool/beurtenkaart-kopen/success/'), views.beurtkaart_kopen_success, name='beurtkaart_kopen_success'),
     path(_('dartschool/lidgeld/'), views.dartschool_lidgeld, name='dartschool_lidgeld'),
     path(_('dartschool/lidgeld/success/'), views.dartschool_lidgeld_success, name='dartschool_lidgeld_success'),
 
