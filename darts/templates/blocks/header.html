@@ -23,30 +23,23 @@
 
       <li class="dropdown"><a href="#"><span>{% trans 'Toernooien' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
-          <li class="dropdown"><a href="#"><span>Jeugdtoernooien</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+
+          {% for groep in toernooi_groepen %}
+          <li class="dropdown"><a href="#"><span>{{ groep.naam }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Jeugdtoernooi 1</a></li>
-              <li><a href="#">Jeugdtoernooi 2</a></li>
-              <li><a href="#">Jeugdtoernooi 3</a></li>
-              <li><a href="#">Zie alle</a></li>
+              {% for toernooi_in_groep in groep.toernooien.all %}
+              <li><a href="{% url 'toernooi' slug=toernooi_in_groep.slug %}">
+                {% if toernooi_in_groep.naam_in_header %}
+                  {{ toernooi_in_groep.naam_in_header }}
+                {% else %}
+                  {{ toernooi_in_groep.titel }}
+                {% endif %}
+              </a></li>
+              {% endfor %}
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Provinciale Kampionschappen</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#">Kamp 1</a></li>
-              <li><a href="#">Kamp 2</a></li>
-              <li><a href="#">Kamp 3</a></li>
-              <li><a href="#">Kamp 4</a></li>
-              <li><a href="#">Zie alle</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a href="#"><span>Open toernooien</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#">Zedelgem</a></li>
-              <li><a href="#">Loppem</a></li>
-              <li><a href="#">Zie alle</a></li>
-            </ul>
-          </li>
+          {% endfor %}
+
           <li><a href="{% url 'toernooien' %}">Alle toernooien</a></li>
         </ul>
       </li>

@@ -22,6 +22,11 @@ class TicketInline(StackedInline):
 
 
 # MODELS #
+@admin.register(ToernooiHeaderGroep)
+class ToernooiHeaderGroepAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('naam', 'active', )
+
+
 @admin.register(Toernooi)
 class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')

@@ -9,7 +9,7 @@ urlpatterns = i18n_patterns(
     path('', views.index, name="index"),
 
     path(_('dartschool/'), views.dartschool, name="dartschool"),
-    path(_('dartschool/meer-info'), views.dartschool_meer_info, name="dartschool_meer_info"),    
+    path(_('dartschool/meer-info/'), views.dartschool_meer_info, name="dartschool_meer_info"),    
     path(_('dartschool/gratis-proefles/'), views.gratis_proefles, name='gratis_proefles'),
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
     path(_('dartschool/beurtenkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),

@@ -18,45 +18,38 @@ from .utils import helpers
 
 
 def index(request):
-    context = {
-        'form': ContactForm(),
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context['form'] = ContactForm()
+    
     return TemplateResponse(request, 'pages/index.html', context)
 
 
 def dartschool(request):
-    context = {
-        'sponsors': Sponsor.objects.all(),
-        'beurtkaarten': Beurtkaart.objects.all()
-    }
+    context = get_default_context()
+    context['beurtkaarten'] = Beurtkaart.objects.all()
+    
     return TemplateResponse(request, 'pages/dartschool.html', context)
 
 def dartschool_meer_info(request):
-    context = {
-        'sponsors': Sponsor.objects.all(),
-    }
-    return TemplateResponse(request, 'pages/dartschool-meer-info.html', context)
+    return TemplateResponse(request, 'pages/dartschool-meer-info.html', get_default_context())
 
 
 def gratis_proefles(request):
-    context = {
-        "vereisten": [
-            "Minimum 10 jaar oud", 
-            "Jonger dan 10 jaar kan, mits uitzonderlijk talent",
-            "Maximum 20 jaar oud (of geb. in 2005)", 
-            "Actieve interesse in darts"
-        ],
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context["vereisten"] = [
+        "Minimum 10 jaar oud", 
+        "Jonger dan 10 jaar kan, mits uitzonderlijk talent",
+        "Maximum 20 jaar oud (of geb. in 2005)", 
+        "Actieve interesse in darts"
+    ]
+        
     return TemplateResponse(request, 'pages/dartschool-gratis-proefles.html', context)
 
 
 def reserveren_dartschool(request):
-    context = {
-        "vereisten": ["10 jaar oud", "blabla", "etc"],
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context["vereisten"] = ["10 jaar oud", "blabla", "etc"],
+
     return TemplateResponse(request, 'pages/dartschool-reserveren.html', context)
 
 
@@ -99,24 +92,22 @@ def beurtkaart_kopen(request):
         
 
         # form was not valid, send to error page
-        context = {
-            "success": False,
-        }
+        context = get_default_context()
+        context["success"] = False
+
         return TemplateResponse(request, 'pages/dartschool-beurtkaart-response.html', context)
        
     # GET request
-    context = {
-        'beurtkaarten': Beurtkaart.objects.all(),
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context['beurtkaarten'] = Beurtkaart.objects.all()
+
     return TemplateResponse(request, 'pages/dartschool-beurtkaart.html', context)
 
 
 def beurtkaart_kopen_success(request):
-    context = {
-        "success": True,
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context["success"] = True
+
     return TemplateResponse(request, 'pages/dartschool-beurtkaart-response.html', context)
 
 
@@ -129,10 +120,9 @@ def dartschool_lidgeld(request):
         
     if not form.is_valid():
         #form was not valid, send to error page
-        context = {
-            "success": False,
-            'sponsors': Sponsor.objects.all()
-        }
+        context = get_default_context()
+        context["success"] = False
+
         return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
     
     voornaam = form.cleaned_data['voornaam']
@@ -169,10 +159,9 @@ def dartschool_lidgeld(request):
 
 
 def dartschool_lidgeld_success(request):
-    context = {
-        "success": True,
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context["success"] = True
+
     return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
 
 
@@ -183,20 +172,18 @@ def toernooien(request):
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
-    context = {
-        "toernooien": page_obj,
-        "enable_pagination": paginator.num_pages > 1,
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context["toernooien"] = page_obj
+    context["enable_pagination"] = paginator.num_pages > 1
+
     return TemplateResponse(request, 'pages/toernooien.html', context)
 
 
 def toernooi(request, slug):
     evenement = Toernooi.objects.get(slug=slug)
-    context = {
-        "toernooi": evenement,
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context["toernooi"] = evenement
+
     return TemplateResponse(request, 'pages/toernooi.html', context)
 
 
@@ -206,11 +193,10 @@ def inschrijven_toernooi(request, slug):
         
         if not form.is_valid():
             # form was not valid, send to error page
-            context = {
-                "success": False,
-                "toernooi": Toernooi.objects.get(slug=slug),
-                'sponsors': Sponsor.objects.all()
-            }
+            context = get_default_context()
+            context["success"] = False
+            context["toernooi"] = Toernooi.objects.get(slug=slug)
+
             return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
         
         voornaam = form.cleaned_data['voornaam']
@@ -262,72 +248,49 @@ def inschrijven_toernooi(request, slug):
     # GET request
     evenement = Toernooi.objects.get(slug=slug)
     tickets = Ticket.objects.filter(event=evenement)
-    
-    context = {
-        "toernooi": evenement,
-        "tickets": tickets,
-        'skill_level_choices': SkillLevel.CHOICES,
-        'sponsors': Sponsor.objects.all()
-    }
+
+    context = get_default_context()
+    context["toernooi"] = evenement
+    context["tickets"] = tickets
+    context['skill_level_choices'] = SkillLevel.CHOICES
+
     return TemplateResponse(request, 'pages/toernooi-inschrijving.html', context)
 
 
 def inschrijven_toernooi_success(request, slug):
-    context = {
-        "success": True,
-        "toernooi": Toernooi.objects.get(slug=slug),
-        'sponsors': Sponsor.objects.all()
-    }
+    context = get_default_context()
+    context["success"] = True
+    context["toernooi"] = Toernooi.objects.get(slug=slug)
+
     return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
 
 
 def teambuildings_en_workshops(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/teambuildings-en-workshops.html', context)
+    return TemplateResponse(request, 'pages/teambuildings-en-workshops.html', get_default_context())
 
 
 def over_ons(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/about.html', context)
+    return TemplateResponse(request, 'pages/about.html', get_default_context())
 
 
 def algemene_voorwaarden(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/algemene-voorwaarden.html', context)
+    return TemplateResponse(request, 'pages/algemene-voorwaarden.html', get_default_context())
 
 
 def reglement_toernooien(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/algemeen-reglement.html', context)
+    return TemplateResponse(request, 'pages/algemeen-reglement.html', get_default_context())
 
 
 def disclaimer(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/disclaimer.html', context)
+    return TemplateResponse(request, 'pages/disclaimer.html', get_default_context())
 
 
 def terms_of_service(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/terms-of-service.html', context)
+    return TemplateResponse(request, 'pages/terms-of-service.html', get_default_context())
 
 
 def privacy_policy(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/privacy-policy.html', context)
+    return TemplateResponse(request, 'pages/privacy-policy.html', get_default_context())
 
 
 def contact(request):
@@ -373,16 +336,10 @@ def contact(request):
 
 
 def sponsors(request):
-    context = {
-        'sponsors': Sponsor.objects.all()
-    }
-    return TemplateResponse(request, 'pages/sponsors.html', context)
+    return TemplateResponse(request, 'pages/sponsors.html', get_default_context())
 
 def faq(request):
-    context = {
-        'sponsors': Sponsor.objects.all(),
-    }
-    return TemplateResponse(request, 'pages/faq.html', context)
+    return TemplateResponse(request, 'pages/faq.html', get_default_context())
 
               
 @staff_member_required
@@ -512,3 +469,11 @@ def code_bestaat(request, code):
         'success': Leerling.objects.filter(code=code).exists(),
         'error': "Foutieve code."
     })
+
+
+# HELPER
+def get_default_context():
+    return {
+        'sponsors': Sponsor.objects.all(),
+        'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True),
+    }

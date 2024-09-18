@@ -33,6 +33,18 @@ from .templatetags import dutch_date
 from .utils import helpers
 
 
+class ToernooiHeaderGroep(models.Model):
+    def __str__(self) -> str:
+        return self.naam
+    
+    class Meta:
+        verbose_name = "Toernooi Header Groep"
+        verbose_name_plural = "Toernooi Header Groepen"
+
+    naam = models.CharField(verbose_name=_("Naam"))
+    active = models.BooleanField(verbose_name=_("Actief"), default=True)
+
+
 class Toernooi(models.Model):
 
     def __str__(self) -> str:
@@ -59,6 +71,9 @@ class Toernooi(models.Model):
     toon_op_site = models.BooleanField(verbose_name=_("Toon op site"), default=False)
 
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
+
+    header_groep = models.ForeignKey(ToernooiHeaderGroep, verbose_name=_("Groep in header"), on_delete=models.PROTECT, blank=True, null=True, related_name='toernooien')
+    naam_in_header = models.CharField(max_length=25, verbose_name=_("Naam in header"), blank=True, null=True)   
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
