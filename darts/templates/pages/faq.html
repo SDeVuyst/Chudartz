@@ -33,8 +33,10 @@ ChudartZ | Over Ons
                 <h3>{% trans '<span>Veel Gestelde</span><strong> Vragen</strong>' %}</h3>
                 <p>
                   {% blocktrans %}
-                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om <a href="{% url 'index' %}#contact">contact</a> met ons op te nemen!
+                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om
                   {% endblocktrans %}
+                  <a href="{% url 'index' %}#contact">{% trans 'contact' %}</a> 
+                  {% blocktrans %}met ons op te nemen!{% endblocktrans %}
                 </p>
               </div>
             </div>
