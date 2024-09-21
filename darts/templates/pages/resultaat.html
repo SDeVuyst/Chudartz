@@ -1,0 +1,77 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+ChudartZ | Toernooien
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta name="keywords" content="tornooien, toernooien, darts, school, zedelgem, Loppem, Aartrijke, Veldegem, provinciaal kampioenschap, G-darts, de beste darter van jouw regio">
+<meta name="description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+
+<meta property="og:title" content="ChudartZ | Resultaten">
+<meta property="og:description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | Resultaten">
+<meta name="twitter:description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="resultaten-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Resultaat" as page_name %}
+    {% trans "/toernooien" as page_second_previous_crumb_link %}
+    {% trans "Toernooien" as page_second_previous_crumb %}
+
+    {% include 'blocks/page-title.html' with name=page_name description=toernooi.titel second_previous_crumb=page_second_previous_crumb second_previous_crumb_link=page_second_previous_crumb_link previous_crumb=toernooi.titel previous_crumb_link=toernooi.get_absolute_url %}
+    
+    <section id="service-details" class="service-details section">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover" data-aos="zoom-in" data-aos-delay="100">
+                    <caption>Ranking {{ toernooi.titel }}</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Naam Speler</th>
+                        <th scope="col">Punten</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark Otto</td>
+                        <td>78</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob Thornton</td>
+                        <td>64</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Larry the Bird</td>
+                        <td>34</td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </section>
+    
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

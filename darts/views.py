@@ -265,6 +265,28 @@ def inschrijven_toernooi_success(request, slug):
     return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
 
 
+def resultaten(request):
+    evenementen = Toernooi.objects.filter(toon_op_site=True)
+    paginator = Paginator(evenementen, 12)
+
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+
+    context = get_default_context()
+    context["toernooien"] = page_obj
+    context["enable_pagination"] = paginator.num_pages > 1
+
+    return TemplateResponse(request, 'pages/resultaten.html', context)
+
+
+def toernooi_resultaat(request, slug):
+    evenement = Toernooi.objects.get(slug=slug)
+    context = get_default_context()
+    context["toernooi"] = evenement
+
+    return TemplateResponse(request, 'pages/resultaat.html', context)
+
+
 def teambuildings_en_workshops(request):
     return TemplateResponse(request, 'pages/teambuildings-en-workshops.html', get_default_context())
 

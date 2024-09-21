@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+ChudartZ | Toernooien
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta name="keywords" content="tornooien, toernooien, darts, school, zedelgem, Loppem, Aartrijke, Veldegem, provinciaal kampioenschap, G-darts, de beste darter van jouw regio">
+<meta name="description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+
+<meta property="og:title" content="ChudartZ | Resultaten">
+<meta property="og:description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | Resultaten">
+<meta name="twitter:description" content="{% blocktrans %}Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="resultaten-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Resultaten" as page_name %}
+    {% trans "Bekijk hieronder welke toernooien de komende maanden op het programma staan en verzeker jezelf alvast van een plek." as page_description %}
+
+    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
+
+     <section id="blog-posts" class="blog-posts section">
+
+      <div class="container">
+
+        {% if toernooien %}
+        <div class="row gy-4">
+          {% for toernooi in toernooien %}
+            {% include 'blocks/toernooi-card-resultaten.html' with toernooi=toernooi %}
+          {% endfor %}
+        </div>
+        {% else %}
+
+          <div class="justify-content-center text-center">
+            <h2>{% trans 'Er zijn nog geen toernooien met resultaten beschikbaar!'%}</h2>
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </section>
+
+    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=toernooien pagination_url_name="toernooien" %}
+    
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

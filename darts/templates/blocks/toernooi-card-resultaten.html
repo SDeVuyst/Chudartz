@@ -1,0 +1,35 @@
+{% load static dutch_date i18n %}
+
+<div class="col-lg-4">
+  <article>
+
+    <div class="post-img">
+      <img src="{{ toernooi.afbeelding.url }}" alt="" class="img-fluid">
+    </div>
+
+    <p class="post-category">{{ toernooi.locatie_kort }}</p>
+
+    <h2 class="title">
+      <a href="{% url 'toernooi_resultaat' slug=toernooi.slug %}">{{ toernooi.titel }}</a>
+    </h2>
+
+    <div class="d-flex align-items-center">
+      <div class="post-meta">
+        <p class="post-author">
+          {% if toernooi.is_same_day %}
+              {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_time }}
+          {% else %}
+              {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_datetime }}
+          {% endif %}
+        </p>
+        
+        
+          <!--TODO {% if not toernooi.TODO %} -->
+            <p class="post-date"><i class="bi bi-trophy"></i><span> Resultaten beschikbaar</span></p>
+          <!-- {% endif %}        -->
+        
+      </div>
+    </div>
+
+  </article>
+</div>
