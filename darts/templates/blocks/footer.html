@@ -26,7 +26,7 @@
           <li><a href="{% url 'sponsors' %}">{% trans 'Alle Sponsors' %}</a></li>
           {% for sponsor in sponsors %}
           {% if sponsor.toon_in_footer %}
-          <li><a href="{{ sponsor.website_url }}">{{ sponsor.naam }}</a></li>
+          <li><a href="{% url 'sponsors' %}#{{sponsor.naam}}">{{ sponsor.naam }}</a></li>
           {% endif %}
           {% endfor %}
         </ul>

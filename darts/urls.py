@@ -10,6 +10,7 @@ urlpatterns = i18n_patterns(
 
     path(_('dartschool/'), views.dartschool, name="dartschool"),
     path(_('dartschool/meer-info/'), views.dartschool_meer_info, name="dartschool_meer_info"),    
+    path(_('dartschool/werkwijze/'), views.dartschool_werkwijze, name="dartschool_werkwijze"),    
     path(_('dartschool/gratis-proefles/'), views.gratis_proefles, name='gratis_proefles'),
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
     path(_('dartschool/beurtenkaart-kopen/'), views.beurtkaart_kopen, name='beurtkaart_kopen'),
@@ -23,6 +24,9 @@ urlpatterns = i18n_patterns(
     path(_('toernooien/<slug:slug>/inschrijven/success/'), views.inschrijven_toernooi_success, name='inschrijven_toernooi_success'),
     path(_('toernooien/resultaten'), views.resultaten, name="resultaten"),
     path(_('toernooien/<slug:slug>/resultaat'), views.toernooi_resultaat, name='toernooi_resultaat'),
+
+    path(_('priveles'), views.toernooi_resultaat, name='priveles'), #TODO
+
 
     path(_('teambuildings-en-workshops/'), views.teambuildings_en_workshops, name="teambuildings_en_workshops"),
     path(_('over-ons/'), views.over_ons, name="over_ons"),

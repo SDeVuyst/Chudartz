@@ -36,7 +36,7 @@ ChudartZ | Sponsors
                 {% for sponsor in sponsors %}
                 {% if sponsor.toon_op_sponsors_pagina %}
 
-                <div class="row gy-4 align-items-stretch justify-content-between features-item">
+                <div class="row gy-4 align-items-stretch justify-content-between features-item" id="{{ sponsor.naam }}">
                   <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
                   <h3>{{ sponsor.naam }}</h3>
                   {{ sponsor.info|safe }}

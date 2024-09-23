@@ -33,6 +33,8 @@ def dartschool(request):
 def dartschool_meer_info(request):
     return TemplateResponse(request, 'pages/dartschool-meer-info.html', get_default_context())
 
+def dartschool_werkwijze(request):
+    return TemplateResponse(request, 'pages/dartschool-werkwijze.html', get_default_context())
 
 def gratis_proefles(request):
     context = get_default_context()
@@ -48,7 +50,7 @@ def gratis_proefles(request):
 
 def reserveren_dartschool(request):
     context = get_default_context()
-    context["vereisten"] = ["10 jaar oud", "blabla", "etc"],
+    context["vereisten"] = "lid zijn van de dartschool",
 
     return TemplateResponse(request, 'pages/dartschool-reserveren.html', context)
 
