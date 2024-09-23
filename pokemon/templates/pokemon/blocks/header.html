@@ -15,7 +15,7 @@
 
       <li class="dropdown">
         {% get_current_language as LANGUAGE_CODE %}
-        <a href="#"><span>{{ LANGUAGE_CODE }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <a href="#"><span>{% trans 'Taal' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
           
           {% get_available_languages as LANGUAGES %}
