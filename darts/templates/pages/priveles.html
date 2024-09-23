@@ -1,0 +1,107 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+ChudartZ | Priveles
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<!-- TODO -->
+<meta property="og:title" content="ChudartZ | Priveles">
+<meta property="og:description" content="TODO">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | Priveles">
+<meta name="twitter:description" content="TODO">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="services-details-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% trans "Priveles" as page_name %}
+    {% trans "Dartschool" as page_previous_crumb %}
+    {% trans "/dartschool" as page_previous_crumb_link %}
+    
+    {% include 'blocks/page-title.html' with name=page_name previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link backgroundsecond="true" %}
+    
+    <section id="service-details" class="service-details section">
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            
+            {% trans "Enkel op afspraak" as page_tijd %}
+            {% trans "Wilgenlaan 35, Zedelgem" as page_locatie %}
+
+            {% include 'blocks/tijd-en-locatie.html' with static_data='true' tijd=page_tijd locatie=page_locatie %}                 
+            
+
+            </div>  
+          
+            <div class="col-lg-8 ps-lg-5 contact" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-item">
+                    <div style="padding-left: 30px;">
+                      <i class="bi bi-inbox"></i>
+                      <h3>{% trans 'Stuur ons een bericht' %}</h3>
+                    </div>
+                    <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form">
+                      {% csrf_token %}
+                      <div class="row gy-4">
+                  
+                          <!-- Name -->
+                          <div class="col-md-6">
+                              <input type="text" name="name" class="form-control" placeholder="{% trans 'Naam' %}" maxlength="100" required>
+                          </div>
+                  
+                          <!-- Email -->
+                          <div class="col-md-6">
+                              <input type="email" class="form-control" name="email" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                          </div>
+                  
+                          <!-- Subject -->
+                          <div class="col-12">
+                              <input type="text" class="form-control" name="subject" placeholder="{% trans 'Onderwerp' %}" maxlength="100" required>
+                          </div>
+                  
+                          <!-- Message -->
+                          <div class="col-12">
+                              <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Bericht' %}" required></textarea>
+                          </div>
+                  
+                          <!-- Submit Button and Feedback Messages -->
+                          <div class="col-12 text-center">
+                              <div class="loading" style="display:none;">{% trans 'Laden...' %}</div>
+                              <div class="error-message" style="display:none;"></div>
+                              <div class="sent-message" style="display:none;">{% trans 'Uw bericht is verzonden. Bedankt!' %}</div>
+                              <button type="submit">{% trans 'Stuur bericht' %}</button>
+                          </div>
+                  
+                      </div>
+                    </form>
+                  </div>
+            </div>          
+
+        </div>
+
+      </div>
+
+    </section>
+    
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+  <script src="{% static "vendor/email-form/validate.js" %}"></script>
+
+</body>
+{% endblock %}
