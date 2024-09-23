@@ -39,13 +39,14 @@ ChudartZ | {{ toernooi.titel}}
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            <!-- TODO if statement -->
+            {% if toernooi.resultaten %}
             <div class="service-box">
               <h4>Resultaten Beschikbaar</h4>
               <div class="services-list">
                 <a href="{% url 'toernooi_resultaat' slug=toernooi.slug %}" class="btn btn-get-started align-self-start">{% blocktrans %}Bekijk Resultaten{% endblocktrans %}</a>
               </div>
             </div>
+            {% endif %}
 
             {% include 'blocks/toernooi-info.html' with toernooi=toernooi %}
             

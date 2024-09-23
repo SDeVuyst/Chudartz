@@ -268,7 +268,7 @@ def inschrijven_toernooi_success(request, slug):
 
 
 def resultaten(request):
-    evenementen = Toernooi.objects.filter(toon_op_site=True, resultaten__isnull=False)
+    evenementen = Toernooi.objects.filter(toon_op_site=True).filter(resultaten__isnull=False)
     paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
