@@ -268,7 +268,7 @@ def inschrijven_toernooi_success(request, slug):
 
 
 def resultaten(request):
-    evenementen = Toernooi.objects.filter(toon_op_site=True).filter(resultaten__isnull=False)
+    evenementen = Toernooi.objects.filter(toon_op_site=True).exclude(Q(resultaten__isnull=True) | Q(resultaten__exact=''))
     paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
@@ -282,7 +282,9 @@ def resultaten(request):
 
 
 def toernooi_resultaat(request, slug):
-    evenement = get_object_or_404(Toernooi, slug=slug, resultaten__isnull=False)
+    evenement = get_object_or_404(Toernooi, slug=slug)
+    if not evenement.resultaten: return HttpResponse(status=404)
+
     context = get_default_context()
     context["toernooi"] = evenement
 
