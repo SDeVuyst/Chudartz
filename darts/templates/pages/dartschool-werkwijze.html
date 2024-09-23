@@ -23,104 +23,59 @@ ChudartZ | Dartschool
     
     {% include 'blocks/page-title.html' with name=page_name previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link backgroundsecond="true" %}
     
-    <section id="portfolio-details" class="portfolio-details section"> 
+    <section id="portfolio-details" class="portfolio-details section pt-0"> 
 
       <div class="container" data-aos="fade-up">
 
-        <div class="row justify-content-between gy-4">
-          <h2 id="dartschool">Werkwijze Dartschool</h2>
-          <ol>
-            <li>
-              <h6>{% blocktrans %}Ontwikkeling van Basisvaardigheden:{% endblocktrans %}</h6>
-              <p class="mb-0">{% blocktrans %}Het aanleren van de basisprincipes van darten, zoals{% endblocktrans %}</p>
-              <ul>
-                <li>{% blocktrans %}de juiste houding{% endblocktrans %}</li>
-                <li>{% blocktrans %}de ademhaling{% endblocktrans %}</li>
-                <li>{% blocktrans %}de worptechniek{% endblocktrans %}</li>
-                <li>{% blocktrans %}de oog- handcoördinatie{% endblocktrans %}</li>
-                <li>{% blocktrans %}de focus{% endblocktrans %}</li>
-              </ul>
-              <p class="mt-3">{% blocktrans %}Dit zorgt ervoor dat leerlingen een solide fundament opbouwen waarop ze hun vaardigheden verder kunnen ontwikkelen.{% endblocktrans %}</p>
-            </li>
-            <li>
-              <h6>{% blocktrans %}Bevorderen van competitief denken:{% endblocktrans %}</h6>
-              <p>
-                {% blocktrans %}
-                Het stimuleren van een gezonde competitieve geest bij jongeren, waarbij fair play, sportiviteit en zelfverbetering centraal staan. Dit helpt hen om niet alleen beter te worden in darten, maar ook om belangrijke levensvaardigheden te ontwikkelen.
-                {% endblocktrans %}
-              </p>
-            </li>
-            <li>
-              <h6>{% blocktrans %}Persoonlijke Groei en zelfvertrouwen:{% endblocktrans %}</h6>
-              <p>
-                {% blocktrans %}
-                Het trainen van talentvolle spelers om deel te nemen aan lokale, nationale en wie weet op termijn internationale dartstoernooien.
-                {% endblocktrans %}
-              </p>
-            </li>
-            <li>
-              <h6>{% blocktrans %}Creëren van Gemeenschapsgevoel:{% endblocktrans %}</h6>
-              <p>
-                {% blocktrans %}
-                Het opbouwen van een hechte en ondersteunende gemeenschap waar spelers van alle leeftijden en niveaus elkaar kunnen inspireren, ondersteunen en samen plezier kunnen hebben. Dit bevordert een gevoel van samenhorigheid en gedeelde passie.
-                {% endblocktrans %}
-              </p>
-            </li>
-            <li>
-              <h6>{% blocktrans %}Educatieve en Leuke Activiteiten:{% endblocktrans %}</h6>
-              <p>
-                {% blocktrans %}
-                Het aanbieden van educatieve workshops, toernooien en andere activiteiten om het leren leuk te maken en tegelijkertijd de vaardigheden en kennis van de deelnemers te vergroten.
-                {% endblocktrans %}
-              </p>
-            </li>
-            <li>
-              <h6>{% blocktrans %}Mentorschap:{% endblocktrans %}</h6>
-              <p>
-                {% blocktrans %}
-                Het bieden van mentorschap aan jongere spelers door ervaren dartspelers (binnen de school), wat niet alleen hun dartvaardigheden verbetert, maar hen ook leert om te groeien binnen de dartsgemeenschap.
-                {% endblocktrans %}
-              </p>
-            </li>
-            <li>
-              <h6>{% blocktrans %}Fysieke en mentale gezondheid bevorderen:{% endblocktrans %}</h6>
-              <ul>
-                <li>
-                  {% blocktrans %}
-                  Het bevorderen van zowel de fysieke als mentale gezondheid door het aanmoedigen van regelmatige fysieke activiteit, concentratie, en stressmanagement via darten.
-                  {% endblocktrans %}
-                </li>
-                <li>
-                  {% blocktrans %}
-                  Hoofdrekenen is een essentieel onderdeel van het darten, waardoor je niet alleen je rekenvaardigheden aanscherpt, maar ook je algemene concentratie en strategisch inzicht verbetert.
-                  {% endblocktrans %}
-                </li>
-              </ul>
-                
-            </li>
-          </ol>
+        <div class="row justify-content-between gy-4 mt-4">
 
-          <p class="mt-4">
-            {% blocktrans %}
-            Met deze doelen biedt een dartschool niet alleen technische training, maar ook een platform voor persoonlijke en sociale ontwikkeling.
-            {% endblocktrans %}
-          </p>
+          <div data-aos="fade-up">
 
-          <p>
-            {% blocktrans %}
-            Voeg daar nog een dosis theorie met specifieke dartsterminologie aan toe, en voor je het weet, schitter je op toernooien.
-            {% endblocktrans %}
-          </p>
+            <section id="features" class="features section p-0">
+        
+              <div class="container">
+        
+                <div class="row gy-4 align-items-stretch justify-content-between features-item ">
+                  <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+                    <h3>{% trans 'Werkwijze' %}</h3>
+                    <p> 
+                      {% url 'beurtkaart_kopen' as beurtkaart_url %}
+                      {% blocktrans %}
+                      Als de proefles je is bevallen en je wilt verder lessen volgen, kun je online een <a href="{{ beurtkaart_url }}">meerbeurtenkaart aankopen</a>. Voordat je dit kunt doen, dien je eerst het lidgeld betalen.
+                      Het lidgeld bedraagt € 50 voor een gans jaar.<br>Wat is inbegrepen ?
 
-          <p><strong>
-            {% blocktrans %}
-            Met alle aangereikte tools en het ter beschikking stellen van de accommodatie zijn jullie nu zelf aan zet.
-            Want het pijltje zal uiteindelijk door jullie zelf gegooid moeten worden.<br><br>
-            Succes!
-            {% endblocktrans %}
-          </strong></p>
+                      {% endblocktrans %}
+                    </p>
+                    <ul>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Gebruik van het materiaal en de accomodatie' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Gratis (spuit)water tijdens de trainingen' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Verzekering tijdens de trainingen en de toernooien' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Voorrang en ondersteuning bij toernooien, jeugd- en/of clubcompetitie' %}</span></li>
+                    </ul>
+
+                    <p>
+                      {% blocktrans %}
+                      Het lesgeld wordt aangeboden in de vorm van beurtenkaarten. Kom je wekelijks, dan is een 10-beurtenkaart wellicht een goede keuze. Plan je om meerdere keren per week te komen, dan is een 20-beurtenkaart een voordeligere optie. Kom je slechts één keer per maand, dan kun je beter een losse beurt aanschaffen.
+                      {% endblocktrans %}
+                    </p>
+                    <a href="{% url 'gratis_proefles' %}" class="btn btn-get-started align-self-start">{% trans 'Gratis Proefles' %}</a> 
+                  </div>
+
+                  <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+                    <img src="{% static "img/school/school-3.jpg" %}" class="img-fluid" alt="">
+                  </div>
+
+                </div>
+        
+              </div>
+        
+            </section>
+          </div>
+
         </div>
+
       </div>
+
     </section>
 
   </main>

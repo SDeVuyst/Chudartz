@@ -33,37 +33,12 @@ ChudartZ | Toernooien
 
     {% include 'blocks/page-title.html' with name=page_name description=toernooi.titel second_previous_crumb=page_second_previous_crumb second_previous_crumb_link=page_second_previous_crumb_link previous_crumb=toernooi.titel previous_crumb_link=toernooi.get_absolute_url %}
     
-    <!-- TODO  -->
     <section id="service-details" class="service-details section">
         <div class="container">
-            <div class="table-responsive">
-                <table class="table table-hover" data-aos="zoom-in" data-aos-delay="100">
-                    <caption>Ranking {{ toernooi.titel }}</caption>
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Naam Speler</th>
-                        <th scope="col">Punten</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark Otto</td>
-                        <td>78</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob Thornton</td>
-                        <td>64</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry the Bird</td>
-                        <td>34</td>
-                      </tr>
-                    </tbody>
-                </table>
+            <div class="table-responsive" data-aos="zoom-in" data-aos-delay="100">
+
+              {{ toernooi.resultaten|safe }}
+                
             </div>
         </div>
         

@@ -47,7 +47,8 @@ ChudartZ | Over Ons
                 <div class="faq-item faq-active">
                   <h3><span class="num">1.</span> <span>{% blocktrans %}Hoe kan ik me inschrijven voor het toernooi?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    <p>{% blocktrans %}Inschrijven kan via {% endblocktrans %}<a href="{% url 'toernooien' %}">{% blocktrans %}onze website{% endblocktrans %}</a>{% blocktrans %} of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid{% endblocktrans %}</p>
+                    {% url 'toernooien' as toernooi_url %}
+                    <p>{% blocktrans %}Inschrijven kan via <a href="{{ toernooi_url }}">onze website</a> of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>
@@ -55,7 +56,8 @@ ChudartZ | Over Ons
                 <div class="faq-item">
                   <h3><span class="num">2.</span> <span>{% blocktrans %}Wat zijn de dartregels ?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    <p>{% blocktrans %}Onze dartregels kan u {% endblocktrans %}<a href="{% url 'reglement_toernooien' %}">{% blocktrans %}hier{% endblocktrans %}</a> {% blocktrans %}terugvinden.{% endblocktrans %}</p>
+                    {% url 'reglement_toernooien' as reglement_url %}
+                    <p>{% blocktrans %}Onze dartregels kan u <a href="{{ reglement_url }}">hier</a> terugvinden.{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>

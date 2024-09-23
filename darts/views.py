@@ -182,7 +182,7 @@ def toernooien(request):
 
 
 def toernooi(request, slug):
-    evenement = Toernooi.objects.get(slug=slug)
+    evenement = get_object_or_404(Toernooi, slug=slug)
     context = get_default_context()
     context["toernooi"] = evenement
 
@@ -197,7 +197,7 @@ def inschrijven_toernooi(request, slug):
             # form was not valid, send to error page
             context = get_default_context()
             context["success"] = False
-            context["toernooi"] = Toernooi.objects.get(slug=slug)
+            context["toernooi"] = get_object_or_404(Toernooi, slug=slug)
 
             return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
         
@@ -211,7 +211,7 @@ def inschrijven_toernooi(request, slug):
         niveau = form.cleaned_data['niveau']
         ticket_id = form.cleaned_data['ticket']
 
-        price = Decimal(Ticket.objects.get(pk=ticket_id).price.amount)
+        price = Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
 
         payment = Payment.objects.create(
             first_name=voornaam,
@@ -231,7 +231,7 @@ def inschrijven_toernooi(request, slug):
             niveau=niveau,
 
             payment_id = payment.pk,
-            ticket=Ticket.objects.get(pk=ticket_id),
+            ticket=get_object_or_404(Ticket, pk=ticket_id),
         )
 
         # create the mollie payment
@@ -248,7 +248,7 @@ def inschrijven_toernooi(request, slug):
         
     
     # GET request
-    evenement = Toernooi.objects.get(slug=slug)
+    evenement = get_object_or_404(Toernooi, slug=slug)
     tickets = Ticket.objects.filter(event=evenement)
 
     context = get_default_context()
@@ -262,13 +262,13 @@ def inschrijven_toernooi(request, slug):
 def inschrijven_toernooi_success(request, slug):
     context = get_default_context()
     context["success"] = True
-    context["toernooi"] = Toernooi.objects.get(slug=slug)
+    context["toernooi"] = get_object_or_404(Toernooi, slug=slug)
 
     return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
 
 
 def resultaten(request):
-    evenementen = Toernooi.objects.filter(toon_op_site=True)
+    evenementen = Toernooi.objects.filter(toon_op_site=True, resultaten__isnull=False)
     paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
@@ -282,7 +282,7 @@ def resultaten(request):
 
 
 def toernooi_resultaat(request, slug):
-    evenement = Toernooi.objects.get(slug=slug)
+    evenement = get_object_or_404(Toernooi, slug=slug, resultaten__isnull=False)
     context = get_default_context()
     context["toernooi"] = evenement
 
@@ -299,6 +299,10 @@ def over_ons(request):
 
 def algemene_voorwaarden(request):
     return TemplateResponse(request, 'pages/algemene-voorwaarden.html', get_default_context())
+
+
+def privacybeleid(request):
+    return TemplateResponse(request, 'pages/privacybeleid.html', get_default_context())
 
 
 def reglement_toernooien(request):
@@ -431,7 +435,7 @@ def cal_webhook(request):
         return HttpResponse(status=406)
     
     # custom code, decrement remaining uses
-    l = Leerling.objects.get(code=code)
+    l = get_object_or_404(Leerling, code=code)
     try:
         l.decrement_beurten()
     

@@ -31,6 +31,7 @@ urlpatterns = i18n_patterns(
     path(_('teambuildings-en-workshops/'), views.teambuildings_en_workshops, name="teambuildings_en_workshops"),
     path(_('over-ons/'), views.over_ons, name="over_ons"),
     path(_('algemene-voorwaarden/'), views.algemene_voorwaarden, name="algemene_voorwaarden"),
+    path(_('privacybeleid/'), views.privacybeleid, name="privacybeleid"),
     path(_('reglement-toernooien/'), views.reglement_toernooien, name="reglement_toernooien"),
     path(_('disclaimer/'), views.disclaimer, name="disclaimer"),
     path(_('contact/'), views.contact, name='contact'),

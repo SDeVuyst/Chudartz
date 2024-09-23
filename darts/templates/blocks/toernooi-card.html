@@ -39,7 +39,10 @@
             <p class="post-date"><i class="bi bi-clock-history"></i><span> Afgelopen</span></p>
             {% endif %}
           {% endif %}
-        
+
+          {% if toernooi.resultaten %}
+            <p class="post-date"><i class="bi bi-trophy"></i><span> Resultaten beschikbaar</span></p>
+          {% endif %}
         
       </div>
     </div>

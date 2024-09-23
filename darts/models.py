@@ -72,8 +72,10 @@ class Toernooi(models.Model):
 
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
 
-    header_groep = models.ForeignKey(ToernooiHeaderGroep, verbose_name=_("Groep in header"), on_delete=models.PROTECT, blank=True, null=True, related_name='toernooien')
+    header_groepen = models.ManyToManyField(ToernooiHeaderGroep, verbose_name=_("Groepen in header"), related_name='toernooien', blank=True, null=True)
     naam_in_header = models.CharField(max_length=25, verbose_name=_("Naam in header"), blank=True, null=True)   
+
+    resultaten = RichTextField(verbose_name=_("Resultaten"), blank=True, null=True)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
