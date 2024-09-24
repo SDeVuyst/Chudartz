@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | Over Ons
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+{% endblock %}
+
+{% block body %}
+<body class="over-ons-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% trans "FAQ" as page_name %}
+
+    {% include 'blocks/page-title.html' with name=page_name %}
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section">
+
+        <div class="container">
+  
+          <div class="row gy-4">
+  
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+              <div class="content px-xl-5">
+                <h3>{% trans '<span>Veel Gestelde</span><strong> Vragen</strong>' %}</h3>
+                <p>
+                  {% blocktrans %}
+                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om
+                  {% endblocktrans %}
+                  <a href="{% url 'index' %}#contact">{% trans 'contact' %}</a> 
+                  {% blocktrans %}met ons op te nemen!{% endblocktrans %}
+                </p>
+              </div>
+            </div>
+  
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+  
+              <div class="faq-container">
+                <div class="faq-item faq-active">
+                  <h3><span class="num">1.</span> <span>{% blocktrans %}Waar en wanneer vinden de ChudartZ evenementen en beurzen plaats?{% endblocktrans %}</span></h3>
+                  <div class="faq-content">
+                    {% url 'evenementen' as evenementen_url %}
+                    <p>{% blocktrans %}Het is onze intentie om regelmatig beurzen en evenementen te organiseren op diverse locaties in België. Voor de meest actuele informatie over data, tijden en locaties kun je <a href="{{ evenementen_url}}">hier</a> terecht{% endblocktrans %}</p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+  
+                <div class="faq-item">
+                  <h3><span class="num">2.</span> <span>{% blocktrans %}Welke soorten collectibles kan ik verwachten op jullie beurzen?{% endblocktrans %}</span></h3>
+                  <div class="faq-content">
+                    <p>{% blocktrans %}Voor 2025 staat voorlopig één grote beurs op de agenda: de grootste Pokémonbeurs van België. In een later stadium zullen er aanvullende beurzen worden georganiseerd, met een focus op unieke en bijzondere verzamelobjecten, zoals Lego, Playmobil, euromunten, stripboeken/comics, retro games, antiek speelgoed, Funko, vintage mode, en whiskey/wijn.{% endblocktrans %}</p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+  
+                <div class="faq-item">
+                  <h3><span class="num">3.</span> <span>{% blocktrans %}Zijn de ChudartZ evenementen geschikt voor zowel beginnende als ervaren verzamelaars?{% endblocktrans %}</span></h3>
+                  <div class="faq-content">
+                    <p>{% blocktrans %}Zeker! Onze beurzen en evenementen zijn toegankelijk voor verzamelaars van alle niveaus. Of je nu een beginner bent of een ervaren verzamelaar, er is altijd iets dat bij je past.{% endblocktrans %}</p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+  
+                <div class="faq-item">
+                  <h3><span class="num">4.</span> <span>{% blocktrans %}Hoe blijf ik op de hoogte van toekomstige evenementen en beurzen?{% endblocktrans %}</span></h3>
+                  <div class="faq-content">
+                    <p>{% blocktrans %}Je kunt je aanmelden voor onze nieuwsbrief of ons volgen op sociale media (linken naar facebook, instagram, via een Linktree die dan nog  aangemaakt zal worden nog) om altijd op de hoogte te blijven van aankomende evenementen, beurzen en speciale activiteiten.{% endblocktrans %}</p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+  
+              </div>
+  
+            </div>
+          </div>
+  
+        </div>
+  
+      </section><!-- /Faq Section -->
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

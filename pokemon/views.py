@@ -80,3 +80,8 @@ def evenement(request, slug):
         "evenement": evenement,
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
+
+
+def fax(request):
+    context = {}
+    return TemplateResponse(request, 'pokemon/pages/faq.html', context)
