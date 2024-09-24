@@ -101,7 +101,7 @@
 
       .quote-icon-left,
       .quote-icon-right {
-        color: color-mix(in srgb, var(--accent-color), transparent 50%);
+        color: var(--accent-color);
         font-size: 26px;
         line-height: 0;
       }
