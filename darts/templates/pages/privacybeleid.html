@@ -17,8 +17,9 @@ ChudartZ | Algemene Voorwaarden
 
   <main class="main">
     {% trans "Privacybeleid" as page_name %}
+    {% trans "Wij nemen de bescherming van uw privacy zeer serieus. Alle persoonlijke gegevens die u via deze website en/of deelnameformulier verstrekt, worden met de grootste zorgvuldigheid behandeld en alleen gebruikt in overeenstemming met inachtneming van de privacy van het individu. Wij doen er alles aan om uw gegevens te beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, maar kunnen geen absolute veiligheid garanderen." as page_desc %}
 
-    {% include 'blocks/page-title.html' with name=page_name %}
+    {% include 'blocks/page-title.html' with name=page_name description=page_desc %}
 
 
     <section id="portfolio-details" class="portfolio-details section"> 
@@ -30,175 +31,242 @@ ChudartZ | Algemene Voorwaarden
           <div data-aos="fade-up">
             <div class="portfolio-description">
 
-                <h2>{% trans 'Inschrijving en deelname' %}</h2>
+                <h2>{% trans 'Algemeen' %}</h2>
+
                 <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}Deelname aan het toernooi/dartschool is alleen geldig na succesvolle inschrijving en betaling van het 
-                            inschrijfgeld.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Door zich in te schrijven verklaart de deelnemer naar eer en geweten dat alle verstrekte informatie 
-                            juist en volledig is. De deelnemer accepteert alle verantwoordelijkheden die voortvloeien uit 
-                            deelname aan het evenement, inclusief het naleven van de regels en het nemen van de nodige 
-                            voorzorgsmaatregelen.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Inschrijvingen zijn persoonlijk en kunnen niet worden overgedragen aan anderen.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}De inschrijvingsdeadline wordt strikt nageleefd. Laatkomers kunnen worden geweigerd.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Een annulering van een geboekte les op de dag zelf leidt niet tot terugbetaling van de beurt, tenzij er sprake is van overmacht, zoals (ernstige) ziekte, overlijden familielid, … .{% endblocktrans %}
-                        </li>
-                    </ul>                  
+                    {% blocktrans %}
+                    Het Privacybeleid is van toepassing op de website <a href="https://chudartz.com">chudartz.com</a> en <a href="https://chudartz-collectibles.com">chudartz-collectibles.com</a> (verder genoemd de 'website') beheerd door ChudartZ met geregistreerde zetel op Wilgenlaan 35 te 8210 Loppem, België onder het KBO nummer XXXXXXXXXXXX (hierna verder vernoemd als, 'wij' of 'ons').
+                    {% endblocktrans %}
                 </p>
 
-                <h2 class="pt-5">{% trans 'Leeftijdsbeperkingen' %}</h2>
                 <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}Deelnemers moeten minimaal 10 jaar oud zijn om deel te nemen aan het toernooi/dartschool, m.u.v. uitzonderlijke, jongere talenten.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Minderjarige deelnemers moeten toestemming hebben van een ouder of voogd, die schriftelijk moet 
-                            worden ingediend.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Na de inschrijving zal het ‘toestemmingsformulier minderjarige deelnemers’ door 1 van de ouders 
-                            of de voogd worden ingevuld en ondertekend.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Regels en gedragscode' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}Alle deelnemers moeten zich houden aan de officiële dartregels, waaronder ook de dartregels die 
-                            werden opgesteld door de toernooiorganisatie.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Onsportief gedrag, inclusief verbaal of fysiek misbruik, leidt tot onmiddellijke diskwalificatie zonder 
-                            terugbetaling van inschrijfgeld.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}De organisatie behoudt zich het recht voor om deelnemers die zich niet aan de regels houden, uit te 
-                            sluiten van verdere deelname van het toernooi of andere evenementen ingericht door de 
-                            organisator.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Gebruik van materiaal' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}Deelnemers dienen hun eigen dartpijlen mee te brengen die voldoen aan de gestelde specificaties.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Schade aan de locatie of apparatuur door een deelnemer zal op kosten van de deelnemer worden 
-                            hersteld.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Verantwoordelijkheid en verzekering' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}De organisatie is niet verantwoordelijk voor verlies, diefstal, of schade aan persoonlijke 
-                            eigendommen van deelnemers.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Deelname aan het toernooi is geheel op eigen risico. De organisatie is niet aansprakelijk voor 
-                            eventuele verwondingen of ongevallen, tenzij deze direct te wijten is aan opzet of grove nalatigheid 
-                            van de organisator.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Deelnemers kunnen mogelijk een beroep doen op hun eigen verzekering, zoals een 
-                            aansprakelijkheids- of ongevallenverzekering, voor dekking van schade die zij hebben veroorzaakt 
-                            of opgelopen.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}De organisatie is enkel aansprakelijk voor gebeurtenissen (die te wijten zijn aan opzet of grove 
-                            nalatigheid van de organisator) tijdens het evenement zelf, maar nooit voor incidenten onderweg 
-                            naar of terug van het evenement.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Deelnemers dienen zich bewust te zijn van hun eigen fysieke en mentale gesteldheid en 
-                            verantwoordelijk te handelen.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Aansprakelijkheid en rechtsbijstand' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}De organisatie behoudt zich het recht voor om de toernooilocatie, het schema of andere aspecten 
-                            van het toernooi te wijzigen indien noodzakelijk, met of zonder voorafgaande kennisgeving, 
-                            afhankelijk van externe factoren waarover de organisatie geen volledige controle heeft.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}In geval van overmacht (bijvoorbeeld pandemieën, natuurgeweld) kan het toernooi worden 
-                            uitgesteld of geannuleerd zonder restitutie van inschrijfgeld.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Privacy en gebruik van beeldmateriaal' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}Door deel te nemen aan het toernooi en/of het betreden van een evenement gaat u akkoord met het 
-                            feit dat u gefotografeerd of gefilmd kunt worden en dat deze beelden gebruikt kunnen worden voor 
-                            promotionele doeleinden zonder enige compensatie.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Persoonlijke gegevens die tijdens de inschrijving worden verzameld, worden uitsluitend gebruikt 
-                            voor de organisatie van het toernooi en niet gedeeld met derden, behalve voor het publiceren van 
-                            een rangschikking met de namen van de deelnemers op de website van de organisator.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Disputen' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}Eventuele geschillen die voortkomen uit de deelname aan het toernooi worden voorgelegd aan de 
-                            organisatie, wiens beslissing bindend is.{% endblocktrans %}
-                        </li>
-                        <li>
-                            {% blocktrans %}Geschillen over de spelregels worden onmiddellijk beslecht door de aangewezen scheidsrechter.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Wijzigingen en aanpassingen' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}De organisatie behoudt zich het recht voor om deze algemene voorwaarden op elk moment te 
-                            wijzigen. Eventuele wijzigingen worden voorafgaand aan het toernooi gecommuniceerd.{% endblocktrans %}
-                        </li>
-                    </ul>
-                </p>
-
-                <h2 class="pt-5">{% trans 'Acceptatie van de voorwaarden' %}</h2>
-                <p>
-                    <ul>
-                        <li>
-                            {% blocktrans %}Door deel te nemen aan het toernooi, accepteert de deelnemer automatisch de bovenstaande 
-                            algemene voorwaarden{% endblocktrans %}
-                        </li>
-                    </ul>
+                    {% blocktrans %}
+                    De website werd opgericht om het publiek en de bezoekers (verder vermeld als 'Bezoekers' of 'U') in te lichten over producten en diensten die ChudartZ aanbiedt.
+                    {% endblocktrans %}
                 </p>
                 
+                <p>
+                    {% blocktrans %}
+                    ChudartZ is verantwoordelijk voor de verwerking van gegevens en draagt in deze rol zorg voor elke verzameling en het gebruik van uw persoonsgegevens die zij bekomt van of via de website.
+                    {% endblocktrans %}
+                </p>
+                <p>
+                    {% blocktrans %}
+                    Het Privacybeleid beschrijft welke verschillende elementen van uw persoonsgegevens zullen worden verzameld, voor welke doelen deze worden verzameld, elke uitwisseling van deze gegevens met derde partijen, uw rechten als betrokkene en de genomen maatregelen om uw persoonsgegevens te beschermen.
+                    Houd er rekening mee dat dit Privacybeleid van toepassing is op de gegevens die werden verzameld door middel van cookies.
+                    {% endblocktrans %}
+                </p>
+                
+                
+                <h3>
+                    {% blocktrans %}Verzamelen van persoonsgegevens{% endblocktrans %}
+                </h3>
+                <p>
+                    {% blocktrans %}
+                    Wanneer u de website bezoekt, zal ChudartZ de volgende persoonsgegevens verzamelen:
+                    {% endblocktrans %}
+                </p>
+
+                <ul>
+                            <li><b>{% blocktrans %}Cookies:{% endblocktrans %}</b></li>
+                            <p>
+                                {% blocktrans %}
+                                Dit zijn kleine tekstbestanden die door websites op je computer, smartphone, of tablet worden geplaatst wanneer je deze websites bezoekt. Ze worden gebruikt om informatie op te slaan over je activiteiten op de website, zodat je ervaring verbeterd kan worden. Er zijn verschillende soorten cookies met verschillende functies:
+                                {% endblocktrans %}
+                                <ul>
+                                    <li>
+                                        {% blocktrans %}<i>Noodzakelijke cookies:</i> Deze zijn essentieel voor het functioneren van een website, zoals het mogelijk maken van inloggen of het onthouden van items in je winkelmandje.{% endblocktrans %}
+                                    </li>
+                                    <li>
+                                        {% blocktrans %}<i>Functionele cookies:</i> Deze cookies onthouden je voorkeuren, zoals taalinstellingen of inloggegevens, om je een meer gepersonaliseerde ervaring te bieden.{% endblocktrans %}
+                                    </li>
+                                    <li>
+                                        {% blocktrans %}<i>Analytische cookies:</i> Ze verzamelen informatie over hoe bezoekers de website gebruiken, zoals welke pagina's populair zijn. Dit helpt websites om de gebruikerservaring te verbeteren.{% endblocktrans %}
+                                    </li>
+                                    <li>
+                                        {% blocktrans %}<i>Advertentie- en trackingcookies:</i> Deze worden gebruikt om je surfgedrag te volgen en advertenties te tonen die beter aansluiten bij je interesses.{% endblocktrans %}
+                                    </li>
+                                </ul>
+                                <p class="pt-3">                                
+                                {% blocktrans %}
+                                Cookies kunnen zowel door de website zelf geplaatst worden (first-party cookies) als door derden, zoals adverteerders (third-party cookies).
+                                Voor meer info m.b.t. cookies: <a href="https://www.allaboutcookies.org">www.allaboutcookies.org</a>.
+                                {% endblocktrans %}
+                                </p>
+                            </p>
+
+                            <li><b>{% blocktrans %}Identificatiegegevens:{% endblocktrans %}</b></li>
+                            <p>
+                                {% blocktrans %}
+                                er worden enkel persoonsgegevens verzameld wanneer u beslist om identificatiegegevens te verstrekken op de website, zoals uw e-mailadres.
+                                {% endblocktrans %}
+                            </p>
+                </ul>
+
+                <p>
+                    {% blocktrans %}
+                    Gegevens kunnen door u enkel op vrijwillige basis worden verstrekt, bvb. d.m.v. het invullen van het contactformulier of deelname aan een evenement. Wij rekenen op uw toestemming om uw persoonsgegevens te verwerken en desgevallend bvb. in een resultaten- en/of deelnemerslijst te gebruiken om te publiceren op onze website.
+                    {% endblocktrans %}
+                </p>
+
+                <h3 class="pt-3">
+                    {% blocktrans %}Voor wat gebruiken we uw persoonsgegevens?{% endblocktrans %}
+                </h3>
+                <p>
+                    {% blocktrans %}
+                    Wij gebruiken de persoonsgegevens die door u werden verstrekt:
+                    {% endblocktrans %}
+                </p>
+                <ul>
+                    <li>
+                        {% blocktrans %}Om u te informeren over eender welke ontwikkeling die in verband staat met onze producten en diensten{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om u te informeren over aankomende evenementen, beurzen, of activiteiten van ChudartZ.{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om u inschrijving voor evenementen te verwerken en je deelname te beheren.{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om onze dienstverlening te verbeteren door inzicht te krijgen in het gebruik van onze website.{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om indien gewenst nieuwsbrieven, promoties, of updates te ontvangen{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om te reageren op uw verzoek tot inlichtingen{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om onze website te evalueren en te verbeteren{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om toepasselijke juridische vereisten en industriële normen na te leven{% endblocktrans %}
+                    </li>
+                    <li>
+                        {% blocktrans %}Om onderzoek, analyses en controles uit te voeren zodat wij onze diensten kunnen behouden, beschermen en verbeteren.{% endblocktrans %}
+                    </li>
+                    <li>
+                        ...
+                    </li>
+                </ul>
+
+                <p>
+                    {% blocktrans %}
+                    Houd er rekening mee dat wij uw gegevens gedurende 2 jaar verwerken, te rekenen vanaf de datum dat deze gegevens aanvankelijk werden verzameld. Uw gegevens worden bewaard voor een periode van maximum tien jaar voor bewijsgerelateerde doeleinden. Indien wij uw gegevens verwerken voor andere doeleinden, wordt u hiervan op de hoogte gebracht op het ogenblik dat de gegevens worden verzameld via een bijzondere aankondiging.
+                    {% endblocktrans %}
+                </p>
+
+                <h3 class="pt-3">
+                    {% blocktrans %}Het delen van persoonsgegevens{% endblocktrans %}
+                </h3>
+
+                <p>
+                    {% blocktrans %}
+                    Wij verkopen de persoonsgegevens die wij hebben verzameld niet aan derden noch geven wij deze aan hen vrij, behoudens de gevallen omschreven in dit Privacybeleid of zoals u ten tijde van de verzameling werd meegedeeld.
+                    {% endblocktrans %}
+                </p>
+                <p>
+                    {% blocktrans %}
+                    Wij mogen persoonsgegevens delen met verbonden entiteiten of met derde partijen die, voor onze rekening aan gegevensverwerking doen. Wanneer deze dienstverrichters, voor onze rekening, handelen als gegevensverwerker wordt door ons niet toegestaan dat zij deze gegevens gebruiken of bekend maken op een wijze die niet overeenstemt met de gevallen omschreven in dit Privacybeleid. Wij vereisen van deze gegevensverwerkers dat zij de privacy en de veiligheid waarborgen van de persoonsgegevens die zij namens ons verwerken.
+                    {% endblocktrans %}
+                </p>
+                <p>
+                    {% blocktrans %}
+                    Wij kunnen uw persoonsgegevens ook bekend maken:
+                    {% endblocktrans %}
+                </p>
+                <ul>
+                    <li>{% blocktrans %}wanneer bepaalde wetgeving of een juridische procedure ons daartoe verplicht{% endblocktrans %}</li>
+                    <li>{% blocktrans %}wanneer rechtshandhavingsautoriteiten of andere overheidsambtenaren ons daartoe verplichten{% endblocktrans %}</li>
+                    <li>{% blocktrans %}- wanneer wij van oordeel zijn dat de bekendmaking van deze gegevens noodzakelijk en geschikt is om de lichamelijke integriteit of enige financiële schade te voorkomen, of in verband met een onderzoek naar vermoedelijke of actuele frauduleuze en illegale activiteiten{% endblocktrans %}</li>
+                    <li>...</li>
+                </ul>
+
+                <p>
+                    {% blocktrans %}
+                    Wij behouden ons het recht voor om persoonsgegevens over te dragen in het geval wij een deel of het geheel van onze onderneming of van ons vermogen zouden verkopen. Indien een dergelijke verkoop zich voordoet, zullen wij alle redelijke maatregelen treffen om de verkrijger aan te zetten tot een correcte verwerking van de aan ons verstrekte persoonsgegevens en dit op een manier die overeenstemt met ons Privacybeleid.
+                    {% endblocktrans %}
+                </p>
+
+                <h3 class="pt-3">
+                    {% blocktrans %}De uitoefening van uw rechten{% endblocktrans %}
+                </h3>
+                <ol type="A">
+                    <li><b>{% blocktrans %}Recht op toegang en verbetering{% endblocktrans %}</b></li>
+                    <p>{% blocktrans %}Het recht op toegang en verbetering kunt u, in overeenstemming met de Belgische Privacywet, te allen tijde uitoefenen. Dit kan onder andere door een verzoek te verzenden met een kopie van uw identiteitskaart (paspoort of ander identiteitsbewijs) naar chudartz@gmail.com of door een brief te verzenden naar ChudartZ, Wilgenlaan 35 te 8210 Loppem, België. Gelieve er rekening mee te houden dat cookies kunnen worden beheerd via uw web browser.{% endblocktrans %}</p>
+                    
+                    <li><b>{% blocktrans %}Recht om gegevens te wissen{% endblocktrans %}</b></li>
+                    <p>{% blocktrans %}U kunt op gelijk welk moment en in overeenstemming met de regelgeving inzake gegevensbescherming, uw recht om gegevens te wissen uitoefenen door een verzoek te verzenden met een bijhorende kopie van uw identiteitskaart (paspoort of ander bewijs van identiteit) naar chudartz@gmail.com of door een brief te schrijven naar ChudartZ, Wilgenlaan 35 te 8210 Loppem, België. Naar aanleiding van dergelijk verzoek zal ChudartZ geen verder gebruik maken van uw persoonsgegevens en zal zij deze persoonsgegevens niet meer bewaren voor bewijsgerelateerde doeleinden gedurende de voorziene periode van maximum tien jaar.{% endblocktrans %}</p>
+
+                    <li><b>{% blocktrans %}Recht op verzet{% endblocktrans %}</b></li>
+                    <p>{% blocktrans %}Wanneer u de website bezoekt zult u worden verzocht om in te stemmen met bepaalde vormen van gegevensverwerking. U heeft het recht om uw instemming op gelijk welk moment terug in te trekken.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}Wanneer u niet langer wenst dat uw gegevens worden verwerkt voor directe marketing doeleinden, kunt u altijd uw instemming hiervoor terug intrekken. Gelieve ons uw bezwaren te verzenden, met een kopie van uw identiteitskaart (paspoort of enig ander identiteitsbewijs) naar chudartz@gmail.com of door een brief te schrijven naar ChudartZ, Wilgenlaan 35 te 8210 Loppem, België.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}Het intrekken van uw instemming zal er niet toe bijdragen dat de eerdere verwerking van gegevens ongeldig wordt. Daarnaast kan een intrekking van uw toestemming ook een impact hebben op het vlotte verdere gebruik van de website. ChudartZ kan haar diensten niet optimaal leveren zonder de noodzakelijke elementen van uw persoonsgegevens te verwerken.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}Wanneer u op een bepaald moment vindt dat een van uw rechten niet werden gerespecteerd, kunt u ook een klacht neerleggen bij de Belgische Privacycommissie (zie: <a href="https://www.privacycommission.be/burger">www.privacycommission.be/burger</a>){% endblocktrans %}</p>
+
+                </ol>
+
+
+                <h3 class="pt-3">
+                    {% blocktrans %}Bescherming van uw persoonsgegevens{% endblocktrans %}
+                </h3>
+
+                <p>
+                    {% blocktrans %}
+                    Wij beschikken over doeltreffende technische, organisatorische en fysieke waarborgen om uw persoonsgegevens te beschermen tegen ongewilde of onrechtmatige vernietiging, ongewenst verlies, onbevoegde wijziging, bekendmaking of toegang, tegen misbruik en enige andere onrechtmatige verwerking van de persoonsgegevens die wij in ons bezit hebben.
+                    Niettegenstaande wij er alles aan doen om uw gegevens te beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, kunnen wij nooit geen absolute veiligheid garanderen.
+                    {% endblocktrans %}
+                </p>
+
+                <h3 class="pt-3">
+                    {% blocktrans %}Privacy en gebruik van beeldmateriaal{% endblocktrans %}
+                </h3>
+                <p>
+                    {% blocktrans %}
+                    Door deel te nemen aan een toernooi en/of het betreden van een evenement ingericht door ChudartZ gaat u akkoord met het feit dat u gefotografeerd of gefilmd kunt worden en dat deze beelden gebruikt kunnen worden voor promotionele doeleinden zonder enige compensatie.
+                    U kunt te allen tijde aangeven als u niet gefilmd wilt worden en/of niet wilt dat de beelden op platforms zoals Facebook worden geplaatst.
+                    {% endblocktrans %}
+                </p>
+                <p><i>
+                    {% blocktrans %}Contact, zie punt 9 van het Privacybeleid.{% endblocktrans %}
+                </i></p>
+
+                <h3 class="pt-3">
+                    {% blocktrans %}Overdracht van gegevens{% endblocktrans %}
+                </h3>
+                <p>
+                    {% blocktrans %}
+                    Uw persoonsgegevens worden door ons niet buiten de Europese Unie verstuurd, noch op een andere manier overgedragen die hierboven niet werd uitgelegd.
+                    {% endblocktrans %}
+                </p>
+
+                <h3 class="pt-3">
+                    {% blocktrans %}Wijzigingen in het privacybeleid{% endblocktrans %}
+                </h3>
+                <p>
+                    {% blocktrans %}
+                    Het Privacybeleid kan op geregelde tijdstippen worden gewijzigd naar aanleiding van aanpassingen in onze privacyaanpak.
+                    Wij zullen een duidelijke aankondiging plaatsen op onze website om u op de hoogte te brengen van belangrijke wijzigingen in ons Privacybeleid, doch het is verder uw verantwoordelijkheid om regelmatig dit Privacybeleid, evenals de disclaimer/algemene voorwaarden te raadplegen om de wijzigingen te lezen.
+                    {% endblocktrans %}
+                </p>
+
+                <h3 class="pt-3">
+                    {% blocktrans %}Contact{% endblocktrans %}
+                </h3>
+                <p>
+                    {% blocktrans %}
+                    Indien u verdere vragen heeft over dit Privacybeleid, uw rechten wenst uit te oefenen, of de door u verstrekte gegevens of instellingen wenst te wijzigen, contacteer ons dan hier:
+                    {% endblocktrans %}
+                </p>
+                <p>
+                    ChudartZ<br>
+                    Wilgenlaan 35<br>
+                    8210 Loppem<br>
+                    {% blocktrans %}België{% endblocktrans %}<br>
+                    <a href="mailto:chudartz@gmail.com">chudartz@gmail.com</a><br>
+                    KBO XXXXXXXXXXX
+                </p>
             </div>
-          </div>
 
         </div>
 
