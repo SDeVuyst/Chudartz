@@ -30,7 +30,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
   <main class="main">
     {% trans "Reserveren" as page_name %}
-    {% trans "Dartschool" as page_description %}
+    {% trans "Heeft de proefles je enthousiast gemaakt en wil je verder met darten? Reserveer nu je plek voor een volledige training en til je dartskills naar een hoger niveau!" as page_description %}
     {% trans "Dartschool" as page_previous_crumb %}
     {% trans "/dartschool" as page_previous_crumb_link %}
     
@@ -44,7 +44,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             
-            {% trans "maandag t.e.m. donderdag van 19u tot 21.15u" as page_tijd %}
+            {% trans "maandag t.e.m. donderdag van 19.15 u tot 21.15 u" as page_tijd %}
             {% trans "Wilgenlaan 35, Zedelgem" as page_locatie %}
 
             {% include 'blocks/tijd-en-locatie.html' with static_data='true' tijd=page_tijd locatie=page_locatie %}
@@ -55,7 +55,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
           
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
             <div class="service-box register">
-              <h4>{% trans 'Reserveer je privéles' %}</h4>
+              <h4>{% trans 'Reserveer training' %}</h4>
 
               <form id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
                 <div class="row gy-4">

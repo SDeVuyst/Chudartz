@@ -183,6 +183,10 @@ def toernooien(request):
 
 def toernooi(request, slug):
     evenement = get_object_or_404(Toernooi, slug=slug)
+
+    # event must be public 
+    if not evenement.toon_op_site: return HttpResponse(code=404)
+
     context = get_default_context()
     context["toernooi"] = evenement
 
@@ -509,5 +513,5 @@ def code_bestaat(request, code):
 def get_default_context():
     return {
         'sponsors': Sponsor.objects.all(),
-        'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True),
+        'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True).order_by('-volgorde'),
     }

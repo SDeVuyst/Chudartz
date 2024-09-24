@@ -82,6 +82,6 @@ def evenement(request, slug):
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
 
-def fax(request):
+def faq(request):
     context = {}
     return TemplateResponse(request, 'pokemon/pages/faq.html', context)

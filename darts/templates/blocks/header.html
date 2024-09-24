@@ -29,6 +29,7 @@
           <li class="dropdown"><a href="#"><span>{{ groep.naam }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               {% for toernooi_in_groep in groep.toernooien.all %}
+              {% if toernooi_in_groep.toon_op_site %}
               <li><a href="{% url 'toernooi' slug=toernooi_in_groep.slug %}">
                 {% if toernooi_in_groep.naam_in_header %}
                   {{ toernooi_in_groep.naam_in_header }}
@@ -36,6 +37,7 @@
                   {{ toernooi_in_groep.titel }}
                 {% endif %}
               </a></li>
+              {% endif %}
               {% endfor %}
             </ul>
           </li>

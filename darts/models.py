@@ -43,6 +43,7 @@ class ToernooiHeaderGroep(models.Model):
 
     naam = models.CharField(verbose_name=_("Naam"))
     active = models.BooleanField(verbose_name=_("Actief"), default=True)
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
 
 
 class Toernooi(models.Model):

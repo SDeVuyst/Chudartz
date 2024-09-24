@@ -26,10 +26,11 @@ ChudartZ | Priveles
   <main class="main">
 
     {% trans "Priveles" as page_name %}
+    {% trans "Wil je extra persoonlijke aandacht en je dartskills nog sneller verbeteren? Naast de reguliere trainingen kun je ook privélessen volgen, volledig afgestemd op jouw niveau en doelen. Boek nu je privéles en maak snelle stappen vooruit!" as page_desc %}
     {% trans "Dartschool" as page_previous_crumb %}
     {% trans "/dartschool" as page_previous_crumb_link %}
     
-    {% include 'blocks/page-title.html' with name=page_name previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link backgroundsecond="true" %}
+    {% include 'blocks/page-title.html' with name=page_name description=page_desc previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link backgroundsecond="true" %}
     
     <section id="service-details" class="service-details section">
 
