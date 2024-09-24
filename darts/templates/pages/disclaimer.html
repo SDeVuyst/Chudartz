@@ -29,12 +29,13 @@ ChudartZ | Disclaimer
             <div class="portfolio-description">
                 <h2>{% trans 'Privacybescherming' %}</h2>
                 <p>
+                  {% url 'privacybeleid' as privacy_url %}
                   {% blocktrans %}
                   Wij nemen de bescherming van uw privacy zeer serieus. Alle persoonlijke gegevens die u via deze 
                   website en/of deelnameformulier verstrekt, worden met de grootste zorgvuldigheid behandeld en 
                   alleen gebruikt in overeenstemming met inachtneming van de privacy van het individu. Wij doen er 
                   alles aan om uw gegevens te beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, maar 
-                  kunnen geen absolute veiligheid garanderen.
+                  kunnen geen absolute veiligheid garanderen. Zie ook ons <a href="{{ privacy_url}}">privacybeleid</a>.
                   {% endblocktrans %}
                 </p>
 
