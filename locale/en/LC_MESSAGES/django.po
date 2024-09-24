@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 15:14+0200\n"
-"PO-Revision-Date: 2024-09-14 15:18+0200\n"
+"POT-Creation-Date: 2024-09-24 15:03+0200\n"
+"PO-Revision-Date: 2024-09-24 15:13+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,60 +17,65 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
-#: .\chudartz\settings.py:232
+#: .\chudartz\settings.py:229
 msgid "Financiën"
 msgstr "Finance"
 
-#: .\chudartz\settings.py:244 .\darts\templates\blocks\header.html:23
+#: .\chudartz\settings.py:234
+msgid "Analyse"
+msgstr "Analysis"
+
+#: .\chudartz\settings.py:246 .\darts\templates\blocks\header.html:25
 #: .\darts\templates\pages\index.html:108
-#: .\darts\templates\pages\index.html:192
-#: .\darts\templates\pages\toernooi-inschrijving.html:32
-#: .\darts\templates\pages\toernooi.html:30
+#: .\darts\templates\pages\index.html:188
+#: .\darts\templates\pages\resultaat.html:32
+#: .\darts\templates\pages\toernooi-inschrijving.html:29
+#: .\darts\templates\pages\toernooi.html:27
 #: .\darts\templates\pages\toernooien.html:30
-#: .\pokemon\templates\pokemon\pages\index.html:87
-#: .\pokemon\templates\pokemon\pages\index.html:168
+#: .\pokemon\templates\pokemon\pages\index.html:126
 msgid "Toernooien"
 msgstr "Tournaments"
 
-#: .\chudartz\settings.py:250
+#: .\chudartz\settings.py:252
 msgid "Deelnemers"
 msgstr "Participants"
 
-#: .\chudartz\settings.py:256
+#: .\chudartz\settings.py:258
 msgid "Scanner"
 msgstr "Scanner"
 
-#: .\chudartz\settings.py:267 .\darts\templates\blocks\header.html:14
+#: .\chudartz\settings.py:269 .\darts\templates\blocks\header.html:14
 #: .\darts\templates\pages\dartschool-beurtkaart.html:33
 #: .\darts\templates\pages\dartschool-beurtkaart.html:34
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:30
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:31
+#: .\darts\templates\pages\dartschool-meer-info.html:22
 #: .\darts\templates\pages\dartschool-reserveren.html:34
-#: .\darts\templates\pages\dartschool-reserveren.html:35
+#: .\darts\templates\pages\dartschool-werkwijze.html:21
 #: .\darts\templates\pages\dartschool.html:28
-#: .\darts\templates\pages\index.html:96
-#: .\pokemon\templates\pokemon\pages\index.html:74
+#: .\darts\templates\pages\index.html:96 .\darts\templates\pages\index.html:187
+#: .\darts\templates\pages\priveles.html:30
 msgid "Dartschool"
 msgstr "Darts School"
 
-#: .\chudartz\settings.py:273
+#: .\chudartz\settings.py:275
 msgid "Leerlingen"
 msgstr "Pupils"
 
-#: .\chudartz\settings.py:279
+#: .\chudartz\settings.py:281
 msgid "Beurtkaarten"
 msgstr "Turn-up cards"
 
-#: .\chudartz\settings.py:290 .\darts\templates\blocks\footer.html:24
+#: .\chudartz\settings.py:292 .\darts\templates\blocks\footer.html:24
 #: .\darts\templates\pages\sponsors.html:20
 msgid "Sponsors"
 msgstr "Sponsors"
 
-#: .\chudartz\settings.py:302 .\pokemon\templates\pokemon\blocks\header.html:13
+#: .\chudartz\settings.py:304 .\pokemon\templates\pokemon\blocks\header.html:13
 #: .\pokemon\templates\pokemon\pages\evenement.html:30
 #: .\pokemon\templates\pokemon\pages\evenementen.html:28
+#: .\pokemon\templates\pokemon\pages\index.html:79
 msgid "Evenementen"
 msgstr "Events"
 
@@ -82,294 +87,324 @@ msgstr "Event Ticket"
 msgid "Evenement Tickets"
 msgstr "Event Tickets"
 
-#: .\darts\admin.py:39 .\pokemon\admin.py:24
+#: .\darts\admin.py:44 .\pokemon\admin.py:24
 msgid "Uitverkocht"
 msgstr "Exhausted"
 
-#: .\darts\admin.py:46 .\darts\admin.py:161 .\pokemon\admin.py:31
+#: .\darts\admin.py:51 .\darts\admin.py:166 .\pokemon\admin.py:31
 msgid "Sold out!"
 msgstr "Sold out!"
 
-#: .\darts\admin.py:46 .\darts\admin.py:161 .\pokemon\admin.py:31
+#: .\darts\admin.py:51 .\darts\admin.py:166 .\pokemon\admin.py:31
 msgid "Available"
 msgstr "Available"
 
-#: .\darts\admin.py:52 .\pokemon\admin.py:37
+#: .\darts\admin.py:57 .\pokemon\admin.py:37
 msgid "Genereer QR Code"
 msgstr "Generate QR Code"
 
-#: .\darts\admin.py:76 .\darts\admin.py:182
+#: .\darts\admin.py:81 .\darts\admin.py:187
 msgid "Status van Betaling"
 msgstr "Payment Status"
 
-#: .\darts\admin.py:92 .\darts\models.py:243 .\pokemon\models.py:199
+#: .\darts\admin.py:97 .\darts\models.py:277 .\pokemon\models.py:199
 msgid "Attended"
 msgstr "Attended"
 
-#: .\darts\admin.py:99
+#: .\darts\admin.py:104
 msgid "Yes"
 msgstr "Yes"
 
-#: .\darts\admin.py:99
+#: .\darts\admin.py:104
 msgid "No"
 msgstr "No"
 
-#: .\darts\admin.py:112
+#: .\darts\admin.py:117
 msgid "Genereer Ticket"
 msgstr "Generate Ticket"
 
-#: .\darts\admin.py:118
+#: .\darts\admin.py:123
 msgid "Stuur bevestiging mail"
 msgstr "Send confirmation email"
 
-#: .\darts\admin.py:124
+#: .\darts\admin.py:129
 msgid "Bevestigings mail is verstuurd!"
 msgstr "Confirmation email has been sent!"
 
-#: .\darts\admin.py:127
+#: .\darts\admin.py:132
 msgid "Bevestigings mail versturen mislukt. Error: "
 msgstr "Confirmation email sent failed. Error: "
 
-#: .\darts\admin.py:139
+#: .\darts\admin.py:144
 msgid "Generate Ticket"
 msgstr "Generate Ticket"
 
-#: .\darts\admin.py:154
+#: .\darts\admin.py:159
 msgid "Sold out"
 msgstr "Sold out"
 
-#: .\darts\models.py:47 .\pokemon\models.py:45
+#: .\darts\models.py:44 .\darts\models.py:406 .\darts\models.py:493
+#: .\darts\templates\pages\index.html:312
+#: .\darts\templates\pages\priveles.html:63
+#: .\pokemon\templates\pokemon\pages\index.html:250
+msgid "Naam"
+msgstr "Name"
+
+#: .\darts\models.py:45
+msgid "Actief"
+msgstr "Active"
+
+#: .\darts\models.py:46
+msgid "Volgorde"
+msgstr "Order"
+
+#: .\darts\models.py:60 .\pokemon\models.py:45
 msgid "Titel"
 msgstr "Title"
 
-#: .\darts\models.py:49 .\darts\models.py:203 .\pokemon\models.py:47
+#: .\darts\models.py:62 .\darts\models.py:236 .\pokemon\models.py:47
 msgid "Beschrijving"
 msgstr "Description"
 
-#: .\darts\models.py:50 .\pokemon\models.py:48
+#: .\darts\models.py:63 .\pokemon\models.py:48
 msgid "Vereisten (Elk op een nieuwe lijn)"
 msgstr "Prerequisites (Each on a new line)"
 
-#: .\darts\models.py:51 .\pokemon\models.py:49
+#: .\darts\models.py:64 .\pokemon\models.py:49
 msgid "Start Datum"
 msgstr "Start Date"
 
-#: .\darts\models.py:52 .\pokemon\models.py:50
+#: .\darts\models.py:65 .\pokemon\models.py:50
 msgid "Eind Datum"
 msgstr "End date"
 
-#: .\darts\models.py:53 .\darts\models.py:119 .\pokemon\models.py:51
+#: .\darts\models.py:66 .\darts\models.py:152 .\pokemon\models.py:51
 #: .\pokemon\models.py:115
 msgid "Max Deelnemers"
 msgstr "Max Participants"
 
-#: .\darts\models.py:54 .\pokemon\models.py:52
+#: .\darts\models.py:67 .\pokemon\models.py:52
 msgid "Locatie (kort)"
 msgstr "Location (short)"
 
-#: .\darts\models.py:55 .\pokemon\models.py:53
+#: .\darts\models.py:68 .\pokemon\models.py:53
 msgid "Locatie (lang)"
 msgstr "Location (long)"
 
-#: .\darts\models.py:56 .\darts\models.py:380 .\pokemon\models.py:54
+#: .\darts\models.py:69 .\darts\models.py:414 .\pokemon\models.py:54
 msgid "afbeelding"
 msgstr "image"
 
-#: .\darts\models.py:57 .\pokemon\models.py:55
+#: .\darts\models.py:70 .\pokemon\models.py:55
 msgid "Download afbeeldingen URL"
 msgstr "Download images URL"
 
-#: .\darts\models.py:58
+#: .\darts\models.py:71
 msgid "Toestemming van voogd vereist"
 msgstr "Guardian's consent is required"
 
-#: .\darts\models.py:60 .\pokemon\models.py:57
+#: .\darts\models.py:72
+msgid "Toon op site"
+msgstr "Show on site"
+
+#: .\darts\models.py:74 .\pokemon\models.py:57
 msgid "Inschrijvingen Inschakelen"
 msgstr "Enable enrollments"
 
-#: .\darts\models.py:62 .\darts\models.py:122 .\darts\models.py:205
+#: .\darts\models.py:76
+msgid "Groepen in header"
+msgstr "Groups in header"
+
+#: .\darts\models.py:77
+msgid "Naam in header"
+msgstr "Name in header"
+
+#: .\darts\models.py:79 .\darts\templates\pages\resultaten.html:30
+msgid "Resultaten"
+msgstr "Results"
+
+#: .\darts\models.py:81 .\darts\models.py:155 .\darts\models.py:238
 #: .\pokemon\models.py:59 .\pokemon\models.py:118 .\pokemon\models.py:176
 msgid "Geschiedenis"
 msgstr "History"
 
-#: .\darts\models.py:117 .\pokemon\models.py:113
+#: .\darts\models.py:150 .\pokemon\models.py:113
 msgid "titel"
 msgstr "title"
 
-#: .\darts\models.py:120 .\pokemon\models.py:116
+#: .\darts\models.py:153 .\pokemon\models.py:116
 msgid "Evenement"
 msgstr "Event"
 
-#: .\darts\models.py:156 .\pokemon\models.py:152
+#: .\darts\models.py:189 .\pokemon\models.py:152
 msgctxt "payment status"
 msgid "Betaald"
 msgstr "Paid"
 
-#: .\darts\models.py:157 .\pokemon\models.py:153
+#: .\darts\models.py:190 .\pokemon\models.py:153
 msgctxt "payment status"
 msgid "Open"
 msgstr "Open"
 
-#: .\darts\models.py:158 .\pokemon\models.py:154
+#: .\darts\models.py:191 .\pokemon\models.py:154
 msgctxt "payment status"
 msgid "Geannuleerd"
 msgstr "Cancelled"
 
-#: .\darts\models.py:159 .\pokemon\models.py:155
+#: .\darts\models.py:192 .\pokemon\models.py:155
 msgctxt "payment status"
 msgid "Verlopen"
 msgstr "Expire"
 
-#: .\darts\models.py:160 .\pokemon\models.py:156
+#: .\darts\models.py:193 .\pokemon\models.py:156
 msgctxt "payment status"
 msgid "Gefaald"
 msgstr "Failed"
 
-#: .\darts\models.py:197 .\pokemon\models.py:169
+#: .\darts\models.py:230 .\pokemon\models.py:169
 msgid "Mollie id"
 msgstr "Mollie id"
 
-#: .\darts\models.py:198 .\darts\models.py:232 .\darts\models.py:397
+#: .\darts\models.py:231 .\darts\models.py:265 .\darts\models.py:431
 #: .\darts\templates\pages\dartschool-beurtkaart.html:132
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:62
-#: .\darts\templates\pages\toernooi-inschrijving.html:60
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:61
+#: .\darts\templates\pages\toernooi-inschrijving.html:57
 #: .\pokemon\models.py:170 .\pokemon\models.py:190
 msgid "Voornaam"
 msgstr "First name"
 
-#: .\darts\models.py:199 .\darts\models.py:233 .\darts\models.py:398
+#: .\darts\models.py:232 .\darts\models.py:266 .\darts\models.py:432
 #: .\darts\templates\pages\dartschool-beurtkaart.html:137
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:67
-#: .\darts\templates\pages\toernooi-inschrijving.html:65
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:66
+#: .\darts\templates\pages\toernooi-inschrijving.html:62
 #: .\pokemon\models.py:171 .\pokemon\models.py:191
 msgid "Achternaam"
 msgstr "Last name"
 
-#: .\darts\models.py:200 .\darts\models.py:234 .\darts\models.py:399
+#: .\darts\models.py:233 .\darts\models.py:268 .\darts\models.py:433
 #: .\darts\templates\pages\dartschool-beurtkaart.html:142
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:72
-#: .\darts\templates\pages\index.html:399
-#: .\darts\templates\pages\toernooi-inschrijving.html:70
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:71
+#: .\darts\templates\pages\index.html:317
+#: .\darts\templates\pages\priveles.html:68
+#: .\darts\templates\pages\toernooi-inschrijving.html:72
 #: .\pokemon\models.py:172 .\pokemon\models.py:192
-#: .\pokemon\templates\pokemon\pages\index.html:367
+#: .\pokemon\templates\pokemon\pages\index.html:255
 msgid "Email"
 msgstr "E-mail"
 
-#: .\darts\models.py:214
+#: .\darts\models.py:247
 msgctxt "skill level"
 msgid "Beginner"
 msgstr "Beginner"
 
-#: .\darts\models.py:215
+#: .\darts\models.py:248
 msgctxt "skill level"
 msgid "Gemiddeld"
 msgstr "Average"
 
-#: .\darts\models.py:216
+#: .\darts\models.py:249
 msgctxt "skill level"
 msgid "Geoefend"
 msgstr "Practiced"
 
-#: .\darts\models.py:235 .\darts\templates\pages\toernooi-inschrijving.html:89
+#: .\darts\models.py:267 .\darts\templates\pages\toernooi-inschrijving.html:67
+msgid "Geboortejaar"
+msgstr "Year of birth"
+
+#: .\darts\models.py:269 .\darts\templates\pages\toernooi-inschrijving.html:91
 #: .\pokemon\models.py:193
 msgid "Straatnaam"
 msgstr "Street name"
 
-#: .\darts\models.py:236 .\darts\templates\pages\toernooi-inschrijving.html:94
+#: .\darts\models.py:270 .\darts\templates\pages\toernooi-inschrijving.html:96
 #: .\pokemon\models.py:194
 msgid "Nummer"
 msgstr "Number"
 
-#: .\darts\models.py:237 .\darts\templates\pages\toernooi-inschrijving.html:99
+#: .\darts\models.py:271 .\darts\templates\pages\toernooi-inschrijving.html:101
 #: .\pokemon\models.py:195
 msgid "Postcode"
 msgstr "Postal code"
 
-#: .\darts\models.py:238 .\darts\templates\pages\toernooi-inschrijving.html:104
+#: .\darts\models.py:272 .\darts\templates\pages\toernooi-inschrijving.html:106
 #: .\pokemon\models.py:196
 msgid "Stad"
 msgstr "Town"
 
-#: .\darts\models.py:240
+#: .\darts\models.py:274
 msgid "GSM"
 msgstr "GSM"
 
-#: .\darts\models.py:244 .\pokemon\models.py:200
+#: .\darts\models.py:278 .\pokemon\models.py:200
 msgid "beschrijving"
 msgstr "description"
 
-#: .\darts\models.py:245 .\pokemon\models.py:201
+#: .\darts\models.py:279 .\pokemon\models.py:201
 msgid "Ticket"
 msgstr "E-tiket"
 
-#: .\darts\models.py:250 .\darts\models.py:382 .\darts\models.py:406
-#: .\darts\models.py:463 .\pokemon\models.py:206
+#: .\darts\models.py:284 .\darts\models.py:416 .\darts\models.py:440
+#: .\darts\models.py:497 .\pokemon\models.py:206
 msgid "History"
 msgstr "History"
 
-#: .\darts\models.py:372 .\darts\models.py:459
-#: .\darts\templates\pages\index.html:394
-#: .\pokemon\templates\pokemon\pages\index.html:362
-msgid "Naam"
-msgstr "Name"
-
-#: .\darts\models.py:373
+#: .\darts\models.py:407
 msgid "Website URL"
 msgstr "Website URL"
 
-#: .\darts\models.py:374
+#: .\darts\models.py:408
 msgid "Info over Sponsor"
 msgstr "About Sponsor"
 
-#: .\darts\models.py:375
+#: .\darts\models.py:409
 msgid "Toon Op Voorpagina"
 msgstr "Show on front page"
 
-#: .\darts\models.py:376
+#: .\darts\models.py:410
 msgid "Toon in footer"
 msgstr "Show in footer"
 
-#: .\darts\models.py:377
+#: .\darts\models.py:411
 msgid "Toon op sponsor pagina"
 msgstr "Show on sponsor page"
 
-#: .\darts\models.py:378
+#: .\darts\models.py:412
 msgid "Toon knop op sponsors pagina"
 msgstr "Show button on sponsor page"
 
-#: .\darts\models.py:379
+#: .\darts\models.py:413
 msgid "Logo"
 msgstr "Logo"
 
-#: .\darts\models.py:400
+#: .\darts\models.py:434
 msgid "Extra Info"
 msgstr "Extra Info"
 
-#: .\darts\models.py:402
+#: .\darts\models.py:436
 msgid "Resterende Beurten"
 msgstr "Remaining Turns"
 
-#: .\darts\models.py:404
+#: .\darts\models.py:438
 msgid "Code"
 msgstr "Code"
 
-#: .\darts\models.py:427
+#: .\darts\models.py:461
 msgid "Geen resterende beurten meer!"
 msgstr "No more remaining turns!"
 
-#: .\darts\models.py:460
+#: .\darts\models.py:494
 msgid "Aantal Beurten"
 msgstr "Number of Turns"
 
-#: .\darts\models.py:467
+#: .\darts\models.py:501
 msgid "Beurtkaart"
 msgstr "Turn-up card"
 
-#: .\darts\models.py:468
+#: .\darts\models.py:502
 msgid "Betaling"
 msgstr "Payment"
 
-#: .\darts\models.py:469
+#: .\darts\models.py:503
 msgid "Leerling"
 msgstr "Pupil"
 
@@ -410,47 +445,58 @@ msgid "Algemene Voorwaarden"
 msgstr "Terms and Conditions"
 
 #: .\darts\templates\blocks\footer.html:42
-#: .\darts\templates\pages\dartschool-beurtkaart.html:179
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:109
+#: .\darts\templates\pages\privacybeleid.html:19
+msgid "Privacybeleid"
+msgstr "Privacy policy"
+
+#: .\darts\templates\blocks\footer.html:43
 #: .\darts\templates\pages\disclaimer.html:19
-#: .\darts\templates\pages\toernooi-inschrijving.html:161
 msgid "Disclaimer"
 msgstr "Disclaimer"
 
-#: .\darts\templates\blocks\footer.html:43
+#: .\darts\templates\blocks\footer.html:44
 #: .\darts\templates\pages\algemeen-reglement.html:19
 msgid "Algemeen Reglement"
 msgstr "General Regulations"
 
-#: .\darts\templates\blocks\footer.html:48
+#: .\darts\templates\blocks\footer.html:45 .\darts\templates\pages\faq.html:20
+#: .\darts\templates\pages\index.html:133
+#: .\pokemon\templates\pokemon\pages\faq.html:20
+#: .\pokemon\templates\pokemon\pages\index.html:92
+msgid "FAQ"
+msgstr "FAQ"
+
+#: .\darts\templates\blocks\footer.html:50
 #: .\darts\templates\pages\teambuildings-en-workshops.html:61
-#: .\darts\templates\pages\teambuildings-en-workshops.html:85
-#: .\darts\templates\pages\teambuildings-en-workshops.html:96
+#: .\darts\templates\pages\teambuildings-en-workshops.html:90
 #: .\darts\templates\pages\teambuildings-en-workshops.html:107
-#: .\darts\templates\pages\teambuildings-en-workshops.html:118
-#: .\darts\templates\pages\teambuildings-en-workshops.html:129
-#: .\darts\templates\pages\teambuildings-en-workshops.html:140
+#: .\darts\templates\pages\teambuildings-en-workshops.html:124
+#: .\darts\templates\pages\teambuildings-en-workshops.html:141
+#: .\darts\templates\pages\teambuildings-en-workshops.html:158
+#: .\darts\templates\pages\teambuildings-en-workshops.html:175
 #: .\pokemon\templates\pokemon\blocks\footer.html:29
 msgid "Contacteer Ons"
 msgstr "Contact Us"
 
-#: .\darts\templates\blocks\footer.html:52
+#: .\darts\templates\blocks\footer.html:54
 #: .\pokemon\templates\pokemon\blocks\footer.html:33
 msgid "Telefoon"
 msgstr "Phone"
 
-#: .\darts\templates\blocks\footer.html:60
+#: .\darts\templates\blocks\footer.html:62
 #: .\pokemon\templates\pokemon\blocks\footer.html:41
 msgid "alle rechten voorbehouden"
 msgstr "all rights reserved"
 
 #: .\darts\templates\blocks\header.html:16
-msgid "JDC Academy"
-msgstr "JDC Academy"
-
-#: .\darts\templates\blocks\header.html:17
 msgid "Info"
 msgstr "Info"
+
+#: .\darts\templates\blocks\header.html:17
+#: .\darts\templates\pages\dartschool-werkwijze.html:20
+#: .\darts\templates\pages\dartschool-werkwijze.html:40
+msgid "Werkwijze"
+msgstr "Method"
 
 #: .\darts\templates\blocks\header.html:18
 #: .\darts\templates\pages\dartschool.html:87
@@ -458,46 +504,56 @@ msgid "Gratis proefles"
 msgstr "Free trial lesson"
 
 #: .\darts\templates\blocks\header.html:19
-msgid "Beurtkaart kopen"
+msgid "Beurtenkaart kopen"
 msgstr "Buy a multi-session card"
 
 #: .\darts\templates\blocks\header.html:20
-msgid "Privéles boeken"
-msgstr "Book private lesson"
+msgid "Training reserveren"
+msgstr "Book a training"
 
-#: .\darts\templates\blocks\header.html:24
-#: .\darts\templates\pages\index.html:122
+#: .\darts\templates\blocks\header.html:21
+msgid "Privéles Boeken"
+msgstr "Book Private Lesson"
+
+#: .\darts\templates\blocks\header.html:51
+#: .\darts\templates\pages\index.html:120
+#: .\darts\templates\pages\teambuildings-en-workshops.html:30
 #: .\darts\templates\pages\teambuildings-en-workshops.html:49
 msgid "Teambuilding"
 msgstr "Team building"
 
-#: .\darts\templates\blocks\header.html:25
-#: .\darts\templates\pages\index.html:341
+#: .\darts\templates\blocks\header.html:52
+#: .\darts\templates\pages\index.html:259
+#: .\darts\templates\pages\privacybeleid.html:254
 #: .\pokemon\templates\pokemon\blocks\header.html:14
-#: .\pokemon\templates\pokemon\pages\index.html:309
+#: .\pokemon\templates\pokemon\pages\index.html:197
 msgid "Contact"
 msgstr "Contact"
 
-#: .\darts\templates\blocks\header.html:29
+#: .\darts\templates\blocks\header.html:56
+#: .\pokemon\templates\pokemon\blocks\header.html:18
 msgid "Taal"
 msgstr "Language"
 
-#: .\darts\templates\blocks\header.html:54
+#: .\darts\templates\blocks\header.html:81
 #: .\pokemon\templates\pokemon\blocks\header.html:43
 msgid "Begin Nu"
 msgstr "Get Started"
 
 #: .\darts\templates\pages\about.html:21
-#: .\pokemon\templates\pokemon\pages\about.html:21
-#: .\pokemon\templates\pokemon\pages\evenementen.html:29
 msgid ""
-"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio "
-"sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis "
-"veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem."
+"Onze passie voor darts hebben wij omgezet in een onderneming met als "
+"hoofddoel het opstarten van een jeugd dartschool en het organiseren van "
+"toernooien. Dit doen we in een warme, huiselijke omgeving waar de focus ligt "
+"op het individu, zodat elke speler de aandacht en begeleiding krijgt die hij "
+"of zij nodig heeft. Onze missie is om spelers van elk niveau te helpen "
+"groeien en een sterke dartgemeenschap op te bouwen."
 msgstr ""
-"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio "
-"sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis "
-"veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem."
+"We have turned our passion for darts into a company with the main goal of "
+"starting a youth darts school and organizing tournaments. We do this in a "
+"warm, homely environment where the focus is on the individual, so that each "
+"player gets the attention and guidance he or she needs. Our mission is to "
+"help players of all skill levels grow and build a strong darts community."
 
 #: .\darts\templates\pages\about.html:33
 msgid "Ons logo en inspiratie"
@@ -631,195 +687,6 @@ msgstr ""
 "                and build a strong community around this wonderful "
 "discipline.\n"
 "                "
-
-#: .\darts\templates\pages\about.html:91
-msgid "Ontwikkeling van Basisvaardigheden:"
-msgstr "Basic Skills Development:"
-
-#: .\darts\templates\pages\about.html:92
-msgid "Het aanleren van de basisprincipes van darten, zoals"
-msgstr "Teaching the basics of darts, such as"
-
-#: .\darts\templates\pages\about.html:94
-msgid "de juiste houding"
-msgstr "The right posture"
-
-#: .\darts\templates\pages\about.html:95
-msgid "de ademhaling"
-msgstr "Breathing"
-
-#: .\darts\templates\pages\about.html:97
-msgid ""
-"Dit zorgt ervoor dat leerlingen een solide fundament opbouwen waarop ze hun "
-"vaardigheden verder kunnen ontwikkelen."
-msgstr ""
-"This ensures that students build a solid foundation on which to further "
-"develop their skills."
-
-#: .\darts\templates\pages\about.html:100
-msgid "Bevorderen van competitief denken:"
-msgstr "Fostering Competitive Thinking:"
-
-#: .\darts\templates\pages\about.html:102
-#: .\darts\templates\pages\about.html:118
-msgid ""
-"\n"
-"                    Het stimuleren van een gezonde competitieve geest bij "
-"jongeren, waarbij fair play, sportiviteit en zelfverbetering centraal staan. "
-"Dit helpt hen om niet alleen beter te worden in darten, maar ook om "
-"belangrijke levensvaardigheden te ontwikkelen.\n"
-"                    "
-msgstr ""
-"\n"
-"Encouraging a healthy competitive spirit in young people, with a focus on "
-"fair play, sportsmanship and self-improvement. This helps them not only get "
-"better at darts but also develop important life skills.\n"
-"                    "
-
-#: .\darts\templates\pages\about.html:108
-msgid "Persoonlijke Groei en zelfvertrouwen:"
-msgstr "Personal Growth and Self-Confidence:"
-
-#: .\darts\templates\pages\about.html:110
-msgid ""
-"\n"
-"                    Het trainen van talentvolle spelers om deel te nemen aan "
-"lokale, nationale en wie weet op termijn internationale dartstoernooien.\n"
-"                    "
-msgstr ""
-"\n"
-"Training talented players to participate in local, national and who knows, "
-"in the long run, international darts tournaments.\n"
-"                    "
-
-#: .\darts\templates\pages\about.html:116
-msgid "Voorbereiden op Competitieve Darts:"
-msgstr "Preparing for Competitive Darts:"
-
-#: .\darts\templates\pages\about.html:124
-msgid "Creëren van Gemeenschapsgevoel:"
-msgstr "Creating a sense of community:"
-
-#: .\darts\templates\pages\about.html:126
-msgid ""
-"\n"
-"                    Het opbouwen van een hechte en ondersteunende "
-"gemeenschap waar spelers van alle leeftijden en niveaus elkaar kunnen "
-"inspireren, ondersteunen en samen plezier kunnen hebben. Dit bevordert een "
-"gevoel van samenhorigheid en gedeelde passie.\n"
-"                    "
-msgstr ""
-"\n"
-"Building a close-knit and supportive community where players of all ages and "
-"abilities can inspire, support, and have fun together. This fosters a sense "
-"of belonging and shared passion.\n"
-"                    "
-
-#: .\darts\templates\pages\about.html:132
-msgid "Educatieve en Leuke Activiteiten:"
-msgstr "Educational and fun activities:"
-
-#: .\darts\templates\pages\about.html:134
-msgid ""
-"\n"
-"                    Het aanbieden van educatieve workshops, toernooien en "
-"andere activiteiten om het leren leuk te maken en tegelijkertijd de "
-"vaardigheden en kennis van de deelnemers te vergroten.\n"
-"                    "
-msgstr ""
-"\n"
-"Offering educational workshops, tournaments, and other activities to make "
-"learning fun while increasing the skills and knowledge of participants.\n"
-"                    "
-
-#: .\darts\templates\pages\about.html:140
-msgid "Mentorschap:"
-msgstr "Mentorship:"
-
-#: .\darts\templates\pages\about.html:142
-msgid ""
-"\n"
-"                    Het bieden van mentorschap aan jongere spelers door "
-"ervaren dartspelers (binnen de school), wat niet alleen hun dartvaardigheden "
-"verbetert, maar hen ook leert om te groeien binnen de dartsgemeenschap.\n"
-"                    "
-msgstr ""
-"\n"
-"Providing mentorship to younger players by experienced darts players (within "
-"the school), which not only improves their darts skills but also teaches "
-"them to grow within the darts community.\n"
-"                    "
-
-#: .\darts\templates\pages\about.html:148
-msgid "Fysieke en mentale gezondheid bevorderen:"
-msgstr "Promoting physical and mental health:"
-
-#: .\darts\templates\pages\about.html:151
-msgid ""
-"\n"
-"                      Het bevorderen van zowel de fysieke als mentale "
-"gezondheid door het aanmoedigen van regelmatige fysieke activiteit, "
-"concentratie, en stressmanagement via darten.\n"
-"                      "
-msgstr ""
-"\n"
-"Promoting both physical and mental health by encouraging regular physical "
-"activity, concentration, and stress management through darts.\n"
-"                      "
-
-#: .\darts\templates\pages\about.html:156
-msgid ""
-"\n"
-"                      Hoofdrekenen is een essentieel onderdeel van het "
-"darten, waardoor je niet alleen je rekenvaardigheden aanscherpt, maar ook je "
-"algemene concentratie en strategisch inzicht verbetert.\n"
-"                      "
-msgstr ""
-"\n"
-"Mental arithmetic is an essential part of darts, helping you not only hone "
-"your math skills but also improve your overall concentration and strategic "
-"insight.\n"
-"                      "
-
-#: .\darts\templates\pages\about.html:166
-msgid ""
-"\n"
-"                Met deze doelen biedt een dartschool niet alleen technische "
-"training, maar ook een platform voor persoonlijke en sociale ontwikkeling.\n"
-"                "
-msgstr ""
-"\n"
-"With these goals, a darts school not only provides technical training, but "
-"also a platform for personal and social development.\n"
-"                "
-
-#: .\darts\templates\pages\about.html:172
-msgid ""
-"\n"
-"                Voeg daar nog een dosis theorie met specifieke "
-"dartsterminologie aan toe, en voor je het weet, schitter je op toernooien.\n"
-"                "
-msgstr ""
-"\n"
-"Add to that a dose of theory with specific darts terminology, and before you "
-"know it, you'll be shining at tournaments.\n"
-"                "
-
-#: .\darts\templates\pages\about.html:178
-msgid ""
-"\n"
-"                Met alle aangereikte tools en het ter beschikking stellen "
-"van de accommodatie zijn jullie nu zelf aan zet.\n"
-"                Want het pijltje zal uiteindelijk door jullie zelf gegooid "
-"moeten worden.<br><br>\n"
-"                Succes!\n"
-"                "
-msgstr ""
-"\n"
-"With all the tools provided and the provision of the accommodation, it is "
-"now up to you.\n"
-"                For the dart will eventually have to be thrown by yourselves."
-"<br><br>Good luck!                "
 
 #: .\darts\templates\pages\algemeen-reglement.html:31
 msgid "Deelnemen aan darttoernooien ingericht door ChudartZ"
@@ -1658,8 +1525,8 @@ msgstr ""
 "                            Restored."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:107
-msgid "Verantwoordelijkheid en verzekering"
-msgstr "Responsibility and insurance"
+msgid "Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand"
+msgstr "Responsibility, insurance, liability and legal assistance"
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:111
 msgid ""
@@ -1722,11 +1589,7 @@ msgstr ""
 "and \n"
 "                            act responsibly."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:136
-msgid "Aansprakelijkheid en rechtsbijstand"
-msgstr "Liability and legal assistance"
-
-#: .\darts\templates\pages\algemene-voorwaarden.html:140
+#: .\darts\templates\pages\algemene-voorwaarden.html:134
 msgid ""
 "De organisatie behoudt zich het recht voor om de toernooilocatie, het schema "
 "of andere aspecten \n"
@@ -1742,7 +1605,7 @@ msgstr ""
 "                            depending on external factors over which the "
 "organization does not have full control."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:145
+#: .\darts\templates\pages\algemene-voorwaarden.html:139
 msgid ""
 "In geval van overmacht (bijvoorbeeld pandemieën, natuurgeweld) kan het "
 "toernooi worden \n"
@@ -1754,11 +1617,12 @@ msgstr ""
 "                            postponed or cancelled without refund of "
 "registration fee."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:151
+#: .\darts\templates\pages\algemene-voorwaarden.html:145
+#: .\darts\templates\pages\privacybeleid.html:222
 msgid "Privacy en gebruik van beeldmateriaal"
 msgstr "Privacy and use of imagery"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:155
+#: .\darts\templates\pages\algemene-voorwaarden.html:149
 msgid ""
 "Door deel te nemen aan het toernooi en/of het betreden van een evenement "
 "gaat u akkoord met het \n"
@@ -1772,7 +1636,7 @@ msgstr ""
 "these images may be used for \n"
 "                            promotional purposes without any compensation."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:160
+#: .\darts\templates\pages\algemene-voorwaarden.html:154
 msgid ""
 "Persoonlijke gegevens die tijdens de inschrijving worden verzameld, worden "
 "uitsluitend gebruikt \n"
@@ -1787,11 +1651,11 @@ msgstr ""
 "                            a ranking with the names of the participants on "
 "the organiser's website."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:167
+#: .\darts\templates\pages\algemene-voorwaarden.html:161
 msgid "Disputen"
 msgstr "Disputes"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:171
+#: .\darts\templates\pages\algemene-voorwaarden.html:165
 msgid ""
 "Eventuele geschillen die voortkomen uit de deelname aan het toernooi worden "
 "voorgelegd aan de \n"
@@ -1801,7 +1665,7 @@ msgstr ""
 "to the \n"
 "                            organisation, whose decision is binding."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:175
+#: .\darts\templates\pages\algemene-voorwaarden.html:169
 msgid ""
 "Geschillen over de spelregels worden onmiddellijk beslecht door de "
 "aangewezen scheidsrechter."
@@ -1809,11 +1673,11 @@ msgstr ""
 "Disputes about the laws of the game will be settled immediately by the "
 "designated referee."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:180
+#: .\darts\templates\pages\algemene-voorwaarden.html:174
 msgid "Wijzigingen en aanpassingen"
 msgstr "Changes and modifications"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:184
+#: .\darts\templates\pages\algemene-voorwaarden.html:178
 msgid ""
 "De organisatie behoudt zich het recht voor om deze algemene voorwaarden op "
 "elk moment te \n"
@@ -1825,11 +1689,11 @@ msgstr ""
 "                            modify. Any changes will be communicated prior "
 "to the tournament."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:190
+#: .\darts\templates\pages\algemene-voorwaarden.html:184
 msgid "Acceptatie van de voorwaarden"
 msgstr "Acceptance of the Terms"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:194
+#: .\darts\templates\pages\algemene-voorwaarden.html:188
 msgid ""
 "Door deel te nemen aan het toernooi, accepteert de deelnemer automatisch de "
 "bovenstaande \n"
@@ -1855,15 +1719,12 @@ msgid "Er is iets misgegaan."
 msgstr "Something went wrong."
 
 #: .\darts\templates\pages\dartschool-beurtkaart-response.html:30
-#: .\darts\templates\pages\dartschool-inschrijving-response.html:30
 #: .\darts\templates\pages\toernooi-inschrijving-response.html:30
 msgid "Gelieve contact op te nemen via "
 msgstr "Please contact us at "
 
 #: .\darts\templates\pages\dartschool-beurtkaart-response.html:30
-#: .\darts\templates\pages\dartschool-inschrijving-response.html:30
 #: .\darts\templates\pages\toernooi-inschrijving-response.html:30
-#: .\pokemon\templates\pokemon\pages\index.html:102
 msgid "dit formulier."
 msgstr "this form."
 
@@ -1872,12 +1733,15 @@ msgid "Reserveer uw training"
 msgstr "Book your training"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:32
-msgid "Beurtkaart Kopen"
+msgid "Beurtenkaart Kopen"
 msgstr "Buy a multi-session card"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:35
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:32
-#: .\darts\templates\pages\dartschool-reserveren.html:36
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:31
+#: .\darts\templates\pages\dartschool-meer-info.html:23
+#: .\darts\templates\pages\dartschool-reserveren.html:35
+#: .\darts\templates\pages\dartschool-werkwijze.html:22
+#: .\darts\templates\pages\priveles.html:31
 msgid "/dartschool"
 msgstr "/dartschool"
 
@@ -1890,7 +1754,7 @@ msgid ""
 "\n"
 "                      Als de proefles je is bevallen en je wilt verder "
 "lessen volgen, kun je hier online een meerbeurtenkaart aankopen. Voordat je "
-"dit kunt doen, moet je eerst het lidgeld betalen. Daarna ontvang je een "
+"dit kunt doen, dien je eerst het lidgeld betalen. Daarna ontvang je een "
 "unieke persoonlijke code. Bewaar deze code goed, want je hebt hem nodig om "
 "online een afspraak in te boeken voor het volgen van een dartsles.\n"
 "                      "
@@ -1904,22 +1768,23 @@ msgstr ""
 "                      "
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:64
-msgid "Koop uw beurtkaart"
-msgstr "Buy your turn card"
+msgid "Koop uw beurtenkaart"
+msgstr "Buy your multi-session card"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:75
-msgid "Selecteer uw beurtkaart"
-msgstr "Select your turn card"
+msgid "Selecteer uw beurtenkaart"
+msgstr "Select your multi-session card"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:84
-#: .\darts\templates\pages\dartschool-reserveren.html:66
+#: .\darts\templates\pages\dartschool-reserveren.html:65
 msgid "Uw persoonlijke code"
 msgstr "Your personal code"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:88
-#: .\darts\templates\pages\dartschool-reserveren.html:77
-#: .\darts\templates\pages\index.html:414
-#: .\pokemon\templates\pokemon\pages\index.html:382
+#: .\darts\templates\pages\dartschool-reserveren.html:78
+#: .\darts\templates\pages\index.html:332
+#: .\darts\templates\pages\priveles.html:83
+#: .\pokemon\templates\pokemon\pages\index.html:270
 msgid "Laden..."
 msgstr "Loading..."
 
@@ -1939,46 +1804,42 @@ msgstr "I don't have a code"
 msgid "Verkrijg uw code"
 msgstr "Get your code"
 
-#: .\darts\templates\pages\dartschool-beurtkaart.html:149
+#: .\darts\templates\pages\dartschool-beurtkaart.html:150
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:79
-#: .\darts\templates\pages\toernooi-inschrijving.html:129
-msgid "Ik ga akkoord met de "
-msgstr "I accept the "
+#: .\darts\templates\pages\toernooi-inschrijving.html:132
+#, python-format
+msgid ""
+"Ik ga akkoord met de <a href=\"%(av_url)s\">Algemene voorwaarden</a> van "
+"ChudartZ."
+msgstr ""
+"I agree with the <a href=\"%(av_url)s\">Terms and Conditions</a> of ChudartZ."
 
-#: .\darts\templates\pages\dartschool-beurtkaart.html:149
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:79
-#: .\darts\templates\pages\toernooi-inschrijving.html:129
-msgid "Algemene voorwaarden"
-msgstr "Terms and conditions"
+#: .\darts\templates\pages\dartschool-beurtkaart.html:160
+#: .\darts\templates\pages\toernooi-inschrijving.html:142
+#, python-format
+msgid ""
+"Ik ga akkoord met het <a href=\"%(rt_url)s\">Algemeen reglement</a> voor "
+"darttoernooien."
+msgstr ""
+"I agree with the <a href=\"%(rt_url)s\">General Rules</a> for Darts "
+"Tournaments."
 
-#: .\darts\templates\pages\dartschool-beurtkaart.html:149
-#: .\darts\templates\pages\dartschool-beurtkaart.html:179
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:79
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:109
-#: .\darts\templates\pages\toernooi-inschrijving.html:129
-#: .\darts\templates\pages\toernooi-inschrijving.html:161
-msgid "van ChudartZ."
-msgstr "by ChudartZ."
+#: .\darts\templates\pages\dartschool-beurtkaart.html:170
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:99
+#: .\darts\templates\pages\toernooi-inschrijving.html:152
+#, python-format
+msgid ""
+"Ik ga akkoord met het <a href=\"%(p_url)s\">Privacybeleid</a> van ChudartZ."
+msgstr "I agree with ChudartZ's <a href=\"%(p_url)s\">Privacy Policy</a> ."
 
-#: .\darts\templates\pages\dartschool-beurtkaart.html:158
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:88
-#: .\darts\templates\pages\toernooi-inschrijving.html:138
-msgid "Ik ga akkoord met het"
-msgstr "I agree with the"
+#: .\darts\templates\pages\dartschool-beurtkaart.html:180
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:121
+#: .\darts\templates\pages\toernooi-inschrijving.html:176
+#, python-format
+msgid "Ik ga akkoord met de <a href=\"%(d_url)s\">Disclaimer</a> van ChudartZ."
+msgstr "I agree with the <a href=\"%(d_url)s\">Disclaimer</a> of ChudartZ."
 
-#: .\darts\templates\pages\dartschool-beurtkaart.html:158
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:88
-#: .\darts\templates\pages\toernooi-inschrijving.html:138
-msgid "Algemeen reglement"
-msgstr "General Regulations"
-
-#: .\darts\templates\pages\dartschool-beurtkaart.html:158
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:88
-#: .\darts\templates\pages\toernooi-inschrijving.html:138
-msgid "voor darttoernooien. "
-msgstr "for darts tournaments. "
-
-#: .\darts\templates\pages\dartschool-beurtkaart.html:167
+#: .\darts\templates\pages\dartschool-beurtkaart.html:189
 msgid ""
 "\n"
 "                        Als ouder/voogd, geef ik toestemming aan mijn "
@@ -1998,38 +1859,50 @@ msgstr ""
 "confidential and will only be used for purposes related to this event.\n"
 "                        "
 
-#: .\darts\templates\pages\dartschool-beurtkaart.html:179
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:109
-#: .\darts\templates\pages\toernooi-inschrijving.html:161
-msgid "Ik ga akkoord met de"
-msgstr "I agree with the"
-
-#: .\darts\templates\pages\dartschool-beurtkaart.html:186
+#: .\darts\templates\pages\dartschool-beurtkaart.html:199
 msgid "€50 lidgeld betalen"
 msgstr "Pay €50 membership fee"
 
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:29
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:28
+#: .\darts\templates\pages\dartschool-werkwijze.html:61
 #: .\darts\templates\pages\dartschool.html:89
 msgid "Gratis Proefles"
 msgstr "Free trial lesson"
 
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:44
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:29
 msgid ""
-"Elke eerste maandag, dinsdag of woensdag van de maand van 19 u tot 20.30 u"
+"Wil jij je dartskills aanscherpen of gewoon ontdekken of darten iets voor "
+"jou is? Schrijf je dan nu in voor een gratis proefles!"
 msgstr ""
-"Every first Monday, Tuesday or Wednesday of the month from 7 p.m. to 8:30 p."
-"m."
+"Do you want to hone your darts skills or just discover if darts is something "
+"for you? Sign up now for a free trial lesson!"
 
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:45
-#: .\darts\templates\pages\dartschool-reserveren.html:49
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:43
+msgid ""
+"Eerste maandag, dinsdag of woensdag van de maand van 18.30 u tolke et 19.15 u"
+msgstr ""
+"First Monday, Tuesday or Wednesday of the month from 6.30 p.m. to 7.15 p.m."
+
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:44
+#: .\darts\templates\pages\dartschool-reserveren.html:48
+#: .\darts\templates\pages\priveles.html:44
 msgid "Wilgenlaan 35, Zedelgem"
 msgstr "Wilgenlaan 35, Zedelgem"
 
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:55
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:54
 msgid "Boek uw gratis proefles"
 msgstr "Book your free trial lesson"
 
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:97
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:89
+#, python-format
+msgid ""
+"Ik ga akkoord met het <a href=\"%(rt_url)s\">Algemeen reglement</a> van de "
+"dartschool."
+msgstr ""
+"I agree with the <a href=\"%(rt_url)s\">General Regulations</a> of the dart "
+"school."
+
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:108
 msgid ""
 "\n"
 "                          Als ouder/voogd, geef ik toestemming aan mijn "
@@ -2049,8 +1922,8 @@ msgstr ""
 "confidential and will only be used for purposes related to this event.\n"
 "                          "
 
-#: .\darts\templates\pages\dartschool-gratis-proefles.html:116
-#: .\darts\templates\pages\dartschool-reserveren.html:86
+#: .\darts\templates\pages\dartschool-gratis-proefles.html:128
+#: .\darts\templates\pages\dartschool-reserveren.html:87
 msgid "Kies Datum"
 msgstr "Choose Date"
 
@@ -2058,51 +1931,332 @@ msgstr "Choose Date"
 msgid "Uw code komt direct aan in uw mailbox"
 msgstr "Your code will arrive directly in your mailbox"
 
-#: .\darts\templates\pages\dartschool-inschrijving-response.html:34
-msgid "Koop een beurtkaart"
+#: .\darts\templates\pages\dartschool-inschrijving-response.html:31
+#, python-format
+msgid ""
+"Gelieve contact op te nemen via <a href=\"%(index_url)s#contact\">dit "
+"formulier.</a>"
+msgstr ""
+"Please contact <a href=\"%(index_url)s#contact\">us using this form.</a>"
+
+#: .\darts\templates\pages\dartschool-inschrijving-response.html:35
+msgid "Koop een beurtenkaart"
 msgstr "Buy a multi-session card"
 
-#: .\darts\templates\pages\dartschool-reserveren.html:33
+#: .\darts\templates\pages\dartschool-meer-info.html:20
+#: .\darts\templates\pages\dartschool.html:59
+#: .\darts\templates\pages\index.html:165
+msgid "Meer Info"
+msgstr "More Info"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:21
+#: .\darts\templates\pages\dartschool.html:29
+msgid ""
+"Ben je klaar om je dartskills naar een hoger niveau te tillen? Welkom bij "
+"ChudartZ! De plek waar jongeren kunnen samenkomen om de kunst van het darten "
+"te leren en perfectioneren!"
+msgstr ""
+"Are you ready to take your darts skills to the next level? Welcome to "
+"ChudartZ! The place where young people can come together to learn and "
+"perfect the art of darts!"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:35
+msgid "Ontwikkeling van Basisvaardigheden:"
+msgstr "Basic Skills Development:"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:36
+msgid "Het aanleren van de basisprincipes van darten, zoals"
+msgstr "Teaching the basics of darts, such as"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:38
+msgid "de juiste houding"
+msgstr "the right posture"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:39
+msgid "de ademhaling"
+msgstr "breathing"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:40
+msgid "de worptechniek"
+msgstr "the throwing technique"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:41
+msgid "de oog- handcoördinatie"
+msgstr "hand-eye coordination"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:42
+msgid "de focus"
+msgstr "the focus"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:44
+msgid ""
+"Dit zorgt ervoor dat leerlingen een solide fundament opbouwen waarop ze hun "
+"vaardigheden verder kunnen ontwikkelen."
+msgstr ""
+"This ensures that students build a solid foundation on which to further "
+"develop their skills."
+
+#: .\darts\templates\pages\dartschool-meer-info.html:47
+msgid "Bevorderen van competitief denken:"
+msgstr "Fostering Competitive Thinking:"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:49
+msgid ""
+"\n"
+"                Het stimuleren van een gezonde competitieve geest bij "
+"jongeren, waarbij fair play, sportiviteit en zelfverbetering centraal staan. "
+"Dit helpt hen om niet alleen beter te worden in darten, maar ook om "
+"belangrijke levensvaardigheden te ontwikkelen.\n"
+"                "
+msgstr ""
+"\n"
+"               Stimulating a healthy competitive spirit in young people, "
+"where fair play, sportsmanship and self-improvement are central. This helps "
+"them not only get better at darts, but also develop important life skills."
+
+#: .\darts\templates\pages\dartschool-meer-info.html:55
+msgid "Persoonlijke Groei en zelfvertrouwen:"
+msgstr "Personal Growth and Self-Confidence:"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:57
+msgid ""
+"\n"
+"                Het trainen van talentvolle spelers om deel te nemen aan "
+"lokale, nationale en wie weet op termijn internationale dartstoernooien.\n"
+"                "
+msgstr ""
+"\n"
+"Training talented players to participate in local, national and who knows, "
+"in the long run, international darts tournaments.\n"
+"                "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:63
+msgid "Creëren van Gemeenschapsgevoel:"
+msgstr "Creating a sense of community:"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:65
+msgid ""
+"\n"
+"                Het opbouwen van een hechte en ondersteunende gemeenschap "
+"waar spelers van alle leeftijden en niveaus elkaar kunnen inspireren, "
+"ondersteunen en samen plezier kunnen hebben. Dit bevordert een gevoel van "
+"samenhorigheid en gedeelde passie.\n"
+"                "
+msgstr ""
+"\n"
+"Building a close-knit and supportive community where players of all ages and "
+"abilities can inspire, support, and have fun together. This fosters a sense "
+"of belonging and shared passion.\n"
+"                "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:71
+msgid "Educatieve en Leuke Activiteiten:"
+msgstr "Educational and fun activities:"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:73
+msgid ""
+"\n"
+"                Het aanbieden van educatieve workshops, toernooien en andere "
+"activiteiten om het leren leuk te maken en tegelijkertijd de vaardigheden en "
+"kennis van de deelnemers te vergroten.\n"
+"                "
+msgstr ""
+"\n"
+"Offering educational workshops, tournaments, and other activities to make "
+"learning fun while increasing the skills and knowledge of participants.\n"
+"                "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:79
+msgid "Mentorschap:"
+msgstr "Mentorship:"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:81
+msgid ""
+"\n"
+"                Het bieden van mentorschap aan jongere spelers door ervaren "
+"dartspelers (binnen de school), wat niet alleen hun dartvaardigheden "
+"verbetert, maar hen ook leert om te groeien binnen de dartsgemeenschap.\n"
+"                "
+msgstr ""
+"\n"
+"Providing mentorship to younger players by experienced darts players (within "
+"the school), which not only improves their darts skills but also teaches "
+"them to grow within the darts community.\n"
+"                "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:87
+msgid "Fysieke en mentale gezondheid bevorderen:"
+msgstr "Promoting physical and mental health:"
+
+#: .\darts\templates\pages\dartschool-meer-info.html:90
+msgid ""
+"\n"
+"                  Het bevorderen van zowel de fysieke als mentale gezondheid "
+"door het aanmoedigen van regelmatige fysieke activiteit, concentratie, en "
+"stressmanagement via darten.\n"
+"                  "
+msgstr ""
+"\n"
+"Promoting both physical and mental health by encouraging regular physical "
+"activity, concentration, and stress management through darts.\n"
+"                  "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:95
+msgid ""
+"\n"
+"                  Hoofdrekenen is een essentieel onderdeel van het darten, "
+"waardoor je niet alleen je rekenvaardigheden aanscherpt, maar ook je "
+"algemene concentratie en strategisch inzicht verbetert.\n"
+"                  "
+msgstr ""
+"\n"
+"Mental arithmetic is an essential part of darts, helping you not only hone "
+"your math skills but also improve your overall concentration and strategic "
+"insight.\n"
+"                  "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:105
+msgid ""
+"\n"
+"            Met deze doelen biedt een dartschool niet alleen technische "
+"training, maar ook een platform voor persoonlijke en sociale ontwikkeling.\n"
+"            "
+msgstr ""
+"\n"
+"With these goals, a darts school not only provides technical training, but "
+"also a platform for personal and social development.\n"
+"            "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:111
+msgid ""
+"\n"
+"            Voeg daar nog een dosis theorie met specifieke dartsterminologie "
+"aan toe, en voor je het weet, schitter je op toernooien.\n"
+"            "
+msgstr ""
+"\n"
+"Add to that a dose of theory with specific darts terminology, and before you "
+"know it, you'll be shining at tournaments.\n"
+"            "
+
+#: .\darts\templates\pages\dartschool-meer-info.html:117
+msgid ""
+"\n"
+"            Met alle aangereikte tools en het ter beschikking stellen van de "
+"accommodatie zijn jullie nu zelf aan zet.\n"
+"            Want het pijltje zal uiteindelijk door jullie zelf gegooid "
+"moeten worden.<br><br>\n"
+"            Succes!\n"
+"            "
+msgstr ""
+"\n"
+"With all the tools provided and the provision of the accommodation, it is "
+"now up to you.\n"
+"                For the dart will eventually have to be thrown by yourselves."
+"<br><br>Good luck!                "
+
+#: .\darts\templates\pages\dartschool-reserveren.html:32
 msgid "Reserveren"
 msgstr "Reserve"
 
-#: .\darts\templates\pages\dartschool-reserveren.html:48
-msgid "maandag t.e.m. donderdag van 19u tot 21.15u"
-msgstr "Monday to Thursday from 7 p.m. to 9.15 p.m."
+#: .\darts\templates\pages\dartschool-reserveren.html:33
+msgid ""
+"Heeft de proefles je enthousiast gemaakt en wil je verder met darten? "
+"Reserveer nu je plek voor een volledige training en til je dartskills naar "
+"een hoger niveau!"
+msgstr ""
+"Has the trial lesson made you enthusiastic and do you want to continue "
+"playing darts? Reserve your spot now for a full training session and take "
+"your darts skills to the next level!"
 
-#: .\darts\templates\pages\dartschool-reserveren.html:59
-msgid "Reserveer je plaats op de training"
-msgstr "Reserve your place at the training"
+#: .\darts\templates\pages\dartschool-reserveren.html:47
+msgid "maandag t.e.m. donderdag van 19.15 u tot 21.15 u"
+msgstr "Monday to Thursday from 7.15 pm to 9.15 pm"
+
+#: .\darts\templates\pages\dartschool-reserveren.html:58
+msgid "Reserveer training"
+msgstr "Book training"
 
 #: .\darts\templates\pages\dartschool-reserveren.html:71
-msgid "U kan"
-msgstr "You can"
+#, python-format
+msgid ""
+"U kan <a href=\"%(proefles_url)s\">hier</a> een gratis proefles aanvragen."
+msgstr ""
+"You can request a free trial lesson <a href=\"%(proefles_url)s\">here</a> ."
 
-#: .\darts\templates\pages\dartschool-reserveren.html:71
-#: .\darts\templates\pages\dartschool-reserveren.html:72
-#: .\darts\templates\pages\index.html:291
-msgid "hier"
-msgstr "here"
+#: .\darts\templates\pages\dartschool-reserveren.html:73
+#, python-format
+msgid ""
+"Heeft u nog geen toegangscode? Die kan u <a "
+"href=\"%(beurtkaart_url)s\">hier</a> verkrijgen."
+msgstr ""
+"Don't have an access code yet? You can get it <a "
+"href=\"%(beurtkaart_url)s\">here</a> ."
 
-#: .\darts\templates\pages\dartschool-reserveren.html:71
-msgid "een gratis proefles aanvragen."
-msgstr "request a free trial lesson."
-
-#: .\darts\templates\pages\dartschool-reserveren.html:72
-msgid "Heeft u nog geen toegangscode? Die kan u"
-msgstr "Don't have an access code yet? You can"
-
-#: .\darts\templates\pages\dartschool-reserveren.html:72
-msgid "verkrijgen."
-msgstr "obtain."
-
-#: .\darts\templates\pages\dartschool-reserveren.html:95
+#: .\darts\templates\pages\dartschool-reserveren.html:96
 msgid "U heeft nog"
 msgstr "You still have"
 
-#: .\darts\templates\pages\dartschool-reserveren.html:95
+#: .\darts\templates\pages\dartschool-reserveren.html:96
 msgid "resterende beurten."
 msgstr "remaining turns."
+
+#: .\darts\templates\pages\dartschool-werkwijze.html:43
+#, python-format
+msgid ""
+"\n"
+"                      Als de proefles je is bevallen en je wilt verder "
+"lessen volgen, kun je online een <a "
+"href=\"%(beurtkaart_url)s\">meerbeurtenkaart aankopen</a>. Voordat je dit "
+"kunt doen, dien je eerst het lidgeld betalen.\n"
+"                      Het <b>lidgeld</b> bedraagt € 50 voor een gans jaar."
+"<br>Wat is inbegrepen ?\n"
+"\n"
+"                      "
+msgstr ""
+"\n"
+"                      If you liked the trial lesson and you want to continue "
+"taking lessons, you can <a href=\"%(beurtkaart_url)s\">purchase a multi-"
+"session card</a> online. Before you can do this, you must first pay the "
+"membership fee.\n"
+"                      The <b>membership fee</b> is € 50 for a whole year."
+"<br>What's included ?\\m\n"
+"\n"
+"                      "
+
+#: .\darts\templates\pages\dartschool-werkwijze.html:50
+msgid "Gebruik van het materiaal en de accommodatie"
+msgstr "Use of equipment and accommodation"
+
+#: .\darts\templates\pages\dartschool-werkwijze.html:51
+msgid "Gratis (spuit)water tijdens de trainingen"
+msgstr "Free (soothing) water during the training sessions"
+
+#: .\darts\templates\pages\dartschool-werkwijze.html:52
+msgid "Verzekering tijdens de trainingen en de toernooien"
+msgstr "Insurance during training sessions and tournaments"
+
+#: .\darts\templates\pages\dartschool-werkwijze.html:53
+msgid "Voorrang en ondersteuning bij toernooien, jeugd- en/of clubcompetitie"
+msgstr "Priority and support at tournaments, youth and/or club competitions"
+
+#: .\darts\templates\pages\dartschool-werkwijze.html:57
+msgid ""
+"\n"
+"                      Het <b>lesgeld</b> wordt aangeboden in de vorm van "
+"beurtenkaarten. Kom je wekelijks, dan is een 10-beurtenkaart wellicht een "
+"goede keuze. Plan je om meerdere keren per week te komen, dan is een 20-"
+"beurtenkaart een voordeligere optie. Kom je slechts één keer per maand, dan "
+"kun je beter een losse beurt aanschaffen.\n"
+"                      "
+msgstr ""
+"\n"
+"                   The <b>tuition fee</b> is offered in the form of multi-"
+"use cards. If you come weekly, a 10-session card might be a good choice. If "
+"you plan to come several times a week, a 20-session card is a cheaper "
+"option. If you only come once a month, it is better to purchase a single "
+"service.             \n"
+"         "
 
 #: .\darts\templates\pages\dartschool.html:13
 #: .\darts\templates\pages\dartschool.html:18
@@ -2120,16 +2274,6 @@ msgstr ""
 "experienced player looking to refine your technique, we're here to help. "
 "With personal attention and expert guidance, we ensure that you can get the "
 "best out of yourself."
-
-#: .\darts\templates\pages\dartschool.html:29
-msgid ""
-"Ben je klaar om je dartskills naar een hoger niveau te tillen? Welkom bij "
-"ChudartZ! De plek waar jongeren kunnen samenkomen om de kunst van het darten "
-"te leren en perfectioneren!"
-msgstr ""
-"Are you ready to take your darts skills to the next level? Welcome to "
-"ChudartZ! The place where young people can come together to learn and "
-"perfect the art of darts!"
 
 #: .\darts\templates\pages\dartschool.html:47
 msgid "Ons Doel"
@@ -2166,12 +2310,6 @@ msgstr "Personal growth and self-confidence"
 #: .\darts\templates\pages\dartschool.html:57
 msgid "Voorbereiden op competitieve darts"
 msgstr "Preparing for competitive darts"
-
-#: .\darts\templates\pages\dartschool.html:59
-#: .\darts\templates\pages\index.html:169
-#: .\pokemon\templates\pokemon\pages\index.html:145
-msgid "Meer Info"
-msgstr "More Info"
 
 #: .\darts\templates\pages\dartschool.html:75
 msgid "Voor Wie"
@@ -2238,8 +2376,8 @@ msgid "lidgeld: € 50/jaar"
 msgstr "membership fee: € 50/year"
 
 #: .\darts\templates\pages\dartschool.html:110
-#: .\darts\templates\pages\toernooi-inschrijving.html:30
-#: .\darts\templates\pages\toernooi-inschrijving.html:168
+#: .\darts\templates\pages\toernooi-inschrijving.html:27
+#: .\darts\templates\pages\toernooi-inschrijving.html:183
 msgid "Inschrijven"
 msgstr "Subscribe"
 
@@ -2247,7 +2385,8 @@ msgstr "Subscribe"
 msgid "Privacybescherming"
 msgstr "Privacy"
 
-#: .\darts\templates\pages\disclaimer.html:32
+#: .\darts\templates\pages\disclaimer.html:33
+#, python-format
 msgid ""
 "\n"
 "                  Wij nemen de bescherming van uw privacy zeer serieus. Alle "
@@ -2258,7 +2397,8 @@ msgid ""
 "privacy van het individu. Wij doen er \n"
 "                  alles aan om uw gegevens te beveiligen tegen "
 "ongeautoriseerde toegang, verlies of diefstal, maar \n"
-"                  kunnen geen absolute veiligheid garanderen.\n"
+"                  kunnen geen absolute veiligheid garanderen. Zie ook ons <a "
+"href=\"%(privacy_url)s\">privacybeleid</a>.\n"
 "                  "
 msgstr ""
 "\n"
@@ -2270,14 +2410,15 @@ msgstr ""
 "do it \n"
 "                  to protect your data from unauthorized access, loss, or "
 "theft, but \n"
-"                  cannot guarantee absolute security.\n"
+"                  cannot guarantee absolute security. See also our <a "
+"href=\"%(privacy_url)s\">privacy policy</a>.\n"
 "                  "
 
-#: .\darts\templates\pages\disclaimer.html:41
+#: .\darts\templates\pages\disclaimer.html:42
 msgid "Aansprakelijkheidsuitsluiting"
 msgstr "Exclusion of liability"
 
-#: .\darts\templates\pages\disclaimer.html:43
+#: .\darts\templates\pages\disclaimer.html:44
 msgid ""
 "\n"
 "                  De informatie op deze website is uitsluitend bedoeld voor "
@@ -2311,11 +2452,11 @@ msgstr ""
 "claims for damages from third parties.\n"
 "                  "
 
-#: .\darts\templates\pages\disclaimer.html:54
+#: .\darts\templates\pages\disclaimer.html:55
 msgid "Inschrijving en deelname op eigen risico"
 msgstr "Registration and participation at your own risk"
 
-#: .\darts\templates\pages\disclaimer.html:56
+#: .\darts\templates\pages\disclaimer.html:57
 msgid ""
 "\n"
 "                  Door u in te schrijven voor een evenement via deze website "
@@ -2343,11 +2484,11 @@ msgstr ""
 "precautions.\n"
 "                  "
 
-#: .\darts\templates\pages\disclaimer.html:65
+#: .\darts\templates\pages\disclaimer.html:66
 msgid "Externe links"
 msgstr "External links"
 
-#: .\darts\templates\pages\disclaimer.html:67
+#: .\darts\templates\pages\disclaimer.html:68
 msgid ""
 "\n"
 "                  Deze website kan links bevatten naar externe websites of "
@@ -2369,11 +2510,11 @@ msgstr ""
 "                  does not imply that we endorse the content or services.\n"
 "                  "
 
-#: .\darts\templates\pages\disclaimer.html:75
+#: .\darts\templates\pages\disclaimer.html:76
 msgid "Geen terugbetalingen"
 msgstr "No refunds"
 
-#: .\darts\templates\pages\disclaimer.html:77
+#: .\darts\templates\pages\disclaimer.html:78
 msgid ""
 "\n"
 "                  Gekochte tickets kunnen niet worden terugbetaald of "
@@ -2386,11 +2527,11 @@ msgstr ""
 "                  cancellation of the event by the organization.\n"
 "                  "
 
-#: .\darts\templates\pages\disclaimer.html:83
+#: .\darts\templates\pages\disclaimer.html:84
 msgid "Overdracht van tickets"
 msgstr "Transfer of tickets"
 
-#: .\darts\templates\pages\disclaimer.html:85
+#: .\darts\templates\pages\disclaimer.html:86
 msgid ""
 "\n"
 "                  Het is niet toegestaan om tickets door te verkopen of over "
@@ -2403,11 +2544,11 @@ msgstr ""
 "                  permission of the organiser.\n"
 "                  "
 
-#: .\darts\templates\pages\disclaimer.html:91
+#: .\darts\templates\pages\disclaimer.html:92
 msgid "Toegang en beveiliging"
 msgstr "Access & Security"
 
-#: .\darts\templates\pages\disclaimer.html:93
+#: .\darts\templates\pages\disclaimer.html:94
 msgid ""
 "\n"
 "                  De organisator behoudt zich het recht voor om, zonder "
@@ -2424,11 +2565,11 @@ msgstr ""
 "                  behaviour.\n"
 "                  "
 
-#: .\darts\templates\pages\disclaimer.html:101
+#: .\darts\templates\pages\disclaimer.html:102
 msgid "Wijzigingen"
 msgstr "Alterations"
 
-#: .\darts\templates\pages\disclaimer.html:103
+#: .\darts\templates\pages\disclaimer.html:104
 msgid ""
 "\n"
 "                  Wij behouden ons het recht voor om deze disclaimer en/of "
@@ -2445,6 +2586,113 @@ msgstr ""
 "this disclaimer \n"
 "                  to keep up to date with any changes\n"
 "                  "
+
+#: .\darts\templates\pages\faq.html:33
+#: .\pokemon\templates\pokemon\pages\faq.html:33
+msgid "<span>Veel Gestelde</span><strong> Vragen</strong>"
+msgstr "<span>Frequently Asked</span><strong> Questions</strong>"
+
+#: .\darts\templates\pages\faq.html:35
+#: .\pokemon\templates\pokemon\pages\faq.html:35
+msgid ""
+"\n"
+"                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier "
+"vind je antwoorden op de meest gestelde vragen over inschrijvingen, "
+"speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle "
+"belangrijke informatie. Mis je nog iets? Aarzel niet om\n"
+"                  "
+msgstr ""
+"\n"
+"Do you have any questions about the tournament? Check out our FAQ! Here you "
+"will find answers to the most frequently asked questions about "
+"registrations, schedules, rules and more. This way you are immediately aware "
+"of all the important information. Are you missing something? Don't hesitate "
+"to\n"
+"                  "
+
+#: .\darts\templates\pages\faq.html:38
+#: .\pokemon\templates\pokemon\pages\faq.html:38 .\pokemon\urls.py:12
+msgid "contact"
+msgstr "contact"
+
+#: .\darts\templates\pages\faq.html:39
+#: .\pokemon\templates\pokemon\pages\faq.html:39
+msgid "met ons op te nemen!"
+msgstr "with us!"
+
+#: .\darts\templates\pages\faq.html:48
+msgid "Hoe kan ik me inschrijven voor het toernooi?"
+msgstr "How can I register for the tournament?"
+
+#: .\darts\templates\pages\faq.html:51
+#, python-format
+msgid ""
+"Inschrijven kan via <a href=\"%(toernooi_url)s\">onze website</a> of ter "
+"plaatse op de dag van het evenement, afhankelijk van beschikbaarheid"
+msgstr ""
+"Registration can be done via <a href=\"%(toernooi_url)s\">our website</a> or "
+"on site on the day of the event, subject to availability"
+
+#: .\darts\templates\pages\faq.html:57
+msgid "Wat zijn de dartregels ?"
+msgstr "What are the darts rules?"
+
+#: .\darts\templates\pages\faq.html:60
+#, python-format
+msgid ""
+"Onze dartregels kan u <a href=\"%(reglement_url)s\">hier</a> terugvinden."
+msgstr "Our darts rules can be found <a href=\"%(reglement_url)s\">here</a> ."
+
+#: .\darts\templates\pages\faq.html:66
+msgid "Is de dartschool toegankelijk voor mensen met een beperking?"
+msgstr "Is the dart school accessible for people with disabilities?"
+
+#: .\darts\templates\pages\faq.html:68
+msgid ""
+"Hoewel we er alles aan doen om een gastvrije omgeving te bieden, willen we "
+"erop wijzen dat onze huidige locatie helaas niet volledig toegankelijk is "
+"voor mindervaliden vanwege de structuur van het gebouw. We waarderen uw "
+"begrip en werken eraan om in de toekomst meer toegankelijke faciliteiten te "
+"bieden."
+msgstr ""
+"While we make every effort to provide a welcoming environment, we would like "
+"to point out that our current location is unfortunately not fully accessible "
+"to people with disabilities due to the structure of the building. We "
+"appreciate your understanding and are working to provide more accessible "
+"facilities in the future."
+
+#: .\darts\templates\pages\faq.html:74
+msgid ""
+"Is er een leeftijdsbeperking om lid te worden van de school of deel te nemen "
+"aan een toernooi?"
+msgstr ""
+"Is there an age restriction to join the school or participate in a "
+"tournament?"
+
+#: .\darts\templates\pages\faq.html:82
+msgid "Wat is de prijzenpot voor de winnaars?"
+msgstr "What is the prize pool for the winners?"
+
+#: .\darts\templates\pages\faq.html:84
+msgid ""
+"De prijzenpot verschilt per toernooi, maar bevat vaak geldprijzen, trofeeën "
+"en andere leuke verrassingen."
+msgstr ""
+"The prize pool varies from tournament to tournament, but often includes cash "
+"prizes, trophies, and other fun surprises."
+
+#: .\darts\templates\pages\faq.html:90
+msgid "Kan ik mij op de dag zelf nog inschrijven voor een toernooi?"
+msgstr "Can I register for a tournament on the day itself?"
+
+#: .\darts\templates\pages\faq.html:92
+msgid ""
+"Afhankelijk van de beschikbare plaatsen kun je je op de dag zelf nog "
+"inschrijven. We raden echter aan om vooraf te registreren om zeker te zijn "
+"van deelname."
+msgstr ""
+"Depending on the available places, you can still register on the day itself. "
+"However, we recommend pre-registering to ensure participation."
 
 #: .\darts\templates\pages\index.html:6 .\darts\templates\pages\index.html:9
 #: .\darts\templates\pages\index.html:14
@@ -2495,7 +2743,7 @@ msgstr ""
 "              "
 
 #: .\darts\templates\pages\index.html:87
-#: .\pokemon\templates\pokemon\pages\index.html:65
+#: .\pokemon\templates\pokemon\pages\index.html:70
 msgid "Lees Meer"
 msgstr "Read More"
 
@@ -2503,14 +2751,14 @@ msgstr "Read More"
 msgid ""
 "\n"
 "                    Of je nu een beginner bent of al ervaren aan de oche "
-"staat, bij Chudartz kun je jouw dartvaardigheden naar een hoger niveau "
+"staat, bij ChudartZ kun je jouw dartvaardigheden naar een hoger niveau "
 "tillen. Onze dartschool biedt begeleiding op maat voor jeugdspelers van alle "
 "niveaus. Ontdek jouw talent, verbeter je techniek en wie weet schitter jij "
 "straks op het podium!\n"
 "                    "
 msgstr ""
 "\n"
-"Whether you are a beginner or already experienced on the oche, at Chudartz "
+"Whether you are a beginner or already experienced on the oche, at ChudartZ "
 "you can take your darts skills to the next level. Our darts school offers "
 "tailor-made coaching for youth players of all levels. Discover your talent, "
 "improve your technique and who knows, you might shine on stage!\n"
@@ -2519,22 +2767,21 @@ msgstr ""
 #: .\darts\templates\pages\index.html:110
 msgid ""
 "\n"
-"                    Doe mee aan onze darttoernooien!\n"
-"                    Of je nu een beginner bent of een doorgewinterde "
-"professional, onze darttoernooien staan voor jou open. Een geweldige kans om "
-"je skills te testen, plezier te maken én mooie prijzen te winnen.\n"
-"                    Schrijf je vandaag nog in en mis de actie niet!\n"
+"                    Deze zijn toegankelijk voor iedereen, van alle "
+"leeftijden en niveaus, zodat alle geïnteresseerden kunnen deelnemen, met "
+"soms afzonderlijke competities voor de jeugd. Sommige toernooien zijn ook "
+"open voor mensen met een beperking, zodat iedereen de kans krijgt om mee te "
+"doen.\n"
 "                    "
 msgstr ""
 "\n"
-"Take part in our darts tournaments!\n"
-"                    Whether you're a beginner or a seasoned pro, our darts "
-"tournaments are open to you. A great opportunity to test your skills, have "
-"fun and win great prizes.\n"
-"                    Sign up today and don't miss out on the action!\n"
+"These are open to everyone, of all ages and levels, so that all interested "
+"parties can participate, with sometimes separate competitions for the youth. "
+"Some tournaments are also open to people with disabilities, so everyone has "
+"the opportunity to participate.\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:124
+#: .\darts\templates\pages\index.html:122
 msgid ""
 "\n"
 "                    Op zoek naar een originele en sportieve teambuilding? "
@@ -2554,35 +2801,28 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\index.html:135
-#: .\pokemon\templates\pokemon\pages\index.html:111
-msgid "Verkoop van Darts"
-msgstr "Sale of dart equipment"
-
-#: .\darts\templates\pages\index.html:137
-#: .\pokemon\templates\pokemon\pages\index.html:113
 msgid ""
 "\n"
-"                    Bij Chudartz kunt u ook terecht voor een breed scala aan "
-"darts producten, \n"
-"                    van dartpijlen en borden tot accessoires.\n"
-"                    Ons assortiment is zorgvuldig samengesteld om aan de "
-"behoeften van elke darts-enthousiasteling te voldoen.\n"
+"                    Heb je vragen over het toernooi? Bekijk dan onze FAQ! "
+"Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, "
+"speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle "
+"belangrijke informatie. Mis je nog iets? Aarzel niet om contact met ons op "
+"te nemen!\n"
 "                    "
 msgstr ""
 "\n"
-"At Chudartz you can also find a wide range of darts products, \n"
-"                    from darts and boards to accessories.\n"
-"                    Our range has been carefully curated to meet the needs "
-"of every darts enthusiast.\n"
+"Do you have any questions about the tournament? Check out our FAQ! Here you "
+"will find answers to the most frequently asked questions about "
+"registrations, schedules, rules and more. This way you are immediately aware "
+"of all the important information. Are you missing something? Don't hesitate "
+"to contact us!\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:163
-#: .\pokemon\templates\pokemon\pages\index.html:139
+#: .\darts\templates\pages\index.html:159
 msgid "Teambuildings & Workshops"
 msgstr "Team Buildings & Workshops"
 
-#: .\darts\templates\pages\index.html:165
-#: .\pokemon\templates\pokemon\pages\index.html:141
+#: .\darts\templates\pages\index.html:161
 msgid ""
 "\n"
 "                Bij ChudartZ weten we dat geweldige prestaties op de "
@@ -2597,13 +2837,13 @@ msgstr ""
 "team. That's why we also organize team building events.\n"
 "                "
 
-#: .\darts\templates\pages\index.html:181
-#: .\pokemon\templates\pokemon\pages\index.html:157
+#: .\darts\templates\pages\index.html:177
+#: .\pokemon\templates\pokemon\pages\index.html:115
 msgid "Afbeeldingen"
 msgstr "Images"
 
-#: .\darts\templates\pages\index.html:182
-#: .\pokemon\templates\pokemon\pages\index.html:158
+#: .\darts\templates\pages\index.html:178
+#: .\pokemon\templates\pokemon\pages\index.html:116
 msgid ""
 "Laat je inspireren door de foto's van onze dartsevenementen en lessen, en "
 "ervaar de energie en gemeenschap van onze club."
@@ -2611,154 +2851,729 @@ msgstr ""
 "Be inspired by the photos of our darts events and lessons, and experience "
 "the energy and community of our club."
 
-#: .\darts\templates\pages\index.html:190
-#: .\pokemon\templates\pokemon\pages\index.html:166
+#: .\darts\templates\pages\index.html:186
+#: .\pokemon\templates\pokemon\pages\index.html:124
 msgid "Alle"
 msgstr "All"
 
-#: .\darts\templates\pages\index.html:191
-#: .\pokemon\templates\pokemon\pages\index.html:167
-msgid "School"
-msgstr "School"
-
-#: .\darts\templates\pages\index.html:268
-#: .\pokemon\templates\pokemon\pages\index.html:244
-msgid "<span>Veel Gestelde</span><strong> Vragen</strong>"
-msgstr "<span>Frequently Asked</span><strong> Questions</strong>"
-
-#: .\darts\templates\pages\index.html:270
-msgid ""
-"\n"
-"                \"Veelgestelde vragen\" biedt antwoorden op de meest "
-"voorkomende vragen over een specifiek onderwerp. Hier vind je duidelijke en "
-"beknopte informatie om snel verder te kunnen.\n"
-"                "
-msgstr ""
-"\n"
-"\"Frequently Asked Questions\" provides answers to the most common questions "
-"about a specific topic. Here you will find clear and concise information to "
-"help you move forward quickly.\n"
-"                "
-
-#: .\darts\templates\pages\index.html:281
-msgid "Hoe kan ik me inschrijven voor het toernooi?"
-msgstr "How can I register for the tournament?"
-
-#: .\darts\templates\pages\index.html:283
-msgid "Inschrijven kan via "
-msgstr "You can register via "
-
-#: .\darts\templates\pages\index.html:283
-msgid "onze website"
-msgstr "Our Website"
-
-#: .\darts\templates\pages\index.html:283
-msgid ""
-" of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid"
-msgstr " or on-site on the day of the event, subject to availability"
-
-#: .\darts\templates\pages\index.html:289
-msgid "Wat zijn de dartregels ?"
-msgstr "What are the darts rules?"
-
-#: .\darts\templates\pages\index.html:291
-msgid "Onze dartregels kan u "
-msgstr "Our darts rules can help you "
-
-#: .\darts\templates\pages\index.html:291
-msgid "terugvinden."
-msgstr "retrieve."
-
-#: .\darts\templates\pages\index.html:297
-msgid "Is de dartschool toegankelijk voor mensen met een beperking?"
-msgstr "Is the dart school accessible for people with disabilities?"
-
-#: .\darts\templates\pages\index.html:299
-msgid ""
-"Hoewel we er alles aan doen om een gastvrije omgeving te bieden, willen we "
-"erop wijzen dat onze huidige locatie helaas niet volledig toegankelijk is "
-"voor mindervaliden vanwege de structuur van het gebouw. We waarderen uw "
-"begrip en werken eraan om in de toekomst meer toegankelijke faciliteiten te "
-"bieden."
-msgstr ""
-"While we make every effort to provide a welcoming environment, we would like "
-"to point out that our current location is unfortunately not fully accessible "
-"to people with disabilities due to the structure of the building. We "
-"appreciate your understanding and are working to provide more accessible "
-"facilities in the future."
-
-#: .\darts\templates\pages\index.html:305
-msgid ""
-"Is er een leeftijdsbeperking om lid te worden van de school of deel te nemen "
-"aan een toernooi?"
-msgstr ""
-"Is there an age restriction to join the school or participate in a "
-"tournament?"
-
-#: .\darts\templates\pages\index.html:313
-msgid "Wat is de prijzenpot voor de winnaars?"
-msgstr "What is the prize pool for the winners?"
-
-#: .\darts\templates\pages\index.html:315
-msgid ""
-"De prijzenpot verschilt per toernooi, maar bevat vaak geldprijzen, trofeeën "
-"en andere leuke verrassingen."
-msgstr ""
-"The prize pool varies from tournament to tournament, but often includes cash "
-"prizes, trophies, and other fun surprises."
-
-#: .\darts\templates\pages\index.html:321
-msgid "Kan ik mij op de dag zelf nog inschrijven voor een toernooi?"
-msgstr "Can I register for a tournament on the day itself?"
-
-#: .\darts\templates\pages\index.html:323
-msgid ""
-"Afhankelijk van de beschikbare plaatsen kun je je op de dag zelf nog "
-"inschrijven. We raden echter aan om vooraf te registreren om zeker te zijn "
-"van deelname."
-msgstr ""
-"Depending on the available places, you can still register on the day itself. "
-"However, we recommend pre-registering to ensure participation."
-
-#: .\darts\templates\pages\index.html:342
-#: .\pokemon\templates\pokemon\pages\index.html:310
+#: .\darts\templates\pages\index.html:260
+#: .\pokemon\templates\pokemon\pages\index.html:198
 msgid "Aarzel niet om ons te contacteren!"
 msgstr "Don't hesitate to contact us!"
 
-#: .\darts\templates\pages\index.html:356
-#: .\pokemon\templates\pokemon\pages\index.html:324
+#: .\darts\templates\pages\index.html:274
+#: .\pokemon\templates\pokemon\pages\index.html:212
 msgid "Bel/Whatsapp ons"
 msgstr "Call/Whatsapp us"
 
-#: .\darts\templates\pages\index.html:364
-#: .\pokemon\templates\pokemon\pages\index.html:332
+#: .\darts\templates\pages\index.html:282
+#: .\pokemon\templates\pokemon\pages\index.html:220
 msgid "Email ons"
 msgstr "Email Us"
 
-#: .\darts\templates\pages\index.html:386
-#: .\pokemon\templates\pokemon\pages\index.html:354
+#: .\darts\templates\pages\index.html:304
+#: .\darts\templates\pages\priveles.html:55
+#: .\pokemon\templates\pokemon\pages\index.html:242
 msgid "Stuur ons een bericht"
 msgstr "Send us a message"
 
-#: .\darts\templates\pages\index.html:404
-#: .\pokemon\templates\pokemon\pages\index.html:372
+#: .\darts\templates\pages\index.html:322
+#: .\darts\templates\pages\priveles.html:73
+#: .\pokemon\templates\pokemon\pages\index.html:260
 msgid "Onderwerp"
 msgstr "Subject"
 
-#: .\darts\templates\pages\index.html:409
-#: .\pokemon\templates\pokemon\pages\index.html:377
+#: .\darts\templates\pages\index.html:327
+#: .\darts\templates\pages\priveles.html:78
+#: .\pokemon\templates\pokemon\pages\index.html:265
 msgid "Bericht"
 msgstr "Message"
 
-#: .\darts\templates\pages\index.html:416
-#: .\pokemon\templates\pokemon\pages\index.html:384
+#: .\darts\templates\pages\index.html:334
+#: .\darts\templates\pages\priveles.html:85
+#: .\pokemon\templates\pokemon\pages\index.html:272
 msgid "Uw bericht is verzonden. Bedankt!"
 msgstr "Your message has been sent. Thank you!"
 
-#: .\darts\templates\pages\index.html:417
-#: .\pokemon\templates\pokemon\pages\index.html:385
+#: .\darts\templates\pages\index.html:335
+#: .\darts\templates\pages\priveles.html:86
+#: .\pokemon\templates\pokemon\pages\index.html:273
 msgid "Stuur bericht"
 msgstr "Send message"
+
+#: .\darts\templates\pages\privacybeleid.html:20
+msgid ""
+"Wij nemen de bescherming van uw privacy zeer serieus. Alle persoonlijke "
+"gegevens die u via deze website en/of deelnameformulier verstrekt, worden "
+"met de grootste zorgvuldigheid behandeld en alleen gebruikt in "
+"overeenstemming met inachtneming van de privacy van het individu. Wij doen "
+"er alles aan om uw gegevens te beveiligen tegen ongeautoriseerde toegang, "
+"verlies of diefstal, maar kunnen geen absolute veiligheid garanderen."
+msgstr ""
+"We take the protection of your privacy very seriously. Any personal data you "
+"provide through this website and/or entry form will be treated with the "
+"utmost care and will only be used in accordance with the individual's "
+"privacy. We make every effort to protect your data against unauthorized "
+"access, loss or theft, but cannot guarantee absolute security."
+
+#: .\darts\templates\pages\privacybeleid.html:34
+msgid "Algemeen"
+msgstr "General"
+
+#: .\darts\templates\pages\privacybeleid.html:37
+msgid ""
+"\n"
+"                    Het Privacybeleid is van toepassing op de website <a "
+"href=\"https://chudartz.com\">chudartz.com</a> en <a href=\"https://chudartz-"
+"collectibles.com\">chudartz-collectibles.com</a> (verder genoemd de "
+"'website') beheerd door ChudartZ met geregistreerde zetel op Wilgenlaan 35 "
+"te 8210 Loppem, België onder het KBO nummer XXXXXXXXXXXX (hierna verder "
+"vernoemd als, 'wij' of 'ons').\n"
+"                    "
+msgstr ""
+"\n"
+"              The Privacy Policy applies to the website <a href=\"https://"
+"chudartz.com\">chudartz.com</a> and <a href=\"https://chudartz-collectibles."
+"com\">chudartz-collectibles.com</a> (hereinafter referred to as the "
+"'website') managed by ChudartZ with registered office at Wilgenlaan 35 in "
+"8210 Loppem, Belgium under the CBE number XXXXXXXXXXXX (hereinafter referred "
+"to as, 'we' or 'us').\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:43
+msgid ""
+"\n"
+"                    De website werd opgericht om het publiek en de bezoekers "
+"(verder vermeld als 'Bezoekers' of 'U') in te lichten over producten en "
+"diensten die ChudartZ aanbiedt.\n"
+"                    "
+msgstr ""
+"\n"
+"The website was created to inform the public and visitors (hereinafter "
+"referred to as \"Visitors\" or \"You\") about products and services offered "
+"by ChudartZ.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:49
+msgid ""
+"\n"
+"                    ChudartZ is verantwoordelijk voor de verwerking van "
+"gegevens en draagt in deze rol zorg voor elke verzameling en het gebruik van "
+"uw persoonsgegevens die zij bekomt van of via de website.\n"
+"                    "
+msgstr ""
+"\n"
+"ChudartZ is responsible for the processing of data and in this role takes "
+"care of every collection and use of your personal data that it obtains from "
+"or through the website.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:54
+msgid ""
+"\n"
+"                    Het Privacybeleid beschrijft welke verschillende "
+"elementen van uw persoonsgegevens zullen worden verzameld, voor welke doelen "
+"deze worden verzameld, elke uitwisseling van deze gegevens met derde "
+"partijen, uw rechten als betrokkene en de genomen maatregelen om uw "
+"persoonsgegevens te beschermen.\n"
+"                    Houd er rekening mee dat dit Privacybeleid van "
+"toepassing is op de gegevens die werden verzameld door middel van cookies.\n"
+"                    "
+msgstr ""
+"\n"
+"The Privacy Policy describes the different elements of your personal data "
+"that will be collected, the purposes for which they are collected, any "
+"exchange of this data with third parties, your rights as a data subject and "
+"the measures taken to protect your personal data.\n"
+"                    Please note that this Privacy Policy applies to the data "
+"collected through cookies.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:62
+msgid "Verzamelen van persoonsgegevens"
+msgstr "Collection of personal data"
+
+#: .\darts\templates\pages\privacybeleid.html:65
+msgid ""
+"\n"
+"                    Wanneer u de website bezoekt, zal ChudartZ de volgende "
+"persoonsgegevens verzamelen:\n"
+"                    "
+msgstr ""
+"\n"
+"When you visit the website, ChudartZ will collect the following personal "
+"data:\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:71
+msgid "Cookies:"
+msgstr "Cookies:"
+
+#: .\darts\templates\pages\privacybeleid.html:73
+msgid ""
+"\n"
+"                                Dit zijn kleine tekstbestanden die door "
+"websites op je computer, smartphone, of tablet worden geplaatst wanneer je "
+"deze websites bezoekt. Ze worden gebruikt om informatie op te slaan over je "
+"activiteiten op de website, zodat je ervaring verbeterd kan worden. Er zijn "
+"verschillende soorten cookies met verschillende functies:\n"
+"                                "
+msgstr ""
+"\n"
+"These are small text files that are placed on your computer, smartphone, or "
+"tablet by websites when you visit these websites. They are used to store "
+"information about your activities on the website so that your experience can "
+"be improved. There are different types of cookies with different functions:\n"
+"                                "
+
+#: .\darts\templates\pages\privacybeleid.html:78
+msgid ""
+"<i>Noodzakelijke cookies:</i> Deze zijn essentieel voor het functioneren van "
+"een website, zoals het mogelijk maken van inloggen of het onthouden van "
+"items in je winkelmandje."
+msgstr ""
+"<i>Necessary cookies:</i> These are essential for the functioning of a "
+"website, such as enabling you to log in or remember items in your shopping "
+"cart."
+
+#: .\darts\templates\pages\privacybeleid.html:81
+msgid ""
+"<i>Functionele cookies:</i> Deze cookies onthouden je voorkeuren, zoals "
+"taalinstellingen of inloggegevens, om je een meer gepersonaliseerde ervaring "
+"te bieden."
+msgstr ""
+"<i>Functional cookies:</i> These cookies remember your preferences, such as "
+"language settings or login details, to provide you with a more personalized "
+"experience."
+
+#: .\darts\templates\pages\privacybeleid.html:84
+msgid ""
+"<i>Analytische cookies:</i> Ze verzamelen informatie over hoe bezoekers de "
+"website gebruiken, zoals welke pagina's populair zijn. Dit helpt websites om "
+"de gebruikerservaring te verbeteren."
+msgstr ""
+"<i>Analytical cookies:</i> They collect information about how visitors use "
+"the website, such as which pages are popular. This helps websites to improve "
+"the user experience."
+
+#: .\darts\templates\pages\privacybeleid.html:87
+msgid ""
+"<i>Advertentie- en trackingcookies:</i> Deze worden gebruikt om je "
+"surfgedrag te volgen en advertenties te tonen die beter aansluiten bij je "
+"interesses."
+msgstr ""
+"<i>Advertising and tracking cookies:</i> These are used to track your "
+"surfing behavior and show you advertisements that are more relevant to your "
+"interests."
+
+#: .\darts\templates\pages\privacybeleid.html:91
+msgid ""
+"\n"
+"                                Cookies kunnen zowel door de website zelf "
+"geplaatst worden (first-party cookies) als door derden, zoals adverteerders "
+"(third-party cookies).\n"
+"                                Voor meer info m.b.t. cookies: <a "
+"href=\"https://www.allaboutcookies.org\">www.allaboutcookies.org</a>.\n"
+"                                "
+msgstr ""
+"\n"
+"                                Cookies can be placed both by the website "
+"itself (first-party cookies) and by third parties, such as advertisers "
+"(third-party cookies).\n"
+"                                For more information about cookies: <a "
+"href=\"https://www.allaboutcookies.org\">www.allaboutcookies.org</a>.\n"
+"                                "
+
+#: .\darts\templates\pages\privacybeleid.html:98
+msgid "Identificatiegegevens:"
+msgstr "Identification:"
+
+#: .\darts\templates\pages\privacybeleid.html:100
+msgid ""
+"\n"
+"                                er worden enkel persoonsgegevens verzameld "
+"wanneer u beslist om identificatiegegevens te verstrekken op de website, "
+"zoals uw e-mailadres.\n"
+"                                "
+msgstr ""
+"\n"
+"Personal data is only collected when you decide to provide identification "
+"data on the website, such as your e-mail address.\n"
+"                                "
+
+#: .\darts\templates\pages\privacybeleid.html:107
+msgid ""
+"\n"
+"                    Gegevens kunnen door u enkel op vrijwillige basis worden "
+"verstrekt, bvb. d.m.v. het invullen van het contactformulier of deelname aan "
+"een evenement. Wij rekenen op uw toestemming om uw persoonsgegevens te "
+"verwerken en desgevallend bvb. in een resultaten- en/of deelnemerslijst te "
+"gebruiken om te publiceren op onze website.\n"
+"                    "
+msgstr ""
+"\n"
+"Data can only be provided by you on a voluntary basis, e.g. by filling in "
+"the contact form or participating in an event. We rely on your consent to "
+"process your personal data and, if applicable, e.g. in a list of results and/"
+"or participants to publish on our website.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:113
+msgid "Voor wat gebruiken we uw persoonsgegevens?"
+msgstr "What do we use your personal data for?"
+
+#: .\darts\templates\pages\privacybeleid.html:116
+msgid ""
+"\n"
+"                    Wij gebruiken de persoonsgegevens die door u werden "
+"verstrekt:\n"
+"                    "
+msgstr ""
+"\n"
+"We use the personal data provided by you:\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:122
+msgid ""
+"Om u te informeren over eender welke ontwikkeling die in verband staat met "
+"onze producten en diensten"
+msgstr ""
+"To inform you about any development related to our products and services"
+
+#: .\darts\templates\pages\privacybeleid.html:125
+msgid ""
+"Om u te informeren over aankomende evenementen, beurzen, of activiteiten van "
+"ChudartZ."
+msgstr "To inform you about upcoming events, fairs, or activities of ChudartZ."
+
+#: .\darts\templates\pages\privacybeleid.html:128
+msgid ""
+"Om u inschrijving voor evenementen te verwerken en je deelname te beheren."
+msgstr "To process your registration for events and manage your participation."
+
+#: .\darts\templates\pages\privacybeleid.html:131
+msgid ""
+"Om onze dienstverlening te verbeteren door inzicht te krijgen in het gebruik "
+"van onze website."
+msgstr ""
+"To improve our services by gaining insight into the use of our website."
+
+#: .\darts\templates\pages\privacybeleid.html:134
+msgid "Om indien gewenst nieuwsbrieven, promoties, of updates te ontvangen"
+msgstr "To receive newsletters, promotions, or updates if desired"
+
+#: .\darts\templates\pages\privacybeleid.html:137
+msgid "Om te reageren op uw verzoek tot inlichtingen"
+msgstr "To respond to your enquiry request"
+
+#: .\darts\templates\pages\privacybeleid.html:140
+msgid "Om onze website te evalueren en te verbeteren"
+msgstr "To evaluate and improve our website"
+
+#: .\darts\templates\pages\privacybeleid.html:143
+msgid "Om toepasselijke juridische vereisten en industriële normen na te leven"
+msgstr "To comply with applicable legal requirements and industry standards"
+
+#: .\darts\templates\pages\privacybeleid.html:146
+msgid ""
+"Om onderzoek, analyses en controles uit te voeren zodat wij onze diensten "
+"kunnen behouden, beschermen en verbeteren."
+msgstr ""
+"To conduct research, analysis and monitoring so that we can maintain, "
+"protect and improve our services."
+
+#: .\darts\templates\pages\privacybeleid.html:154
+msgid ""
+"\n"
+"                    Houd er rekening mee dat wij uw gegevens gedurende 2 "
+"jaar verwerken, te rekenen vanaf de datum dat deze gegevens aanvankelijk "
+"werden verzameld. Uw gegevens worden bewaard voor een periode van maximum "
+"tien jaar voor bewijsgerelateerde doeleinden. Indien wij uw gegevens "
+"verwerken voor andere doeleinden, wordt u hiervan op de hoogte gebracht op "
+"het ogenblik dat de gegevens worden verzameld via een bijzondere "
+"aankondiging.\n"
+"                    "
+msgstr ""
+"\n"
+"Please note that we process your data for 2 years from the date it was "
+"initially collected. Your data will be kept for a maximum period of ten "
+"years for evidence-related purposes. If we process your data for other "
+"purposes, you will be informed of this at the time the data is collected by "
+"means of a special announcement.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:160
+msgid "Het delen van persoonsgegevens"
+msgstr "Sharing of personal data"
+
+#: .\darts\templates\pages\privacybeleid.html:164
+msgid ""
+"\n"
+"                    Wij verkopen de persoonsgegevens die wij hebben "
+"verzameld niet aan derden noch geven wij deze aan hen vrij, behoudens de "
+"gevallen omschreven in dit Privacybeleid of zoals u ten tijde van de "
+"verzameling werd meegedeeld.\n"
+"                    "
+msgstr ""
+"\n"
+"We do not sell or disclose the personal information we have collected to "
+"third parties, except as described in this Privacy Policy or as notified to "
+"you at the time of collection.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:169
+msgid ""
+"\n"
+"                    Wij mogen persoonsgegevens delen met verbonden "
+"entiteiten of met derde partijen die, voor onze rekening aan "
+"gegevensverwerking doen. Wanneer deze dienstverrichters, voor onze rekening, "
+"handelen als gegevensverwerker wordt door ons niet toegestaan dat zij deze "
+"gegevens gebruiken of bekend maken op een wijze die niet overeenstemt met de "
+"gevallen omschreven in dit Privacybeleid. Wij vereisen van deze "
+"gegevensverwerkers dat zij de privacy en de veiligheid waarborgen van de "
+"persoonsgegevens die zij namens ons verwerken.\n"
+"                    "
+msgstr ""
+"\n"
+"We may share personal data with affiliated entities or with third parties "
+"who process data on our behalf. When these service providers, on our behalf, "
+"act as data processors, we do not allow them to use or disclose this data in "
+"a manner that is not consistent with the cases described in this Privacy "
+"Policy. We require these data processors to ensure the privacy and security "
+"of the personal data they process on our behalf.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:174
+msgid ""
+"\n"
+"                    Wij kunnen uw persoonsgegevens ook bekend maken:\n"
+"                    "
+msgstr ""
+"\n"
+"We may also disclose your personal data:\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:179
+msgid ""
+"wanneer bepaalde wetgeving of een juridische procedure ons daartoe verplicht"
+msgstr "where we are required to do so by law or legal process"
+
+#: .\darts\templates\pages\privacybeleid.html:180
+msgid ""
+"wanneer rechtshandhavingsautoriteiten of andere overheidsambtenaren ons "
+"daartoe verplichten"
+msgstr ""
+"when law enforcement authorities or other government officials require us to "
+"do so"
+
+#: .\darts\templates\pages\privacybeleid.html:181
+msgid ""
+"wanneer wij van oordeel zijn dat de bekendmaking van deze gegevens "
+"noodzakelijk en geschikt is om de lichamelijke integriteit of enige "
+"financiële schade te voorkomen, of in verband met een onderzoek naar "
+"vermoedelijke of actuele frauduleuze en illegale activiteiten"
+msgstr ""
+"when we believe that the disclosure of this information is necessary and "
+"appropriate to prevent physical integrity or any financial loss, or in "
+"connection with an investigation of suspected or actual fraudulent and "
+"illegal activity"
+
+#: .\darts\templates\pages\privacybeleid.html:186
+msgid ""
+"\n"
+"                    Wij behouden ons het recht voor om persoonsgegevens over "
+"te dragen in het geval wij een deel of het geheel van onze onderneming of "
+"van ons vermogen zouden verkopen. Indien een dergelijke verkoop zich "
+"voordoet, zullen wij alle redelijke maatregelen treffen om de verkrijger aan "
+"te zetten tot een correcte verwerking van de aan ons verstrekte "
+"persoonsgegevens en dit op een manier die overeenstemt met ons "
+"Privacybeleid.\n"
+"                    "
+msgstr ""
+"\n"
+"We reserve the right to transfer personal data in the event that we sell "
+"part or all of our business or assets. If such a sale occurs, we will take "
+"all reasonable steps to induce the transferee to process the personal data "
+"provided to us correctly and in a manner consistent with our Privacy "
+"Policy.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:192
+msgid "De uitoefening van uw rechten"
+msgstr "Exercising your rights"
+
+#: .\darts\templates\pages\privacybeleid.html:195
+msgid "Recht op toegang en verbetering"
+msgstr "Right of access and correction"
+
+#: .\darts\templates\pages\privacybeleid.html:196
+msgid ""
+"Het recht op toegang en verbetering kunt u, in overeenstemming met de "
+"Belgische Privacywet, te allen tijde uitoefenen. Dit kan onder andere door "
+"een verzoek te verzenden met een kopie van uw identiteitskaart (paspoort of "
+"ander identiteitsbewijs) naar chudartz@gmail.com of door een brief te "
+"verzenden naar ChudartZ, Wilgenlaan 35 te 8210 Loppem, België. Gelieve er "
+"rekening mee te houden dat cookies kunnen worden beheerd via uw web browser."
+msgstr ""
+"In accordance with the Belgian Privacy Act, you can exercise the right of "
+"access and correction at any time. This can be done, among other things, by "
+"sending a request with a copy of your identity card (passport or other proof "
+"of identity) to chudartz@gmail.com or by sending a letter to ChudartZ, "
+"Wilgenlaan 35, 8210 Loppem, Belgium. Please note that cookies can be managed "
+"through your web browser."
+
+#: .\darts\templates\pages\privacybeleid.html:198
+msgid "Recht om gegevens te wissen"
+msgstr "Right to erasure"
+
+#: .\darts\templates\pages\privacybeleid.html:199
+msgid ""
+"U kunt op gelijk welk moment en in overeenstemming met de regelgeving inzake "
+"gegevensbescherming, uw recht om gegevens te wissen uitoefenen door een "
+"verzoek te verzenden met een bijhorende kopie van uw identiteitskaart "
+"(paspoort of ander bewijs van identiteit) naar chudartz@gmail.com of door "
+"een brief te schrijven naar ChudartZ, Wilgenlaan 35 te 8210 Loppem, België. "
+"Naar aanleiding van dergelijk verzoek zal ChudartZ geen verder gebruik maken "
+"van uw persoonsgegevens en zal zij deze persoonsgegevens niet meer bewaren "
+"voor bewijsgerelateerde doeleinden gedurende de voorziene periode van "
+"maximum tien jaar."
+msgstr ""
+"You can exercise your right to erasure at any time and in accordance with "
+"data protection regulations by sending a request with a copy of your "
+"identity card (passport or other proof of identity) to chudartz@gmail.com or "
+"by writing to ChudartZ, Wilgenlaan 35, 8210 Loppem, Belgium. As a result of "
+"such a request, ChudartZ will not make any further use of your personal data "
+"and will no longer retain this personal data for evidence-related purposes "
+"for the provided period of up to ten years."
+
+#: .\darts\templates\pages\privacybeleid.html:201
+msgid "Recht op verzet"
+msgstr "Right to object"
+
+#: .\darts\templates\pages\privacybeleid.html:202
+msgid ""
+"Wanneer u de website bezoekt zult u worden verzocht om in te stemmen met "
+"bepaalde vormen van gegevensverwerking. U heeft het recht om uw instemming "
+"op gelijk welk moment terug in te trekken."
+msgstr ""
+"When you visit the website, you will be asked to consent to certain types of "
+"data processing. You have the right to withdraw your consent at any time."
+
+#: .\darts\templates\pages\privacybeleid.html:203
+msgid ""
+"Wanneer u niet langer wenst dat uw gegevens worden verwerkt voor directe "
+"marketing doeleinden, kunt u altijd uw instemming hiervoor terug intrekken. "
+"Gelieve ons uw bezwaren te verzenden, met een kopie van uw identiteitskaart "
+"(paspoort of enig ander identiteitsbewijs) naar chudartz@gmail.com of door "
+"een brief te schrijven naar ChudartZ, Wilgenlaan 35 te 8210 Loppem, België."
+msgstr ""
+"If you no longer wish your data to be processed for direct marketing "
+"purposes, you can withdraw your consent at any time. Please send us your "
+"objections, with a copy of your identity card (passport or other proof of "
+"identity) to chudartz@gmail.com or by writing a letter to ChudartZ, "
+"Wilgenlaan 35 in 8210 Loppem, Belgium."
+
+#: .\darts\templates\pages\privacybeleid.html:204
+msgid ""
+"Het intrekken van uw instemming zal er niet toe bijdragen dat de eerdere "
+"verwerking van gegevens ongeldig wordt. Daarnaast kan een intrekking van uw "
+"toestemming ook een impact hebben op het vlotte verdere gebruik van de "
+"website. ChudartZ kan haar diensten niet optimaal leveren zonder de "
+"noodzakelijke elementen van uw persoonsgegevens te verwerken."
+msgstr ""
+"Withdrawing your consent will not invalidate the previous processing of "
+"data. In addition, a withdrawal of your consent may also have an impact on "
+"the smooth further use of the website. ChudartZ cannot provide its services "
+"optimally without processing the necessary elements of your personal data."
+
+#: .\darts\templates\pages\privacybeleid.html:205
+msgid ""
+"Wanneer u op een bepaald moment vindt dat één van uw rechten niet werden "
+"gerespecteerd, kunt u ook een klacht neerleggen bij de Belgische "
+"Privacycommissie (zie: <a href=\"https://www.privacycommission.be/"
+"burger\">www.privacycommission.be/burger</a>)"
+msgstr ""
+"If, at any time, you feel that one of your rights has not been respected, "
+"you can also file a complaint with the Belgian Privacy Commission (see: <a "
+"href=\"https://www.privacycommission.be/burger\">www.privacycommission.be/"
+"burger</a>)"
+
+#: .\darts\templates\pages\privacybeleid.html:211
+msgid "Bescherming van uw persoonsgegevens"
+msgstr "Protection of your personal data"
+
+#: .\darts\templates\pages\privacybeleid.html:215
+msgid ""
+"\n"
+"                    Wij beschikken over doeltreffende technische, "
+"organisatorische en fysieke waarborgen om uw persoonsgegevens te beschermen "
+"tegen ongewilde of onrechtmatige vernietiging, ongewenst verlies, onbevoegde "
+"wijziging, bekendmaking of toegang, tegen misbruik en enige andere "
+"onrechtmatige verwerking van de persoonsgegevens die wij in ons bezit "
+"hebben.\n"
+"                    Niettegenstaande wij er alles aan doen om uw gegevens te "
+"beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, kunnen wij "
+"nooit geen absolute veiligheid garanderen.\n"
+"                    "
+msgstr ""
+"\n"
+"We have effective technical, organisational and physical safeguards in place "
+"to protect your personal data against accidental or unlawful destruction, "
+"accidental loss, unauthorised alteration, disclosure or access, against "
+"misuse and any other unlawful processing of the personal data in our "
+"possession.\n"
+"                    Although we do everything we can to protect your data "
+"against unauthorized access, loss or theft, we can never guarantee absolute "
+"security.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:225
+msgid ""
+"\n"
+"                    Door deel te nemen aan een toernooi en/of het betreden "
+"van een evenement ingericht door ChudartZ gaat u akkoord met het feit dat u "
+"gefotografeerd of gefilmd kunt worden en dat deze beelden gebruikt kunnen "
+"worden voor promotionele doeleinden zonder enige compensatie.\n"
+"                    U kunt te allen tijde aangeven als u niet gefilmd wilt "
+"worden en/of niet wilt dat de beelden op platforms zoals Facebook worden "
+"geplaatst.\n"
+"                    "
+msgstr ""
+"\n"
+"By participating in a tournament and/or entering an event organized by "
+"ChudartZ, you agree that you can be photographed or filmed and that these "
+"images can be used for promotional purposes without any compensation.\n"
+"                    You can indicate at any time if you do not want to be "
+"filmed and/or do not want the images to be posted on platforms such as "
+"Facebook.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:231
+msgid "Contact, zie punt 9 van het Privacybeleid."
+msgstr "Contact, see section 9 of the Privacy Policy."
+
+#: .\darts\templates\pages\privacybeleid.html:235
+msgid "Overdracht van gegevens"
+msgstr "Transfer of data"
+
+#: .\darts\templates\pages\privacybeleid.html:238
+msgid ""
+"\n"
+"                    Uw persoonsgegevens worden door ons niet buiten de "
+"Europese Unie verstuurd, noch op een andere manier overgedragen die "
+"hierboven niet werd uitgelegd.\n"
+"                    "
+msgstr ""
+"\n"
+"Your personal data will not be transferred by us outside the European Union, "
+"nor will it be transferred in any other way that is not explained above.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:244
+msgid "Wijzigingen in het privacybeleid"
+msgstr "Changes to the Privacy Policy"
+
+#: .\darts\templates\pages\privacybeleid.html:247
+msgid ""
+"\n"
+"                    Het Privacybeleid kan op geregelde tijdstippen worden "
+"gewijzigd naar aanleiding van aanpassingen in onze privacyaanpak.\n"
+"                    Wij zullen een duidelijke aankondiging plaatsen op onze "
+"website om u op de hoogte te brengen van belangrijke wijzigingen in ons "
+"Privacybeleid, doch het is verder uw verantwoordelijkheid om regelmatig dit "
+"Privacybeleid, evenals de disclaimer/algemene voorwaarden te raadplegen om "
+"de wijzigingen te lezen.\n"
+"                    "
+msgstr ""
+"\n"
+"The Privacy Policy may be amended from time to time as a result of changes "
+"in our privacy approach.\n"
+"                    We will post a prominent notice on our website to notify "
+"you of any significant changes to our Privacy Policy, but it is your "
+"responsibility to periodically review this Privacy Policy, as well as the "
+"disclaimer/terms and conditions, to review the changes.\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:257
+msgid ""
+"\n"
+"                    Indien u verdere vragen heeft over dit Privacybeleid, uw "
+"rechten wenst uit te oefenen, of de door u verstrekte gegevens of "
+"instellingen wenst te wijzigen, contacteer ons dan hier:\n"
+"                    "
+msgstr ""
+"\n"
+"If you have any further questions about this Privacy Policy, wish to "
+"exercise your rights, or wish to change the information or settings you have "
+"provided, please contact us here:\n"
+"                    "
+
+#: .\darts\templates\pages\privacybeleid.html:265
+msgid "België"
+msgstr "Belgium"
+
+#: .\darts\templates\pages\priveles.html:28
+msgid "Priveles"
+msgstr "Private lessons"
+
+#: .\darts\templates\pages\priveles.html:29
+msgid ""
+"Wil je extra persoonlijke aandacht en je dartskills nog sneller verbeteren? "
+"Naast de reguliere trainingen kun je ook privélessen volgen, volledig "
+"afgestemd op jouw niveau en doelen. Boek nu je privéles en maak snelle "
+"stappen vooruit!"
+msgstr ""
+"Do you want extra personal attention and improve your darts skills even "
+"faster? In addition to the regular training sessions, you can also take "
+"private lessons, fully tailored to your level and goals. Book your private "
+"lesson now and make quick steps forward!"
+
+#: .\darts\templates\pages\priveles.html:43
+msgid "Enkel op afspraak"
+msgstr "By appointment only"
+
+#: .\darts\templates\pages\resultaat.html:12
+#: .\darts\templates\pages\resultaat.html:15
+#: .\darts\templates\pages\resultaat.html:20
+#: .\darts\templates\pages\resultaten.html:12
+#: .\darts\templates\pages\resultaten.html:15
+#: .\darts\templates\pages\resultaten.html:20
+#: .\darts\templates\pages\toernooien.html:12
+#: .\darts\templates\pages\toernooien.html:15
+#: .\darts\templates\pages\toernooien.html:20
+msgid ""
+"Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/"
+"avond vol spanning en plezier! Test je vaardigheden in uitdagende "
+"wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je "
+"nu in en maak je klaar om te schitteren!"
+msgstr ""
+"Take part in our darts tournaments in West Flanders and experience an "
+"afternoon/evening full of excitement and fun! Test your skills in "
+"challenging competitions and find out who the true darts champion of the "
+"region is. Sign up now and get ready to shine!"
+
+#: .\darts\templates\pages\resultaat.html:30
+msgid "Resultaat"
+msgstr "Result"
+
+#: .\darts\templates\pages\resultaat.html:31
+#: .\darts\templates\pages\toernooi-inschrijving.html:28
+#: .\darts\templates\pages\toernooi.html:26
+msgid "/toernooien"
+msgstr "/tournaments"
+
+#: .\darts\templates\pages\resultaten.html:31
+#: .\darts\templates\pages\toernooien.html:31
+msgid ""
+"Bekijk hieronder welke toernooien de komende maanden op het programma staan "
+"en verzeker jezelf alvast van een plek."
+msgstr ""
+"Check below which tournaments are scheduled for the coming months and secure "
+"yourself a spot in advance."
+
+#: .\darts\templates\pages\resultaten.html:48
+msgid "Er zijn nog geen toernooien met resultaten beschikbaar!"
+msgstr "There are no tournaments with results available yet!"
 
 #: .\darts\templates\pages\sponsors.html:45
 msgid "Bezoek Website"
@@ -2781,10 +3596,6 @@ msgstr ""
 "strengthens communication and team dynamics. Using darts as an icebreaker or "
 "reflection session can also contribute to a relaxed atmosphere and valuable "
 "feedback."
-
-#: .\darts\templates\pages\teambuildings-en-workshops.html:30
-msgid "Teambuilding & Workshops"
-msgstr "Team Building & Workshops"
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:31
 msgid ""
@@ -2821,8 +3632,8 @@ msgid "Verbeter je Spel"
 msgstr "Improve Your Game"
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:58
-msgid "Plezer & Ontspaning"
-msgstr "Relaxation & Relaxation"
+msgid "Plezier & Ontspanning"
+msgstr "Fun & Relaxation"
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:59
 msgid "Onvergetelijke Ervaring"
@@ -2832,31 +3643,123 @@ msgstr "Unforgettable Experience"
 msgid "Darts competitie"
 msgstr "Darts competition"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:91
+#: .\darts\templates\pages\teambuildings-en-workshops.html:85
+msgid ""
+"\n"
+"                            Hier nemen teams het tegen elkaar op in een "
+"reeks spannende dartwedstrijden. Elk teamlid speelt om zoveel mogelijk "
+"punten te scoren, waarbij samenwerking en teamstrategie cruciaal zijn om als "
+"geheel succesvol te zijn.\n"
+"                            "
+msgstr ""
+"\n"
+"Here, teams compete against each other in a series of exciting darts "
+"matches. Each team member plays to score as many points as possible, with "
+"collaboration and team strategy being crucial to being successful as a "
+"whole.\n"
+"                            "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:97
 msgid "Darts bingo"
 msgstr "Darts bingo"
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:102
-msgid "Teams Challenges"
-msgstr "Teams Challenges"
+msgid ""
+"\n"
+"                              Dit is een leuke en interactieve manier om "
+"darts te integreren in een teambuilding activiteit. Het combineert het "
+"traditionele bingospel met darts en voegt een extra laag van uitdaging en "
+"plezier toe. \n"
+"                              "
+msgstr ""
+"\n"
+"This is a fun and interactive way to integrate darts into a team building "
+"activity. It combines the traditional game of bingo with darts and adds an "
+"extra layer of challenge and fun. \n"
+"                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:113
+#: .\darts\templates\pages\teambuildings-en-workshops.html:114
+msgid "Teams Challenge"
+msgstr "Teams Challenge"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:119
+msgid ""
+"\n"
+"                              Hier strijden teams tegen elkaar in een serie "
+"opwindende en strategische dartsopdrachten. Elk teamlid krijgt specifieke "
+"taken, zoals het behalen van bepaalde scores of het raken van vooraf "
+"gedefinieerde doelen op het dartbord. \n"
+"                              "
+msgstr ""
+"\n"
+"Here, teams compete against each other in a series of exciting and strategic "
+"darts assignments. Each team member is given specific tasks, such as "
+"achieving certain scores or hitting predefined targets on the dartboard. \n"
+"                              "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:131
 msgid "Strategische darts"
 msgstr "Strategic darts"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:124
-msgid "Darts met een vleugje originaliteit"
-msgstr "Darts with a touch of originality"
+#: .\darts\templates\pages\teambuildings-en-workshops.html:136
+msgid ""
+"\n"
+"                              Teams krijgen specifieke doelen en scenario's, "
+"zoals het behalen van een bepaalde score met een beperkt aantal worpen of "
+"het blokkeren van de tegenstander door strategisch te spelen. Het draait om "
+"slimme beslissingen en samenwerking om de beste tactiek te bepalen en de "
+"meeste punten te scoren.\n"
+"                              "
+msgstr ""
+"\n"
+"Teams are given specific objectives and scenarios, such as achieving a "
+"certain score with a limited number of throws or blocking the opponent by "
+"playing strategically. It's all about smart decisions and working together "
+"to determine the best tactics and score the most points.\n"
+"                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:135
+#: .\darts\templates\pages\teambuildings-en-workshops.html:148
+msgid "Darts met een twist"
+msgstr "Darts with a twist"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:153
+msgid ""
+"\n"
+"                              Dit brengt een creatieve en verrassende draai "
+"aan het traditionele dartspel. Teams moeten hun pijlen gooien met unieke "
+"beperkingen of uitdagingen, zoals gooien met de niet-dominante hand, met een "
+"blinddoek, of na een speelse opdracht.\n"
+"                              "
+msgstr ""
+"\n"
+"This brings a creative and surprising twist to the traditional game of "
+"darts. Teams must throw their darts with unique constraints or challenges, "
+"such as throwing with the non-dominant hand, with a blindfold, or after a "
+"playful task.\n"
+"                              "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:165
 msgid "Andere mogelijkheden"
 msgstr "Other Features"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:155
+#: .\darts\templates\pages\teambuildings-en-workshops.html:170
+msgid ""
+"\n"
+"                              Als je graag nog meer mogelijkheden wilt "
+"ontdekken voor een op maat gemaakte darts teambuilding, aarzel dan niet om "
+"contact met ons op te nemen!\n"
+"                              "
+msgstr ""
+"\n"
+"If you would like to discover even more possibilities for a tailor-made "
+"darts team building, do not hesitate to contact us!\n"
+"                              "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:191
 msgid "Workshops"
 msgstr "Workshops"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:157
+#: .\darts\templates\pages\teambuildings-en-workshops.html:193
 msgid "Binnenkort!"
 msgstr "Soon!"
 
@@ -2872,38 +3775,33 @@ msgstr "Your entrance ticket will arrive in your mailbox shortly!"
 msgid "Ga terug naar toernooi"
 msgstr "Go back to tournament"
 
-#: .\darts\templates\pages\toernooi-inschrijving.html:31
-#: .\darts\templates\pages\toernooi.html:29
-msgid "/toernooien"
-msgstr "/tournaments"
-
-#: .\darts\templates\pages\toernooi-inschrijving.html:52
+#: .\darts\templates\pages\toernooi-inschrijving.html:49
 msgid "Schrijf je in"
 msgstr "Sign up"
 
-#: .\darts\templates\pages\toernooi-inschrijving.html:76
+#: .\darts\templates\pages\toernooi-inschrijving.html:78
 msgid "Selecteer je niveau"
 msgstr "Select your level"
 
-#: .\darts\templates\pages\toernooi-inschrijving.html:84
+#: .\darts\templates\pages\toernooi-inschrijving.html:86
 msgid "Gsm-nummer"
 msgstr "Mobile number"
 
-#: .\darts\templates\pages\toernooi-inschrijving.html:117
+#: .\darts\templates\pages\toernooi-inschrijving.html:119
 msgid "Selecteer je ticket"
 msgstr "Select your ticket"
 
-#: .\darts\templates\pages\toernooi-inschrijving.html:148
+#: .\darts\templates\pages\toernooi-inschrijving.html:162
 msgid ""
 "\n"
-"                          Als ouder/voogd, geef ik toestemming aan mijn "
+"                        Als ouder/voogd, geef ik toestemming aan mijn "
 "minderjarige kind om deel te nemen aan de wedstrijd en verklaar mij akkoord "
 "met het verwerken van diens persoonsgegevens in overeenstemming met de wet "
 "op de privacy. \n"
-"                          Ik weet dat deze gegevens vertrouwelijk zullen "
+"                        Ik weet dat deze gegevens vertrouwelijk zullen "
 "worden behandeld en uitsluitend gebruikt zullen worden voor doeleinden "
 "gerelateerd aan dit evenement.\n"
-"                          "
+"                        "
 msgstr ""
 "\n"
 "As a parent/guardian, I consent to my minor child to participate in the "
@@ -2913,33 +3811,9 @@ msgstr ""
 "confidential and will only be used for purposes related to this event.\n"
 "                          "
 
-#: .\darts\templates\pages\toernooien.html:12
-#: .\darts\templates\pages\toernooien.html:15
-#: .\darts\templates\pages\toernooien.html:20
-msgid ""
-"Doe mee aan onze darttoernooien in West-Vlaanderen en beleef een namiddag/"
-"avond vol spanning en plezier! Test je vaardigheden in uitdagende "
-"wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je "
-"nu in en maak je klaar om te schitteren!"
-msgstr ""
-"Take part in our darts tournaments in West Flanders and experience an "
-"afternoon/evening full of excitement and fun! Test your skills in "
-"challenging competitions and find out who the true darts champion of the "
-"region is. Sign up now and get ready to shine!"
-
-#: .\darts\templates\pages\toernooien.html:31
-msgid ""
-"Onze dartstoernooien zijn dé plek om uw vaardigheden te testen en de "
-"competitie aan te gaan. Iedereen is altijd welkom om deel te nemen en zich "
-"te meten met andere dartliefhebbers. Houd onze kalender in de gaten voor "
-"aankomende toernooien en neem een kijkje binnen 'Darttoernooien' (link naar "
-"deze sectie) voor een van onze spannende competities."
-msgstr ""
-"Our darts tournaments are the place to test your skills and compete. "
-"Everyone is always welcome to participate and measure themselves against "
-"other darts enthusiasts. Keep an eye on our calendar for upcoming "
-"tournaments and take a look inside 'Darts Tournaments' (link to this "
-"section) for one of our exciting competitions."
+#: .\darts\templates\pages\toernooi.html:43
+msgid "Bekijk Resultaten"
+msgstr "View Results"
 
 #: .\darts\templates\pages\toernooien.html:48
 msgid "Er zijn nog geen toernooien beschikbaar!"
@@ -2950,79 +3824,117 @@ msgid "dartschool/"
 msgstr "dartschool/"
 
 #: .\darts\urls.py:12
+msgid "dartschool/meer-info/"
+msgstr "dartschool/more-info/"
+
+#: .\darts\urls.py:13
+msgid "dartschool/werkwijze/"
+msgstr "dartschool/method/"
+
+#: .\darts\urls.py:14
 msgid "dartschool/gratis-proefles/"
 msgstr "dartschool/free-trial-lesson/"
 
-#: .\darts\urls.py:13
+#: .\darts\urls.py:15
 msgid "dartschool/reserveren/"
 msgstr "dartschool/reservations/"
 
-#: .\darts\urls.py:14
-msgid "dartschool/beurtkaart-kopen/"
-msgstr "dart school/buy-turn-card/"
-
-#: .\darts\urls.py:15
-msgid "dartschool/beurtkaart-kopen/success/"
-msgstr "dart school/buy-turn-card/success/"
-
 #: .\darts\urls.py:16
-msgid "dartschool/lidgeld/"
-msgstr "dart school/membership-fee/"
+msgid "dartschool/beurtenkaart-kopen/"
+msgstr "dartschool/buy-turn-card/"
 
 #: .\darts\urls.py:17
-msgid "dartschool/lidgeld/success/"
-msgstr "dart school/membership-fee/success/"
+msgid "dartschool/beurtenkaart-kopen/success/"
+msgstr "dartschool/buy-turn-card/success/"
+
+#: .\darts\urls.py:18
+msgid "dartschool/lidgeld/"
+msgstr "dartschool/membership-fee/"
 
 #: .\darts\urls.py:19
-msgid "toernooien/"
-msgstr "/tournaments"
+msgid "dartschool/lidgeld/success/"
+msgstr "dartschool/membership-fee/success/"
 
-#: .\darts\urls.py:20
+#: .\darts\urls.py:21
+msgid "toernooien/"
+msgstr "tournaments/"
+
+#: .\darts\urls.py:22
 msgid "toernooien/<slug:slug>/"
 msgstr "tournaments/<slug:slug>/"
 
-#: .\darts\urls.py:21
+#: .\darts\urls.py:23
 msgid "toernooien/<slug:slug>/inschrijven/"
 msgstr "tournaments/<slug:slug>/enroll/"
 
-#: .\darts\urls.py:22
+#: .\darts\urls.py:24
 msgid "toernooien/<slug:slug>/inschrijven/success/"
 msgstr "tournaments/<slug:slug>/enroll/success/"
 
-#: .\darts\urls.py:24
+#: .\darts\urls.py:25
+msgid "toernooien/resultaten"
+msgstr "tournaments/results/"
+
+#: .\darts\urls.py:26
+msgid "toernooien/<slug:slug>/resultaat"
+msgstr "tournaments/<slug:slug>/result"
+
+#: .\darts\urls.py:28
+msgid "priveles"
+msgstr "private lessons"
+
+#: .\darts\urls.py:31
 msgid "teambuildings-en-workshops/"
 msgstr "team-building-and-workshops/"
 
-#: .\darts\urls.py:25
+#: .\darts\urls.py:32
 msgid "over-ons/"
 msgstr "about-us/"
 
-#: .\darts\urls.py:26
+#: .\darts\urls.py:33
 msgid "algemene-voorwaarden/"
 msgstr "terms-and-conditions/"
 
-#: .\darts\urls.py:27
+#: .\darts\urls.py:34
+msgid "privacybeleid/"
+msgstr "privacy-policy/"
+
+#: .\darts\urls.py:35
 msgid "reglement-toernooien/"
 msgstr "tournament-rules/"
 
-#: .\darts\urls.py:28
+#: .\darts\urls.py:36
 msgid "disclaimer/"
 msgstr "disclaimer/"
 
-#: .\darts\urls.py:29
+#: .\darts\urls.py:37
 msgid "contact/"
 msgstr "contact/"
 
-#: .\darts\urls.py:30
+#: .\darts\urls.py:38
 msgid "sponsors/"
 msgstr "sponsors/"
 
-#: .\darts\urls.py:32
+#: .\darts\urls.py:39
+msgid "faq/"
+msgstr "faq/"
+
+#: .\darts\urls.py:41
 msgid "darts/scanner/"
 msgstr "darts/scanner/"
 
+#: .\pokemon\templates\pokemon\pages\about.html:21
+#: .\pokemon\templates\pokemon\pages\evenementen.html:29
+msgid ""
+"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio "
+"sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis "
+"veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem."
+msgstr ""
+"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio "
+"sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis "
+"veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem."
+
 #: .\pokemon\templates\pokemon\pages\about.html:33
-#: .\pokemon\templates\pokemon\pages\index.html:59
 msgid "Onze Missie en Visie"
 msgstr "Our Mission and Vision"
 
@@ -3034,27 +3946,116 @@ msgstr "/events"
 msgid "Er zijn nog geen evenementen beschikbaar!"
 msgstr "There are no events available yet!"
 
+#: .\pokemon\templates\pokemon\pages\faq.html:48
+msgid "Waar en wanneer vinden de ChudartZ evenementen en beurzen plaats?"
+msgstr "Where and when do the ChudartZ events and fairs take place?"
+
+#: .\pokemon\templates\pokemon\pages\faq.html:51
+#, python-format
+msgid ""
+"Het is onze intentie om regelmatig beurzen en evenementen te organiseren op "
+"diverse locaties in België. Voor de meest actuele informatie over data, "
+"tijden en locaties kun je <a href=\"%(evenementen_url)s\">hier</a> terecht"
+msgstr ""
+"It is our intention to regularly organize fairs and events at various "
+"locations in Belgium. For the most up-to-date information on dates, times "
+"and locations, please click <a href=\"%(evenementen_url)s\">here</a>"
+
+#: .\pokemon\templates\pokemon\pages\faq.html:57
+msgid "Welke soorten collectibles kan ik verwachten op jullie beurzen?"
+msgstr "What types of collectibles can I expect at your fairs?"
+
+#: .\pokemon\templates\pokemon\pages\faq.html:59
+msgid ""
+"Voor 2025 staat voorlopig één grote beurs op de agenda: de grootste "
+"Pokémonbeurs van België. In een later stadium zullen er aanvullende beurzen "
+"worden georganiseerd, met een focus op unieke en bijzondere "
+"verzamelobjecten, zoals Lego, Playmobil, euromunten, stripboeken/comics, "
+"retro games, antiek speelgoed, Funko, vintage mode, en whiskey/wijn."
+msgstr ""
+"For the time being, one major fair is on the agenda for 2025: the largest "
+"Pokémon fair in Belgium. Additional fairs will be organized at a later "
+"stage, with a focus on unique and special collectibles, such as Lego, "
+"Playmobil, euro coins, comic books/comics, retro games, antique toys, Funko, "
+"vintage fashion, and whiskey/wine."
+
+#: .\pokemon\templates\pokemon\pages\faq.html:65
+msgid ""
+"Zijn de ChudartZ evenementen geschikt voor zowel beginnende als ervaren "
+"verzamelaars?"
+msgstr ""
+"Are the ChudartZ events suitable for both novice and experienced collectors?"
+
+#: .\pokemon\templates\pokemon\pages\faq.html:67
+msgid ""
+"Zeker! Onze beurzen en evenementen zijn toegankelijk voor verzamelaars van "
+"alle niveaus. Of je nu een beginner bent of een ervaren verzamelaar, er is "
+"altijd iets dat bij je past."
+msgstr ""
+"Sure! Our fairs and events are open to collectors of all levels. Whether "
+"you're a beginner or an experienced collector, there's something to suit "
+"your needs."
+
+#: .\pokemon\templates\pokemon\pages\faq.html:73
+msgid "Hoe blijf ik op de hoogte van toekomstige evenementen en beurzen?"
+msgstr "How do I stay informed about future events and trade fairs?"
+
+#: .\pokemon\templates\pokemon\pages\faq.html:75
+msgid ""
+"Je kunt je aanmelden voor onze nieuwsbrief of ons volgen op sociale media "
+"(linken naar facebook, instagram, via een Linktree die dan nog  aangemaakt "
+"zal worden nog) om altijd op de hoogte te blijven van aankomende "
+"evenementen, beurzen en speciale activiteiten."
+msgstr ""
+"You can sign up for our newsletter or follow us on social media (linking to "
+"facebook, instagram, via a Linktree that will be created at that time) to "
+"always stay informed about upcoming events, fairs and special activities."
+
 #: .\pokemon\templates\pokemon\pages\index.html:42
-msgid "Uw ultieme bestemming voor alles wat met pokemon te maken heeft."
-msgstr "Your ultimate destination for all things pokemon."
+msgid "Uw ultieme bestemming voor alles wat met collectibles te maken heeft."
+msgstr "Your ultimate destination for all things collectible."
+
+#: .\pokemon\templates\pokemon\pages\index.html:59
+msgid "ChudartZ Collectibles"
+msgstr "ChudartZ Collectibles"
 
 #: .\pokemon\templates\pokemon\pages\index.html:61
 msgid ""
 "\n"
-"              Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor "
-"cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum "
-"quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora "
-"deleniti soluta.\n"
+"              Welkom bij ChudartZ Collectibles, dé bestemming voor "
+"liefhebbers van unieke en bijzondere verzamelobjecten en evenementen! Bij "
+"ons staat de passie voor collectibles centraal, met een speciale focus op "
+"Pokémon en andere populaire items. Of je nu een doorgewinterde verzamelaar "
+"bent of net begint, wij bieden je de kans om je passie te delen met "
+"gelijkgestemden.\n"
 "              "
 msgstr ""
 "\n"
-"Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias "
-"maxime. Enim reiciendis minus et rerum hic non. Dicta quas quia maiores "
-"iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti "
-"soluta.\n"
+"Welcome to ChudartZ Collectibles, the destination for lovers of unique and "
+"special collectibles and events! We focus on the passion for collectibles, "
+"with a special focus on Pokémon and other popular items. Whether you're a "
+"seasoned collector or just starting out, we offer you the chance to share "
+"your passion with like-minded people.\n"
 "              "
 
-#: .\pokemon\templates\pokemon\pages\index.html:76
+#: .\pokemon\templates\pokemon\pages\index.html:66
+msgid ""
+"\n"
+"              Wij organiseren regelmatig beurzen en evenementen waar "
+"verzamelaars samenkomen om unieke stukken te ontdekken, te ruilen en "
+"ervaringen uit te wisselen. Bij ChudartZ Collectibles bieden we een platform "
+"waar de verzamelwereld op een dynamische en inspirerende manier tot leven "
+"komt.\n"
+"              "
+msgstr ""
+"\n"
+"We regularly organize fairs and events where collectors come together to "
+"discover, exchange and exchange unique pieces. At ChudartZ Collectibles, we "
+"offer a platform where the world of collectibles comes to life in a dynamic "
+"and inspiring way.\n"
+"              "
+
+#: .\pokemon\templates\pokemon\pages\index.html:81
 msgid ""
 "\n"
 "                    Bij Chudartz bieden we een professionele dartschool aan "
@@ -3069,7 +4070,7 @@ msgstr ""
 "skills. \n"
 "                    "
 
-#: .\pokemon\templates\pokemon\pages\index.html:89
+#: .\pokemon\templates\pokemon\pages\index.html:94
 msgid ""
 "\n"
 "                    Wij organiseren regelmatig darttoernooien waar zowel "
@@ -3083,36 +4084,13 @@ msgstr ""
 "                    Don't hesitate to register! \n"
 "                    "
 
-#: .\pokemon\templates\pokemon\pages\index.html:100
-msgid "Privélessen"
-msgstr "Private lessons"
-
-#: .\pokemon\templates\pokemon\pages\index.html:102
-msgid ""
-"We staan ook altijd open voor privélessen, gelieve ons te contacteren via"
-msgstr "We are also always open to private lessons, please contact us at"
-
-#: .\pokemon\templates\pokemon\pages\index.html:246
-msgid ""
-"\n"
-"                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed "
-"do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute "
-"irure dolor in reprehenderit\n"
-"                "
-msgstr ""
-"\n"
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in "
-"reprehenderit\n"
-"                "
+#: .\pokemon\templates\pokemon\pages\index.html:125
+msgid "School"
+msgstr "School"
 
 #: .\pokemon\urls.py:11
 msgid "over-ons"
 msgstr "about-us"
-
-#: .\pokemon\urls.py:12
-msgid "contact"
-msgstr "contact"
 
 #: .\pokemon\urls.py:14
 msgid "evenementen"
@@ -3122,8 +4100,166 @@ msgstr "events"
 msgid "evenement/<slug:slug>/"
 msgstr "event/<slug:slug>/"
 
-#~ msgid "Training reserveren"
-#~ msgstr "Book a training"
+#: .\pokemon\urls.py:17
+msgid "faz/"
+msgstr "faz/"
+
+#~ msgid "JDC Academy"
+#~ msgstr "JDC Academy"
+
+#~ msgid "Voorbereiden op Competitieve Darts:"
+#~ msgstr "Preparing for Competitive Darts:"
+
+#~ msgid "Verantwoordelijkheid en verzekering"
+#~ msgstr "Responsibility and insurance"
+
+#~ msgid "Ik ga akkoord met de "
+#~ msgstr "I accept the "
+
+#~ msgid "Algemene voorwaarden"
+#~ msgstr "Terms and conditions"
+
+#~ msgid "van ChudartZ."
+#~ msgstr "by ChudartZ."
+
+#~ msgid "Ik ga akkoord met het"
+#~ msgstr "I agree with the"
+
+#~ msgid "Algemeen reglement"
+#~ msgstr "General Regulations"
+
+#~ msgid "voor darttoernooien. "
+#~ msgstr "for darts tournaments. "
+
+#~ msgid "Ik ga akkoord met de"
+#~ msgstr "I agree with the"
+
+#~ msgid "Reserveer je plaats op de training"
+#~ msgstr "Reserve your place at the training"
+
+#~ msgid "U kan"
+#~ msgstr "You can"
+
+#~ msgid "hier"
+#~ msgstr "here"
+
+#~ msgid "een gratis proefles aanvragen."
+#~ msgstr "request a free trial lesson."
+
+#~ msgid "verkrijgen."
+#~ msgstr "obtain."
+
+#~ msgid ""
+#~ "\n"
+#~ "                    Doe mee aan onze darttoernooien!\n"
+#~ "                    Of je nu een beginner bent of een doorgewinterde "
+#~ "professional, onze darttoernooien staan voor jou open. Een geweldige kans "
+#~ "om je skills te testen, plezier te maken én mooie prijzen te winnen.\n"
+#~ "                    Schrijf je vandaag nog in en mis de actie niet!\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "Take part in our darts tournaments!\n"
+#~ "                    Whether you're a beginner or a seasoned pro, our "
+#~ "darts tournaments are open to you. A great opportunity to test your "
+#~ "skills, have fun and win great prizes.\n"
+#~ "                    Sign up today and don't miss out on the action!\n"
+#~ "                    "
+
+#~ msgid "Verkoop van Darts"
+#~ msgstr "Sale of dart equipment"
+
+#~ msgid ""
+#~ "\n"
+#~ "                    Bij Chudartz kunt u ook terecht voor een breed scala "
+#~ "aan darts producten, \n"
+#~ "                    van dartpijlen en borden tot accessoires.\n"
+#~ "                    Ons assortiment is zorgvuldig samengesteld om aan de "
+#~ "behoeften van elke darts-enthousiasteling te voldoen.\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "At Chudartz you can also find a wide range of darts products, \n"
+#~ "                    from darts and boards to accessories.\n"
+#~ "                    Our range has been carefully curated to meet the "
+#~ "needs of every darts enthusiast.\n"
+#~ "                    "
+
+#~ msgid ""
+#~ "\n"
+#~ "                \"Veelgestelde vragen\" biedt antwoorden op de meest "
+#~ "voorkomende vragen over een specifiek onderwerp. Hier vind je duidelijke "
+#~ "en beknopte informatie om snel verder te kunnen.\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "\"Frequently Asked Questions\" provides answers to the most common "
+#~ "questions about a specific topic. Here you will find clear and concise "
+#~ "information to help you move forward quickly.\n"
+#~ "                "
+
+#~ msgid "Inschrijven kan via "
+#~ msgstr "You can register via "
+
+#~ msgid "onze website"
+#~ msgstr "Our Website"
+
+#~ msgid "Onze dartregels kan u "
+#~ msgstr "Our darts rules can help you "
+
+#~ msgid "terugvinden."
+#~ msgstr "retrieve."
+
+#~ msgid "Teambuilding & Workshops"
+#~ msgstr "Team Building & Workshops"
+
+#~ msgid ""
+#~ "Onze dartstoernooien zijn dé plek om uw vaardigheden te testen en de "
+#~ "competitie aan te gaan. Iedereen is altijd welkom om deel te nemen en "
+#~ "zich te meten met andere dartliefhebbers. Houd onze kalender in de gaten "
+#~ "voor aankomende toernooien en neem een kijkje binnen 'Darttoernooien' "
+#~ "(link naar deze sectie) voor een van onze spannende competities."
+#~ msgstr ""
+#~ "Our darts tournaments are the place to test your skills and compete. "
+#~ "Everyone is always welcome to participate and measure themselves against "
+#~ "other darts enthusiasts. Keep an eye on our calendar for upcoming "
+#~ "tournaments and take a look inside 'Darts Tournaments' (link to this "
+#~ "section) for one of our exciting competitions."
+
+#~ msgid "Uw ultieme bestemming voor alles wat met pokemon te maken heeft."
+#~ msgstr "Your ultimate destination for all things pokemon."
+
+#~ msgid ""
+#~ "\n"
+#~ "              Ipsa sint sit. Quis ducimus tempore dolores impedit et "
+#~ "dolor cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta "
+#~ "quas cum quia maiores iure. Quidem nulla qui assumenda incidunt "
+#~ "voluptatem tempora deleniti soluta.\n"
+#~ "              "
+#~ msgstr ""
+#~ "\n"
+#~ "Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias "
+#~ "maxime. Enim reiciendis minus et rerum hic non. Dicta quas quia maiores "
+#~ "iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti "
+#~ "soluta.\n"
+#~ "              "
+
+#~ msgid ""
+#~ "We staan ook altijd open voor privélessen, gelieve ons te contacteren via"
+#~ msgstr "We are also always open to private lessons, please contact us at"
+
+#~ msgid ""
+#~ "\n"
+#~ "                Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+#~ "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis "
+#~ "aute irure dolor in reprehenderit\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+#~ "tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor "
+#~ "in reprehenderit\n"
+#~ "                "
 
 #~ msgid "Webshop"
 #~ msgstr "Webshop"
@@ -3181,9 +4317,6 @@ msgstr "event/<slug:slug>/"
 
 #~ msgid "terms-of-service"
 #~ msgstr "terms-of-service"
-
-#~ msgid "privacy-policy"
-#~ msgstr "privacy-policy"
 
 #~ msgid "Home"
 #~ msgstr "Home"
