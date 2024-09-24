@@ -39,7 +39,7 @@ def dartschool_werkwijze(request):
 def gratis_proefles(request):
     context = get_default_context()
     context["vereisten"] = [
-        "Minimum 10 jaar oud", 
+        "Vanaf 10 jaar", 
         "Jonger dan 10 jaar kan, mits uitzonderlijk talent",
         "Maximum 20 jaar oud (of geb. in 2005)", 
         "Actieve interesse in darts"
