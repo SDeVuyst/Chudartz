@@ -1,10 +1,8 @@
-import random
 import secrets
 import string
 from email.utils import formataddr
 from io import BytesIO
 
-from django.urls import reverse
 import pytz
 import qrcode
 from ckeditor.fields import RichTextField
@@ -26,6 +24,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from simple_history.models import HistoricalRecords
+from phonenumber_field.modelfields import PhoneNumberField
 
 from darts.templatetags import dutch_date
 from darts.utils import helpers
@@ -189,11 +188,13 @@ class Participant(models.Model):
     
     voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
     achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
+    geboortejaar = models.PositiveSmallIntegerField(verbose_name=_("Geboortejaar"))
     email = models.EmailField(verbose_name=_("Email"), max_length=254)
     straatnaam = models.CharField(verbose_name=_("Straatnaam"), max_length=100)
     nummer = models.CharField(verbose_name=_("Nummer"), max_length=6)
     postcode = models.IntegerField(verbose_name=_("Postcode"))
     stad = models.CharField(verbose_name=_("Stad"), max_length=40)
+    gsm = PhoneNumberField(_("GSM"))
     
     payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
     attended = models.BooleanField(verbose_name=_("Attended"), default=False)

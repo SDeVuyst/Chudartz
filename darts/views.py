@@ -198,6 +198,8 @@ def inschrijven_toernooi(request, slug):
         form = ToernooiForm(request.POST)
         
         if not form.is_valid():
+            print(form.errors)
+
             # form was not valid, send to error page
             context = get_default_context()
             context["success"] = False
@@ -207,12 +209,13 @@ def inschrijven_toernooi(request, slug):
         
         voornaam = form.cleaned_data['voornaam']
         achternaam = form.cleaned_data['achternaam']
+        geboortejaar = form.cleaned_data['geboortejaar']
         email = form.cleaned_data['email']
         straatnaam = form.cleaned_data['straatnaam']
         nummer = form.cleaned_data['nummer']
         postcode = form.cleaned_data['postcode']
         stad = form.cleaned_data['stad']
-        niveau = form.cleaned_data['niveau']
+        gsm = form.cleaned_data['gsm']
         ticket_id = form.cleaned_data['ticket']
 
         price = Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
@@ -227,12 +230,13 @@ def inschrijven_toernooi(request, slug):
         Participant.objects.create(
             voornaam=voornaam,
             achternaam=achternaam,
+            geboortejaar=geboortejaar,
             email=email,
             straatnaam=straatnaam,
             nummer=nummer,
             postcode=postcode,
             stad=stad,
-            niveau=niveau,
+            gsm=gsm,
 
             payment_id = payment.pk,
             ticket=get_object_or_404(Ticket, pk=ticket_id),
@@ -259,6 +263,7 @@ def inschrijven_toernooi(request, slug):
     context["toernooi"] = evenement
     context["tickets"] = tickets
     context['skill_level_choices'] = SkillLevel.CHOICES
+    context['form'] = ToernooiForm()
 
     return TemplateResponse(request, 'pages/toernooi-inschrijving.html', context)
 

@@ -27,6 +27,7 @@ DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'chudartz.com', 'chudartz-collectibles.com']
 CSRF_TRUSTED_ORIGINS = ['https://chudartz.com', 'https://chudartz-collectibles.com']
+if DEBUG == True: CSRF_TRUSTED_ORIGINS.append('http://localhost:81')
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DBBACKUP_STORAGE_OPTIONS = {
@@ -187,7 +188,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+PHONENUMBER_DEFAULT_REGION = 'BE'
 
 # Unfold
 

@@ -42,7 +42,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
             {% include 'blocks/vereisten.html' with vereisten=toernooi.vereisten_lijst %}
 
-          </div>  
+          </div>
           
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
             <div class="service-box register">
@@ -54,22 +54,22 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                     
                   <!-- Voornaam -->
                   <div class="col-md-6">
-                      <input type="text" name="voornaam" class="form-control" placeholder="{% trans 'Voornaam' %}" maxlength="100" required>
+                    {{ form.voornaam }}
                   </div>
           
                   <!-- Achternaam -->
                   <div class="col-md-6">
-                      <input type="text" name="achternaam" class="form-control" placeholder="{% trans 'Achternaam' %}" maxlength="100" required>
+                      {{ form.achternaam }}
                   </div>
 
                   <!-- Geboortejaar -->
                   <div class="col-md-4">
-                    <input type="number" name="geboortejaar" class="form-control" placeholder="{% trans 'Geboortejaar' %}" minlength="4"  maxlength="4" required>
+                    {{ form.geboortejaar }}
                   </div>
           
                   <!-- Email -->
                   <div class="col-md-4">
-                      <input type="email" name="email" class="form-control" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                    {{ form.email }}
                   </div>
           
                   <!-- Niveau -->
@@ -83,27 +83,27 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                   </div> -->
 
                   <div class="col-md-4">
-                    <input type="tel" name="gsm" class="form-control" placeholder="{% trans 'Gsm-nummer' %}" required>
+                    {{ form.gsm }}
                   </div>
           
                   <!-- Straatnaam -->
                   <div class="col-md-8">
-                      <input type="text" name="straatnaam" class="form-control" placeholder="{% trans 'Straatnaam' %}" maxlength="100" required>
+                      {{ form.straatnaam }}
                   </div>
           
                   <!-- Nummer -->
                   <div class="col-md-4">
-                      <input type="text" name="nummer" class="form-control" placeholder="{% trans 'Nummer' %}" maxlength="6" required>
+                    {{ form.nummer }}
                   </div>
           
                   <!-- Postcode -->
                   <div class="col-md-4">
-                      <input type="number" name="postcode" class="form-control" placeholder="{% trans 'Postcode' %}" min="0" max="9999" required>
+                    {{ form.postcode }}
                   </div>
           
                   <!-- Stad -->
                   <div class="col-md-8">
-                      <input type="text" name="stad" class="form-control" placeholder="{% trans 'Stad' %}" maxlength="40" required>
+                    {{ form.stad }}
                   </div>
 
                   <!-- Ticket -->
@@ -126,7 +126,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
                   <div class="col-md-12">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <input name="terms_voorwaarden" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label text-muted small" for="flexCheckDefault">
                         {% url 'algemene_voorwaarden' as av_url %}
                         {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> van ChudartZ.{% endblocktrans %}
@@ -136,7 +136,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                   
                   <div class="col-md-12 mt-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <input name="terms_reglement" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label text-muted small" for="flexCheckDefault">
                         {% url 'reglement_toernooien' as rt_url %}
                         {% blocktrans %}Ik ga akkoord met het <a href="{{ rt_url }}">Algemeen reglement</a> voor darttoernooien.{% endblocktrans %}
@@ -146,7 +146,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
                   <div class="col-md-12 mt-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <input name="terms_privacy" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label text-muted small" for="flexCheckDefault">
                         {% url 'privacybeleid' as p_url %}
                         {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ.{% endblocktrans %}
@@ -157,7 +157,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                   {% if toernooi.vereist_voogd_toestemming %}
                   <div class="col-md-12 mt-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <input name="toestemming_voogd" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label text-muted small" for="flexCheckDefault">
                         {% blocktrans %}
                         Als ouder/voogd, geef ik toestemming aan mijn minderjarige kind om deel te nemen aan de wedstrijd en verklaar mij akkoord met het verwerken van diens persoonsgegevens in overeenstemming met de wet op de privacy. 
@@ -170,7 +170,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
                   <div class="col-md-12 mt-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <input name="terms_disclaimer" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label text-muted small" for="flexCheckDefault">
                         {% url 'disclaimer' as d_url %}
                         {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ.{% endblocktrans %}
