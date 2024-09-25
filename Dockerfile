@@ -21,9 +21,6 @@ RUN apt-get update && \
 
 COPY . /app/
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
 # Expose port
 EXPOSE 8003
 
