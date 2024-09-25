@@ -8,35 +8,11 @@ services:
     env_file: stack.env
 
     volumes:
-      # - .:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     ports:
       - "8003:8003"
-    depends_on:
-      - db
     working_dir: /app
-
-  db:
-    image: postgres:16
-    container_name: chudaratz_db
-    restart: always
-    env_file: stack.env
-
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    expose:
-      - "5434"
-    ports:
-      - 5434:5434
-
-  backup:
-    image: eeshugerman/postgres-backup-s3:16
-    env_file: stack.env
-    restart: always
-    environment:
-      SCHEDULE: '@daily'
-      BACKUP_KEEP_DAYS: 14
 
   nginx:
     image: nginx:alpine
@@ -49,7 +25,6 @@ services:
       - "81:81"
 
 volumes:
-  postgres_data:
   nginx_volume:
   media_volume:
   static_volume:

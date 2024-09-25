@@ -1,6 +1,5 @@
 Django
 psycopg2
-django-dbbackup 
 boto3
 django-storages
 django-unfold
