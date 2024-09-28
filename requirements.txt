@@ -16,3 +16,4 @@ requests
 django-phonenumber-field
 django-lockdown
 pytz
+django-dbbackup
