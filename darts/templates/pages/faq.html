@@ -8,6 +8,7 @@ ChudartZ | Over Ons
 
 {% block meta %}
 <meta name="robots" content="index, follow">
+<meta property="og:title" content="ChudartZ | FAQ">
 {% endblock %}
 
 {% block body %}
@@ -27,6 +28,8 @@ ChudartZ | Over Ons
         <div class="container">
   
           <div class="row gy-4">
+
+            {%url 'index' as index_url %}
   
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
               <div class="content px-xl-5">
@@ -34,9 +37,8 @@ ChudartZ | Over Ons
                 <p>
                   {% blocktrans %}
                   Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om
+                  <a href="{{ index_url }}#contact">contact</a> met ons op te nemen!
                   {% endblocktrans %}
-                  <a href="{% url 'index' %}#contact">{% trans 'contact' %}</a> 
-                  {% blocktrans %}met ons op te nemen!{% endblocktrans %}
                 </p>
               </div>
             </div>
@@ -73,7 +75,7 @@ ChudartZ | Over Ons
                 <div class="faq-item">
                   <h3><span class="num">4.</span> <span>{% blocktrans %}Is er een leeftijdsbeperking om lid te worden van de school of deel te nemen aan een toernooi?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    <p>Onze school en toernooien staan open voor iedereen vanaf 10 jaar. In uitzonderlijke gevallen kunnen jongere talenten zich ook inschrijven. Ouderlijke toestemming is hierbij altijd vereist. Bij verdere vragen, neem gerust <a href="#contact">contact</a> met ons op.</p>
+                    <p>{% blocktrans %}Onze school en toernooien staan open voor iedereen vanaf 10 jaar. In uitzonderlijke gevallen kunnen jongere talenten zich ook inschrijven. Ouderlijke toestemming is hierbij altijd vereist. Bij verdere vragen, neem gerust <a href="{{ index_url }}#contact">contact</a> met ons op.{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>
@@ -82,14 +84,6 @@ ChudartZ | Over Ons
                   <h3><span class="num">5.</span> <span>{% blocktrans %}Wat is de prijzenpot voor de winnaars?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
                     <p>{% blocktrans %}De prijzenpot verschilt per toernooi, maar bevat vaak geldprijzen, trofeeën en andere leuke verrassingen.{% endblocktrans %}</p>
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div>
-  
-                <div class="faq-item">
-                  <h3><span class="num">6.</span> <span>{% blocktrans %}Kan ik mij op de dag zelf nog inschrijven voor een toernooi?{% endblocktrans %}</span></h3>
-                  <div class="faq-content">
-                    <p>{% blocktrans %}Afhankelijk van de beschikbare plaatsen kun je je op de dag zelf nog inschrijven. We raden echter aan om vooraf te registreren om zeker te zijn van deelname.{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>
