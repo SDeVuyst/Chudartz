@@ -41,7 +41,7 @@ def gratis_proefles(request):
     context["vereisten"] = [
         "Vanaf 10 jaar", 
         "Jonger dan 10 jaar kan, mits uitzonderlijk talent",
-        "Maximum 20 jaar oud (of geb. in 2005)", 
+        "Maximum 20 jaar oud", 
         "Actieve interesse in darts"
     ]
         
