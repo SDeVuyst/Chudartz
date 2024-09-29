@@ -1,0 +1,193 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ Collectibles | Algemene Voorwaarden
+{% endblock %}
+
+{% block meta %}
+<meta NAME="robots" CONTENT="noindex, nofollow">
+{% endblock %}
+
+{% block body %}
+<body class="disclaimer-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Algemene Voorwaarden" as page_name %}
+
+    {% include 'pokemon/blocks/page-title.html' with name=page_name %}
+
+
+    <section id="portfolio-details" class="portfolio-details section"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4">
+
+          <div data-aos="fade-up">
+            <div class="portfolio-description">
+
+                <p>{% blocktrans %}
+                    Door deel te nemen aan de evenementen van ChudartZ Collectibles erkent u, zowel als bezoeker of als standhouder, dat u de disclaimer, de algemene voorwaarden en het Privacybeleid hebt gelezen, begrepen en akkoord bent met de inhoud ervan.
+                    Deze documenten kunnen zonder voorafgaande kennisgeving worden gewijzigd. Het is de verantwoordelijkheid van de deelnemer om eventuele wijzigingen regelmatig te controleren. Wijzigingen met impact zullen wel op voorhand kenbaar gemaakt worden.
+                {% endblocktrans %}</p>
+
+
+
+                <h2>{% trans 'Inschrijving en deelname' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}Deelname aan een evenement, hetzij als standhouder, hetzij als bezoeker is alleen geldig na succesvolle inschrijving en betaling van het inschrijfgeld.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}Door zich in te schrijven verklaart de deelnemer naar eer en geweten dat alle verstrekte informatie juist en volledig is. De deelnemer accepteert alle verantwoordelijkheden die voortvloeien uit deelname aan het evenement, inclusief het naleven van de regels en het nemen van de nodige voorzorgsmaatregelen.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}Inschrijvingen zijn persoonlijk en kunnen niet worden overgedragen aan anderen. Het doorverkopen of overdragen van tickets is, zonder uitdrukkelijke toestemming van de organisatie niet toegestaan. Bij overtreding kan de toegang tot het evenement worden geweigerd.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}De inschrijvingsdeadline wordt strikt nageleefd.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}Een annulering van een reeds gemaakte boeking op de dag zelf leidt niet tot terugbetaling, tenzij er sprake is van overmacht, zoals (ernstige) ziekte, overlijden familielid, …{% endblocktrans %}
+                        </li>
+                    </ul>                  
+                </p>
+
+                <h2 class="pt-5">{% trans 'Regels en gedragscode' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}Wij verzoeken alle deelnemers zich te gedragen en respectvol om te gaan met mededeelnemers en de omgeving. Het is belangrijk dat iedereen zich houdt aan de geldende huisregels om een veilige en plezierige sfeer te waarborgen. Overtreding van deze regels kan leiden tot passende maatregelen, zoals verwijdering van het evenement.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}De organisatie behoudt zich het recht voor om deelnemers die zich niet aan de regels houden, uit te sluiten van verdere deelname aan het event of andere evenementen ingericht door de organisator.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Gebruik van materiaal' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}Schade aan de locatie of apparatuur door een deelnemer zal op kosten van de deelnemer worden hersteld.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}De organisatie is niet verantwoordelijk voor verlies, diefstal, of schade aan persoonlijke eigendommen van deelnemers (bezoekers, standhouders).{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}· Deelname of een bezoek aan een event is geheel op eigen risico. De organisatie is niet aansprakelijk voor eventuele verwondingen of ongevallen, tenzij deze direct te wijten is aan opzet of grove nalatigheid van de organisator.
+                            Deelnemers kunnen mogelijk een beroep doen op hun eigen verzekering, zoals een aansprakelijkheids- of ongevallenverzekering, voor dekking van schade die zij hebben veroorzaakt of opgelopen.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}
+                            De organisatie is enkel aansprakelijk voor gebeurtenissen (die te wijten zijn aan opzet of grove nalatigheid van de organisator) tijdens het evenement zelf, maar nooit voor incidenten onderweg naar of terug van het evenement.
+                            {% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}
+                            Deelnemers dienen zich bewust te zijn van hun eigen fysieke en mentale gesteldheid en verantwoordelijk te handelen.
+                            {% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}
+                            De organisatie behoudt zich het recht voor om het event, de dagindeling of andere aspecten van het evenement te wijzigen indien noodzakelijk, met of zonder voorafgaande kennisgeving, afhankelijk van externe factoren waarover de organisatie geen volledige controle heeft.
+                            {% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}
+                            In geval van overmacht (bijvoorbeeld pandemieën, natuurgeweld) kan het evenement worden uitgesteld of geannuleerd zonder restitutie van inschrijfgeld.
+                            {% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Transacties en aankopen' %}</h2>
+                <h4>{% trans "Verkoop en ruil" %}</h4>
+                <p>{% blocktrans %}
+                    Deelname aan het evenement kan transacties omvatten, zoals de verkoop, aankoop of ruil van goederen. Deelnemers zijn verantwoordelijk voor hun eigen transacties en moeten ervoor zorgen dat ze voldoen aan alle toepasselijke wet- en regelgeving.
+                {% endblocktrans %}</p>
+
+                <h4>{% trans "Aankopen" %}</h4>
+                <p>{% blocktrans %}
+                    Voor aankopen van goederen door bezoekers geldt dat alle transacties en betalingsvoorwaarden direct tussen de koper en de verkoper worden geregeld. De organisatie is niet aansprakelijk voor geschillen of problemen die voortvloeien uit dergelijke transacties.
+                {% endblocktrans %}</p>
+
+                <h4>{% trans "Ruilvoorwaarden met ChudartZ Collectibles" %}</h4>
+                <p>{% blocktrans %}
+                    ChudartZ Collectibles biedt bezoekers de mogelijkheid om hun eigen collecties of items te ruilen of te verkopen tegen 65% van de actuele marktprijs aan ChudartZ Collectibles, op voorwaarde dat de goederen in goede staat verkeren en voldoen aan de voorwaarden en omschrijving zoals aangegeven door de verkoper bij de aankoop of ruil.
+                {% endblocktrans %}</p>
+
+                <h4>{% trans "Retouren en klachten" %}</h4>
+                <p>{% blocktrans %}
+                    Retouren of klachten over aangekochte goederen dienen te worden behandeld volgens de voorwaarden van de betreffende verkoper. De organisatie van het evenement is niet verantwoordelijk voor retouren, ruilen of klachten, indien zij zelf geen betrokken partij zijn in de transactie.
+                {% endblocktrans %}</p>
+
+                <h2 class="pt-5">{% trans 'Privacy en gebruik van beeldmateriaal' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}Door deel te nemen aan een evenement en/of het betreden van een evenement gaat u akkoord met het feit dat u gefotografeerd of gefilmd kunt worden en dat deze beelden gebruikt kunnen worden voor promotionele doeleinden zonder enige compensatie.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% url 'privacybeleid' as p_url %}
+                            {% blocktrans %}
+                            Persoonlijke gegevens die tijdens de inschrijving worden verzameld, worden uitsluitend gebruikt voor de organisatie van het evenement en niet gedeeld met derden, behoudens uitzonderingen zoals in het <a href="{{ p_url }}">Privacybeleid</a> meegedeeld.
+                            {% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Disputen' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}Eventuele geschillen die voortkomen uit de deelname aan het event kunnen worden voorgelegd aan de organisatie, die desgevallend zal doorverwijzen naar de bevoegde instanties.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Wijzigingen en aanpassingen' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}De organisatie behoudt zich het recht voor om deze algemene voorwaarden op elk moment te 
+                            wijzigen. Eventuele wijzigingen worden voorafgaand aan het toernooi gecommuniceerd.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Acceptatie van de voorwaarden' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}Door deel te nemen aan het evenement, accepteert de deelnemer automatisch de bovenstaande algemene voorwaarden.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+                
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

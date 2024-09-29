@@ -82,6 +82,21 @@ def evenement(request, slug):
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
 
+def algemene_voorwaarden(request):
+    context = {}
+    return TemplateResponse(request, 'pokemon/pages/algemene_voorwaarden.html', context)
+
+
+def privacybeleid(request):
+    context = {}
+    return TemplateResponse(request, 'pokemon/pages/privacybeleid.html', context)
+
+
+def disclaimer(request):
+    context = {}
+    return TemplateResponse(request, 'pokemon/pages/disclaimer.html', context)
+
+
 def faq(request):
     context = {}
     return TemplateResponse(request, 'pokemon/pages/faq.html', context)

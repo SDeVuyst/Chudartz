@@ -14,7 +14,10 @@ urlpatterns = i18n_patterns(
     path(_('evenementen'), views.evenementen, name="evenementen"),
     path(_('evenement/<slug:slug>/'), views.evenement, name='evenement'),
 
-    path(_('faz/'), views.faq, name='faq'),
+    path(_('algemene_voorwaarden/'), views.algemene_voorwaarden, name='algemene_voorwaarden'),
+    path(_('privacybeleid/'), views.privacybeleid, name='privacybeleid'),
+    path(_('disclaimer/'), views.disclaimer, name='disclaimer'),
+    path(_('faq/'), views.faq, name='faq'),
 
     path('i18n/', include('django.conf.urls.i18n')),
 )

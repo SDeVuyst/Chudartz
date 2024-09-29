@@ -6,9 +6,10 @@
     <div class="row gy-4">
       <div class="col-lg-6 col-md-12 footer-about">
         <a href="{% url 'index' %}" class="logo d-flex align-items-center">
-          <span class="sitename">ChudartZ Collectibles</span>
+          <span class="sitename">ChudartZ</span>
         </a>
-        <p>Ondernemingsnummer: 0123.456.789</p>
+        <p>{% trans 'Ondernemingsnummer' %}: 0123.456.789</p>
+        <p>{% trans 'Alle transacties gebeuren in €' %}</p>
         <p>{% trans 'Gemaakt door' %}<a href="https://github.com/SDeVuyst/"> SDeVuyst</a>.</p>
         <div class="social-links d-flex mt-4">
           <a href=""><i class="bi bi-facebook"></i></a>
@@ -18,34 +19,41 @@
         </div>
       </div>
 
+
       <div class="col-lg-2 col-6 footer-links">
         <h4>{% trans 'Handige Links' %}</h4>
         <ul>
-          <li><a href="{% url 'index' %}">Home</a></li>
+          <!-- <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'over_ons' %}">{% trans 'Over Ons' %}</a></li> -->
+          <li><a href="{% url 'algemene_voorwaarden' %}">{% trans 'Algemene Voorwaarden' %}</a></li>
+          <li><a href="{% url 'privacybeleid' %}">{% trans 'Privacybeleid' %}</a></li>
+          <li><a href="{% url 'disclaimer' %}">{% trans 'Disclaimer' %}</a></li>
+          <li><a href="{% url 'faq' %}">{% trans 'FAQ' %}</a></li>   
         </ul>
       </div>
 
       <div class="col-lg-4 col-md-12 footer-contact text-center text-md-start">
         <h4>{% trans 'Contacteer Ons' %}</h4>
-        <p>A108 Adam Street</p>
-        <p>Zedelgem, 8210</p>
+        <p>Wilgenlaan 35</p>
+        <p>8210, Zedelgem</p>
         <p>België</p>
-        <p class="mt-4"><strong>{% trans 'Telefoon' %}:</strong> <span>+1 5589 55488 55</span></p>
-        <p><strong>Email:</strong> <span>info@example.com</span></p>
+        <p class="mt-4"><strong>{% trans 'Telefoon' %}:</strong> <span><a href="tel:+32472041891">0472/04.18.91</a></span></p>
+        <p><strong>Email:</strong> <span><a href="mailto:chudartz@gmail.com">chudartz@gmail.com</a></span></p>
       </div>
 
     </div>
   </div>
 
   <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="sitename">ChudartZ</strong> <span>{% trans 'alle rechten voorbehouden' %}</span></p>
+    <p>© <span>Copyright</span> <strong class="sitename">ChudartZ Collectibles</strong> <span>{% trans 'alle rechten voorbehouden' %}</span></p>
   </div>
 
 </footer>
 
-
+{% if not disable_scroll_top %}
 <!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" {% if not disable_scroll_top %}style="opacity: 0;"{% endif %}><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endif %}
 
 <!-- Preloader -->
 <div id="preloader"></div>

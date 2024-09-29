@@ -1,9 +1,9 @@
-{% extends 'main.html' %}
+{% extends 'pokemon/main.html' %}
 
 {% load static i18n %}
 
 {% block title %}
-ChudartZ | Privacybeleid
+ChudartZ Collectibles | Privacybeleid
 {% endblock %}
 
 {% block meta %}
@@ -13,13 +13,13 @@ ChudartZ | Privacybeleid
 {% block body %}
 <body class="disclaimer-page">
 
-  {% include 'blocks/header-sticky.html' %}
+  {% include 'pokemon/blocks/header-sticky.html' %}
 
   <main class="main">
     {% trans "Privacybeleid" as page_name %}
     {% trans "Wij nemen de bescherming van uw privacy zeer serieus. Alle persoonlijke gegevens die u via deze website en/of deelnameformulier verstrekt, worden met de grootste zorgvuldigheid behandeld en alleen gebruikt in overeenstemming met inachtneming van de privacy van het individu. Wij doen er alles aan om uw gegevens te beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, maar kunnen geen absolute veiligheid garanderen." as page_desc %}
 
-    {% include 'blocks/page-title.html' with name=page_name description=page_desc %}
+    {% include 'pokemon/blocks/page-title.html' with name=page_name description=page_desc %}
 
 
     <section id="portfolio-details" class="portfolio-details section"> 
@@ -259,7 +259,7 @@ ChudartZ | Privacybeleid
                     {% endblocktrans %}
                 </p>
                 <p>
-                    ChudartZ<br>
+                    ChudartZ Collectibles<br>
                     Wilgenlaan 35<br>
                     8210 Loppem<br>
                     {% blocktrans %}België{% endblocktrans %}<br>
@@ -276,7 +276,7 @@ ChudartZ | Privacybeleid
 
   </main>
 
-  {% include 'blocks/footer.html' %}
+  {% include 'pokemon/blocks/footer.html' %}
 
 </body>
 {% endblock %}
