@@ -7,7 +7,18 @@ ChudartZ Collectibles | Over Ons
 {% endblock %}
 
 {% block meta %}
+<meta name="description" content="ChudartZ Collectibles is dé bestemming voor liefhebbers van Pokémon en andere uitzonderlijke verzamelobjecten, met een zorgvuldig geselecteerde collectie unieke items en regelmatige beurzen en evenementen. Wij brengen verzamelaars samen om hun passie te delen en hun collecties te verrijken. Ontdek onze gemeenschap en laat je inspireren!">
 <meta name="robots" content="index, follow">
+<meta property="og:title" content="ChudartZ Collectibles | Over Ons">
+<meta property="og:description" content="ChudartZ Collectibles is dé bestemming voor liefhebbers van Pokémon en andere uitzonderlijke verzamelobjecten, met een zorgvuldig geselecteerde collectie unieke items en regelmatige beurzen en evenementen. Wij brengen verzamelaars samen om hun passie te delen en hun collecties te verrijken. Ontdek onze gemeenschap en laat je inspireren!">
+<meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
+<meta name="keywords" content="pokemon, collectibles, zedelgem, chudartz, tcg, munten, verzamelaars, verzameling, community, België, evenementen, beurzen / beurs, bijzonder, uniek, uitzonderlijk, antiek, vintage">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ Collectibles | Over Ons">
+<meta name="twitter:description" content="ChudartZ Collectibles is dé bestemming voor liefhebbers van Pokémon en andere uitzonderlijke verzamelobjecten, met een zorgvuldig geselecteerde collectie unieke items en regelmatige beurzen en evenementen. Wij brengen verzamelaars samen om hun passie te delen en hun collecties te verrijken. Ontdek onze gemeenschap en laat je inspireren!">
+<meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
 {% endblock %}
 
 {% block body %}
@@ -18,7 +29,7 @@ ChudartZ Collectibles | Over Ons
   <main class="main">
 
     {% trans "Over Ons" as page_name %}
-    {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
+    {% trans "Welkom in de wereld van  ChudartZ Collectibles!" as page_description %}
 
     {% include 'blocks/page-title.html' with name=page_name description=page_description %}
 
@@ -26,31 +37,85 @@ ChudartZ Collectibles | Over Ons
 
       <div class="container" data-aos="fade-up">
 
-        <div class="row justify-content-between gy-4 mt-4">
+        <div class="row justify-content-between gy-4">
 
           <div data-aos="fade-up">
             <div class="portfolio-description">
-              <h2>{% trans 'Onze Missie en Visie' %}</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-              <p>
-                Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
-              </p>
-
-              {% include 'blocks/quote.html' with quote='Een leermeester hoeft niet perfect te zijn, zolang de leerling maar uitblinkt.' image_url='/static/img/quotes/testimonials-2.jpg' name='Frederick De Mey' title='Trainer & Eigenaar' %}
 
               <p>
-                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
+                {% blocktrans %}
+                Welkom bij ChudartZ Collectibles, dé bestemming voor liefhebbers van verzamelobjecten en evenementen. Naast onze passie voor <a href="https://chudartz.com/" target="_blank">darts</a> richten we ons op alles wat met collectibles te maken heeft, met een bijzondere focus op Pokémon en andere populaire verzamelitems. Of je nu een doorgewinterde verzamelaar bent of net begint, wij ondersteunen je graag in het uitbreiden van je collectie en het delen van je passie met gelijkgestemden.
+                {% endblocktrans %}
               </p>
 
+              <h2>{% trans 'Ons logo en inspiratie' %}</h2>
               <p>
-                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
+                {% blocktrans %}
+                ChudartZ is een unieke samensmelting van de Pokémon- en <a href="https://chudartz.com/" target="_blank">dartswereld</a>, verrijkt met een speciale Japanse twist.
+                {% endblocktrans %}
               </p>
+              <ul>
+                <li>
+                  {% blocktrans %}
+                  "Chu" komt van Pikachu, een van de meest iconische Pokémon, en vertegenwoordigt onze sterke band met het Pokémon-universum.
+                  {% endblocktrans %}
+                </li>
+                <li>
+                  {% blocktrans %}
+                  “Z” staat voor de krachtige Z-moves uit de Pokémon-games, die symbool staan voor kracht en dynamiek, vergelijkbaar met onze toewijding aan zowel de darts- als de collectibles wereld.
+                  {% endblocktrans %}
+                </li>
+                <li>
+                  {% blocktrans %}
+                  “DartZ” verwijst natuurlijk naar darten, een sport uit Engeland waar wij een diepe passie voor hebben.
+                  {% endblocktrans %}
+                </li>
+              </ul>
+
+              <p>
+                {% blocktrans %}
+                Ons logo, met de naam 'ChudartZ' in het Japans, vangt de unieke mix van darts en Pokémon, met een Japanse stijl die onze culturele verbondenheid en onderscheidende karakter benadrukt.
+                {% endblocktrans %}
+              </p>
+
+              {% include 'blocks/quote.html' with quote='Unieke verzamelobjecten zijn zeldzame en waardevolle items die verhalen, geschiedenis en exclusiviteit bij elkaar brengen' image_url='/static/img/headshots/fre.webp' name='Senne De Mey' title='Organisator' %}
+              
+              <h2 class="pt-5 pb-3">{% trans 'Collectibles en meer' %}</h2>
+
+              <p>
+                {% blocktrans %}
+                Bij ChudartZ Collectibles staat de liefde voor bijzondere verzamelobjecten centraal. Onze passie voor Pokémon is geworteld in dezelfde fascinatie die ons inspireert binnen de dartswereld. Daarnaast organiseren we regelmatig beurzen en evenementen waar je jouw favoriete stukken kunt ontdekken, ruilen en tentoonstellen, en waar je gelijkgestemden kunt ontmoeten
+                {% endblocktrans %}
+              </p>
+
+              <h4>{% trans 'Beurzen en evenementen' %}</h4>
+
+              <p>
+                {% blocktrans %}
+                Naast onze vaste collectie zijn wij ook de uitvalsbasis voor boeiende beurzen en evenementen. We brengen verzamelaars uit de hele regio samen om te genieten van unieke exposities, ruilbeurzen, workshops en meer. Blijf op de hoogte van onze aankomende evenementen en mis geen kans om je collectie te verrijken en je netwerk binnen de collectibles-community uit te breiden.
+                {% endblocktrans %}
+              </p>
+
+              <h4>{% trans "Missie" %}</h4>
+              <p>
+                {% blocktrans %}
+                Onze missie is om een omgeving te creëren waar verzamelaars van alle leeftijden hun passie voor collectibles kunnen ontdekken, ontwikkelen en delen. Wij willen een ontmoetingspunt zijn voor iedereen die zich verdiept in de wereld van Pokémon en andere bijzondere verzamelobjecten, en hen ondersteunt bij het vinden van unieke stukken en het leggen van nieuwe connecties.
+                {% endblocktrans %}
+              </p>
+
+              <h4>{% trans "Visie" %}</h4>
+              <p>
+                {% blocktrans %}
+                Bij ChudartZ Collectibles streven we ernaar een toonaangevend platform te worden voor verzamelaars in België en daarbuiten. Door het organiseren van beurzen, evenementen en workshops willen we een hechte gemeenschap opbouwen waarin kennis en enthousiasme voor collectibles worden gedeeld. Ons doel is niet alleen om als (online) winkel te fungeren, maar ook als ontmoetingsplek waar verzamelaars elkaar kunnen inspireren en waar de passie voor verzamelen centraal staat.
+                {% endblocktrans %}
+              </p>
+
+
 
             </div>
+              
           </div>
-
+          
         </div>
 
       </div>

@@ -3,16 +3,17 @@
 {% load static i18n %}
 
 {% block meta %}
-<meta name="description" content="TODO">
+<meta name="description" content="Welkom bij ChudartZ Collectibles, dé bestemming voor liefhebbers van Pokémon en andere unieke verzamelobjecten. Ontdek onze gemeenschap, blijf op de hoogte van onze evenementen en deel jouw passie met andere verzamelaars. Bezoek onze website voor meer informatie over onze activiteiten!">
 <meta name="robots" content="index, follow">
-<!-- todo -->
 <meta property="og:title" content="ChudartZ Collectibles">
-<meta property="og:description" content="TODO">
+<meta property="og:description" content="Welkom bij ChudartZ Collectibles, dé bestemming voor liefhebbers van Pokémon en andere unieke verzamelobjecten. Ontdek onze gemeenschap, blijf op de hoogte van onze evenementen en deel jouw passie met andere verzamelaars. Bezoek onze website voor meer informatie over onze activiteiten!">
 <meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
+<meta name="keywords" content="pokémon, chudartz, beurs, evenementen, zedelgem, collectibles">
+
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ChudartZ">
-<meta name="twitter:description" content="TODO">
+<meta name="twitter:title" content="ChudartZ Collectibles">
+<meta name="twitter:description" content="Welkom bij ChudartZ Collectibles, dé bestemming voor liefhebbers van Pokémon en andere unieke verzamelobjecten. Ontdek onze gemeenschap, blijf op de hoogte van onze evenementen en deel jouw passie met andere verzamelaars. Bezoek onze website voor meer informatie over onze activiteiten!">
 <meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
 {% endblock %}
 
@@ -75,12 +76,11 @@
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box">
-                  <a href=""><i class="bi bi-stars"></i></a>
+                  <a href="{% url 'evenementen' %}"><i class="bi bi-stars"></i></a>
                   <h3>{% trans 'Evenementen' %}</h3>
                   <p>
                     {% blocktrans %}
-                    Bij ChudartZ bieden we een professionele dartschool aan in Zedelgem, 
-                    waar spelers van alle niveaus hun vaardigheden kunnen verbeteren. 
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis velit impedit nam explicabo maiores sapiente, ad rerum laboriosam! Vero amet ratione expedita animi praesentium. Facilis qui dolore reiciendis aliquam odio.
                     {% endblocktrans %}
                   </p>
                 </div>
@@ -88,12 +88,11 @@
               
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box">
-                  <a href=""><i class="bi bi-question-circle"></i></a>
+                  <a href="{% url 'faq' %}"><i class="bi bi-question-circle"></i></a>
                   <h3>{% trans 'FAQ' %}</h3>
                   <p>
                     {% blocktrans %}
-                    Wij organiseren regelmatig darttoernooien waar zowel amateurs als professionals kunnen deelnemen.
-                    Aarzel niet om je in te schrijven! 
+                    Heb je vragen over ons? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over evenementen, collectibles, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om contact met ons op te nemen!
                     {% endblocktrans %}
                   </p>
                 </div>
