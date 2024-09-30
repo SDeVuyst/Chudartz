@@ -10,12 +10,20 @@ from unfold.decorators import action, display
 
 from .models import *
 
+class TicketInline(StackedInline):
+    model = Ticket
+    verbose_name = _("Evenement Ticket")
+    verbose_name_plural = _("Evenement Tickets")
+
+
 @admin.register(Evenement)
 class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
     exclude = ('tickets',)
-
+    inlines = [
+        TicketInline
+    ]
     actions_detail = ["generate_qr_code",]
 
     search_fields = ('titel', 'beschrijving', 'start_datum', 'einde_datum', 'locatie_lang')
