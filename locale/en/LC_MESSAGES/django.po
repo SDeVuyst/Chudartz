@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-24 15:03+0200\n"
-"PO-Revision-Date: 2024-09-24 15:13+0200\n"
+"POT-Creation-Date: 2024-09-30 12:04+0200\n"
+"PO-Revision-Date: 2024-09-30 12:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: .\chudartz\settings.py:229
 msgid "Financiën"
@@ -28,8 +28,8 @@ msgid "Analyse"
 msgstr "Analysis"
 
 #: .\chudartz\settings.py:246 .\darts\templates\blocks\header.html:25
-#: .\darts\templates\pages\index.html:108
-#: .\darts\templates\pages\index.html:188
+#: .\darts\templates\pages\index.html:123
+#: .\darts\templates\pages\index.html:210
 #: .\darts\templates\pages\resultaat.html:32
 #: .\darts\templates\pages\toernooi-inschrijving.html:29
 #: .\darts\templates\pages\toernooi.html:27
@@ -54,7 +54,8 @@ msgstr "Scanner"
 #: .\darts\templates\pages\dartschool-reserveren.html:34
 #: .\darts\templates\pages\dartschool-werkwijze.html:21
 #: .\darts\templates\pages\dartschool.html:28
-#: .\darts\templates\pages\index.html:96 .\darts\templates\pages\index.html:187
+#: .\darts\templates\pages\index.html:111
+#: .\darts\templates\pages\index.html:209
 #: .\darts\templates\pages\priveles.html:30
 msgid "Dartschool"
 msgstr "Darts School"
@@ -107,7 +108,7 @@ msgstr "Generate QR Code"
 msgid "Status van Betaling"
 msgstr "Payment Status"
 
-#: .\darts\admin.py:97 .\darts\models.py:277 .\pokemon\models.py:199
+#: .\darts\admin.py:97 .\darts\models.py:277 .\pokemon\models.py:200
 msgid "Attended"
 msgstr "Attended"
 
@@ -144,7 +145,7 @@ msgid "Sold out"
 msgstr "Sold out"
 
 #: .\darts\models.py:44 .\darts\models.py:406 .\darts\models.py:493
-#: .\darts\templates\pages\index.html:312
+#: .\darts\templates\pages\index.html:360
 #: .\darts\templates\pages\priveles.html:63
 #: .\pokemon\templates\pokemon\pages\index.html:250
 msgid "Naam"
@@ -158,44 +159,44 @@ msgstr "Active"
 msgid "Volgorde"
 msgstr "Order"
 
-#: .\darts\models.py:60 .\pokemon\models.py:45
+#: .\darts\models.py:60 .\pokemon\models.py:44
 msgid "Titel"
 msgstr "Title"
 
-#: .\darts\models.py:62 .\darts\models.py:236 .\pokemon\models.py:47
+#: .\darts\models.py:62 .\darts\models.py:236 .\pokemon\models.py:46
 msgid "Beschrijving"
 msgstr "Description"
 
-#: .\darts\models.py:63 .\pokemon\models.py:48
+#: .\darts\models.py:63 .\pokemon\models.py:47
 msgid "Vereisten (Elk op een nieuwe lijn)"
 msgstr "Prerequisites (Each on a new line)"
 
-#: .\darts\models.py:64 .\pokemon\models.py:49
+#: .\darts\models.py:64 .\pokemon\models.py:48
 msgid "Start Datum"
 msgstr "Start Date"
 
-#: .\darts\models.py:65 .\pokemon\models.py:50
+#: .\darts\models.py:65 .\pokemon\models.py:49
 msgid "Eind Datum"
 msgstr "End date"
 
-#: .\darts\models.py:66 .\darts\models.py:152 .\pokemon\models.py:51
-#: .\pokemon\models.py:115
+#: .\darts\models.py:66 .\darts\models.py:152 .\pokemon\models.py:50
+#: .\pokemon\models.py:114
 msgid "Max Deelnemers"
 msgstr "Max Participants"
 
-#: .\darts\models.py:67 .\pokemon\models.py:52
+#: .\darts\models.py:67 .\pokemon\models.py:51
 msgid "Locatie (kort)"
 msgstr "Location (short)"
 
-#: .\darts\models.py:68 .\pokemon\models.py:53
+#: .\darts\models.py:68 .\pokemon\models.py:52
 msgid "Locatie (lang)"
 msgstr "Location (long)"
 
-#: .\darts\models.py:69 .\darts\models.py:414 .\pokemon\models.py:54
+#: .\darts\models.py:69 .\darts\models.py:414 .\pokemon\models.py:53
 msgid "afbeelding"
 msgstr "image"
 
-#: .\darts\models.py:70 .\pokemon\models.py:55
+#: .\darts\models.py:70 .\pokemon\models.py:54
 msgid "Download afbeeldingen URL"
 msgstr "Download images URL"
 
@@ -207,7 +208,7 @@ msgstr "Guardian's consent is required"
 msgid "Toon op site"
 msgstr "Show on site"
 
-#: .\darts\models.py:74 .\pokemon\models.py:57
+#: .\darts\models.py:74 .\pokemon\models.py:56
 msgid "Inschrijvingen Inschakelen"
 msgstr "Enable enrollments"
 
@@ -224,71 +225,67 @@ msgid "Resultaten"
 msgstr "Results"
 
 #: .\darts\models.py:81 .\darts\models.py:155 .\darts\models.py:238
-#: .\pokemon\models.py:59 .\pokemon\models.py:118 .\pokemon\models.py:176
+#: .\pokemon\models.py:58 .\pokemon\models.py:117 .\pokemon\models.py:175
 msgid "Geschiedenis"
 msgstr "History"
 
-#: .\darts\models.py:150 .\pokemon\models.py:113
+#: .\darts\models.py:150 .\pokemon\models.py:112
 msgid "titel"
 msgstr "title"
 
-#: .\darts\models.py:153 .\pokemon\models.py:116
+#: .\darts\models.py:153 .\pokemon\models.py:115
 msgid "Evenement"
 msgstr "Event"
 
-#: .\darts\models.py:189 .\pokemon\models.py:152
+#: .\darts\models.py:189 .\pokemon\models.py:151
 msgctxt "payment status"
 msgid "Betaald"
 msgstr "Paid"
 
-#: .\darts\models.py:190 .\pokemon\models.py:153
+#: .\darts\models.py:190 .\pokemon\models.py:152
 msgctxt "payment status"
 msgid "Open"
 msgstr "Open"
 
-#: .\darts\models.py:191 .\pokemon\models.py:154
+#: .\darts\models.py:191 .\pokemon\models.py:153
 msgctxt "payment status"
 msgid "Geannuleerd"
 msgstr "Cancelled"
 
-#: .\darts\models.py:192 .\pokemon\models.py:155
+#: .\darts\models.py:192 .\pokemon\models.py:154
 msgctxt "payment status"
 msgid "Verlopen"
 msgstr "Expire"
 
-#: .\darts\models.py:193 .\pokemon\models.py:156
+#: .\darts\models.py:193 .\pokemon\models.py:155
 msgctxt "payment status"
 msgid "Gefaald"
 msgstr "Failed"
 
-#: .\darts\models.py:230 .\pokemon\models.py:169
+#: .\darts\models.py:230 .\pokemon\models.py:168
 msgid "Mollie id"
 msgstr "Mollie id"
 
 #: .\darts\models.py:231 .\darts\models.py:265 .\darts\models.py:431
 #: .\darts\templates\pages\dartschool-beurtkaart.html:132
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:61
-#: .\darts\templates\pages\toernooi-inschrijving.html:57
-#: .\pokemon\models.py:170 .\pokemon\models.py:190
+#: .\pokemon\models.py:169 .\pokemon\models.py:189
 msgid "Voornaam"
 msgstr "First name"
 
 #: .\darts\models.py:232 .\darts\models.py:266 .\darts\models.py:432
 #: .\darts\templates\pages\dartschool-beurtkaart.html:137
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:66
-#: .\darts\templates\pages\toernooi-inschrijving.html:62
-#: .\pokemon\models.py:171 .\pokemon\models.py:191
+#: .\pokemon\models.py:170 .\pokemon\models.py:190
 msgid "Achternaam"
 msgstr "Last name"
 
 #: .\darts\models.py:233 .\darts\models.py:268 .\darts\models.py:433
 #: .\darts\templates\pages\dartschool-beurtkaart.html:142
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:71
-#: .\darts\templates\pages\index.html:317
-#: .\darts\templates\pages\priveles.html:68
-#: .\darts\templates\pages\toernooi-inschrijving.html:72
-#: .\pokemon\models.py:172 .\pokemon\models.py:192
-#: .\pokemon\templates\pokemon\pages\index.html:255
+#: .\darts\templates\pages\index.html:365
+#: .\darts\templates\pages\priveles.html:68 .\pokemon\models.py:171
+#: .\pokemon\models.py:192 .\pokemon\templates\pokemon\pages\index.html:255
 msgid "Email"
 msgstr "E-mail"
 
@@ -307,44 +304,40 @@ msgctxt "skill level"
 msgid "Geoefend"
 msgstr "Practiced"
 
-#: .\darts\models.py:267 .\darts\templates\pages\toernooi-inschrijving.html:67
+#: .\darts\models.py:267 .\pokemon\models.py:191
 msgid "Geboortejaar"
 msgstr "Year of birth"
 
-#: .\darts\models.py:269 .\darts\templates\pages\toernooi-inschrijving.html:91
-#: .\pokemon\models.py:193
+#: .\darts\models.py:269 .\pokemon\models.py:193
 msgid "Straatnaam"
 msgstr "Street name"
 
-#: .\darts\models.py:270 .\darts\templates\pages\toernooi-inschrijving.html:96
-#: .\pokemon\models.py:194
+#: .\darts\models.py:270 .\pokemon\models.py:194
 msgid "Nummer"
 msgstr "Number"
 
-#: .\darts\models.py:271 .\darts\templates\pages\toernooi-inschrijving.html:101
-#: .\pokemon\models.py:195
+#: .\darts\models.py:271 .\pokemon\models.py:195
 msgid "Postcode"
 msgstr "Postal code"
 
-#: .\darts\models.py:272 .\darts\templates\pages\toernooi-inschrijving.html:106
-#: .\pokemon\models.py:196
+#: .\darts\models.py:272 .\pokemon\models.py:196
 msgid "Stad"
 msgstr "Town"
 
-#: .\darts\models.py:274
+#: .\darts\models.py:274 .\pokemon\models.py:197
 msgid "GSM"
 msgstr "GSM"
 
-#: .\darts\models.py:278 .\pokemon\models.py:200
+#: .\darts\models.py:278 .\pokemon\models.py:201
 msgid "beschrijving"
 msgstr "description"
 
-#: .\darts\models.py:279 .\pokemon\models.py:201
+#: .\darts\models.py:279 .\pokemon\models.py:202
 msgid "Ticket"
 msgstr "E-tiket"
 
 #: .\darts\models.py:284 .\darts\models.py:416 .\darts\models.py:440
-#: .\darts\models.py:497 .\pokemon\models.py:206
+#: .\darts\models.py:497 .\pokemon\models.py:207
 msgid "History"
 msgstr "History"
 
@@ -409,15 +402,17 @@ msgid "Leerling"
 msgstr "Pupil"
 
 #: .\darts\templates\blocks\footer.html:11
+#: .\pokemon\templates\pokemon\blocks\footer.html:11
 msgid "Ondernemingsnummer"
 msgstr "Company number"
 
 #: .\darts\templates\blocks\footer.html:12
+#: .\pokemon\templates\pokemon\blocks\footer.html:12
 msgid "Alle transacties gebeuren in €"
 msgstr "All transactions are made in €"
 
 #: .\darts\templates\blocks\footer.html:13
-#: .\pokemon\templates\pokemon\blocks\footer.html:12
+#: .\pokemon\templates\pokemon\blocks\footer.html:13
 msgid "Gemaakt door"
 msgstr "Created by"
 
@@ -426,13 +421,14 @@ msgid "Alle Sponsors"
 msgstr "All Sponsors"
 
 #: .\darts\templates\blocks\footer.html:37
-#: .\pokemon\templates\pokemon\blocks\footer.html:22
+#: .\pokemon\templates\pokemon\blocks\footer.html:24
 msgid "Handige Links"
 msgstr "Useful Links"
 
 #: .\darts\templates\blocks\footer.html:40
 #: .\darts\templates\blocks\header.html:12
-#: .\darts\templates\pages\about.html:20 .\darts\templates\pages\index.html:79
+#: .\darts\templates\pages\about.html:20 .\darts\templates\pages\index.html:94
+#: .\pokemon\templates\pokemon\blocks\footer.html:27
 #: .\pokemon\templates\pokemon\blocks\header.html:12
 #: .\pokemon\templates\pokemon\pages\about.html:20
 #: .\pokemon\templates\pokemon\pages\index.html:58
@@ -441,16 +437,22 @@ msgstr "About Us"
 
 #: .\darts\templates\blocks\footer.html:41
 #: .\darts\templates\pages\algemene-voorwaarden.html:19
+#: .\pokemon\templates\pokemon\blocks\footer.html:28
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:19
 msgid "Algemene Voorwaarden"
 msgstr "Terms and Conditions"
 
 #: .\darts\templates\blocks\footer.html:42
 #: .\darts\templates\pages\privacybeleid.html:19
+#: .\pokemon\templates\pokemon\blocks\footer.html:29
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:19
 msgid "Privacybeleid"
 msgstr "Privacy policy"
 
 #: .\darts\templates\blocks\footer.html:43
 #: .\darts\templates\pages\disclaimer.html:19
+#: .\pokemon\templates\pokemon\blocks\footer.html:30
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:19
 msgid "Disclaimer"
 msgstr "Disclaimer"
 
@@ -459,8 +461,9 @@ msgstr "Disclaimer"
 msgid "Algemeen Reglement"
 msgstr "General Regulations"
 
-#: .\darts\templates\blocks\footer.html:45 .\darts\templates\pages\faq.html:20
-#: .\darts\templates\pages\index.html:133
+#: .\darts\templates\blocks\footer.html:45 .\darts\templates\pages\faq.html:21
+#: .\darts\templates\pages\index.html:148
+#: .\pokemon\templates\pokemon\blocks\footer.html:31
 #: .\pokemon\templates\pokemon\pages\faq.html:20
 #: .\pokemon\templates\pokemon\pages\index.html:92
 msgid "FAQ"
@@ -474,17 +477,17 @@ msgstr "FAQ"
 #: .\darts\templates\pages\teambuildings-en-workshops.html:141
 #: .\darts\templates\pages\teambuildings-en-workshops.html:158
 #: .\darts\templates\pages\teambuildings-en-workshops.html:175
-#: .\pokemon\templates\pokemon\blocks\footer.html:29
+#: .\pokemon\templates\pokemon\blocks\footer.html:36
 msgid "Contacteer Ons"
 msgstr "Contact Us"
 
 #: .\darts\templates\blocks\footer.html:54
-#: .\pokemon\templates\pokemon\blocks\footer.html:33
+#: .\pokemon\templates\pokemon\blocks\footer.html:40
 msgid "Telefoon"
 msgstr "Phone"
 
 #: .\darts\templates\blocks\footer.html:62
-#: .\pokemon\templates\pokemon\blocks\footer.html:41
+#: .\pokemon\templates\pokemon\blocks\footer.html:48
 msgid "alle rechten voorbehouden"
 msgstr "all rights reserved"
 
@@ -516,17 +519,18 @@ msgid "Privéles Boeken"
 msgstr "Book Private Lesson"
 
 #: .\darts\templates\blocks\header.html:51
-#: .\darts\templates\pages\index.html:120
+#: .\darts\templates\pages\index.html:135
 #: .\darts\templates\pages\teambuildings-en-workshops.html:30
 #: .\darts\templates\pages\teambuildings-en-workshops.html:49
 msgid "Teambuilding"
 msgstr "Team building"
 
 #: .\darts\templates\blocks\header.html:52
-#: .\darts\templates\pages\index.html:259
+#: .\darts\templates\pages\index.html:307
 #: .\darts\templates\pages\privacybeleid.html:254
 #: .\pokemon\templates\pokemon\blocks\header.html:14
 #: .\pokemon\templates\pokemon\pages\index.html:197
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:254
 msgid "Contact"
 msgstr "Contact"
 
@@ -536,9 +540,19 @@ msgid "Taal"
 msgstr "Language"
 
 #: .\darts\templates\blocks\header.html:81
-#: .\pokemon\templates\pokemon\blocks\header.html:43
 msgid "Begin Nu"
 msgstr "Get Started"
+
+#: .\darts\templates\blocks\quote.html:10
+msgid "Foto van {{ name }}"
+msgstr ""
+
+#: .\darts\templates\blocks\toernooi-card-resultaten.html:7
+#: .\darts\templates\blocks\toernooi-card.html:7
+#, fuzzy
+#| msgid "Afbeeldingen"
+msgid "Afbeelding van toernooi"
+msgstr "Images"
 
 #: .\darts\templates\pages\about.html:21
 msgid ""
@@ -1378,7 +1392,48 @@ msgstr ""
 "scores can no longer be changed, \n"
 "                      unless both players agree."
 
+#: .\darts\templates\pages\algemeen-reglement.html:344
+msgid "Wat bij gelijke stand na de poulerondes?"
+msgstr ""
+
+#: .\darts\templates\pages\algemeen-reglement.html:345
+msgid ""
+"Bij door ChudartZ georganiseerde toernooien met poulerondes wordt de "
+"eindstand bij een gelijke stand als volgt bepaald:"
+msgstr ""
+
+#: .\darts\templates\pages\algemeen-reglement.html:348
+msgid "Het aantal gewonnen wedstrijden"
+msgstr ""
+
+#: .\darts\templates\pages\algemeen-reglement.html:349
+msgid "Het aantal gewonnen legs"
+msgstr ""
+
+#: .\darts\templates\pages\algemeen-reglement.html:350
+msgid "Het aantal verloren legs"
+msgstr ""
+
+#: .\darts\templates\pages\algemeen-reglement.html:351
+msgid "Het legsaldo (het aantal gewonnen legs min het aantal verloren legs)"
+msgstr ""
+
+#: .\darts\templates\pages\algemeen-reglement.html:352
+#, fuzzy
+#| msgid "toernooien/resultaten"
+msgid "Het onderling resultaat"
+msgstr "tournaments/results/"
+
+#: .\darts\templates\pages\algemeen-reglement.html:353
+msgid ""
+"Indien alles gelijk is, een 9-dart shoot out. De speler met de hoogste score "
+"na 9 darts eindigt dan boven de andere speler. Om de startende speler van de "
+"9-dart shoot out te bepalen wordt er naar de bull gegooid. De speler die het "
+"dichtst bij de bull zit kiest wie start met de 9-dart shoot out"
+msgstr ""
+
 #: .\darts\templates\pages\algemene-voorwaarden.html:33
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:40
 msgid "Inschrijving en deelname"
 msgstr "Registration and participation"
 
@@ -1438,38 +1493,44 @@ msgid "Leeftijdsbeperkingen"
 msgstr "Age Restrictions"
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:62
+#, fuzzy
+#| msgid ""
+#| "Deelnemers moeten minimaal 10 jaar oud zijn om deel te nemen aan het "
+#| "toernooi/dartschool, m.u.v. uitzonderlijke, jongere talenten."
 msgid ""
-"Deelnemers moeten minimaal 10 jaar oud zijn om deel te nemen aan het "
-"toernooi/dartschool, m.u.v. uitzonderlijke, jongere talenten."
+"Deelnemers kunnen vanaf de leeftijd van 10 jaar deelnemen aan het toernooi/"
+"dartschool, m.u.v. uitzonderlijke, jongere talenten."
 msgstr ""
 "Participants must be at least 10 years old to participate in the tournament/"
 "darts school, with the exception of exceptional, younger talents."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:65
 msgid ""
-"Minderjarige deelnemers moeten toestemming hebben van een ouder of voogd, "
-"die schriftelijk moet \n"
-"                            worden ingediend."
+"Minderjarige deelnemers dienen bij de inschrijving toestemming te hebben van "
+"een ouder of voogd."
 msgstr ""
-"Underage participants must have the consent of a parent or guardian, who "
-"must be in writing \n"
-"                            be submitted."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:69
+#: .\darts\templates\pages\algemene-voorwaarden.html:68
+#, fuzzy
+#| msgid ""
+#| "Na de inschrijving zal het ‘toestemmingsformulier minderjarige "
+#| "deelnemers’ door 1 van de ouders \n"
+#| "                            of de voogd worden ingevuld en ondertekend."
 msgid ""
 "Na de inschrijving zal het ‘toestemmingsformulier minderjarige deelnemers’ "
-"door 1 van de ouders \n"
+"schriftelijk door 1 van de ouders \n"
 "                            of de voogd worden ingevuld en ondertekend."
 msgstr ""
 "After registration, the 'consent form for minor participants' will be "
 "submitted by 1 of the parents \n"
 "                            or the guardian must be completed and signed."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:75
+#: .\darts\templates\pages\algemene-voorwaarden.html:74
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:61
 msgid "Regels en gedragscode"
 msgstr "Rules and Code of Conduct"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:79
+#: .\darts\templates\pages\algemene-voorwaarden.html:78
 msgid ""
 "Alle deelnemers moeten zich houden aan de officiële dartregels, waaronder "
 "ook de dartregels die \n"
@@ -1479,7 +1540,7 @@ msgstr ""
 "rules that \n"
 "                            were drawn up by the tournament organization."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:83
+#: .\darts\templates\pages\algemene-voorwaarden.html:82
 msgid ""
 "Onsportief gedrag, inclusief verbaal of fysiek misbruik, leidt tot "
 "onmiddellijke diskwalificatie zonder \n"
@@ -1489,11 +1550,18 @@ msgstr ""
 "immediate disqualification without \n"
 "                            Refund of registration fee."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:87
+#: .\darts\templates\pages\algemene-voorwaarden.html:86
+#, fuzzy
+#| msgid ""
+#| "De organisatie behoudt zich het recht voor om deelnemers die zich niet "
+#| "aan de regels houden, uit te \n"
+#| "                            sluiten van verdere deelname van het toernooi "
+#| "of andere evenementen ingericht door de \n"
+#| "                            organisator."
 msgid ""
 "De organisatie behoudt zich het recht voor om deelnemers die zich niet aan "
 "de regels houden, uit te \n"
-"                            sluiten van verdere deelname van het toernooi of "
+"                            sluiten van verdere deelname aan het toernooi of "
 "andere evenementen ingericht door de \n"
 "                            organisator."
 msgstr ""
@@ -1503,18 +1571,19 @@ msgstr ""
 "tournament or other events organised by the \n"
 "                            organizer."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:94
+#: .\darts\templates\pages\algemene-voorwaarden.html:93
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:73
 msgid "Gebruik van materiaal"
 msgstr "Use of materials"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:98
+#: .\darts\templates\pages\algemene-voorwaarden.html:97
 msgid ""
 "Deelnemers dienen hun eigen dartpijlen mee te brengen die voldoen aan de "
 "gestelde specificaties."
 msgstr ""
 "Participants must bring their own darts that meet the set specifications."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:101
+#: .\darts\templates\pages\algemene-voorwaarden.html:100
 msgid ""
 "Schade aan de locatie of apparatuur door een deelnemer zal op kosten van de "
 "deelnemer worden \n"
@@ -1524,11 +1593,12 @@ msgstr ""
 "the participant. \n"
 "                            Restored."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:107
+#: .\darts\templates\pages\algemene-voorwaarden.html:106
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:82
 msgid "Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand"
 msgstr "Responsibility, insurance, liability and legal assistance"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:111
+#: .\darts\templates\pages\algemene-voorwaarden.html:110
 msgid ""
 "De organisatie is niet verantwoordelijk voor verlies, diefstal, of schade "
 "aan persoonlijke \n"
@@ -1538,7 +1608,7 @@ msgstr ""
 "data. \n"
 "                            Participants' property."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:115
+#: .\darts\templates\pages\algemene-voorwaarden.html:114
 msgid ""
 "Deelname aan het toernooi is geheel op eigen risico. De organisatie is niet "
 "aansprakelijk voor \n"
@@ -1552,7 +1622,7 @@ msgstr ""
 "attributable to intent or gross negligence \n"
 "                            of the organiser."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:120
+#: .\darts\templates\pages\algemene-voorwaarden.html:119
 msgid ""
 "Deelnemers kunnen mogelijk een beroep doen op hun eigen verzekering, zoals "
 "een \n"
@@ -1565,7 +1635,7 @@ msgstr ""
 "damage they have caused \n"
 "                            or contracted."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:125
+#: .\darts\templates\pages\algemene-voorwaarden.html:124
 msgid ""
 "De organisatie is enkel aansprakelijk voor gebeurtenissen (die te wijten "
 "zijn aan opzet of grove \n"
@@ -1579,7 +1649,7 @@ msgstr ""
 "itself, but never for incidents along the way \n"
 "                            to or back from the event."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:130
+#: .\darts\templates\pages\algemene-voorwaarden.html:129
 msgid ""
 "Deelnemers dienen zich bewust te zijn van hun eigen fysieke en mentale "
 "gesteldheid en \n"
@@ -1589,7 +1659,7 @@ msgstr ""
 "and \n"
 "                            act responsibly."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:134
+#: .\darts\templates\pages\algemene-voorwaarden.html:133
 msgid ""
 "De organisatie behoudt zich het recht voor om de toernooilocatie, het schema "
 "of andere aspecten \n"
@@ -1605,7 +1675,7 @@ msgstr ""
 "                            depending on external factors over which the "
 "organization does not have full control."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:139
+#: .\darts\templates\pages\algemene-voorwaarden.html:138
 msgid ""
 "In geval van overmacht (bijvoorbeeld pandemieën, natuurgeweld) kan het "
 "toernooi worden \n"
@@ -1617,12 +1687,14 @@ msgstr ""
 "                            postponed or cancelled without refund of "
 "registration fee."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:145
+#: .\darts\templates\pages\algemene-voorwaarden.html:144
 #: .\darts\templates\pages\privacybeleid.html:222
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:136
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:222
 msgid "Privacy en gebruik van beeldmateriaal"
 msgstr "Privacy and use of imagery"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:149
+#: .\darts\templates\pages\algemene-voorwaarden.html:148
 msgid ""
 "Door deel te nemen aan het toernooi en/of het betreden van een evenement "
 "gaat u akkoord met het \n"
@@ -1636,7 +1708,7 @@ msgstr ""
 "these images may be used for \n"
 "                            promotional purposes without any compensation."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:154
+#: .\darts\templates\pages\algemene-voorwaarden.html:153
 msgid ""
 "Persoonlijke gegevens die tijdens de inschrijving worden verzameld, worden "
 "uitsluitend gebruikt \n"
@@ -1651,11 +1723,12 @@ msgstr ""
 "                            a ranking with the names of the participants on "
 "the organiser's website."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:161
+#: .\darts\templates\pages\algemene-voorwaarden.html:160
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:151
 msgid "Disputen"
 msgstr "Disputes"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:165
+#: .\darts\templates\pages\algemene-voorwaarden.html:164
 msgid ""
 "Eventuele geschillen die voortkomen uit de deelname aan het toernooi worden "
 "voorgelegd aan de \n"
@@ -1665,7 +1738,7 @@ msgstr ""
 "to the \n"
 "                            organisation, whose decision is binding."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:169
+#: .\darts\templates\pages\algemene-voorwaarden.html:168
 msgid ""
 "Geschillen over de spelregels worden onmiddellijk beslecht door de "
 "aangewezen scheidsrechter."
@@ -1673,11 +1746,13 @@ msgstr ""
 "Disputes about the laws of the game will be settled immediately by the "
 "designated referee."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:174
+#: .\darts\templates\pages\algemene-voorwaarden.html:173
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:160
 msgid "Wijzigingen en aanpassingen"
 msgstr "Changes and modifications"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:178
+#: .\darts\templates\pages\algemene-voorwaarden.html:177
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:164
 msgid ""
 "De organisatie behoudt zich het recht voor om deze algemene voorwaarden op "
 "elk moment te \n"
@@ -1689,11 +1764,12 @@ msgstr ""
 "                            modify. Any changes will be communicated prior "
 "to the tournament."
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:184
+#: .\darts\templates\pages\algemene-voorwaarden.html:183
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:170
 msgid "Acceptatie van de voorwaarden"
 msgstr "Acceptance of the Terms"
 
-#: .\darts\templates\pages\algemene-voorwaarden.html:188
+#: .\darts\templates\pages\algemene-voorwaarden.html:187
 msgid ""
 "Door deel te nemen aan het toernooi, accepteert de deelnemer automatisch de "
 "bovenstaande \n"
@@ -1782,7 +1858,7 @@ msgstr "Your personal code"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:88
 #: .\darts\templates\pages\dartschool-reserveren.html:78
-#: .\darts\templates\pages\index.html:332
+#: .\darts\templates\pages\index.html:380
 #: .\darts\templates\pages\priveles.html:83
 #: .\pokemon\templates\pokemon\pages\index.html:270
 msgid "Laden..."
@@ -1878,8 +1954,12 @@ msgstr ""
 "for you? Sign up now for a free trial lesson!"
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:43
+#, fuzzy
+#| msgid ""
+#| "Eerste maandag, dinsdag of woensdag van de maand van 18.30 u tolke et "
+#| "19.15 u"
 msgid ""
-"Eerste maandag, dinsdag of woensdag van de maand van 18.30 u tolke et 19.15 u"
+"Eerste maandag, dinsdag of woensdag van de maand van 18.30 u t.e.m. 19.15 u"
 msgstr ""
 "First Monday, Tuesday or Wednesday of the month from 6.30 p.m. to 7.15 p.m."
 
@@ -1945,7 +2025,7 @@ msgstr "Buy a multi-session card"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:20
 #: .\darts\templates\pages\dartschool.html:59
-#: .\darts\templates\pages\index.html:165
+#: .\darts\templates\pages\index.html:187
 msgid "Meer Info"
 msgstr "More Info"
 
@@ -2171,7 +2251,7 @@ msgstr ""
 
 #: .\darts\templates\pages\dartschool-reserveren.html:47
 msgid "maandag t.e.m. donderdag van 19.15 u tot 21.15 u"
-msgstr "Monday to Thursday from 7.15 pm to 9.15 pm"
+msgstr "monday to Thursday from 7.15 pm to 9.15 pm"
 
 #: .\darts\templates\pages\dartschool-reserveren.html:58
 msgid "Reserveer training"
@@ -2258,6 +2338,11 @@ msgstr ""
 "service.             \n"
 "         "
 
+#: .\darts\templates\pages\dartschool-werkwijze.html:65
+#: .\darts\templates\pages\dartschool.html:114
+msgid "Muur van dartschool"
+msgstr "Wall of dart school"
+
 #: .\darts\templates\pages\dartschool.html:13
 #: .\darts\templates\pages\dartschool.html:18
 msgid ""
@@ -2311,6 +2396,20 @@ msgstr "Personal growth and self-confidence"
 msgid "Voorbereiden op competitieve darts"
 msgstr "Preparing for competitive darts"
 
+#: .\darts\templates\pages\dartschool.html:64
+msgid "Oefenborden dartschool"
+msgstr "Practice boards dart school"
+
+#: .\darts\templates\pages\dartschool.html:65
+#: .\darts\templates\pages\index.html:236
+#: .\darts\templates\pages\index.html:241
+msgid "Wedstrijdbord"
+msgstr "Competition board"
+
+#: .\darts\templates\pages\dartschool.html:72
+msgid "Trainer bij ChudartZ logo"
+msgstr "Trainer at ChudartZ logo"
+
 #: .\darts\templates\pages\dartschool.html:75
 msgid "Voor Wie"
 msgstr "For Who"
@@ -2339,12 +2438,12 @@ msgstr ""
 "                      "
 
 #: .\darts\templates\pages\dartschool.html:85
-msgid "Vanaf 10 jaar"
-msgstr "From 10 years old"
+msgid "In theorie vanaf 10 jaar"
+msgstr "In theory, from the age of 10"
 
 #: .\darts\templates\pages\dartschool.html:86
-msgid "Zowel beginners als gevorderden"
-msgstr "Both beginners and advanced"
+msgid "Zowel beginners als gevorderden t.e.m. 20 jaar"
+msgstr "Both beginners and advanced up to 20 years old"
 
 #: .\darts\templates\pages\dartschool.html:96
 msgid "Prijzen"
@@ -2382,10 +2481,12 @@ msgid "Inschrijven"
 msgstr "Subscribe"
 
 #: .\darts\templates\pages\disclaimer.html:30
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:30
 msgid "Privacybescherming"
 msgstr "Privacy"
 
 #: .\darts\templates\pages\disclaimer.html:33
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:33
 #, python-format
 msgid ""
 "\n"
@@ -2415,10 +2516,12 @@ msgstr ""
 "                  "
 
 #: .\darts\templates\pages\disclaimer.html:42
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:42
 msgid "Aansprakelijkheidsuitsluiting"
 msgstr "Exclusion of liability"
 
 #: .\darts\templates\pages\disclaimer.html:44
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:44
 msgid ""
 "\n"
 "                  De informatie op deze website is uitsluitend bedoeld voor "
@@ -2453,10 +2556,12 @@ msgstr ""
 "                  "
 
 #: .\darts\templates\pages\disclaimer.html:55
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:55
 msgid "Inschrijving en deelname op eigen risico"
 msgstr "Registration and participation at your own risk"
 
 #: .\darts\templates\pages\disclaimer.html:57
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:57
 msgid ""
 "\n"
 "                  Door u in te schrijven voor een evenement via deze website "
@@ -2485,10 +2590,12 @@ msgstr ""
 "                  "
 
 #: .\darts\templates\pages\disclaimer.html:66
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:66
 msgid "Externe links"
 msgstr "External links"
 
 #: .\darts\templates\pages\disclaimer.html:68
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:68
 msgid ""
 "\n"
 "                  Deze website kan links bevatten naar externe websites of "
@@ -2511,14 +2618,16 @@ msgstr ""
 "                  "
 
 #: .\darts\templates\pages\disclaimer.html:76
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:76
 msgid "Geen terugbetalingen"
 msgstr "No refunds"
 
 #: .\darts\templates\pages\disclaimer.html:78
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:78
 msgid ""
 "\n"
 "                  Gekochte tickets kunnen niet worden terugbetaald of "
-"omgeruild, behalve in gevallen van \n"
+"omgeruild, behalve in bepaalde gevallen van \n"
 "                  annulering van het evenement door de organisatie.\n"
 "                  "
 msgstr ""
@@ -2528,10 +2637,12 @@ msgstr ""
 "                  "
 
 #: .\darts\templates\pages\disclaimer.html:84
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:84
 msgid "Overdracht van tickets"
 msgstr "Transfer of tickets"
 
 #: .\darts\templates\pages\disclaimer.html:86
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:86
 msgid ""
 "\n"
 "                  Het is niet toegestaan om tickets door te verkopen of over "
@@ -2545,10 +2656,12 @@ msgstr ""
 "                  "
 
 #: .\darts\templates\pages\disclaimer.html:92
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:92
 msgid "Toegang en beveiliging"
 msgstr "Access & Security"
 
 #: .\darts\templates\pages\disclaimer.html:94
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:94
 msgid ""
 "\n"
 "                  De organisator behoudt zich het recht voor om, zonder "
@@ -2566,10 +2679,12 @@ msgstr ""
 "                  "
 
 #: .\darts\templates\pages\disclaimer.html:102
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:102
 msgid "Wijzigingen"
 msgstr "Alterations"
 
 #: .\darts\templates\pages\disclaimer.html:104
+#: .\pokemon\templates\pokemon\pages\disclaimer.html:104
 msgid ""
 "\n"
 "                  Wij behouden ons het recht voor om deze disclaimer en/of "
@@ -2587,19 +2702,21 @@ msgstr ""
 "                  to keep up to date with any changes\n"
 "                  "
 
-#: .\darts\templates\pages\faq.html:33
+#: .\darts\templates\pages\faq.html:36
 #: .\pokemon\templates\pokemon\pages\faq.html:33
 msgid "<span>Veel Gestelde</span><strong> Vragen</strong>"
 msgstr "<span>Frequently Asked</span><strong> Questions</strong>"
 
-#: .\darts\templates\pages\faq.html:35
-#: .\pokemon\templates\pokemon\pages\faq.html:35
+#: .\darts\templates\pages\faq.html:38
+#, python-format
 msgid ""
 "\n"
 "                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier "
 "vind je antwoorden op de meest gestelde vragen over inschrijvingen, "
 "speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle "
 "belangrijke informatie. Mis je nog iets? Aarzel niet om\n"
+"                  <a href=\"%(index_url)s#contact\">contact</a> met ons op "
+"te nemen!\n"
 "                  "
 msgstr ""
 "\n"
@@ -2608,23 +2725,14 @@ msgstr ""
 "registrations, schedules, rules and more. This way you are immediately aware "
 "of all the important information. Are you missing something? Don't hesitate "
 "to\n"
-"                  "
+"                  <a href=\"%(index_url)s#contact\">contact</a> "
+"us!                  "
 
-#: .\darts\templates\pages\faq.html:38
-#: .\pokemon\templates\pokemon\pages\faq.html:38 .\pokemon\urls.py:12
-msgid "contact"
-msgstr "contact"
-
-#: .\darts\templates\pages\faq.html:39
-#: .\pokemon\templates\pokemon\pages\faq.html:39
-msgid "met ons op te nemen!"
-msgstr "with us!"
-
-#: .\darts\templates\pages\faq.html:48
+#: .\darts\templates\pages\faq.html:50
 msgid "Hoe kan ik me inschrijven voor het toernooi?"
 msgstr "How can I register for the tournament?"
 
-#: .\darts\templates\pages\faq.html:51
+#: .\darts\templates\pages\faq.html:53
 #, python-format
 msgid ""
 "Inschrijven kan via <a href=\"%(toernooi_url)s\">onze website</a> of ter "
@@ -2633,21 +2741,21 @@ msgstr ""
 "Registration can be done via <a href=\"%(toernooi_url)s\">our website</a> or "
 "on site on the day of the event, subject to availability"
 
-#: .\darts\templates\pages\faq.html:57
+#: .\darts\templates\pages\faq.html:59
 msgid "Wat zijn de dartregels ?"
 msgstr "What are the darts rules?"
 
-#: .\darts\templates\pages\faq.html:60
+#: .\darts\templates\pages\faq.html:62
 #, python-format
 msgid ""
 "Onze dartregels kan u <a href=\"%(reglement_url)s\">hier</a> terugvinden."
 msgstr "Our darts rules can be found <a href=\"%(reglement_url)s\">here</a> ."
 
-#: .\darts\templates\pages\faq.html:66
+#: .\darts\templates\pages\faq.html:68
 msgid "Is de dartschool toegankelijk voor mensen met een beperking?"
 msgstr "Is the dart school accessible for people with disabilities?"
 
-#: .\darts\templates\pages\faq.html:68
+#: .\darts\templates\pages\faq.html:70
 msgid ""
 "Hoewel we er alles aan doen om een gastvrije omgeving te bieden, willen we "
 "erop wijzen dat onze huidige locatie helaas niet volledig toegankelijk is "
@@ -2661,7 +2769,7 @@ msgstr ""
 "appreciate your understanding and are working to provide more accessible "
 "facilities in the future."
 
-#: .\darts\templates\pages\faq.html:74
+#: .\darts\templates\pages\faq.html:76
 msgid ""
 "Is er een leeftijdsbeperking om lid te worden van de school of deel te nemen "
 "aan een toernooi?"
@@ -2669,30 +2777,30 @@ msgstr ""
 "Is there an age restriction to join the school or participate in a "
 "tournament?"
 
-#: .\darts\templates\pages\faq.html:82
+#: .\darts\templates\pages\faq.html:78
+#, python-format
+msgid ""
+"Onze school en toernooien staan open voor iedereen vanaf 10 jaar. In "
+"uitzonderlijke gevallen kunnen jongere talenten zich ook inschrijven. "
+"Ouderlijke toestemming is hierbij altijd vereist. Bij verdere vragen, neem "
+"gerust <a href=\"%(index_url)s#contact\">contact</a> met ons op."
+msgstr ""
+"Our school and tournaments are open to everyone from the age of 10. In "
+"exceptional cases, younger talents can also register. Parental consent is "
+"always required. If you have any further questions, please feel free to <a "
+"href=\"%(index_url)s#contact\">contact</a> us."
+
+#: .\darts\templates\pages\faq.html:84
 msgid "Wat is de prijzenpot voor de winnaars?"
 msgstr "What is the prize pool for the winners?"
 
-#: .\darts\templates\pages\faq.html:84
+#: .\darts\templates\pages\faq.html:86
 msgid ""
 "De prijzenpot verschilt per toernooi, maar bevat vaak geldprijzen, trofeeën "
 "en andere leuke verrassingen."
 msgstr ""
 "The prize pool varies from tournament to tournament, but often includes cash "
 "prizes, trophies, and other fun surprises."
-
-#: .\darts\templates\pages\faq.html:90
-msgid "Kan ik mij op de dag zelf nog inschrijven voor een toernooi?"
-msgstr "Can I register for a tournament on the day itself?"
-
-#: .\darts\templates\pages\faq.html:92
-msgid ""
-"Afhankelijk van de beschikbare plaatsen kun je je op de dag zelf nog "
-"inschrijven. We raden echter aan om vooraf te registreren om zeker te zijn "
-"van deelname."
-msgstr ""
-"Depending on the available places, you can still register on the day itself. "
-"However, we recommend pre-registering to ensure participation."
 
 #: .\darts\templates\pages\index.html:6 .\darts\templates\pages\index.html:9
 #: .\darts\templates\pages\index.html:14
@@ -2707,20 +2815,20 @@ msgstr ""
 "regularly host tournaments and training sessions to help players grow and "
 "further improve their skills. "
 
-#: .\darts\templates\pages\index.html:39
+#: .\darts\templates\pages\index.html:54
 #: .\pokemon\templates\pokemon\pages\index.html:40
 msgid "Welkom bij"
 msgstr "Welcome to"
 
-#: .\darts\templates\pages\index.html:41
+#: .\darts\templates\pages\index.html:56
 msgid "Uw ultieme bestemming voor alles wat met darts te maken heeft."
 msgstr "Your ultimate destination for all things darts."
 
-#: .\darts\templates\pages\index.html:80
+#: .\darts\templates\pages\index.html:95
 msgid "Over ChudartZ"
 msgstr "About ChudartZ"
 
-#: .\darts\templates\pages\index.html:82
+#: .\darts\templates\pages\index.html:97
 msgid ""
 "\n"
 "              Welkom bij ChudartZ, dé bestemming voor darts in Zedelgem en "
@@ -2742,12 +2850,12 @@ msgstr ""
 "come together and compete with each other.\n"
 "              "
 
-#: .\darts\templates\pages\index.html:87
+#: .\darts\templates\pages\index.html:102
 #: .\pokemon\templates\pokemon\pages\index.html:70
 msgid "Lees Meer"
 msgstr "Read More"
 
-#: .\darts\templates\pages\index.html:98
+#: .\darts\templates\pages\index.html:113
 msgid ""
 "\n"
 "                    Of je nu een beginner bent of al ervaren aan de oche "
@@ -2764,24 +2872,24 @@ msgstr ""
 "improve your technique and who knows, you might shine on stage!\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:110
+#: .\darts\templates\pages\index.html:125
 msgid ""
 "\n"
 "                    Deze zijn toegankelijk voor iedereen, van alle "
 "leeftijden en niveaus, zodat alle geïnteresseerden kunnen deelnemen, met "
-"soms afzonderlijke competities voor de jeugd. Sommige toernooien zijn ook "
-"open voor mensen met een beperking, zodat iedereen de kans krijgt om mee te "
-"doen.\n"
+"afzonderlijke competities voor de jeugd. Sommige toernooien zullen ook "
+"toegankelijk zijn voor mensen met een beperking, zodat iedereen de kans "
+"krijgt om deel te nemen.\n"
 "                    "
 msgstr ""
 "\n"
 "These are open to everyone, of all ages and levels, so that all interested "
-"parties can participate, with sometimes separate competitions for the youth. "
-"Some tournaments are also open to people with disabilities, so everyone has "
-"the opportunity to participate.\n"
+"parties can participate, with separate competitions for the youth. Some "
+"tournaments will also be accessible to people with disabilities, giving "
+"everyone the opportunity to participate.\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:122
+#: .\darts\templates\pages\index.html:137
 msgid ""
 "\n"
 "                    Op zoek naar een originele en sportieve teambuilding? "
@@ -2800,7 +2908,7 @@ msgstr ""
 "unforgettable day with your colleagues. Book your team building now!\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:135
+#: .\darts\templates\pages\index.html:150
 msgid ""
 "\n"
 "                    Heb je vragen over het toernooi? Bekijk dan onze FAQ! "
@@ -2818,11 +2926,11 @@ msgstr ""
 "to contact us!\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:159
+#: .\darts\templates\pages\index.html:181
 msgid "Teambuildings & Workshops"
 msgstr "Team Buildings & Workshops"
 
-#: .\darts\templates\pages\index.html:161
+#: .\darts\templates\pages\index.html:183
 msgid ""
 "\n"
 "                Bij ChudartZ weten we dat geweldige prestaties op de "
@@ -2837,12 +2945,12 @@ msgstr ""
 "team. That's why we also organize team building events.\n"
 "                "
 
-#: .\darts\templates\pages\index.html:177
+#: .\darts\templates\pages\index.html:199
 #: .\pokemon\templates\pokemon\pages\index.html:115
 msgid "Afbeeldingen"
 msgstr "Images"
 
-#: .\darts\templates\pages\index.html:178
+#: .\darts\templates\pages\index.html:200
 #: .\pokemon\templates\pokemon\pages\index.html:116
 msgid ""
 "Laat je inspireren door de foto's van onze dartsevenementen en lessen, en "
@@ -2851,57 +2959,173 @@ msgstr ""
 "Be inspired by the photos of our darts events and lessons, and experience "
 "the energy and community of our club."
 
-#: .\darts\templates\pages\index.html:186
+#: .\darts\templates\pages\index.html:208
 #: .\pokemon\templates\pokemon\pages\index.html:124
 msgid "Alle"
 msgstr "All"
 
-#: .\darts\templates\pages\index.html:260
+#: .\darts\templates\pages\index.html:216
+#: .\darts\templates\pages\index.html:221
+#: .\darts\templates\pages\index.html:231
+msgid "Muurschilderij Dartschool"
+msgstr "Wall painting dart school"
+
+#: .\darts\templates\pages\index.html:218
+msgid ""
+"\n"
+"                  Muurschilderij Dartschool\n"
+"                "
+msgstr ""
+"\n"
+"Wall painting dart school\n"
+"                "
+
+#: .\darts\templates\pages\index.html:226
+msgid "Close-up dartbord"
+msgstr "Close-up dartboard"
+
+#: .\darts\templates\pages\index.html:228
+msgid ""
+"\n"
+"                  Close-up dartbord\n"
+"                "
+msgstr ""
+"\n"
+"Close-up dartboard\n"
+"                "
+
+#: .\darts\templates\pages\index.html:238
+msgid ""
+"\n"
+"                  Wedstrijdbord\n"
+"                "
+msgstr ""
+"\n"
+"Competition board\n"
+"                "
+
+#: .\darts\templates\pages\index.html:246
+#: .\darts\templates\pages\index.html:251
+msgid "Detailshot van dart"
+msgstr "Detail shot of dart"
+
+#: .\darts\templates\pages\index.html:248
+msgid ""
+"\n"
+"                  Detailshot van dart\n"
+"                "
+msgstr ""
+"\n"
+"Detail shot of dart\n"
+"                "
+
+#: .\darts\templates\pages\index.html:256
+#: .\darts\templates\pages\index.html:261
+msgid "Overview van dartschool"
+msgstr "Overview of dart school"
+
+#: .\darts\templates\pages\index.html:258
+msgid ""
+"\n"
+"                  Overview van dartschool\n"
+"                "
+msgstr ""
+"\n"
+"Overview of dart school\n"
+"                "
+
+#: .\darts\templates\pages\index.html:266
+#: .\darts\templates\pages\index.html:271
+msgid "Oefenborden"
+msgstr "Practice Boards"
+
+#: .\darts\templates\pages\index.html:268
+msgid ""
+"\n"
+"                  Oefenborden\n"
+"                "
+msgstr ""
+"\n"
+"Practice Boards\n"
+"                "
+
+#: .\darts\templates\pages\index.html:276
+#: .\darts\templates\pages\index.html:281
+msgid "Aan het oefenen"
+msgstr "Practicing"
+
+#: .\darts\templates\pages\index.html:278
+msgid ""
+"\n"
+"                  Aan het oefenen\n"
+"                "
+msgstr ""
+"\n"
+"Practicing\n"
+"                "
+
+#: .\darts\templates\pages\index.html:286
+#: .\darts\templates\pages\index.html:291
+msgid "Close-up van dartpijltje"
+msgstr "Close-up of dart"
+
+#: .\darts\templates\pages\index.html:288
+msgid ""
+"\n"
+"                  Close-up van dartpijltje\n"
+"                "
+msgstr ""
+"\n"
+"Close-up of dart\n"
+"                "
+
+#: .\darts\templates\pages\index.html:308
 #: .\pokemon\templates\pokemon\pages\index.html:198
 msgid "Aarzel niet om ons te contacteren!"
 msgstr "Don't hesitate to contact us!"
 
-#: .\darts\templates\pages\index.html:274
+#: .\darts\templates\pages\index.html:322
 #: .\pokemon\templates\pokemon\pages\index.html:212
 msgid "Bel/Whatsapp ons"
 msgstr "Call/Whatsapp us"
 
-#: .\darts\templates\pages\index.html:282
+#: .\darts\templates\pages\index.html:330
 #: .\pokemon\templates\pokemon\pages\index.html:220
 msgid "Email ons"
 msgstr "Email Us"
 
-#: .\darts\templates\pages\index.html:304
+#: .\darts\templates\pages\index.html:352
 #: .\darts\templates\pages\priveles.html:55
 #: .\pokemon\templates\pokemon\pages\index.html:242
 msgid "Stuur ons een bericht"
 msgstr "Send us a message"
 
-#: .\darts\templates\pages\index.html:322
+#: .\darts\templates\pages\index.html:370
 #: .\darts\templates\pages\priveles.html:73
 #: .\pokemon\templates\pokemon\pages\index.html:260
 msgid "Onderwerp"
 msgstr "Subject"
 
-#: .\darts\templates\pages\index.html:327
+#: .\darts\templates\pages\index.html:375
 #: .\darts\templates\pages\priveles.html:78
 #: .\pokemon\templates\pokemon\pages\index.html:265
 msgid "Bericht"
 msgstr "Message"
 
-#: .\darts\templates\pages\index.html:334
+#: .\darts\templates\pages\index.html:382
 #: .\darts\templates\pages\priveles.html:85
 #: .\pokemon\templates\pokemon\pages\index.html:272
 msgid "Uw bericht is verzonden. Bedankt!"
 msgstr "Your message has been sent. Thank you!"
 
-#: .\darts\templates\pages\index.html:335
+#: .\darts\templates\pages\index.html:383
 #: .\darts\templates\pages\priveles.html:86
 #: .\pokemon\templates\pokemon\pages\index.html:273
 msgid "Stuur bericht"
 msgstr "Send message"
 
 #: .\darts\templates\pages\privacybeleid.html:20
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:20
 msgid ""
 "Wij nemen de bescherming van uw privacy zeer serieus. Alle persoonlijke "
 "gegevens die u via deze website en/of deelnameformulier verstrekt, worden "
@@ -2917,10 +3141,12 @@ msgstr ""
 "access, loss or theft, but cannot guarantee absolute security."
 
 #: .\darts\templates\pages\privacybeleid.html:34
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:34
 msgid "Algemeen"
 msgstr "General"
 
 #: .\darts\templates\pages\privacybeleid.html:37
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:37
 msgid ""
 "\n"
 "                    Het Privacybeleid is van toepassing op de website <a "
@@ -2941,6 +3167,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:43
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:43
 msgid ""
 "\n"
 "                    De website werd opgericht om het publiek en de bezoekers "
@@ -2955,6 +3182,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:49
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:49
 msgid ""
 "\n"
 "                    ChudartZ is verantwoordelijk voor de verwerking van "
@@ -2969,6 +3197,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:54
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:54
 msgid ""
 "\n"
 "                    Het Privacybeleid beschrijft welke verschillende "
@@ -2990,10 +3219,12 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:62
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:62
 msgid "Verzamelen van persoonsgegevens"
 msgstr "Collection of personal data"
 
 #: .\darts\templates\pages\privacybeleid.html:65
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:65
 msgid ""
 "\n"
 "                    Wanneer u de website bezoekt, zal ChudartZ de volgende "
@@ -3006,10 +3237,12 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:71
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:71
 msgid "Cookies:"
 msgstr "Cookies:"
 
 #: .\darts\templates\pages\privacybeleid.html:73
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:73
 msgid ""
 "\n"
 "                                Dit zijn kleine tekstbestanden die door "
@@ -3027,6 +3260,7 @@ msgstr ""
 "                                "
 
 #: .\darts\templates\pages\privacybeleid.html:78
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:78
 msgid ""
 "<i>Noodzakelijke cookies:</i> Deze zijn essentieel voor het functioneren van "
 "een website, zoals het mogelijk maken van inloggen of het onthouden van "
@@ -3037,6 +3271,7 @@ msgstr ""
 "cart."
 
 #: .\darts\templates\pages\privacybeleid.html:81
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:81
 msgid ""
 "<i>Functionele cookies:</i> Deze cookies onthouden je voorkeuren, zoals "
 "taalinstellingen of inloggegevens, om je een meer gepersonaliseerde ervaring "
@@ -3047,6 +3282,7 @@ msgstr ""
 "experience."
 
 #: .\darts\templates\pages\privacybeleid.html:84
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:84
 msgid ""
 "<i>Analytische cookies:</i> Ze verzamelen informatie over hoe bezoekers de "
 "website gebruiken, zoals welke pagina's populair zijn. Dit helpt websites om "
@@ -3057,6 +3293,7 @@ msgstr ""
 "the user experience."
 
 #: .\darts\templates\pages\privacybeleid.html:87
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:87
 msgid ""
 "<i>Advertentie- en trackingcookies:</i> Deze worden gebruikt om je "
 "surfgedrag te volgen en advertenties te tonen die beter aansluiten bij je "
@@ -3067,6 +3304,7 @@ msgstr ""
 "interests."
 
 #: .\darts\templates\pages\privacybeleid.html:91
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:91
 msgid ""
 "\n"
 "                                Cookies kunnen zowel door de website zelf "
@@ -3085,10 +3323,12 @@ msgstr ""
 "                                "
 
 #: .\darts\templates\pages\privacybeleid.html:98
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:98
 msgid "Identificatiegegevens:"
 msgstr "Identification:"
 
 #: .\darts\templates\pages\privacybeleid.html:100
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:100
 msgid ""
 "\n"
 "                                er worden enkel persoonsgegevens verzameld "
@@ -3102,6 +3342,7 @@ msgstr ""
 "                                "
 
 #: .\darts\templates\pages\privacybeleid.html:107
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:107
 msgid ""
 "\n"
 "                    Gegevens kunnen door u enkel op vrijwillige basis worden "
@@ -3119,10 +3360,12 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:113
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:113
 msgid "Voor wat gebruiken we uw persoonsgegevens?"
 msgstr "What do we use your personal data for?"
 
 #: .\darts\templates\pages\privacybeleid.html:116
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:116
 msgid ""
 "\n"
 "                    Wij gebruiken de persoonsgegevens die door u werden "
@@ -3134,6 +3377,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:122
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:122
 msgid ""
 "Om u te informeren over eender welke ontwikkeling die in verband staat met "
 "onze producten en diensten"
@@ -3141,17 +3385,20 @@ msgstr ""
 "To inform you about any development related to our products and services"
 
 #: .\darts\templates\pages\privacybeleid.html:125
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:125
 msgid ""
 "Om u te informeren over aankomende evenementen, beurzen, of activiteiten van "
 "ChudartZ."
 msgstr "To inform you about upcoming events, fairs, or activities of ChudartZ."
 
 #: .\darts\templates\pages\privacybeleid.html:128
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:128
 msgid ""
 "Om u inschrijving voor evenementen te verwerken en je deelname te beheren."
 msgstr "To process your registration for events and manage your participation."
 
 #: .\darts\templates\pages\privacybeleid.html:131
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:131
 msgid ""
 "Om onze dienstverlening te verbeteren door inzicht te krijgen in het gebruik "
 "van onze website."
@@ -3159,22 +3406,27 @@ msgstr ""
 "To improve our services by gaining insight into the use of our website."
 
 #: .\darts\templates\pages\privacybeleid.html:134
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:134
 msgid "Om indien gewenst nieuwsbrieven, promoties, of updates te ontvangen"
 msgstr "To receive newsletters, promotions, or updates if desired"
 
 #: .\darts\templates\pages\privacybeleid.html:137
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:137
 msgid "Om te reageren op uw verzoek tot inlichtingen"
 msgstr "To respond to your enquiry request"
 
 #: .\darts\templates\pages\privacybeleid.html:140
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:140
 msgid "Om onze website te evalueren en te verbeteren"
 msgstr "To evaluate and improve our website"
 
 #: .\darts\templates\pages\privacybeleid.html:143
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:143
 msgid "Om toepasselijke juridische vereisten en industriële normen na te leven"
 msgstr "To comply with applicable legal requirements and industry standards"
 
 #: .\darts\templates\pages\privacybeleid.html:146
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:146
 msgid ""
 "Om onderzoek, analyses en controles uit te voeren zodat wij onze diensten "
 "kunnen behouden, beschermen en verbeteren."
@@ -3183,6 +3435,7 @@ msgstr ""
 "protect and improve our services."
 
 #: .\darts\templates\pages\privacybeleid.html:154
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:154
 msgid ""
 "\n"
 "                    Houd er rekening mee dat wij uw gegevens gedurende 2 "
@@ -3203,10 +3456,12 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:160
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:160
 msgid "Het delen van persoonsgegevens"
 msgstr "Sharing of personal data"
 
 #: .\darts\templates\pages\privacybeleid.html:164
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:164
 msgid ""
 "\n"
 "                    Wij verkopen de persoonsgegevens die wij hebben "
@@ -3222,6 +3477,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:169
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:169
 msgid ""
 "\n"
 "                    Wij mogen persoonsgegevens delen met verbonden "
@@ -3244,6 +3500,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:174
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:174
 msgid ""
 "\n"
 "                    Wij kunnen uw persoonsgegevens ook bekend maken:\n"
@@ -3254,11 +3511,13 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:179
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:179
 msgid ""
 "wanneer bepaalde wetgeving of een juridische procedure ons daartoe verplicht"
 msgstr "where we are required to do so by law or legal process"
 
 #: .\darts\templates\pages\privacybeleid.html:180
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:180
 msgid ""
 "wanneer rechtshandhavingsautoriteiten of andere overheidsambtenaren ons "
 "daartoe verplichten"
@@ -3267,6 +3526,7 @@ msgstr ""
 "do so"
 
 #: .\darts\templates\pages\privacybeleid.html:181
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:181
 msgid ""
 "wanneer wij van oordeel zijn dat de bekendmaking van deze gegevens "
 "noodzakelijk en geschikt is om de lichamelijke integriteit of enige "
@@ -3279,6 +3539,7 @@ msgstr ""
 "illegal activity"
 
 #: .\darts\templates\pages\privacybeleid.html:186
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:186
 msgid ""
 "\n"
 "                    Wij behouden ons het recht voor om persoonsgegevens over "
@@ -3299,14 +3560,17 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:192
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:192
 msgid "De uitoefening van uw rechten"
 msgstr "Exercising your rights"
 
 #: .\darts\templates\pages\privacybeleid.html:195
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:195
 msgid "Recht op toegang en verbetering"
 msgstr "Right of access and correction"
 
 #: .\darts\templates\pages\privacybeleid.html:196
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:196
 msgid ""
 "Het recht op toegang en verbetering kunt u, in overeenstemming met de "
 "Belgische Privacywet, te allen tijde uitoefenen. Dit kan onder andere door "
@@ -3323,10 +3587,12 @@ msgstr ""
 "through your web browser."
 
 #: .\darts\templates\pages\privacybeleid.html:198
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:198
 msgid "Recht om gegevens te wissen"
 msgstr "Right to erasure"
 
 #: .\darts\templates\pages\privacybeleid.html:199
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:199
 msgid ""
 "U kunt op gelijk welk moment en in overeenstemming met de regelgeving inzake "
 "gegevensbescherming, uw recht om gegevens te wissen uitoefenen door een "
@@ -3347,10 +3613,12 @@ msgstr ""
 "for the provided period of up to ten years."
 
 #: .\darts\templates\pages\privacybeleid.html:201
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:201
 msgid "Recht op verzet"
 msgstr "Right to object"
 
 #: .\darts\templates\pages\privacybeleid.html:202
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:202
 msgid ""
 "Wanneer u de website bezoekt zult u worden verzocht om in te stemmen met "
 "bepaalde vormen van gegevensverwerking. U heeft het recht om uw instemming "
@@ -3360,6 +3628,7 @@ msgstr ""
 "data processing. You have the right to withdraw your consent at any time."
 
 #: .\darts\templates\pages\privacybeleid.html:203
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:203
 msgid ""
 "Wanneer u niet langer wenst dat uw gegevens worden verwerkt voor directe "
 "marketing doeleinden, kunt u altijd uw instemming hiervoor terug intrekken. "
@@ -3374,6 +3643,7 @@ msgstr ""
 "Wilgenlaan 35 in 8210 Loppem, Belgium."
 
 #: .\darts\templates\pages\privacybeleid.html:204
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:204
 msgid ""
 "Het intrekken van uw instemming zal er niet toe bijdragen dat de eerdere "
 "verwerking van gegevens ongeldig wordt. Daarnaast kan een intrekking van uw "
@@ -3387,6 +3657,7 @@ msgstr ""
 "optimally without processing the necessary elements of your personal data."
 
 #: .\darts\templates\pages\privacybeleid.html:205
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:205
 msgid ""
 "Wanneer u op een bepaald moment vindt dat één van uw rechten niet werden "
 "gerespecteerd, kunt u ook een klacht neerleggen bij de Belgische "
@@ -3399,10 +3670,12 @@ msgstr ""
 "burger</a>)"
 
 #: .\darts\templates\pages\privacybeleid.html:211
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:211
 msgid "Bescherming van uw persoonsgegevens"
 msgstr "Protection of your personal data"
 
 #: .\darts\templates\pages\privacybeleid.html:215
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:215
 msgid ""
 "\n"
 "                    Wij beschikken over doeltreffende technische, "
@@ -3413,7 +3686,7 @@ msgid ""
 "hebben.\n"
 "                    Niettegenstaande wij er alles aan doen om uw gegevens te "
 "beveiligen tegen ongeautoriseerde toegang, verlies of diefstal, kunnen wij "
-"nooit geen absolute veiligheid garanderen.\n"
+"geen absolute veiligheid garanderen.\n"
 "                    "
 msgstr ""
 "\n"
@@ -3422,12 +3695,13 @@ msgstr ""
 "accidental loss, unauthorised alteration, disclosure or access, against "
 "misuse and any other unlawful processing of the personal data in our "
 "possession.\n"
-"                    Although we do everything we can to protect your data "
-"against unauthorized access, loss or theft, we can never guarantee absolute "
+"                    Although we make every effort to protect your data "
+"against unauthorized access, loss or theft, we cannot guarantee absolute "
 "security.\n"
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:225
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:225
 msgid ""
 "\n"
 "                    Door deel te nemen aan een toernooi en/of het betreden "
@@ -3449,14 +3723,17 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:231
-msgid "Contact, zie punt 9 van het Privacybeleid."
-msgstr "Contact, see section 9 of the Privacy Policy."
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:231
+msgid "Contact - zie laatste punt van dit Privacybeleid."
+msgstr "Contact us - see last point of this Privacy Policy."
 
 #: .\darts\templates\pages\privacybeleid.html:235
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:235
 msgid "Overdracht van gegevens"
 msgstr "Transfer of data"
 
 #: .\darts\templates\pages\privacybeleid.html:238
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:238
 msgid ""
 "\n"
 "                    Uw persoonsgegevens worden door ons niet buiten de "
@@ -3470,10 +3747,12 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:244
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:244
 msgid "Wijzigingen in het privacybeleid"
 msgstr "Changes to the Privacy Policy"
 
 #: .\darts\templates\pages\privacybeleid.html:247
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:247
 msgid ""
 "\n"
 "                    Het Privacybeleid kan op geregelde tijdstippen worden "
@@ -3495,6 +3774,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:257
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:257
 msgid ""
 "\n"
 "                    Indien u verdere vragen heeft over dit Privacybeleid, uw "
@@ -3509,6 +3789,7 @@ msgstr ""
 "                    "
 
 #: .\darts\templates\pages\privacybeleid.html:265
+#: .\pokemon\templates\pokemon\pages\privacybeleid.html:265
 msgid "België"
 msgstr "Belgium"
 
@@ -3755,14 +4036,6 @@ msgstr ""
 "darts team building, do not hesitate to contact us!\n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:191
-msgid "Workshops"
-msgstr "Workshops"
-
-#: .\darts\templates\pages\teambuildings-en-workshops.html:193
-msgid "Binnenkort!"
-msgstr "Soon!"
-
 #: .\darts\templates\pages\toernooi-inschrijving-response.html:24
 msgid "Ingeschreven!"
 msgstr "Registered!"
@@ -3782,10 +4055,6 @@ msgstr "Sign up"
 #: .\darts\templates\pages\toernooi-inschrijving.html:78
 msgid "Selecteer je niveau"
 msgstr "Select your level"
-
-#: .\darts\templates\pages\toernooi-inschrijving.html:86
-msgid "Gsm-nummer"
-msgstr "Mobile number"
 
 #: .\darts\templates\pages\toernooi-inschrijving.html:119
 msgid "Selecteer je ticket"
@@ -3895,7 +4164,7 @@ msgstr "about-us/"
 msgid "algemene-voorwaarden/"
 msgstr "terms-and-conditions/"
 
-#: .\darts\urls.py:34
+#: .\darts\urls.py:34 .\pokemon\urls.py:18
 msgid "privacybeleid/"
 msgstr "privacy-policy/"
 
@@ -3903,7 +4172,7 @@ msgstr "privacy-policy/"
 msgid "reglement-toernooien/"
 msgstr "tournament-rules/"
 
-#: .\darts\urls.py:36
+#: .\darts\urls.py:36 .\pokemon\urls.py:19
 msgid "disclaimer/"
 msgstr "disclaimer/"
 
@@ -3915,13 +4184,17 @@ msgstr "contact/"
 msgid "sponsors/"
 msgstr "sponsors/"
 
-#: .\darts\urls.py:39
+#: .\darts\urls.py:39 .\pokemon\urls.py:20
 msgid "faq/"
 msgstr "faq/"
 
 #: .\darts\urls.py:41
 msgid "darts/scanner/"
 msgstr "darts/scanner/"
+
+#: .\pokemon\templates\pokemon\blocks\header.html:43
+msgid "Standhouder worden"
+msgstr "Become an exhibitor"
 
 #: .\pokemon\templates\pokemon\pages\about.html:21
 #: .\pokemon\templates\pokemon\pages\evenementen.html:29
@@ -3938,6 +4211,320 @@ msgstr ""
 msgid "Onze Missie en Visie"
 msgstr "Our Mission and Vision"
 
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:33
+msgid ""
+"\n"
+"                    Door deel te nemen aan de evenementen van ChudartZ "
+"Collectibles erkent u, zowel als bezoeker of als standhouder, dat u de "
+"disclaimer, de algemene voorwaarden en het Privacybeleid hebt gelezen, "
+"begrepen en akkoord bent met de inhoud ervan.\n"
+"                    Deze documenten kunnen zonder voorafgaande kennisgeving "
+"worden gewijzigd. Het is de verantwoordelijkheid van de deelnemer om "
+"eventuele wijzigingen regelmatig te controleren. Wijzigingen met impact "
+"zullen wel op voorhand kenbaar gemaakt worden.\n"
+"                "
+msgstr ""
+"\n"
+"By participating in the events of ChudartZ Collectibles, you acknowledge, "
+"both as a visitor and as an exhibitor, that you have read, understood and "
+"agree with the disclaimer, the terms and conditions and the Privacy Policy.\n"
+"                    These documents are subject to change without notice. It "
+"is the participant's responsibility to check for any changes on a regular "
+"basis. Changes with impact will be announced in advance.\n"
+"                "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:44
+msgid ""
+"Deelname aan een evenement, hetzij als standhouder, hetzij als bezoeker is "
+"alleen geldig na succesvolle inschrijving en betaling van het inschrijfgeld."
+msgstr ""
+"Participation in an event, either as an exhibitor or as a visitor, is only "
+"valid after successful registration and payment of the registration fee."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:47
+msgid ""
+"Door zich in te schrijven verklaart de deelnemer naar eer en geweten dat "
+"alle verstrekte informatie juist en volledig is. De deelnemer accepteert "
+"alle verantwoordelijkheden die voortvloeien uit deelname aan het evenement, "
+"inclusief het naleven van de regels en het nemen van de nodige "
+"voorzorgsmaatregelen."
+msgstr ""
+"By registering, the participant declares to the best of his knowledge and "
+"knowledge that all information provided is correct and complete. The "
+"participant accepts all responsibilities arising from participation in the "
+"event, including complying with the rules and taking the necessary "
+"precautions."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:50
+msgid ""
+"Inschrijvingen zijn persoonlijk en kunnen niet worden overgedragen aan "
+"anderen. Het doorverkopen of overdragen van tickets is, zonder "
+"uitdrukkelijke toestemming van de organisatie niet toegestaan. Bij "
+"overtreding kan de toegang tot het evenement worden geweigerd."
+msgstr ""
+"Registrations are personal and cannot be transferred to others. The resale "
+"or transfer of tickets is not permitted without the express permission of "
+"the organization. In case of violation, access to the event may be denied."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:53
+msgid "De inschrijvingsdeadline wordt strikt nageleefd."
+msgstr "The registration deadline is strictly adhered to."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:56
+msgid ""
+"Een annulering van een reeds gemaakte boeking op de dag zelf leidt niet tot "
+"terugbetaling, tenzij er sprake is van overmacht, zoals (ernstige) ziekte, "
+"overlijden familielid, …"
+msgstr ""
+"A cancellation of a booking already made on the day itself does not lead to "
+"a refund, unless there is force majeure, such as (serious) illness, death of "
+"a family member, etc."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:65
+msgid ""
+"Wij verzoeken alle deelnemers zich te gedragen en respectvol om te gaan met "
+"mededeelnemers en de omgeving. Het is belangrijk dat iedereen zich houdt aan "
+"de geldende huisregels om een veilige en plezierige sfeer te waarborgen. "
+"Overtreding van deze regels kan leiden tot passende maatregelen, zoals "
+"verwijdering van het evenement."
+msgstr ""
+"We ask all participants to behave and be respectful of fellow participants "
+"and the environment. It is important that everyone adheres to the applicable "
+"house rules to ensure a safe and enjoyable atmosphere. Violation of these "
+"rules may result in appropriate action, such as removal from the event."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:68
+msgid ""
+"De organisatie behoudt zich het recht voor om deelnemers die zich niet aan "
+"de regels houden, uit te sluiten van verdere deelname aan het event of "
+"andere evenementen ingericht door de organisator."
+msgstr ""
+"The organization reserves the right to exclude participants who do not "
+"comply with the rules from further participation in the event or other "
+"events organized by the organizer."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:77
+msgid ""
+"Schade aan de locatie of apparatuur door een deelnemer zal op kosten van de "
+"deelnemer worden hersteld."
+msgstr ""
+"Damage to the venue or equipment by a participant will be repaired at the "
+"participant's expense."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:86
+msgid ""
+"De organisatie is niet verantwoordelijk voor verlies, diefstal, of schade "
+"aan persoonlijke eigendommen van deelnemers (bezoekers, standhouders)."
+msgstr ""
+"The organization is not responsible for loss, theft, or damage to personal "
+"belongings of participants (visitors, exhibitors)."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:89
+msgid ""
+"· Deelname of een bezoek aan een event is geheel op eigen risico. De "
+"organisatie is niet aansprakelijk voor eventuele verwondingen of ongevallen, "
+"tenzij deze direct te wijten is aan opzet of grove nalatigheid van de "
+"organisator.\n"
+"                            Deelnemers kunnen mogelijk een beroep doen op "
+"hun eigen verzekering, zoals een aansprakelijkheids- of "
+"ongevallenverzekering, voor dekking van schade die zij hebben veroorzaakt of "
+"opgelopen."
+msgstr ""
+"· Participation or a visit to an event is entirely at your own risk. The "
+"organization is not liable for any injuries or accidents, unless these are "
+"directly attributable to intent or gross negligence on the part of the "
+"organizer.\n"
+"                            Participants may be able to rely on their own "
+"insurance, such as liability or accident insurance, to cover damage they "
+"have caused or incurred."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:93
+msgid ""
+"\n"
+"                            De organisatie is enkel aansprakelijk voor "
+"gebeurtenissen (die te wijten zijn aan opzet of grove nalatigheid van de "
+"organisator) tijdens het evenement zelf, maar nooit voor incidenten onderweg "
+"naar of terug van het evenement.\n"
+"                            "
+msgstr ""
+"\n"
+"The organization is only liable for events (which are due to intent or gross "
+"negligence on the part of the organizer) during the event itself, but never "
+"for incidents on the way to or back from the event.\n"
+"                            "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:98
+msgid ""
+"\n"
+"                            Deelnemers dienen zich bewust te zijn van hun "
+"eigen fysieke en mentale gesteldheid en verantwoordelijk te handelen.\n"
+"                            "
+msgstr ""
+"\n"
+"Participants should be aware of their own physical and mental condition and "
+"act responsibly.\n"
+"                            "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:103
+msgid ""
+"\n"
+"                            De organisatie behoudt zich het recht voor om "
+"het event, de dagindeling of andere aspecten van het evenement te wijzigen "
+"indien noodzakelijk, met of zonder voorafgaande kennisgeving, afhankelijk "
+"van externe factoren waarover de organisatie geen volledige controle heeft.\n"
+"                            "
+msgstr ""
+"\n"
+"The organization reserves the right to change the event, the daily schedule "
+"or other aspects of the event if necessary, with or without prior notice, "
+"depending on external factors over which the organization does not have full "
+"control.\n"
+"                            "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:108
+msgid ""
+"\n"
+"                            In geval van overmacht (bijvoorbeeld pandemieën, "
+"natuurgeweld) kan het evenement worden uitgesteld of geannuleerd zonder "
+"restitutie van inschrijfgeld.\n"
+"                            "
+msgstr ""
+"\n"
+"In case of force majeure (e.g. pandemics, natural disasters), the event may "
+"be postponed or cancelled without a refund of the registration fee.\n"
+"                            "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:115
+msgid "Transacties en aankopen"
+msgstr "Transactions & Purchases"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:116
+msgid "Verkoop en ruil"
+msgstr "Sales & Swaps"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:117
+msgid ""
+"\n"
+"                    Deelname aan het evenement kan transacties omvatten, "
+"zoals de verkoop, aankoop of ruil van goederen. Deelnemers zijn "
+"verantwoordelijk voor hun eigen transacties en moeten ervoor zorgen dat ze "
+"voldoen aan alle toepasselijke wet- en regelgeving.\n"
+"                "
+msgstr ""
+"\n"
+"Participation in the event may include transactions such as the sale, "
+"purchase, or barter of goods. Participants are responsible for their own "
+"transactions and must ensure that they comply with all applicable laws and "
+"regulations.\n"
+"                "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:121
+msgid "Aankopen"
+msgstr "Buy"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:122
+msgid ""
+"\n"
+"                    Voor aankopen van goederen door bezoekers geldt dat alle "
+"transacties en betalingsvoorwaarden direct tussen de koper en de verkoper "
+"worden geregeld. De organisatie is niet aansprakelijk voor geschillen of "
+"problemen die voortvloeien uit dergelijke transacties.\n"
+"                "
+msgstr ""
+"\n"
+"For purchases of goods by visitors, all transactions and payment terms are "
+"arranged directly between the buyer and the seller. The organization shall "
+"not be liable for any disputes or problems arising from such transactions.\n"
+"                "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:126
+msgid "Ruilvoorwaarden met ChudartZ Collectibles"
+msgstr "Exchange conditions with ChudartZ Collectibles"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:127
+#, python-format
+msgid ""
+"\n"
+"                    ChudartZ Collectibles biedt bezoekers de mogelijkheid om "
+"hun eigen collecties of items te ruilen of te verkopen tegen 65%% van de "
+"actuele marktprijs aan ChudartZ Collectibles, op voorwaarde dat de goederen "
+"in goede staat verkeren en voldoen aan de voorwaarden en omschrijving zoals "
+"aangegeven door de verkoper bij de aankoop of ruil.\n"
+"                "
+msgstr ""
+"\n"
+"ChudartZ Collectibles offers visitors the opportunity to exchange or sell "
+"their own collections or items at 65%% of the current market price to "
+"ChudartZ Collectibles, provided that the goods are in good condition and "
+"meet the conditions and description as indicated by the seller at the time "
+"of purchase or exchange.\n"
+"                "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:131
+msgid "Retouren en klachten"
+msgstr "Returns & Complaints"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:132
+msgid ""
+"\n"
+"                    Retouren of klachten over aangekochte goederen dienen te "
+"worden behandeld volgens de voorwaarden van de betreffende verkoper. De "
+"organisatie van het evenement is niet verantwoordelijk voor retouren, ruilen "
+"of klachten, indien zij zelf geen betrokken partij zijn in de transactie.\n"
+"                "
+msgstr ""
+"\n"
+"Returns or complaints about purchased goods must be handled according to the "
+"terms and conditions of the respective seller. The organization of the event "
+"is not responsible for returns, exchanges or complaints, if they are not "
+"involved in the transaction.\n"
+"                "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:140
+msgid ""
+"Door deel te nemen aan een evenement en/of het betreden van een evenement "
+"gaat u akkoord met het feit dat u gefotografeerd of gefilmd kunt worden en "
+"dat deze beelden gebruikt kunnen worden voor promotionele doeleinden zonder "
+"enige compensatie."
+msgstr ""
+"By participating in an event and/or entering an event, you agree that you "
+"may be photographed or filmed and that these images may be used for "
+"promotional purposes without any compensation."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:144
+#, python-format
+msgid ""
+"\n"
+"                            Persoonlijke gegevens die tijdens de "
+"inschrijving worden verzameld, worden uitsluitend gebruikt voor de "
+"organisatie van het evenement en niet gedeeld met derden, behoudens "
+"uitzonderingen zoals in het <a href=\"%(p_url)s\">Privacybeleid</a> "
+"meegedeeld.\n"
+"                            "
+msgstr ""
+"\n"
+"Personal data collected during registration will be used exclusively for the "
+"organization of the event and will not be shared with third parties, subject "
+"to exceptions as communicated in the <a href=\"%(p_url)s\">Privacy Policy</"
+"a> .                            "
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:155
+msgid ""
+"Eventuele geschillen die voortkomen uit de deelname aan het event kunnen "
+"worden voorgelegd aan de organisatie, die desgevallend zal doorverwijzen "
+"naar de bevoegde instanties."
+msgstr ""
+"Any disputes arising from participation in the event can be submitted to the "
+"organisation, which will refer you to the competent authorities if necessary."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:174
+msgid ""
+"Door deel te nemen aan het evenement, accepteert de deelnemer automatisch de "
+"bovenstaande algemene voorwaarden."
+msgstr ""
+"By participating in the event, the participant automatically accepts the "
+"above terms and conditions."
+
 #: .\pokemon\templates\pokemon\pages\evenement.html:29
 msgid "/evenementen"
 msgstr "/events"
@@ -3945,6 +4532,31 @@ msgstr "/events"
 #: .\pokemon\templates\pokemon\pages\evenementen.html:46
 msgid "Er zijn nog geen evenementen beschikbaar!"
 msgstr "There are no events available yet!"
+
+#: .\pokemon\templates\pokemon\pages\faq.html:35
+msgid ""
+"\n"
+"                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier "
+"vind je antwoorden op de meest gestelde vragen over inschrijvingen, "
+"speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle "
+"belangrijke informatie. Mis je nog iets? Aarzel niet om\n"
+"                  "
+msgstr ""
+"\n"
+"Do you have any questions about the tournament? Check out our FAQ! Here you "
+"will find answers to the most frequently asked questions about "
+"registrations, schedules, rules and more. This way you are immediately aware "
+"of all the important information. Are you missing something? Don't hesitate "
+"to\n"
+"                  "
+
+#: .\pokemon\templates\pokemon\pages\faq.html:38 .\pokemon\urls.py:12
+msgid "contact"
+msgstr "contact"
+
+#: .\pokemon\templates\pokemon\pages\faq.html:39
+msgid "met ons op te nemen!"
+msgstr "with us!"
 
 #: .\pokemon\templates\pokemon\pages\faq.html:48
 msgid "Waar en wanneer vinden de ChudartZ evenementen en beurzen plaats?"
@@ -4058,14 +4670,14 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\index.html:81
 msgid ""
 "\n"
-"                    Bij Chudartz bieden we een professionele dartschool aan "
+"                    Bij ChudartZ bieden we een professionele dartschool aan "
 "in Zedelgem, \n"
 "                    waar spelers van alle niveaus hun vaardigheden kunnen "
 "verbeteren. \n"
 "                    "
 msgstr ""
 "\n"
-"At Chudartz we offer a professional darts school in Zedelgem, \n"
+"At ChudartZ we offer a professional darts school in Zedelgem, \n"
 "                    where players of all skill levels can improve their "
 "skills. \n"
 "                    "
@@ -4101,8 +4713,42 @@ msgid "evenement/<slug:slug>/"
 msgstr "event/<slug:slug>/"
 
 #: .\pokemon\urls.py:17
-msgid "faz/"
-msgstr "faz/"
+#, fuzzy
+#| msgid "algemene-voorwaarden/"
+msgid "algemene_voorwaarden/"
+msgstr "terms-and-conditions/"
+
+#~ msgid ""
+#~ "Minderjarige deelnemers moeten toestemming hebben van een ouder of voogd, "
+#~ "die schriftelijk moet \n"
+#~ "                            worden ingediend."
+#~ msgstr ""
+#~ "Underage participants must have the consent of a parent or guardian, who "
+#~ "must be in writing \n"
+#~ "                            be submitted."
+
+#~ msgid "Kan ik mij op de dag zelf nog inschrijven voor een toernooi?"
+#~ msgstr "Can I register for a tournament on the day itself?"
+
+#~ msgid ""
+#~ "Afhankelijk van de beschikbare plaatsen kun je je op de dag zelf nog "
+#~ "inschrijven. We raden echter aan om vooraf te registreren om zeker te "
+#~ "zijn van deelname."
+#~ msgstr ""
+#~ "Depending on the available places, you can still register on the day "
+#~ "itself. However, we recommend pre-registering to ensure participation."
+
+#~ msgid "Workshops"
+#~ msgstr "Workshops"
+
+#~ msgid "Binnenkort!"
+#~ msgstr "Soon!"
+
+#~ msgid "Gsm-nummer"
+#~ msgstr "Mobile number"
+
+#~ msgid "faz/"
+#~ msgstr "faz/"
 
 #~ msgid "JDC Academy"
 #~ msgstr "JDC Academy"
@@ -4166,9 +4812,6 @@ msgstr "faz/"
 #~ "                    Sign up today and don't miss out on the action!\n"
 #~ "                    "
 
-#~ msgid "Verkoop van Darts"
-#~ msgstr "Sale of dart equipment"
-
 #~ msgid ""
 #~ "\n"
 #~ "                    Bij Chudartz kunt u ook terecht voor een breed scala "
@@ -4217,8 +4860,9 @@ msgstr "faz/"
 #~ "Onze dartstoernooien zijn dé plek om uw vaardigheden te testen en de "
 #~ "competitie aan te gaan. Iedereen is altijd welkom om deel te nemen en "
 #~ "zich te meten met andere dartliefhebbers. Houd onze kalender in de gaten "
-#~ "voor aankomende toernooien en neem een kijkje binnen 'Darttoernooien' "
-#~ "(link naar deze sectie) voor een van onze spannende competities."
+#~ "voor aankomende toernooien en neem een kijkje binnen "
+#~ "'Darttoernooien' (link naar deze sectie) voor een van onze spannende "
+#~ "competities."
 #~ msgstr ""
 #~ "Our darts tournaments are the place to test your skills and compete. "
 #~ "Everyone is always welcome to participate and measure themselves against "
