@@ -52,8 +52,8 @@ ChudartZ | Dartschool
                         {% endblocktrans %}
                     </p>
                     <ul>
-                        <li><i class="bi bi-check"></i><span>{% trans 'Ontwikkeling van Basisvaardigheden' %}</span></li>
-                        <li><i class="bi bi-check"></i><span>{% trans 'Persoonlijke Groei en Zelfvertrouwen' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Ontwikkeling van basisvaardigheden' %}</span></li>
+                        <li><i class="bi bi-check"></i><span>{% trans 'Persoonlijke groei en zelfvertrouwen' %}</span></li>
                         <li><i class="bi bi-check"></i><span>{% trans 'Voorbereiden op competitieve darts' %}</span></li>
                     </ul>
                     <a href="{% url 'dartschool_meer_info' %}" class="btn btn-get-started">{% trans 'Meer Info' %}</a> 
@@ -102,7 +102,7 @@ ChudartZ | Dartschool
                     {% endblocktrans %}
                   </p>
                   <ul>
-                      <li><i class="bi bi-dot"></i><span>{% trans 'lidgeld: € 50/jaar' %}</span></li>
+                      <li><i class="bi bi-dot"></i><span>{% trans 'Lidgeld: € 50/jaar' %}</span></li>
                       {% for beurtkaart in beurtkaarten %}
                       <li><i class="bi bi-dot"></i><span>{{ beurtkaart.naam }}: {{ beurtkaart.prijs }}</span></li>
                       {% endfor %}

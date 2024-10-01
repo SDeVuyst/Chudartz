@@ -1,0 +1,138 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+ChudartZ Collectibles | Evenementen
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="ChudartZ Collectibles | Standhouder Worden">
+<meta property="og:description" content="Ontdek de meest boeiende evenementen en beurzen bij ChudartZ Collectibles, waar verzamelaars samenkomen om unieke items te ruilen en te ontdekken. Mis geen enkel evenement en blijf op de hoogte van al onze aankomende activiteiten. Bezoek onze evenement pagina voor meer informatie!">
+<meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ Collectibles | Standhouder Worden">
+<meta name="twitter:description" content="Ontdek de meest boeiende evenementen en beurzen bij ChudartZ Collectibles, waar verzamelaars samenkomen om unieke items te ruilen en te ontdekken. Mis geen enkel evenement en blijf op de hoogte van al onze aankomende activiteiten. Bezoek onze evenement pagina voor meer informatie!">
+<meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="evenementen-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Standhouder Worden" as page_name %}
+    {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
+    <!-- TODO: bg image of page-title -->
+    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
+
+     <section id="standhouder" class="standhouder section">
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+            <div class="col-7" data-aos="fade-up" data-aos-delay="100">
+
+                
+
+            </div>  
+            
+            <div class="col-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-box register">
+                    <h4>{% trans 'Bestel je tafel(s)' %}</h4>
+      
+                    <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+                      {% csrf_token %}
+                      <div class="row gy-4">
+                          
+                        <div class="col-md-6">
+                          {{ form.bedrijfsnaam }}
+                        </div>
+                
+                        <div class="col-md-6">
+                            {{ form.naam }}
+                        </div>
+      
+                        <div class="col-md-4">
+                          {{ form.email }}
+                        </div>
+                
+                        <div class="col-md-4">
+                          {{ form.telefoon }}
+                        </div>
+      
+                        <div class="col-md-4">
+                          {{ form.aantal_tafels }}
+                        </div>
+                
+                        <div class="col-md-8">
+                            {{ form.factuur }}
+                        </div>
+                
+                        <div class="col-md-4">
+                          {{ form.electriciteit }}
+                        </div>
+                
+                        <div class="col-md-4">
+                          {{ form.opmerkingen }}
+                        </div>
+                
+                        <div class="col-md-12">
+                          <div class="form-check">
+                            <input name="terms_voorwaarden" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                            <label class="form-check-label text-muted small" for="flexCheckDefault">
+                              {% url 'algemene_voorwaarden' as av_url %}
+                              {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> van ChudartZ Collectibles.{% endblocktrans %}
+                            </label>
+                          </div>  
+                        </div>
+      
+                        <div class="col-md-12 mt-0">
+                          <div class="form-check">
+                            <input name="terms_privacy" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                            <label class="form-check-label text-muted small" for="flexCheckDefault">
+                              {% url 'privacybeleid' as p_url %}
+                              {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ Collectibles.{% endblocktrans %}
+                            </label>
+                          </div>  
+                        </div>
+    
+      
+                        <div class="col-md-12 mt-0">
+                          <div class="form-check">
+                            <input name="terms_disclaimer" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                            <label class="form-check-label text-muted small" for="flexCheckDefault">
+                              {% url 'disclaimer' as d_url %}
+                              {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ Collectibles.{% endblocktrans %}
+                            </label>
+                          </div>  
+                        </div>
+      
+                        <!-- Submit Button -->
+                        <div class="col-12 text-center">
+                            <button type="submit">{% trans 'Aanvragen' %}</button>
+                        </div>
+                          
+                      </div>
+                    </form>
+                  
+                  </div>
+            </div>          
+
+        </div>
+    
+
+      </div>
+
+    </section>
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

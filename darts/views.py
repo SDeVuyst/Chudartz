@@ -50,7 +50,7 @@ def gratis_proefles(request):
 
 def reserveren_dartschool(request):
     context = get_default_context()
-    context["vereisten"] = "lid zijn van de dartschool",
+    context["vereisten"] = "Lid zijn van de dartschool",
 
     return TemplateResponse(request, 'pages/dartschool-reserveren.html', context)
 
