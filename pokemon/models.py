@@ -42,6 +42,7 @@ class Evenement(models.Model):
         verbose_name_plural = "Evenementen"
     
     titel = models.CharField(max_length=100, verbose_name=_("Titel"))
+    intro_op_index = models.TextField(_("Intro op homepagina"), max_length=400)
     slug = models.SlugField(unique=True)
     beschrijving = RichTextField(verbose_name=_("Beschrijving"))
     vereisten = models.TextField(verbose_name=_("Vereisten (Elk op een nieuwe lijn)"))

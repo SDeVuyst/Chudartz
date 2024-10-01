@@ -37,7 +37,7 @@ ChudartZ Collectibles | Evenementen
         {% if evenementen %}
         <div class="row gy-4">
           {% for evenement in evenementen %}
-            {% include 'pokemon/blocks/toernooi-card.html' with toernooi=evenement %}
+            {% include 'pokemon/blocks/toernooi-card.html' with evenement=evenement %}
           {% endfor %}
         </div>
         {% else %}

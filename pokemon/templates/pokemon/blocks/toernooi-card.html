@@ -1,39 +1,40 @@
 {% load static dutch_date i18n %}
-
+{% if not lg %}
 <div class="col-lg-4">
+{% endif %}
   <article>
 
     <div class="post-img">
-      <img src="{{ toernooi.afbeelding.url }}" alt="" class="img-fluid">
+      <img src="{{ evenement.afbeelding.url }}" alt="" class="img-fluid">
     </div>
 
-    <p class="post-category">{{ toernooi.locatie_kort }}</p>
+    <p class="post-category">{{ evenement.locatie_kort }}</p>
 
     <h2 class="title">
-      <a href="#TODO">{{ toernooi.titel }}</a>
+      <a href="{% url 'evenement' slug=evenement.slug %}">{{ evenement.titel }}</a>
     </h2>
 
     <div class="d-flex align-items-center">
       <div class="post-meta">
         <p class="post-author">
-          {% if toernooi.is_same_day %}
-              {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_time }}
+          {% if evenement.is_same_day %}
+              {{ evenement.start_datum|dutch_datetime }} - {{ evenement.einde_datum|dutch_time }}
           {% else %}
-              {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_datetime }}
+              {{ evenement.start_datum|dutch_datetime }} - {{ evenement.einde_datum|dutch_datetime }}
           {% endif %}
         </p>
         
         
-          {% if not toernooi.enable_inschrijvingen %}
+          {% if not evenement.enable_inschrijvingen %}
             <p class="post-date"><i class="bi bi-x-circle"></i><span> Inschrijvingen Gesloten</span></p>
           {% endif %}
 
-          {% if toernooi.is_sold_out %}
+          {% if evenement.is_sold_out %}
             <p class="post-date"><i class="bi bi-exclamation-circle"></i><span> Uitverkocht</span></p>
           {% endif %}
 
-          {% if not toernooi.is_in_future %}
-            {% if toernooi.is_bezig %}
+          {% if not evenement.is_in_future %}
+            {% if evenement.is_bezig %}
             <p class="post-date"><i class="bi bi-hourglass-split"></i><span> Bezig</span></p>
             {% else %}
             <p class="post-date"><i class="bi bi-clock-history"></i><span> Afgelopen</span></p>
@@ -45,4 +46,6 @@
     </div>
 
   </article>
+{% if not lg %}
 </div>
+{% endif %}

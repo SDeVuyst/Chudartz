@@ -47,6 +47,38 @@
       </div>
 
     </section><!-- /Hero Section -->
+       
+    {% if evenement %}
+    <section id="over-ons" class="over-ons section blog-posts">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row align-items-xl-center gy-5">
+
+          <div class="col-xl-7 content">
+            <h3>{% trans 'Laatste Evenement' %}</h3>
+            <h2>{{ evenement.titel }}</h2>
+            <p>
+              {{ evenement.intro_op_index }}
+            </p>
+            <a href="{% url 'evenement' slug=evenement.slug %}" class="read-more mb-2"><span>{% trans 'Bekijk evenement' %}</span><i class="bi bi-arrow-right"></i></a>
+            <a href="{% url 'evenementen' %}" class="read-more"><span>{% trans 'Zie alle evenementen' %}</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+          <div class="col-xl-5">
+            <div class="row gy-4 icon-boxes">
+
+              <div data-aos="fade-up" data-aos-delay="200">
+                {% include 'pokemon/blocks/toernooi-card.html' with evenement=evenement lg="true" %}
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+    {% endif %}
 
 
     <!-- About Section -->
@@ -80,7 +112,7 @@
                   <h3>{% trans 'Evenementen' %}</h3>
                   <p>
                     {% blocktrans %}
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis velit impedit nam explicabo maiores sapiente, ad rerum laboriosam! Vero amet ratione expedita animi praesentium. Facilis qui dolore reiciendis aliquam odio.
+                    We organiseren evenementen die volledig gericht zijn op unieke verzamelobjecten. Van exclusieve ruilbeurzen tot tentoonstellingen van bijzondere collecties. Bij ons draait alles om de passie voor verzamelen. Of je nu verzamelaar bent of gewoon wilt genieten van unieke stukken, onze evenementen bieden voor ieder wat wils!
                     {% endblocktrans %}
                   </p>
                 </div>

@@ -4,13 +4,17 @@ from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.http import BadHeaderError, JsonResponse
 from django.template.response import TemplateResponse
+from django.utils import timezone
 
-from pokemon.forms import ContactForm
+from pokemon.forms import ContactForm, StandhouderForm
 from pokemon.models import Evenement
 
 
 def index(request):
-    context = {}
+    now = timezone.now()
+    context = {
+        "evenement": Evenement.objects.filter(start_datum__gt=now).order_by('start_datum').first()
+    }
     return TemplateResponse(request, 'pokemon/pages/index.html', context)
 
 def over_ons(request):
@@ -80,6 +84,15 @@ def evenement(request, slug):
         "evenement": evenement,
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
+
+
+def standhouder(request, slug):
+    evenement = Evenement.objects.get(slug=slug)
+    context = {
+        "evenement": evenement,
+        "form": StandhouderForm()
+    }
+    return TemplateResponse(request, 'pokemon/pages/standhouder.html', context)
 
 
 def algemene_voorwaarden(request):
