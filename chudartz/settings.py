@@ -100,6 +100,7 @@ WSGI_APPLICATION = 'chudartz.wsgi.application'
 ROOT_URLCONF='chudartz.urls'
 
 # Lockdown
+LOCKDOWN_ENABLED = os.environ.get("LOCKDOWN_ENABLED", False)
 LOCKDOWN_PASSWORDS = (os.environ.get("LOCKDOWN_PASS"),)
 
 LOCKDOWN_URL_EXCEPTIONS = (
