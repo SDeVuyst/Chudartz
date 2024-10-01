@@ -82,7 +82,6 @@ def evenement(request, slug):
 
 
 def standhouder(request, slug):
-    context
     evenement = Evenement.objects.get(slug=slug)
     context = {
         "evenement": evenement,
