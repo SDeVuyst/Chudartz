@@ -11,15 +11,10 @@ from pokemon.models import Evenement
 
 
 def index(request):
-    now = timezone.now()
-    context = {
-        "evenement": Evenement.objects.filter(start_datum__gt=now).order_by('start_datum').first()
-    }
-    return TemplateResponse(request, 'pokemon/pages/index.html', context)
+    return TemplateResponse(request, 'pokemon/pages/index.html', get_default_context())
 
 def over_ons(request):
-    context = {}
-    return TemplateResponse(request, 'pokemon/pages/about.html', context)
+    return TemplateResponse(request, 'pokemon/pages/about.html', get_default_context())
 
 
 def contact(request):
@@ -71,10 +66,10 @@ def evenementen(request):
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
-    context = {
-        "evenementen": page_obj,
-        "enable_pagination": paginator.num_pages > 1,
-    }
+    context = get_default_context()
+    context["evenementen"] = page_obj
+    context["enable_pagination"] = paginator.num_pages > 1
+
     return TemplateResponse(request, 'pokemon/pages/evenementen.html', context)
 
 
@@ -87,6 +82,7 @@ def evenement(request, slug):
 
 
 def standhouder(request, slug):
+    context
     evenement = Evenement.objects.get(slug=slug)
     context = {
         "evenement": evenement,
@@ -96,20 +92,25 @@ def standhouder(request, slug):
 
 
 def algemene_voorwaarden(request):
-    context = {}
-    return TemplateResponse(request, 'pokemon/pages/algemene_voorwaarden.html', context)
+    return TemplateResponse(request, 'pokemon/pages/algemene_voorwaarden.html', get_default_context())
 
 
 def privacybeleid(request):
     context = {}
-    return TemplateResponse(request, 'pokemon/pages/privacybeleid.html', context)
+    return TemplateResponse(request, 'pokemon/pages/privacybeleid.html', get_default_context())
 
 
 def disclaimer(request):
-    context = {}
-    return TemplateResponse(request, 'pokemon/pages/disclaimer.html', context)
+    return TemplateResponse(request, 'pokemon/pages/disclaimer.html', get_default_context())
 
 
 def faq(request):
-    context = {}
-    return TemplateResponse(request, 'pokemon/pages/faq.html', context)
+    return TemplateResponse(request, 'pokemon/pages/faq.html', get_default_context())
+
+
+
+def get_default_context():
+    now = timezone.now()
+    return {
+        "evenement": Evenement.objects.filter(start_datum__gt=now).order_by('start_datum').first()
+    }
