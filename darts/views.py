@@ -168,7 +168,7 @@ def dartschool_lidgeld_success(request):
 
 
 def toernooien(request):
-    evenementen = Toernooi.objects.filter(toon_op_site=True)
+    evenementen = Toernooi.objects.filter(toon_op_site=True).order_by('start_datum')
     paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
@@ -194,6 +194,8 @@ def toernooi(request, slug):
 
 
 def inschrijven_toernooi(request, slug):
+    evenement = get_object_or_404(Toernooi, slug=slug)
+
     if request.method == 'POST':
         form = ToernooiForm(request.POST)
         
@@ -256,8 +258,9 @@ def inschrijven_toernooi(request, slug):
         
     
     # GET request
-    evenement = get_object_or_404(Toernooi, slug=slug)
+    if not evenement.toon_op_site: return HttpResponse(code=404)
     tickets = Ticket.objects.filter(event=evenement)
+    
 
     context = get_default_context()
     context["toernooi"] = evenement
@@ -292,6 +295,7 @@ def resultaten(request):
 
 def toernooi_resultaat(request, slug):
     evenement = get_object_or_404(Toernooi, slug=slug)
+    if not evenement.toon_op_site: return HttpResponse(code=404)
     if not evenement.resultaten: return HttpResponse(status=404)
 
     context = get_default_context()
