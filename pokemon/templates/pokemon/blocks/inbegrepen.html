@@ -1,0 +1,10 @@
+{% load i18n %}
+
+<div class="service-box">
+    <h4>Inbegrepen</h4>
+    <div class="services-list">
+        {% for item in items %}
+        <p><i class="bi bi-check"></i><span>{{ items }}</span></p>
+        {% endfor %}
+    </div>
+</div>

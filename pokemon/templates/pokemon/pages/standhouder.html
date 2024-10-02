@@ -29,96 +29,107 @@ ChudartZ Collectibles | Evenementen
     <!-- TODO: bg image of page-title -->
     {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
 
-     <section id="standhouder" class="standhouder section">
+     <section id="standhouder" class="standhouder service-details section">
 
       <div class="container">
 
         <div class="row gy-5">
 
-            <div class="col-7" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            </div>  
+            {% include 'pokemon/blocks/inbegrepen.html' with items=standhouder_inbegrepen %}
+
+          </div>
             
-            <div class="col-5" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-box register">
-                    <h4>{% trans 'Bestel je tafel(s)' %}</h4>
-      
-                    <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
-                      {% csrf_token %}
-                      <div class="row gy-4">
-                          
-                        <div class="col-md-6">
-                          {{ form.bedrijfsnaam }}
-                        </div>
-                
-                        <div class="col-md-6">
-                            {{ form.naam }}
-                        </div>
-      
-                        <div class="col-md-4">
-                          {{ form.email }}
-                        </div>
-                
-                        <div class="col-md-4">
-                          {{ form.telefoon }}
-                        </div>
-      
-                        <div class="col-md-4">
-                          {{ form.aantal_tafels }}
-                        </div>
-                
-                        <div class="col-md-8">
-                            {{ form.factuur }}
-                        </div>
-                
-                        <div class="col-md-4">
-                          {{ form.electriciteit }}
-                        </div>
-                
-                        <div class="col-md-4">
-                          {{ form.opmerkingen }}
-                        </div>
-                
-                        <div class="col-md-12">
-                          <div class="form-check">
-                            <input name="terms_voorwaarden" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                            <label class="form-check-label text-muted small" for="flexCheckDefault">
-                              {% url 'algemene_voorwaarden' as av_url %}
-                              {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> van ChudartZ Collectibles.{% endblocktrans %}
-                            </label>
-                          </div>  
-                        </div>
-      
-                        <div class="col-md-12 mt-0">
-                          <div class="form-check">
-                            <input name="terms_privacy" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                            <label class="form-check-label text-muted small" for="flexCheckDefault">
-                              {% url 'privacybeleid' as p_url %}
-                              {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ Collectibles.{% endblocktrans %}
-                            </label>
-                          </div>  
-                        </div>
+            <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+              <div class="service-box register">
+                  <h4>{% trans 'Bestel je tafel(s)' %}</h4>
     
-      
-                        <div class="col-md-12 mt-0">
-                          <div class="form-check">
-                            <input name="terms_disclaimer" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                            <label class="form-check-label text-muted small" for="flexCheckDefault">
-                              {% url 'disclaimer' as d_url %}
-                              {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ Collectibles.{% endblocktrans %}
-                            </label>
-                          </div>  
-                        </div>
-      
-                        <!-- Submit Button -->
-                        <div class="col-12 text-center">
-                            <button type="submit">{% trans 'Aanvragen' %}</button>
-                        </div>
-                          
+                  <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+                    {% csrf_token %}
+                    <div class="row gy-4">
+                        
+                      <div class="col-md-6">
+                        {{ form.bedrijfsnaam }}
                       </div>
-                    </form>
-                  
-                  </div>
+              
+                      <div class="col-md-6">
+                        {{ form.naam }}
+                      </div>
+    
+                      <div class="col-md-5">
+                        {{ form.email }}
+                      </div>
+              
+                      <div class="col-md-4">
+                        {{ form.telefoon }}
+                      </div>
+    
+                      <div class="col-md-3">
+                        {{ form.aantal_tafels }}
+                      </div>
+              
+                      <div class="col-md-12">
+                        {{ form.opmerkingen }}
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="form-check">
+                          {{ form.factuur }}
+                          <label class="form-check-label text-muted small" for="flexCheckDefault">
+                            {% blocktrans %}Ik wens een factuur{% endblocktrans %}
+                          </label>
+                        </div>
+                      </div>
+              
+                      <div class="col-md-12">
+                        <div class="form-check">
+                          {{ form.electriciteit }}
+                          <label class="form-check-label text-muted small" for="flexCheckDefault">
+                            {% blocktrans %}Ik wens electriciteit{% endblocktrans %}
+                          </label>
+                        </div>
+                      </div>
+              
+                      <div class="col-md-12">
+                        <div class="form-check">
+                          <input name="terms_voorwaarden" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                          <label class="form-check-label text-muted small" for="flexCheckDefault">
+                            {% url 'algemene_voorwaarden' as av_url %}
+                            {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> van ChudartZ Collectibles.{% endblocktrans %}
+                          </label>
+                        </div>  
+                      </div>
+    
+                      <div class="col-md-12 mt-0">
+                        <div class="form-check">
+                          <input name="terms_privacy" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                          <label class="form-check-label text-muted small" for="flexCheckDefault">
+                            {% url 'privacybeleid' as p_url %}
+                            {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ Collectibles.{% endblocktrans %}
+                          </label>
+                        </div>  
+                      </div>
+  
+                      <div class="col-md-12 mt-0">
+                        <div class="form-check">
+                          <input name="terms_disclaimer" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                          <label class="form-check-label text-muted small" for="flexCheckDefault">
+                            {% url 'disclaimer' as d_url %}
+                            {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ Collectibles.{% endblocktrans %}
+                          </label>
+                        </div>  
+                      </div>
+    
+                      <!-- Submit Button -->
+                      <div class="col-12 text-center">
+                          <button type="submit">{% trans 'Aanvragen' %}</button>
+                      </div>
+                        
+                    </div>
+                  </form>
+                
+              </div>
             </div>          
 
         </div>

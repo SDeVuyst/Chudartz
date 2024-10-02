@@ -19,7 +19,7 @@ class StandhouderForm(forms.Form):
         'class': 'form-control',
     }))
 
-    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
         'placeholder': 'Email',
         'class': 'form-control',
     }))
@@ -29,22 +29,21 @@ class StandhouderForm(forms.Form):
         'class': 'form-control',
     }))
 
-    aantal_tafels = forms.IntegerField(required=True, widget=forms.TextInput(attrs={
+    aantal_tafels = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={
         'placeholder': 'Aantal Tafels',
         'class': 'form-control',
     }))
 
-    factuur = forms.BooleanField(widget=forms.TextInput(attrs={
-        'placeholder': 'Ik wens een factuur',
-        'class': 'form-control',
+    factuur = forms.BooleanField(widget=forms.CheckboxInput(attrs={
+        'class': 'form-check-input',
     }))
 
-    electriciteit = forms.BooleanField(widget=forms.TextInput(attrs={
-        'placeholder': 'Electriciteit gewenst',
-        'class': 'form-control',
+    electriciteit = forms.BooleanField(widget=forms.CheckboxInput(attrs={
+        'class': 'form-check-input',
     }))
 
-    opmerkingen = forms.CharField(widget=forms.TextInput(attrs={
+    opmerkingen = forms.CharField(widget=forms.Textarea(attrs={
         'placeholder': 'Opmerkingen',
         'class': 'form-control',
+        'rows': 5
     }))

@@ -86,7 +86,8 @@ def standhouder(request, slug):
     evenement = Evenement.objects.get(slug=slug)
     context = {
         "evenement": evenement,
-        "form": StandhouderForm()
+        "form": StandhouderForm(),
+        "standhouder_inbegrepen": ["TODO"] # TODO
     }
     return TemplateResponse(request, 'pokemon/pages/standhouder.html', context)
 
