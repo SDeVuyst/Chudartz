@@ -229,7 +229,7 @@ UNFOLD = {
                     {
                         "title": _("Financiën"),
                         "icon": "payments",
-                        "link": "https://www.mollie.com/", # TODO
+                        "link": "https://my.mollie.com/dashboard/org_19161509/home",
                     },
                     {
                         "title": _("Analyse"),
