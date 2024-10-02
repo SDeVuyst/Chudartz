@@ -148,6 +148,13 @@ class Ticket(models.Model):
 
 
 class TicketEigenschap(models.Model):
+    class Meta:
+        verbose_name = "Ticket Eigenschap"
+        verbose_name_plural = "Ticket Eigenschappen"
+
+    def __str__(self):
+        return self.tekst
+
     tekst = models.CharField(_("Tekst"), max_length=100)
     is_voordeel = models.BooleanField(_("Voordeel"))
     volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
@@ -155,10 +162,6 @@ class TicketEigenschap(models.Model):
     ticket = models.ManyToManyField(Ticket, related_name='eigenschappen')
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
-
-    def __str__(self):
-        return self.tekst
-
 
 
 class PaymentStatus:
