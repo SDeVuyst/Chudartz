@@ -112,6 +112,7 @@ class Ticket(models.Model):
     
     titel = models.CharField(max_length=100, verbose_name=_("titel"))
     price = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
+    icon = models.CharField(max_length=40, verbose_name=_("Bootstrap Icon"))
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
     event = models.ForeignKey(Evenement, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
 
@@ -136,6 +137,27 @@ class Ticket(models.Model):
             Q(payment__status=PaymentStatus.PAID) | 
             Q(payment__status=PaymentStatus.OPEN)
         ).count()
+    
+    @property
+    def voordelen(self):
+        return self.eigenschappen.filter(is_voordeel=True).order_by('volgorde')
+
+    @property
+    def nadelen(self):
+        return self.eigenschappen.filter(is_voordeel=False).order_by('volgorde')
+
+
+class TicketEigenschap(models.Model):
+    tekst = models.CharField(_("Tekst"), max_length=100)
+    is_voordeel = models.BooleanField(_("Voordeel"))
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
+    
+    ticket = models.ManyToManyField(Ticket, related_name='eigenschappen')
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    def __str__(self):
+        return self.tekst
 
 
 

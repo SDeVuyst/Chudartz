@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+    <div class="pricing-item">
+        <h3>{{ ticket.titel }}</h3>
+        <div class="icon">
+            <i class="bi bi-{{ ticket.icon }}"></i>
+        </div>
+        <h4><sup>€</sup>{{ ticket.price.amount }}</h4>
+        <ul>
+            {% for voordeel in ticket.voordelen %}
+            <li><i class="bi bi-check"></i> <span>{{ voordeel.tekst }}</span></li>
+            {% endfor %}
+
+            {% for nadeel in ticket.nadelen %}
+            <li class="na"><i class="bi bi-x"></i> <span>{{ nadeel.tekst }}</span></li>
+            {% endfor %}
+        </ul>
+        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4">
+            <a href="#" class="buy-btn text-center fw-bold text-nowrap">{% trans 'Koop nu' %}</a>
+            <!-- TODO functional koop nu knop -->
+        </div>
+    </div>
+</div>

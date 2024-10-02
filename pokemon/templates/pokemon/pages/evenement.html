@@ -3,7 +3,7 @@
 {% load static dutch_date i18n %}
 
 {% block title %}
-ChudartZ Collectibles | {{ evenement.titel}}
+ChudartZ Collectibles | {{ evenement.titel }}
 {% endblock %}
 
 {% block meta %}
@@ -31,29 +31,21 @@ ChudartZ Collectibles | {{ evenement.titel}}
 
     {% include 'blocks/page-title.html' with name=evenement.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
 
-    <section id="service-details" class="service-details section">
+    <section id="pricing" class="pricing section">
+      <div class="container">
+        <div class="row g-4 pt-5">
+          {% for ticket in tickets %}
+          {% include 'pokemon/blocks/ticket.html' with ticket=ticket %}
+          {% endfor %}
+        </div>
+      </div>
+
 
       <div class="container">
 
         <div class="row gy-5">
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-
-            {% include 'blocks/toernooi-info.html' with toernooi=evenement %}
-            
-            {% include 'blocks/tijd-en-locatie.html' with toernooi=evenement %}
-
-            {% include 'blocks/vereisten.html' with vereisten=evenement.vereisten_lijst %}
-            
-            {% if evenement.afbeeldingen_download_url %}
-            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=evenement.afbeeldingen_download_url %}
-            {% endif %}
-
-          </div>  
-          
-          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-            {{ evenement.beschrijving|safe }}
-          </div>          
+          {{ evenement.beschrijving|safe }}      
 
         </div>
 

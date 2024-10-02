@@ -1381,7 +1381,7 @@ section,
 .pricing h3 {
   font-weight: 600;
   margin-bottom: 15px;
-  font-size: 20px;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -1428,7 +1428,7 @@ section,
 }
 
 .pricing h4 {
-  font-size: 48px;
+  font-size: 36px;
   color: var(--accent-color);
   font-weight: 700;
   font-family: var(--heading-font);
@@ -1437,7 +1437,7 @@ section,
 }
 
 .pricing h4 sup {
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .pricing h4 span {

@@ -7,7 +7,7 @@ from django.template.response import TemplateResponse
 from django.utils import timezone
 
 from pokemon.forms import ContactForm, StandhouderForm
-from pokemon.models import Evenement
+from pokemon.models import Evenement, Ticket
 
 
 def index(request):
@@ -77,6 +77,7 @@ def evenement(request, slug):
     evenement = Evenement.objects.get(slug=slug)
     context = {
         "evenement": evenement,
+        "tickets": Ticket.objects.filter(event=evenement) # TODO fix uitverkochte tickets
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 

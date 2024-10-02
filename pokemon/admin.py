@@ -15,6 +15,24 @@ class TicketInline(StackedInline):
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
 
+@admin.register(Ticket)
+class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('titel', 'price', 'participants_count', 'remaining_tickets', 'is_sold_out')
+    ordering = ("id",)
+
+    search_fields = ('titel', 'beschrijving')
+
+    @display(
+        description=_("Sold out"),
+        label={
+            True: "danger",
+            False: "success"
+        }
+    )
+    def is_sold_out(self, obj):
+        label = _("Sold out!") if obj.is_sold_out else _("Available")
+        return obj.is_sold_out, label
+
 
 @admin.register(Evenement)
 class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
@@ -58,3 +76,8 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         response = HttpResponse(buffer, content_type="image/png")
         response['Content-Disposition'] = f'attachment; filename=qr_{evenement.titel}.png'
         return response      
+    
+
+@admin.register(TicketEigenschap)
+class TicketEigenschapAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('tekst', )
