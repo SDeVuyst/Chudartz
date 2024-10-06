@@ -95,7 +95,7 @@ ChudartZ | Dartschool
                   <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
                   <h3>{% trans 'Prijzen' %}</h3>
                   <p>
-                    {% url '' as werkzijze_url %}
+                    {% url 'dartschool_werkwijze' as werkzijze_url %}
                     {% blocktrans %}
                     Voor meer informatie over het verschil tussen lidgeld en lesgeld, zie onze <a href="{{ werkwijze_url }}">werkwijze</a>.
                     {% endblocktrans %}
