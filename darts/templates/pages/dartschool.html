@@ -94,11 +94,10 @@ ChudartZ | Dartschool
                 <div class="row gy-4 align-items-stretch justify-content-between features-item ">
                   <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
                   <h3>{% trans 'Prijzen' %}</h3>
-                  <p> 
+                  <p>
+                    {% url '' as werkzijze_url %}
                     {% blocktrans %}
-                    De leden kunnen gebruik maken van het materiaal (borden), 
-                    de accommodatie, gratis (spuit)water, verzekering * tijdens de training (niet het traject naar (heen) en van de dartschool (terugweg)), 
-                    voorrang en ondersteuning bij het spelen van toernooien, jeugd- en/of clubcompetitie.
+                    Voor meer informatie over het verschil tussen lidgeld en lesgeld, zie onze <a href="{{ werkwijze_url }}">werkwijze</a>.
                     {% endblocktrans %}
                   </p>
                   <ul>
