@@ -166,7 +166,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
                   {% for ticket in tickets %}
                   {% if not ticket.disable_ticket %}
                   {% if not ticket.is_sold_out %}
-
+                  <!-- TODO zorg dat er altijd minimum 1 ticket w besteld -->
                   <div class="col-md-12">
                     
                     <label class="form-check-label" for="flexCheckDefault">
@@ -180,8 +180,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
                       placeholder="Aantal Tickets"
                       min="1"
                       max="{{ ticket.remaining_tickets }}"
-                      x-bind:value="quantities[{{ ticket.id }}] || ''"
-                      x-on:input="handleInputChange({{ ticket.id }}, $event.target.value)"
+                      <!-- TODO max n tickets per bestelling voor pdf -->
                     >
                   </div>
 

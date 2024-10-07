@@ -40,9 +40,10 @@ ChudartZ | Dartschool
                     <h3>{% trans 'Werkwijze' %}</h3>
                     <p> 
                       {% url 'beurtkaart_kopen' as beurtkaart_url %}
+                      {% url 'dartschool_lidgeld' as lidgeld_url %}
                       {% blocktrans %}
                       Als de gratis proefles je is bevallen en je wilt verder lessen volgen, kun je online een <a href="{{ beurtkaart_url }}">meerbeurtenkaart aankopen</a>. Voordat je dit kunt doen, dien je eerst het lidgeld te betalen.
-                      Het <b>lidgeld</b> bedraagt € 50 voor een gans jaar.<br>Wat is inbegrepen ?
+                      Het <b><a href="{{ lidgeld_url }}">lidgeld</a></b> bedraagt € 50 voor een gans jaar.<br>Wat is inbegrepen ?
 
                       {% endblocktrans %}
                     </p>

@@ -67,8 +67,6 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
                     <div class="col-md-12">
                         <p class="form-check-label text-muted small">
-                          {% url 'gratis_proefles' as proefles_url %}
-                          {% blocktrans %}U kan <a href="{{ proefles_url }}">hier</a> een gratis proefles aanvragen.{% endblocktrans %}<br>
                           {% url 'beurtkaart_kopen' as beurtkaart_url %}
                           {% blocktrans %}Heeft u nog geen toegangscode? Die kan u <a href="{{ beurtkaart_url }}">hier</a> verkrijgen.{% endblocktrans %}
                         </p>
