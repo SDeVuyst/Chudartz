@@ -92,77 +92,153 @@ ChudartZ Collectibles | {{ evenement.titel }}
     <section id="over-ons" class="over-ons section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row align-items-xl-center gy-5">
+        <div class="row align-items-xl-center gy-5 mt-3">
 
-          <div class="col-xl-7">
-            <div class="row gy-4 icon-boxes">
+          <div class="row gy-4 icon-boxes">
 
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box">
-                  <a href="#"><i class="bi bi-buildings"></i></a>
-                  <h3>{% trans 'Ruilen' %}</h3>
-                  <p>
-                    {% blocktrans %}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
-                    {% endblocktrans %}
-                  </p>
-                </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon-box">
+                <i class="bi bi-buildings"></i>
+                <h3>{% trans 'Ruilen' %}</h3>
+                <p>
+                  {% blocktrans %}
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
+                  {% endblocktrans %}
+                </p>
               </div>
-              
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box">
-                  <a href="#"><i class="bi bi-trophy"></i></a>
-                  <h3>{% trans 'Grootste in Belgie' %}</h3>
-                  <p>
-                    {% blocktrans %}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
-                    {% endblocktrans %}
-                  </p>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="icon-box">
-                  <a href="#"><i class="bi bi-people"></i></a>
-                  <h3>{% trans 'Gezelligheid' %}</h3>
-                  <p>
-                    {% blocktrans %}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
-                    {% endblocktrans %}
-                  </p>
-                </div>
-              </div>
-              
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
-                <div class="icon-box">
-                  <a href="#"><i class="bi bi-question-circle"></i></a>
-                  <h3>{% trans 'Unieke collectibles' %}</h3>
-                  <p>
-                    {% blocktrans %}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
-                    {% endblocktrans %}
-                    </p>
-                </div>
-              </div>
-
             </div>
-          </div>
+            
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon-box">
+                <i class="bi bi-trophy"></i>
+                <h3>{% trans 'Grootste in Belgie' %}</h3>
+                <p>
+                  {% blocktrans %}
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
+                  {% endblocktrans %}
+                </p>
+              </div>
+            </div>
 
-          <div class="col-xl-5 content">
-            <h3>{% trans 'Meer Info' %}</h3>
-            <h2>{% trans 'Over ChudartZ' %}</h2>
-            <p>
-              {% blocktrans %}
-              Welkom bij ChudartZ, dé bestemming voor darts in Zedelgem en daarbuiten. We willen onze passie voor darts graag met jullie delen en overbrengen.
-              Onze eigen jeugd dartschool biedt spelers van alle niveaus de kans om hun vaardigheden te verbeteren, met een bijzondere focus op het ontwikkelen van jong talent. We streven ernaar om regelmatig toernooien te organiseren waarin spelers van alle niveaus samenkomen en de competitie met elkaar aangaan.
-              {% endblocktrans %}
-            </p>
-            <a href="#" class="read-more"><span>{% trans 'Bestel Tickets' %}</span><i class="bi bi-arrow-right"></i></a>
-          </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="icon-box">
+                <i class="bi bi-people"></i>
+                <h3>{% trans 'Gezelligheid' %}</h3>
+                <p>
+                  {% blocktrans %}
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
+                  {% endblocktrans %}
+                </p>
+              </div>
+            </div>
+            
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+              <div class="icon-box">
+                <i class="bi bi-question-circle"></i>
+                <h3>{% trans 'Unieke collectibles' %}</h3>
+                <p>
+                  {% blocktrans %}
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
+                  {% endblocktrans %}
+                  </p>
+              </div>
+            </div>
 
+          </div>
         </div>
       </div>
 
+    </section>
+
+    <section class="section service-details" id="koopform" data-aos="fade-up" data-aos-delay="100">
+      <div class="container">
+        <div class="service-box register">
+          <h2>{% trans 'Koop uw tickets' %}</h2>
+
+          <!-- TODO maak form werken -->
+          <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+            {% csrf_token %}
+            <div class="row gy-4 justify-content-center align-items-center">
+              <div class="col-md-5">
+
+                <div class="row gy-4">
+
+                  {% for ticket in tickets %}
+                  {% if not ticket.disable_ticket %}
+                  {% if not ticket.is_sold_out %}
+
+                  <div class="col-md-12">
+                    
+                    <label class="form-check-label" for="flexCheckDefault">
+                      {{ ticket }}
+                    </label>
+                    <input
+                      type="number" 
+                      name="ticket-form-number-{{ ticket.id }}" 
+                      id="ticket-form-number-{{ ticket.id }}"
+                      class="form-control" 
+                      placeholder="Aantal Tickets"
+                      min="1"
+                      max="{{ ticket.remaining_tickets }}"
+                      x-bind:value="quantities[{{ ticket.id }}] || ''"
+                      x-on:input="handleInputChange({{ ticket.id }}, $event.target.value)"
+                    >
+                  </div>
+
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                
+                </div>
+
+              </div>
+
+              <div class="col-md-1"></div>
+
+              <div class="col-md-5">
+                <div class="row gy-4">
+                  <div class="col-md-12 mt-0">
+                    <div class="form-check">
+                      <input name="terms_voorwaarden" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <label class="form-check-label text-muted small" for="flexCheckDefault">
+                        {% url 'algemene_voorwaarden' as av_url %}
+                        {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> van ChudartZ Collectibles.{% endblocktrans %}
+                      </label>
+                    </div>  
+                  </div>
+    
+                  <div class="col-md-12 mt-0">
+                    <div class="form-check">
+                      <input name="terms_privacy" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <label class="form-check-label text-muted small" for="flexCheckDefault">
+                        {% url 'privacybeleid' as p_url %}
+                        {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ Collectibles.{% endblocktrans %}
+                      </label>
+                    </div>  
+                  </div>
+    
+                  <div class="col-md-12 mt-0">
+                    <div class="form-check">
+                      <input name="terms_disclaimer" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                      <label class="form-check-label text-muted small" for="flexCheckDefault">
+                        {% url 'disclaimer' as d_url %}
+                        {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ Collectibles.{% endblocktrans %}
+                      </label>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="col-12 text-center">
+                  <button type="submit">{% trans 'Afrekenen' %}</button>
+              </div>
+                
+            </div>
+          </form>
+        
+        </div>
+      </div>
     </section>
     
   </main>

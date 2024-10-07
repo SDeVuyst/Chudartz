@@ -37,8 +37,7 @@
             {% elif ticket.is_sold_out %} 
             <a href="#" class="buy-btn text-center fw-bold text-nowrap disabled" tabindex="-1" aria-disabled="true">{% trans 'Uitverkocht' %}</a>
             {% else %}
-            <!-- TODO functional koop nu button -->
-            <a href="#" class="buy-btn text-center fw-bold text-nowrap">{% trans 'Koop nu' %}</a>
+            <a href="#koopform" class="buy-btn text-center fw-bold text-nowrap">{% trans 'Koop nu' %}</a>
             {% endif %}
         </div>
     </div>

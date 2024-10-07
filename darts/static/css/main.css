@@ -2179,6 +2179,12 @@ section,
   margin-bottom: 15px;
 }
 
+.service-details .service-box h2 {
+  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
 .service-details .service-box .btn-get-started {
   background-color: var(--accent-color);
   color: var(--contrast-color);

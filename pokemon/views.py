@@ -78,7 +78,7 @@ def evenement(request, slug):
     evenement = get_object_or_404(Evenement, slug=slug)
     context = {
         "evenement": evenement,
-        "tickets": Ticket.objects.filter(event=evenement) # TODO fix uitverkochte tickets
+        "tickets": Ticket.objects.filter(event=evenement), # TODO fix uitverkochte tickets
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
