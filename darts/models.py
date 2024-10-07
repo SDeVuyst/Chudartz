@@ -5,7 +5,6 @@ from email.utils import formataddr
 from io import BytesIO
 
 from django.forms import ValidationError
-from django.urls import reverse
 import pytz
 import qrcode
 from ckeditor.fields import RichTextField
@@ -131,7 +130,7 @@ class Toernooi(models.Model):
         return sum(ticket.participants_count for ticket in self.ticket_set.all())
     
     def get_absolute_url(self):
-        return reverse('toernooi', args=[str(self.slug)])
+        return f'https://chudartz.com/nl/toernooien/{str(self.slug)}/'
     
     @property
     def vereisten_lijst(self):
