@@ -84,7 +84,7 @@ def beurtkaart_kopen(request):
             mollie_payment = MollieClient().create_mollie_payment(
                 amount=price,
                 description=beurtkaart.naam,
-                redirect_url=f'https://chudartz.com/nl/dartschool/beurtkaart-kopen/success/',
+                redirect_url=f'https://chudartz.com/nl/dartschool/beurtenkaart-kopen/success/',
             )
 
             payment.mollie_id = mollie_payment.id
