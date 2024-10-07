@@ -3,10 +3,23 @@
 <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
     <div class="pricing-item">
         <h3>{{ ticket.titel }}</h3>
+
         <div class="icon">
             <i class="bi bi-{{ ticket.icon }}"></i>
         </div>
-        <h4><sup>€</sup>{{ ticket.price.amount }}</h4>
+
+        <h4 class="mb-1"><sup>€</sup>{{ ticket.price.amount }}</h4>
+
+        {% if ticket.disable_ticket %}
+        <div class="text-center">
+            <span class="badge bg-secondary">Niet beschikbaar</span>
+        </div>
+        {% elif ticket.is_sold_out %}
+        <div class="text-center">
+            <span class="badge bg-danger">Uitverkocht</span>
+        </div>
+        {% endif %}
+
         <ul>
             {% for voordeel in ticket.voordelen %}
             <li><i class="bi bi-check"></i> <span>{{ voordeel.tekst }}</span></li>
@@ -17,8 +30,16 @@
             {% endfor %}
         </ul>
         <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4">
+            <!-- Disable button if sold out -->
+            
+            {% if ticket.disable_ticket %}
+            <a href="#" class="buy-btn text-center fw-bold text-nowrap disabled" tabindex="-1" aria-disabled="true">{% trans 'Niet beschikbaar' %}</a>
+            {% elif ticket.is_sold_out %} 
+            <a href="#" class="buy-btn text-center fw-bold text-nowrap disabled" tabindex="-1" aria-disabled="true">{% trans 'Uitverkocht' %}</a>
+            {% else %}
+            <!-- TODO functional koop nu button -->
             <a href="#" class="buy-btn text-center fw-bold text-nowrap">{% trans 'Koop nu' %}</a>
-            <!-- TODO functional koop nu knop -->
+            {% endif %}
         </div>
     </div>
 </div>

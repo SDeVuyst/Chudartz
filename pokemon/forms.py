@@ -30,7 +30,7 @@ class StandhouderForm(forms.Form):
     }))
 
     aantal_tafels = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={
-        'placeholder': 'Aantal Tafels',
+        'placeholder': 'Aantal Plaatsen ',
         'class': 'form-control',
     }))
 

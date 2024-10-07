@@ -44,7 +44,8 @@ class Evenement(models.Model):
     titel = models.CharField(max_length=100, verbose_name=_("Titel"))
     intro_op_index = models.TextField(_("Intro op homepagina"), max_length=400)
     slug = models.SlugField(unique=True)
-    beschrijving = RichTextField(verbose_name=_("Beschrijving"))
+    titel_sectie_a = models.CharField(_("Titel Sectie A"), max_length=50)
+    tekst_sectie_a = RichTextField(verbose_name=_("Tekst Sectie A"))
     vereisten = models.TextField(verbose_name=_("Vereisten (Elk op een nieuwe lijn)"))
     start_datum = models.DateTimeField(verbose_name=_("Start Datum"))
     einde_datum = models.DateTimeField(verbose_name=_("Eind Datum"))
@@ -120,6 +121,7 @@ class Ticket(models.Model):
     icon = models.CharField(max_length=40, verbose_name=_("Bootstrap Icon"))
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
     event = models.ForeignKey(Evenement, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
+    disable_ticket = models.BooleanField(_("Schakel ticket uit"))
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
