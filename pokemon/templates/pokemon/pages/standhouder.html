@@ -25,9 +25,9 @@ ChudartZ Collectibles | Evenementen
 
   <main class="main">
     {% trans "Standhouder Worden" as page_name %}
-    {% trans "Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem." as page_description %}
-    <!-- TODO: bg image of page-title -->
-    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
+    {% trans "/evenementen" as page_second_previous_crumb_link %}
+    {% trans "Evenementen" as page_second_previous_crumb %}
+    {% include 'pokemon/blocks/page-title.html' with name=page_name background="true" second_previous_crumb=page_second_previous_crumb second_previous_crumb_link=page_second_previous_crumb_link previous_crumb=evenement.titel previous_crumb_link=evenement.get_absolute_url %}
 
      <section id="standhouder" class="standhouder service-details section">
 
@@ -37,15 +37,16 @@ ChudartZ Collectibles | Evenementen
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            {% include 'pokemon/blocks/inbegrepen.html' with items=standhouder_inbegrepen %}
+            {% include 'pokemon/blocks/standhouder-prijzen.html' with prijzen=evenement.standhouder_prijzen_lijst %}
+            {% include 'pokemon/blocks/inbegrepen.html' with items=evenement.standhouder_inbegrepen_lijst %}
 
           </div>
             
             <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
               <div class="service-box register">
-                  <h4>{% trans 'Bestel je tafel(s)' %}</h4>
+                  <h4>{% trans 'Bestel je tafel(s)' %}{% if not evenement.enable_standhouder %} • {% trans "UITVERKOCHT!" %}{% endif %}</h4>
     
-                  <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+                  <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200" {% if not evenement.enable_standhouder %}inert{% endif %}>
                     {% csrf_token %}
                     <div class="row gy-4">
                         
@@ -73,6 +74,7 @@ ChudartZ Collectibles | Evenementen
                         {{ form.opmerkingen }}
                       </div>
 
+                      <!-- TODO maak factuur en electriciteit niet required -->
                       <div class="col-md-12">
                         <div class="form-check">
                           {{ form.factuur }}

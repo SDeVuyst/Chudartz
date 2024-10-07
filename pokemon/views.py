@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import BadHeaderError, JsonResponse
 from django.template.response import TemplateResponse
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 from pokemon.forms import ContactForm, StandhouderForm
 from pokemon.models import Evenement, Ticket
@@ -74,7 +75,7 @@ def evenementen(request):
 
 
 def evenement(request, slug):
-    evenement = Evenement.objects.get(slug=slug)
+    evenement = get_object_or_404(Evenement, slug=slug)
     context = {
         "evenement": evenement,
         "tickets": Ticket.objects.filter(event=evenement) # TODO fix uitverkochte tickets
@@ -83,11 +84,59 @@ def evenement(request, slug):
 
 
 def standhouder(request, slug):
-    evenement = Evenement.objects.get(slug=slug)
+
+    evenement = get_object_or_404(Evenement, slug=slug)
+    context = {
+        "evenement": evenement
+    }
+
+    if request.POST:
+        if not evenement.enable_standhouder: return JsonResponse({'success': False, 'error': 'Standhouder inschrijvingen gesloten.'})
+        form = StandhouderForm(request.POST)
+        
+        if not form.is_valid():
+            print(form.errors)
+
+            # form was not valid, send to error page
+            context["success"] = False
+
+            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
+        
+        # send mails
+        try:
+            data = form.cleaned_data
+            # Send mail to admins
+            send_mail(
+                f'Standhouder Aanvraag',
+                f'Evenement: {evenement.titel}\nBedrijfsnaam: {data['bedrijfsnaam']}\nNaam: {data['naam']}\nEmail: {data['email']}\nTelefoon: {data['telefoon']}\nAantal Tafels: {data['aantal_tafels']}\nFactuur: {data['factuur']}\nElectriciteit: {data['electriciteit']}\nOpmerkingen: {data['opmerkingen']}',
+                formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+
+            # Send confirmation mail to user
+            send_mail(
+                'Chudartz Collectibles | Standhouder Aanvraag Ontvangen',
+                "Beste\n\nBedankt voor het invullen van het contactformulier. Wij hebben uw bericht in goede orde ontvangen en zullen zo snel mogelijk contact met u opnemen.\n\nMet vriendelijke groeten\n\nTeam ChudartZ Collectibles",
+                formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
+                [data['email']],
+                fail_silently=False
+            )
+
+            context["success"] = True
+            
+            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
+        
+        except Exception as e:
+            print(e)
+            context["success"] = False
+            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
+        
+
+    # GET request
     context = {
         "evenement": evenement,
         "form": StandhouderForm(),
-        "standhouder_inbegrepen": ["TODO"] # TODO
     }
     return TemplateResponse(request, 'pokemon/pages/standhouder.html', context)
 
@@ -97,7 +146,6 @@ def algemene_voorwaarden(request):
 
 
 def privacybeleid(request):
-    context = {}
     return TemplateResponse(request, 'pokemon/pages/privacybeleid.html', get_default_context())
 
 

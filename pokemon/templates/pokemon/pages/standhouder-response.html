@@ -1,0 +1,45 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ Collectibles | {{ evenement.titel}}
+{% endblock %}
+
+{% block meta %}
+<meta NAME="robots" CONTENT="noindex, nofollow">
+{% endblock %}
+
+{% block body %}
+<body class="toernooi-inschrijving-response-page">
+
+    {% include 'pokemon/blocks/header-sticky.html' %}
+
+    <main class="main">
+        <div class="container d-flex justify-content-center align-items-center mt-5 mb-5">
+            <div class="text-center">
+                
+                {% if success %}
+
+                    <h1>{% trans 'Success!' %}</h1>
+                    <p>{% trans 'Uw verzoek is succesvol aangevraagd. U krijgt zo snel mogelijk antwoord' %}</p>
+
+                {% else %}
+
+                    <h1>{% trans 'Er is iets misgegaan.' %}</h1>
+                    <p>{% trans 'Gelieve contact op te nemen via '%} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.' %}</a></p>
+                    
+                {% endif %}
+                
+                <a href="{{ evenement.get_absolute_url }}" class="btn btn-back align-self-start mt-4">{% trans 'Ga terug naar evenement' %}</a>         
+            </div>
+        </div>
+        
+
+        
+    </main>
+
+    {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

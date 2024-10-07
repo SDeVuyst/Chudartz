@@ -52,8 +52,9 @@ class Evenement(models.Model):
     locatie_kort = models.CharField(max_length=25, verbose_name=_("Locatie (kort)"))
     locatie_lang = models.TextField(verbose_name=_("Locatie (lang)"))
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="darts")
-    afbeeldingen_download_url = models.URLField(verbose_name=_("Download afbeeldingen URL"), blank=True, null=True)
-
+    standhouder_inbegrepen = models.TextField(verbose_name=_("Inbegrepen Standhouder (Elk op een nieuwe lijn)"))
+    standhouder_prijzen = models.TextField(verbose_name=_("Prijzen Standhouder (Elk op een nieuwe lijn)"))
+    enable_standhouder = models.BooleanField(verbose_name=_("Standhouder Inschrijvingen Inschakelen"), default=True)
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
@@ -98,8 +99,12 @@ class Evenement(models.Model):
          return f'https://chudartz-collectibles.com/nl/evenement/{self.slug}/'
     
     @property
-    def vereisten_lijst(self):
-        return self.vereisten.split('\n')
+    def standhouder_inbegrepen_lijst(self):
+        return self.standhouder_inbegrepen.split('\n')
+    
+    @property
+    def standhouder_prijzen_lijst(self):
+        return self.standhouder_prijzen.split('\n')
 
 
 class Ticket(models.Model):

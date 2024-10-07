@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<div class="service-box">
+    <h4>{% trans "Prijzen" %}</h4>
+    <div class="services-list">
+        {% for prijs in prijzen %}
+            {% if forloop.counter < 7 %}
+            <p><i class="bi bi-dice-{{ forloop.counter }}"></i><span>{{ prijs }}</span></p>
+            {% else %}
+            <p><i class="bi bi-dice-6"></i><span>{{ prijs }}</span></p>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

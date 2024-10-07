@@ -34,15 +34,15 @@ class StandhouderForm(forms.Form):
         'class': 'form-control',
     }))
 
-    factuur = forms.BooleanField(widget=forms.CheckboxInput(attrs={
+    factuur = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
         'class': 'form-check-input',
     }))
 
-    electriciteit = forms.BooleanField(widget=forms.CheckboxInput(attrs={
+    electriciteit = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
         'class': 'form-check-input',
     }))
 
-    opmerkingen = forms.CharField(widget=forms.Textarea(attrs={
+    opmerkingen = forms.CharField(required=False, widget=forms.Textarea(attrs={
         'placeholder': 'Opmerkingen',
         'class': 'form-control',
         'rows': 5
