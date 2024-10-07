@@ -215,6 +215,7 @@ class Payment(models.Model):
             try:
                 b = BeurtkaartBetaling.objects.get(betaling=self)
                 b.add_uses_to_student()
+                b.send_mail()
             except:
                 pass
 
@@ -505,3 +506,23 @@ class BeurtkaartBetaling(models.Model):
     def add_uses_to_student(self):
         self.leerling.resterende_beurten += self.beurtkaart.aantal_beurten
         self.leerling.save()
+
+    def send_mail(self):
+        email_body = render_to_string('email/confirmation-mail-beurtkaart.html', {
+            'leerling': self.leerling,
+            'resterende_beurten': self.leerling.resterende_beurten
+        })
+
+        email = EmailMessage(
+            'ChudartZ | Bevestiging',
+            email_body,
+            formataddr(('Chudartz', settings.EMAIL_HOST_USER)),
+            [self.leerling.email],
+            bcc=[settings.EMAIL_HOST_USER]
+        )
+        email.content_subtype = 'html'
+
+        helpers.attach_image(email, "logo-black")
+
+        # Send the email
+        email.send()
