@@ -185,7 +185,7 @@ def toernooi(request, slug):
     evenement = get_object_or_404(Toernooi, slug=slug)
 
     # event must be public 
-    if not evenement.toon_op_site: return HttpResponse(code=404)
+    if not evenement.toon_op_site: return HttpResponseNotFound()
 
     context = get_default_context()
     context["toernooi"] = evenement
@@ -258,7 +258,7 @@ def inschrijven_toernooi(request, slug):
         
     
     # GET request
-    if not evenement.toon_op_site: return HttpResponse(code=404)
+    if not evenement.toon_op_site: return HttpResponseNotFound()
     tickets = Ticket.objects.filter(event=evenement)
     
 
@@ -295,8 +295,8 @@ def resultaten(request):
 
 def toernooi_resultaat(request, slug):
     evenement = get_object_or_404(Toernooi, slug=slug)
-    if not evenement.toon_op_site: return HttpResponse(code=404)
-    if not evenement.resultaten: return HttpResponse(status=404)
+    if not evenement.toon_op_site: return HttpResponseNotFound()
+    if not evenement.resultaten: return HttpResponseNotFound()
 
     context = get_default_context()
     context["toernooi"] = evenement
@@ -398,7 +398,7 @@ def scanner(request):
 def mollie_webhook(request):
     if request.method == 'POST':
         if 'id' not in request.POST:
-            return HttpResponse(status=400)
+            return HttpResponseBadRequest()
 
         mollie_payment_id = request.POST['id']
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
