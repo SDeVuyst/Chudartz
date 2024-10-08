@@ -1,5 +1,5 @@
 Django
-psycopg2-binary
+psycopg2-binary>=2.9.8
 boto3
 django-storages
 django-unfold
