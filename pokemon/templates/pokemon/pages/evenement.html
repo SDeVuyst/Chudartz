@@ -1,6 +1,6 @@
 {% extends 'pokemon/main.html' %}
 
-{% load static dutch_date i18n %}
+{% load static dutch_date i18n max %}
 
 {% block title %}
 ChudartZ Collectibles | {{ evenement.titel }}
@@ -175,12 +175,12 @@ ChudartZ Collectibles | {{ evenement.titel }}
                       type="number" 
                       name="ticket-form-number-{{ ticket.id }}" 
                       id="ticket-form-number-{{ ticket.id }}"
-                      class="form-control" 
+                      class="form-control ticket-input" 
                       placeholder="Aantal Tickets"
-                      min="1"
-                      max="{{ ticket.remaining_tickets }}"
+                      min="0"
+                      max="{{ ticket.remaining_tickets|max_value:5 }}"
+                      step="1"
                     >
-                     <!-- TODO max n tickets per bestelling voor pdf -->
                   </div>
 
                   {% endif %}
@@ -229,7 +229,9 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
               <!-- Submit Button -->
               <div class="col-12 text-center">
-                  <button type="submit">{% trans 'Afrekenen' %}</button>
+                <!-- TODO: style button when disabled -->
+                <!-- TODO: show error when clicked if disabled -->
+                  <button type="submit" id="submitBtn" disabled>{% trans 'Afrekenen' %}</button>
               </div>
                 
             </div>
@@ -267,4 +269,41 @@ ChudartZ Collectibles | {{ evenement.titel }}
   {% include 'pokemon/blocks/footer.html' %}
 
 </body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all ticket number inputs and the submit button
+    let ticketInputs = document.querySelectorAll('.ticket-input');
+    let submitBtn = document.getElementById('submitBtn');
+  
+    // Function to check the validity of inputs
+    function checkValidity() {
+      let isValid = false;
+  
+      // Loop through each input to see if any has a value of 1 or more
+      ticketInputs.forEach(function(input) {
+        let value = parseInt(input.value);
+        if (value >= 1) {
+          isValid = true;
+        }
+      });
+  
+      // Enable the submit button if valid, otherwise disable it
+      if (isValid) {
+        submitBtn.disabled = false;
+      } else {
+        submitBtn.disabled = true;
+      }
+    }
+  
+    // Add event listeners to each ticket input field
+    ticketInputs.forEach(function(input) {
+      input.addEventListener('input', checkValidity); // Trigger checkValidity on input change
+    });
+  
+    // Initial check when the page loads
+    checkValidity();
+  });
+</script>
+
 {% endblock %}
