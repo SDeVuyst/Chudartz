@@ -77,6 +77,14 @@
       &:hover {
         background: color-mix(in srgb, var(--accent-color), transparent 20%);
       }
+
+      &:disabled {
+        background-color: var(--accent-color-disabled);
+
+        &:hover {
+          background: var(--accent-color-disabled);
+        }
+      }
     }
   }
 }

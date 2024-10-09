@@ -27,6 +27,7 @@
   /* Color for headings, subheadings and title throughout the website */
   --accent-color: #c3111a;
   /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color-disabled: #cc767a;
   --surface-color: #ffffff;
   /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff;
@@ -2034,6 +2035,14 @@ section,
 
 .contact .email-form button:hover, .contact .register-form button:hover, .register .email-form button:hover, .register .register-form button:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
+.contact .email-form button:disabled, .contact .register-form button:disabled, .register .email-form button:disabled, .register .register-form button:disabled {
+  background-color: var(--accent-color-disabled);
+}
+
+.contact .email-form button:disabled:hover, .contact .register-form button:disabled:hover, .register .email-form button:disabled:hover, .register .register-form button:disabled:hover {
+  background: var(--accent-color-disabled);
 }
 
 /*--------------------------------------------------------------

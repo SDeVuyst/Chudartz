@@ -165,7 +165,6 @@ ChudartZ Collectibles | {{ evenement.titel }}
                   {% for ticket in tickets %}
                   {% if not ticket.disable_ticket %}
                   {% if not ticket.is_sold_out %}
-                  <!-- TODO zorg dat er altijd minimum 1 ticket w besteld -->
                   <div class="col-md-12">
                     
                     <label class="form-check-label" for="flexCheckDefault"><b>
@@ -182,13 +181,11 @@ ChudartZ Collectibles | {{ evenement.titel }}
                       step="1"
                     >
                   </div>
-
                   {% endif %}
                   {% endif %}
                   {% endfor %}
                 
                 </div>
-
               </div>
 
               <div class="col-md-1"></div>
@@ -229,9 +226,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
               <!-- Submit Button -->
               <div class="col-12 text-center">
-                <!-- TODO: style button when disabled -->
-                <!-- TODO: show error when clicked if disabled -->
-                  <button type="submit" id="submitBtn" disabled>{% trans 'Afrekenen' %}</button>
+                  <button type="submit" id="submitBtn" disabled data-disabled-message="{% trans 'You must order at least one ticket.' %}">{% trans 'Afrekenen' %}</button>
               </div>
                 
             </div>
@@ -275,6 +270,8 @@ ChudartZ Collectibles | {{ evenement.titel }}
     // Get all ticket number inputs and the submit button
     let ticketInputs = document.querySelectorAll('.ticket-input');
     let submitBtn = document.getElementById('submitBtn');
+
+    let disabledMessage = submitBtn.getAttribute('data-disabled-message');
   
     // Function to check the validity of inputs
     function checkValidity() {
@@ -291,8 +288,10 @@ ChudartZ Collectibles | {{ evenement.titel }}
       // Enable the submit button if valid, otherwise disable it
       if (isValid) {
         submitBtn.disabled = false;
+        submitBtn.removeAttribute('title');
       } else {
         submitBtn.disabled = true;
+        submitBtn.setAttribute('title', disabledMessage);
       }
     }
   
