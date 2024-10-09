@@ -66,7 +66,7 @@ class Evenement(models.Model):
     standhouder_prijzen = models.TextField(verbose_name=_("Prijzen Standhouder (Elk op een nieuwe lijn)"))
     enable_standhouder = models.BooleanField(verbose_name=_("Standhouder Inschrijvingen Inschakelen"), default=True)
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
-    partners = models.ManyToManyField(Partner, verbose_name=_("Partners"))
+    partners = models.ManyToManyField(Partner, verbose_name=_("Partners"), blank=True, null=True)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
