@@ -682,7 +682,7 @@ h6 {
 }
 
 .page-title .heading.background {
-  background-image: url("/static/img/headers/dart-bg-1.jpg");
+  background-image: url("/static/pokemon/img/2.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2158,6 +2158,12 @@ section,
 .service-details .service-box h4 {
   font-size: 20px;
   font-weight: 700;
+  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.service-details .service-box h2 {
   border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
   padding-bottom: 15px;
   margin-bottom: 15px;
