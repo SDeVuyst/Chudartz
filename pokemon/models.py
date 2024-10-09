@@ -30,6 +30,15 @@ from darts.templatetags import dutch_date
 from darts.utils import helpers
 
 
+class Partner(models.Model):
+    name = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='partner_logos/')
+    website_url = models.URLField(verbose_name=_("Website URL"))
+
+    def __str__(self):
+        return self.name
+    
+
 class Evenement(models.Model):
 
     def __str__(self) -> str:
@@ -57,6 +66,7 @@ class Evenement(models.Model):
     standhouder_prijzen = models.TextField(verbose_name=_("Prijzen Standhouder (Elk op een nieuwe lijn)"))
     enable_standhouder = models.BooleanField(verbose_name=_("Standhouder Inschrijvingen Inschakelen"), default=True)
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
+    partners = models.ManyToManyField(Partner, verbose_name=_("Partners"))
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 

@@ -32,6 +32,14 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     def is_sold_out(self, obj):
         label = _("Sold out!") if obj.is_sold_out else _("Available")
         return obj.is_sold_out, label
+    
+
+@admin.register(Partner)
+class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('name',)
+    ordering = ('id',)
+
+    search_fields = ('name', )
 
 
 @admin.register(Evenement)

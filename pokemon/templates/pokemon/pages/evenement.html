@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'pokemon/main.html' %}
 
 {% load static dutch_date i18n %}
 
@@ -81,7 +81,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
     <section id="pricing" class="pricing section light-background">
       <div class="container">
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
           {% for ticket in tickets %}
           {% include 'pokemon/blocks/ticket.html' with ticket=ticket %}
           {% endfor %}
@@ -89,17 +89,26 @@ ChudartZ Collectibles | {{ evenement.titel }}
       </div>
     </section>
 
-    <section id="over-ons" class="over-ons section">
+
+    <section id="call-to-action" class="call-to-action section dark-background">
+
+      <img
+        srcset="{% static 'img/backgrounds/closeup_three_darts-400w.avif' %} 400w, {% static 'img/backgrounds/closeup_three_darts-600w.avif' %} 600w, {% static 'img/backgrounds/closeup_three_darts-800w.avif' %} 800w, {% static 'img/backgrounds/closeup_three_darts-1000w.avif' %} 1000w, {% static 'img/backgrounds/closeup_three_darts-1200w.avif' %} 1200w, {% static 'img/backgrounds/closeup_three_darts-1600w.avif' %} 1600w, {% static 'img/backgrounds/closeup_three_darts-2000w.avif' %} 2000w"
+        sizes="(max-width: 400px) 400px, (max-width: 600px) 600px, (max-width: 800px) 800px, (max-width: 1000px) 1000px, (max-width: 1200px) 1200px, (max-width: 1600px) 1600px, (min-width: 1601px) 2000px"
+        src="closeup_three_darts.webp"
+        alt="Closup three darts"
+        width="5202"
+        height="3464"
+      />
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row align-items-xl-center gy-5 mt-3">
 
           <div class="row gy-4 icon-boxes">
 
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
               <div class="icon-box">
-                <i class="bi bi-buildings"></i>
-                <h3>{% trans 'Ruilen' %}</h3>
+                <h3><i class="bi bi-arrow-left-right"></i> {% trans 'Ruilen' %}</h3>
                 <p>
                   {% blocktrans %}
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
@@ -108,10 +117,9 @@ ChudartZ Collectibles | {{ evenement.titel }}
               </div>
             </div>
             
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
               <div class="icon-box">
-                <i class="bi bi-trophy"></i>
-                <h3>{% trans 'Grootste in Belgie' %}</h3>
+                <h3><i class="bi bi-trophy"></i> {% trans 'Grootste in Belgie' %}</h3>
                 <p>
                   {% blocktrans %}
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
@@ -120,10 +128,9 @@ ChudartZ Collectibles | {{ evenement.titel }}
               </div>
             </div>
 
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
               <div class="icon-box">
-                <i class="bi bi-people"></i>
-                <h3>{% trans 'Gezelligheid' %}</h3>
+                <h3><i class="bi bi-emoji-laughing"></i> {% trans 'Gezelligheid' %}</h3>
                 <p>
                   {% blocktrans %}
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
@@ -132,10 +139,9 @@ ChudartZ Collectibles | {{ evenement.titel }}
               </div>
             </div>
             
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="500">
               <div class="icon-box">
-                <i class="bi bi-question-circle"></i>
-                <h3>{% trans 'Unieke collectibles' %}</h3>
+                <h3><i class="bi bi-stars"></i> {% trans 'Unieke collectibles' %}</h3>
                 <p>
                   {% blocktrans %}
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
@@ -169,9 +175,9 @@ ChudartZ Collectibles | {{ evenement.titel }}
                   <!-- TODO zorg dat er altijd minimum 1 ticket w besteld -->
                   <div class="col-md-12">
                     
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault"><b>
                       {{ ticket }}
-                    </label>
+                    </b></label>
                     <input
                       type="number" 
                       name="ticket-form-number-{{ ticket.id }}" 
@@ -180,8 +186,8 @@ ChudartZ Collectibles | {{ evenement.titel }}
                       placeholder="Aantal Tickets"
                       min="1"
                       max="{{ ticket.remaining_tickets }}"
-                      <!-- TODO max n tickets per bestelling voor pdf -->
                     >
+                     <!-- TODO max n tickets per bestelling voor pdf -->
                   </div>
 
                   {% endif %}
@@ -239,6 +245,28 @@ ChudartZ Collectibles | {{ evenement.titel }}
         </div>
       </div>
     </section>
+
+    {% if partners %}
+    <!-- Sponsors Section -->
+    <section id="sponsors" class="sponsors section">
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-4 justify-content-center">
+
+          {% for partner in partners %}
+          <div class="col-xl-2 col-md-3 col-6 sponsor-logo">
+            <a href="{{ partner.website_url }}">
+              <img src="{{ partner.logo.url }}" class="img-fluid" alt="Logo {{ partner.name }}">
+            </a>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+    </section><!-- Sponsors Section -->
+    {% endif %}
+
     
   </main>
 

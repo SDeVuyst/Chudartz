@@ -79,6 +79,7 @@ def evenement(request, slug):
     context = {
         "evenement": evenement,
         "tickets": Ticket.objects.filter(event=evenement), # TODO fix uitverkochte tickets
+        "partners": evenement.partners.all()
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
