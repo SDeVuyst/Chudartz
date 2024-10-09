@@ -8,14 +8,14 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
-<!-- TODO -->
+<meta name="keywords" content="verzamelbeurs, ruilen, ruilbeurs, zeldzame items, verzamelaars, pokemon, standhouder, beleving, familievriendelijk, unieke vondsten, toegang voor iedereen">
 <meta property="og:title" content="ChudartZ Collectibles | {{ evenement.titel }}">
-<meta property="og:description" content="TODO">
+<meta property="og:description" content="Onze beurs is dé ontmoetingsplek voor verzamelaars van o.a. Pokémon-kaarten en unieke objecten. Ontdek zeldzame 'schatten' in een gezellige sfeer waarin iedereen zich welkom voelt, van waar ook ter wereld.">
 <meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ChudartZ | {{ evenement.titel }}">
-<meta name="twitter:description" content="TODO">
+<meta name="twitter:description" content="Onze beurs is dé ontmoetingsplek voor verzamelaars van o.a. Pokémon-kaarten en unieke objecten. Ontdek zeldzame 'schatten' in een gezellige sfeer waarin iedereen zich welkom voelt, van waar ook ter wereld.">
 <meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
 {% endblock %}
 
@@ -105,46 +105,46 @@ ChudartZ Collectibles | {{ evenement.titel }}
         <div class="row align-items-xl-center gy-5 mt-3">
 
           <div class="row gy-4 icon-boxes">
+            
+            <div class="col-lg-3" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon-box">
+                <h3><i class="bi bi-trophy"></i> {% trans 'Collectibles voor iedereen' %}</h3>
+                <p>
+                  {% blocktrans %}
+                  Onze beurs is dé ontmoetingsplek voor verzamelaars van o.a. Pokémon-kaarten en unieke objecten. Ontdek zeldzame 'schatten' in een gezellige sfeer waarin iedereen zich welkom voelt, van waar ook ter wereld.
+                  {% endblocktrans %}
+                </p>
+              </div>
+            </div>
 
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-3" data-aos="fade-up" data-aos-delay="200">
               <div class="icon-box">
                 <h3><i class="bi bi-arrow-left-right"></i> {% trans 'Ruilen' %}</h3>
                 <p>
                   {% blocktrans %}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
-                  {% endblocktrans %}
-                </p>
-              </div>
-            </div>
-            
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-              <div class="icon-box">
-                <h3><i class="bi bi-trophy"></i> {% trans 'Grootste in Belgie' %}</h3>
-                <p>
-                  {% blocktrans %}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
+                  Op onze beurs is ruilen een mogelijkheid naast kopen en verkopen, wat verzamelaars samenbrengt en de kans biedt om actief deel te nemen en nieuwe mensen te ontmoeten.
                   {% endblocktrans %}
                 </p>
               </div>
             </div>
 
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+            <div class="col-lg-3" data-aos="fade-up" data-aos-delay="400">
               <div class="icon-box">
                 <h3><i class="bi bi-emoji-laughing"></i> {% trans 'Gezelligheid' %}</h3>
                 <p>
                   {% blocktrans %}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
+                  Onze beurs biedt een gezellige, ontspannen sfeer waarin iedereen zich welkom voelt. Geniet van rustplekken en leuke activiteiten voor een complete en aangename ervaring.
                   {% endblocktrans %}
                 </p>
               </div>
             </div>
             
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="500">
+            <div class="col-lg-3" data-aos="fade-up" data-aos-delay="500">
               <div class="icon-box">
                 <h3><i class="bi bi-stars"></i> {% trans 'Unieke collectibles' %}</h3>
                 <p>
                   {% blocktrans %}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptas perferendis esse libero vitae.
+                  Unieke collectibles bieden verzamelaars de kans om bijzondere exemplaren te ontdekken. Op onze beurzen vind je exclusieve items, van zeldzame stukken tot curiosa die je collectie verrijken.
                   {% endblocktrans %}
                   </p>
               </div>
