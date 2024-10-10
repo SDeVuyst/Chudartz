@@ -23,7 +23,7 @@ urlpatterns = i18n_patterns(
     path(_('disclaimer/'), views.disclaimer, name='disclaimer'),
     path(_('faq/'), views.faq, name='faq'),
 
-    path(_('darts/scanner/'), views.scanner),
+    path(_('pokemon/scanner/'), views.scanner),
 
     path('mollie-webhook/', views.mollie_webhook),
 
