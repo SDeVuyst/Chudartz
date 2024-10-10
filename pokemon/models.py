@@ -269,7 +269,7 @@ class Payment(models.Model):
 class Participant(models.Model):
 
     def __str__(self) -> str:
-        return f"{self.voornaam} {self.achternaam}" 
+        return f"{self.mail}" 
     
     class Meta:
         get_latest_by = "pk"
