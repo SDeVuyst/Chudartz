@@ -294,6 +294,11 @@ UNFOLD = {
                         "icon": "checkbook",
                         "link": "/admin/darts/sponsor/",
                     },
+                    {
+                        "title": _("Navigatiebalk"),
+                        "icon": "dropdown",
+                        "link": "/admin/darts/toernooiheadergroep/",
+                    },
                 ]
             },
 
