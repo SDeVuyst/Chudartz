@@ -134,11 +134,13 @@ def evenement(request, slug):
             amount=total_cost
         )
 
-        Participant.objects.create(
-            mail = request.POST.get('email'),
-            payment_id = payment.pk,
-            ticket = get_object_or_404(Ticket, pk=ticket_id),
-        )
+        for ticket_id, quantity in ticket_quantities.items():
+            for _ in range(quantity):
+                Participant.objects.create(
+                    mail = request.POST.get('email'),
+                    payment_id = payment.pk,
+                    ticket = get_object_or_404(Ticket, pk=ticket_id),
+                )
 
         # create the mollie payment
         mollie_payment = MollieClient().create_mollie_payment(

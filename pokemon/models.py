@@ -203,12 +203,7 @@ class Payment(models.Model):
     def save(self, *args, **kwargs):
         # Check if payment is received
         if self.status == PaymentStatus.PAID:
-            # betaling van participant
-            try:
-                p = Participant.objects.get(payment=self)
-                p.send_mail()
-            except:
-                pass
+            self.send_mail()
 
         super().save(*args, **kwargs)
 
@@ -220,6 +215,54 @@ class Payment(models.Model):
     amount = MoneyField(verbose_name="Prijs", default_currency="EUR", max_digits=10, decimal_places=2, blank=True, null=True)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    def generate_ticket(self, for_email=False):
+        participants = Participant.objects.filter(payment=self)
+        tickets = []
+        for p in participants:
+            ticket = p.generate_ticket(return_as_http=False) 
+
+            tickets.append(ticket)
+
+            
+        merged_buffer = helpers.merge_pdfs(tickets)
+        if for_email: return merged_buffer
+
+        response = HttpResponse(merged_buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="tickets-{self.pk}.pdf"'
+
+        return response
+
+    def send_mail(self):
+        # we only need first because all info is the same for the matching participants
+        participant = Participant.objects.filter(payment=self).first()
+        print(participant)
+        event = participant.ticket.event
+        print(event)
+        
+        email_body = render_to_string('pokemon/email/confirmation-mail-participant.html', {
+            'evenement': event,
+        })
+
+        # Generate tickets PDF
+        tickets_pdf = self.generate_ticket(for_email=True)
+
+        email = EmailMessage(
+            'ChudartZ Collectibles | Bevestiging',
+            email_body,
+            formataddr(('Evenementen | Chudartz', settings.EMAIL_HOST_USER)),
+            [participant.mail],
+            bcc=[settings.EMAIL_HOST_USER]
+        )
+        email.content_subtype = 'html'
+
+        # add tickets as attachment
+        email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
+
+        helpers.attach_image(email, "logo-black", from_pokemon=True)
+
+        # Send the email
+        email.send()
 
 
 # Deelnemer van evenement

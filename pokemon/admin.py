@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib import admin
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
@@ -40,6 +41,68 @@ class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('id',)
 
     search_fields = ('name', )
+
+@admin.register(Participant)
+class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ['mail', 'attendance']
+    ordering = ('id',)
+
+    @display(
+        description=_('Status van Betaling'), 
+        label={
+            PaymentStatus.PAID: "success",
+            PaymentStatus.OPEN: "warning",
+            PaymentStatus.CANCELED: "danger",
+            PaymentStatus.EXPIRED: "danger",
+            PaymentStatus.FAILED: "danger",
+        },
+        header=True,
+    )
+    def payment_status(self, obj):
+        if obj.payment is None: return PaymentStatus.OPEN
+
+        return obj.payment.status
+    
+    @display(
+        description=_("Attended"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def attendance(self, obj):
+        label = _("Yes") if obj.attended else _("No")
+        return obj.attended, label
+    
+
+    search_fields = ('mail',)
+    list_filter = (
+        ('attended', admin.BooleanFieldListFilter),
+        ('ticket', RelatedDropdownFilter),
+    )
+
+    list_filter_submit = True
+    actions_detail = ["generate_ticket", "send_confirmation_mail"]
+    
+    @action(description=_("Genereer Ticket"))
+    def generate_ticket(modeladmin, request, object_id: int):
+        participant = get_object_or_404(Participant, pk=object_id)
+
+        return participant.generate_ticket()
+
+    @action(description=_("Stuur bevestiging mail"))
+    def send_confirmation_mail(modeladmin, request, object_id: int):
+        participant = get_object_or_404(Participant, pk=object_id)
+
+        try:
+            participant.payment.send_mail()
+            messages.success(request, _("Bevestigings mail is verstuurd!"))
+        
+        except Exception as e:
+            messages.error(request, _("Bevestigings mail versturen mislukt. Error: ") + str(e))
+        
+
+        return redirect(reverse('admin:pokemon_participant_change', args=[participant.pk]))
 
 
 @admin.register(Evenement)
