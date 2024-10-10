@@ -142,7 +142,7 @@ def evenement(request, slug):
         mollie_payment = MollieClient().create_mollie_payment(
             amount=total_cost,
             description="ChudartZ Collectibles",
-            redirect_url=f'https://chudartz-collectibles.com/nl/evenementen/{slug}/success',
+            redirect_url=f'https://chudartz-collectibles.com/nl/evenement/{slug}/success',
         )
 
         payment.mollie_id = mollie_payment.id
@@ -165,7 +165,7 @@ def evenement_success(request, slug):
     context["success"] = True
     context["evenement"] = get_object_or_404(Evenement, slug=slug)
 
-    return TemplateResponse(request, 'pokemonpages/evenement-inschrijving-response.html', context)
+    return TemplateResponse(request, 'pokemon/pages/evenement-inschrijving-response.html', context)
 
 
 def standhouder(request, slug):
