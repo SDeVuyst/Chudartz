@@ -53,10 +53,10 @@ function onScanSuccess(decodedText, decodedResult) {
     }
 
     // set the button link to the deelnemer link
-    document.getElementById('deelnemer-btn').href = `${getBaseUrl()}admin/darts/participant/${id}/change/`;
+    document.getElementById('deelnemer-btn').href = `${getBaseUrl()}admin/pokemon/participant/${id}/change/`;
 
     // set attendance
-    fetch('/events/set-attendance/', {
+    fetch('/pokemon/set-attendance/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

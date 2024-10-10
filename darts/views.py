@@ -474,6 +474,40 @@ def cal_webhook(request):
     return HttpResponse(status=200)
 
 
+@csrf_exempt
+@staff_member_required
+def set_attendance(request):
+
+    if request.method == 'POST':
+
+        # get data from request
+        data = json.loads(request.body)
+        participant_id = data.get('participant_id')
+        seed = data.get('seed')
+
+        # validation
+        if participant_id is None or seed is None:
+            return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
+        
+        participant = get_object_or_404(Participant, pk=participant_id)
+
+        # check if seed is correct
+        if seed != participant.random_seed:
+            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
+        
+        # validation
+        if participant.attended:
+            return JsonResponse({'success': False, 'message': "Participant already attended!"}, status=400)
+        
+
+        participant.attended = True
+        participant.save()
+
+        return JsonResponse({'success': True, 'message': str(participant.ticket)})
+    
+    return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
+
+
 def leerling(request, code):
     if request.method != 'GET': return HttpResponseNotFound("Invalid request method")
 

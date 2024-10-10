@@ -56,7 +56,7 @@ function onScanSuccess(decodedText, decodedResult) {
     document.getElementById('deelnemer-btn').href = `${getBaseUrl()}admin/darts/participant/${id}/change/`;
 
     // set attendance
-    fetch('/events/set-attendance/', {
+    fetch('/darts/set-attendance/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

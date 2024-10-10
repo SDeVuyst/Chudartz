@@ -1,5 +1,7 @@
 from decimal import Decimal
 from email.utils import formataddr
+import json
+from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
@@ -262,6 +264,45 @@ def mollie_webhook(request):
         return HttpResponse(status=200)
 
     return HttpResponseNotFound("Invalid request method")
+
+
+@staff_member_required
+def scanner(request):
+    return TemplateResponse(request, "pokemon/admin/scanner.html")
+
+
+@csrf_exempt
+@staff_member_required
+def set_attendance(request):
+
+    if request.method == 'POST':
+
+        # get data from request
+        data = json.loads(request.body)
+        participant_id = data.get('participant_id')
+        seed = data.get('seed')
+
+        # validation
+        if participant_id is None or seed is None:
+            return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
+        
+        participant = get_object_or_404(Participant, pk=participant_id)
+
+        # check if seed is correct
+        if seed != participant.random_seed:
+            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
+        
+        # validation
+        if participant.attended:
+            return JsonResponse({'success': False, 'message': "Participant already attended!"}, status=400)
+        
+
+        participant.attended = True
+        participant.save()
+
+        return JsonResponse({'success': True, 'message': str(participant.ticket)})
+    
+    return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
 
 
 def get_default_context():

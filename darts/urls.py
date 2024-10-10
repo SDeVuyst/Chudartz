@@ -24,7 +24,8 @@ urlpatterns = i18n_patterns(
     path(_('toernooien/<slug:slug>/inschrijven/success/'), views.inschrijven_toernooi_success, name='inschrijven_toernooi_success'),
     path(_('toernooien/resultaten'), views.resultaten, name="resultaten"),
     path(_('toernooien/<slug:slug>/resultaat'), views.toernooi_resultaat, name='toernooi_resultaat'),
-
+    path("darts/set-attendance/", views.set_attendance),
+    
     path(_('priveles'), views.priveles, name='priveles'),
 
 
