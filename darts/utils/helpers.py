@@ -31,8 +31,12 @@ def merge_pdfs(pdf_buffers):
     return merged_buffer
 
 
-def attach_image(email, filename):
-    logo_path = finders.find(f'img/{filename}.png')
+def attach_image(email, filename, from_pokemon=False):
+    if from_pokemon:
+        logo_path = finders.find(f'pokemon/img/{filename}.png')
+    else:
+        logo_path = finders.find(f'img/{filename}.png')
+        
     with open(logo_path, 'rb') as img_file:
         img = MIMEImage(img_file.read())
         img.add_header('Content-ID', f'<{filename}_image>')

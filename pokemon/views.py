@@ -1,14 +1,17 @@
+from decimal import Decimal
 from email.utils import formataddr
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.http import BadHeaderError, JsonResponse
+from django.http import BadHeaderError, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
 from django.template.response import TemplateResponse
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_exempt
 
 from pokemon.forms import ContactForm, StandhouderForm
-from pokemon.models import Evenement, Ticket
+from pokemon.models import Evenement, Participant, Payment, Ticket
+from pokemon.payment import MollieClient
 
 
 def index(request):
@@ -76,12 +79,93 @@ def evenementen(request):
 
 def evenement(request, slug):
     evenement = get_object_or_404(Evenement, slug=slug)
+
+    if request.POST:
+
+        if not evenement.enable_inschrijvingen: return HttpResponseBadRequest("Inschrijvingen gesloten.")
+
+        tickets = Ticket.objects.filter(event=evenement)
+        ticket_quantities = {}
+
+        # get selected ticket quantities
+        for possible_ticket in tickets:
+           
+            ticket_quantity_key = f'ticket-form-number-{possible_ticket.id}'
+            quantity = request.POST.get(ticket_quantity_key)
+
+            try:
+                ticket_quantities[possible_ticket.id] = int(quantity)
+            except (ValueError, TypeError):
+                ticket_quantities[possible_ticket.id] = 0  # Handle empty or invalid input
+
+
+        # check if at least 1 ticket has valid quantity
+        is_valid_quantitites = False
+        for ticket_id, quantity in ticket_quantities.items():
+            chosen_ticket = get_object_or_404(Ticket, pk=ticket_id)
+
+            # check if ticket possible to buy
+            if chosen_ticket.disable_ticket or chosen_ticket.is_sold_out:
+                return HttpResponseBadRequest("Invalid ticket")
+            
+            # check if there are still enough tickets to buy
+            if quantity > chosen_ticket.remaining_tickets:
+                return HttpResponseBadRequest("Not enough remaining tickets")
+            
+            # quantity must be at least 0
+            if quantity < 0:
+                return HttpResponseBadRequest("Ticket count must be at least 0")
+            
+            # valid
+            if quantity > 0:
+                is_valid_quantitites = True
+                break
+
+        if not is_valid_quantitites: return HttpResponseBadRequest("There should be at least 1 ticket ordered")
+
+        # get total price of transaction
+        total_cost = 0
+        for ticket_id, quantity in ticket_quantities.items():
+            total_cost +=  quantity * Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
+
+
+        payment = Payment.objects.create(
+            amount=total_cost
+        )
+
+        Participant.objects.create(
+            payment_id = payment.pk,
+            ticket=get_object_or_404(Ticket, pk=ticket_id),
+        )
+
+        # create the mollie payment
+        mollie_payment = MollieClient().create_mollie_payment(
+            amount=total_cost,
+            description="ChudartZ Collectibles",
+            redirect_url=f'https://chudartz-collectibles.com/nl/evenementen/{slug}/success',
+        )
+
+        payment.mollie_id = mollie_payment.id
+        payment.save()
+        
+        return redirect(mollie_payment.checkout_url)
+
+
+    # GET request
     context = {
         "evenement": evenement,
         "tickets": Ticket.objects.filter(event=evenement),
         "partners": evenement.partners.all()
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
+
+
+def evenement_success(request, slug):
+    context = get_default_context()
+    context["success"] = True
+    context["evenement"] = get_object_or_404(Evenement, slug=slug)
+
+    return TemplateResponse(request, 'pokemonpages/evenement-inschrijving-response.html', context)
 
 
 def standhouder(request, slug):
@@ -158,9 +242,27 @@ def faq(request):
     return TemplateResponse(request, 'pokemon/pages/faq.html', get_default_context())
 
 
+@csrf_exempt
+def mollie_webhook(request):
+    if request.method == 'POST':
+        if 'id' not in request.POST:
+            return HttpResponseBadRequest()
+
+        mollie_payment_id = request.POST['id']
+        mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
+        payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
+
+        payment.status = mollie_payment.get("status").lower()
+        payment.save()
+
+        return HttpResponse(status=200)
+
+    return HttpResponseNotFound("Invalid request method")
+
 
 def get_default_context():
     now = timezone.now()
     return {
         "evenement": Evenement.objects.filter(start_datum__gt=now).order_by('start_datum').first()
     }
+

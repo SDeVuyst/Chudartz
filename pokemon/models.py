@@ -203,8 +203,12 @@ class Payment(models.Model):
     def save(self, *args, **kwargs):
         # Check if payment is received
         if self.status == PaymentStatus.PAID:
-            # TODO get participant gelinkt aan deze betaling, en stuur mail vanuit dat object
-            pass
+            # betaling van participant
+            try:
+                p = Participant.objects.get(payment=self)
+                p.send_mail()
+            except:
+                pass
 
         super().save(*args, **kwargs)
 
@@ -228,17 +232,7 @@ class Participant(models.Model):
         get_latest_by = "pk"
         verbose_name = "Deelnemer"
         verbose_name_plural = "Deelnemers"
-    
-    voornaam = models.CharField(max_length=50, verbose_name=_("Voornaam"))
-    achternaam = models.CharField(max_length=50, verbose_name=_("Achternaam"))
-    geboortejaar = models.PositiveSmallIntegerField(verbose_name=_("Geboortejaar"))
-    email = models.EmailField(verbose_name=_("Email"), max_length=254)
-    straatnaam = models.CharField(verbose_name=_("Straatnaam"), max_length=100)
-    nummer = models.CharField(verbose_name=_("Nummer"), max_length=6)
-    postcode = models.IntegerField(verbose_name=_("Postcode"))
-    stad = models.CharField(verbose_name=_("Stad"), max_length=40)
-    gsm = PhoneNumberField(_("GSM"))
-    
+       
     payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
     attended = models.BooleanField(verbose_name=_("Attended"), default=False)
     beschrijving = models.TextField(blank=True, null=True, verbose_name=_("beschrijving"))
@@ -342,18 +336,17 @@ class Participant(models.Model):
     def send_mail(self):
         event = self.ticket.event
         
-        email_body = render_to_string('email/confirmation-mail-participant.html', {
-            'event': event,
-            'participant': self,
+        email_body = render_to_string('pokemon/email/confirmation-mail-participant.html', {
+            'evenement': event,
         })
 
         # Generate tickets PDF
         tickets_pdf = self.generate_ticket()
 
         email = EmailMessage(
-            'ChudartZ | Bevestiging',
+            'ChudartZ Collectibles | Bevestiging',
             email_body,
-            formataddr(('Toernooien | Chudartz', settings.EMAIL_HOST_USER)),
+            formataddr(('Evenementen | Chudartz', settings.EMAIL_HOST_USER)),
             [self.email],
             bcc=[settings.EMAIL_HOST_USER]
         )
@@ -362,7 +355,7 @@ class Participant(models.Model):
         # add tickets as attachment
         email.attach(f'ticket.pdf', tickets_pdf.getvalue(), 'application/pdf')
 
-        helpers.attach_image(email, "logo-black")
+        helpers.attach_image(email, "logo-black", from_pokemon=True)
 
         # Send the email
         email.send()

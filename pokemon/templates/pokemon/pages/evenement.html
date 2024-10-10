@@ -83,7 +83,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
       <div class="container">
         <div class="row g-4 justify-content-center">
           {% for ticket in tickets %}
-          {% include 'pokemon/blocks/ticket.html' with ticket=ticket %}
+          {% include 'pokemon/blocks/ticket.html' with ticket=ticket evenement=evenement %}
           {% endfor %}
         </div>
       </div>
@@ -149,12 +149,12 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
     </section>
 
+    {% if evenement.enable_inschrijvingen %}
     <section class="section service-details" id="koopform" data-aos="fade-up" data-aos-delay="100">
       <div class="container">
         <div class="service-box register">
           <h2>{% trans 'Koop uw tickets' %}</h2>
 
-          <!-- TODO maak form werken -->
           <form action="{{ request.path }}" method="post" id="register-form" class="register-form">
             {% csrf_token %}
             <div class="row gy-4 justify-content-center align-items-center">
@@ -235,6 +235,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
         </div>
       </div>
     </section>
+    {% endif %}
 
     {% if partners %}
     <!-- Sponsors Section -->
