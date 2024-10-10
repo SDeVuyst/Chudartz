@@ -316,6 +316,11 @@ UNFOLD = {
                         "icon": "partner_exchange",
                         "link": "/admin/pokemon/partner",
                     },
+                    {
+                        "title": _("Scanner"),
+                        "icon": "qr_code_scanner",
+                        "link": "/pokemon/scanner/",
+                    },
                 ]
             },
 
