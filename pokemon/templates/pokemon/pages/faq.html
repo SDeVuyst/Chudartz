@@ -32,11 +32,10 @@ ChudartZ | Over Ons
               <div class="content px-xl-5">
                 <h3>{% trans '<span>Veel Gestelde</span><strong> Vragen</strong>' %}</h3>
                 <p>
+                  {% url 'index' as index_url %}
                   {% blocktrans %}
-                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om
+                  Heb je vragen over het organiseren van evenementen of onze collectibles? Hier vind je de antwoorden op de meest gestelde vragen. Staat je vraag er niet tussen? Neem gerust contact met ons op via de <a href="{{ index_url }}#contact">contactpagina</a>.
                   {% endblocktrans %}
-                  <a href="{% url 'index' %}#contact">{% trans 'contact' %}</a> 
-                  {% blocktrans %}met ons op te nemen!{% endblocktrans %}
                 </p>
               </div>
             </div>
@@ -56,7 +55,7 @@ ChudartZ | Over Ons
                 <div class="faq-item">
                   <h3><span class="num">2.</span> <span>{% blocktrans %}Welke soorten collectibles kan ik verwachten op jullie beurzen?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    <p>{% blocktrans %}Voor 2025 staat voorlopig één grote beurs op de agenda: de grootste Pokémonbeurs van België. In een later stadium zullen er aanvullende beurzen worden georganiseerd, met een focus op unieke en bijzondere verzamelobjecten, zoals Lego, Playmobil, euromunten, stripboeken/comics, retro games, antiek speelgoed, Funko, vintage mode, en whiskey/wijn.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}Voor 2025 staat voorlopig één grote beurs op de agenda: een van de grootste Pokémon-beurzen van België. Naast deze beurs zullen er in de loop van het jaar ook andere beurzen worden georganiseerd, gericht op diverse cardgames zoals Yu-Gi-Oh!, Magic: The Gathering en KeyForge. Daarnaast zullen op deze én ook andere beurzen unieke verzamelobjecten te vinden zijn, variërend van Lego en Playmobil tot euromunten, stripboeken/comics, retro games, antiek speelgoed, Funko, vintage mode, en zelfs exclusieve whiskey- en wijncollecties.{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>
