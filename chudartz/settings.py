@@ -307,6 +307,11 @@ UNFOLD = {
                         "link": "/admin/pokemon/evenement",
                     },
                     {
+                        "title": _("Deelnemers"),
+                        "icon": "group",
+                        "link": "/admin/pokemon/participant",
+                    },
+                    {
                         "title": _("Partners"),
                         "icon": "partner_exchange",
                         "link": "/admin/pokemon/partner",

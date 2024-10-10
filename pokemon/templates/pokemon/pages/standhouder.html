@@ -44,7 +44,7 @@ ChudartZ Collectibles | Evenementen
             
             <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
               <div class="service-box register">
-                  <h4>{% trans 'Bestel je tafel(s)' %}{% if not evenement.enable_standhouder %} • {% trans "UITVERKOCHT!" %}{% endif %}</h4>
+                  <h4>{% trans 'Bestel je plaats(en)' %}{% if not evenement.enable_standhouder %} • {% trans "UITVERKOCHT!" %}{% endif %}</h4>
     
                   <form action="{{ request.path }}" method="post" id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200" {% if not evenement.enable_standhouder %}inert{% endif %}>
                     {% csrf_token %}

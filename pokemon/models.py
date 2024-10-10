@@ -55,7 +55,6 @@ class Evenement(models.Model):
     slug = models.SlugField(unique=True)
     titel_sectie_a = models.CharField(_("Titel Sectie A"), max_length=50)
     tekst_sectie_a = RichTextField(verbose_name=_("Tekst Sectie A"))
-    vereisten = models.TextField(verbose_name=_("Vereisten (Elk op een nieuwe lijn)"))
     start_datum = models.DateTimeField(verbose_name=_("Start Datum"))
     einde_datum = models.DateTimeField(verbose_name=_("Eind Datum"))
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
