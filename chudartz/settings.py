@@ -258,7 +258,7 @@ UNFOLD = {
                     {
                         "title": _("Scanner"),
                         "icon": "qr_code_scanner",
-                        "link": "/darts/scanner/",
+                        "link": "https://chudartz.com/darts/scanner/",
                     },
                 ],
             },
