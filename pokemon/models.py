@@ -232,7 +232,9 @@ class Participant(models.Model):
         get_latest_by = "pk"
         verbose_name = "Deelnemer"
         verbose_name_plural = "Deelnemers"
-       
+
+    
+    mail = models.EmailField(verbose_name=_("Email"), max_length=254, blank=True, null=True)
     payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
     attended = models.BooleanField(verbose_name=_("Attended"), default=False)
     beschrijving = models.TextField(blank=True, null=True, verbose_name=_("beschrijving"))
@@ -347,7 +349,7 @@ class Participant(models.Model):
             'ChudartZ Collectibles | Bevestiging',
             email_body,
             formataddr(('Evenementen | Chudartz', settings.EMAIL_HOST_USER)),
-            [self.email],
+            [self.mail],
             bcc=[settings.EMAIL_HOST_USER]
         )
         email.content_subtype = 'html'

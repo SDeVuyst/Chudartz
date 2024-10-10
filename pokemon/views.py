@@ -130,12 +130,14 @@ def evenement(request, slug):
 
 
         payment = Payment.objects.create(
+            mail = request.POST.get('email'),
             amount=total_cost
         )
 
         Participant.objects.create(
+            mail = request.POST.get('email'),
             payment_id = payment.pk,
-            ticket=get_object_or_404(Ticket, pk=ticket_id),
+            ticket = get_object_or_404(Ticket, pk=ticket_id),
         )
 
         # create the mollie payment

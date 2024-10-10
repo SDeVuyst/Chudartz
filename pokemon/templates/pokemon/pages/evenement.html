@@ -162,6 +162,11 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
                 <div class="row gy-4">
 
+                  <!-- Email -->
+                  <div class="col-md-12">
+                    <input type="email" name="email" class="form-control" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                  </div>
+
                   {% for ticket in tickets %}
                   {% if not ticket.disable_ticket %}
                   {% if not ticket.is_sold_out %}
