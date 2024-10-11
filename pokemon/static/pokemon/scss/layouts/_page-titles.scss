@@ -35,7 +35,7 @@
   }
 
   .heading.background {
-    background-image: url('/static/pokemon/img/2.jpg');
+    background-image: url('/static/pokemon/img/headers/mtg.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -48,10 +48,6 @@
     p { 
       backdrop-filter: blur(2px) saturate(75%);
     }
-  }
-
-  .heading.background2 {
-    background-image: url('/static/img/headers/dart-bg-2.jpg');
   }
 
   nav {
