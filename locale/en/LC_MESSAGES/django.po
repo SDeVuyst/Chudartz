@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 11:57+0200\n"
-"PO-Revision-Date: 2024-10-07 12:00+0200\n"
+"PO-Revision-Date: 2024-10-11 19:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #: .\chudartz\settings.py:230
 msgid "Financiën"
@@ -58,7 +58,7 @@ msgstr "Scanner"
 #: .\darts\templates\pages\index.html:209
 #: .\darts\templates\pages\priveles.html:30
 msgid "Dartschool"
-msgstr "Darts School"
+msgstr "Dartschool"
 
 #: .\chudartz\settings.py:276
 msgid "Leerlingen"
@@ -5028,7 +5028,11 @@ msgid "Ik wens een factuur"
 msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:91
-msgid "Ik wens electriciteit"
+msgid "Ik wens elektriciteit"
+msgstr ""
+
+#: .\pokemon\templates\pokemon\pages\standhouder.html:92
+msgid "Ik wens een tafel/stoel (aantal invullen bij opmerkingen)"
 msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:101
@@ -5295,9 +5299,8 @@ msgstr "terms-and-conditions/"
 #~ "Onze dartstoernooien zijn dé plek om uw vaardigheden te testen en de "
 #~ "competitie aan te gaan. Iedereen is altijd welkom om deel te nemen en "
 #~ "zich te meten met andere dartliefhebbers. Houd onze kalender in de gaten "
-#~ "voor aankomende toernooien en neem een kijkje binnen "
-#~ "'Darttoernooien' (link naar deze sectie) voor een van onze spannende "
-#~ "competities."
+#~ "voor aankomende toernooien en neem een kijkje binnen 'Darttoernooien' "
+#~ "(link naar deze sectie) voor een van onze spannende competities."
 #~ msgstr ""
 #~ "Our darts tournaments are the place to test your skills and compete. "
 #~ "Everyone is always welcome to participate and measure themselves against "

@@ -199,7 +199,7 @@ def standhouder(request, slug):
             # Send mail to admins
             send_mail(
                 f'Standhouder Aanvraag',
-                f'Evenement: {evenement.titel}\nBedrijfsnaam: {data['bedrijfsnaam']}\nNaam: {data['naam']}\nEmail: {data['email']}\nTelefoon: {data['telefoon']}\nAantal Tafels: {data['aantal_tafels']}\nFactuur: {'ja' if data['factuur'] else 'nee'}\nElectriciteit: {'ja' if data['electriciteit'] else 'nee'}\nOpmerkingen: {data['opmerkingen']}',
+                f'Evenement: {evenement.titel}\nBedrijfsnaam: {data['bedrijfsnaam']}\nNaam: {data['naam']}\nEmail: {data['email']}\nTelefoon: {data['telefoon']}\nAantal Tafels: {data['aantal_tafels']}\nFactuur: {'ja' if data['factuur'] else 'nee'}\nElektriciteit: {'ja' if data['elektriciteit'] else 'nee'}\nOpmerkingen: {data['opmerkingen']}',
                 formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False,

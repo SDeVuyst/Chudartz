@@ -38,9 +38,14 @@ class StandhouderForm(forms.Form):
         'class': 'form-check-input',
     }))
 
-    electriciteit = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+    elektriciteit = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
         'class': 'form-check-input',
     }))
+
+    tafel/stoel = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        'class': 'form-check-input',
+    }))
+
 
     opmerkingen = forms.CharField(required=False, widget=forms.Textarea(attrs={
         'placeholder': 'Opmerkingen',
