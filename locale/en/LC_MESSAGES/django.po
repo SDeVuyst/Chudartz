@@ -5028,7 +5028,11 @@ msgid "Ik wens een factuur"
 msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:91
-msgid "Ik wens electriciteit"
+msgid "Ik wens elektriciteit"
+msgstr ""
+
+#: .\pokemon\templates\pokemon\pages\standhouder.html:92
+msgid "Ik wens een tafel/stoel (aantal invullen bij opmerkingen)"
 msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:101
