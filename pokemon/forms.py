@@ -42,6 +42,10 @@ class StandhouderForm(forms.Form):
         'class': 'form-check-input',
     }))
 
+    tafel = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        'class': 'form-check-input',
+    }))
+
     opmerkingen = forms.CharField(required=False, widget=forms.Textarea(attrs={
         'placeholder': 'Opmerkingen',
         'class': 'form-control',
