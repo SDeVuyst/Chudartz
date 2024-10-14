@@ -524,14 +524,14 @@ msgstr "Book a training"
 #, fuzzy
 #| msgid "Privéles boeken"
 msgid "Privéles boeken"
-msgstr "Book Private Lesson"
+msgstr "Book private lesson"
 
 #: .\darts\templates\blocks\header.html:52
 #: .\darts\templates\pages\index.html:135
 #: .\darts\templates\pages\teambuildings-en-workshops.html:30
 #: .\darts\templates\pages\teambuildings-en-workshops.html:49
 msgid "Teambuilding"
-msgstr "Team building"
+msgstr "Teambuilding"
 
 #: .\darts\templates\blocks\header.html:53
 #: .\darts\templates\pages\index.html:307
