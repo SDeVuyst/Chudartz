@@ -491,6 +491,10 @@ def set_attendance(request):
         
         participant = get_object_or_404(Participant, pk=participant_id)
 
+        # participant hasnt paid
+        if participant.payment.status != PaymentStatus.PAID:
+            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
+
         # check if seed is correct
         if seed != participant.random_seed:
             return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)

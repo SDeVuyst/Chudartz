@@ -4,6 +4,10 @@ var html5QrcodeScanner = new Html5QrcodeScanner(
 );
 html5QrcodeScanner.render(onScanSuccess);
 
+// AUDIO
+const audio_success = new Audio('/static/audio/success.mp3');
+const audio_failed = new Audio('/static/audio/failed.mp3');
+
 
 function extractParticipantId(str) {
     const match = str.match(/participant_id:(\d+)/);
@@ -81,6 +85,9 @@ function setStatusToSuccess(message) {
     document.getElementById('status-bar').classList.replace('bg-danger', 'bg-success');
 
     document.getElementById('response').innerText = message;
+
+    //play beep
+    audio_success.play();
 }
 
 function setStatusToFailed(message) {
@@ -89,6 +96,9 @@ function setStatusToFailed(message) {
     document.getElementById('status-bar').classList.replace('bg-success', 'bg-danger');
 
     document.getElementById('response').innerText = message;
+
+    //play error
+    audio_failed.play();
 }
 
 
