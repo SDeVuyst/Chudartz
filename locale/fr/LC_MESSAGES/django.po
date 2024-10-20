@@ -4969,10 +4969,8 @@ msgstr "Comment puis-je rester informé des futurs événements et salons ?"
 
 #: .\pokemon\templates\pokemon\pages\faq.html:75
 msgid ""
-"Je kunt je aanmelden voor onze nieuwsbrief of ons volgen op sociale media "
-"(linken naar facebook, instagram, via een Linktree die dan nog  aangemaakt "
-"zal worden nog) om altijd op de hoogte te blijven van aankomende "
-"evenementen, beurzen en speciale activiteiten."
+"Je kunt ons volgen op social media om altijd op de hoogte te blijven "
+"van aankomende evenementen, beurzen en speciale activiteiten. "
 msgstr ""
 "Vous pouvez vous inscrire à notre newsletter ou nous suivre sur les réseaux "
 "sociaux (lien vers facebook, instagram, via un Linktree qui sera créé à ce "

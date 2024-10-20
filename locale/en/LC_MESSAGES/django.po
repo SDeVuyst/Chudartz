@@ -522,16 +522,16 @@ msgstr "Book a training"
 
 #: .\darts\templates\blocks\header.html:21
 #, fuzzy
-#| msgid "Privéles Boeken"
+#| msgid "Privéles boeken"
 msgid "Privéles boeken"
-msgstr "Book Private Lesson"
+msgstr "Book private lesson"
 
 #: .\darts\templates\blocks\header.html:52
 #: .\darts\templates\pages\index.html:135
 #: .\darts\templates\pages\teambuildings-en-workshops.html:30
 #: .\darts\templates\pages\teambuildings-en-workshops.html:49
 msgid "Teambuilding"
-msgstr "Team building"
+msgstr "Teambuilding"
 
 #: .\darts\templates\blocks\header.html:53
 #: .\darts\templates\pages\index.html:307
@@ -2055,7 +2055,7 @@ msgstr ""
 "perfect the art of darts!"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:35
-msgid "Ontwikkeling van Basisvaardigheden:"
+msgid "Ontwikkeling van basisvaardigheden:"
 msgstr "Basic Skills Development:"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:36
@@ -2092,7 +2092,7 @@ msgstr ""
 
 #: .\darts\templates\pages\dartschool-meer-info.html:47
 msgid "Bevorderen van competitief denken:"
-msgstr "Fostering Competitive Thinking:"
+msgstr "Fostering competitive thinking:"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:49
 msgid ""
@@ -2109,8 +2109,8 @@ msgstr ""
 "them not only get better at darts, but also develop important life skills."
 
 #: .\darts\templates\pages\dartschool-meer-info.html:55
-msgid "Persoonlijke Groei en zelfvertrouwen:"
-msgstr "Personal Growth and Self-Confidence:"
+msgid "Persoonlijke groei en zelfvertrouwen:"
+msgstr "Personal growth and self-Confidence:"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:57
 msgid ""
@@ -2125,7 +2125,7 @@ msgstr ""
 "                "
 
 #: .\darts\templates\pages\dartschool-meer-info.html:63
-msgid "Creëren van Gemeenschapsgevoel:"
+msgid "Creëren van gemeenschapsgevoel:"
 msgstr "Creating a sense of community:"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:65
@@ -2144,7 +2144,7 @@ msgstr ""
 "                "
 
 #: .\darts\templates\pages\dartschool-meer-info.html:71
-msgid "Educatieve en Leuke Activiteiten:"
+msgid "Educatieve en leuke activiteiten:"
 msgstr "Educational and fun activities:"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:73
@@ -4883,12 +4883,9 @@ msgstr "How do I stay informed about future events and trade fairs?"
 
 #: .\pokemon\templates\pokemon\pages\faq.html:75
 msgid ""
-"Je kunt je aanmelden voor onze nieuwsbrief of ons volgen op sociale media "
-"(linken naar facebook, instagram, via een Linktree die dan nog  aangemaakt "
-"zal worden nog) om altijd op de hoogte te blijven van aankomende "
-"evenementen, beurzen en speciale activiteiten."
+"Je kunt ons volgen op social media om altijd op de hoogte te blijven van aankomende evenementen, beurzen en speciale activiteiten."
 msgstr ""
-"You can sign up for our newsletter or follow us on social media (linking to "
+"You can follow us on social media (linking to "
 "facebook, instagram, via a Linktree that will be created at that time) to "
 "always stay informed about upcoming events, fairs and special activities."
 
