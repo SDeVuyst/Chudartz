@@ -20,6 +20,7 @@ from .utils import helpers
 def index(request):
     context = get_default_context()
     context['form'] = ContactForm()
+    context['nieuws'] = Nieuws.objects.all()
     
     return TemplateResponse(request, 'pages/index.html', context)
 

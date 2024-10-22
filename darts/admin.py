@@ -207,3 +207,20 @@ class BeurtkaartAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('-aantal_beurten',)
 
     search_fields = ('naam', 'aantal_beurten', 'prijs')
+
+@admin.register(Nieuws)
+class NieuwsAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('titel', 'naam_website', 'is_active')
+
+    search_fields = ('naam', 'naam_website')
+
+    @display(
+        description=_("Actief"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def is_active(self, obj):
+        label = _("Ja") if obj.active else _("Nee")
+        return obj.active, label

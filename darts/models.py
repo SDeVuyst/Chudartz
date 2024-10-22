@@ -525,3 +525,21 @@ class BeurtkaartBetaling(models.Model):
 
         # Send the email
         email.send()
+
+
+class Nieuws(models.Model):
+    def __str__(self):
+        return self.titel
+    
+    class Meta:
+        verbose_name = 'Nieuws'
+        verbose_name_plural = 'Nieuws'
+
+
+    titel = models.CharField(verbose_name=_("Titel"), max_length=120)
+    naam_website = models.CharField(verbose_name=_("Naam Website"), max_length=50)
+    link = models.URLField(verbose_name=_("Artikel URL"))
+    icon = models.CharField(max_length=40, verbose_name=_("Bootstrap Icon"))
+    active = models.BooleanField(verbose_name=_("Actief"))
+
+    history = HistoricalRecords(verbose_name=_("History"))

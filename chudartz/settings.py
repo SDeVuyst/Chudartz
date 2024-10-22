@@ -295,10 +295,16 @@ UNFOLD = {
                         "link": "/admin/darts/sponsor/",
                     },
                     {
+                        "title": _("Nieuws"),
+                        "icon": "article",
+                        "link": "/admin/darts/nieuws/"
+                    },
+                    {
                         "title": _("Navigatiebalk"),
                         "icon": "dropdown",
                         "link": "/admin/darts/toernooiheadergroep/",
                     },
+
                 ]
             },
 
