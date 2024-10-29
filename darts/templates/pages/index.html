@@ -408,7 +408,7 @@
           {% for artikel in nieuws %}
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box">
-              <a href="{{ artikel.link }}" target="_blank" rel="noopener noreferrer">
+              <a href="{% if artikel.link %} {{ artikel.link }} {% else %} {{ artikel.artikel_bestand.url }} {% endif %}" target="_blank" rel="noopener noreferrer">
                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                   <i class="bi bi-{{ artikel.icon }}"></i>
                   <h3>{{ artikel.titel }}</h3>

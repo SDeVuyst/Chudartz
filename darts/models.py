@@ -535,10 +535,20 @@ class Nieuws(models.Model):
         verbose_name = 'Nieuws'
         verbose_name_plural = 'Nieuws'
 
+    def clean(self):
+        super().clean()  # Call the parent class's clean method first
+        if not self.link and not self.artikel_bestand:
+            raise ValidationError("At least one of link or artikel_bestand must be provided.")
+    
+    def save(self, *args, **kwargs):
+        self.full_clean()  # Call full_clean to ensure clean method runs before saving
+        super().save(*args, **kwargs)
+
 
     titel = models.CharField(verbose_name=_("Titel"), max_length=120)
     naam_website = models.CharField(verbose_name=_("Naam Website"), max_length=50)
-    link = models.URLField(verbose_name=_("Artikel URL"))
+    link = models.URLField(verbose_name=_("Artikel URL"), null=True, blank=True)
+    artikel_bestand = models.FileField(verbose_name=_("Artikel Bestand"), null=True, blank=True, upload_to="artikels")
     icon = models.CharField(max_length=40, verbose_name=_("Bootstrap Icon"))
     active = models.BooleanField(verbose_name=_("Actief"))
 
