@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
-from unfold.contrib.filters.admin import RelatedDropdownFilter
+from unfold.contrib.filters.admin import DropdownFilter, RelatedDropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
 from django.utils.safestring import mark_safe
@@ -19,6 +19,22 @@ class TicketInline(StackedInline):
     model = Ticket
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
+
+# FILTERS #
+class ToernooiFilter(DropdownFilter):
+    title = 'Toernooi'  # Display name of the filter in the admin
+    parameter_name = 'toernooi'  # URL parameter name used for filtering
+
+    def lookups(self, request, model_admin):
+        # Provide options for filtering based on distinct events
+        events = Toernooi.objects.all()
+        return [(event.pk, event.titel) for event in events]
+
+    def queryset(self, request, queryset):
+        # Filter the queryset of Participants based on the selected event
+        if self.value():
+            return queryset.filter(ticket__event__pk=self.value())
+        return queryset
 
 
 # MODELS #
@@ -117,6 +133,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
 
     search_fields = ('voornaam', 'achternaam', 'email')
     list_filter = (
+        ToernooiFilter,
         ('attended', admin.BooleanFieldListFilter),
         ('ticket', RelatedDropdownFilter),
     )

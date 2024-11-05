@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
-from unfold.contrib.filters.admin import RelatedDropdownFilter
+from unfold.contrib.filters.admin import RelatedDropdownFilter, DropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
 from django.utils.safestring import mark_safe
@@ -15,11 +15,30 @@ from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExpor
 
 from .models import *
 
+# INLINES #
 class TicketInline(StackedInline):
     model = Ticket
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
 
+
+# FILTERS #
+class EvenementFilter(DropdownFilter):
+    title = 'Evenement'  # Display name of the filter in the admin
+    parameter_name = 'evenement'  # URL parameter name used for filtering
+
+    def lookups(self, request, model_admin):
+        # Provide options for filtering based on distinct events
+        events = Evenement.objects.all()
+        return [(event.pk, event.titel) for event in events]
+
+    def queryset(self, request, queryset):
+        # Filter the queryset of Participants based on the selected event
+        if self.value():
+            return queryset.filter(ticket__event__pk=self.value())
+        return queryset
+    
+# MODELS #
 @admin.register(Ticket)
 class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'price', 'participants_count', 'remaining_tickets', 'is_sold_out')
@@ -95,6 +114,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
 
     search_fields = ('mail',)
     list_filter = (
+        EvenementFilter,
         ('attended', admin.BooleanFieldListFilter),
         ('ticket', RelatedDropdownFilter),
     )
