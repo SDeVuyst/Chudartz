@@ -17,3 +17,4 @@ django-phonenumber-field
 django-lockdown
 pytz
 django-dbbackup
+django-import-export>=4.1

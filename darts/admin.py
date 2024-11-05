@@ -9,7 +9,8 @@ from unfold.contrib.filters.admin import RelatedDropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
 from django.utils.safestring import mark_safe
-
+from import_export.admin import ImportExportModelAdmin
+from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExportForm
 from .models import *
 
 
@@ -72,7 +73,10 @@ class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 
 @admin.register(Participant)
-class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
+class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
     list_display = ['voornaam', 'achternaam', 'evenement', 'payment_status', 'attendance']
     ordering = ('id',)
 
@@ -174,7 +178,10 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     
 
 @admin.register(Sponsor)
-class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
+class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
     list_display = ('naam', 'toon_op_index', 'toon_in_footer', 'toon_op_sponsors_pagina')
     ordering = ('id',)
 
@@ -182,7 +189,10 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 
 @admin.register(Leerling)
-class LeerlingAdmin(SimpleHistoryAdmin, ModelAdmin):
+class LeerlingAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
     list_display = ('voornaam', 'achternaam', 'resterende_beurten', 'payment_status', 'code')
     readonly_fields=('code',)
     ordering = ('voornaam', 'achternaam')
@@ -214,7 +224,10 @@ class BeurtkaartAdmin(SimpleHistoryAdmin, ModelAdmin):
     search_fields = ('naam', 'aantal_beurten', 'prijs')
 
 @admin.register(Nieuws)
-class NieuwsAdmin(SimpleHistoryAdmin, ModelAdmin):
+class NieuwsAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+    
     list_display = ('titel', 'naam_website', 'is_active')
 
     search_fields = ('naam', 'naam_website')

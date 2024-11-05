@@ -9,6 +9,9 @@ from unfold.contrib.filters.admin import RelatedDropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
 from django.utils.safestring import mark_safe
+from import_export.admin import ImportExportModelAdmin
+from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExportForm
+
 
 from .models import *
 
@@ -37,14 +40,21 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     
 
 @admin.register(Partner)
-class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin):
+class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
     list_display = ('name',)
     ordering = ('id',)
 
     search_fields = ('name', )
 
+
 @admin.register(Participant)
-class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
+class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+    
     list_display = ['mail', 'evenement', 'attendance']
     ordering = ('id',)
 
