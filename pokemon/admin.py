@@ -8,6 +8,7 @@ from unfold.admin import ModelAdmin
 from unfold.contrib.filters.admin import RelatedDropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
+from django.utils.safestring import mark_safe
 
 from .models import *
 
@@ -44,8 +45,15 @@ class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Participant)
 class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ['mail', 'attendance']
+    list_display = ['mail', 'evenement', 'attendance']
     ordering = ('id',)
+
+    @display(description=_("Evenement"))
+    def evenement(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:pokemon_evenement_change", args=(obj.ticket.event.pk,)),
+            obj.ticket.event.titel
+        ))
 
     @display(
         description=_('Status van Betaling'), 

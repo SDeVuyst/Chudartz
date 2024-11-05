@@ -8,6 +8,7 @@ from unfold.admin import ModelAdmin
 from unfold.contrib.filters.admin import RelatedDropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
+from django.utils.safestring import mark_safe
 
 from .models import *
 
@@ -17,9 +18,6 @@ class TicketInline(StackedInline):
     model = Ticket
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
-
-
-# FILTERS #
 
 
 # MODELS #
@@ -75,7 +73,7 @@ class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Participant)
 class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ['voornaam', 'achternaam', 'payment_status', 'attendance']
+    list_display = ['voornaam', 'achternaam', 'evenement', 'payment_status', 'attendance']
     ordering = ('id',)
 
     @display(
@@ -104,6 +102,13 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     def attendance(self, obj):
         label = _("Yes") if obj.attended else _("No")
         return obj.attended, label
+
+    @display(description=_("Evenement"))
+    def evenement(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:darts_toernooi_change", args=(obj.ticket.event.pk,)),
+            obj.ticket.event.titel
+        ))
     
 
     search_fields = ('voornaam', 'achternaam', 'email')
