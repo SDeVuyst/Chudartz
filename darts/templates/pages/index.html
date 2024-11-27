@@ -2,6 +2,10 @@
 
 {% load static i18n sponsors nieuws %}
 
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
+{% endblock %}
+
 {% block meta %}
 <meta name="description" content="{% blocktrans %}Bij ChudartZ in Zedelgem delen we onze passie voor darts en bieden we een jeugd-dartschool aan, waar spelers van elk niveau hun talent kunnen ontwikkelen. We organiseren regelmatig toernooien en trainingen om spelers te helpen groeien en hun vaardigheden verder te verbeteren. {% endblocktrans %}">
 <meta name="robots" content="index, follow">
@@ -374,6 +378,9 @@
                     <div class="col-12">
                         <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Bericht' %}" required></textarea>
                     </div>
+
+                    <!-- captcha -->
+                    <input type="hidden" name="recaptcha_token" id="recaptcha_token">
             
                     <!-- Submit Button and Feedback Messages -->
                     <div class="col-12 text-center">

@@ -345,6 +345,12 @@ def contact(request):
     # request must always be post
     if request.method != 'POST':
         return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    
+    if not helpers.verify_recaptcha(request.GET.get('recaptcha_token')):
+        return JsonResponse({
+            'success': False,
+            'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+        })
 
     form = ContactForm(request.POST)
 

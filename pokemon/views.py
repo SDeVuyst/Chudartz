@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 
+from darts.utils import helpers
 from pokemon.forms import ContactForm, StandhouderForm
 from pokemon.models import Evenement, Participant, Payment, PaymentStatus, Ticket
 from pokemon.payment import MollieClient
@@ -27,6 +28,12 @@ def contact(request):
     # request must always be post
     if request.method != 'POST':
         return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    
+    if not helpers.verify_recaptcha(request.GET.get('recaptcha_token')):
+        return JsonResponse({
+            'success': False,
+            'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+        })
 
     form = ContactForm(request.POST)
 

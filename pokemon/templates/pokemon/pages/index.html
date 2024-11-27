@@ -2,6 +2,10 @@
 
 {% load static i18n %}
 
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
+{% endblock %}
+
 {% block meta %}
 <meta name="description" content="Welkom bij ChudartZ Collectibles, dé bestemming voor liefhebbers van Pokémon en andere unieke verzamelobjecten. Ontdek onze gemeenschap, blijf op de hoogte van onze evenementen en deel jouw passie met andere verzamelaars. Bezoek onze website voor meer informatie over onze activiteiten!">
 <meta name="robots" content="index, follow">
@@ -209,6 +213,9 @@
                     <div class="col-12">
                         <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Bericht' %}" required></textarea>
                     </div>
+
+                    <!-- captcha -->
+                    <input type="hidden" name="recaptcha_token" id="recaptcha_token">
             
                     <!-- Submit Button and Feedback Messages -->
                     <div class="col-12 text-center">
