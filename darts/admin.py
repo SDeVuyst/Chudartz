@@ -5,10 +5,12 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
-from unfold.contrib.filters.admin import RelatedDropdownFilter
+from unfold.contrib.filters.admin import DropdownFilter, RelatedDropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
-
+from django.utils.safestring import mark_safe
+from import_export.admin import ImportExportModelAdmin
+from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExportForm
 from .models import *
 
 
@@ -18,8 +20,21 @@ class TicketInline(StackedInline):
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
 
-
 # FILTERS #
+class ToernooiFilter(DropdownFilter):
+    title = 'Toernooi'  # Display name of the filter in the admin
+    parameter_name = 'toernooi'  # URL parameter name used for filtering
+
+    def lookups(self, request, model_admin):
+        # Provide options for filtering based on distinct events
+        events = Toernooi.objects.all()
+        return [(event.pk, event.titel) for event in events]
+
+    def queryset(self, request, queryset):
+        # Filter the queryset of Participants based on the selected event
+        if self.value():
+            return queryset.filter(ticket__event__pk=self.value())
+        return queryset
 
 
 # MODELS #
@@ -74,8 +89,11 @@ class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 
 @admin.register(Participant)
-class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ['voornaam', 'achternaam', 'payment_status', 'attendance']
+class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
+    list_display = ['voornaam', 'achternaam', 'evenement', 'payment_status', 'attendance']
     ordering = ('id',)
 
     @display(
@@ -104,10 +122,18 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     def attendance(self, obj):
         label = _("Yes") if obj.attended else _("No")
         return obj.attended, label
+
+    @display(description=_("Evenement"))
+    def evenement(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:darts_toernooi_change", args=(obj.ticket.event.pk,)),
+            obj.ticket.event.titel
+        ))
     
 
     search_fields = ('voornaam', 'achternaam', 'email')
     list_filter = (
+        ToernooiFilter,
         ('attended', admin.BooleanFieldListFilter),
         ('ticket', RelatedDropdownFilter),
     )
@@ -169,7 +195,10 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     
 
 @admin.register(Sponsor)
-class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
+class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
     list_display = ('naam', 'toon_op_index', 'toon_in_footer', 'toon_op_sponsors_pagina')
     ordering = ('id',)
 
@@ -177,7 +206,10 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 
 @admin.register(Leerling)
-class LeerlingAdmin(SimpleHistoryAdmin, ModelAdmin):
+class LeerlingAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
     list_display = ('voornaam', 'achternaam', 'resterende_beurten', 'payment_status', 'code')
     readonly_fields=('code',)
     ordering = ('voornaam', 'achternaam')
@@ -207,3 +239,23 @@ class BeurtkaartAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('-aantal_beurten',)
 
     search_fields = ('naam', 'aantal_beurten', 'prijs')
+
+@admin.register(Nieuws)
+class NieuwsAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+    
+    list_display = ('titel', 'naam_website', 'is_active')
+
+    search_fields = ('naam', 'naam_website')
+
+    @display(
+        description=_("Actief"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def is_active(self, obj):
+        label = _("Ja") if obj.active else _("Nee")
+        return obj.active, label

@@ -59,6 +59,7 @@ section,
   width: 100%;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
   padding: 80px 0;
   display: flex;
   align-items: center;
@@ -75,12 +76,24 @@ section,
   z-index: 1;
 }
 
+.hero .video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ensures the video covers the entire section */
+  z-index: 1;
+  /* Places the video behind the content */
+}
+
 .hero:before {
   content: "";
   background: color-mix(in srgb, var(--background-color), transparent 50%);
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 .hero .kamikaze {
@@ -92,7 +105,7 @@ section,
 
 .hero .container {
   position: relative;
-  z-index: 3;
+  z-index: 4;
 }
 
 .hero h2 {
@@ -286,6 +299,47 @@ section,
 .over-ons .icon-boxes .col-md-6:nth-child(4) .icon-box {
     margin-top: 0;
   }
+}
+
+/*--------------------------------------------------------------
+# About Section
+--------------------------------------------------------------*/
+.news .icon-box {
+  background-color: var(--surface-color);
+  padding: 50px 40px;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease-out 0s;
+}
+
+.news .icon-box i {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-size: 32px;
+  line-height: 0;
+  transition: all 0.4s ease-out 0s;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+  color: var(--accent-color);
+}
+
+.news .icon-box h3 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.news .icon-box p {
+  margin-bottom: 0;
+}
+
+.news .icon-box:hover i {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
 }
 
 /*--------------------------------------------------------------
@@ -640,7 +694,7 @@ section,
 .pricing h3 {
   font-weight: 600;
   margin-bottom: 15px;
-  font-size: 20px;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -687,7 +741,7 @@ section,
 }
 
 .pricing h4 {
-  font-size: 48px;
+  font-size: 36px;
   color: var(--accent-color);
   font-weight: 700;
   font-family: var(--heading-font);
@@ -696,7 +750,7 @@ section,
 }
 
 .pricing h4 sup {
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .pricing h4 span {
@@ -1179,18 +1233,22 @@ section,
 .contact .email-form input[type=text],
 .contact .email-form input[type=email],
 .contact .email-form input[type=number],
+.contact .email-form input[type=tel],
 .contact .email-form select,
 .contact .email-form textarea, .contact .register-form input[type=text],
 .contact .register-form input[type=email],
 .contact .register-form input[type=number],
+.contact .register-form input[type=tel],
 .contact .register-form select,
 .contact .register-form textarea, .register .email-form input[type=text],
 .register .email-form input[type=email],
 .register .email-form input[type=number],
+.register .email-form input[type=tel],
 .register .email-form select,
 .register .email-form textarea, .register .register-form input[type=text],
 .register .register-form input[type=email],
 .register .register-form input[type=number],
+.register .register-form input[type=tel],
 .register .register-form select,
 .register .register-form textarea {
   font-size: 14px;
@@ -1205,18 +1263,22 @@ section,
 .contact .email-form input[type=text]:focus,
 .contact .email-form input[type=email]:focus,
 .contact .email-form input[type=number]:focus,
+.contact .email-form input[type=tel]:focus,
 .contact .email-form select:focus,
 .contact .email-form textarea:focus, .contact .register-form input[type=text]:focus,
 .contact .register-form input[type=email]:focus,
 .contact .register-form input[type=number]:focus,
+.contact .register-form input[type=tel]:focus,
 .contact .register-form select:focus,
 .contact .register-form textarea:focus, .register .email-form input[type=text]:focus,
 .register .email-form input[type=email]:focus,
 .register .email-form input[type=number]:focus,
+.register .email-form input[type=tel]:focus,
 .register .email-form select:focus,
 .register .email-form textarea:focus, .register .register-form input[type=text]:focus,
 .register .register-form input[type=email]:focus,
 .register .register-form input[type=number]:focus,
+.register .register-form input[type=tel]:focus,
 .register .register-form select:focus,
 .register .register-form textarea:focus {
   border-color: var(--accent-color);
@@ -1225,18 +1287,22 @@ section,
 .contact .email-form input[type=text]::placeholder,
 .contact .email-form input[type=email]::placeholder,
 .contact .email-form input[type=number]::placeholder,
+.contact .email-form input[type=tel]::placeholder,
 .contact .email-form select::placeholder,
 .contact .email-form textarea::placeholder, .contact .register-form input[type=text]::placeholder,
 .contact .register-form input[type=email]::placeholder,
 .contact .register-form input[type=number]::placeholder,
+.contact .register-form input[type=tel]::placeholder,
 .contact .register-form select::placeholder,
 .contact .register-form textarea::placeholder, .register .email-form input[type=text]::placeholder,
 .register .email-form input[type=email]::placeholder,
 .register .email-form input[type=number]::placeholder,
+.register .email-form input[type=tel]::placeholder,
 .register .email-form select::placeholder,
 .register .email-form textarea::placeholder, .register .register-form input[type=text]::placeholder,
 .register .register-form input[type=email]::placeholder,
 .register .register-form input[type=number]::placeholder,
+.register .register-form input[type=tel]::placeholder,
 .register .register-form select::placeholder,
 .register .register-form textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
@@ -1245,18 +1311,22 @@ section,
 .contact .email-form input[type=text] .valid,
 .contact .email-form input[type=email] .valid,
 .contact .email-form input[type=number] .valid,
+.contact .email-form input[type=tel] .valid,
 .contact .email-form select .valid,
 .contact .email-form textarea .valid, .contact .register-form input[type=text] .valid,
 .contact .register-form input[type=email] .valid,
 .contact .register-form input[type=number] .valid,
+.contact .register-form input[type=tel] .valid,
 .contact .register-form select .valid,
 .contact .register-form textarea .valid, .register .email-form input[type=text] .valid,
 .register .email-form input[type=email] .valid,
 .register .email-form input[type=number] .valid,
+.register .email-form input[type=tel] .valid,
 .register .email-form select .valid,
 .register .email-form textarea .valid, .register .register-form input[type=text] .valid,
 .register .register-form input[type=email] .valid,
 .register .register-form input[type=number] .valid,
+.register .register-form input[type=tel] .valid,
 .register .register-form select .valid,
 .register .register-form textarea .valid {
   color: var(--default-color) !important;
@@ -1266,7 +1336,7 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .email-form button[type="submit"], .contact .register-form button[type="submit"], .register .email-form button[type="submit"], .register .register-form button[type="submit"] {
+.contact .email-form button, .contact .register-form button, .register .email-form button, .register .register-form button {
   background: var(--accent-color);
   color: var(--contrast-color);
   border: 0;
@@ -1275,7 +1345,7 @@ section,
   border-radius: 4px;
 }
 
-.contact .email-form button[type="submit"]:hover, .contact .register-form button[type="submit"]:hover, .register .email-form button[type="submit"]:hover, .register .register-form button[type="submit"]:hover {
+.contact .email-form button:hover, .contact .register-form button:hover, .register .email-form button:hover, .register .register-form button:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
@@ -1376,7 +1446,7 @@ section,
 
 .portfolio-details .portfolio-description .testimonial-item .quote-icon-left,
 .portfolio-details .portfolio-description .testimonial-item .quote-icon-right {
-  color: color-mix(in srgb, var(--accent-color), transparent 50%);
+  color: var(--accent-color);
   font-size: 26px;
   line-height: 0;
 }
@@ -1422,6 +1492,12 @@ section,
   margin-bottom: 15px;
 }
 
+.service-details .service-box h2 {
+  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
 .service-details .service-box .btn-get-started {
   background-color: var(--accent-color);
   color: var(--contrast-color);
@@ -1431,6 +1507,49 @@ section,
 
 .service-details .service-box .btn-get-started:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
+.service-details .service-box .divider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-details .service-box .divider::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+.service-details .service-box .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+.service-details .service-box .divider span {
+  margin: 5px 10px;
+  padding: 0 10px;
+  background-color: transparent;
+}
+
+@media (min-width: 992px) {
+  .service-details .service-box {
+    /* Start vertical at lg (992px) breakpoint */
+  }
+  .service-details .service-box .divider {
+    height: 100%;
+    flex-direction: column;
+  }
+  .service-details .service-box .divider::before,
+.service-details .service-box .divider::after {
+    width: 1px;
+    height: 50%;
+  }
 }
 
 .service-details .services-list {

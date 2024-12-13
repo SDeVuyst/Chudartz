@@ -1,6 +1,10 @@
 {% extends 'main.html' %}
 
-{% load static i18n sponsors  %}
+{% load static i18n sponsors nieuws %}
+
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
+{% endblock %}
 
 {% block meta %}
 <meta name="description" content="{% blocktrans %}Bij ChudartZ in Zedelgem delen we onze passie voor darts en bieden we een jeugd-dartschool aan, waar spelers van elk niveau hun talent kunnen ontwikkelen. We organiseren regelmatig toernooien en trainingen om spelers te helpen groeien en hun vaardigheden verder te verbeteren. {% endblocktrans %}">
@@ -374,6 +378,9 @@
                     <div class="col-12">
                         <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Bericht' %}" required></textarea>
                     </div>
+
+                    <!-- captcha -->
+                    <input type="hidden" name="recaptcha_token" id="recaptcha_token">
             
                     <!-- Submit Button and Feedback Messages -->
                     <div class="col-12 text-center">
@@ -392,8 +399,38 @@
 
       </div>
 
-    </section><!-- /Contact Section -->
+    </section>
 
+    {% if nieuws|has_to_show_nieuws_index %}
+    <!-- Nieuws Section -->
+    <section id="news" class="news section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <h2>{% trans 'In het nieuws' %}</h2>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+
+          {% for artikel in nieuws %}
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box">
+              <a href="{% if artikel.link %} {{ artikel.link }} {% else %} {{ artikel.artikel_bestand.url }} {% endif %}" target="_blank" rel="noopener noreferrer">
+                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                  <i class="bi bi-{{ artikel.icon }}"></i>
+                  <h3>{{ artikel.titel }}</h3>
+                  <p>{{ artikel.naam_website }}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+    </section><!-- /Nieuws Section -->
+    {% endif %}
     
 
   </main>

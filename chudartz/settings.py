@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "unfold.contrib.filters",
     "unfold.contrib.inlines",  
     "unfold.contrib.simple_history",
+    "unfold.contrib.import_export",
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,7 +63,8 @@ INSTALLED_APPS = [
     'djmoney',
     'ckeditor',
     'lockdown',
-    'phonenumber_field'
+    'phonenumber_field',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -295,10 +297,16 @@ UNFOLD = {
                         "link": "/admin/darts/sponsor/",
                     },
                     {
+                        "title": _("Nieuws"),
+                        "icon": "article",
+                        "link": "/admin/darts/nieuws/"
+                    },
+                    {
                         "title": _("Navigatiebalk"),
                         "icon": "dropdown",
                         "link": "/admin/darts/toernooiheadergroep/",
                     },
+
                 ]
             },
 

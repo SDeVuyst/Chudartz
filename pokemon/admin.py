@@ -5,17 +5,40 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
-from unfold.contrib.filters.admin import RelatedDropdownFilter
+from unfold.contrib.filters.admin import RelatedDropdownFilter, DropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
+from django.utils.safestring import mark_safe
+from import_export.admin import ImportExportModelAdmin
+from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExportForm
+
 
 from .models import *
 
+# INLINES #
 class TicketInline(StackedInline):
     model = Ticket
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
 
+
+# FILTERS #
+class EvenementFilter(DropdownFilter):
+    title = 'Evenement'  # Display name of the filter in the admin
+    parameter_name = 'evenement'  # URL parameter name used for filtering
+
+    def lookups(self, request, model_admin):
+        # Provide options for filtering based on distinct events
+        events = Evenement.objects.all()
+        return [(event.pk, event.titel) for event in events]
+
+    def queryset(self, request, queryset):
+        # Filter the queryset of Participants based on the selected event
+        if self.value():
+            return queryset.filter(ticket__event__pk=self.value())
+        return queryset
+    
+# MODELS #
 @admin.register(Ticket)
 class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'price', 'participants_count', 'remaining_tickets', 'is_sold_out')
@@ -36,16 +59,30 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     
 
 @admin.register(Partner)
-class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin):
+class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
     list_display = ('name',)
     ordering = ('id',)
 
     search_fields = ('name', )
 
+
 @admin.register(Participant)
-class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ['mail', 'attendance']
+class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+    
+    list_display = ['mail', 'evenement', 'attendance']
     ordering = ('id',)
+
+    @display(description=_("Evenement"))
+    def evenement(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:pokemon_evenement_change", args=(obj.ticket.event.pk,)),
+            obj.ticket.event.titel
+        ))
 
     @display(
         description=_('Status van Betaling'), 
@@ -77,6 +114,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     search_fields = ('mail',)
     list_filter = (
+        EvenementFilter,
         ('attended', admin.BooleanFieldListFilter),
         ('ticket', RelatedDropdownFilter),
     )

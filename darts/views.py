@@ -20,6 +20,7 @@ from .utils import helpers
 def index(request):
     context = get_default_context()
     context['form'] = ContactForm()
+    context['nieuws'] = Nieuws.objects.all()
     
     return TemplateResponse(request, 'pages/index.html', context)
 
@@ -344,6 +345,12 @@ def contact(request):
     # request must always be post
     if request.method != 'POST':
         return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    
+    if not helpers.verify_recaptcha(request.GET.get('recaptcha_token')):
+        return JsonResponse({
+            'success': False,
+            'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+        })
 
     form = ContactForm(request.POST)
 
@@ -490,6 +497,10 @@ def set_attendance(request):
             return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
         
         participant = get_object_or_404(Participant, pk=participant_id)
+
+        # participant hasnt paid
+        if participant.payment.status != PaymentStatus.PAID:
+            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
 
         # check if seed is correct
         if seed != participant.random_seed:
