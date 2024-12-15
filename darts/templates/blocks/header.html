@@ -48,8 +48,13 @@
           <!-- <li><a href="{% url 'resultaten' %}">Resultaten</a></li> --> 
         </ul>
       </li>
-
-      <li><a href="{% url 'teambuildings_en_workshops' %}">{% trans 'Teambuilding' %}</a></li>   
+      <li class="dropdown">
+        <a href="#"><span>{% trans 'Workshops' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <ul>
+          <li><a href="{% url 'workshops' %}#teambuilding">{% trans 'Teambuilding' %}</a></li>
+          <li><a href="{% url 'workshops' %}#demo">{% trans 'Demolessen' %}</a></li>
+        </ul>
+      </li>
       <li><a href="{% url 'index' %}#contact">{% trans 'Contact' %}</a></li>
 
       <li class="dropdown">

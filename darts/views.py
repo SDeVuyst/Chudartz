@@ -309,7 +309,7 @@ def priveles(request):
     return TemplateResponse(request, 'pages/priveles.html', get_default_context())
 
 
-def teambuildings_en_workshops(request):
+def workshops(request):
     return TemplateResponse(request, 'pages/teambuildings-en-workshops.html', get_default_context())
 
 
