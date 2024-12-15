@@ -332,7 +332,7 @@ UNFOLD = {
                     {
                         "title": _("Scanner"),
                         "icon": "qr_code_scanner",
-                        "link": "https://chudartz-collectibles/pokemon/scanner/",
+                        "link": "https://chudartz-collectibles.com/pokemon/scanner/",
                     },
                 ]
             },
