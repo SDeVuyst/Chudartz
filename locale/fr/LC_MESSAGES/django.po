@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-22 12:10+0200\n"
-"PO-Revision-Date: 2024-10-22 12:15+0200\n"
+"POT-Creation-Date: 2024-12-15 20:08+0100\n"
+"PO-Revision-Date: 2024-12-15 20:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,17 +19,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: .\chudartz\settings.py:230
+#: .\chudartz\settings.py:232
 msgid "Financiën"
 msgstr "Finance"
 
-#: .\chudartz\settings.py:235
+#: .\chudartz\settings.py:237
 msgid "Analyse"
 msgstr "Analyse"
 
-#: .\chudartz\settings.py:247 .\darts\templates\blocks\header.html:25
-#: .\darts\templates\pages\index.html:123
-#: .\darts\templates\pages\index.html:210
+#: .\chudartz\settings.py:249 .\darts\templates\blocks\header.html:25
+#: .\darts\templates\pages\index.html:127
+#: .\darts\templates\pages\index.html:214
 #: .\darts\templates\pages\resultaat.html:32
 #: .\darts\templates\pages\toernooi-inschrijving.html:29
 #: .\darts\templates\pages\toernooi.html:27
@@ -37,15 +37,15 @@ msgstr "Analyse"
 msgid "Toernooien"
 msgstr "Tournois"
 
-#: .\chudartz\settings.py:253 .\chudartz\settings.py:321
+#: .\chudartz\settings.py:255 .\chudartz\settings.py:323
 msgid "Deelnemers"
 msgstr "Participants"
 
-#: .\chudartz\settings.py:259 .\chudartz\settings.py:331
+#: .\chudartz\settings.py:261 .\chudartz\settings.py:333
 msgid "Scanner"
 msgstr "Scanneur"
 
-#: .\chudartz\settings.py:270 .\darts\templates\blocks\header.html:14
+#: .\chudartz\settings.py:272 .\darts\templates\blocks\header.html:14
 #: .\darts\templates\pages\dartschool-beurtkaart.html:33
 #: .\darts\templates\pages\dartschool-beurtkaart.html:34
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:30
@@ -53,129 +53,134 @@ msgstr "Scanneur"
 #: .\darts\templates\pages\dartschool-reserveren.html:34
 #: .\darts\templates\pages\dartschool-werkwijze.html:21
 #: .\darts\templates\pages\dartschool.html:28
-#: .\darts\templates\pages\index.html:111
-#: .\darts\templates\pages\index.html:209
+#: .\darts\templates\pages\index.html:115
+#: .\darts\templates\pages\index.html:213
 #: .\darts\templates\pages\priveles.html:30
 msgid "Dartschool"
 msgstr "École de fléchettes"
 
-#: .\chudartz\settings.py:276
+#: .\chudartz\settings.py:278
 msgid "Leerlingen"
 msgstr "Élèves"
 
-#: .\chudartz\settings.py:282
+#: .\chudartz\settings.py:284
 msgid "Beurtkaarten"
 msgstr "Cartes à retourner"
 
-#: .\chudartz\settings.py:293 .\darts\templates\blocks\footer.html:28
+#: .\chudartz\settings.py:295 .\darts\templates\blocks\footer.html:28
 #: .\darts\templates\pages\sponsors.html:20
 msgid "Sponsors"
 msgstr "Sponsors"
 
-#: .\chudartz\settings.py:298
+#: .\chudartz\settings.py:300
 msgid "Nieuws"
 msgstr "Nouvelles"
 
-#: .\chudartz\settings.py:303
+#: .\chudartz\settings.py:305
 msgid "Navigatiebalk"
-msgstr ""
+msgstr "Barre de navigation"
 
-#: .\chudartz\settings.py:316 .\pokemon\templates\pokemon\blocks\header.html:13
+#: .\chudartz\settings.py:318 .\pokemon\templates\pokemon\blocks\header.html:13
 #: .\pokemon\templates\pokemon\pages\evenement.html:30
 #: .\pokemon\templates\pokemon\pages\evenementen.html:28
-#: .\pokemon\templates\pokemon\pages\index.html:108
+#: .\pokemon\templates\pokemon\pages\index.html:112
 #: .\pokemon\templates\pokemon\pages\standhouder.html:29
 msgid "Evenementen"
 msgstr "Épreuves"
 
-#: .\chudartz\settings.py:326 .\pokemon\models.py:68
+#: .\chudartz\settings.py:328 .\pokemon\models.py:68
 msgid "Partners"
-msgstr ""
+msgstr "Partenaires"
 
-#: .\darts\admin.py:18 .\pokemon\admin.py:16
+#: .\darts\admin.py:20 .\pokemon\admin.py:21
 msgid "Evenement Ticket"
 msgstr "Billet pour l’événement"
 
-#: .\darts\admin.py:19 .\pokemon\admin.py:17
+#: .\darts\admin.py:21 .\pokemon\admin.py:22
 msgid "Evenement Tickets"
 msgstr "Billets pour l’événement"
 
-#: .\darts\admin.py:45 .\pokemon\admin.py:121
+#: .\darts\admin.py:60 .\pokemon\admin.py:159
 #: .\pokemon\templates\pokemon\blocks\ticket.html:37
 msgid "Uitverkocht"
 msgstr "Épuisé"
 
-#: .\darts\admin.py:52 .\darts\admin.py:167 .\pokemon\admin.py:34
-#: .\pokemon\admin.py:128
+#: .\darts\admin.py:67 .\darts\admin.py:193 .\pokemon\admin.py:57
+#: .\pokemon\admin.py:166
 msgid "Sold out!"
 msgstr "Épuisé!"
 
-#: .\darts\admin.py:52 .\darts\admin.py:167 .\pokemon\admin.py:34
-#: .\pokemon\admin.py:128
+#: .\darts\admin.py:67 .\darts\admin.py:193 .\pokemon\admin.py:57
+#: .\pokemon\admin.py:166
 msgid "Available"
 msgstr "Disponible"
 
-#: .\darts\admin.py:58 .\pokemon\admin.py:134
+#: .\darts\admin.py:73 .\pokemon\admin.py:172
 msgid "Genereer QR Code"
 msgstr "Générer un code QR"
 
-#: .\darts\admin.py:82 .\darts\admin.py:188 .\pokemon\admin.py:51
+#: .\darts\admin.py:100 .\darts\admin.py:220 .\pokemon\admin.py:88
 msgid "Status van Betaling"
 msgstr "Statut du paiement"
 
-#: .\darts\admin.py:98 .\darts\models.py:277 .\pokemon\admin.py:67
-#: .\pokemon\models.py:281
+#: .\darts\admin.py:116 .\darts\models.py:282 .\pokemon\admin.py:104
+#: .\pokemon\models.py:286
 msgid "Attended"
 msgstr "Assisté"
 
-#: .\darts\admin.py:105 .\pokemon\admin.py:74
+#: .\darts\admin.py:123 .\pokemon\admin.py:111
 msgid "Yes"
 msgstr "Oui"
 
-#: .\darts\admin.py:105 .\pokemon\admin.py:74
+#: .\darts\admin.py:123 .\pokemon\admin.py:111
 msgid "No"
 msgstr "Non"
 
-#: .\darts\admin.py:118 .\pokemon\admin.py:87
+#: .\darts\admin.py:126 .\darts\models.py:152 .\pokemon\admin.py:80
+#: .\pokemon\models.py:132
+msgid "Evenement"
+msgstr "Événement"
+
+#: .\darts\admin.py:144 .\pokemon\admin.py:125
 msgid "Genereer Ticket"
 msgstr "Générer un ticket"
 
-#: .\darts\admin.py:124 .\pokemon\admin.py:93
+#: .\darts\admin.py:150 .\pokemon\admin.py:131
 msgid "Stuur bevestiging mail"
 msgstr "Envoyer un e-mail de confirmation"
 
-#: .\darts\admin.py:130 .\pokemon\admin.py:99
+#: .\darts\admin.py:156 .\pokemon\admin.py:137
 msgid "Bevestigings mail is verstuurd!"
 msgstr "L’e-mail de confirmation a été envoyé !"
 
-#: .\darts\admin.py:133 .\pokemon\admin.py:102
+#: .\darts\admin.py:159 .\pokemon\admin.py:140
 msgid "Bevestigings mail versturen mislukt. Error: "
 msgstr "L’e-mail de confirmation envoyé a échoué. Erreur: "
 
-#: .\darts\admin.py:145
+#: .\darts\admin.py:171
 msgid "Generate Ticket"
 msgstr "Générer un ticket"
 
-#: .\darts\admin.py:160 .\pokemon\admin.py:27
+#: .\darts\admin.py:186 .\pokemon\admin.py:50
 msgid "Sold out"
 msgstr "Épuisé"
 
-#: .\darts\admin.py:218 .\darts\models.py:44 .\darts\models.py:543
+#: .\darts\admin.py:253 .\darts\models.py:44 .\darts\models.py:558
 msgid "Actief"
 msgstr "Actif"
 
-#: .\darts\admin.py:225
+#: .\darts\admin.py:260
 msgid "Ja"
-msgstr ""
+msgstr "Oui"
 
-#: .\darts\admin.py:225
+#: .\darts\admin.py:260
 msgid "Nee"
-msgstr ""
+msgstr "Non "
 
-#: .\darts\models.py:43 .\darts\models.py:406 .\darts\models.py:493
-#: .\darts\templates\pages\index.html:360
+#: .\darts\models.py:43 .\darts\models.py:411 .\darts\models.py:498
+#: .\darts\templates\pages\index.html:364
 #: .\darts\templates\pages\priveles.html:63
-#: .\pokemon\templates\pokemon\pages\index.html:195
+#: .\pokemon\templates\pokemon\pages\index.html:199
 msgid "Naam"
 msgstr "Nom"
 
@@ -183,11 +188,11 @@ msgstr "Nom"
 msgid "Volgorde"
 msgstr "Commande"
 
-#: .\darts\models.py:59 .\darts\models.py:539 .\pokemon\models.py:53
+#: .\darts\models.py:59 .\darts\models.py:553 .\pokemon\models.py:53
 msgid "Titel"
 msgstr "Titre"
 
-#: .\darts\models.py:61 .\darts\models.py:236
+#: .\darts\models.py:61 .\darts\models.py:241
 msgid "Beschrijving"
 msgstr "Description"
 
@@ -216,7 +221,7 @@ msgstr "Emplacement (abrégé)"
 msgid "Locatie (lang)"
 msgstr "Emplacement (long)"
 
-#: .\darts\models.py:68 .\darts\models.py:414 .\pokemon\models.py:63
+#: .\darts\models.py:68 .\darts\models.py:419 .\pokemon\models.py:63
 msgid "afbeelding"
 msgstr "image"
 
@@ -248,9 +253,9 @@ msgstr "Nom dans l’en-tête"
 msgid "Resultaten"
 msgstr "Résultats"
 
-#: .\darts\models.py:80 .\darts\models.py:154 .\darts\models.py:238
+#: .\darts\models.py:80 .\darts\models.py:154 .\darts\models.py:243
 #: .\pokemon\models.py:70 .\pokemon\models.py:135 .\pokemon\models.py:180
-#: .\pokemon\models.py:216
+#: .\pokemon\models.py:221
 msgid "Geschiedenis"
 msgstr "Histoire"
 
@@ -258,188 +263,191 @@ msgstr "Histoire"
 msgid "titel"
 msgstr "titre"
 
-#: .\darts\models.py:152 .\pokemon\models.py:132
-msgid "Evenement"
-msgstr "Événement"
-
-#: .\darts\models.py:188 .\pokemon\models.py:193
+#: .\darts\models.py:189 .\pokemon\models.py:194
 msgctxt "payment status"
 msgid "Betaald"
 msgstr "Payé"
 
-#: .\darts\models.py:189 .\pokemon\models.py:194
+#: .\darts\models.py:190 .\pokemon\models.py:195
 msgctxt "payment status"
 msgid "Open"
 msgstr "Ouvert"
 
-#: .\darts\models.py:190 .\pokemon\models.py:195
+#: .\darts\models.py:191 .\pokemon\models.py:196
 msgctxt "payment status"
 msgid "Geannuleerd"
 msgstr "Annulé"
 
-#: .\darts\models.py:191 .\pokemon\models.py:196
+#: .\darts\models.py:192 .\pokemon\models.py:197
 msgctxt "payment status"
 msgid "Verlopen"
 msgstr "Expiré"
 
-#: .\darts\models.py:192 .\pokemon\models.py:197
+#: .\darts\models.py:193 .\pokemon\models.py:198
 msgctxt "payment status"
 msgid "Gefaald"
 msgstr "Raté"
 
-#: .\darts\models.py:230 .\pokemon\models.py:209
+#: .\darts\models.py:194 .\pokemon\models.py:199
+msgctxt "payment status"
+msgid "Teruggestort"
+msgstr "Remboursé"
+
+#: .\darts\models.py:235 .\pokemon\models.py:214
 msgid "Mollie id"
 msgstr "Mollie id"
 
-#: .\darts\models.py:231 .\darts\models.py:265 .\darts\models.py:431
+#: .\darts\models.py:236 .\darts\models.py:270 .\darts\models.py:436
 #: .\darts\templates\pages\dartschool-beurtkaart.html:132
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:61
-#: .\pokemon\models.py:210
+#: .\pokemon\models.py:215
 msgid "Voornaam"
 msgstr "Prénom"
 
-#: .\darts\models.py:232 .\darts\models.py:266 .\darts\models.py:432
+#: .\darts\models.py:237 .\darts\models.py:271 .\darts\models.py:437
 #: .\darts\templates\pages\dartschool-beurtkaart.html:137
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:66
-#: .\pokemon\models.py:211
+#: .\pokemon\models.py:216
 msgid "Achternaam"
 msgstr "Nom"
 
-#: .\darts\models.py:233 .\darts\models.py:268 .\darts\models.py:433
+#: .\darts\models.py:238 .\darts\models.py:273 .\darts\models.py:438
 #: .\darts\templates\pages\dartschool-beurtkaart.html:142
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:71
-#: .\darts\templates\pages\index.html:365
-#: .\darts\templates\pages\priveles.html:68 .\pokemon\models.py:212
-#: .\pokemon\models.py:279 .\pokemon\templates\pokemon\pages\evenement.html:167
-#: .\pokemon\templates\pokemon\pages\index.html:200
+#: .\darts\templates\pages\index.html:369
+#: .\darts\templates\pages\priveles.html:68 .\pokemon\models.py:217
+#: .\pokemon\models.py:284 .\pokemon\templates\pokemon\pages\evenement.html:167
+#: .\pokemon\templates\pokemon\pages\index.html:204
 msgid "Email"
 msgstr "Émail"
 
-#: .\darts\models.py:247
+#: .\darts\models.py:252
 msgctxt "skill level"
 msgid "Beginner"
 msgstr "Débutant"
 
-#: .\darts\models.py:248
+#: .\darts\models.py:253
 msgctxt "skill level"
 msgid "Gemiddeld"
 msgstr "Moyenne"
 
-#: .\darts\models.py:249
+#: .\darts\models.py:254
 msgctxt "skill level"
 msgid "Geoefend"
 msgstr "Pratiqué"
 
-#: .\darts\models.py:267
+#: .\darts\models.py:272
 msgid "Geboortejaar"
 msgstr "Année de naissance"
 
-#: .\darts\models.py:269
+#: .\darts\models.py:274
 msgid "Straatnaam"
 msgstr "Nom de la rue"
 
-#: .\darts\models.py:270
+#: .\darts\models.py:275
 msgid "Nummer"
 msgstr "Nombre"
 
-#: .\darts\models.py:271
+#: .\darts\models.py:276
 msgid "Postcode"
 msgstr "Code postal"
 
-#: .\darts\models.py:272
+#: .\darts\models.py:277
 msgid "Stad"
 msgstr "Ville"
 
-#: .\darts\models.py:274
+#: .\darts\models.py:279
 msgid "GSM"
 msgstr "Portable"
 
-#: .\darts\models.py:278 .\pokemon\models.py:282
+#: .\darts\models.py:283 .\pokemon\models.py:287
 msgid "beschrijving"
 msgstr "description"
 
-#: .\darts\models.py:279 .\pokemon\models.py:283
+#: .\darts\models.py:284 .\pokemon\models.py:288
 msgid "Ticket"
 msgstr "Ticket"
 
-#: .\darts\models.py:284 .\darts\models.py:416 .\darts\models.py:440
-#: .\darts\models.py:497 .\darts\models.py:545 .\pokemon\models.py:288
+#: .\darts\models.py:289 .\darts\models.py:421 .\darts\models.py:445
+#: .\darts\models.py:502 .\darts\models.py:560 .\pokemon\models.py:293
 msgid "History"
 msgstr "Histoire"
 
-#: .\darts\models.py:407 .\pokemon\models.py:36
+#: .\darts\models.py:412 .\pokemon\models.py:36
 msgid "Website URL"
 msgstr "URL du site Web"
 
-#: .\darts\models.py:408
+#: .\darts\models.py:413
 msgid "Info over Sponsor"
 msgstr "À propos du commanditaire"
 
-#: .\darts\models.py:409
+#: .\darts\models.py:414
 msgid "Toon Op Voorpagina"
 msgstr "Afficher sur la page d’accueil"
 
-#: .\darts\models.py:410
+#: .\darts\models.py:415
 msgid "Toon in footer"
 msgstr "Afficher en pied de page"
 
-#: .\darts\models.py:411
+#: .\darts\models.py:416
 msgid "Toon op sponsor pagina"
 msgstr "Afficher sur la page du sponsor"
 
-#: .\darts\models.py:412
+#: .\darts\models.py:417
 msgid "Toon knop op sponsors pagina"
 msgstr "Afficher le bouton sur la page des sponsors"
 
-#: .\darts\models.py:413
+#: .\darts\models.py:418
 msgid "Logo"
 msgstr "Logo"
 
-#: .\darts\models.py:434
+#: .\darts\models.py:439
 msgid "Extra Info"
 msgstr "Infos supplémentaires"
 
-#: .\darts\models.py:436
+#: .\darts\models.py:441
 msgid "Resterende Beurten"
 msgstr "Tours restants"
 
-#: .\darts\models.py:438
+#: .\darts\models.py:443
 msgid "Code"
 msgstr "Code"
 
-#: .\darts\models.py:461
+#: .\darts\models.py:466
 msgid "Geen resterende beurten meer!"
 msgstr "Plus de tours restants !"
 
-#: .\darts\models.py:494
+#: .\darts\models.py:499
 msgid "Aantal Beurten"
 msgstr "Nombre de tours"
 
-#: .\darts\models.py:501
+#: .\darts\models.py:506
 msgid "Beurtkaart"
 msgstr "Carte à retourner"
 
-#: .\darts\models.py:502
+#: .\darts\models.py:507
 msgid "Betaling"
 msgstr "Paiement"
 
-#: .\darts\models.py:503
+#: .\darts\models.py:508
 msgid "Leerling"
 msgstr "Élève"
 
-#: .\darts\models.py:540
-#, fuzzy
-#| msgid "Bezoek Website"
+#: .\darts\models.py:554
 msgid "Naam Website"
-msgstr "Visiter le site Web"
+msgstr "Nom du site Web"
 
-#: .\darts\models.py:541
+#: .\darts\models.py:555
 msgid "Artikel URL"
-msgstr ""
+msgstr "URL de l’article"
 
-#: .\darts\models.py:542 .\pokemon\models.py:130
+#: .\darts\models.py:556
+msgid "Artikel Bestand"
+msgstr "Fiche de l’article"
+
+#: .\darts\models.py:557 .\pokemon\models.py:130
 msgid "Bootstrap Icon"
-msgstr ""
+msgstr "Icône d’amorçage"
 
 #: .\darts\templates\blocks\footer.html:13
 #: .\pokemon\templates\pokemon\blocks\footer.html:11
@@ -467,11 +475,11 @@ msgstr "Liens utiles"
 
 #: .\darts\templates\blocks\footer.html:44
 #: .\darts\templates\blocks\header.html:12
-#: .\darts\templates\pages\about.html:20 .\darts\templates\pages\index.html:94
+#: .\darts\templates\pages\about.html:20 .\darts\templates\pages\index.html:98
 #: .\pokemon\templates\pokemon\blocks\footer.html:28
 #: .\pokemon\templates\pokemon\blocks\header.html:12
 #: .\pokemon\templates\pokemon\pages\about.html:31
-#: .\pokemon\templates\pokemon\pages\index.html:87
+#: .\pokemon\templates\pokemon\pages\index.html:91
 msgid "Over Ons"
 msgstr "Qui sommes-nous"
 
@@ -502,10 +510,10 @@ msgid "Algemeen Reglement"
 msgstr "Règlements généraux"
 
 #: .\darts\templates\blocks\footer.html:49 .\darts\templates\pages\faq.html:21
-#: .\darts\templates\pages\index.html:148
+#: .\darts\templates\pages\index.html:152
 #: .\pokemon\templates\pokemon\blocks\footer.html:32
 #: .\pokemon\templates\pokemon\pages\faq.html:20
-#: .\pokemon\templates\pokemon\pages\index.html:120
+#: .\pokemon\templates\pokemon\pages\index.html:124
 msgid "FAQ"
 msgstr "FAQ"
 
@@ -517,6 +525,7 @@ msgstr "FAQ"
 #: .\darts\templates\pages\teambuildings-en-workshops.html:141
 #: .\darts\templates\pages\teambuildings-en-workshops.html:158
 #: .\darts\templates\pages\teambuildings-en-workshops.html:175
+#: .\darts\templates\pages\teambuildings-en-workshops.html:198
 #: .\pokemon\templates\pokemon\blocks\footer.html:37
 msgid "Contacteer Ons"
 msgstr "Contactez-nous"
@@ -561,27 +570,36 @@ msgid "Privéles boeken"
 msgstr "Réserver une leçon privée"
 
 #: .\darts\templates\blocks\header.html:52
-#: .\darts\templates\pages\index.html:135
 #: .\darts\templates\pages\teambuildings-en-workshops.html:30
+msgid "Workshops"
+msgstr "Ateliers"
+
+#: .\darts\templates\blocks\header.html:54
+#: .\darts\templates\pages\index.html:139
 #: .\darts\templates\pages\teambuildings-en-workshops.html:49
 msgid "Teambuilding"
 msgstr "Consolidation d’équipe"
 
-#: .\darts\templates\blocks\header.html:53
-#: .\darts\templates\pages\index.html:307
+#: .\darts\templates\blocks\header.html:55
+#: .\darts\templates\pages\teambuildings-en-workshops.html:192
+msgid "Demolessen"
+msgstr "Cours de démonstration"
+
+#: .\darts\templates\blocks\header.html:58
+#: .\darts\templates\pages\index.html:311
 #: .\darts\templates\pages\privacybeleid.html:254
 #: .\pokemon\templates\pokemon\blocks\header.html:14
-#: .\pokemon\templates\pokemon\pages\index.html:142
+#: .\pokemon\templates\pokemon\pages\index.html:146
 #: .\pokemon\templates\pokemon\pages\privacybeleid.html:254
 msgid "Contact"
 msgstr "Contact"
 
-#: .\darts\templates\blocks\header.html:57
+#: .\darts\templates\blocks\header.html:62
 #: .\pokemon\templates\pokemon\blocks\header.html:18
 msgid "Taal"
 msgstr "Langue"
 
-#: .\darts\templates\blocks\header.html:82
+#: .\darts\templates\blocks\header.html:87
 msgid "Begin Nu"
 msgstr "Commencez maintenant"
 
@@ -1922,9 +1940,9 @@ msgstr "Votre code personnel"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:88
 #: .\darts\templates\pages\dartschool-reserveren.html:76
-#: .\darts\templates\pages\index.html:380
+#: .\darts\templates\pages\index.html:387
 #: .\darts\templates\pages\priveles.html:83
-#: .\pokemon\templates\pokemon\pages\index.html:215
+#: .\pokemon\templates\pokemon\pages\index.html:222
 msgid "Laden..."
 msgstr "Charger..."
 
@@ -1937,10 +1955,8 @@ msgid "OF"
 msgstr "OU"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:113
-#, fuzzy
-#| msgid "€50 lidgeld betalen"
 msgid "Lidgeld betalen"
-msgstr "Payer une cotisation de 50 €"
+msgstr "Paiement d’une cotisation"
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:125
 msgid "Verkrijg uw code"
@@ -2025,9 +2041,12 @@ msgstr ""
 "vous maintenant pour une leçon d’essai gratuite !"
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:43
-msgid "Check kalender voor beschikbare data in november/december"
+msgid ""
+"Vul hiernaast uw gegevens in bij 'Boek uw gratis proefles' en controleer de "
+"kalender voor beschikbare data."
 msgstr ""
-"Consultez le calendrier pour les dates disponibles en novembre/décembre"
+"Remplissez vos coordonnées sur « Réservez votre leçon d’essai gratuite » et "
+"consultez le calendrier pour connaître les dates disponibles."
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:44
 #: .\darts\templates\pages\dartschool-reserveren.html:48
@@ -2091,7 +2110,7 @@ msgstr "Acheter une carte multi-usage"
 
 #: .\darts\templates\pages\dartschool-meer-info.html:20
 #: .\darts\templates\pages\dartschool.html:59
-#: .\darts\templates\pages\index.html:187
+#: .\darts\templates\pages\index.html:191
 msgid "Meer Info"
 msgstr "Plus d’infos"
 
@@ -2331,7 +2350,9 @@ msgstr ""
 "niveau supérieur !"
 
 #: .\darts\templates\pages\dartschool-reserveren.html:47
-msgid "maandag t.e.m. donderdag van 19.15 u tot 21.15 u"
+#, fuzzy
+#| msgid "maandag t.e.m. donderdag van 19.15 u tot 21.15 u"
+msgid "maandag t.e.m. donderdag tussen 18.45 u en 21.15 u."
 msgstr "Du lundi au jeudi de 19h15 à 21h15"
 
 #: .\darts\templates\pages\dartschool-reserveren.html:58
@@ -2498,12 +2519,13 @@ msgid "Oefenborden dartschool"
 msgstr "Planches d’entraînement école de fléchettes"
 
 #: .\darts\templates\pages\dartschool.html:65
-#: .\darts\templates\pages\index.html:236
-#: .\darts\templates\pages\index.html:241
+#: .\darts\templates\pages\index.html:240
+#: .\darts\templates\pages\index.html:245
 msgid "Wedstrijdbord"
 msgstr "Planche de compétition"
 
 #: .\darts\templates\pages\dartschool.html:72
+#: .\darts\templates\pages\teambuildings-en-workshops.html:189
 msgid "Trainer bij ChudartZ logo"
 msgstr "Formateur chez ChudartZ logo"
 
@@ -2907,8 +2929,8 @@ msgstr ""
 "La cagnotte varie d’un tournoi à l’autre, mais comprend souvent des prix en "
 "espèces, des trophées et d’autres surprises amusantes."
 
-#: .\darts\templates\pages\index.html:6 .\darts\templates\pages\index.html:9
-#: .\darts\templates\pages\index.html:14
+#: .\darts\templates\pages\index.html:10 .\darts\templates\pages\index.html:13
+#: .\darts\templates\pages\index.html:18
 msgid ""
 "Bij ChudartZ in Zedelgem delen we onze passie voor darts en bieden we een "
 "jeugd-dartschool aan, waar spelers van elk niveau hun talent kunnen "
@@ -2921,20 +2943,20 @@ msgstr ""
 "des tournois et des séances d’entraînement pour aider les joueurs à grandir "
 "et à améliorer leurs compétences. "
 
-#: .\darts\templates\pages\index.html:54
-#: .\pokemon\templates\pokemon\pages\index.html:37
+#: .\darts\templates\pages\index.html:58
+#: .\pokemon\templates\pokemon\pages\index.html:41
 msgid "Welkom bij"
 msgstr "Bienvenue chez"
 
-#: .\darts\templates\pages\index.html:56
+#: .\darts\templates\pages\index.html:60
 msgid "Uw ultieme bestemming voor alles wat met darts te maken heeft."
 msgstr "Votre destination ultime pour tout ce qui concerne les fléchettes."
 
-#: .\darts\templates\pages\index.html:95
+#: .\darts\templates\pages\index.html:99
 msgid "Over ChudartZ"
 msgstr "À propos de ChudartZ"
 
-#: .\darts\templates\pages\index.html:97
+#: .\darts\templates\pages\index.html:101
 msgid ""
 "\n"
 "              Welkom bij ChudartZ, dé bestemming voor darts in Zedelgem en "
@@ -2958,12 +2980,12 @@ msgstr ""
 "de tous niveaux se réunissent et s’affrontent.\n"
 "              "
 
-#: .\darts\templates\pages\index.html:102
-#: .\pokemon\templates\pokemon\pages\index.html:99
+#: .\darts\templates\pages\index.html:106
+#: .\pokemon\templates\pokemon\pages\index.html:103
 msgid "Lees Meer"
 msgstr "Lire la suite"
 
-#: .\darts\templates\pages\index.html:113
+#: .\darts\templates\pages\index.html:117
 msgid ""
 "\n"
 "                    Of je nu een beginner bent of al ervaren aan de oche "
@@ -2981,7 +3003,7 @@ msgstr ""
 "et qui sait, vous brillerez peut-être sur scène !\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:125
+#: .\darts\templates\pages\index.html:129
 msgid ""
 "\n"
 "                    Deze zijn toegankelijk voor iedereen, van alle "
@@ -2999,7 +3021,7 @@ msgstr ""
 "participer.\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:137
+#: .\darts\templates\pages\index.html:141
 msgid ""
 "\n"
 "                    Op zoek naar een originele en sportieve teambuilding? "
@@ -3020,7 +3042,7 @@ msgstr ""
 "building !\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:150
+#: .\darts\templates\pages\index.html:154
 msgid ""
 "\n"
 "                    Heb je vragen over het toernooi? Bekijk dan onze FAQ! "
@@ -3038,11 +3060,11 @@ msgstr ""
 "manquez quelque chose ? N’hésitez pas à nous contacter !\n"
 "                    "
 
-#: .\darts\templates\pages\index.html:181
+#: .\darts\templates\pages\index.html:185
 msgid "Teambuildings & Workshops"
 msgstr "Team Buildings & Ateliers"
 
-#: .\darts\templates\pages\index.html:183
+#: .\darts\templates\pages\index.html:187
 msgid ""
 "\n"
 "                Bij ChudartZ weten we dat geweldige prestaties op de "
@@ -3058,11 +3080,11 @@ msgstr ""
 "également des événements de team building.\n"
 "                "
 
-#: .\darts\templates\pages\index.html:199
+#: .\darts\templates\pages\index.html:203
 msgid "Afbeeldingen"
 msgstr "Images"
 
-#: .\darts\templates\pages\index.html:200
+#: .\darts\templates\pages\index.html:204
 msgid ""
 "Laat je inspireren door de foto's van onze dartsevenementen en lessen, en "
 "ervaar de energie en gemeenschap van onze club."
@@ -3070,17 +3092,17 @@ msgstr ""
 "Laissez-vous inspirer par les photos de nos événements et leçons de "
 "fléchettes, et découvrez l’énergie et la communauté de notre club."
 
-#: .\darts\templates\pages\index.html:208
+#: .\darts\templates\pages\index.html:212
 msgid "Alle"
 msgstr "Tout"
 
-#: .\darts\templates\pages\index.html:216
-#: .\darts\templates\pages\index.html:221
-#: .\darts\templates\pages\index.html:231
+#: .\darts\templates\pages\index.html:220
+#: .\darts\templates\pages\index.html:225
+#: .\darts\templates\pages\index.html:235
 msgid "Muurschilderij Dartschool"
 msgstr "École de fléchettes de peinture murale"
 
-#: .\darts\templates\pages\index.html:218
+#: .\darts\templates\pages\index.html:222
 msgid ""
 "\n"
 "                  Muurschilderij Dartschool\n"
@@ -3090,11 +3112,11 @@ msgstr ""
 "École de fléchettes de peinture murale\n"
 "                "
 
-#: .\darts\templates\pages\index.html:226
+#: .\darts\templates\pages\index.html:230
 msgid "Close-up dartbord"
 msgstr "Jeu de fléchettes en gros plan"
 
-#: .\darts\templates\pages\index.html:228
+#: .\darts\templates\pages\index.html:232
 msgid ""
 "\n"
 "                  Close-up dartbord\n"
@@ -3104,7 +3126,7 @@ msgstr ""
 "Jeu de fléchettes en gros plan\n"
 "                "
 
-#: .\darts\templates\pages\index.html:238
+#: .\darts\templates\pages\index.html:242
 msgid ""
 "\n"
 "                  Wedstrijdbord\n"
@@ -3114,12 +3136,12 @@ msgstr ""
 "Planche de compétition\n"
 "                "
 
-#: .\darts\templates\pages\index.html:246
-#: .\darts\templates\pages\index.html:251
+#: .\darts\templates\pages\index.html:250
+#: .\darts\templates\pages\index.html:255
 msgid "Detailshot van dart"
 msgstr "Photo détaillée de la fléchette"
 
-#: .\darts\templates\pages\index.html:248
+#: .\darts\templates\pages\index.html:252
 msgid ""
 "\n"
 "                  Detailshot van dart\n"
@@ -3129,12 +3151,12 @@ msgstr ""
 "Photo détaillée de la fléchette\n"
 "                "
 
-#: .\darts\templates\pages\index.html:256
-#: .\darts\templates\pages\index.html:261
+#: .\darts\templates\pages\index.html:260
+#: .\darts\templates\pages\index.html:265
 msgid "Overview van dartschool"
 msgstr "Vue d’ensemble de l’école de fléchettes"
 
-#: .\darts\templates\pages\index.html:258
+#: .\darts\templates\pages\index.html:262
 msgid ""
 "\n"
 "                  Overview van dartschool\n"
@@ -3144,12 +3166,12 @@ msgstr ""
 "Vue d’ensemble de l’école de fléchettes\n"
 "                "
 
-#: .\darts\templates\pages\index.html:266
-#: .\darts\templates\pages\index.html:271
+#: .\darts\templates\pages\index.html:270
+#: .\darts\templates\pages\index.html:275
 msgid "Oefenborden"
 msgstr "Planches d’entraînement"
 
-#: .\darts\templates\pages\index.html:268
+#: .\darts\templates\pages\index.html:272
 msgid ""
 "\n"
 "                  Oefenborden\n"
@@ -3159,12 +3181,12 @@ msgstr ""
 "Planches d’entraînement\n"
 "                "
 
-#: .\darts\templates\pages\index.html:276
-#: .\darts\templates\pages\index.html:281
+#: .\darts\templates\pages\index.html:280
+#: .\darts\templates\pages\index.html:285
 msgid "Aan het oefenen"
 msgstr "Pratiquer"
 
-#: .\darts\templates\pages\index.html:278
+#: .\darts\templates\pages\index.html:282
 msgid ""
 "\n"
 "                  Aan het oefenen\n"
@@ -3174,12 +3196,12 @@ msgstr ""
 "Pratiquer\n"
 "                "
 
-#: .\darts\templates\pages\index.html:286
-#: .\darts\templates\pages\index.html:291
+#: .\darts\templates\pages\index.html:290
+#: .\darts\templates\pages\index.html:295
 msgid "Close-up van dartpijltje"
 msgstr "Gros plan de la fléchette"
 
-#: .\darts\templates\pages\index.html:288
+#: .\darts\templates\pages\index.html:292
 msgid ""
 "\n"
 "                  Close-up van dartpijltje\n"
@@ -3189,52 +3211,52 @@ msgstr ""
 "Gros plan de la fléchette\n"
 "                "
 
-#: .\darts\templates\pages\index.html:308
-#: .\pokemon\templates\pokemon\pages\index.html:143
+#: .\darts\templates\pages\index.html:312
+#: .\pokemon\templates\pokemon\pages\index.html:147
 msgid "Aarzel niet om ons te contacteren!"
 msgstr "N’hésitez pas à nous contacter !"
 
-#: .\darts\templates\pages\index.html:322
-#: .\pokemon\templates\pokemon\pages\index.html:157
+#: .\darts\templates\pages\index.html:326
+#: .\pokemon\templates\pokemon\pages\index.html:161
 msgid "Bel/Whatsapp ons"
 msgstr "Appelez/Whatsapp nous"
 
-#: .\darts\templates\pages\index.html:330
-#: .\pokemon\templates\pokemon\pages\index.html:165
+#: .\darts\templates\pages\index.html:334
+#: .\pokemon\templates\pokemon\pages\index.html:169
 msgid "Email ons"
 msgstr "Envoyez-nous un e-mail"
 
-#: .\darts\templates\pages\index.html:352
+#: .\darts\templates\pages\index.html:356
 #: .\darts\templates\pages\priveles.html:55
-#: .\pokemon\templates\pokemon\pages\index.html:187
+#: .\pokemon\templates\pokemon\pages\index.html:191
 msgid "Stuur ons een bericht"
 msgstr "Envoyez-nous un message"
 
-#: .\darts\templates\pages\index.html:370
+#: .\darts\templates\pages\index.html:374
 #: .\darts\templates\pages\priveles.html:73
-#: .\pokemon\templates\pokemon\pages\index.html:205
+#: .\pokemon\templates\pokemon\pages\index.html:209
 msgid "Onderwerp"
 msgstr "Objet"
 
-#: .\darts\templates\pages\index.html:375
+#: .\darts\templates\pages\index.html:379
 #: .\darts\templates\pages\priveles.html:78
-#: .\pokemon\templates\pokemon\pages\index.html:210
+#: .\pokemon\templates\pokemon\pages\index.html:214
 msgid "Bericht"
 msgstr "Message"
 
-#: .\darts\templates\pages\index.html:382
+#: .\darts\templates\pages\index.html:389
 #: .\darts\templates\pages\priveles.html:85
-#: .\pokemon\templates\pokemon\pages\index.html:217
+#: .\pokemon\templates\pokemon\pages\index.html:224
 msgid "Uw bericht is verzonden. Bedankt!"
 msgstr "Votre message a bien été envoyé. Merci!"
 
-#: .\darts\templates\pages\index.html:383
+#: .\darts\templates\pages\index.html:390
 #: .\darts\templates\pages\priveles.html:86
-#: .\pokemon\templates\pokemon\pages\index.html:218
+#: .\pokemon\templates\pokemon\pages\index.html:225
 msgid "Stuur bericht"
 msgstr "Envoyer un message"
 
-#: .\darts\templates\pages\index.html:402
+#: .\darts\templates\pages\index.html:409
 msgid "In het nieuws"
 msgstr "Dans l’actualité"
 
@@ -4206,6 +4228,31 @@ msgstr ""
 "building de fléchettes sur mesure, n’hésitez pas à nous contacter !\n"
 "                              "
 
+#: .\darts\templates\pages\teambuildings-en-workshops.html:194
+msgid ""
+"\n"
+"                    Met ChudartZ brengen we de spannende wereld van darts "
+"ook naar scholen, sporthappenings, opendeurdagen, speelpleinwerking, SWAP-"
+"activiteiten of andere evenementen! Wij organiseren interactieve demolessen "
+"waarin jongeren op een leuke en veilige manier kennis kunnen maken met "
+"darts. Van het leren van basistechnieken tot het verbeteren van precisie. "
+"Onze activiteiten zijn ideaal om jongeren sportief en enthousiast te "
+"betrekken. Onze lessen zijn een perfecte aanvulling op sportieve en "
+"recreatieve activiteiten.\n"
+"                    "
+msgstr ""
+"\n"
+"Avec ChudartZ, nous apportons également le monde passionnant des fléchettes "
+"dans les écoles, les événements sportifs, les journées portes ouvertes, les "
+"activités de jeux de jeux, les activités SWAP ou d’autres événements ! Nous "
+"organisons des leçons de démonstration interactives au cours desquelles les "
+"jeunes peuvent se familiariser avec les fléchettes de manière amusante et "
+"sûre. De l’apprentissage des techniques de base à l’amélioration de la "
+"précision. Nos activités sont idéales pour impliquer les jeunes de manière "
+"sportive et enthousiaste. Nos cours sont un complément parfait aux activités "
+"sportives et récréatives.\n"
+"                    "
+
 #: .\darts\templates\pages\toernooi-inschrijving-response.html:24
 #: .\pokemon\templates\pokemon\pages\evenement-inschrijving-response.html:24
 msgid "Ingeschreven!"
@@ -4325,8 +4372,8 @@ msgid "priveles"
 msgstr "cours-particuliers"
 
 #: .\darts\urls.py:32
-msgid "teambuildings-en-workshops/"
-msgstr "team-building-et-ateliers/"
+msgid "workshops/"
+msgstr "ateliers/"
 
 #: .\darts\urls.py:33
 msgid "over-ons/"
@@ -4366,33 +4413,27 @@ msgstr "flechettes/scanner/"
 
 #: .\pokemon\models.py:54
 msgid "Intro op homepagina"
-msgstr ""
+msgstr "Intro sur la page d’accueil"
 
 #: .\pokemon\models.py:56
 msgid "Titel Sectie A"
-msgstr ""
+msgstr "Titre Section A"
 
 #: .\pokemon\models.py:57
 msgid "Tekst Sectie A"
-msgstr ""
+msgstr "Texte Section A"
 
 #: .\pokemon\models.py:64
-#, fuzzy
-#| msgid "Vereisten (Elk op een nieuwe lijn)"
 msgid "Inbegrepen Standhouder (Elk op een nieuwe lijn)"
-msgstr "Prérequis (chacun sur une nouvelle ligne)"
+msgstr "Inclus Exposant (chacun sur une nouvelle ligne)"
 
 #: .\pokemon\models.py:65
-#, fuzzy
-#| msgid "Vereisten (Elk op een nieuwe lijn)"
 msgid "Prijzen Standhouder (Elk op een nieuwe lijn)"
-msgstr "Prérequis (chacun sur une nouvelle ligne)"
+msgstr "Prix Exposant (chacun sur une nouvelle ligne)"
 
 #: .\pokemon\models.py:66
-#, fuzzy
-#| msgid "Inschrijvingen Inschakelen"
 msgid "Standhouder Inschrijvingen Inschakelen"
-msgstr "Activer les inscriptions"
+msgstr "Activer l’inscription des exposants"
 
 #: .\pokemon\models.py:133
 msgid "Schakel ticket uit"
@@ -4400,7 +4441,7 @@ msgstr ""
 
 #: .\pokemon\models.py:174
 msgid "Tekst"
-msgstr ""
+msgstr "Texte"
 
 #: .\pokemon\models.py:175
 #, fuzzy
@@ -4415,15 +4456,15 @@ msgstr "Devenir exposant"
 
 #: .\pokemon\templates\pokemon\blocks\inbegrepen.html:4
 msgid "Inbegrepen"
-msgstr ""
+msgstr "Y compris"
 
 #: .\pokemon\templates\pokemon\blocks\ticket.html:35
 msgid "Niet beschikbaar"
-msgstr ""
+msgstr "Non disponible"
 
 #: .\pokemon\templates\pokemon\blocks\ticket.html:39
 msgid "Koop nu"
-msgstr ""
+msgstr "Acheter maintenant"
 
 #: .\pokemon\templates\pokemon\pages\about.html:32
 #, fuzzy
@@ -4484,7 +4525,7 @@ msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\about.html:83
 msgid "Collectibles en meer"
-msgstr ""
+msgstr "Objets de collection et plus encore"
 
 #: .\pokemon\templates\pokemon\pages\about.html:86
 msgid ""
@@ -4497,6 +4538,14 @@ msgid ""
 "ontmoeten\n"
 "                "
 msgstr ""
+"\n"
+"Chez ChudartZ Collectibles, l’amour des objets de collection spéciaux est "
+"central. Notre passion pour les Pokémon est enracinée dans la même "
+"fascination qui nous inspire dans le monde des fléchettes. De plus, nous "
+"organisons régulièrement des foires et des événements où vous pourrez "
+"découvrir, échanger et exposer vos pièces préférées, et où vous pourrez "
+"rencontrer des personnes partageant les mêmes idées\n"
+"                "
 
 #: .\pokemon\templates\pokemon\pages\about.html:91
 #, fuzzy
@@ -4515,6 +4564,14 @@ msgid ""
 "breiden.\n"
 "                "
 msgstr ""
+"\n"
+"En plus de notre collection permanente, nous sommes également la base de "
+"salons et d’événements passionnants. Nous réunissons des collectionneurs de "
+"toute la région pour profiter d’expositions uniques, de rencontres "
+"d’échanges, d’ateliers et plus encore. Restez au courant de nos événements à "
+"venir et ne manquez pas une occasion d’enrichir votre collection et "
+"d’élargir votre réseau au sein de la communauté des objets de collection.\n"
+"                "
 
 #: .\pokemon\templates\pokemon\pages\about.html:101
 msgid ""
@@ -4527,6 +4584,14 @@ msgid ""
 "het leggen van nieuwe connecties.\n"
 "                "
 msgstr ""
+"\n"
+"Notre mission est de créer un environnement où les collectionneurs de tous "
+"âges peuvent découvrir, développer et partager leur passion pour les objets "
+"de collection. Nous voulons être un point de rencontre pour tous ceux qui "
+"sont immergés dans le monde de Pokémon et d’autres objets de collection "
+"spéciaux, en les aidant à trouver des pièces uniques et à établir de "
+"nouvelles connexions.\n"
+"                "
 
 #: .\pokemon\templates\pokemon\pages\about.html:108
 msgid ""
@@ -4540,6 +4605,16 @@ msgid ""
 "waar de passie voor verzamelen centraal staat.\n"
 "                "
 msgstr ""
+"\n"
+"Chez ChudartZ Collectibles, nous nous efforçons de devenir une plateforme de "
+"premier plan pour les collectionneurs en Belgique et au-delà. En organisant "
+"des foires, des événements et des ateliers, nous voulons construire une "
+"communauté soudée dans laquelle les connaissances et l’enthousiasme pour les "
+"objets de collection sont partagés. Notre objectif n’est pas seulement de "
+"fonctionner comme une boutique (en ligne), mais aussi comme un lieu de "
+"rencontre où les collectionneurs peuvent s’inspirer mutuellement et où la "
+"passion pour la collection est centrale.\n"
+"                "
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:33
 msgid ""
@@ -4914,11 +4989,11 @@ msgstr "Ticket"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:76
 msgid "Comics tafel"
-msgstr ""
+msgstr "Table de BD"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:104
 msgid "Collectibles voor iedereen"
-msgstr ""
+msgstr "Des objets de collection pour tous"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:106
 msgid ""
@@ -4928,10 +5003,16 @@ msgid ""
 "gezellige sfeer waarin iedereen zich welkom voelt, van waar ook ter wereld.\n"
 "                  "
 msgstr ""
+"\n"
+"Notre foire est le lieu de rencontre des collectionneurs d’e.a. Cartes "
+"Pokémon et objets uniques. Découvrez des trésors rares dans une atmosphère "
+"conviviale où tout le monde se sent le bienvenu, de n’importe où dans le "
+"monde.\n"
+"                  "
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:115
 msgid "Ruilen"
-msgstr ""
+msgstr "Échanger"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:117
 msgid ""
@@ -4941,10 +5022,15 @@ msgid ""
 "nemen en nieuwe mensen te ontmoeten.\n"
 "                  "
 msgstr ""
+"\n"
+"Lors de notre salon, l’échange est une opportunité en plus de l’achat et de "
+"la vente, qui rassemble les collectionneurs et offre la possibilité de "
+"participer activement et de rencontrer de nouvelles personnes.\n"
+"                  "
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:126
 msgid "Gezelligheid"
-msgstr ""
+msgstr "Agrément"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:128
 msgid ""
@@ -4954,12 +5040,15 @@ msgid ""
 "voor een complete en aangename ervaring.\n"
 "                  "
 msgstr ""
+"\n"
+"Notre salon offre une atmosphère chaleureuse et détendue dans laquelle tout "
+"le monde se sent le bienvenu. Profitez d’aires de repos et d’activités "
+"ludiques pour une expérience complète et agréable.\n"
+"                  "
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:137
-#, fuzzy
-#| msgid "ChudartZ Collectibles"
 msgid "Unieke collectibles"
-msgstr "ChudartZ Objets de collection"
+msgstr "Objets de collection uniques"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:139
 msgid ""
@@ -4969,6 +5058,12 @@ msgid ""
 "items, van zeldzame stukken tot curiosa die je collectie verrijken.\n"
 "                  "
 msgstr ""
+"\n"
+"Des objets de collection uniques offrent aux collectionneurs la possibilité "
+"de découvrir des spécimens spéciaux. Dans nos salons, vous trouverez des "
+"articles exclusifs, des pièces rares aux curiosités qui enrichissent votre "
+"collection.\n"
+"                  "
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:156
 #, fuzzy
@@ -5015,15 +5110,15 @@ msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:234
 msgid "You must order at least one ticket."
-msgstr ""
+msgstr "Vous devez commander au moins un billet."
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:234
 msgid "Afrekenen"
-msgstr ""
+msgstr "Payer"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:250
 msgid "In samenwerking met"
-msgstr ""
+msgstr "En collaboration avec"
 
 #: .\pokemon\templates\pokemon\pages\evenementen.html:29
 msgid ""
@@ -5032,22 +5127,17 @@ msgid ""
 "collectibles die je nergens anders vindt. Sluit je aan bij onze community "
 "die jouw passie voor verzamelen deelt!"
 msgstr ""
+"Nos événements visent à adopter la culture de la collection. Rencontrez "
+"d’autres passionnés, échangez des objets spéciaux et découvrez des objets de "
+"collection uniques que vous ne trouverez nulle part ailleurs. Rejoignez "
+"notre communauté qui partage votre passion pour la collection !"
 
 #: .\pokemon\templates\pokemon\pages\evenementen.html:45
 msgid "Er zijn nog geen evenementen beschikbaar!"
 msgstr "Il n’y a pas encore d’événements disponibles !"
 
 #: .\pokemon\templates\pokemon\pages\faq.html:36
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! "
-#| "Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, "
-#| "speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle "
-#| "belangrijke informatie. Mis je nog iets? Aarzel niet om\n"
-#| "                  <a href=\"%(index_url)s#contact\">contact</a> met ons "
-#| "op te nemen!\n"
-#| "                  "
+#, python-format
 msgid ""
 "\n"
 "                  Heb je vragen over het organiseren van evenementen of onze "
@@ -5087,13 +5177,6 @@ msgstr ""
 "À quels types d’objets de collection puis-je m’attendre lors de vos foires ?"
 
 #: .\pokemon\templates\pokemon\pages\faq.html:58
-#, fuzzy
-#| msgid ""
-#| "Voor 2025 staat voorlopig één grote beurs op de agenda: de grootste "
-#| "Pokémonbeurs van België. In een later stadium zullen er aanvullende "
-#| "beurzen worden georganiseerd, met een focus op unieke en bijzondere "
-#| "verzamelobjecten, zoals Lego, Playmobil, euromunten, stripboeken/comics, "
-#| "retro games, antiek speelgoed, Funko, vintage mode, en whiskey/wijn."
 msgid ""
 "Voor 2025 staat voorlopig één grote beurs op de agenda: een van de grootste "
 "Pokémon-beurzen van België. Naast deze beurs zullen er in de loop van het "
@@ -5133,10 +5216,6 @@ msgid "Hoe blijf ik op de hoogte van toekomstige evenementen en beurzen?"
 msgstr "Comment puis-je rester informé des futurs événements et salons ?"
 
 #: .\pokemon\templates\pokemon\pages\faq.html:74
-#, fuzzy
-#| msgid ""
-#| "Je kunt ons volgen op social media om altijd op de hoogte te blijven van "
-#| "aankomende evenementen, beurzen en speciale activiteiten. "
 msgid ""
 "Je kunt ons volgen op social media om altijd op de hoogte te blijven van "
 "aankomende evenementen, beurzen en speciale activiteiten."
@@ -5146,33 +5225,27 @@ msgstr ""
 "moment-là) pour rester toujours informé des événements à venir, des foires "
 "et des activités spéciales."
 
-#: .\pokemon\templates\pokemon\pages\index.html:39
+#: .\pokemon\templates\pokemon\pages\index.html:43
 msgid "Uw ultieme bestemming voor alles wat met collectibles te maken heeft."
 msgstr "Votre destination ultime pour tout ce qui est de collection."
 
-#: .\pokemon\templates\pokemon\pages\index.html:54
-#, fuzzy
-#| msgid "Evenement"
+#: .\pokemon\templates\pokemon\pages\index.html:58
 msgid "Laatste Evenement"
-msgstr "Événement"
+msgstr "Dernier événement"
 
-#: .\pokemon\templates\pokemon\pages\index.html:59
-#, fuzzy
-#| msgid "evenementen"
+#: .\pokemon\templates\pokemon\pages\index.html:63
 msgid "Bekijk evenement"
-msgstr "/epreuves"
+msgstr "Voir l’événement"
 
-#: .\pokemon\templates\pokemon\pages\index.html:60
-#, fuzzy
-#| msgid "evenementen"
+#: .\pokemon\templates\pokemon\pages\index.html:64
 msgid "Zie alle evenementen"
-msgstr "/epreuves"
+msgstr "Voir tous les événements"
 
-#: .\pokemon\templates\pokemon\pages\index.html:88
+#: .\pokemon\templates\pokemon\pages\index.html:92
 msgid "ChudartZ Collectibles"
 msgstr "ChudartZ Objets de collection"
 
-#: .\pokemon\templates\pokemon\pages\index.html:90
+#: .\pokemon\templates\pokemon\pages\index.html:94
 msgid ""
 "\n"
 "              Welkom bij ChudartZ Collectibles, dé bestemming voor "
@@ -5192,7 +5265,7 @@ msgstr ""
 "de partager votre passion avec des personnes partageant les mêmes idées.\n"
 "              "
 
-#: .\pokemon\templates\pokemon\pages\index.html:95
+#: .\pokemon\templates\pokemon\pages\index.html:99
 msgid ""
 "\n"
 "              Wij organiseren regelmatig beurzen en evenementen waar "
@@ -5210,7 +5283,7 @@ msgstr ""
 "inspirante.\n"
 "              "
 
-#: .\pokemon\templates\pokemon\pages\index.html:110
+#: .\pokemon\templates\pokemon\pages\index.html:114
 msgid ""
 "\n"
 "                    We organiseren evenementen die volledig gericht zijn op "
@@ -5220,17 +5293,15 @@ msgid ""
 "stukken, onze evenementen bieden voor ieder wat wils!\n"
 "                    "
 msgstr ""
+"\n"
+"Nous organisons des événements entièrement axés sur des objets de collection "
+"uniques. Des rencontres d’échange exclusives aux expositions de collections "
+"spéciales. Pour nous, tout tourne autour de la passion de la collection. Que "
+"vous soyez collectionneur ou que vous souhaitiez simplement profiter de "
+"pièces uniques, nos événements offrent quelque chose pour tout le monde !\n"
+"                    "
 
-#: .\pokemon\templates\pokemon\pages\index.html:122
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                    Heb je vragen over het toernooi? Bekijk dan onze FAQ! "
-#| "Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, "
-#| "speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle "
-#| "belangrijke informatie. Mis je nog iets? Aarzel niet om contact met ons "
-#| "op te nemen!\n"
-#| "                    "
+#: .\pokemon\templates\pokemon\pages\index.html:126
 msgid ""
 "\n"
 "                    Heb je vragen over ons? Bekijk dan onze FAQ! Hier vind "
@@ -5240,50 +5311,50 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"Vous avez des questions sur le tournoi ? Consultez notre FAQ ! Vous "
-"trouverez ici les réponses aux questions les plus fréquemment posées sur les "
-"inscriptions, les horaires, les règles et plus encore. De cette façon, vous "
+"Vous avez des questions sur nous ? Consultez notre FAQ ! Vous trouverez ici "
+"les réponses aux questions les plus fréquemment posées sur les événements, "
+"les objets de collection, les règles et plus encore. De cette façon, vous "
 "êtes immédiatement au courant de toutes les informations importantes. Vous "
 "manquez quelque chose ? N’hésitez pas à nous contacter !\n"
 "                    "
 
 #: .\pokemon\templates\pokemon\pages\standhouder-response.html:24
 msgid "Succes!"
-msgstr ""
+msgstr "Succès"
 
 #: .\pokemon\templates\pokemon\pages\standhouder-response.html:25
 msgid "Uw verzoek is succesvol aangevraagd. U krijgt zo snel mogelijk antwoord"
 msgstr ""
+"Votre demande a été acceptée avec succès. Vous recevrez une réponse dans les "
+"plus brefs délais"
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:27
-#, fuzzy
-#| msgid "Standhouder worden"
 msgid "Standhouder Worden"
 msgstr "Devenir exposant"
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:47
 msgid "Bestel je plaats(en)"
-msgstr ""
+msgstr "Commandez votre/vos logement(s)"
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:47
 msgid "UITVERKOCHT!"
-msgstr ""
+msgstr "ÉPUISÉ!"
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:81
 msgid "Ik wens een factuur"
-msgstr ""
+msgstr "Je veux une facture"
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:90
 msgid "Ik wens elektriciteit"
-msgstr ""
+msgstr "Je veux de l’électricité"
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:99
 msgid "Ik wens een tafel/stoel"
-msgstr ""
+msgstr "Je veux une table/chaise"
 
 #: .\pokemon\templates\pokemon\pages\standhouder.html:136
 msgid "Aanvragen"
-msgstr ""
+msgstr "Demandes"
 
 #: .\pokemon\urls.py:11
 msgid "over-ons"
@@ -5322,6 +5393,13 @@ msgstr "algemene_voorwaarden/"
 #| msgid "darts/scanner/"
 msgid "pokemon/scanner/"
 msgstr "flechettes/scanner/"
+
+#~ msgid "Check kalender voor beschikbare data in november/december"
+#~ msgstr ""
+#~ "Consultez le calendrier pour les dates disponibles en novembre/décembre"
+
+#~ msgid "teambuildings-en-workshops/"
+#~ msgstr "team-building-et-ateliers/"
 
 #~ msgid "Ik heb geen code"
 #~ msgstr "Je n’ai pas de code"
@@ -5468,9 +5546,6 @@ msgstr "flechettes/scanner/"
 #~ "En fonction des places disponibles, vous pouvez toujours vous inscrire le "
 #~ "jour même. Cependant, nous vous recommandons de vous préinscrire pour "
 #~ "assurer votre participation."
-
-#~ msgid "Workshops"
-#~ msgstr "Ateliers"
 
 #~ msgid "Binnenkort!"
 #~ msgstr "Bientôt!"
