@@ -182,6 +182,7 @@ class PaymentStatus:
     CANCELED = "canceled"
     EXPIRED = "expired"
     FAILED = "failed"
+    REFUNDED = "refunded"
 
 
     CHOICES = [
@@ -189,11 +190,15 @@ class PaymentStatus:
         (OPEN, pgettext_lazy("payment status", "Open")),
         (CANCELED, pgettext_lazy("payment status", "Geannuleerd")),
         (EXPIRED, pgettext_lazy("payment status", "Verlopen")),
-        (FAILED, pgettext_lazy("payment status", "Gefaald"))
+        (FAILED, pgettext_lazy("payment status", "Gefaald")),
+        (REFUNDED, pgettext_lazy("payment status", "Teruggestort"))
     ]
 
 
 class Payment(models.Model):
+
+    def __str__(self) -> str:
+        return f"{self.mollie_id} | {self.first_name} {self.last_name}" 
 
     class Meta:
         verbose_name = "Betaling"
