@@ -74,7 +74,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     import_form_class = ImportForm
     export_form_class = SelectableFieldsExportForm
     
-    list_display = ['mail', 'evenement', 'attendance']
+    list_display = ['mail', 'evenement', 'payment_status', 'attendance']
     ordering = ('id',)
 
     @display(description=_("Evenement"))
@@ -83,6 +83,23 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
             reverse("admin:pokemon_evenement_change", args=(obj.ticket.event.pk,)),
             obj.ticket.event.titel
         ))
+    
+    @display(
+        description=_('Status van Betaling'), 
+        label={
+            PaymentStatus.PAID: "success",
+            PaymentStatus.OPEN: "warning",
+            PaymentStatus.CANCELED: "danger",
+            PaymentStatus.EXPIRED: "danger",
+            PaymentStatus.FAILED: "danger",
+            PaymentStatus.REFUNDED: "warning",
+        },
+        header=True,
+    )
+    def payment_status(self, obj):
+        if obj.payment is None: return PaymentStatus.OPEN
+
+        return obj.payment.status
 
     @display(
         description=_('Status van Betaling'), 

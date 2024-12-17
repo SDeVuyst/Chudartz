@@ -104,6 +104,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
             PaymentStatus.CANCELED: "danger",
             PaymentStatus.EXPIRED: "danger",
             PaymentStatus.FAILED: "danger",
+            PaymentStatus.REFUNDED: "warning",
         },
         header=True,
     )
