@@ -103,15 +103,15 @@ def evenement(request, slug):
             quantity = request.POST.get(ticket_quantity_key)
 
             try:
-                ticket_quantities[possible_ticket.id] = int(quantity)
-            except (ValueError, TypeError):
-                ticket_quantities[possible_ticket.id] = 0  # Handle empty or invalid input
-
+                if quantity is not None:
+                    ticket_quantities[possible_ticket.id] = int(quantity)
+            except Exception:
+                pass
 
         # check if at least 1 ticket has valid quantity
         is_valid_quantitites = False
         for ticket_id, quantity in ticket_quantities.items():
-            chosen_ticket = get_object_or_404(Ticket, pk=ticket_id)
+            chosen_ticket = Ticket.objects.get(pk=ticket_id)
 
             # check if ticket possible to buy
             if chosen_ticket.disable_ticket or chosen_ticket.is_sold_out:
@@ -135,7 +135,7 @@ def evenement(request, slug):
         # get total price of transaction
         total_cost = 0
         for ticket_id, quantity in ticket_quantities.items():
-            total_cost +=  quantity * Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
+            total_cost += quantity * Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
 
 
         payment = Payment.objects.create(
