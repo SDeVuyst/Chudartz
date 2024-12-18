@@ -410,8 +410,13 @@ def mollie_webhook(request):
         mollie_payment_id = request.POST['id']
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
         payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
-
-        mollie_status = mollie_payment.get("status", "").lower()
+        
+        # check if it is refund
+        mollie_refund = MollieClient().client.refunds.get(mollie_payment_id)
+        if mollie_refund.get("status", 0) == 200:
+            mollie_status = 'refunded'
+        else:
+            mollie_status = mollie_payment.get("status", "").lower()
 
         # Validate status against defined choices
         valid_statuses = [choice[0] for choice in PaymentStatus.CHOICES]
