@@ -413,7 +413,8 @@ def mollie_webhook(request):
         
         # check if it is refund
         try:
-            if mollie_payment.refunds() > 0:
+            has_links = mollie_payment.get('_links', False)
+            if has_links and has_links.get('refunds', False):
                 mollie_status = 'refunded'
             else:
                 mollie_status = mollie_payment.get("status", "").lower()
