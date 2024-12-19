@@ -160,6 +160,17 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
         return redirect(reverse('admin:pokemon_participant_change', args=[participant.pk]))
 
 
+@admin.register(Payment)
+class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
+    actions_detail = ["generate_ticket",]
+
+    @action(description=_("Generate Ticket"))
+    def generate_ticket(modeladmin, request, object_id: int):
+        p = get_object_or_404(Payment, pk=object_id)
+
+        return p.generate_ticket()
+
+
 @admin.register(Evenement)
 class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')
