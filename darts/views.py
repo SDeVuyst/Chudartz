@@ -309,7 +309,7 @@ def priveles(request):
     return TemplateResponse(request, 'pages/priveles.html', get_default_context())
 
 
-def teambuildings_en_workshops(request):
+def workshops(request):
     return TemplateResponse(request, 'pages/teambuildings-en-workshops.html', get_default_context())
 
 
@@ -410,9 +410,22 @@ def mollie_webhook(request):
         mollie_payment_id = request.POST['id']
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
         payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
+        
+        # check if it is refund
+        try:
+            has_links = mollie_payment.get('_links', False)
+            if has_links and has_links.get('refunds', False):
+                mollie_status = 'refunded'
+            else:
+                mollie_status = mollie_payment.get("status", "").lower()
+        except:
+            mollie_status = mollie_payment.get("status", "").lower()
 
-        payment.status = mollie_payment.get("status").lower()
-        payment.save()
+        # Validate status against defined choices
+        valid_statuses = [choice[0] for choice in PaymentStatus.CHOICES]
+        if mollie_status in valid_statuses:
+            payment.status = mollie_status
+            payment.save()
 
         return HttpResponse(status=200)
 

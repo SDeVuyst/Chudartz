@@ -29,7 +29,7 @@ urlpatterns = i18n_patterns(
     path(_('priveles'), views.priveles, name='priveles'),
 
 
-    path(_('teambuildings-en-workshops/'), views.teambuildings_en_workshops, name="teambuildings_en_workshops"),
+    path(_('workshops/'), views.workshops, name="workshops"),
     path(_('over-ons/'), views.over_ons, name="over_ons"),
     path(_('algemene-voorwaarden/'), views.algemene_voorwaarden, name="algemene_voorwaarden"),
     path(_('privacybeleid/'), views.privacybeleid, name="privacybeleid"),

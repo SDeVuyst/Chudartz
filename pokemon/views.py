@@ -103,15 +103,15 @@ def evenement(request, slug):
             quantity = request.POST.get(ticket_quantity_key)
 
             try:
-                ticket_quantities[possible_ticket.id] = int(quantity)
-            except (ValueError, TypeError):
-                ticket_quantities[possible_ticket.id] = 0  # Handle empty or invalid input
-
+                if quantity is not None:
+                    ticket_quantities[possible_ticket.id] = int(quantity)
+            except Exception:
+                pass
 
         # check if at least 1 ticket has valid quantity
         is_valid_quantitites = False
         for ticket_id, quantity in ticket_quantities.items():
-            chosen_ticket = get_object_or_404(Ticket, pk=ticket_id)
+            chosen_ticket = Ticket.objects.get(pk=ticket_id)
 
             # check if ticket possible to buy
             if chosen_ticket.disable_ticket or chosen_ticket.is_sold_out:
@@ -135,7 +135,7 @@ def evenement(request, slug):
         # get total price of transaction
         total_cost = 0
         for ticket_id, quantity in ticket_quantities.items():
-            total_cost +=  quantity * Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
+            total_cost += quantity * Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
 
 
         payment = Payment.objects.create(
@@ -206,7 +206,7 @@ def standhouder(request, slug):
             # Send mail to admins
             send_mail(
                 f'Standhouder Aanvraag',
-                f'Evenement: {evenement.titel}\nBedrijfsnaam: {data['bedrijfsnaam']}\nNaam: {data['naam']}\nEmail: {data['email']}\nTelefoon: {data['telefoon']}\nAantal Tafels: {data['aantal_tafels']}\nFactuur: {'ja' if data['factuur'] else 'nee'}\nElectriciteit: {'ja' if data['electriciteit'] else 'nee'}\Tafel/Stoel: {'ja' if data['tafel'] else 'nee'}Opmerkingen: {data['opmerkingen']}',
+                f'Evenement: {evenement.titel}\nBedrijfsnaam: {data['bedrijfsnaam']}\nNaam: {data['naam']}\nEmail: {data['email']}\nTelefoon: {data['telefoon']}\nAantal Tafels: {data['aantal_tafels']}\nFactuur: {'ja' if data['factuur'] else 'nee'}\nElectriciteit: {'ja' if data['electriciteit'] else 'nee'}\nTafel/Stoel: {'ja' if data['tafel'] else 'nee'}\nOpmerkingen: {data['opmerkingen']}',
                 formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False,
@@ -265,8 +265,21 @@ def mollie_webhook(request):
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
         payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
 
-        payment.status = mollie_payment.get("status").lower()
-        payment.save()
+        # check if it is refund
+        try:
+            has_links = mollie_payment.get('_links', False)
+            if has_links and has_links.get('refunds', False):
+                mollie_status = 'refunded'
+            else:
+                mollie_status = mollie_payment.get("status", "").lower()
+        except:
+            mollie_status = mollie_payment.get("status", "").lower()
+
+        # Validate status against defined choices
+        valid_statuses = [choice[0] for choice in PaymentStatus.CHOICES]
+        if mollie_status in valid_statuses:
+            payment.status = mollie_status
+            payment.save()
 
         return HttpResponse(status=200)
 

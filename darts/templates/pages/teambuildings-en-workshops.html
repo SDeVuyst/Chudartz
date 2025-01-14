@@ -27,7 +27,7 @@ ChudartZ | Teambuilding & Workshops
   {% include 'blocks/header-sticky.html' %}
 
   <main class="main">
-    {% trans "Teambuilding" as page_name %}
+    {% trans "Workshops" as page_name %}
     {% trans "Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-evenementen." as page_description %}
 
     {% include 'blocks/page-title.html' with name=page_name description=page_description background="true" %}
@@ -44,7 +44,7 @@ ChudartZ | Teambuilding & Workshops
         
               <div class="container">
         
-                <div class="row gy-4 align-items-center features-item">
+                <div class="row gy-4 align-items-center features-item" id="teambuilding">
                     <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
                     <h3>{% trans 'Teambuilding' %}</h3>
                     <p>
@@ -182,7 +182,24 @@ ChudartZ | Teambuilding & Workshops
                   </div>
             
                 </section><!-- /Pricing Section -->
-                        
+                
+                <!-- Demo lessons -->
+                <div class="row gy-4 align-items-stretch justify-content-between features-item" id="demo">
+                  <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+                    <img src="{% static "img/dartschool/trainer.webp" %}" class="img-fluid" alt="{% trans "Trainer bij ChudartZ logo" %}">
+                  </div>
+                  <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+                  <h3>{% trans 'Demolessen' %}</h3>
+                  <p>
+                    {% blocktrans %}
+                    Met ChudartZ brengen we de spannende wereld van darts ook naar scholen, sporthappenings, opendeurdagen, speelpleinwerking, SWAP-activiteiten of andere evenementen! Wij organiseren interactieve demolessen waarin jongeren op een leuke en veilige manier kennis kunnen maken met darts. Van het leren van basistechnieken tot het verbeteren van precisie. Onze activiteiten zijn ideaal om jongeren sportief en enthousiast te betrekken. Onze lessen zijn een perfecte aanvulling op sportieve en recreatieve activiteiten.
+                    {% endblocktrans %}
+                  </p>
+                  <a href="{% url 'index' %}#contact" class="btn btn-get-started align-self-start">{% trans 'Contacteer Ons' %}</a>
+
+                </div>
+              </div>
+
               </div>
         
             </section>

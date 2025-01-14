@@ -1,5 +1,4 @@
 from django import forms
-from phonenumber_field.formfields import PhoneNumberField
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -24,12 +23,12 @@ class StandhouderForm(forms.Form):
         'class': 'form-control',
     }))
 
-    telefoon = PhoneNumberField(required=True, widget=forms.TextInput(attrs={
+    telefoon = forms.CharField(max_length=20, required=True, widget=forms.TextInput(attrs={
         'placeholder': 'Gsm-nummer',
         'class': 'form-control',
     }))
 
-    aantal_tafels = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={
+    aantal_tafels = forms.IntegerField(min_value=1, required=True, widget=forms.NumberInput(attrs={
         'placeholder': 'Aantal plaatsen ',
         'class': 'form-control',
     }))
