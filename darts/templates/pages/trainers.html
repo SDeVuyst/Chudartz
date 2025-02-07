@@ -1,0 +1,68 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | Trainers
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<!-- TODO -->
+<meta name="keywords" content="chudartz, dart, school, zedelgem, jeugd, toernooien">
+<meta property="og:title" content="ChudartZ | Trainers">
+<!-- TODO -->
+<meta property="og:description" content="{% blocktrans %}Bij ChudartZ bieden we een dartschool waar spelers van elk niveau hun vaardigheden kunnen verbeteren. De school verwelkomt enthousiaste jongeren vanaf 10 jaar. Of je nu een beginner bent die net zijn eerste pijlen gooit, of een ervaren speler die zijn techniek wil verfijnen, wij staan klaar om je te helpen. Met persoonlijke aandacht en deskundige begeleiding zorgen wij ervoor dat je het beste uit jezelf kunt halen.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | Trainers">
+<!-- TODO -->
+<meta name="twitter:description" content="{% blocktrans %}Bij ChudartZ bieden we een dartschool waar spelers van elk niveau hun vaardigheden kunnen verbeteren. De school verwelkomt enthousiaste jongeren vanaf 10 jaar. Of je nu een beginner bent die net zijn eerste pijlen gooit, of een ervaren speler die zijn techniek wil verfijnen, wij staan klaar om je te helpen. Met persoonlijke aandacht en deskundige begeleiding zorgen wij ervoor dat je het beste uit jezelf kunt halen.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="trainers-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Trainers" as page_name %}
+    {% trans "Bekijk hieronder welke toernooien de komende maanden op het programma staan en verzeker jezelf alvast van een plek." as page_description %}
+
+    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
+
+     <section id="blog-posts" class="blog-posts section">
+
+      <div class="container">
+
+        {% if trainers %}
+
+        <div class="row gy-4">
+        {% for trainer in trainers %}
+            {% include 'blocks/trainer-card.html' with trainer=trainer %}
+        {% endfor %}
+        </div>
+
+        {% else %}
+
+        <div class="justify-content-center text-center">
+        <h2>{% trans 'Er zijn nog geen trainers!'%}</h2>
+        </div>
+
+        {% endif %}
+
+      </div>
+
+    </section>
+
+    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=toernooien pagination_url_name="toernooien" %}
+    
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

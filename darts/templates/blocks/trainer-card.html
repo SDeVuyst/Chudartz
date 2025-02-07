@@ -1,0 +1,23 @@
+{% load static dutch_date i18n %}
+
+<div class="col-lg-4">
+  <article>
+
+    <div class="post-img">
+      <img src="{{ trainer.afbeelding.url }}" alt="{% trans "Afbeelding van trainer" %}" class="img-fluid">
+    </div>
+
+    <h2 class="title">
+      <a href="#">{{ trainer.naam }}</a>
+    </h2>
+
+    <div class="d-flex align-items-center">
+      <div class="post-meta">
+        <p class="post-author">
+          {{ trainer.titel }}
+        </p>       
+      </div>
+    </div>
+
+  </article>
+</div>

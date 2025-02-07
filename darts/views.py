@@ -25,6 +25,22 @@ def index(request):
     return TemplateResponse(request, 'pages/index.html', context)
 
 
+def trainers(request):
+    context = get_default_context()
+    context["trainers"] = Trainer.objects.filter(active=True)
+    
+    return TemplateResponse(request, 'pages/trainers.html', context)
+
+
+def trainer(request, slug):
+    trainer = get_object_or_404(Trainer, slug=slug)
+
+    context = get_default_context()
+    context["trainer"] = trainer
+
+    return TemplateResponse(request, 'pages/trainer.html', context)
+
+
 def dartschool(request):
     context = get_default_context()
     context['beurtkaarten'] = Beurtkaart.objects.all()

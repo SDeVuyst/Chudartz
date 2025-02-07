@@ -241,6 +241,7 @@ class BeurtkaartAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     search_fields = ('naam', 'aantal_beurten', 'prijs')
 
+
 @admin.register(Nieuws)
 class NieuwsAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     import_form_class = ImportForm
@@ -260,3 +261,22 @@ class NieuwsAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     def is_active(self, obj):
         label = _("Ja") if obj.active else _("Nee")
         return obj.active, label
+    
+
+@admin.register(Trainer)
+class TrainerAdmin(SimpleHistoryAdmin, ModelAdmin):
+    
+    list_display = ('naam', 'titel', 'is_active')
+    search_fields = ('naam', 'titel')
+
+    @display(
+        description=_("Actief"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def is_active(self, obj):
+        label = _("Ja") if obj.active else _("Nee")
+        return obj.active, label
+    
