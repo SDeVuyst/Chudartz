@@ -9,7 +9,6 @@ urlpatterns = i18n_patterns(
     path('', views.index, name="index"),
 
     path(_('trainers/'), views.trainers, name="trainers"),
-    path(_('trainers/<slug:slug>/'), views.trainer, name='trainer'),
 
     path(_('dartschool/'), views.dartschool, name="dartschool"),
     path(_('dartschool/meer-info/'), views.dartschool_meer_info, name="dartschool_meer_info"),    

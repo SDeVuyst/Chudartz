@@ -569,9 +569,9 @@ class Trainer(models.Model):
         verbose_name_plural = 'Trainers'
 
     naam = models.CharField(max_length=50, verbose_name=_("Naam"))
-    # TODO slug
     titel = models.CharField(max_length=50, verbose_name=_("Titel"))
-    active = models.BooleanField(verbose_name=_("Actief"))
+    extra_info = models.CharField(max_length=256, verbose_name=_("Extra Info"))
     afbeelding = models.ImageField(verbose_name=_("Afbeelding"), upload_to="trainers")
+    active = models.BooleanField(verbose_name=_("Actief"))
 
     history = HistoricalRecords(verbose_name=_("History"))

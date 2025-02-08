@@ -33,15 +33,15 @@ ChudartZ | Trainers
 
     {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
 
-     <section id="blog-posts" class="blog-posts section">
+    <section id="team" class="team section light-background">
 
       <div class="container">
 
         {% if trainers %}
 
-        <div class="row gy-4">
+        <div class="row gy-5">
         {% for trainer in trainers %}
-            {% include 'blocks/trainer-card.html' with trainer=trainer %}
+          {% include 'blocks/trainer-card.html' with trainer=trainer delay=loop.index|add:"00" %}
         {% endfor %}
         </div>
 

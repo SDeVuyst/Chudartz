@@ -281,6 +281,12 @@ UNFOLD = {
                     },
 
                     {
+                        "title": _("Trainers"),
+                        "icon": "sports",
+                        "link": "/admin/darts/trainer/",
+                    },
+
+                    {
                         "title": _("Beurtkaarten"),
                         "icon": "confirmation_number",
                         "link": "/admin/darts/beurtkaart/",
