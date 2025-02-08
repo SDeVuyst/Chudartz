@@ -572,6 +572,7 @@ class Trainer(models.Model):
     titel = models.CharField(max_length=50, verbose_name=_("Titel"))
     extra_info = models.CharField(max_length=256, verbose_name=_("Extra Info"))
     afbeelding = models.ImageField(verbose_name=_("Afbeelding"), upload_to="trainers")
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
     active = models.BooleanField(verbose_name=_("Actief"))
 
     history = HistoricalRecords(verbose_name=_("History"))

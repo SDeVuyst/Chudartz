@@ -27,7 +27,7 @@ def index(request):
 
 def trainers(request):
     context = get_default_context()
-    context["trainers"] = Trainer.objects.filter(active=True)
+    context["trainers"] = Trainer.objects.filter(active=True).order_by('-volgorde')
     
     return TemplateResponse(request, 'pages/trainers.html', context)
 
