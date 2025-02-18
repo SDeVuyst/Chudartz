@@ -10,6 +10,7 @@ urlpatterns = i18n_patterns(
 
     path(_('trainers/'), views.trainers, name="trainers"),
 
+    path(_('locaties/'), views.locaties, name="locaties"),
     path(_('dartschool/'), views.dartschool, name="dartschool"),
     path(_('dartschool/meer-info/'), views.dartschool_meer_info, name="dartschool_meer_info"),    
     path(_('dartschool/werkwijze/'), views.dartschool_werkwijze, name="dartschool_werkwijze"),    
@@ -20,6 +21,7 @@ urlpatterns = i18n_patterns(
     path(_('dartschool/lidgeld/'), views.dartschool_lidgeld, name='dartschool_lidgeld'),
     path(_('dartschool/lidgeld/success/'), views.dartschool_lidgeld_success, name='dartschool_lidgeld_success'),
 
+    path(_('doelen/'), views.doelen, name="doelen"),
     path(_('toernooien/'), views.toernooien, name="toernooien"),
     path(_('toernooien/<slug:slug>/'), views.toernooi, name='toernooi'),
     path(_('toernooien/<slug:slug>/inschrijven/'), views.inschrijven_toernooi, name='inschrijven_toernooi'),

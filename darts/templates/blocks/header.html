@@ -10,8 +10,9 @@
     <ul>
       <li><a href="{% url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
       <li class="dropdown">
-        <a href="#"><span>{% trans 'Dartschool' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <a href="#"><span>{% trans 'Dartscholen' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
+          <li><a href="{% url 'locaties' %}">{% trans 'Locaties' %}</a></li>
           <li><a href="{% url 'dartschool' %}">{% trans 'Info' %}</a></li>
           <li><a href="{% url 'dartschool_werkwijze' %}">{% trans 'Werkwijze' %}</a></li>
           <li><a href="{% url 'gratis_proefles' %}">{% trans 'Gratis proefles' %}</a></li>
@@ -23,6 +24,7 @@
       <li><a href="{% url 'trainers' %}">{% trans 'Trainers' %}</a></li>
       <li class="dropdown"><a href="#"><span>{% trans 'Toernooien' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
+          <li><a href="{% url 'doelen' %}">Doelen</a></li>          
           <li><a href="{% url 'toernooien' %}">Alle toernooien</a></li>
           
           {% for groep in toernooi_groepen %}

@@ -31,6 +31,13 @@ def trainers(request):
     
     return TemplateResponse(request, 'pages/trainers.html', context)
 
+def locaties(request):
+    #TODO
+    context = get_default_context()
+    context['beurtkaarten'] = Beurtkaart.objects.all()
+    
+    return TemplateResponse(request, 'pages/dartschool.html', context)
+
 
 def dartschool(request):
     context = get_default_context()
@@ -169,6 +176,14 @@ def dartschool_lidgeld(request):
 
 
 def dartschool_lidgeld_success(request):
+    context = get_default_context()
+    context["success"] = True
+
+    return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
+
+
+def doelen(request):
+    # TODO
     context = get_default_context()
     context["success"] = True
 
