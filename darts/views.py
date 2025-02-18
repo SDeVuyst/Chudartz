@@ -185,9 +185,8 @@ def dartschool_lidgeld_success(request):
 def doelen(request):
     # TODO
     context = get_default_context()
-    context["success"] = True
 
-    return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
+    return TemplateResponse(request, 'pages/doelen.html', context)
 
 
 def toernooien(request):
@@ -410,6 +409,8 @@ def contact(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
+def sponsor_worden(request):
+    return TemplateResponse(request, 'pages/sponsor-worden.html', get_default_context())
 
 def sponsors(request):
     return TemplateResponse(request, 'pages/sponsors.html', get_default_context())
