@@ -145,7 +145,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
             loadingMessage.style.display = 'none';
             if (data.success) {
               // Create a URL with query parameters for Cal.com
-              const calLink = `chudartz/dartschool?firstName=${encodeURIComponent(data.voornaam)}&lastName=${encodeURIComponent(data.achternaam)}&email=${encodeURIComponent(data.email)}&code=${encodeURIComponent(code)}`;
+              const calLink = `chudartz/dartschool-zedelgem?firstName=${encodeURIComponent(data.voornaam)}&lastName=${encodeURIComponent(data.achternaam)}&email=${encodeURIComponent(data.email)}&code=${encodeURIComponent(code)}`;
               
               // display resterende beurten
               document.getElementById('resterende-beurten').innerHTML = data.resterende_beurten;
