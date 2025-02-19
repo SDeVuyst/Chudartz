@@ -1,0 +1,99 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | {{ locatie.titel }}
+{% endblock %}
+
+{% block meta %}
+<!-- TODO -->
+<meta name="robots" content="index, follow">
+<meta name="keywords" content="chudartz, dart, school, zedelgem, jeugd, toernooien">
+<meta property="og:title" content="ChudartZ | {{ locatie.titel }}">
+<meta property="og:description" content="{% blocktrans %}Bij ChudartZ bieden we een dartschool waar spelers van elk niveau hun vaardigheden kunnen verbeteren. De school verwelkomt enthousiaste jongeren vanaf 10 jaar. Of je nu een beginner bent die net zijn eerste pijlen gooit, of een ervaren speler die zijn techniek wil verfijnen, wij staan klaar om je te helpen. Met persoonlijke aandacht en deskundige begeleiding zorgen wij ervoor dat je het beste uit jezelf kunt halen.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | {{ locatie.titel }}">
+<meta name="twitter:description" content="{% blocktrans %}Bij ChudartZ bieden we een dartschool waar spelers van elk niveau hun vaardigheden kunnen verbeteren. De school verwelkomt enthousiaste jongeren vanaf 10 jaar. Of je nu een beginner bent die net zijn eerste pijlen gooit, of een ervaren speler die zijn techniek wil verfijnen, wij staan klaar om je te helpen. Met persoonlijke aandacht en deskundige begeleiding zorgen wij ervoor dat je het beste uit jezelf kunt halen.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="locatie-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Locaties" as page_previous_crumb %}
+    {% trans "/nl/locaties" as page_previous_crumb_link %}
+    {% trans "/nl/dartschool" as page_second_previous_crumb_link %}
+    {% trans "Dartschool" as page_second_previous_crumb %}
+
+    {% include 'blocks/page-title.html' with name=locatie.titel background="true" second_previous_crumb=page_second_previous_crumb second_previous_crumb_link=page_second_previous_crumb_link previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link %}
+
+    <section id="portfolio-details" class="portfolio-details section pt-0"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div data-aos="fade-up">
+
+            <section id="features" class="features section p-0">
+        
+              <div class="container">
+        
+                <div class="row gy-4 align-items-stretch justify-content-between features-item ">
+                    <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+                      <img src="{{ locatie.afbeelding.url }}" class="img-fluid" alt="{% trans "Afbeelding van locatie" %}">
+                    </div>
+
+                    <!-- TODO: meerdere afbeeldingen -->
+                    <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+                    <h3>{% trans 'Lesuren' %}</h3>
+                    <p>
+                      {{ locatie.lesuren|safe }}
+                    </p>
+                    
+                    <a href="{% url 'reserveren_dartschool' %}" class="btn btn-get-started align-self-start">{% trans 'Training Reserveren' %}</a>
+  
+                  </div>
+                </div>
+                
+
+                <div class="row gy-4 align-items-stretch justify-content-between features-item ">
+
+                    <div class="col-lg-8" data-aos="fade-up">
+                        <div class="portfolio-description">
+                          {{ locatie.extra_info|safe}}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="portfolio-info">
+                            <h3>{% trans 'Extra Informatie' %}</h3>
+                            <ul>
+                                <li><i class="bi bi-geo"></i><strong>{% trans 'Locatie' %}</strong> {{ locatie.locatie }}</li>
+                                <li><i class="bi bi-geo-alt"></i><strong>{% trans 'Adres' %}</strong> {{ locatie.adres }}</li>
+                                li
+                            </ul>
+                        </div>
+                    </div>
+              </div>
+        
+            </section>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    </main>
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

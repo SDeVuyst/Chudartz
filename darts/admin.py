@@ -279,4 +279,22 @@ class TrainerAdmin(SimpleHistoryAdmin, ModelAdmin):
     def is_active(self, obj):
         label = _("Ja") if obj.active else _("Nee")
         return obj.active, label
+
+
+@admin.register(Locatie)
+class LocatieAdmin(SimpleHistoryAdmin, ModelAdmin):
+    
+    list_display = ('titel', 'is_active')
+    search_fields = ('titel',)
+
+    @display(
+        description=_("Actief"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def is_active(self, obj):
+        label = _("Ja") if obj.active else _("Nee")
+        return obj.active, label
     

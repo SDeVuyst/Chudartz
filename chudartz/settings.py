@@ -222,11 +222,13 @@ UNFOLD = {
     },
     
     "SIDEBAR": {
-        "show_search": False,
+        "show_search": True,
         "show_all_applications": True,
         "navigation": [
 
             {
+                "title": "Administratie",
+                "collapsible": True,
                 "items": [
                     {
                         "title": _("Financiën"),
@@ -238,11 +240,27 @@ UNFOLD = {
                         "icon": "query_stats",
                         "link": "https://analytics.google.com/",
                     },
+                    {
+                        "title": _("Sponsors"),
+                        "icon": "checkbook",
+                        "link": "/admin/darts/sponsor/",
+                    },
+                    {
+                        "title": _("Nieuws"),
+                        "icon": "article",
+                        "link": "/admin/darts/nieuws/"
+                    },
+                    {
+                        "title": _("Navigatiebalk"),
+                        "icon": "dropdown",
+                        "link": "/admin/darts/toernooiheadergroep/",
+                    },
                 ]
             },
             
             {
-                "title": "Darts",
+                "title": "Darts Toernooien",
+                "collapsible": True,
                 "separator": True,
                 "items": [
                     {
@@ -266,6 +284,8 @@ UNFOLD = {
             },
 
             {
+                "title": "Dartschool",
+                "collapsible": True,
                 "separator": True,
                 "items": [
                     {
@@ -287,6 +307,12 @@ UNFOLD = {
                     },
 
                     {
+                        "title": _("Locaties"),
+                        "icon": "location_away",
+                        "link": "/admin/darts/locatie/",
+                    },
+
+                    {
                         "title": _("Beurtkaarten"),
                         "icon": "confirmation_number",
                         "link": "/admin/darts/beurtkaart/",
@@ -295,28 +321,7 @@ UNFOLD = {
             },
 
             {
-                "separator": True,
-                "items": [
-                    {
-                        "title": _("Sponsors"),
-                        "icon": "checkbook",
-                        "link": "/admin/darts/sponsor/",
-                    },
-                    {
-                        "title": _("Nieuws"),
-                        "icon": "article",
-                        "link": "/admin/darts/nieuws/"
-                    },
-                    {
-                        "title": _("Navigatiebalk"),
-                        "icon": "dropdown",
-                        "link": "/admin/darts/toernooiheadergroep/",
-                    },
-
-                ]
-            },
-
-            {
+                "collapsible": True,
                 "title": "Collectibles",
                 "separator": True,
                 "items": [

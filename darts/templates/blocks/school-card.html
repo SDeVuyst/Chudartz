@@ -1,0 +1,26 @@
+{% load static i18n %}
+
+<div class="col-lg-4">
+  <article>
+
+    <div class="post-img">
+      <img src="{{ school.afbeelding.url }}" alt="{% trans "Afbeelding van toernooi" %}" class="img-fluid">
+    </div>
+
+    <p class="post-category"><i class="bi bi-geo"></i>{{ school.locatie }}</p>
+
+    <h2 class="title">
+      <a href="{% url 'locatie_detail' slug=school.slug %}">{{ school.titel }}</a>
+    </h2>
+
+    <div class="d-flex align-items-center">
+      <div class="post-meta">
+        <p class="post-author">
+          <i class="bi bi-geo-alt"></i>
+          {{ school.adres }}
+        </p>        
+      </div>
+    </div>
+
+  </article>
+</div>

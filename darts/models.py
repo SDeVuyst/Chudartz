@@ -576,3 +576,26 @@ class Trainer(models.Model):
     active = models.BooleanField(verbose_name=_("Actief"))
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+
+class Locatie(models.Model):
+
+    def __str__(self) -> str:
+        return self.titel
+    
+    class Meta:
+        verbose_name = "Locatie"
+        verbose_name_plural = "Locaties"
+    
+    titel = models.CharField(max_length=100, verbose_name=_("Titel"))
+    afbeelding = models.ImageField(verbose_name=_("Hoofdafbeelding"), upload_to="locaties")
+    # TODO meerdere fotos?
+    locatie = models.CharField(max_length=100, verbose_name=_("Locatie"))
+    adres = models.CharField(max_length=100, verbose_name=_("Adres"))
+    lesuren = RichTextField(verbose_name=_("Lesuren"))
+    extra_info = RichTextField(verbose_name=_("Extra Info"))
+    slug = models.SlugField(unique=True)
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
+    active = models.BooleanField(verbose_name=_("Actief"), default=True)
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))

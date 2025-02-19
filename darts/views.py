@@ -32,11 +32,19 @@ def trainers(request):
     return TemplateResponse(request, 'pages/trainers.html', context)
 
 def locaties(request):
-    #TODO
     context = get_default_context()
-    context['beurtkaarten'] = Beurtkaart.objects.all()
+    context['locaties'] = Locatie.objects.filter(active=True).order_by('-volgorde')
     
-    return TemplateResponse(request, 'pages/dartschool.html', context)
+    return TemplateResponse(request, 'pages/locaties.html', context)
+
+def locatie_detail(request, slug):
+    context = get_default_context()
+    locatie = get_object_or_404(Locatie, slug=slug)
+    if locatie.active == False: return HttpResponseNotFound()
+
+    context['locatie'] = locatie
+    
+    return TemplateResponse(request, 'pages/locatie.html', context)
 
 
 def dartschool(request):
@@ -47,6 +55,9 @@ def dartschool(request):
 
 def dartschool_meer_info(request):
     return TemplateResponse(request, 'pages/dartschool-meer-info.html', get_default_context())
+
+def dartschool_aanbod(request):
+    return TemplateResponse(request, 'pages/dartschool-aanbod.html', get_default_context())
 
 def dartschool_werkwijze(request):
     return TemplateResponse(request, 'pages/dartschool-werkwijze.html', get_default_context())

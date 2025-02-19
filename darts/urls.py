@@ -7,12 +7,15 @@ from . import views
 
 urlpatterns = i18n_patterns(
     path('', views.index, name="index"),
+    path('rosetta/', include('rosetta.urls')),
 
     path(_('trainers/'), views.trainers, name="trainers"),
 
-    path(_('locaties/'), views.locaties, name="locaties"),
     path(_('dartschool/'), views.dartschool, name="dartschool"),
+    path(_('dartschool/locaties/'), views.locaties, name="locaties"),
+    path(_('dartschool/locaties/<slug:slug>/'), views.locatie_detail, name="locatie_detail"),
     path(_('dartschool/meer-info/'), views.dartschool_meer_info, name="dartschool_meer_info"),    
+    path(_('dartschool/aanbod/'), views.dartschool_aanbod, name="dartschool_aanbod"),    
     path(_('dartschool/werkwijze/'), views.dartschool_werkwijze, name="dartschool_werkwijze"),    
     path(_('dartschool/gratis-proefles/'), views.gratis_proefles, name='gratis_proefles'),
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
