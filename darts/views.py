@@ -69,12 +69,14 @@ def gratis_proefles(request):
         "T.e.m. 23 jaar",
         "Actieve interesse in darts"
     ]
+    context["locaties"] = Locatie.objects.filter(active=True).order_by('-volgorde')
         
     return TemplateResponse(request, 'pages/dartschool-gratis-proefles.html', context)
 
 
 def reserveren_dartschool(request):
     context = get_default_context()
+    context["locaties"] = Locatie.objects.filter(active=True).order_by('-volgorde')
     context["vereisten"] = "Lid zijn van de dartschool",
 
     return TemplateResponse(request, 'pages/dartschool-reserveren.html', context)

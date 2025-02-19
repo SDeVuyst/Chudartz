@@ -67,8 +67,18 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                     </div>
             
                     <!-- Email -->
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <input type="email" name="email" class="form-control" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                    </div>
+
+                    <!-- Locatie -->
+                    <div class="col-md-4">
+                      <select name="locatie" class="form-control" required>
+                        <option value="" disabled selected>{% trans 'Selecteer Locatie' %}</option>
+                        {% for locatie in locaties %}
+                          <option value="{{ locatie.slug }}">{{ locatie.titel }}</option>
+                        {% endfor %}
+                      </select>
                     </div>
 
                     <div class="col-md-12">
@@ -165,9 +175,10 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
       const voornaam = document.querySelector('input[name="voornaam"]').value;
       const achternaam = document.querySelector('input[name="achternaam"]').value;
       const email = document.querySelector('input[name="email"]').value;
+      const locatie = document.querySelector('select[name="locatie"]').value;
   
       // Create a URL with query parameters for Cal.com
-      const calLink = `chudartz/dartschool-proefles?firstName=${encodeURIComponent(voornaam)}&lastName=${encodeURIComponent(achternaam)}&email=${encodeURIComponent(email)}&code=PROEFLES`;
+      const calLink = `chudartz/dartschool-proefles-${locatie}?firstName=${encodeURIComponent(voornaam)}&lastName=${encodeURIComponent(achternaam)}&email=${encodeURIComponent(email)}&code=PROEFLES`;
 
       // Add a fade-out animation to the form
       formBox.style.transition = 'opacity 0.25s ease';

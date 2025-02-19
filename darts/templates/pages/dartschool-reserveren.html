@@ -61,8 +61,18 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                 <div class="row gy-4">
             
                     <!-- Code -->
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <input type="text" name="code" class="form-control" placeholder="{% trans 'Uw persoonlijke code' %}" maxlength="6" required>
+                    </div>
+
+                    <!-- Locatie -->
+                    <div class="col-md-6">
+                      <select name="locatie" class="form-control" required>
+                        <option value="" disabled selected>{% trans 'Selecteer Locatie' %}</option>
+                        {% for locatie in locaties %}
+                          <option value="{{ locatie.slug }}">{{ locatie.titel }}</option>
+                        {% endfor %}
+                      </select>
                     </div>
 
                     <div class="col-md-12">
@@ -130,6 +140,8 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
     
         // Collect the user's data from the form fields
         const code = document.querySelector('input[name="code"]').value;
+        const locatie = document.querySelector('select[name="locatie"]').value;
+        
         loadingMessage.style.display = 'block';
 
         // fetch the student object
@@ -145,7 +157,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
             loadingMessage.style.display = 'none';
             if (data.success) {
               // Create a URL with query parameters for Cal.com
-              const calLink = `chudartz/dartschool?firstName=${encodeURIComponent(data.voornaam)}&lastName=${encodeURIComponent(data.achternaam)}&email=${encodeURIComponent(data.email)}&code=${encodeURIComponent(code)}`;
+              const calLink = `chudartz/dartschool-${locatie}?firstName=${encodeURIComponent(data.voornaam)}&lastName=${encodeURIComponent(data.achternaam)}&email=${encodeURIComponent(data.email)}&code=${encodeURIComponent(code)}`;
               
               // display resterende beurten
               document.getElementById('resterende-beurten').innerHTML = data.resterende_beurten;

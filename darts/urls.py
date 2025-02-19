@@ -7,7 +7,6 @@ from . import views
 
 urlpatterns = i18n_patterns(
     path('', views.index, name="index"),
-    path('rosetta/', include('rosetta.urls')),
 
     path(_('trainers/'), views.trainers, name="trainers"),
 
@@ -34,7 +33,6 @@ urlpatterns = i18n_patterns(
     path("darts/set-attendance/", views.set_attendance),
     
     path(_('priveles'), views.priveles, name='priveles'),
-
 
     path(_('workshops/'), views.workshops, name="workshops"),
     path(_('over-ons/'), views.over_ons, name="over_ons"),
