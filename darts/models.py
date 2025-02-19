@@ -415,6 +415,8 @@ class Sponsor(models.Model):
     toon_in_footer = models.BooleanField(verbose_name=_("Toon in footer"), default=True)
     toon_op_sponsors_pagina = models.BooleanField(verbose_name=_("Toon op sponsor pagina"), default=True)
     toon_knop_op_sponsors_pagina = models.BooleanField(verbose_name=_("Toon knop op sponsors pagina"), default=True)
+    volgorde_footer = models.SmallIntegerField(verbose_name=_("Volgorde in footer"), default=0)
+    volgorde_pagina = models.SmallIntegerField(verbose_name=_("Volgorde op pagina"), default=0)
     logo = models.ImageField(verbose_name=_("Logo"), upload_to="sponsor")
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="sponsor")
 

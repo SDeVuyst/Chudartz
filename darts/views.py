@@ -425,7 +425,9 @@ def sponsor_worden(request):
     return TemplateResponse(request, 'pages/sponsor-worden.html', get_default_context())
 
 def sponsors(request):
-    return TemplateResponse(request, 'pages/sponsors.html', get_default_context())
+    context = get_default_context()
+    context['sponsors_pagina'] = Sponsor.objects.all().order_by('-volgorde_pagina')
+    return TemplateResponse(request, 'pages/sponsors.html', context)
 
 def faq(request):
     return TemplateResponse(request, 'pages/faq.html', get_default_context())
@@ -614,6 +616,6 @@ def code_bestaat(request, code):
 # HELPER
 def get_default_context():
     return {
-        'sponsors': Sponsor.objects.all(),
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer'),
         'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True).order_by('-volgorde'),
     }
