@@ -45,7 +45,7 @@ class ToernooiHeaderGroepAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Toernooi)
 class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')
+    list_display = ('display_header', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
     exclude = ('tickets',)
 
@@ -56,6 +56,21 @@ class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     actions_detail = ["generate_qr_code",]
 
+    @display(description=_("Titel"), header=True)
+    def display_header(self, instance: Toernooi):
+        return [
+            instance.titel,
+            None,
+            instance.titel,
+            {
+                "path": instance.afbeelding.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
+    
     @display(
         description=_("Uitverkocht"),
         label={
@@ -200,10 +215,58 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     import_form_class = ImportForm
     export_form_class = SelectableFieldsExportForm
 
-    list_display = ('naam', 'toon_op_index', 'toon_in_footer', 'toon_op_sponsors_pagina')
+    list_display = ('display_header', 'toon_op_voorpagina', 'toon_in_footer_display', 'toon_op_sponsor_pg_display')
     ordering = ('id',)
 
     search_fields = ('naam', 'info', )
+
+    @display(description=_("Naam"), header=True)
+    def display_header(self, instance: Sponsor):
+        return [
+            instance.naam,
+            None,
+            instance.naam,
+            {
+                "path": instance.logo.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
+    
+    @display(
+        description=_("Toon op voorpagina"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def toon_op_voorpagina(self, obj: Sponsor):
+        label = _("Ja") if obj.toon_op_index else _("Nee")
+        return obj.toon_op_index, label
+    
+    @display(
+        description=_("Toon in footer"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def toon_in_footer_display(self, obj: Sponsor):
+        label = _("Ja") if obj.toon_in_footer else _("Nee")
+        return obj.toon_in_footer, label
+    
+    @display(
+        description=_("Toon op sponsors pagina"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def toon_op_sponsor_pg_display(self, obj: Sponsor):
+        label = _("Ja") if obj.toon_op_sponsors_pagina else _("Nee")
+        return obj.toon_op_sponsors_pagina, label
 
 
 @admin.register(Leerling)
@@ -266,9 +329,24 @@ class NieuwsAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
 @admin.register(Trainer)
 class TrainerAdmin(SimpleHistoryAdmin, ModelAdmin):
     
-    list_display = ('naam', 'titel', 'is_active')
+    list_display = ('display_header', 'titel', 'is_active')
     search_fields = ('naam', 'titel')
 
+    @display(description=_("Trainer"), header=True)
+    def display_header(self, instance: Trainer):
+        return [
+            instance.naam,
+            None,
+            instance.naam,
+            {
+                "path": instance.afbeelding.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                # "squared": True,
+            },
+        ]
+        
     @display(
         description=_("Actief"),
         label={
@@ -284,9 +362,24 @@ class TrainerAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(Locatie)
 class LocatieAdmin(SimpleHistoryAdmin, ModelAdmin):
     
-    list_display = ('titel', 'is_active')
+    list_display = ('display_header', 'is_active')
     search_fields = ('titel',)
 
+    @display(description=_("Titel"), header=True)
+    def display_header(self, instance: Locatie):
+        return [
+            instance.titel,
+            None,
+            instance.titel,
+            {
+                "path": instance.afbeelding.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
+    
     @display(
         description=_("Actief"),
         label={
