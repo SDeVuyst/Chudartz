@@ -195,9 +195,7 @@ def dartschool_lidgeld_success(request):
 
 
 def doelen(request):
-    # TODO
     context = get_default_context()
-
     return TemplateResponse(request, 'pages/doelen.html', context)
 
 
