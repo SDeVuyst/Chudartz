@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | Trainers
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta name="keywords" content="chudartz, dart, school, trainer, leraar">
+<meta property="og:title" content="ChudartZ | Trainers">
+<meta property="og:description" content="{% blocktrans %}De trainers van de jeugddartschool ChudartZ zijn bekwaam, gedreven en gepassioneerd om jonge darters naar een hoger niveau te tillen. Met hun enthousiasme en persoonlijke begeleiding maken ze van elke training een inspirerende en leerzame ervaring.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | Trainers">
+<meta name="twitter:description" content="{% blocktrans %}De trainers van de jeugddartschool ChudartZ zijn bekwaam, gedreven en gepassioneerd om jonge darters naar een hoger niveau te tillen. Met hun enthousiasme en persoonlijke begeleiding maken ze van elke training een inspirerende en leerzame ervaring.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="trainers-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Trainers" as page_name %}
+    {% trans "Alle onze trainers zijn niet alleen deskundig en bevoegd om les te geven, maar zijn ook zorgvuldig gescreend op betrouwbaarheid en integriteit." as page_description %}
+
+    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description %}
+
+    <section id="team" class="team section light-background">
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+
+            {% if trainers %}
+
+            <div class="row gy-5">
+            {% for trainer in trainers %}
+              {% include 'blocks/trainer-card.html' with trainer=trainer delay=loop.index|add:"00" %}
+            {% endfor %}
+            </div>
+
+            {% else %}
+
+            <div class="justify-content-center text-center">
+            <h2>{% trans 'Er zijn nog geen trainers!'%}</h2>
+            </div>
+
+            {% endif %}
+          </div>
+
+          <div class="col-lg-4 service-details" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-box">
+              <h4>{% trans 'Trainer Worden?' %}</h4>
+              
+              <p>{% trans 'Ben jij gepassioneerd door darts en gemotiveerd om jonge talenten naar een hoger niveau te tillen? Wij zijn op zoek naar enthousiaste (jeugd)trainers die hun kennis en ervaring willen delen binnen een groeiend en ambitieus project!' %}</p>
+              
+              <h5>Vereisten</h5>
+              <div class="services-list">
+                <div class="services-list">
+                  <p><i class="bi bi-check"></i><span>{% trans 'Een bewijs van goed gedrag en zeden is noodzakelijk om te kunnen werken met jongeren' %}</span></p>
+                  <p><i class="bi bi-check"></i><span>{% trans 'Communicatieve vaardigheden - duidelijk en geduldig kunnen uitleggen en motiveren' %}</span></p>
+                  <p><i class="bi bi-check"></i><span>{% trans 'Didactische vaardigheden - in staat zijn om trainingen te geven en technieken over te brengen' %}</span></p>
+                  <p><i class="bi bi-check"></i><span>{% trans 'Flexibiliteit en aanpassingsvermogen - omgaan met verschillende niveaus en leerstijlen' %}</span></p>
+                  <p><i class="bi bi-check"></i><span>{% trans 'Teamplayer - Kunnen samenwerken met andere trainers, vrijwilligers' %}</span></p>
+                </div>
+                  <a href="/#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=toernooien pagination_url_name="toernooien" %}
+    
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

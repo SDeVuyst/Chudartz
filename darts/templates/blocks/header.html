@@ -2,28 +2,30 @@
 
 <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
   
-  <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto me-xl-0">
+  <a href="{% url 'index' %}#hero" class="logo d-flex align-items-center me-auto me-xl-0">
     <img src="{% static "img/logo-black.png" %}" alt="Logo ChudartZ">
   </a>
 
   <nav id="navmenu" class="navmenu">
     <ul>
-      <li><a href="{% url 'index' %}#hero" class="active">Home</a></li>
       <li><a href="{% url 'over_ons' %}">{% trans 'Over Ons' %}</a></li>
       <li class="dropdown">
-        <a href="#"><span>{% trans 'Dartschool' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <a href="#"><span>{% trans 'Dartscholen' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
+          <li><a href="{% url 'locaties' %}">{% trans 'Locaties' %}</a></li>
           <li><a href="{% url 'dartschool' %}">{% trans 'Info' %}</a></li>
+          <li><a href="{% url 'dartschool_aanbod' %}">{% trans 'Aanbod' %}</a></li>
           <li><a href="{% url 'dartschool_werkwijze' %}">{% trans 'Werkwijze' %}</a></li>
-          <li><a href="{% url 'gratis_proefles' %}">{% trans 'Gratis proefles' %}</a></li>
+          <li><a href="{% url 'gratis_proefles' %}">{% trans '1ste les gratis' %}</a></li>
           <li><a href="{% url 'beurtkaart_kopen' %}">{% trans 'Beurtenkaart kopen' %}</a></li>
           <li><a href="{% url 'reserveren_dartschool' %}">{% trans 'Training reserveren' %}</a></li>
           <li><a href="{% url 'priveles' %}">{% trans 'Privéles boeken' %}</a></li>
         </ul>
       </li>
-
+      <li><a href="{% url 'trainers' %}">{% trans 'Trainers' %}</a></li>
       <li class="dropdown"><a href="#"><span>{% trans 'Toernooien' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
+          <li><a href="{% url 'doelen' %}">Doelen</a></li>          
           <li><a href="{% url 'toernooien' %}">Alle toernooien</a></li>
           
           {% for groep in toernooi_groepen %}

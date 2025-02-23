@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | Doelen
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+{% endblock %}
+
+{% block body %}
+<body class="over-ons-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% trans "Doelen" as page_name %}
+    {% trans "Toernooien" as page_previous_crumb %}
+    {% trans "/nl/toernooien" as page_previous_crumb_link %}
+    
+    {% include 'blocks/page-title.html' with name=page_name previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link backgroundsecond="true" %}
+    
+    <section id="portfolio-details" class="portfolio-details section"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4">
+          <!-- <h2 id="dartschool">Doelen</h2> -->
+          <p>{% blocktrans %}Bij de jeugddartschool ChudartZ bieden we persoonlijke begeleiding in samenspraak met de speler en ouder(s), met als doel een gerichte ontwikkeling en optimale voorbereiding op eventueel :{% endblocktrans %}</p>
+          <ol>
+            <li>
+              <h6>{% blocktrans %}(Jeugd)toernooien{% endblocktrans %}</h6>
+            </li>
+            <li>
+                <h6>{% blocktrans %}Binnenland{% endblocktrans %}</h6>
+                <ul>
+                    <li>{% blocktrans %}Lokaal{% endblocktrans %}</li>
+                    <li>{% blocktrans %}Regionaal{% endblocktrans %}</li>
+                    <li>{% blocktrans %}Provinciaal{% endblocktrans %}</li>
+                    <li>{% blocktrans %}Nationaal{% endblocktrans %}</li>
+                </ul>
+            </li>
+            <li>
+              <h6>{% blocktrans %}Buitenland{% endblocktrans %}</h6>
+            </li>
+            <li>
+              <h6>{% blocktrans %}Clubcompetitie{% endblocktrans %}</h6>
+            </li>
+            <li>
+              <h6>{% blocktrans %}Officieel erkende toernooien/kampioenschappen{% endblocktrans %}</h6>
+              <ul>
+                <li>{% blocktrans %}Binnenland{% endblocktrans %}</li>
+                <li>{% blocktrans %}Buitenland{% endblocktrans %}</li>
+              </ul>
+            </li>
+            <li>
+                <h6>{% blocktrans %}PDC Development Tour (16 tot 23 jaar) {% endblocktrans %}</h6>
+                <ul>
+                  <li>{% blocktrans %}Met een mogelijkheid om deel te nemen aan de PDC World Youth Championship{% endblocktrans %}</li>
+                  <li>{% blocktrans %}Of ter voorbereiding op het eventueel deelnemen aan de Q-school{% endblocktrans %}</li>
+                </ul>
+            </li>
+            <li>
+                <h6>{% blocktrans %}Q-school (vanaf 16 jaar){% endblocktrans %}</h6>
+            </li>
+
+          </ol>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

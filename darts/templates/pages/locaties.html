@@ -1,0 +1,68 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+ChudartZ | Locaties
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta name="keywords" content="tornooien, locaties, darts, school, zedelgem, Loppem, Aartrijke, Veldegem, provinciaal kampioenschap, G-darts, de beste darter van jouw regio">
+<meta name="description" content="{% blocktrans %}Doe mee aan onze dartlocaties in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+
+<meta property="og:title" content="ChudartZ | Locaties">
+<meta property="og:description" content="{% blocktrans %}Doe mee aan onze dartlocaties in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | Locaties">
+<meta name="twitter:description" content="{% blocktrans %}Doe mee aan onze dartlocaties in West-Vlaanderen en beleef een namiddag/avond vol spanning en plezier! Test je vaardigheden in uitdagende wedstrijden en ontdek wie de ware dartkampioen van de regio is. Schrijf je nu in en maak je klaar om te schitteren!{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="locaties-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Locaties" as page_name %}
+    {% trans "Dartschool" as page_previous_crumb %}
+    {% trans "/nl/dartschool" as page_previous_crumb_link %}
+    <!-- TODO description -->
+    {% trans "Bekijk hieronder welke locaties de komende maanden op het programma staan en verzeker jezelf alvast van een plek." as page_description %}
+
+    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link %}
+
+     <section id="blog-posts" class="blog-posts section">
+
+      <div class="container">
+
+        {% if locaties %}
+        <div class="row gy-4">
+          {% for locatie in locaties %}
+            {% include 'blocks/school-card.html' with school=locatie %}
+          {% endfor %}
+        </div>
+        {% else %}
+
+          <div class="justify-content-center text-center">
+            <h2>{% trans 'Er zijn nog geen locaties beschikbaar!'%}</h2>
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </section>
+
+    {% include 'blocks/pagination.html' with enable_pagination=enable_pagination page_obj=locaties pagination_url_name="locaties" %}
+    
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

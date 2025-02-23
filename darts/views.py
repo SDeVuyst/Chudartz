@@ -25,6 +25,28 @@ def index(request):
     return TemplateResponse(request, 'pages/index.html', context)
 
 
+def trainers(request):
+    context = get_default_context()
+    context["trainers"] = Trainer.objects.filter(active=True).order_by('-volgorde')
+    
+    return TemplateResponse(request, 'pages/trainers.html', context)
+
+def locaties(request):
+    context = get_default_context()
+    context['locaties'] = Locatie.objects.filter(active=True).order_by('-volgorde')
+    
+    return TemplateResponse(request, 'pages/locaties.html', context)
+
+def locatie_detail(request, slug):
+    context = get_default_context()
+    locatie = get_object_or_404(Locatie, slug=slug)
+    if locatie.active == False: return HttpResponseNotFound()
+
+    context['locatie'] = locatie
+    
+    return TemplateResponse(request, 'pages/locatie.html', context)
+
+
 def dartschool(request):
     context = get_default_context()
     context['beurtkaarten'] = Beurtkaart.objects.all()
@@ -34,23 +56,27 @@ def dartschool(request):
 def dartschool_meer_info(request):
     return TemplateResponse(request, 'pages/dartschool-meer-info.html', get_default_context())
 
+def dartschool_aanbod(request):
+    return TemplateResponse(request, 'pages/dartschool-aanbod.html', get_default_context())
+
 def dartschool_werkwijze(request):
     return TemplateResponse(request, 'pages/dartschool-werkwijze.html', get_default_context())
 
 def gratis_proefles(request):
     context = get_default_context()
     context["vereisten"] = [
-        "Vanaf 10 jaar", 
-        "Jonger dan 10 jaar kan, mits aanleg voor darts",
-        "Maximum 20 jaar oud", 
+        "Vanaf 8 jaar", 
+        "T.e.m. 23 jaar",
         "Actieve interesse in darts"
     ]
+    context["locaties"] = Locatie.objects.filter(active=True).order_by('-volgorde')
         
     return TemplateResponse(request, 'pages/dartschool-gratis-proefles.html', context)
 
 
 def reserveren_dartschool(request):
     context = get_default_context()
+    context["locaties"] = Locatie.objects.filter(active=True).order_by('-volgorde')
     context["vereisten"] = "Lid zijn van de dartschool",
 
     return TemplateResponse(request, 'pages/dartschool-reserveren.html', context)
@@ -166,6 +192,11 @@ def dartschool_lidgeld_success(request):
     context["success"] = True
 
     return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
+
+
+def doelen(request):
+    context = get_default_context()
+    return TemplateResponse(request, 'pages/doelen.html', context)
 
 
 def toernooien(request):
@@ -388,9 +419,13 @@ def contact(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
+def sponsor_worden(request):
+    return TemplateResponse(request, 'pages/sponsor-worden.html', get_default_context())
 
 def sponsors(request):
-    return TemplateResponse(request, 'pages/sponsors.html', get_default_context())
+    context = get_default_context()
+    context['sponsors_pagina'] = Sponsor.objects.all().order_by('-volgorde_pagina')
+    return TemplateResponse(request, 'pages/sponsors.html', context)
 
 def faq(request):
     return TemplateResponse(request, 'pages/faq.html', get_default_context())
@@ -579,6 +614,6 @@ def code_bestaat(request, code):
 # HELPER
 def get_default_context():
     return {
-        'sponsors': Sponsor.objects.all(),
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer'),
         'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True).order_by('-volgorde'),
     }

@@ -63,10 +63,25 @@ class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     import_form_class = ImportForm
     export_form_class = SelectableFieldsExportForm
 
-    list_display = ('name',)
+    list_display = ('display_header',)
     ordering = ('id',)
 
     search_fields = ('name', )
+
+    @display(description=_("Naam"), header=True)
+    def display_header(self, instance: Partner):
+        return [
+            instance.name,
+            None,
+            instance.name,
+            {
+                "path": instance.logo.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
 
 
 @admin.register(Participant)
@@ -173,7 +188,7 @@ class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Evenement)
 class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('titel', 'participants_count', 'remaining_tickets', 'is_sold_out')
+    list_display = ('display_header', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
     exclude = ('tickets',)
     inlines = [
@@ -183,6 +198,21 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     search_fields = ('titel', 'beschrijving', 'start_datum', 'einde_datum', 'locatie_lang')
 
+    @display(description=_("Titel"), header=True)
+    def display_header(self, instance: Evenement):
+        return [
+            instance.titel,
+            None,
+            instance.titel,
+            {
+                "path": instance.afbeelding.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
+    
     @display(
         description=_("Uitverkocht"),
         label={

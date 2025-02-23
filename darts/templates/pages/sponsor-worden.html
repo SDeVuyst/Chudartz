@@ -1,0 +1,70 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | Sponsor Worden?
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, nofollow">
+{% endblock %}
+
+{% block body %}
+<body class="sponsors-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    
+    {% trans "Word sponsor van ChudartZ!" as page_name %}
+
+    {% include 'blocks/page-title.html' with name=page_name %}
+
+    <section id="portfolio-details" class="portfolio-details section"> 
+
+        <div class="container" data-aos="fade-up">
+  
+          <div class="row justify-content-between gy-4">
+            <h2 id="dartschool">Interesse om sponsor te worden?  </h2>
+            <p>{% blocktrans %}Elke vorm van sponsoring is van harte welkom, of het nu gaat om financiële ondersteuning of materiële bijdragen. Naast geldelijke bijdragen is ook niet-geldelijke steun van grote waarde. Denk hierbij aan:{% endblocktrans %}</p>
+            <ol>
+              <li>
+                <h6>{% blocktrans %}Vrijwilligers en assistent-trainers zijn ook van harte welkom{% endblocktrans %}</h6>
+              </li>
+              <li>
+                  <h6>{% blocktrans %}Het beschikbaar stellen van materialen of locaties{% endblocktrans %}</h6>
+              </li>
+              <li>
+                <h6>{% blocktrans %}Het sponsoren van prijzen voor toernooien{% endblocktrans %}</h6>
+              </li>
+              <li>
+                <h6>{% blocktrans %}Het drukken of ontwerpen van promotiemateriaal {% endblocktrans %}</h6>
+              </li>
+              <li>
+                <h6>{% blocktrans %}Het aanbieden van kleding of merchandise voor spelers {% endblocktrans %}</h6>
+              </li>
+              <li>
+                  <h6>{% blocktrans %}Het ondersteunen van vervoerskosten voor spelers bij competities{% endblocktrans %}</h6>
+              </li>
+  
+            </ol>
+
+            <p>{% blocktrans %}Elke vorm van ondersteuning helpt ons om de jeugddartscholen verder te laten groeien en biedt uw bedrijf tegelijkertijd waardevolle zichtbaarheid binnen onze community. Laten we samen bouwen aan een sterkere dartsport en een hechte gemeenschap! {% endblocktrans %}</p>
+            
+            </div>
+            <div class="col-12 text-center features">
+              <div class="features-item">
+                <a href="/#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+    </main>
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

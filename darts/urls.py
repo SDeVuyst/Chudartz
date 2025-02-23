@@ -8,8 +8,13 @@ from . import views
 urlpatterns = i18n_patterns(
     path('', views.index, name="index"),
 
+    path(_('trainers/'), views.trainers, name="trainers"),
+
     path(_('dartschool/'), views.dartschool, name="dartschool"),
+    path(_('dartschool/locaties/'), views.locaties, name="locaties"),
+    path(_('dartschool/locaties/<slug:slug>/'), views.locatie_detail, name="locatie_detail"),
     path(_('dartschool/meer-info/'), views.dartschool_meer_info, name="dartschool_meer_info"),    
+    path(_('dartschool/aanbod/'), views.dartschool_aanbod, name="dartschool_aanbod"),    
     path(_('dartschool/werkwijze/'), views.dartschool_werkwijze, name="dartschool_werkwijze"),    
     path(_('dartschool/gratis-proefles/'), views.gratis_proefles, name='gratis_proefles'),
     path(_('dartschool/reserveren/'), views.reserveren_dartschool, name='reserveren_dartschool'),
@@ -19,6 +24,7 @@ urlpatterns = i18n_patterns(
     path(_('dartschool/lidgeld/success/'), views.dartschool_lidgeld_success, name='dartschool_lidgeld_success'),
 
     path(_('toernooien/'), views.toernooien, name="toernooien"),
+    path(_('toernooien/doelen/'), views.doelen, name="doelen"),
     path(_('toernooien/<slug:slug>/'), views.toernooi, name='toernooi'),
     path(_('toernooien/<slug:slug>/inschrijven/'), views.inschrijven_toernooi, name='inschrijven_toernooi'),
     path(_('toernooien/<slug:slug>/inschrijven/success/'), views.inschrijven_toernooi_success, name='inschrijven_toernooi_success'),
@@ -28,12 +34,12 @@ urlpatterns = i18n_patterns(
     
     path(_('priveles'), views.priveles, name='priveles'),
 
-
     path(_('workshops/'), views.workshops, name="workshops"),
     path(_('over-ons/'), views.over_ons, name="over_ons"),
     path(_('algemene-voorwaarden/'), views.algemene_voorwaarden, name="algemene_voorwaarden"),
     path(_('privacybeleid/'), views.privacybeleid, name="privacybeleid"),
     path(_('reglement-toernooien/'), views.reglement_toernooien, name="reglement_toernooien"),
+    path(_('sponsor-worden/'), views.sponsor_worden, name="sponsor_worden"),
     path(_('disclaimer/'), views.disclaimer, name="disclaimer"),
     path(_('contact/'), views.contact, name='contact'),
     path(_('sponsors/'), views.sponsors, name='sponsors'),

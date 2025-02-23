@@ -415,6 +415,8 @@ class Sponsor(models.Model):
     toon_in_footer = models.BooleanField(verbose_name=_("Toon in footer"), default=True)
     toon_op_sponsors_pagina = models.BooleanField(verbose_name=_("Toon op sponsor pagina"), default=True)
     toon_knop_op_sponsors_pagina = models.BooleanField(verbose_name=_("Toon knop op sponsors pagina"), default=True)
+    volgorde_footer = models.SmallIntegerField(verbose_name=_("Volgorde in footer"), default=0)
+    volgorde_pagina = models.SmallIntegerField(verbose_name=_("Volgorde op pagina"), default=0)
     logo = models.ImageField(verbose_name=_("Logo"), upload_to="sponsor")
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="sponsor")
 
@@ -558,3 +560,44 @@ class Nieuws(models.Model):
     active = models.BooleanField(verbose_name=_("Actief"))
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+
+class Trainer(models.Model):
+    def __str__(self):
+        return self.naam
+    
+    class Meta:
+        verbose_name = 'Trainer'
+        verbose_name_plural = 'Trainers'
+
+    naam = models.CharField(max_length=50, verbose_name=_("Naam"))
+    titel = models.CharField(max_length=50, verbose_name=_("Titel"))
+    extra_info = models.CharField(max_length=256, verbose_name=_("Extra Info"))
+    afbeelding = models.ImageField(verbose_name=_("Afbeelding"), upload_to="trainers")
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
+    active = models.BooleanField(verbose_name=_("Actief"))
+
+    history = HistoricalRecords(verbose_name=_("History"))
+
+
+class Locatie(models.Model):
+
+    def __str__(self) -> str:
+        return self.titel
+    
+    class Meta:
+        verbose_name = "Locatie"
+        verbose_name_plural = "Locaties"
+    
+    titel = models.CharField(max_length=100, verbose_name=_("Titel"))
+    afbeelding = models.ImageField(verbose_name=_("Hoofdafbeelding"), upload_to="locaties")
+    # TODO meerdere fotos?
+    locatie = models.CharField(max_length=100, verbose_name=_("Locatie"))
+    adres = models.CharField(max_length=100, verbose_name=_("Adres"))
+    lesuren = RichTextField(verbose_name=_("Lesuren"))
+    extra_info = RichTextField(verbose_name=_("Extra Info"))
+    slug = models.SlugField(unique=True)
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
+    active = models.BooleanField(verbose_name=_("Actief"), default=True)
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))

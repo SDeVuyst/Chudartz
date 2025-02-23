@@ -32,7 +32,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
     {% trans "Reserveren" as page_name %}
     {% trans "Heeft de proefles je enthousiast gemaakt en wil je verder met darten? Reserveer nu je plek voor een volledige training en til je dartskills naar een hoger niveau!" as page_description %}
     {% trans "Dartschool" as page_previous_crumb %}
-    {% trans "/dartschool" as page_previous_crumb_link %}
+    {% trans "/nl/dartschool" as page_previous_crumb_link %}
     
     {% include 'blocks/page-title.html' with name=page_name description=page_description previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link %}
 
@@ -45,7 +45,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             
             {% trans "maandag t.e.m. donderdag tussen 18.45 u en 21.15 u." as page_tijd %}
-            {% trans "Wilgenlaan 35, Zedelgem" as page_locatie %}
+            {% trans "In één van onze dartscholen" as page_locatie %}
 
             {% include 'blocks/tijd-en-locatie.html' with static_data='true' tijd=page_tijd locatie=page_locatie %}
 
@@ -61,8 +61,18 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                 <div class="row gy-4">
             
                     <!-- Code -->
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <input type="text" name="code" class="form-control" placeholder="{% trans 'Uw persoonlijke code' %}" maxlength="6" required>
+                    </div>
+
+                    <!-- Locatie -->
+                    <div class="col-md-6">
+                      <select name="locatie" class="form-control" required>
+                        <option value="" disabled selected>{% trans 'Selecteer Locatie' %}</option>
+                        {% for locatie in locaties %}
+                          <option value="{{ locatie.slug }}">{{ locatie.titel }}</option>
+                        {% endfor %}
+                      </select>
                     </div>
 
                     <div class="col-md-12">
@@ -130,6 +140,8 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
     
         // Collect the user's data from the form fields
         const code = document.querySelector('input[name="code"]').value;
+        const locatie = document.querySelector('select[name="locatie"]').value;
+        
         loadingMessage.style.display = 'block';
 
         // fetch the student object
@@ -145,7 +157,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
             loadingMessage.style.display = 'none';
             if (data.success) {
               // Create a URL with query parameters for Cal.com
-              const calLink = `chudartz/dartschool-zedelgem?firstName=${encodeURIComponent(data.voornaam)}&lastName=${encodeURIComponent(data.achternaam)}&email=${encodeURIComponent(data.email)}&code=${encodeURIComponent(code)}`;
+              const calLink = `chudartz/dartschool-${locatie}?firstName=${encodeURIComponent(data.voornaam)}&lastName=${encodeURIComponent(data.achternaam)}&email=${encodeURIComponent(data.email)}&code=${encodeURIComponent(code)}`;
               
               // display resterende beurten
               document.getElementById('resterende-beurten').innerHTML = data.resterende_beurten;
