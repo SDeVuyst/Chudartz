@@ -2,8 +2,12 @@
 
 {% load static dutch_date i18n %}
 
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
+{% endblock %}
+
 {% block title %}
-ChudartZ | {{ toernooi.titel}} Inschrijven
+ChudartZ | 1ste les gratis
 {% endblock %}
 
 
@@ -40,7 +44,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             
-            {% trans "Vul hiernaast uw gegevens in bij 'Boek je 1ste gratis les;  (+/- 1 u) en controleer de kalender wanneer en op welke locatie dit mogelijk is. Mochten de vooropgestelde momenten niet passen, stuur een bericht, dan bekijken we samen wat mogelijk is." as page_tijd %}
+            {% trans "Mocht het voorgestelde lesmomenten niet passen, laat het ons weten, dan kijken we samen naar een geschikt alternatief." as page_tijd %}
             {% trans "In één van onze dartscholen" as page_locatie %}
 
             {% include 'blocks/tijd-en-locatie.html' with static_data='true' tijd=page_tijd locatie=page_locatie %}
@@ -52,105 +56,47 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
             <div class="service-box register">
               <h4>{% trans 'Boek je 1ste gratis les' %}</h4>
+              {% url 'locaties' as locaties_url %}
+              <p>{% blocktrans %}Wil je een eerste les uitproberen? Bekijk de lestijden van de verschillende <a href="{{ locaties_url }}">ChudartZ jeugddartscholen.</a> Kies het moment dat jou het beste uitkomt en stuur ons een bericht voor een gratis proefles.{% endblocktrans %}</p>
 
-              <form id="register-form" class="register-form" data-aos="fade-up" data-aos-delay="200">
+              <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form">
+                {% csrf_token %}
                 <div class="row gy-4">
-                    
-                    <!-- Voornaam -->
-                    <div class="col-md-6">
-                        <input type="text" name="voornaam" class="form-control" placeholder="{% trans 'Voornaam' %}" maxlength="100" required>
-                    </div>
             
-                    <!-- Achternaam -->
+                    <!-- Name -->
                     <div class="col-md-6">
-                        <input type="text" name="achternaam" class="form-control" placeholder="{% trans 'Achternaam' %}" maxlength="100" required>
+                        <input type="text" name="name" class="form-control" placeholder="{% trans 'Naam' %}" maxlength="100" required>
                     </div>
             
                     <!-- Email -->
-                    <div class="col-md-8">
-                        <input type="email" name="email" class="form-control" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" name="email" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                    </div>
+            
+                    <!-- Subject -->
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="subject" placeholder="{% trans 'Onderwerp' %}" maxlength="100" value="Aanvraag 1ste les gratis" readonly required>
+                    </div>
+            
+                    <!-- Message -->
+                    <div class="col-12">
+                        <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Bericht' %}" required></textarea>
                     </div>
 
-                    <!-- Locatie -->
-                    <div class="col-md-4">
-                      <select name="locatie" class="form-control" required>
-                        <option value="" disabled selected>{% trans 'Selecteer Locatie' %}</option>
-                        {% for locatie in locaties %}
-                          <option value="{{ locatie.slug }}">{{ locatie.titel }}</option>
-                        {% endfor %}
-                      </select>
-                    </div>
-
-                    <div class="col-md-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% url 'algemene_voorwaarden' as av_url %}
-                          {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> van ChudartZ.{% endblocktrans %}
-                        </label>
-                      </div>  
-                    </div>
-                    
-                    <div class="col-md-12 mt-0">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% url 'reglement_toernooien' as rt_url %}
-                          {% blocktrans %}Ik ga akkoord met het <a href="{{ rt_url }}">Algemeen reglement</a> van de dartschool.{% endblocktrans %}
-                        </label>
-                      </div>  
-                    </div>
-
-                    <div class="col-md-12 mt-0">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% url 'privacybeleid' as p_url %}
-                          {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ.{% endblocktrans %}
-                        </label>
-                      </div>  
-                    </div>
-
-                    <div class="col-md-12 mt-0">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% blocktrans %}
-                          Als ouder/voogd, geef ik toestemming aan mijn minderjarige kind om deel te nemen aan de dartschool en verklaar mij akkoord met het verwerken van diens persoonsgegevens in overeenstemming met de wet op de privacy. 
-                          Ik weet dat deze gegevens vertrouwelijk zullen worden behandeld en uitsluitend gebruikt zullen worden voor doeleinden gerelateerd aan dit evenement.
-                          {% endblocktrans %}
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col-md-12 mt-0">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label text-muted small" for="flexCheckDefault">
-                          {% url 'disclaimer' as d_url %}
-                          {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ.{% endblocktrans %}
-                        </label>
-                      </div>  
-                    </div>
-
-                    <!-- Submit Button -->
+                    <!-- captcha -->
+                    <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+            
+                    <!-- Submit Button and Feedback Messages -->
                     <div class="col-12 text-center">
-                        <button type="submit" id="submit-button">{% trans 'Kies Datum' %}</button>
+                        <div class="loading" style="display:none;">{% trans 'Laden...' %}</div>
+                        <div class="error-message" style="display:none;"></div>
+                        <div class="sent-message" style="display:none;">{% trans 'Uw bericht is verzonden. Bedankt!' %}</div>
+                        <button type="submit">{% trans '1ste gratis les aanvragen' %}</button>
                     </div>
-                    
+            
                 </div>
               </form>
             
-            </div>
-
-            <div class="service-box mt-0" style="display: none;" id="cal-box">
-              <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline">
-                <!-- Cal.com embed will be injected here after form submission -->
-              </div>
-              <script type="text/javascript">
-                (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-              </script>
-              
             </div>
           </div>          
 
@@ -163,56 +109,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
   </main>
 
   {% include 'blocks/footer.html' %}
-
-  <script>
-    document.getElementById('register-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const formBox = document.querySelector('.service-box.register');
-      const calBox = document.getElementById('cal-box');
-  
-      // Collect the user's data from the form fields
-      const voornaam = document.querySelector('input[name="voornaam"]').value;
-      const achternaam = document.querySelector('input[name="achternaam"]').value;
-      const email = document.querySelector('input[name="email"]').value;
-      const locatie = document.querySelector('select[name="locatie"]').value;
-  
-      // Create a URL with query parameters for Cal.com
-      const calLink = `chudartz/dartschool-proefles-${locatie}?firstName=${encodeURIComponent(voornaam)}&lastName=${encodeURIComponent(achternaam)}&email=${encodeURIComponent(email)}&code=PROEFLES`;
-
-      // Add a fade-out animation to the form
-      formBox.style.transition = 'opacity 0.25s ease';
-      formBox.style.opacity = 0;
-  
-      // After the fade-out animation ends, hide the form and show the calendar
-      setTimeout(() => {
-        formBox.style.display = 'none';
-
-        // Inject the Cal.com iframe with the prefilled data
-        Cal("init", "dartschool", {origin:"https://cal.com"});
-              
-        Cal.ns.dartschool("inline", {
-        elementOrSelector:"#my-cal-inline",
-        calLink: calLink,
-        layout: "month_view"
-        });
-      
-        Cal.ns.dartschool("ui", {"theme":"light","styles":{"branding":{"brandColor":"#c3111a"}},"hideEventTypeDetails":false,"layout":"month_view"});
-        
-        // Show the calendar box with a fade-in animation
-        calBox.style.display = 'block';
-        calBox.style.opacity = 0;
-        calBox.style.transition = 'opacity 0.25s ease';
-        
-        setTimeout(() => {
-          calBox.style.opacity = 1;
-        }, 50); // Slight delay to trigger the transition
-
-      }, 250); // Same duration as the fade-out transition
-    });
-  </script>
-  
-  
+  <script src="{% static "vendor/email-form/validate.js" %}" defer></script>
 
 </body>
 {% endblock %}

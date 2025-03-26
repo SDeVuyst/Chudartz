@@ -25,7 +25,7 @@
       <li><a href="{% url 'trainers' %}">{% trans 'Trainers' %}</a></li>
       <li class="dropdown"><a href="#"><span>{% trans 'Toernooien' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
-          <li><a href="{% url 'doelen' %}">Doelen</a></li>          
+          <li><a href="{% url 'doelen' %}">Persoonlijke ambities</a></li>          
           <li><a href="{% url 'toernooien' %}">Alle toernooien</a></li>
           
           {% for groep in toernooi_groepen %}
