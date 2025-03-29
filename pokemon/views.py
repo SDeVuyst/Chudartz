@@ -73,7 +73,7 @@ def contact(request):
 
 
 def evenementen(request):
-    evenementen = Evenement.objects.all()
+    evenementen = Evenement.objects.filter(toon_op_site=True).order_by('volgorde', 'start_datum')
     paginator = Paginator(evenementen, 6)
 
     page_number = request.GET.get("page", 1)
@@ -88,6 +88,8 @@ def evenementen(request):
 
 def evenement(request, slug):
     evenement = get_object_or_404(Evenement, slug=slug)
+
+    if not evenement.toon_op_site: return HttpResponseNotFound()
 
     if request.POST:
 
@@ -178,12 +180,16 @@ def evenement_success(request, slug):
     context["success"] = True
     context["evenement"] = get_object_or_404(Evenement, slug=slug)
 
+    if not context["evenement"].toon_op_site: return HttpResponseNotFound()
+
     return TemplateResponse(request, 'pokemon/pages/evenement-inschrijving-response.html', context)
 
 
 def standhouder(request, slug):
 
     evenement = get_object_or_404(Evenement, slug=slug)
+    if not evenement.toon_op_site: return HttpResponseNotFound()
+
     context = {
         "evenement": evenement
     }
@@ -310,11 +316,11 @@ def set_attendance(request):
 
         # participant hasnt paid
         if participant.payment.status != PaymentStatus.PAID:
-            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
+            return JsonResponse({'success': False, 'message': "Fraud Detected! Customer has not payed yet."}, status=400)
 
         # check if seed is correct
         if seed != participant.random_seed:
-            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
+            return JsonResponse({'success': False, 'message': "Fraud Detected! QR code has been tampered with."}, status=400)
         
         # validation
         if participant.attended:
@@ -331,7 +337,13 @@ def set_attendance(request):
 
 def get_default_context():
     now = timezone.now()
+    highlighted_event = Evenement.objects.filter(toon_op_site=True, highlight_event=True).first()
+    if not highlighted_event:
+        highlighted_event = Evenement.objects.filter(toon_op_site=True, start_datum__gt=now).order_by('start_datum').first()
+    if not highlighted_event:
+        highlighted_event = Evenement.objects.filter(toon_op_site=True).first()
+
     return {
-        "evenement": Evenement.objects.filter(start_datum__gt=now).order_by('start_datum').first()
+        "evenement": highlighted_event
     }
 

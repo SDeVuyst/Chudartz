@@ -66,6 +66,9 @@ class Evenement(models.Model):
     enable_standhouder = models.BooleanField(verbose_name=_("Standhouder Inschrijvingen Inschakelen"), default=True)
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
     partners = models.ManyToManyField(Partner, verbose_name=_("Partners"), blank=True, null=True)
+    toon_op_site = models.BooleanField(verbose_name=_("Toon op site"), default=False)
+    highlight_event = models.BooleanField(verbose_name=_("Highlight Event"), default=False)
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde op pagina"), default=0)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
