@@ -60,8 +60,9 @@ function onScanSuccess(decodedText, decodedResult) {
     document.getElementById('deelnemer-btn').href = `${getBaseUrl()}admin/pokemon/participant/${id}/change/`;
 
     // set attendance
-    fetch('/pokemon/set-attendance/', {
+    fetch('/en/pokemon/set-attendance/', {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': '{{ csrf_token }}'

@@ -59,8 +59,9 @@ function onScanSuccess(decodedText, decodedResult) {
     document.getElementById('deelnemer-btn').href = `${getBaseUrl()}admin/darts/participant/${id}/change/`;
 
     // set attendance
-    fetch('/darts/set-attendance/', {
+    fetch('/en/darts/set-attendance/', {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': '{{ csrf_token }}'

@@ -301,6 +301,11 @@ def scanner(request):
 @staff_member_required
 def set_attendance(request):
 
+    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}, Staff: {request.user.is_staff}")
+
+    if not request.user.is_authenticated:
+        return JsonResponse({'success': False, 'message': "User is not authenticated!"}, status=403)
+
     if request.method == 'POST':
 
         # get data from request
