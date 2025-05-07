@@ -197,7 +197,7 @@ def standhouder(request, slug):
     if request.POST:
         if not evenement.enable_standhouder: return JsonResponse({'success': False, 'error': 'Standhouder inschrijvingen gesloten.'})
         
-        if not helpers.verify_recaptcha(request.GET.get('recaptcha_token')):
+        if not helpers.verify_recaptcha(request.POST.get('recaptcha_token')):
             return JsonResponse({
                 'success': False,
                 'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
