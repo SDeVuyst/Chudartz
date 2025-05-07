@@ -6,6 +6,12 @@
 ChudartZ Collectibles | Evenementen
 {% endblock %}
 
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
+{% endblock %}
+
+
+
 {% block meta %}
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="ChudartZ Collectibles | Standhouder Worden">
@@ -130,6 +136,9 @@ ChudartZ Collectibles | Evenementen
                           </label>
                         </div>  
                       </div>
+
+                      <!-- captcha -->
+                      <input type="hidden" name="recaptcha_token" id="recaptcha_token">
     
                       <!-- Submit Button -->
                       <div class="col-12 text-center">
