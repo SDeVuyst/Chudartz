@@ -138,7 +138,7 @@ ChudartZ Collectibles | Evenementen
                       </div>
 
                       <!-- captcha -->
-                      <!-- <input type="hidden" name="recaptcha_token" id="recaptcha_token"> -->
+                      <input type="hidden" name="recaptcha_token" id="recaptcha_token">
     
                       <!-- Submit Button -->
                       <div class="col-12 text-center">
@@ -161,6 +161,23 @@ ChudartZ Collectibles | Evenementen
   </main>
 
   {% include 'pokemon/blocks/footer.html' %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('register-form');
+  if (form) {
+      form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          grecaptcha.ready(function() {
+              grecaptcha.execute('6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV', {action: 'submit'}).then(function(token) {
+                  document.getElementById('recaptcha_token').value = token;
+                  form.submit();
+              });
+          });
+      });
+  }
+});
+</script>
 
 </body>
 {% endblock %}

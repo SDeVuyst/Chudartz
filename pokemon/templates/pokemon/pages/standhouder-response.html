@@ -26,7 +26,11 @@ ChudartZ Collectibles | {{ evenement.titel}}
 
                 {% else %}
 
-                    <h1>{% trans 'Er is iets misgegaan.' %}</h1>
+                    {% if error %}
+                        <h1>{{ error }}</h1>
+                    {% else %}
+                        <h1>{% trans 'Er is iets misgegaan.' %}</h1>
+                    {% endif %}
                     <p>{% trans 'Gelieve contact op te nemen via '%} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.' %}</a></p>
                     
                 {% endif %}
