@@ -601,3 +601,17 @@ class Locatie(models.Model):
     active = models.BooleanField(verbose_name=_("Actief"), default=True)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+class ToernooiFoto(models.Model):
+    toernooi = models.ForeignKey(Toernooi, on_delete=models.CASCADE, related_name="fotos", verbose_name=_("Toernooi"))
+    afbeelding = models.ImageField(upload_to="toernooi_fotos", verbose_name=_("Foto"))
+    omschrijving = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Omschrijving"))
+    volgorde = models.PositiveIntegerField(default=0, verbose_name=_("Volgorde"))
+
+    class Meta:
+        ordering = ["volgorde", "id"]
+        verbose_name = "Toernooi Foto"
+        verbose_name_plural = "Toernooi Foto's"
+
+    def __str__(self):
+        return f"Foto voor {self.toernooi.titel} ({self.id})"
