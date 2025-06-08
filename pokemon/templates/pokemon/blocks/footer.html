@@ -1,10 +1,10 @@
-{% load static i18n %}
+{% load static i18n sponsors %}
 
 <footer id="footer" class="footer position-relative light-background">
 
   <div class="container footer-top">
     <div class="row gy-4">
-      <div class="col-lg-6 col-md-12 footer-about">
+      <div class="col-lg-{% if sponsors|has_to_show_sponsors_footer %}5{% else %}6{% endif %} col-md-12 footer-about">
         <a href="{% url 'index' %}" class="logo d-flex align-items-center">
           <span class="sitename">ChudartZ</span>
         </a>
@@ -20,6 +20,19 @@
         </div>
       </div>
 
+      {% if sponsors|has_to_show_sponsors_footer %}
+      <div class="col-lg-2 col-6 footer-links">
+        <h4>{% trans 'Sponsors' %}</h4>
+        <ul>
+          <li><a href="{% url 'sponsors' %}">{% trans 'Alle Sponsors' %}</a></li>
+          {% for sponsor in sponsors %}
+          {% if sponsor.toon_in_footer %}
+          <li><a href="{% url 'sponsors' %}#{{sponsor.naam}}">{{ sponsor.naam }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
 
       <div class="col-lg-2 col-6 footer-links">
         <h4>{% trans 'Handige Links' %}</h4>
@@ -33,7 +46,7 @@
         </ul>
       </div>
 
-      <div class="col-lg-4 col-md-12 footer-contact text-center text-md-start">
+      <div class="col-lg-{% if sponsors|has_to_show_sponsors_footer %}3{% else %}4{% endif %} col-md-12 footer-contact text-center text-md-start">
         <h4>{% trans 'Contacteer Ons' %}</h4>
         <p>Wilgenlaan 35</p>
         <p>8210, Zedelgem</p>

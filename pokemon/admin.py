@@ -245,6 +245,65 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         return response      
     
 
+@admin.register(Sponsor)
+class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
+    import_form_class = ImportForm
+    export_form_class = SelectableFieldsExportForm
+
+    list_display = ('display_header', 'toon_op_voorpagina', 'toon_in_footer_display', 'toon_op_sponsor_pg_display')
+    ordering = ('id',)
+
+    search_fields = ('naam', 'info', )
+
+    @display(description=_("Naam"), header=True)
+    def display_header(self, instance: Sponsor):
+        return [
+            instance.naam,
+            None,
+            instance.naam,
+            {
+                "path": instance.logo.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
+    
+    @display(
+        description=_("Toon op voorpagina"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def toon_op_voorpagina(self, obj: Sponsor):
+        label = _("Ja") if obj.toon_op_index else _("Nee")
+        return obj.toon_op_index, label
+    
+    @display(
+        description=_("Toon in footer"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def toon_in_footer_display(self, obj: Sponsor):
+        label = _("Ja") if obj.toon_in_footer else _("Nee")
+        return obj.toon_in_footer, label
+    
+    @display(
+        description=_("Toon op sponsors pagina"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def toon_op_sponsor_pg_display(self, obj: Sponsor):
+        label = _("Ja") if obj.toon_op_sponsors_pagina else _("Nee")
+        return obj.toon_op_sponsors_pagina, label
+
+
 @admin.register(TicketEigenschap)
 class TicketEigenschapAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('tekst', )

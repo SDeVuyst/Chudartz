@@ -1,0 +1,72 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ Collectibles | Sponsors
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, nofollow">
+{% endblock %}
+
+{% block body %}
+<body class="sponsors-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+    
+    {% trans "Sponsors" as page_name %}
+
+    {% include 'pokemon/blocks/page-title.html' with name=page_name %}
+
+    <section id="portfolio-details" class="portfolio-details section pt-0"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div data-aos="fade-up">
+
+            <section id="features" class="features section p-0">
+        
+              <div class="container">
+        
+                {% for sponsor in sponsors_pagina %}
+                {% if sponsor.toon_op_sponsors_pagina %}
+
+                <div class="row gy-4 align-items-stretch justify-content-between features-item" id="{{ sponsor.naam }}">
+                  <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+                  <h3>{{ sponsor.naam }}</h3>
+                  {{ sponsor.info|safe }}
+
+                  {% if sponsor.toon_knop_op_sponsors_pagina %}
+                  <a href="{{ sponsor.website_url }}" target="_blank" class="btn btn-get-started align-self-start">{% trans 'Bezoek Website' %}</a>
+                  {% endif %}
+                  
+                  </div>
+                  <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+                    <img src="{{ sponsor.afbeelding.url }}" class="img-fluid" alt="Afbeelding {{ sponsor.naam }}">
+                  </div>
+                </div>
+
+                {% endif %}
+                {% endfor %}
+                
+              </div>
+        
+            </section>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    </main>
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}
