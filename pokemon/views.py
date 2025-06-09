@@ -16,8 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from darts.utils import helpers
 from pokemon.forms import ContactForm, StandhouderForm
-from pokemon.models import (Evenement, Participant, Payment, PaymentStatus,
-                            Ticket)
+from pokemon.models import Evenement, Participant, Payment, PaymentStatus, Sponsor, Ticket
 from pokemon.payment import MollieClient
 
 
@@ -27,6 +26,10 @@ def index(request):
 def over_ons(request):
     return TemplateResponse(request, 'pokemon/pages/about.html', get_default_context())
 
+def sponsors(request):
+    context = get_default_context()
+    context['sponsors_pagina'] = Sponsor.objects.all().order_by('-volgorde_pagina')
+    return TemplateResponse(request, 'pokemon/pages/sponsors.html', context)
 
 def contact(request):
     # request must always be post
@@ -369,6 +372,7 @@ def get_default_context():
         highlighted_event = Evenement.objects.filter(toon_op_site=True).first()
 
     return {
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer'),
         "evenement": highlighted_event
     }
 

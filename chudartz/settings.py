@@ -278,7 +278,7 @@ UNFOLD = {
                     {
                         "title": _("Scanner"),
                         "icon": "qr_code_scanner",
-                        "link": "https://chudartz.com/darts/scanner/",
+                        "link": "https://chudartz.com/darts/scanner/", # TODO reverse
                     },
                 ],
             },
@@ -341,9 +341,14 @@ UNFOLD = {
                         "link": "/admin/pokemon/partner",
                     },
                     {
+                        "title": _("Sponsors"),
+                        "icon": "checkbook",
+                        "link": "/admin/pokemon/sponsor/"
+                    },
+                    {
                         "title": _("Scanner"),
                         "icon": "qr_code_scanner",
-                        "link": "https://chudartz-collectibles.com/pokemon/scanner/",
+                        "link": "https://chudartz-collectibles.com/pokemon/scanner/", #TODO reverse
                     },
                 ]
             },
