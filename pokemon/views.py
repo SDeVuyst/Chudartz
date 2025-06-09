@@ -16,7 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from darts.utils import helpers
 from pokemon.forms import ContactForm, StandhouderForm
-from pokemon.models import Evenement, Participant, Payment, PaymentStatus, Sponsor, Ticket
+from pokemon.models import Evenement, EvenementFoto, Participant, Payment, PaymentStatus, Sponsor, Ticket
 from pokemon.payment import MollieClient
 
 
@@ -186,6 +186,8 @@ def evenement(request, slug):
     # GET request
     context = {
         "evenement": evenement,
+        "fotos": EvenementFoto.objects.filter(evenement=evenement).order_by("-volgorde"),
+        # "fotos": evenement.fotos_evenement.all().order_by("-volgorde"),
         "tickets": Ticket.objects.filter(event=evenement),
         "partners": evenement.partners.all(),
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
