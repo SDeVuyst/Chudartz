@@ -372,7 +372,7 @@ def get_default_context():
         highlighted_event = Evenement.objects.filter(toon_op_site=True).first()
 
     return {
-        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer'),
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
         "evenement": highlighted_event
     }
 

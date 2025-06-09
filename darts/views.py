@@ -632,6 +632,6 @@ def code_bestaat(request, code):
 # HELPER
 def get_default_context():
     return {
-        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer'),
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
         'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True).order_by('-volgorde'),
     }
