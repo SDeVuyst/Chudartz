@@ -1,6 +1,6 @@
 {% extends 'pokemon/main.html' %}
 
-{% load static i18n %}
+{% load static i18n sponsors %}
 
 {% block head %}
 <script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
@@ -47,6 +47,29 @@
       </div>
 
     </section><!-- /Hero Section -->
+
+    {% if sponsors|has_to_show_sponsors_index %}
+    <!-- Sponsors Section -->
+    <section id="sponsors" class="sponsors section">
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-4 justify-content-center">
+
+          {% for sponsor in sponsors %}
+          {% if sponsor.toon_op_index %}
+          <div class="col-xl-2 col-md-3 col-6 sponsor-logo">
+            <a href="{{ sponsor.website_url }}">
+              <img src="{{ sponsor.logo.url }}" class="img-fluid" alt="Logo {{ sponsor.naam }}">
+            </a>
+          </div>
+          {% endif %}
+          {% endfor %}
+
+        </div>
+      </div>
+
+    </section><!-- Sponsors Section -->
+    {% endif %}
        
     {% if evenement %}
     <section id="over-ons" class="over-ons section blog-posts">

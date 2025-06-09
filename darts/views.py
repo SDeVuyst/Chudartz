@@ -1,18 +1,21 @@
+import json
 from decimal import Decimal
 from email.utils import formataddr
-import json
-import os
+
 from django.conf import settings
-from django.http import BadHeaderError, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.contrib.admin.views.decorators import staff_member_required
-from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Case, IntegerField, Value, When
+from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
+                         HttpResponseNotFound, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from darts.payment import MollieClient
-from .forms import ContactForm, ToernooiForm, BeurtkaartForm, CodeForm
+
+from .forms import BeurtkaartForm, CodeForm, ContactForm, ToernooiForm
 from .models import *
 from .utils import helpers
 
@@ -21,7 +24,9 @@ def index(request):
     context = get_default_context()
     context['form'] = ContactForm()
     context['nieuws'] = Nieuws.objects.all()
-    
+    # kies random 8 fotos uit de database
+    context['fotos'] = IndexFoto.objects.filter(active=True).order_by('?')[:8]
+    context['fotofilters'] = IndexFotoCategory.CHOICES
     return TemplateResponse(request, 'pages/index.html', context)
 
 
@@ -200,7 +205,15 @@ def doelen(request):
 
 
 def toernooien(request):
-    evenementen = Toernooi.objects.filter(toon_op_site=True).order_by('start_datum')
+    today = timezone.now().date()
+    evenementen = Toernooi.objects.filter(toon_op_site=True).annotate(
+        is_future=Case(
+            When(start_datum__gte=today, then=Value(0)),
+            default=Value(1),
+            output_field=IntegerField(),
+        )
+    ).order_by('is_future', 'start_datum')
+
     paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
@@ -208,6 +221,8 @@ def toernooien(request):
 
     context = get_default_context()
     context["toernooien"] = page_obj
+    context["has_future_tournaments"] = evenementen.filter(is_future=0).exists()
+    context["has_past_tournaments"] = evenementen.filter(is_future=1).exists()
     context["enable_pagination"] = paginator.num_pages > 1
 
     return TemplateResponse(request, 'pages/toernooien.html', context)
@@ -616,9 +631,20 @@ def code_bestaat(request, code):
     })
 
 
+###### ERROR HANDLERS #######
+
+def error_404(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'errors/404.html', context, status=404)
+
+def error_500(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'errors/500.html', context, status=500)
+
+
 # HELPER
 def get_default_context():
     return {
-        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer'),
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
         'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True).order_by('-volgorde'),
     }

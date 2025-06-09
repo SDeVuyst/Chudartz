@@ -12,11 +12,11 @@
 
         {% if ticket.disable_ticket or not evenement.enable_inschrijvingen %}
         <div class="text-center">
-            <span class="badge bg-secondary">Niet beschikbaar</span>
+            <span class="badge bg-secondary">{% trans 'Niet beschikbaar' %}</span>
         </div>
         {% elif ticket.is_sold_out %}
         <div class="text-center">
-            <span class="badge bg-danger">Uitverkocht</span>
+            <span class="badge bg-danger">{% trans 'Uitverkocht' %}</span>
         </div>
         {% endif %}
 

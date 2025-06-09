@@ -1,19 +1,22 @@
+import json
 from decimal import Decimal
 from email.utils import formataddr
-import json
-from django.contrib.admin.views.decorators import staff_member_required
+
 from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.http import BadHeaderError, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
+from django.db.models import Case, IntegerField, Value, When
+from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
+                         HttpResponseNotFound, JsonResponse)
+from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils import timezone
-from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from darts.utils import helpers
 from pokemon.forms import ContactForm, StandhouderForm
-from pokemon.models import Evenement, Participant, Payment, PaymentStatus, Ticket
+from pokemon.models import Evenement, Participant, Payment, PaymentStatus, Sponsor, Ticket
 from pokemon.payment import MollieClient
 
 
@@ -23,6 +26,10 @@ def index(request):
 def over_ons(request):
     return TemplateResponse(request, 'pokemon/pages/about.html', get_default_context())
 
+def sponsors(request):
+    context = get_default_context()
+    context['sponsors_pagina'] = Sponsor.objects.all().order_by('-volgorde_pagina')
+    return TemplateResponse(request, 'pokemon/pages/sponsors.html', context)
 
 def contact(request):
     # request must always be post
@@ -73,7 +80,15 @@ def contact(request):
 
 
 def evenementen(request):
-    evenementen = Evenement.objects.filter(toon_op_site=True).order_by('volgorde', 'start_datum')
+    today = timezone.now().date()
+    evenementen = Evenement.objects.filter(toon_op_site=True).annotate(
+        is_future=Case(
+            When(start_datum__gte=today, then=Value(0)),
+            default=Value(1),
+            output_field=IntegerField(),
+        )
+    ).order_by('is_future', 'volgorde', 'start_datum')
+    
     paginator = Paginator(evenementen, 6)
 
     page_number = request.GET.get("page", 1)
@@ -81,6 +96,8 @@ def evenementen(request):
 
     context = get_default_context()
     context["evenementen"] = page_obj
+    context["has_future_events"] = evenementen.filter(is_future=0).exists()
+    context["has_past_events"] = evenementen.filter(is_future=1).exists()
     context["enable_pagination"] = paginator.num_pages > 1
 
     return TemplateResponse(request, 'pokemon/pages/evenementen.html', context)
@@ -170,7 +187,8 @@ def evenement(request, slug):
     context = {
         "evenement": evenement,
         "tickets": Ticket.objects.filter(event=evenement),
-        "partners": evenement.partners.all()
+        "partners": evenement.partners.all(),
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
@@ -191,17 +209,17 @@ def standhouder(request, slug):
     if not evenement.toon_op_site: return HttpResponseNotFound()
 
     context = {
-        "evenement": evenement
+        "evenement": evenement,
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
     }
 
     if request.POST:
         if not evenement.enable_standhouder: return JsonResponse({'success': False, 'error': 'Standhouder inschrijvingen gesloten.'})
         
-        # if not helpers.verify_recaptcha(request.POST.get('recaptcha_token')):
-        #     return JsonResponse({
-        #         'success': False,
-        #         'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
-        #     })
+        if not helpers.verify_recaptcha(request.POST.get('recaptcha_token')):
+            context["success"] = False
+            context["error"] = "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
     
         form = StandhouderForm(request.POST)
         
@@ -347,6 +365,18 @@ def set_attendance(request):
     return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
 
 
+###### ERROR HANDLERS #######
+
+def error_404(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'pokemon/errors/404.html', context, status=404)
+
+def error_500(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'pokemon/errors/500.html', context, status=500)
+
+## HELPERS ##
+
 def get_default_context():
     now = timezone.now()
     highlighted_event = Evenement.objects.filter(toon_op_site=True, highlight_event=True).first()
@@ -356,6 +386,7 @@ def get_default_context():
         highlighted_event = Evenement.objects.filter(toon_op_site=True).first()
 
     return {
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
         "evenement": highlighted_event
     }
 

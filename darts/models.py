@@ -28,6 +28,8 @@ from reportlab.pdfgen import canvas
 from simple_history.models import HistoricalRecords
 from phonenumber_field.modelfields import PhoneNumberField
 
+from darts.validators.image_validator import validate_image_max_size
+
 from .templatetags import dutch_date
 from .utils import helpers
 
@@ -615,3 +617,28 @@ class ToernooiFoto(models.Model):
 
     def __str__(self):
         return f"Foto voor {self.toernooi.titel} ({self.id})"
+
+
+class IndexFotoCategory:
+    DARTSCHOOL = "dartschool"
+    TOERNOOI = "toernooi"
+    ANDERE = "andere"
+
+    CHOICES = [
+        (DARTSCHOOL, pgettext_lazy("indexfoto category", "Dartschool")),
+        (TOERNOOI, pgettext_lazy("indexfoto category", "Toernooi")),
+        (ANDERE, pgettext_lazy("indexfoto category", "Andere")),
+    ]
+
+class IndexFoto(models.Model):
+    def __str__(self) -> str:
+        return self.titel
+    
+    class Meta:
+        verbose_name = "Index Foto"
+        verbose_name_plural = "Index Foto's"
+    
+    titel = models.CharField(max_length=100, verbose_name=_("Titel"))
+    afbeelding = models.ImageField(verbose_name=_("Afbeelding"), upload_to="index_fotos", validators=[validate_image_max_size],)
+    category = models.CharField(max_length=10, choices=IndexFotoCategory.CHOICES, default=IndexFotoCategory.DARTSCHOOL, verbose_name=_("Categorie"))
+    active = models.BooleanField(verbose_name=_("Actief"), default=True)

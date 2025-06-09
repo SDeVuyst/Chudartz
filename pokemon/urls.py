@@ -18,6 +18,7 @@ urlpatterns = i18n_patterns(
 
     path("pokemon/set-attendance/", views.set_attendance),
 
+    path(_('sponsors/'), views.sponsors, name='sponsors'),
     path(_('algemene_voorwaarden/'), views.algemene_voorwaarden, name='algemene_voorwaarden'),
     path(_('privacybeleid/'), views.privacybeleid, name='privacybeleid'),
     path(_('disclaimer/'), views.disclaimer, name='disclaimer'),
@@ -29,3 +30,6 @@ urlpatterns = i18n_patterns(
 
     path('i18n/', include('django.conf.urls.i18n')),
 )
+
+handler404 = 'pokemon.views.error_404'
+handler500 = 'pokemon.views.error_500'
