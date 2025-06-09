@@ -24,7 +24,9 @@ def index(request):
     context = get_default_context()
     context['form'] = ContactForm()
     context['nieuws'] = Nieuws.objects.all()
-    
+    # kies random 8 fotos uit de database
+    context['fotos'] = IndexFoto.objects.filter(active=True).order_by('?')[:8]
+    context['fotofilters'] = IndexFotoCategory.CHOICES
     return TemplateResponse(request, 'pages/index.html', context)
 
 

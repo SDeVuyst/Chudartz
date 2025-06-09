@@ -210,91 +210,22 @@
 
           <ul class="afbeelding-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
             <li data-filter="*" class="filter-active">{% trans 'Alle' %}</li>
-            <li data-filter=".filter-school">{% trans 'Dartschool' %}</li>
-            <li data-filter=".filter-toernooi">{% trans 'Toernooien' %}</li>
+            {% for value, label in fotofilters %}
+              <li data-filter=".filter-{{ value }}">{% trans label %}</li>
+            {% endfor %}
           </ul>
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
-              <img src="{% static "img/mosaic/wall.webp" %}" class="img-fluid" alt="{% trans 'Muurschilderij Dartschool' %}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Muurschilderij Dartschool
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/wall.webp" %}" title="{% trans "Muurschilderij Dartschool" %}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-toernooi">
-              <img src="{% static "img/mosaic/close_board.webp" %}" class="img-fluid" alt="{% trans 'Close-up dartbord' %}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Close-up dartbord
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/close_board.webp" %}" title="{% trans "Muurschilderij Dartschool" %}" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
-              <img src="{% static "img/mosaic/close_wall.webp" %}" class="img-fluid" alt="{% trans 'Wedstrijdbord' %}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Wedstrijdbord
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/close_wall.webp" %}" title="{% trans "Wedstrijdbord" %}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
-              <img src="{% static "img/mosaic/detail_dart.webp" %}" class="img-fluid" alt="{% trans 'Detailshot van dart' %}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Detailshot van dart
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/detail_dart.webp" %}" title="{% trans "Detailshot van dart" %}" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
-              <img src="{% static "img/mosaic/overview.webp" %}" class="img-fluid" alt="{% trans 'Overview van dartschool' %}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Overview van dartschool
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/overview.webp" %}" title="{% trans "Overview van dartschool" %}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
-              <img src="{% static "img/mosaic/sidewall.webp" %}" class="img-fluid" alt="{% trans 'Oefenborden' %}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Oefenborden
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/sidewall.webp" %}" title="{% trans "Oefenborden" %}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div>
             
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
-              <img src="{% static "img/mosaic/throwing2.webp" %}" class="img-fluid" alt="{% trans 'Aan het oefenen' %}" loading="lazy">
+            {% for image in fotos %}
+            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-{{ image.category }}">
+              <img src="{{ image.afbeelding.url }}" class="img-fluid" alt="{{ image.titel }}" loading="lazy">
               <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Aan het oefenen
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/throwing2.webp" %}" title="{% trans "Aan het oefenen" %}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <h4>{{ image.titel }}</h4>
+                <a href="{{ image.afbeelding.url }}" title="{{ image.titel }}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
               </div>
             </div>
-
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
-              <img src="{% static "img/mosaic/close_dart.webp" %}" class="img-fluid" alt="{% trans 'Close-up van dartpijltje' %}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{% blocktrans %}
-                  Close-up van dartpijltje
-                {% endblocktrans %}</h4>
-                <a href="{% static "img/mosaic/close_dart.webp" %}" title="{% trans "Close-up van dartpijltje" %}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-              </div>
-            </div>
+            {% endfor %}
 
           </div>
 

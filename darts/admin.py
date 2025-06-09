@@ -396,3 +396,38 @@ class LocatieAdmin(SimpleHistoryAdmin, ModelAdmin):
         if not request.user.is_superuser:
             return ('slug',) + self.readonly_fields
         return self.readonly_fields  # Superusers can edit all fields
+    
+
+@admin.register(IndexFoto)
+class IndexFotoAdmin(ModelAdmin):
+    list_display = ('display_header', 'category', 'is_active')
+    search_fields = ('titel',)
+    list_filter = (
+        ('category', admin.ChoicesFieldListFilter),
+    )
+
+    @display(description=_("Titel"), header=True)
+    def display_header(self, instance: IndexFoto):
+        return [
+            instance.titel,
+            None,
+            instance.titel,
+            {
+                "path": instance.afbeelding.url,
+                "height": 72,
+                "width": 72,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
+    
+    @display(
+        description=_("Actief"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def is_active(self, obj):
+        label = _("Ja") if obj.active else _("Nee")
+        return obj.active, label

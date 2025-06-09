@@ -255,6 +255,11 @@ UNFOLD = {
                         "icon": "dropdown",
                         "link": "/admin/darts/toernooiheadergroep/",
                     },
+                    {
+                        "title": _("Sfeerfoto's"),
+                        "icon": "add_photo_alternate",
+                        "link": "/admin/darts/indexfoto/",
+                    },
                 ]
             },
             
