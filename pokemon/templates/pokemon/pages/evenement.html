@@ -265,31 +265,33 @@ ChudartZ Collectibles | {{ evenement.titel }}
     {% endif %}
 
     {% if fotos %}
-    <section class="evenement-fotos mb-4">
-      <div class="row g-3">
-        {% for foto in fotos %}
-          <div 
-            class="
-              {% if fotos|length <= 4 %}
-                col-6
-              {% elif fotos|length <= 6 %}
-                col-6 col-md-4
-              {% else %}
-                col-6 col-md-4 col-lg-3
-              {% endif %}
-            ">
-            <div class="card h-100 border-0 shadow-sm">
-              <a href="{{ foto.afbeelding.url }}" class="glightbox evenement-foto-link" data-gallery="evenement-gallery" title="{{ foto.omschrijving|default:'Evenement foto' }}">
-                <img src="{{ foto.afbeelding.url }}" class="card-img-top img-fluid rounded" alt="{{ foto.omschrijving|default:'Evenement foto' }}">
-              </a>
-              {% if foto.omschrijving %}
-                <div class="card-body p-2">
-                  <p class="card-text small text-muted mb-0">{{ foto.omschrijving }}</p>
-                </div>
-              {% endif %}
+    <section id="fotos" class="evenement-fotos mb-4 section">
+      <div class="container" data-aos="fade-up">
+        <div class="row g-3">
+          {% for foto in fotos %}
+            <div 
+              class="
+                {% if fotos|length <= 4 %}
+                  col-6
+                {% elif fotos|length <= 6 %}
+                  col-6 col-md-4
+                {% else %}
+                  col-6 col-md-4 col-lg-3
+                {% endif %}
+              ">
+              <div class="card h-100 border-0 shadow-sm">
+                <a href="{{ foto.afbeelding.url }}" class="glightbox evenement-foto-link" data-gallery="evenement-gallery" title="{{ foto.omschrijving|default:'Evenement foto' }}">
+                  <img src="{{ foto.afbeelding.url }}" class="card-img-top img-fluid rounded" alt="{{ foto.omschrijving|default:'Evenement foto' }}">
+                </a>
+                {% if foto.omschrijving %}
+                  <div class="card-body p-2">
+                    <p class="card-text small text-muted mb-0">{{ foto.omschrijving }}</p>
+                  </div>
+                {% endif %}
+              </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     </section>
     {% endif %}
