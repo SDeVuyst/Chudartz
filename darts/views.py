@@ -236,6 +236,7 @@ def toernooi(request, slug):
 
     context = get_default_context()
     context["toernooi"] = evenement
+    context["fotos"] = evenement.fotos.all().order_by('-volgorde')
 
     return TemplateResponse(request, 'pages/toernooi.html', context)
 

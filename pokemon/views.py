@@ -186,6 +186,7 @@ def evenement(request, slug):
     # GET request
     context = {
         "evenement": evenement,
+        "fotos": evenement.fotos_evenement.all().order_by("-volgorde"),
         "tickets": Ticket.objects.filter(event=evenement),
         "partners": evenement.partners.all(),
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
