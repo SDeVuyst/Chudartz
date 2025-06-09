@@ -20,6 +20,12 @@ class TicketInline(StackedInline):
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
 
+class ToernooiFotoInline(StackedInline):
+    model = ToernooiFoto
+    extra = 1
+    verbose_name = _("Toernooi Foto")
+    verbose_name_plural = _("Toernooi Foto's")
+
 # FILTERS #
 class ToernooiFilter(DropdownFilter):
     title = 'Toernooi'  # Display name of the filter in the admin
@@ -51,7 +57,8 @@ class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     search_fields = ('titel', 'beschrijving', 'start_datum', 'einde_datum', 'locatie_lang')
     inlines = [
-        TicketInline
+        TicketInline,
+        ToernooiFotoInline,
     ]
 
     actions_detail = ["generate_qr_code",]

@@ -28,6 +28,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from darts.templatetags import dutch_date
 from darts.utils import helpers
+from darts.validators.image_validator import validate_image_max_size
 
 
 class Partner(models.Model):
@@ -434,3 +435,18 @@ class Sponsor(models.Model):
     class Meta:
         verbose_name = "Sponsor"
         verbose_name_plural = "Sponsors"
+
+
+class EvenementFoto(models.Model):
+    evenement = models.ForeignKey(Evenement, on_delete=models.CASCADE, related_name="fotos_evenement", verbose_name=_("Evenement"))
+    afbeelding = models.ImageField(upload_to="evenement_fotos", verbose_name=_("Foto"), validators=[validate_image_max_size])
+    omschrijving = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Omschrijving"))
+    volgorde = models.PositiveIntegerField(default=0, verbose_name=_("Volgorde"))
+
+    class Meta:
+        ordering = ["volgorde", "id"]
+        verbose_name = "Evenement Foto"
+        verbose_name_plural = "Evenement Foto's"
+
+    def __str__(self):
+        return f"Foto voor {self.evenement.titel} ({self.id})"

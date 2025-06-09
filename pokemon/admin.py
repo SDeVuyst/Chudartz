@@ -21,6 +21,12 @@ class TicketInline(StackedInline):
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
 
+class EvenementFotoInline(StackedInline):
+    model = EvenementFoto
+    extra = 1
+    verbose_name = _("Evenement Foto")
+    verbose_name_plural = _("Evenement Foto's")
+
 
 # FILTERS #
 class EvenementFilter(DropdownFilter):
@@ -192,7 +198,8 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('id',)
     exclude = ('tickets',)
     inlines = [
-        TicketInline
+        TicketInline,
+        EvenementFotoInline,
     ]
     actions_detail = ["generate_qr_code",]
 
