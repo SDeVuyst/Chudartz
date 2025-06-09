@@ -187,7 +187,8 @@ def evenement(request, slug):
     context = {
         "evenement": evenement,
         "tickets": Ticket.objects.filter(event=evenement),
-        "partners": evenement.partners.all()
+        "partners": evenement.partners.all(),
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
@@ -208,7 +209,8 @@ def standhouder(request, slug):
     if not evenement.toon_op_site: return HttpResponseNotFound()
 
     context = {
-        "evenement": evenement
+        "evenement": evenement,
+        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
     }
 
     if request.POST:
