@@ -34,17 +34,33 @@ ChudartZ Collectibles | Evenementen
       <div class="container">
 
         {% if evenementen %}
-        <div class="row gy-4">
-          {% for evenement in evenementen %}
-            {% include 'pokemon/blocks/toernooi-card.html' with evenement=evenement %}
-          {% endfor %}
-        </div>
-        {% else %}
 
+          {% if has_future_events %}
+            <h2 class="mb-3">{% trans "Volgende Evenementen" %}</h2>
+            <div class="row gy-4">
+              {% for evenement in evenementen %}
+                {% if evenement.is_in_future or evenement.is_bezig %}
+                  {% include 'pokemon/blocks/toernooi-card.html' with evenement=evenement %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if has_past_events %}
+            <h2 class="{% if has_future_events %}mt-5 {% endif %}mb-3">{% trans "Voorbije Evenementen" %}</h2>
+            <div class="row gy-4">
+              {% for evenement in evenementen %}
+                {% if not evenement.is_in_future and not evenement.is_bezig %}
+                  {% include 'pokemon/blocks/toernooi-card.html' with evenement=evenement %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        {% else %}
           <div class="justify-content-center text-center">
             <h2>{% trans 'Er zijn nog geen evenementen beschikbaar!'%}</h2>
           </div>
-
         {% endif %}
 
       </div>

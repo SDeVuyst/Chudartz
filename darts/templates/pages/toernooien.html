@@ -37,17 +37,33 @@ ChudartZ | Toernooien
       <div class="container">
 
         {% if toernooien %}
-        <div class="row gy-4">
-          {% for toernooi in toernooien %}
-            {% include 'blocks/toernooi-card.html' with toernooi=toernooi %}
-          {% endfor %}
-        </div>
-        {% else %}
 
+          {% if has_future_tournaments %}
+            <h2 class="mb-3">{% trans "Volgende Toernooien" %}</h2>
+            <div class="row gy-4">
+              {% for toernooi in toernooien %}
+                {% if toernooi.is_in_future or toernooi.is_bezig %}
+                  {% include 'blocks/toernooi-card.html' with toernooi=toernooi %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if has_past_tournaments %}
+            <h2 class="{% if has_future_tournaments %}mt-5 {% endif %}mb-3">{% trans "Voorbije Toernooien" %}</h2>
+            <div class="row gy-4">
+              {% for toernooi in toernooien %}
+                {% if not toernooi.is_in_future and not toernooi.is_bezig %}
+                  {% include 'blocks/toernooi-card.html' with toernooi=toernooi %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        {% else %}
           <div class="justify-content-center text-center">
             <h2>{% trans 'Er zijn nog geen toernooien beschikbaar!'%}</h2>
           </div>
-
         {% endif %}
 
       </div>
