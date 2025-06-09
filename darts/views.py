@@ -629,6 +629,17 @@ def code_bestaat(request, code):
     })
 
 
+###### ERROR HANDLERS #######
+
+def error_404(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'errors/404.html', context, status=404)
+
+def error_500(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'errors/500.html', context, status=500)
+
+
 # HELPER
 def get_default_context():
     return {

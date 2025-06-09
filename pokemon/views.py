@@ -365,6 +365,18 @@ def set_attendance(request):
     return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
 
 
+###### ERROR HANDLERS #######
+
+def error_404(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'pokemon/errors/404.html', context, status=404)
+
+def error_500(request, exception):
+    context = get_default_context()
+    return TemplateResponse(request, 'pokemon/errors/500.html', context, status=500)
+
+## HELPERS ##
+
 def get_default_context():
     now = timezone.now()
     highlighted_event = Evenement.objects.filter(toon_op_site=True, highlight_event=True).first()

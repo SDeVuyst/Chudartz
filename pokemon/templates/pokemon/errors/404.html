@@ -1,0 +1,30 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | 404
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="ChudartZ Collectibles | 404">
+{% endblock %}
+
+{% block body %}
+<body class="over-ons-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% trans "404 - Pagina niet gevonden" as page_name %}
+
+    {% include 'pokemon/blocks/page-title.html' with name=page_name %}
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}
