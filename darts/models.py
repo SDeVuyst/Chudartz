@@ -604,9 +604,10 @@ class Locatie(models.Model):
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
+
 class ToernooiFoto(models.Model):
     toernooi = models.ForeignKey(Toernooi, on_delete=models.CASCADE, related_name="fotos", verbose_name=_("Toernooi"))
-    afbeelding = models.ImageField(upload_to="toernooi_fotos", verbose_name=_("Foto"))
+    afbeelding = models.ImageField(upload_to="toernooi_fotos", verbose_name=_("Foto"), validators=[validate_image_max_size])
     omschrijving = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Omschrijving"))
     volgorde = models.PositiveIntegerField(default=0, verbose_name=_("Volgorde"))
 
