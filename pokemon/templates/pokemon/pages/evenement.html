@@ -264,10 +264,10 @@ ChudartZ Collectibles | {{ evenement.titel }}
     </section><!-- Sponsors Section -->
     {% endif %}
 
-    {% if evenement.fotos.all %}
+    {% if evenement.fotos_evenement.all %}
     <section class="evenement-fotos mb-4">
       <div class="row g-3">
-        {% with fotos=evenement.fotos.all %}
+        {% with fotos=evenement.fotos_evenement.all %}
           {% for foto in fotos %}
             <div 
               class="
