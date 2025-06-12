@@ -25,8 +25,10 @@ def index(request):
     context['form'] = ContactForm()
     context['nieuws'] = Nieuws.objects.all()
     # kies random 8 fotos uit de database
-    context['fotos'] = IndexFoto.objects.filter(active=True).order_by('?')[:8]
-    context['fotofilters'] = IndexFotoCategory.CHOICES
+    context['fotos_selectie'] = IndexFoto.objects.filter(active=True).order_by('?')[:8]
+    context['fotos_dartschool'] = IndexFoto.objects.filter(active=True, category=IndexFotoCategory.DARTSCHOOL).order_by('?')[:8]
+    context['fotos_toernooi'] = IndexFoto.objects.filter(active=True, category=IndexFotoCategory.TOERNOOI).order_by('?')[:8]
+    context['fotos_andere'] = IndexFoto.objects.filter(active=True, category=IndexFotoCategory.ANDERE).order_by('?')[:8]
     return TemplateResponse(request, 'pages/index.html', context)
 
 

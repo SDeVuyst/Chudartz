@@ -206,27 +206,69 @@
 
       <div class="container">
 
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+        <ul class="afbeelding-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+          <li data-category="selectie" class="filter-active">{% trans 'Selectie' %}</li>
+          <li data-category="dartschool">{% trans 'Dartschool' %}</li>
+          <li data-category="toernooi">{% trans 'Toernooi' %}</li>
+          <li data-category="andere">{% trans 'Andere' %}</li>
+        </ul>
 
-          <ul class="afbeelding-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">{% trans 'Alle' %}</li>
-            {% for value, label in fotofilters %}
-              <li data-filter=".filter-{{ value }}">{% trans label %}</li>
-            {% endfor %}
-          </ul>
+        <div class="image-galleries">
 
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-            
-            {% for image in fotos %}
-            <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-{{ image.category }}">
-              <img src="{{ image.afbeelding.url }}" class="img-fluid" alt="{{ image.titel }}" loading="lazy">
-              <div class="portfolio-info">
-                <h4>{{ image.titel }}</h4>
-                <a href="{{ image.afbeelding.url }}" title="{{ image.titel }}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+          <div class="gallery gallery-selectie">
+            <div class="row gy-4">
+              {% for image in fotos_selectie %}
+              <div class="col-lg-4 col-md-6 afbeelding-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="{{ image.afbeelding.url }}" class="img-fluid" alt="{{ image.titel }}">
+                <div class="portfolio-info">
+                  <h4>{{ image.titel }}</h4>
+                  <a href="{{ image.afbeelding.url }}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                </div>
               </div>
+              {% endfor %}
             </div>
-            {% endfor %}
+          </div>
 
+          <div class="gallery gallery-dartschool d-none">
+            <div class="row gy-4">
+              {% for image in fotos_dartschool %}
+              <div class="col-lg-4 col-md-6 afbeelding-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="{{ image.afbeelding.url }}" class="img-fluid" alt="{{ image.titel }}" loading="lazy">
+                <div class="portfolio-info">
+                  <h4>{{ image.titel }}</h4>
+                  <a href="{{ image.afbeelding.url }}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="gallery gallery-toernooi d-none">
+            <div class="row gy-4">
+              {% for image in fotos_toernooi %}
+              <div class="col-lg-4 col-md-6 afbeelding-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="{{ image.afbeelding.url }}" class="img-fluid" alt="{{ image.titel }}" loading="lazy">
+                <div class="portfolio-info">
+                  <h4>{{ image.titel }}</h4>
+                  <a href="{{ image.afbeelding.url }}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="gallery gallery-andere d-none">
+            <div class="row gy-4">
+              {% for image in fotos_andere %}
+              <div class="col-lg-4 col-md-6 afbeelding-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="{{ image.afbeelding.url }}" class="img-fluid" alt="{{ image.titel }}" loading="lazy">
+                <div class="portfolio-info">
+                  <h4>{{ image.titel }}</h4>
+                  <a href="{{ image.afbeelding.url }}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
 
         </div>
@@ -371,4 +413,25 @@
   <script src="{% static "vendor/email-form/validate.js" %}" defer></script>
 
 </body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".afbeelding-filters li");
+    const galleries = document.querySelectorAll(".gallery");
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Highlight active filter
+        filterButtons.forEach(btn => btn.classList.remove("filter-active"));
+        button.classList.add("filter-active");
+
+        const category = button.getAttribute("data-category");
+
+        galleries.forEach(gallery => {
+          gallery.classList.toggle("d-none", !gallery.classList.contains(`gallery-${category}`));
+        });
+      });
+    });
+  });
+</script>
 {% endblock %}
