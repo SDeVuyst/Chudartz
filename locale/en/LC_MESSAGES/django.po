@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-10 14:23+0200\n"
-"PO-Revision-Date: 2025-06-10 14:30+0200\n"
+"POT-Creation-Date: 2025-06-24 18:07+0200\n"
+"PO-Revision-Date: 2025-06-24 18:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -74,6 +74,7 @@ msgstr "Scanner"
 #: .\darts\templates\pages\dartschool-werkwijze.html:21
 #: .\darts\templates\pages\dartschool.html:28
 #: .\darts\templates\pages\index.html:115
+#: .\darts\templates\pages\index.html:211
 #: .\darts\templates\pages\locatie.html:29
 #: .\darts\templates\pages\locaties.html:31
 #: .\darts\templates\pages\priveles.html:30
@@ -204,7 +205,7 @@ msgstr "Sold out"
 #: .\darts\admin.py:230 .\darts\models.py:45 .\darts\models.py:413
 #: .\darts\models.py:502 .\darts\models.py:575
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:68
-#: .\darts\templates\pages\index.html:295
+#: .\darts\templates\pages\index.html:337
 #: .\darts\templates\pages\priveles.html:63 .\pokemon\admin.py:77
 #: .\pokemon\admin.py:265 .\pokemon\models.py:418
 #: .\pokemon\templates\pokemon\pages\index.html:222
@@ -374,7 +375,7 @@ msgstr "Last name"
 #: .\darts\models.py:240 .\darts\models.py:275 .\darts\models.py:442
 #: .\darts\templates\pages\dartschool-beurtkaart.html:142
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:73
-#: .\darts\templates\pages\index.html:300
+#: .\darts\templates\pages\index.html:342
 #: .\darts\templates\pages\priveles.html:68 .\pokemon\models.py:221
 #: .\pokemon\models.py:288 .\pokemon\templates\pokemon\pages\evenement.html:167
 #: .\pokemon\templates\pokemon\pages\index.html:227
@@ -534,7 +535,7 @@ msgstr "Address"
 msgid "Lesuren"
 msgstr "Hours"
 
-#: .\darts\models.py:609
+#: .\darts\models.py:609 .\darts\templates\pages\index.html:212
 msgid "Toernooi"
 msgstr "Tournament"
 
@@ -639,14 +640,15 @@ msgid "FAQ"
 msgstr "FAQ"
 
 #: .\darts\templates\blocks\footer.html:55
-#: .\darts\templates\pages\teambuildings-en-workshops.html:61
-#: .\darts\templates\pages\teambuildings-en-workshops.html:90
-#: .\darts\templates\pages\teambuildings-en-workshops.html:107
-#: .\darts\templates\pages\teambuildings-en-workshops.html:124
-#: .\darts\templates\pages\teambuildings-en-workshops.html:141
-#: .\darts\templates\pages\teambuildings-en-workshops.html:158
-#: .\darts\templates\pages\teambuildings-en-workshops.html:175
-#: .\darts\templates\pages\teambuildings-en-workshops.html:198
+#: .\darts\templates\pages\teambuildings-en-workshops.html:62
+#: .\darts\templates\pages\teambuildings-en-workshops.html:91
+#: .\darts\templates\pages\teambuildings-en-workshops.html:108
+#: .\darts\templates\pages\teambuildings-en-workshops.html:125
+#: .\darts\templates\pages\teambuildings-en-workshops.html:142
+#: .\darts\templates\pages\teambuildings-en-workshops.html:159
+#: .\darts\templates\pages\teambuildings-en-workshops.html:176
+#: .\darts\templates\pages\teambuildings-en-workshops.html:201
+#: .\darts\templates\pages\teambuildings-en-workshops.html:219
 #: .\pokemon\templates\pokemon\blocks\footer.html:50
 msgid "Contacteer Ons"
 msgstr "Contact Us"
@@ -709,12 +711,17 @@ msgid "Teambuilding"
 msgstr "Teambuilding"
 
 #: .\darts\templates\blocks\header.html:57
-#: .\darts\templates\pages\teambuildings-en-workshops.html:192
+#: .\darts\templates\pages\teambuildings-en-workshops.html:195
 msgid "Demolessen"
 msgstr "Demo lessons"
 
-#: .\darts\templates\blocks\header.html:60
-#: .\darts\templates\pages\index.html:242
+#: .\darts\templates\blocks\header.html:58
+#: .\darts\templates\pages\teambuildings-en-workshops.html:210
+msgid "Feesten"
+msgstr "Party"
+
+#: .\darts\templates\blocks\header.html:61
+#: .\darts\templates\pages\index.html:284
 #: .\darts\templates\pages\privacybeleid.html:254
 #: .\pokemon\templates\pokemon\blocks\header.html:14
 #: .\pokemon\templates\pokemon\pages\index.html:169
@@ -722,12 +729,12 @@ msgstr "Demo lessons"
 msgid "Contact"
 msgstr "Contact"
 
-#: .\darts\templates\blocks\header.html:64
+#: .\darts\templates\blocks\header.html:65
 #: .\pokemon\templates\pokemon\blocks\header.html:18
 msgid "Taal"
 msgstr "Language"
 
-#: .\darts\templates\blocks\header.html:89
+#: .\darts\templates\blocks\header.html:90
 msgid "Begin Nu"
 msgstr "Get Started"
 
@@ -2184,7 +2191,7 @@ msgstr "Your personal code"
 #: .\darts\templates\pages\dartschool-beurtkaart.html:88
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:91
 #: .\darts\templates\pages\dartschool-reserveren.html:86
-#: .\darts\templates\pages\index.html:318
+#: .\darts\templates\pages\index.html:360
 #: .\darts\templates\pages\priveles.html:83
 #: .\pokemon\templates\pokemon\pages\index.html:245
 msgid "Laden..."
@@ -2307,21 +2314,21 @@ msgstr ""
 "lesson."
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:78
-#: .\darts\templates\pages\index.html:305
+#: .\darts\templates\pages\index.html:347
 #: .\darts\templates\pages\priveles.html:73
 #: .\pokemon\templates\pokemon\pages\index.html:232
 msgid "Onderwerp"
 msgstr "Subject"
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:83
-#: .\darts\templates\pages\index.html:310
+#: .\darts\templates\pages\index.html:352
 #: .\darts\templates\pages\priveles.html:78
 #: .\pokemon\templates\pokemon\pages\index.html:237
 msgid "Bericht"
 msgstr "Message"
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:93
-#: .\darts\templates\pages\index.html:320
+#: .\darts\templates\pages\index.html:362
 #: .\darts\templates\pages\priveles.html:85
 #: .\pokemon\templates\pokemon\pages\index.html:247
 msgid "Uw bericht is verzonden. Bedankt!"
@@ -2717,7 +2724,7 @@ msgid "Wedstrijdbord"
 msgstr "Competition board"
 
 #: .\darts\templates\pages\dartschool.html:72
-#: .\darts\templates\pages\teambuildings-en-workshops.html:189
+#: .\darts\templates\pages\teambuildings-en-workshops.html:191
 msgid "Trainer bij ChudartZ logo"
 msgstr "Trainer at ChudartZ logo"
 
@@ -3334,38 +3341,42 @@ msgstr ""
 "Be inspired by the photos of our darts events and lessons, and experience "
 "the energy and community of our club."
 
-#: .\darts\templates\pages\index.html:212
-msgid "Alle"
-msgstr "All"
+#: .\darts\templates\pages\index.html:210
+msgid "Selectie"
+msgstr "Selection"
 
-#: .\darts\templates\pages\index.html:243
+#: .\darts\templates\pages\index.html:213
+msgid "Andere"
+msgstr "Other"
+
+#: .\darts\templates\pages\index.html:285
 #: .\pokemon\templates\pokemon\pages\index.html:170
 msgid "Aarzel niet om ons te contacteren!"
 msgstr "Don't hesitate to contact us!"
 
-#: .\darts\templates\pages\index.html:257
+#: .\darts\templates\pages\index.html:299
 #: .\pokemon\templates\pokemon\pages\index.html:184
 msgid "Bel/Whatsapp ons"
 msgstr "Call/Whatsapp us"
 
-#: .\darts\templates\pages\index.html:265
+#: .\darts\templates\pages\index.html:307
 #: .\pokemon\templates\pokemon\pages\index.html:192
 msgid "Email ons"
 msgstr "Email Us"
 
-#: .\darts\templates\pages\index.html:287
+#: .\darts\templates\pages\index.html:329
 #: .\darts\templates\pages\priveles.html:55
 #: .\pokemon\templates\pokemon\pages\index.html:214
 msgid "Stuur ons een bericht"
 msgstr "Send us a message"
 
-#: .\darts\templates\pages\index.html:321
+#: .\darts\templates\pages\index.html:363
 #: .\darts\templates\pages\priveles.html:86
 #: .\pokemon\templates\pokemon\pages\index.html:248
 msgid "Stuur bericht"
 msgstr "Send message"
 
-#: .\darts\templates\pages\index.html:340
+#: .\darts\templates\pages\index.html:382
 msgid "In het nieuws"
 msgstr "In the news"
 
@@ -4231,40 +4242,50 @@ msgstr ""
 #: .\darts\templates\pages\teambuildings-en-workshops.html:51
 msgid ""
 "\n"
-"                      Een dag vol spannende dartscompetities, uitdagende "
-"teamspellen en een overvloed aan plezier en camaraderie. Of je nu een "
-"doorgewinterde darter bent of net begint, deze teambuilding is ontworpen om "
-"onze band te versterken en onze gezamenlijke vaardigheden te verbeteren.\n"
+"                    Een dag vol spannende dartscompetities, uitdagende "
+"teamopdrachten en een overvloed aan plezier en collegiale verbondenheid. Of "
+"de deelnemers nu ervaren darters zijn of voor het eerst een dartpijl "
+"vasthouden, deze teambuilding is zorgvuldig ontwikkeld om de onderlinge "
+"samenwerking te versterken en groepsdynamiek te bevorderen.\n"
+"                    Deze activiteit is geschikt voor kleine teams, kmo's en "
+"grotere bedrijven tot 100+ werknemers. Bovendien wordt dit concept "
+"georganiseerd op locaties in heel België en in het buitenland, volledig "
+"afgestemd op de wensen en doelstellingen van de klant.\n"
 "                    "
 msgstr ""
 "\n"
-"A day full of exciting darts competitions, challenging team games and an "
-"abundance of fun and camaraderie. Whether you're a seasoned darts player or "
-"just starting out, this team building is designed to strengthen our bond and "
-"improve our collective skills.\n"
+"A day full of exciting darts competitions, challenging team assignments and "
+"an abundance of fun and collegial connection. Whether the participants are "
+"experienced darts players or holding a dart for the first time, this team "
+"building has been carefully developed to strengthen mutual cooperation and "
+"promote group dynamics.\n"
+"                    This activity is suitable for small teams, SMEs and "
+"larger companies up to 100+ employees. Moreover, this concept is organized "
+"at locations throughout Belgium and abroad, fully tailored to the wishes and "
+"objectives of the customer.\n"
 "                    "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:56
+#: .\darts\templates\pages\teambuildings-en-workshops.html:57
 msgid "Versterk je team"
 msgstr "Empower your team"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:57
+#: .\darts\templates\pages\teambuildings-en-workshops.html:58
 msgid "Verbeter je spel"
 msgstr "Level up your game"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:58
+#: .\darts\templates\pages\teambuildings-en-workshops.html:59
 msgid "Plezier & ontspanning"
 msgstr "Fun & relaxation"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:59
+#: .\darts\templates\pages\teambuildings-en-workshops.html:60
 msgid "Onvergetelijke ervaring"
 msgstr "Unforgettable experience"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:80
+#: .\darts\templates\pages\teambuildings-en-workshops.html:81
 msgid "Darts competitie"
 msgstr "Darts competition"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:85
+#: .\darts\templates\pages\teambuildings-en-workshops.html:86
 msgid ""
 "\n"
 "                            Hier nemen teams het tegen elkaar op in een "
@@ -4280,11 +4301,11 @@ msgstr ""
 "whole.\n"
 "                            "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:97
+#: .\darts\templates\pages\teambuildings-en-workshops.html:98
 msgid "Darts bingo"
 msgstr "Darts bingo"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:102
+#: .\darts\templates\pages\teambuildings-en-workshops.html:103
 msgid ""
 "\n"
 "                              Dit is een leuke en interactieve manier om "
@@ -4299,11 +4320,11 @@ msgstr ""
 "extra layer of challenge and fun. \n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:114
+#: .\darts\templates\pages\teambuildings-en-workshops.html:115
 msgid "Teams challenge"
 msgstr "Teams challenge"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:119
+#: .\darts\templates\pages\teambuildings-en-workshops.html:120
 msgid ""
 "\n"
 "                              Hier strijden teams tegen elkaar in een serie "
@@ -4318,11 +4339,11 @@ msgstr ""
 "achieving certain scores or hitting predefined targets on the dartboard. \n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:131
+#: .\darts\templates\pages\teambuildings-en-workshops.html:132
 msgid "Strategische darts"
 msgstr "Strategic darts"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:136
+#: .\darts\templates\pages\teambuildings-en-workshops.html:137
 msgid ""
 "\n"
 "                              Teams krijgen specifieke doelen en scenario's, "
@@ -4339,11 +4360,11 @@ msgstr ""
 "to determine the best tactics and score the most points.\n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:148
+#: .\darts\templates\pages\teambuildings-en-workshops.html:149
 msgid "Darts met een twist"
 msgstr "Darts with a twist"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:153
+#: .\darts\templates\pages\teambuildings-en-workshops.html:154
 msgid ""
 "\n"
 "                              Dit brengt een creatieve en verrassende draai "
@@ -4359,11 +4380,11 @@ msgstr ""
 "playful task.\n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:165
+#: .\darts\templates\pages\teambuildings-en-workshops.html:166
 msgid "Andere mogelijkheden"
 msgstr "Other Features"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:170
+#: .\darts\templates\pages\teambuildings-en-workshops.html:171
 msgid ""
 "\n"
 "                              Als je graag nog meer mogelijkheden wilt "
@@ -4376,10 +4397,10 @@ msgstr ""
 "darts team building, do not hesitate to contact us!\n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:194
+#: .\darts\templates\pages\teambuildings-en-workshops.html:197
 msgid ""
 "\n"
-"                    Met ChudartZ brengen we de spannende wereld van darts "
+"                      Met ChudartZ brengen we de spannende wereld van darts "
 "ook naar scholen, sporthappenings, opendeurdagen, speelpleinwerking, SWAP-"
 "activiteiten of andere evenementen! Wij organiseren interactieve demolessen "
 "waarin jongeren op een leuke en veilige manier kennis kunnen maken met "
@@ -4387,7 +4408,7 @@ msgid ""
 "Onze activiteiten zijn ideaal om jongeren sportief en enthousiast te "
 "betrekken. Onze lessen zijn een perfecte aanvulling op sportieve en "
 "recreatieve activiteiten.\n"
-"                    "
+"                      "
 msgstr ""
 "\n"
 "With ChudartZ we also bring the exciting world of darts to schools, sports "
@@ -4397,7 +4418,49 @@ msgstr ""
 "to improving precision. Our activities are ideal for involving young people "
 "in a sporty and enthusiastic way. Our classes are a perfect complement to "
 "sports and recreational activities.\n"
-"                    "
+"                      "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:212
+msgid ""
+"\n"
+"                      Iets te vieren? Onze dartstanden zorgen gegarandeerd "
+"voor fun op uw trouwfeest, communie, tuinfeest of privéfeest.\n"
+"                      U kunt kiezen uit, de dartstanden huren met animatie, "
+"waarbij wij alles opvrolijken en de sfeer erin brengen. Of ga voor de "
+"formule zonder animatie, waarbij je de dartstanden gewoon huurt en uw gasten "
+"vrij kunnen spelen wanneer ze willen. \n"
+"                      Huren kan al vanaf 1 dartstand. \n"
+"                      Beide opties zorgen voor sfeer, plezier en "
+"gezelligheid!  \n"
+"                      "
+msgstr ""
+"\n"
+"Something to celebrate? Our darts stands are guaranteed to provide fun at "
+"your wedding, communion, garden party or private party.\n"
+"                      You can choose from, rent the darts stands with "
+"entertainment, where we brighten up everything and bring the atmosphere in. "
+"Or go for the formula without animation, where you just rent the darts "
+"stands and your guests can play freely whenever they want. \n"
+"                      You can rent from 1 dart stand. \n"
+"                      Both options provide atmosphere, fun and "
+"conviviality!  \n"
+"                      "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:224
+msgid "ChudartZ bij een feest"
+msgstr "ChudartZ at a party"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:231
+msgid "feestopstelling bij ChudartZ"
+msgstr "party setup at ChudartZ"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:234
+msgid "ChudartZ in actie op een feest"
+msgstr "ChudartZ in action at a party"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:237
+msgid "Verhuur van een dartsbord"
+msgstr "Rental of a dart board"
 
 #: .\darts\templates\pages\toernooi-inschrijving-response.html:24
 #: .\pokemon\templates\pokemon\pages\evenement-inschrijving-response.html:24
@@ -4598,7 +4661,7 @@ msgstr "tournaments/"
 
 #: .\darts\urls.py:27
 msgid "toernooien/doelen/"
-msgstr ""
+msgstr "tournaments/goals/"
 
 #: .\darts\urls.py:28
 msgid "toernooien/<slug:slug>/"
@@ -4646,7 +4709,7 @@ msgstr "tournament-rules/"
 
 #: .\darts\urls.py:42
 msgid "sponsor-worden/"
-msgstr ""
+msgstr "become-a-sponsor/"
 
 #: .\darts\urls.py:43 .\pokemon\urls.py:24
 msgid "disclaimer/"
@@ -5191,7 +5254,7 @@ msgstr "Go back to event"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:29
 msgid "/nl/evenementen"
-msgstr ""
+msgstr "/en/events"
 
 #: .\pokemon\templates\pokemon\pages\evenement.html:69
 msgid "Bekijk tickets"
@@ -5589,6 +5652,25 @@ msgstr "terms-and-conditions/"
 #: .\pokemon\urls.py:27
 msgid "pokemon/scanner/"
 msgstr "pokemon/scanner/"
+
+#~ msgid "Alle"
+#~ msgstr "All"
+
+#~ msgid ""
+#~ "\n"
+#~ "                      Een dag vol spannende dartscompetities, uitdagende "
+#~ "teamspellen en een overvloed aan plezier en camaraderie. Of je nu een "
+#~ "doorgewinterde darter bent of net begint, deze teambuilding is ontworpen "
+#~ "om onze band te versterken en onze gezamenlijke vaardigheden te "
+#~ "verbeteren.\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "A day full of exciting darts competitions, challenging team games and an "
+#~ "abundance of fun and camaraderie. Whether you're a seasoned darts player "
+#~ "or just starting out, this team building is designed to strengthen our "
+#~ "bond and improve our collective skills.\n"
+#~ "                    "
 
 #~ msgid "Gratis proefles"
 #~ msgstr "Free trial lesson"
