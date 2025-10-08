@@ -1,0 +1,179 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ Collectibles | Huisreglement
+{% endblock %}
+
+{% block meta %}
+<meta NAME="robots" CONTENT="noindex, nofollow">
+{% endblock %}
+
+{% block body %}
+<body class="disclaimer-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Huisreglement standhouders/bezoekers" as page_name %}
+
+    {% include 'pokemon/blocks/page-title.html' with name=page_name %}
+
+
+    <section id="portfolio-details" class="portfolio-details section"> 
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-between gy-4">
+
+          <div data-aos="fade-up">
+            <div class="portfolio-description">
+
+                <h2>{% trans 'Algemene gedragsregels' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Respect voor anderen:</b> Behandel andere deelnemers, bezoekers en personeel met respect. Beledigend taalgebruik, pesten of intimiderend gedrag is niet toegestaan.
+                            Wij vragen iedereen om hoffelijk en respectvol te zijn bij het betreden van hun standplaats, ook wanneer dit betekent dat u langs andere standhouders moet passeren.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Respect voor eigendommen:</b> Beschadig geen eigendommen van de organisatie, andere deelnemers of de locatie.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Extra tafels/stoelen pakken of extra standruimte claimen:</b> Het is niet toegestaan om een ander aantal tafels of stoelen of standruimte van je buur te ‘claimen’ dan waarvoor betaald is. Alle standplaatsen, tafels en stoelen zijn ingedeeld naar de reserveringen en zullen dus allemaal gebruikt/bezet worden.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Fair play:</b> Bij wedstrijden of ruilen dient iedereen eerlijk en respectvol te handelen.{% endblocktrans %}
+                        </li>
+                    </ul>                  
+                </p>
+
+                <h2 class="pt-5">{% trans 'Veiligheid en orde' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Naleving van veiligheidsvoorschriften:</b> Houd vluchtwegen vrij en volg de aanwijzingen van het personeel op in geval van nood.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Verboden/gevaarlijke voorwerpen:</b> Het meenemen van wapens, gevaarlijke voorwerpen of illegale middelen is strikt verboden. Het kan natuurlijk voorkomen dat je als standhouder wil opvallen met reclame, maar het is niet toegestaan om flitsende beelden te gebruiken i.v.m. eventuele bezoekers met epilepsie.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Toezicht op kinderen:</b> Kinderen onder een bepaalde leeftijd (-12 j.) mogen alleen onder begeleiding van een volwassene aanwezig zijn. Minderjarigen vallen tijdens het evenement steeds onder de verantwoordelijkheid van een meerderjarige begeleider (zoals een ouder of voogd). De organisatie draagt hierin geen aansprakelijkheid.{% endblocktrans %}
+                        </li>
+                    </ul>     
+                </p>
+
+                <h2 class="pt-5">{% trans 'Prijsafspraken en concurrentie' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Kartelvorming is verboden:</b> Prijsafspraken tussen concurrenten (zoals het afspreken van minimumprijzen, vaste prijzen of onderling coördineren van prijsverlagingen) zijn illegaal volgens het Belgische mededingingsrecht en de Europese regelgeving (Art. 101 VWEU). Dit geldt ook voor afspraken die indirect invloed hebben op prijzen.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Onder de kostprijs verkopen:</b> Het verkopen van producten onder de eigen kostprijs is toegestaan, tenzij dit gebeurt met de intentie om concurrenten uit de markt te duwen (predatory pricing). Dit wordt beschouwd als oneerlijke concurrentie en is verboden volgens de Wet Marktpraktijken.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Uitverkoop en promoties:</b> Onder de kostprijs verkopen kan wel toegestaan zijn in specifieke situaties, zoals bij uitverkopen, solden of het opruimen van oude stock, zolang het duidelijk gecommuniceerd wordt en niet bedoeld is om concurrenten te benadelen.{% endblocktrans %}
+                        </li>
+                    </ul>
+                    <p>{% blocktrans %}Op onze beurs is het dus verboden om bewust prijzen zo laag te maken dat andere verkopers hierdoor niet kunnen concurreren of het een vorm van oneerlijke concurrentie vormt, aangezien dit indruist tegen de Wet op de Marktpraktijken.{% endblocktrans %}</p>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Verkoop en ruilen' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Officiële en informele verkoop:</b> Alleen geregistreerde standhouders mogen goederen verkopen. Ruilen tussen bezoekers is toegestaan in de ‘ruilzone’, maar commerciële verkoop zonder toestemming is niet toegestaan.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Ruilzones</b> zijn strikt voorbehouden voor ruilactiviteiten en mogen in geen geval gebruikt worden voor verkoop. Het creëren van een parallel verkoopcircuit buiten de officiële standhouders om is verboden. Overtredingen kunnen leiden tot onmiddellijke verwijdering van het evenement zonder terugbetaling.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}Naast Pokémon-kaarten mogen ook trading cards van andere kaartspellen, zoals Yu-Gi-Oh!, Magic: The Gathering en Digimon, evenals andere producten gerelateerd aan Pokémon, worden verkocht.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Illegale verkoop:</b> Wanneer je artikelen aanbiedt die officieel nog niet zijn uitgebracht (voor de releasedatum) of namaakproducten, word je per direct van de beurs verwijderd zonder recht op kostencompensatie. Daarnaast wordt deze informatie gedeeld met de organisatoren van andere beurzen in België en Nederland.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Mystery boxen:</b> Het aanbieden van mysteryboxen is toegestaan, maar frauduleuze praktijken, zoals misleiding, scamming en het verkopen van valse of misleidende producten, zullen leiden tot onmiddellijke verwijdering van de beurs en deze informatie zal gedeeld worden met de organisatoren van andere beurzen in België/Nederland.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Ruilregels:</b> Zorg ervoor dat ruilen vrijwillig en transparant verloopt. Frauduleuze handelingen of het misleiden van andere deelnemers wordt niet getolereerd.{% endblocktrans %}
+                        </li>
+
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% trans 'Gebruik van Pokémon-kaarten, -artikelen en andere verzamelobjecten (collectibles)' %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Authenticiteit:</b> Alleen officiële Pokémon-, TCG-kaarten, -objecten en -artikelen zijn toegestaan bij ruilen, verkopen of wedstrijden.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Verbod op namaak:</b> De verkoop of ruil van vervalsingen of namaakproducten is niet toegestaan. Bij twijfel kan de organisatie om controle vragen.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% blocktrans %}Privacy en foto's{% endblocktrans %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Fotografie:</b> Het maken van foto's is toegestaan, maar vraag toestemming als je iemand persoonlijk wilt fotograferen.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Persoonsgegevens:</b> De organisatie respecteert de privacy van alle bezoekers en gaat zorgvuldig om met eventuele geregistreerde gegevens.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% blocktrans %}Eten en drinken{% endblocktrans %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Consumpties:</b> Eten en drinken is alleen toegestaan in de daarvoor bestemde zones. Bescherm je kaarten en spullen tegen morsen.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Afval:</b> Gooi afval in de daarvoor bestemde prullenbakken en houd de beursruimte netjes.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% blocktrans %}Dieren{% endblocktrans %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Toegang voor dieren:</b> Dieren zijn niet toegestaan, behalve erkende hulphonden.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+                <h2 class="pt-5">{% blocktrans %}Sancties{% endblocktrans %}</h2>
+                <p>
+                    <ul>
+                        <li>
+                            {% blocktrans %}<b>Overtreding van regels:</b> Bij overtreding van de regels kan de organisatie passende maatregelen nemen, zoals een waarschuwing, verwijdering van het evenement of aangifte bij de politie.{% endblocktrans %}
+                        </li>
+                        <li>
+                            {% blocktrans %}<b>Geen restitutie:</b> Bij verwijdering wegens overtreding van de regels wordt geen restitutie verleend.{% endblocktrans %}
+                        </li>
+                    </ul>
+                </p>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

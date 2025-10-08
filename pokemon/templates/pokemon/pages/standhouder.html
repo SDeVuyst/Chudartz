@@ -137,6 +137,16 @@ ChudartZ Collectibles | Evenementen
                         </div>  
                       </div>
 
+                      <div class="col-md-12 mt-0">
+                        <div class="form-check">
+                          <input name="terms_huisreglement" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                          <label class="form-check-label text-muted small" for="flexCheckDefault">
+                            {% url 'huisreglement' as h_url %}
+                            {% blocktrans %}Ik ga akkoord met het <a href="{{ h_url }}">huisreglement</a> van ChudartZ Collectibles.{% endblocktrans %}
+                          </label>
+                        </div>  
+                      </div>
+
                       <!-- captcha -->
                       <input type="hidden" name="recaptcha_token" id="recaptcha_token">
     

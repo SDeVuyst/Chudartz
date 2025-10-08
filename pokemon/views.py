@@ -288,6 +288,10 @@ def faq(request):
     return TemplateResponse(request, 'pokemon/pages/faq.html', get_default_context())
 
 
+def huisreglement(request):
+    return TemplateResponse(request, 'pokemon/pages/huisreglement.html', get_default_context())
+
+
 @csrf_exempt
 def mollie_webhook(request):
     if request.method == 'POST':

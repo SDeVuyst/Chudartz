@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 18:07+0200\n"
-"PO-Revision-Date: 2025-06-24 18:09+0200\n"
+"POT-Creation-Date: 2025-10-08 19:48+0200\n"
+"PO-Revision-Date: 2025-10-08 20:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -47,7 +47,7 @@ msgstr "Navigation bar"
 msgid "Sfeerfoto's"
 msgstr "Atmospheric photos"
 
-#: .\chudartz\settings.py:272 .\darts\templates\blocks\header.html:26
+#: .\chudartz\settings.py:272 .\darts\templates\blocks\header.html:27
 #: .\darts\templates\pages\doelen.html:21
 #: .\darts\templates\pages\index.html:127
 #: .\darts\templates\pages\resultaat.html:32
@@ -85,7 +85,7 @@ msgstr "Darts School"
 msgid "Leerlingen"
 msgstr "Pupils"
 
-#: .\chudartz\settings.py:309 .\darts\templates\blocks\header.html:25
+#: .\chudartz\settings.py:309 .\darts\templates\blocks\header.html:26
 #: .\darts\templates\pages\trainers.html:28
 msgid "Trainers"
 msgstr "Trainers"
@@ -208,7 +208,7 @@ msgstr "Sold out"
 #: .\darts\templates\pages\index.html:337
 #: .\darts\templates\pages\priveles.html:63 .\pokemon\admin.py:77
 #: .\pokemon\admin.py:265 .\pokemon\models.py:418
-#: .\pokemon\templates\pokemon\pages\index.html:222
+#: .\pokemon\templates\pokemon\pages\index.html:220
 msgid "Naam"
 msgstr "Name"
 
@@ -378,7 +378,7 @@ msgstr "Last name"
 #: .\darts\templates\pages\index.html:342
 #: .\darts\templates\pages\priveles.html:68 .\pokemon\models.py:221
 #: .\pokemon\models.py:288 .\pokemon\templates\pokemon\pages\evenement.html:167
-#: .\pokemon\templates\pokemon\pages\index.html:227
+#: .\pokemon\templates\pokemon\pages\index.html:225
 msgid "Email"
 msgstr "E-mail"
 
@@ -649,17 +649,17 @@ msgstr "FAQ"
 #: .\darts\templates\pages\teambuildings-en-workshops.html:176
 #: .\darts\templates\pages\teambuildings-en-workshops.html:201
 #: .\darts\templates\pages\teambuildings-en-workshops.html:219
-#: .\pokemon\templates\pokemon\blocks\footer.html:50
+#: .\pokemon\templates\pokemon\blocks\footer.html:52
 msgid "Contacteer Ons"
 msgstr "Contact Us"
 
 #: .\darts\templates\blocks\footer.html:59
-#: .\pokemon\templates\pokemon\blocks\footer.html:54
+#: .\pokemon\templates\pokemon\blocks\footer.html:56
 msgid "Telefoon"
 msgstr "Phone"
 
 #: .\darts\templates\blocks\footer.html:67
-#: .\pokemon\templates\pokemon\blocks\footer.html:62
+#: .\pokemon\templates\pokemon\blocks\footer.html:64
 msgid "alle rechten voorbehouden"
 msgstr "all rights reserved"
 
@@ -699,28 +699,32 @@ msgstr "Book a training"
 msgid "Privéles boeken"
 msgstr "Book private lesson"
 
-#: .\darts\templates\blocks\header.html:54
+#: .\darts\templates\blocks\header.html:25
+msgid "Dartsclub"
+msgstr "Dartsclub"
+
+#: .\darts\templates\blocks\header.html:55
 #: .\darts\templates\pages\teambuildings-en-workshops.html:30
 msgid "Workshops"
 msgstr "Workshops"
 
-#: .\darts\templates\blocks\header.html:56
+#: .\darts\templates\blocks\header.html:57
 #: .\darts\templates\pages\index.html:139
 #: .\darts\templates\pages\teambuildings-en-workshops.html:49
 msgid "Teambuilding"
 msgstr "Teambuilding"
 
-#: .\darts\templates\blocks\header.html:57
+#: .\darts\templates\blocks\header.html:58
 #: .\darts\templates\pages\teambuildings-en-workshops.html:195
 msgid "Demolessen"
 msgstr "Demo lessons"
 
-#: .\darts\templates\blocks\header.html:58
+#: .\darts\templates\blocks\header.html:59
 #: .\darts\templates\pages\teambuildings-en-workshops.html:210
 msgid "Feesten"
 msgstr "Party"
 
-#: .\darts\templates\blocks\header.html:61
+#: .\darts\templates\blocks\header.html:62
 #: .\darts\templates\pages\index.html:284
 #: .\darts\templates\pages\privacybeleid.html:254
 #: .\pokemon\templates\pokemon\blocks\header.html:14
@@ -729,12 +733,12 @@ msgstr "Party"
 msgid "Contact"
 msgstr "Contact"
 
-#: .\darts\templates\blocks\header.html:65
+#: .\darts\templates\blocks\header.html:66
 #: .\pokemon\templates\pokemon\blocks\header.html:18
 msgid "Taal"
 msgstr "Language"
 
-#: .\darts\templates\blocks\header.html:90
+#: .\darts\templates\blocks\header.html:91
 msgid "Begin Nu"
 msgstr "Get Started"
 
@@ -1648,7 +1652,6 @@ msgstr ""
 "closest to the bull chooses who starts the 9-dart shoot out"
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:33
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:40
 msgid "Inschrijving en deelname"
 msgstr "Registration and participation"
 
@@ -1734,7 +1737,6 @@ msgstr ""
 "                            or the guardian must be completed and signed."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:74
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:61
 msgid "Regels en gedragscode"
 msgstr "Rules and Code of Conduct"
 
@@ -1773,7 +1775,6 @@ msgstr ""
 "                            organizer."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:93
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:73
 msgid "Gebruik van materiaal"
 msgstr "Use of materials"
 
@@ -1795,7 +1796,6 @@ msgstr ""
 "                            Restored."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:106
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:82
 msgid "Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand"
 msgstr "Responsibility, insurance, liability and legal assistance"
 
@@ -1890,7 +1890,6 @@ msgstr ""
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:144
 #: .\darts\templates\pages\privacybeleid.html:222
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:136
 #: .\pokemon\templates\pokemon\pages\privacybeleid.html:222
 msgid "Privacy en gebruik van beeldmateriaal"
 msgstr "Privacy and use of imagery"
@@ -1925,7 +1924,6 @@ msgstr ""
 "the organiser's website."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:160
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:151
 msgid "Disputen"
 msgstr "Disputes"
 
@@ -1948,7 +1946,6 @@ msgstr ""
 "designated referee."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:173
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:160
 msgid "Wijzigingen en aanpassingen"
 msgstr "Changes and modifications"
 
@@ -1965,7 +1962,6 @@ msgstr ""
 "to the tournament."
 
 #: .\darts\templates\pages\algemene-voorwaarden.html:183
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:170
 msgid "Acceptatie van de voorwaarden"
 msgstr "Acceptance of the Terms"
 
@@ -2193,7 +2189,7 @@ msgstr "Your personal code"
 #: .\darts\templates\pages\dartschool-reserveren.html:86
 #: .\darts\templates\pages\index.html:360
 #: .\darts\templates\pages\priveles.html:83
-#: .\pokemon\templates\pokemon\pages\index.html:245
+#: .\pokemon\templates\pokemon\pages\index.html:243
 msgid "Laden..."
 msgstr "Loading..."
 
@@ -2316,21 +2312,21 @@ msgstr ""
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:78
 #: .\darts\templates\pages\index.html:347
 #: .\darts\templates\pages\priveles.html:73
-#: .\pokemon\templates\pokemon\pages\index.html:232
+#: .\pokemon\templates\pokemon\pages\index.html:230
 msgid "Onderwerp"
 msgstr "Subject"
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:83
 #: .\darts\templates\pages\index.html:352
 #: .\darts\templates\pages\priveles.html:78
-#: .\pokemon\templates\pokemon\pages\index.html:237
+#: .\pokemon\templates\pokemon\pages\index.html:235
 msgid "Bericht"
 msgstr "Message"
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:93
 #: .\darts\templates\pages\index.html:362
 #: .\darts\templates\pages\priveles.html:85
-#: .\pokemon\templates\pokemon\pages\index.html:247
+#: .\pokemon\templates\pokemon\pages\index.html:245
 msgid "Uw bericht is verzonden. Bedankt!"
 msgstr "Your message has been sent. Thank you!"
 
@@ -3366,13 +3362,13 @@ msgstr "Email Us"
 
 #: .\darts\templates\pages\index.html:329
 #: .\darts\templates\pages\priveles.html:55
-#: .\pokemon\templates\pokemon\pages\index.html:214
+#: .\pokemon\templates\pokemon\pages\index.html:212
 msgid "Stuur ons een bericht"
 msgstr "Send us a message"
 
 #: .\darts\templates\pages\index.html:363
 #: .\darts\templates\pages\priveles.html:86
-#: .\pokemon\templates\pokemon\pages\index.html:248
+#: .\pokemon\templates\pokemon\pages\index.html:246
 msgid "Stuur bericht"
 msgstr "Send message"
 
@@ -4447,8 +4443,8 @@ msgstr ""
 "                      "
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:224
-msgid "ChudartZ bij een feest"
-msgstr "ChudartZ at a party"
+msgid "Verhuur van een dartsbord"
+msgstr "Rental of a dart board"
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:231
 msgid "feestopstelling bij ChudartZ"
@@ -4459,8 +4455,8 @@ msgid "ChudartZ in actie op een feest"
 msgstr "ChudartZ in action at a party"
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:237
-msgid "Verhuur van een dartsbord"
-msgstr "Rental of a dart board"
+msgid "ChudartZ bij een feest"
+msgstr "ChudartZ at a party"
 
 #: .\darts\templates\pages\toernooi-inschrijving-response.html:24
 #: .\pokemon\templates\pokemon\pages\evenement-inschrijving-response.html:24
@@ -4779,6 +4775,10 @@ msgstr "Text"
 msgid "Voordeel"
 msgstr "Advantage"
 
+#: .\pokemon\templates\pokemon\blocks\footer.html:46
+msgid "Huisreglement"
+msgstr "Houuse rules"
+
 #: .\pokemon\templates\pokemon\blocks\header.html:43
 #: .\pokemon\templates\pokemon\pages\evenement.html:70
 msgid "Standhouder worden"
@@ -4926,8 +4926,8 @@ msgid ""
 "\n"
 "                    Door deel te nemen aan de evenementen van ChudartZ "
 "Collectibles erkent u, zowel als bezoeker of als standhouder, dat u de "
-"disclaimer, de algemene voorwaarden en het Privacybeleid hebt gelezen, "
-"begrepen en akkoord bent met de inhoud ervan.\n"
+"disclaimer, de algemene voorwaarden, het huisreglement en het Privacybeleid "
+"hebt gelezen, begrepen en akkoord bent met de inhoud ervan.\n"
 "                    Deze documenten kunnen zonder voorafgaande kennisgeving "
 "worden gewijzigd. Het is de verantwoordelijkheid van de deelnemer om "
 "eventuele wijzigingen regelmatig te controleren. Wijzigingen met impact "
@@ -4935,21 +4935,27 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"By participating in the events of ChudartZ Collectibles, you acknowledge, "
-"both as a visitor and as an exhibitor, that you have read, understood and "
-"agree with the disclaimer, the terms and conditions and the Privacy Policy.\n"
-"                    These documents are subject to change without notice. It "
-"is the participant's responsibility to check for any changes on a regular "
-"basis. Changes with impact will be announced in advance.\n"
-"                "
+"                    By participating in ChudartZ Collectibles events, you "
+"acknowledge, both as a visitor and as an exhibitor, that you have read, "
+"understood, and agree to the disclaimer, the general terms and conditions, "
+"the house rules, and the Privacy Policy.\n"
+"                    These documents are subject to change without prior "
+"notice. It is the participant's responsibility to regularly check for any "
+"changes. Changes with an impact will be announced in advance."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:40
+msgid "1. Inschrijving en deelname"
+msgstr "1. Registration and participation"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:44
 msgid ""
-"Deelname aan een evenement, hetzij als standhouder, hetzij als bezoeker is "
-"alleen geldig na succesvolle inschrijving en betaling van het inschrijfgeld."
+"Deelname aan het evenement, in eender welke hoedanigheid (zoals standhouder, "
+"bezoeker, helper, deelnemer of medewerker), is pas geldig na succesvolle "
+"inschrijving en volledige betaling van het eventuele inschrijfgeld."
 msgstr ""
-"Participation in an event, either as an exhibitor or as a visitor, is only "
-"valid after successful registration and payment of the registration fee."
+"Participation in the event, in any capacity (such as exhibitor, visitor, "
+"helper, participant, or employee), is only valid after successful "
+"registration and full payment of any registration fees."
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:47
 msgid ""
@@ -4967,30 +4973,159 @@ msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:50
 msgid ""
-"Inschrijvingen zijn persoonlijk en kunnen niet worden overgedragen aan "
-"anderen. Het doorverkopen of overdragen van tickets is, zonder "
-"uitdrukkelijke toestemming van de organisatie niet toegestaan. Bij "
-"overtreding kan de toegang tot het evenement worden geweigerd."
+"Inschrijvingen zijn steeds persoonsgebonden, ook wanneer deze op naam van "
+"een bedrijf of organisatie gebeuren, en kunnen niet worden overgedragen aan "
+"derden zonder voorafgaande, uitdrukkelijke toestemming van de organisatie. "
+"Het doorverkopen of overdragen van standplaatsen, toegangstickets of andere "
+"vormen van deelname is niet toegestaan. Bij overtreding behoudt de "
+"organisatie zich het recht voor de toegang tot het evenement te weigeren."
 msgstr ""
-"Registrations are personal and cannot be transferred to others. The resale "
-"or transfer of tickets is not permitted without the express permission of "
-"the organization. In case of violation, access to the event may be denied."
+"Registrations are always personal, even when made in the name of a company "
+"or organization, and cannot be transferred to third parties without the "
+"prior, express consent of the organization. The resale or transfer of "
+"stands, admission tickets, or other forms of participation is not permitted. "
+"In the event of a violation, the organization reserves the right to refuse "
+"access to the event."
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:53
 msgid "De inschrijvingsdeadline wordt strikt nageleefd."
 msgstr "The registration deadline is strictly adhered to."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:56
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:58
+msgid "2. Annulerings- en terugbetalingsbeleid"
+msgstr "2. Cancellation and refund policy"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:62
 msgid ""
-"Een annulering van een reeds gemaakte boeking op de dag zelf leidt niet tot "
-"terugbetaling, tenzij er sprake is van overmacht, zoals (ernstige) ziekte, "
-"overlijden familielid, …"
+"Deze annuleringsvoorwaarden zijn van toepassing op zowel standhouders, "
+"bezoekers, ticketkopers, workshopdeelnemers, begeleiders en andere "
+"betrokkenen, die een standplaats en/of toegangsticket hebben aangekocht, "
+"evenals op alle andere vormen van deelname aan het evenement."
 msgstr ""
-"A cancellation of a booking already made on the day itself does not lead to "
-"a refund, unless there is force majeure, such as (serious) illness, death of "
-"a family member, etc."
+"These cancellation conditions apply to exhibitors, visitors, ticket "
+"purchasers, workshop participants, accompanying persons, and other parties "
+"involved who have purchased a stand and/or admission ticket, as well as to "
+"all other forms of participation in the event."
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:65
+msgid ""
+"Om het evenement op een kwalitatieve, goed georganiseerde en evenwichtige "
+"manier te laten verlopen, hanteren wij het volgende annuleringsbeleid. Dit "
+"houdt rekening met de verschillende fasen in onze voorbereiding en de impact "
+"van annulaties op de totale organisatie:"
+msgstr ""
+"In order to ensure that the event runs smoothly, is well organized, and is "
+"balanced, we apply the following cancellation policy. This takes into "
+"account the various stages of our preparations and the impact of "
+"cancellations on the overall organization:"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:68
+msgid "Meer dan 45 dagen voor aanvang van het event"
+msgstr "More than 45 days before the start of the event"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:69
+#, python-format
+msgid ""
+"Bij annulering meer dan 45 dagen voor het event wordt <u>100%%</u> van het "
+"betaalde bedrag terugbetaald."
+msgstr ""
+"If canceled more than 45 days before the event, <u>100%%</u> of the amount "
+"paid will be refunded."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:70
+msgid ""
+"In deze vroege fase zijn de meeste kosten nog niet gemaakt en kunnen we "
+"relatief eenvoudig een vervanger inschakelen uit onze wachtlijst."
+msgstr ""
+"At this early stage, most of the costs have not yet been incurred and we can "
+"relatively easily call in a replacement from our waiting list."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:74
+msgid "Tussen 45 en 30 dagen voor aanvang van het event"
+msgstr "Between 45 and 30 days before the start of the event"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:75
+#, python-format
+msgid ""
+"Bij annulering in deze periode wordt <u>75%%</u> van het bedrag terugbetaald."
+msgstr ""
+"If canceled during this period, <u>75%%</u> of the amount will be refunded."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:76
+msgid ""
+"Vanaf 45 dagen voor het event zijn een groot deel van de praktische en "
+"logistieke voorbereidingen reeds opgestart: indeling van de zaal, eventuele "
+"communicatie naar deelnemers en bezoekers, opmaak van promotiemateriaal, "
+"etc. Annulaties brengen hier al extra werk, kosten en herplanning met zich "
+"mee."
+msgstr ""
+"From 45 days before the event, a large part of the practical and logistical "
+"preparations have already been started: layout of the room, any "
+"communication to participants and visitors, design of promotional material, "
+"etc. Cancellations already entail extra work, costs, and rescheduling."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:80
+msgid "Tussen 30 en 15 dagen voor aanvang"
+msgstr "Between 30 and 15 days before commencement"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:81
+#, python-format
+msgid ""
+"Bij annulering in die periode wordt <u>50%%</u> van het bedrag terugbetaald."
+msgstr ""
+"If canceled during this period, <u>50%%</u> of the amount will be refunded."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:82
+msgid ""
+"Op dit moment zijn de meeste kosten (zoals drukwerk, reservaties, "
+"communicatie en layout van de vendorzaal) definitief vastgelegd. Ook wordt "
+"het aanzienlijk moeilijker om nog een geschikte vervanger te vinden, "
+"aangezien de agenda’s van kandidaten op de wachtlijst vaak al gevuld zijn."
+msgstr ""
+"At this point, most costs (such as printing, reservations, communication, "
+"and layout of the vendor hall) have been finalized. It is also becoming "
+"considerably more difficult to find a suitable replacement, as the schedules "
+"of candidates on the waiting list are often already full."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:86
+msgid "Binnen de 15 dagen voor het event"
+msgstr "Within 15 days before the event"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:87
+msgid "Geen terugbetaling mogelijk."
+msgstr "No refunds possible."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:88
+msgid ""
+"Annulaties in deze laatste fase hebben een directe impact op de kwaliteit en "
+"uitstraling van het event. Lege plaatsen in de zaal vallen op voor "
+"bezoekers, verstoren het evenwicht"
+msgstr ""
+"Cancellations at this late stage have a direct impact on the quality and "
+"image of the event. Empty seats in the hall are noticeable to visitors and "
+"disrupt the balance."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:95
+msgid "Uitzondering bij overmacht:"
+msgstr "Exception in case of force majeure:"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:96
+msgid ""
+"Uiteraard houden wij rekening met situaties van overmacht, zoals ernstige "
+"ziekte, een ongeval of het overlijden van een familielid. In dergelijke "
+"gevallen vragen wij u ons zo snel mogelijk op de hoogte te brengen, zodat we "
+"samen naar een gepaste oplossing kunnen zoeken."
+msgstr ""
+"Of course, we take into account situations of force majeure, such as serious "
+"illness, an accident, or the death of a family member. In such cases, we ask "
+"you to inform us as soon as possible so that we can work together to find a "
+"suitable solution."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:100
+msgid "3. Regels en gedragscode"
+msgstr "3. Rules and code of conduct"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:104
 msgid ""
 "Wij verzoeken alle deelnemers zich te gedragen en respectvol om te gaan met "
 "mededeelnemers en de omgeving. Het is belangrijk dat iedereen zich houdt aan "
@@ -5003,7 +5138,7 @@ msgstr ""
 "house rules to ensure a safe and enjoyable atmosphere. Violation of these "
 "rules may result in appropriate action, such as removal from the event."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:68
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:107
 msgid ""
 "De organisatie behoudt zich het recht voor om deelnemers die zich niet aan "
 "de regels houden, uit te sluiten van verdere deelname aan het event of "
@@ -5013,7 +5148,11 @@ msgstr ""
 "comply with the rules from further participation in the event or other "
 "events organized by the organizer."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:77
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:112
+msgid "4. Gebruik van materiaal"
+msgstr "4. Use of materials"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:116
 msgid ""
 "Schade aan de locatie of apparatuur door een deelnemer zal op kosten van de "
 "deelnemer worden hersteld."
@@ -5021,7 +5160,12 @@ msgstr ""
 "Damage to the venue or equipment by a participant will be repaired at the "
 "participant's expense."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:86
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:121
+msgid ""
+"5. Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand"
+msgstr "5. Responsibility, insurance, liability and legal assistance"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:125
 msgid ""
 "De organisatie is niet verantwoordelijk voor verlies, diefstal, of schade "
 "aan persoonlijke eigendommen van deelnemers (bezoekers, standhouders)."
@@ -5029,26 +5173,41 @@ msgstr ""
 "The organization is not responsible for loss, theft, or damage to personal "
 "belongings of participants (visitors, exhibitors)."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:89
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:128
 msgid ""
-"Deelname of een bezoek aan een event is geheel op eigen risico. De "
-"organisatie is niet aansprakelijk voor eventuele verwondingen of ongevallen, "
-"tenzij deze direct te wijten is aan opzet of grove nalatigheid van de "
-"organisator.\n"
+"Het is de verantwoordelijkheid van standhouders en bezoekers om zelf de "
+"nodige voorzorgsmaatregelen te treffen ter bescherming van hun goederen "
+"tegen diefstal, beschadiging of andere vormen van verlies. De organisatie "
+"kan hiervoor nooit aansprakelijk worden gesteld."
+msgstr ""
+"It is the responsibility of exhibitors and visitors to take the necessary "
+"precautions to protect their goods against theft, damage, or other forms of "
+"loss. The organization can never be held liable for this."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:131
+msgid ""
+"\n"
+"                            Deelname of een bezoek aan een event is geheel "
+"op eigen risico. De organisatie is niet aansprakelijk voor eventuele "
+"verwondingen of ongevallen, tenzij deze direct te wijten is aan opzet of "
+"grove nalatigheid van de organisator.\n"
 "                            Deelnemers kunnen mogelijk een beroep doen op "
 "hun eigen verzekering, zoals een aansprakelijkheids- of "
 "ongevallenverzekering, voor dekking van schade die zij hebben veroorzaakt of "
-"opgelopen."
+"opgelopen.\n"
+"                            "
 msgstr ""
-"Participation or a visit to an event is entirely at your own risk. The "
-"organization is not liable for any injuries or accidents, unless these are "
-"directly attributable to intent or gross negligence on the part of the "
-"organizer.\n"
-"                            Participants may be able to rely on their own "
+"\n"
+"                            Participation in or attendance at an event is "
+"entirely at your own risk. The organization is not liable for any injuries "
+"or accidents, unless these are directly attributable to intent or gross "
+"negligence on the part of the organizer.\n"
+"                            Participants may be able to claim on their own "
 "insurance, such as liability or accident insurance, to cover damage they "
-"have caused or incurred."
+"have caused or suffered.\n"
+"                            "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:93
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:137
 msgid ""
 "\n"
 "                            De organisatie is enkel aansprakelijk voor "
@@ -5063,7 +5222,7 @@ msgstr ""
 "for incidents on the way to or back from the event.\n"
 "                            "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:98
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:142
 msgid ""
 "\n"
 "                            Deelnemers dienen zich bewust te zijn van hun "
@@ -5075,7 +5234,7 @@ msgstr ""
 "act responsibly.\n"
 "                            "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:103
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:147
 msgid ""
 "\n"
 "                            De organisatie behoudt zich het recht voor om "
@@ -5091,7 +5250,7 @@ msgstr ""
 "control.\n"
 "                            "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:108
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:152
 msgid ""
 "\n"
 "                            In geval van overmacht (bijvoorbeeld pandemieën, "
@@ -5104,15 +5263,15 @@ msgstr ""
 "be postponed or cancelled without a refund of the registration fee.\n"
 "                            "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:115
-msgid "Transacties en aankopen"
-msgstr "Transactions & Purchases"
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:159
+msgid "6. Transacties en aankopen"
+msgstr "6. Transactions & Purchases"
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:116
-msgid "Verkoop en ruil"
-msgstr "Sales & Swaps"
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:160
+msgid "6.1 Verkoop en ruil"
+msgstr "6.1 Sales & Swaps"
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:117
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:161
 msgid ""
 "\n"
 "                    Deelname aan het evenement kan transacties omvatten, "
@@ -5128,11 +5287,11 @@ msgstr ""
 "regulations.\n"
 "                "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:121
-msgid "Aankopen"
-msgstr "Buy"
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:165
+msgid "6.2 Aankopen"
+msgstr "6.2 Buy"
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:122
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:166
 msgid ""
 "\n"
 "                    Voor aankopen van goederen door bezoekers geldt dat alle "
@@ -5147,34 +5306,34 @@ msgstr ""
 "not be liable for any disputes or problems arising from such transactions.\n"
 "                "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:126
-msgid "Ruilvoorwaarden met ChudartZ Collectibles"
-msgstr "Exchange conditions with ChudartZ Collectibles"
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:170
+msgid "6.3 Ruilvoorwaarden met ChudartZ Collectibles"
+msgstr "6.3 Exchange conditions with ChudartZ Collectibles"
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:127
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:171
 #, python-format
 msgid ""
 "\n"
 "                    ChudartZ Collectibles biedt bezoekers de mogelijkheid om "
-"hun eigen collecties of items te ruilen of te verkopen tegen 65%% van de "
+"hun eigen collecties of items te ruilen of te verkopen tegen 70%% van de "
 "actuele marktprijs aan ChudartZ Collectibles, op voorwaarde dat de goederen "
 "in goede staat verkeren en voldoen aan de voorwaarden en omschrijving zoals "
-"aangegeven door de verkoper bij de aankoop of ruil.\n"
+"aangegeven door de verkoper bij de aankoop of ruil.                \n"
 "                "
 msgstr ""
 "\n"
-"ChudartZ Collectibles offers visitors the opportunity to exchange or sell "
-"their own collections or items at 65%% of the current market price to "
-"ChudartZ Collectibles, provided that the goods are in good condition and "
-"meet the conditions and description as indicated by the seller at the time "
-"of purchase or exchange.\n"
+"                    ChudartZ Collectibles offers visitors the opportunity to "
+"exchange or sell their own collections or items to ChudartZ Collectibles at "
+"70%% of the current market price, provided that the goods are in good "
+"condition and meet the conditions and description specified by the seller at "
+"the time of purchase or exchange.                \n"
 "                "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:131
-msgid "Retouren en klachten"
-msgstr "Returns & Complaints"
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:175
+msgid "6.4 Retouren en klachten"
+msgstr "6.4 Returns & Complaints"
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:132
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:176
 msgid ""
 "\n"
 "                    Retouren of klachten over aangekochte goederen dienen te "
@@ -5190,7 +5349,11 @@ msgstr ""
 "involved in the transaction.\n"
 "                "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:140
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:180
+msgid "7. Privacy en gebruik van beeldmateriaal"
+msgstr "7. Privacy and use of imagery"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:184
 msgid ""
 "Door deel te nemen aan een evenement en/of het betreden van een evenement "
 "gaat u akkoord met het feit dat u gefotografeerd of gefilmd kunt worden en "
@@ -5201,24 +5364,29 @@ msgstr ""
 "may be photographed or filmed and that these images may be used for "
 "promotional purposes without any compensation."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:144
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:188
 #, python-format
 msgid ""
 "\n"
 "                            Persoonlijke gegevens die tijdens de "
 "inschrijving worden verzameld, worden uitsluitend gebruikt voor de "
 "organisatie van het evenement en niet gedeeld met derden, behoudens "
-"uitzonderingen zoals in het <a href=\"%(p_url)s\">Privacybeleid</a> "
+"uitzonderingen zoals in het <a href=\"%(p_url)s\">privacybeleid</a> "
 "meegedeeld.\n"
 "                            "
 msgstr ""
 "\n"
-"Personal data collected during registration will be used exclusively for the "
-"organization of the event and will not be shared with third parties, subject "
-"to exceptions as communicated in the <a href=\"%(p_url)s\">Privacy Policy</"
-"a> .                            "
+"                            Personal data collected during registration will "
+"be used exclusively for the organization of the event and will not be shared "
+"with third parties, except in cases specified in the <a "
+"href=\"%(p_url)s\">privacy policy</a>.\n"
+"                            "
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:155
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:195
+msgid "8. Disputen"
+msgstr "8. Disputes"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:199
 msgid ""
 "Eventuele geschillen die voortkomen uit de deelname aan het event kunnen "
 "worden voorgelegd aan de organisatie, die desgevallend zal doorverwijzen "
@@ -5227,19 +5395,24 @@ msgstr ""
 "Any disputes arising from participation in the event can be submitted to the "
 "organisation, which will refer you to the competent authorities if necessary."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:164
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:204
+msgid "9. Wijzigingen en aanpassingen"
+msgstr "9. Changes and modifications"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:208
 msgid ""
 "De organisatie behoudt zich het recht voor om deze algemene voorwaarden op "
-"elk moment te \n"
-"                            wijzigen. Eventuele wijzigingen worden "
-"voorafgaand aan het evenement gecommuniceerd."
+"elk moment te wijzigen. Eventuele wijzigingen kunnen voorafgaand aan een "
+"event worden gecommuniceerd."
 msgstr ""
 "The organization reserves the right to change these terms and conditions at "
-"any time. \n"
-"                            modify. Any changes will be communicated prior "
-"to the event."
+"any time. Any changes may be communicated prior to an event."
 
-#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:174
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:213
+msgid "10. Acceptatie van de voorwaarden"
+msgstr "10. Acceptance of the Terms"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:217
 msgid ""
 "Door deel te nemen aan het evenement, accepteert de deelnemer automatisch de "
 "bovenstaande algemene voorwaarden."
@@ -5370,15 +5543,25 @@ msgstr ""
 "I agree with the <a href=\"%(d_url)s\">Disclaimer</a> of ChudartZ "
 "Collectibles."
 
-#: .\pokemon\templates\pokemon\pages\evenement.html:234
+#: .\pokemon\templates\pokemon\pages\evenement.html:235
+#: .\pokemon\templates\pokemon\pages\standhouder.html:145
+#, python-format
+msgid ""
+"Ik ga akkoord met het <a href=\"%(h_url)s\">huisreglement</a> van ChudartZ "
+"Collectibles."
+msgstr ""
+"I agree to the <a href=\"%(h_url)s\">house rules</a> of ChudartZ "
+"Collectibles."
+
+#: .\pokemon\templates\pokemon\pages\evenement.html:245
 msgid "You must order at least one ticket."
 msgstr "You must order at least one ticket."
 
-#: .\pokemon\templates\pokemon\pages\evenement.html:234
+#: .\pokemon\templates\pokemon\pages\evenement.html:245
 msgid "Afrekenen"
 msgstr "Check out"
 
-#: .\pokemon\templates\pokemon\pages\evenement.html:250
+#: .\pokemon\templates\pokemon\pages\evenement.html:261
 msgid "In samenwerking met"
 msgstr "In collaboration with"
 
@@ -5443,22 +5626,21 @@ msgstr "What types of collectibles can I expect at your fairs?"
 
 #: .\pokemon\templates\pokemon\pages\faq.html:58
 msgid ""
-"Voor 2025 staat voorlopig één grote beurs op de agenda: een van de grootste "
-"Pokémon-beurzen van België. Naast deze beurs zullen er in de loop van het "
-"jaar ook andere beurzen worden georganiseerd, gericht op diverse cardgames "
-"zoals Yu-Gi-Oh!, Magic: The Gathering en KeyForge. Daarnaast zullen op deze "
-"én ook andere beurzen unieke verzamelobjecten te vinden zijn, variërend van "
-"Lego en Playmobil tot euromunten, stripboeken/comics, retro games, antiek "
-"speelgoed, Funko, vintage mode, en zelfs exclusieve whiskey- en "
-"wijncollecties."
+"Onze organisatie zet zich continu in voor het organiseren van meerdere "
+"hoogwaardige (Pokémon)-beurzen en gerelateerde evenementen, verspreid over "
+"het gehele jaar, gericht op diverse cardgames zoals Yu-Gi-Oh!, Magic: The "
+"Gathering en KeyForge. Daarnaast zullen op deze én ook andere beurzen unieke "
+"verzamelobjecten te vinden zijn, variërend van Lego en Playmobil tot "
+"euromunten, stripboeken/comics, retro games, antiek speelgoed, Funko, "
+"vintage mode, en zelfs exclusieve whiskey- en wijncollecties."
 msgstr ""
-"For the time being, one major fair is on the agenda for 2025: one of the "
-"largest Pokémon fairs in Belgium. In addition to this fair, other fairs will "
-"also be organized in the course of the year, focused on various card games "
-"such as Yu-Gi-Oh!, Magic: The Gathering and KeyForge. In addition, unique "
-"collectibles will be found at this and other fairs, ranging from Lego and "
-"Playmobil to euro coins, comic books/comics, retro games, antique toys, "
-"Funko, vintage fashion, and even exclusive whiskey and wine collections."
+"Our organization is continuously committed to organizing multiple high-"
+"quality (Pokémon) fairs and related events throughout the year, focusing on "
+"various card games such as Yu-Gi-Oh!, Magic: The Gathering, and KeyForge. In "
+"addition, unique collectibles will be available at these and other fairs, "
+"ranging from Lego and Playmobil to euro coins, comic books, retro games, "
+"antique toys, Funko, vintage fashion, and even exclusive whiskey and wine "
+"collections."
 
 #: .\pokemon\templates\pokemon\pages\faq.html:64
 msgid ""
@@ -5484,11 +5666,329 @@ msgstr "How do I stay informed about future events and trade fairs?"
 #: .\pokemon\templates\pokemon\pages\faq.html:74
 msgid ""
 "Je kunt ons volgen op social media om altijd op de hoogte te blijven van "
-"aankomende evenementen, beurzen en speciale activiteiten."
+"aankomende evenementen, beurzen en speciale activiteiten. Je kan ons ook "
+"volgen door je in te schrijven op de <a href=\"/#contact\">nieuwsbrief</a>."
 msgstr ""
-"You can follow us on social media (linking to facebook, instagram, via a "
-"Linktree that will be created at that time) to always stay informed about "
-"upcoming events, fairs and special activities."
+"You can follow us on social media to stay up to date on upcoming events, "
+"trade shows, and special activities. You can also follow us by subscribing "
+"to our <a href=\"/#contact\">newsletter</a>."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:19
+msgid "Huisreglement standhouders/bezoekers"
+msgstr "House rules for exhibitors/visitors"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:33
+msgid "Algemene gedragsregels"
+msgstr "General rules of conduct"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:37
+msgid ""
+"<b>Respect voor anderen:</b> Behandel andere deelnemers, bezoekers en "
+"personeel met respect. Beledigend taalgebruik, pesten of intimiderend gedrag "
+"is niet toegestaan.\n"
+"                            Wij vragen iedereen om hoffelijk en respectvol "
+"te zijn bij het betreden van hun standplaats, ook wanneer dit betekent dat u "
+"langs andere standhouders moet passeren."
+msgstr ""
+"Respect for others: Treat other participants, visitors, and staff with "
+"respect. Offensive language, bullying, or intimidating behavior is not "
+"permitted.\n"
+"We ask everyone to be courteous and respectful when entering their stand "
+"location, even if this means passing by other exhibitors."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:41
+msgid ""
+"<b>Respect voor eigendommen:</b> Beschadig geen eigendommen van de "
+"organisatie, andere deelnemers of de locatie."
+msgstr ""
+"<b>Respect for property: </b>Do not damage any property belonging to the "
+"organization, other participants, or the venue."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:44
+msgid ""
+"<b>Extra tafels/stoelen pakken of extra standruimte claimen:</b> Het is niet "
+"toegestaan om een ander aantal tafels of stoelen of standruimte van je buur "
+"te ‘claimen’ dan waarvoor betaald is. Alle standplaatsen, tafels en stoelen "
+"zijn ingedeeld naar de reserveringen en zullen dus allemaal gebruikt/bezet "
+"worden."
+msgstr ""
+"<b>Taking extra tables/chairs or claiming extra stand space:</b> It is not "
+"permitted to ‘claim’ a different number of tables or chairs or stand space "
+"from your neighbor than what you have paid for. All stand locations, tables, "
+"and chairs are allocated according to the reservations and will therefore "
+"all be used/occupied."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:47
+msgid ""
+"<b>Fair play:</b> Bij wedstrijden of ruilen dient iedereen eerlijk en "
+"respectvol te handelen."
+msgstr ""
+"<b>Fair play: </b>During competitions or exchanges, everyone should act "
+"fairly and respectfully."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:52
+msgid "Veiligheid en orde"
+msgstr "Safety and order"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:56
+msgid ""
+"<b>Naleving van veiligheidsvoorschriften:</b> Houd vluchtwegen vrij en volg "
+"de aanwijzingen van het personeel op in geval van nood."
+msgstr ""
+"<b>Compliance with safety regulations:</b> Keep escape routes clear and "
+"follow the instructions of staff in case of emergency."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:59
+msgid ""
+"<b>Verboden/gevaarlijke voorwerpen:</b> Het meenemen van wapens, gevaarlijke "
+"voorwerpen of illegale middelen is strikt verboden. Het kan natuurlijk "
+"voorkomen dat je als standhouder wil opvallen met reclame, maar het is niet "
+"toegestaan om flitsende beelden te gebruiken i.v.m. eventuele bezoekers met "
+"epilepsie."
+msgstr ""
+"<b>Prohibited/dangerous items:</b> Bringing weapons, dangerous items, or "
+"illegal substances is strictly prohibited. As an exhibitor, you may want to "
+"stand out with your advertising, but it is not permitted to use flashing "
+"images due to the possibility of visitors with epilepsy."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:62
+msgid ""
+"<b>Toezicht op kinderen:</b> Kinderen onder een bepaalde leeftijd (-12 j.) "
+"mogen alleen onder begeleiding van een volwassene aanwezig zijn. "
+"Minderjarigen vallen tijdens het evenement steeds onder de "
+"verantwoordelijkheid van een meerderjarige begeleider (zoals een ouder of "
+"voogd). De organisatie draagt hierin geen aansprakelijkheid."
+msgstr ""
+"<b>Supervision of children:</b> Children under a certain age (-12 years) may "
+"only attend when accompanied by an adult. Minors remain the responsibility "
+"of an adult guardian (such as a parent or guardian) throughout the event. "
+"The organization accepts no liability in this regard."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:67
+msgid "Prijsafspraken en concurrentie"
+msgstr "Price fixing and competition"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:71
+msgid ""
+"<b>Kartelvorming is verboden:</b> Prijsafspraken tussen concurrenten (zoals "
+"het afspreken van minimumprijzen, vaste prijzen of onderling coördineren van "
+"prijsverlagingen) zijn illegaal volgens het Belgische mededingingsrecht en "
+"de Europese regelgeving (Art. 101 VWEU). Dit geldt ook voor afspraken die "
+"indirect invloed hebben op prijzen."
+msgstr ""
+"<b>Cartel formation is prohibited:</b> Price agreements between competitors "
+"(such as agreeing on minimum prices, fixed prices, or coordinating price "
+"reductions) are illegal under Belgian competition law and European "
+"regulations (Art. 101 TFEU). This also applies to agreements that indirectly "
+"influence prices."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:74
+msgid ""
+"<b>Onder de kostprijs verkopen:</b> Het verkopen van producten onder de "
+"eigen kostprijs is toegestaan, tenzij dit gebeurt met de intentie om "
+"concurrenten uit de markt te duwen (predatory pricing). Dit wordt beschouwd "
+"als oneerlijke concurrentie en is verboden volgens de Wet Marktpraktijken."
+msgstr ""
+"<b>Selling below cost:</b> Selling products below your own cost price is "
+"permitted, unless this is done with the intention of forcing competitors out "
+"of the market (predatory pricing). This is considered unfair competition and "
+"is prohibited under the Market Practices Act."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:77
+msgid ""
+"<b>Uitverkoop en promoties:</b> Onder de kostprijs verkopen kan wel "
+"toegestaan zijn in specifieke situaties, zoals bij uitverkopen, solden of "
+"het opruimen van oude stock, zolang het duidelijk gecommuniceerd wordt en "
+"niet bedoeld is om concurrenten te benadelen."
+msgstr ""
+"<b>Sales and promotions:</b> Selling below cost may be permitted in specific "
+"situations, such as during sales, clearance sales, or when clearing old "
+"stock, as long as this is clearly communicated and is not intended to "
+"disadvantage competitors"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:80
+msgid ""
+"Op onze beurs is het dus verboden om bewust prijzen zo laag te maken dat "
+"andere verkopers hierdoor niet kunnen concurreren of het een vorm van "
+"oneerlijke concurrentie vormt, aangezien dit indruist tegen de Wet op de "
+"Marktpraktijken."
+msgstr ""
+"At our trade fair, it is therefore prohibited to deliberately set prices so "
+"low that other sellers are unable to compete or that it constitutes a form "
+"of unfair competition, as this is contrary to the Market Practices Act."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:83
+msgid "Verkoop en ruilen"
+msgstr "Sales and exchanges"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:87
+msgid ""
+"<b>Officiële en informele verkoop:</b> Alleen geregistreerde standhouders "
+"mogen goederen verkopen. Ruilen tussen bezoekers is toegestaan in de "
+"‘ruilzone’, maar commerciële verkoop zonder toestemming is niet toegestaan."
+msgstr ""
+"<b>Official and informal sales:</b> Only registered exhibitors are permitted "
+"to sell goods. Visitors are permitted to exchange items in the exchange "
+"zone, but commercial sales without permission are not permitted."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:90
+msgid ""
+"<b>Ruilzones</b> zijn strikt voorbehouden voor ruilactiviteiten en mogen in "
+"geen geval gebruikt worden voor verkoop. Het creëren van een parallel "
+"verkoopcircuit buiten de officiële standhouders om is verboden. "
+"Overtredingen kunnen leiden tot onmiddellijke verwijdering van het evenement "
+"zonder terugbetaling."
+msgstr ""
+"<b>Exchange areas </b>are strictly reserved for exchange activities and may "
+"not be used for sales under any circumstances. Creating a parallel sales "
+"circuit outside of the official exhibitors is prohibited. Violations may "
+"result in immediate removal from the event without refund."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:93
+msgid ""
+"Naast Pokémon-kaarten mogen ook trading cards van andere kaartspellen, zoals "
+"Yu-Gi-Oh!, Magic: The Gathering en Digimon, evenals andere producten "
+"gerelateerd aan Pokémon, worden verkocht."
+msgstr ""
+"In addition to Pokémon cards, trading cards from other card games, such as "
+"Yu-Gi-Oh!, Magic: The Gathering, and Digimon, as well as other Pokémon-"
+"related products, may also be sold."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:96
+msgid ""
+"<b>Illegale verkoop:</b> Wanneer je artikelen aanbiedt die officieel nog "
+"niet zijn uitgebracht (voor de releasedatum) of namaakproducten, word je per "
+"direct van de beurs verwijderd zonder recht op kostencompensatie. Daarnaast "
+"wordt deze informatie gedeeld met de organisatoren van andere beurzen in "
+"België en Nederland."
+msgstr ""
+"<b>Illegal sales:</b> If you offer items that have not yet been officially "
+"released (before the release date) or counterfeit products, you will be "
+"immediately removed from the fair without any right to compensation. In "
+"addition, this information will be shared with the organizers of other fairs "
+"in Belgium and the Netherlands."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:99
+msgid ""
+"<b>Mystery boxen:</b> Het aanbieden van mysteryboxen is toegestaan, maar "
+"frauduleuze praktijken, zoals misleiding, scamming en het verkopen van valse "
+"of misleidende producten, zullen leiden tot onmiddellijke verwijdering van "
+"de beurs en deze informatie zal gedeeld worden met de organisatoren van "
+"andere beurzen in België/Nederland."
+msgstr ""
+"<b>Mystery boxes:</b> Offering mystery boxes is permitted, but fraudulent "
+"practices, such as deception, scamming, and selling fake or misleading "
+"products, will result in immediate removal from the fair, and this "
+"information will be shared with the organizers of other fairs in Belgium/the "
+"Netherlands."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:102
+msgid ""
+"<b>Ruilregels:</b> Zorg ervoor dat ruilen vrijwillig en transparant "
+"verloopt. Frauduleuze handelingen of het misleiden van andere deelnemers "
+"wordt niet getolereerd."
+msgstr ""
+"<b>Exchange rules:</b> Ensure that exchanges are voluntary and transparent. "
+"Fraudulent actions or misleading other participants will not be tolerated."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:108
+msgid ""
+"Gebruik van Pokémon-kaarten, -artikelen en andere verzamelobjecten "
+"(collectibles)"
+msgstr "Use of Pokémon cards, merchandise, and other collectibles"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:112
+msgid ""
+"<b>Authenticiteit:</b> Alleen officiële Pokémon-, TCG-kaarten, -objecten en -"
+"artikelen zijn toegestaan bij ruilen, verkopen of wedstrijden."
+msgstr ""
+"<b>Authenticity:</b> Only official Pokémon, TCG cards, items, and "
+"merchandise are permitted in trades, sales, or competitions."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:115
+msgid ""
+"<b>Verbod op namaak:</b> De verkoop of ruil van vervalsingen of "
+"namaakproducten is niet toegestaan. Bij twijfel kan de organisatie om "
+"controle vragen."
+msgstr ""
+"<b>Prohibition of counterfeiting:</b> The sale or exchange of counterfeit or "
+"imitation products is not permitted. In case of doubt, the organization may "
+"request verification."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:120
+msgid "Privacy en foto's"
+msgstr "Privacy and photos"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:124
+msgid ""
+"<b>Fotografie:</b> Het maken van foto's is toegestaan, maar vraag "
+"toestemming als je iemand persoonlijk wilt fotograferen."
+msgstr ""
+"<b>Photography:</b> Taking photos is permitted, but please ask permission if "
+"you wish to photograph someone personally."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:127
+msgid ""
+"<b>Persoonsgegevens:</b> De organisatie respecteert de privacy van alle "
+"bezoekers en gaat zorgvuldig om met eventuele geregistreerde gegevens."
+msgstr ""
+"<b>Personal data:</b> The organization respects the privacy of all visitors "
+"and handles any registered data with care."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:132
+msgid "Eten en drinken"
+msgstr "Food and drink"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:136
+msgid ""
+"<b>Consumpties:</b> Eten en drinken is alleen toegestaan in de daarvoor "
+"bestemde zones. Bescherm je kaarten en spullen tegen morsen."
+msgstr ""
+"<b>Consumption:</b> Eating and drinking is only permitted in the designated "
+"areas. Protect your tickets and belongings from spills."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:139
+msgid ""
+"<b>Afval:</b> Gooi afval in de daarvoor bestemde prullenbakken en houd de "
+"beursruimte netjes."
+msgstr ""
+"<b>Waste:</b> Please dispose of waste in the designated bins and keep the "
+"exhibition space tidy."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:144
+msgid "Dieren"
+msgstr "Animals"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:148
+msgid ""
+"<b>Toegang voor dieren:</b> Dieren zijn niet toegestaan, behalve erkende "
+"hulphonden."
+msgstr ""
+"<b>Access for animals:</b> Animals are not permitted, except for certified "
+"assistance dogs"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:153
+msgid "Sancties"
+msgstr "Penalties"
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:157
+msgid ""
+"<b>Overtreding van regels:</b> Bij overtreding van de regels kan de "
+"organisatie passende maatregelen nemen, zoals een waarschuwing, verwijdering "
+"van het evenement of aangifte bij de politie."
+msgstr ""
+"<b>Violation of rules:</b> In the event of a violation of the rules, the "
+"organization may take appropriate measures, such as issuing a warning, "
+"removing the participant from the event, or reporting the violation to the "
+"police."
+
+#: .\pokemon\templates\pokemon\pages\huisreglement.html:160
+msgid ""
+"<b>Geen restitutie:</b> Bij verwijdering wegens overtreding van de regels "
+"wordt geen restitutie verleend."
+msgstr ""
+"No refunds: If you are removed for violating the rules, no refund will be "
+"given."
 
 #: .\pokemon\templates\pokemon\pages\index.html:43
 msgid "Uw ultieme bestemming voor alles wat met collectibles te maken heeft."
@@ -5617,7 +6117,7 @@ msgstr "I would like electricity"
 msgid "Ik wens een tafel/stoel"
 msgstr "I would like a table/chair"
 
-#: .\pokemon\templates\pokemon\pages\standhouder.html:145
+#: .\pokemon\templates\pokemon\pages\standhouder.html:155
 msgid "Aanvragen"
 msgstr "Request"
 
@@ -5649,9 +6149,22 @@ msgstr "event/<slug:slug>/success"
 msgid "algemene_voorwaarden/"
 msgstr "terms-and-conditions/"
 
-#: .\pokemon\urls.py:27
+#: .\pokemon\urls.py:26
+msgid "huisreglement/"
+msgstr "house-rules/"
+
+#: .\pokemon\urls.py:28
 msgid "pokemon/scanner/"
 msgstr "pokemon/scanner/"
+
+#~ msgid ""
+#~ "Een annulering van een reeds gemaakte boeking op de dag zelf leidt niet "
+#~ "tot terugbetaling, tenzij er sprake is van overmacht, zoals (ernstige) "
+#~ "ziekte, overlijden familielid, …"
+#~ msgstr ""
+#~ "A cancellation of a booking already made on the day itself does not lead "
+#~ "to a refund, unless there is force majeure, such as (serious) illness, "
+#~ "death of a family member, etc."
 
 #~ msgid "Alle"
 #~ msgstr "All"

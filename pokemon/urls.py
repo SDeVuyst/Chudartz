@@ -23,6 +23,7 @@ urlpatterns = i18n_patterns(
     path(_('privacybeleid/'), views.privacybeleid, name='privacybeleid'),
     path(_('disclaimer/'), views.disclaimer, name='disclaimer'),
     path(_('faq/'), views.faq, name='faq'),
+    path(_('huisreglement/'), views.huisreglement, name='huisreglement'),
 
     path(_('pokemon/scanner/'), views.scanner),
 
