@@ -165,7 +165,7 @@ def dartschool_lidgeld(request):
     achternaam = form.cleaned_data['achternaam']
     email = form.cleaned_data['email']
 
-    price = Decimal(50)
+    price = Decimal(60)
 
     payment = Payment.objects.create(
         first_name=voornaam,
