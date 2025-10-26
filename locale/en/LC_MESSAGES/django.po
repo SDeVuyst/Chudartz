@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 19:48+0200\n"
-"PO-Revision-Date: 2025-10-08 20:03+0200\n"
+"POT-Creation-Date: 2025-10-26 09:34+0100\n"
+"PO-Revision-Date: 2025-10-26 09:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -2262,8 +2262,8 @@ msgstr ""
 "                        "
 
 #: .\darts\templates\pages\dartschool-beurtkaart.html:199
-msgid "€50 lidgeld betalen"
-msgstr "Pay €50 membership fee"
+msgid "€60 lidgeld betalen"
+msgstr "Pay €60 membership fee"
 
 #: .\darts\templates\pages\dartschool-gratis-proefles.html:32
 msgid "1ste Les Gratis"
