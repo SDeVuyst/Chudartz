@@ -4238,14 +4238,7 @@ msgstr ""
 #: .\darts\templates\pages\teambuildings-en-workshops.html:51
 msgid ""
 "\n"
-"Een dag vol spannende dartscompetities, uitdagende teamopdrachten en een overvloed aan plezier en collegiale verbondenheid.
-Of de deelnemers nu ervaren darters zijn of voor het eerst een dartpijl vasthouden, deze originele teambuilding is zorgvuldig ontwikkeld om teamspirit te versterken en de groepsdynamiek te bevorderen.
-
-Deze formule is geschikt voor kleine teams, kmo’s en grotere bedrijven tot 100+ werknemers.
-Wij zijn gevestigd in West-Vlaanderen en voorzien van hieruit teambuildingactiviteiten in de ruime regio Vlaanderen en daarbuiten.
-Bovendien wordt elk concept volledig afgestemd op de wensen en doelstellingen van de klant.
-
-Neem contact op via de knop hieronder voor een vrijblijvende offerte.\n"
+"Een dag vol spannende dartscompetities, uitdagende teamopdrachten en een overvloed aan plezier en collegiale verbondenheid. Of de deelnemers nu ervaren darters zijn of voor het eerst een dartpijl vasthouden, deze teambuilding is zorgvuldig ontwikkeld om de onderlinge samenwerking te versterken en groepsdynamiek te bevorderen. Deze activiteit is geschikt voor kleine teams, kmo's en grotere bedrijven tot 100+ werknemers. Bovendien wordt dit concept georganiseerd op locaties in heel België en in het buitenland, volledig afgestemd op de wensen en doelstellingen van de klant. \n"
 "                    "
 msgstr ""
 "\n"
@@ -4418,16 +4411,7 @@ msgstr ""
 #: .\darts\templates\pages\teambuildings-en-workshops.html:212
 msgid ""
 "\n"
-"Iets te vieren? Speel darts als een pro op elk feest in Vlaanderen en omstreken. Onze dartstanden zorgen voor gegarandeerd plezier en gezelligheid, of het nu gaat om een trouwfeest, tuinfeest, personeelsfeest, bedrijfsfeest, communie, privéfeest, kerstfeest of een ander familie- of bedrijfsfeest. Bij ons vind je altijd een formule die past bij jouw gelegenheid.
-Je kunt kiezen uit twee mogelijkheden:
-
-    - Met animatie: onze begeleiders zorgen voor extra sfeer, uitleg en entertainment.
-    - Zonder animatie: huur de dartstanden en laat je gasten vrij spelen wanneer ze willen.
-
-Beide opties zorgen voor sfeer, plezier en gezelligheid en maken van jouw feest een unieke ervaring waar iedereen van geniet.
-Huren kan al vanaf één dartstand.
-
-Neem contact op via de knop hieronder voor een vrijblijvende offerte en laat jouw feest tot een onvergetelijke dartbeleving worden!  \n"
+"Iets te vieren? Onze dartstanden zorgen gegarandeerd voor fun op uw trouwfeest, communie, tuinfeest of privéfeest. U kunt kiezen uit, de dartstanden huren met animatie, waarbij wij alles opvrolijken en de sfeer erin brengen. Of ga voor de formule zonder animatie, waarbij je de dartstanden gewoon huurt en uw gasten vrij kunnen spelen wanneer ze willen. Huren kan al vanaf 1 dartstand. Beide opties zorgen voor sfeer, plezier en gezelligheid! \n"
 "                      "
 msgstr ""
 "\n"
