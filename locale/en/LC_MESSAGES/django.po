@@ -4227,9 +4227,9 @@ msgstr ""
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:31
 msgid ""
-"Bij ChudartZ weten we dat geweldige prestaties op de dartbaan niet alleen "
-"afhangen van individuele vaardigheden, maar vooral van de kracht van een "
-"hecht team. Daarom organiseren wij ook teambuilding-evenementen."
+"Bij ChudartZ weten we dat darten mensen samenbrengt"
+" Daarom bieden we niet alleen jeugddartscholen aan, maar ook leuke teamactiviteiten en dartstanden die je kunt huren voor allerlei feesten — van personeelsfeest tot communie."
+"Zo creëren we voor elke groep een unieke, verbindende dartbeleving."
 msgstr ""
 "At ChudartZ, we know that great performance on the darts court doesn't just "
 "depend on individual skills, but above all on the strength of a close-knit "
@@ -4238,15 +4238,14 @@ msgstr ""
 #: .\darts\templates\pages\teambuildings-en-workshops.html:51
 msgid ""
 "\n"
-"                    Een dag vol spannende dartscompetities, uitdagende "
-"teamopdrachten en een overvloed aan plezier en collegiale verbondenheid. Of "
-"de deelnemers nu ervaren darters zijn of voor het eerst een dartpijl "
-"vasthouden, deze teambuilding is zorgvuldig ontwikkeld om de onderlinge "
-"samenwerking te versterken en groepsdynamiek te bevorderen.\n"
-"                    Deze activiteit is geschikt voor kleine teams, kmo's en "
-"grotere bedrijven tot 100+ werknemers. Bovendien wordt dit concept "
-"georganiseerd op locaties in heel België en in het buitenland, volledig "
-"afgestemd op de wensen en doelstellingen van de klant.\n"
+"Een dag vol spannende dartscompetities, uitdagende teamopdrachten en een overvloed aan plezier en collegiale verbondenheid.
+Of de deelnemers nu ervaren darters zijn of voor het eerst een dartpijl vasthouden, deze originele teambuilding is zorgvuldig ontwikkeld om teamspirit te versterken en de groepsdynamiek te bevorderen.
+
+Deze formule is geschikt voor kleine teams, kmo’s en grotere bedrijven tot 100+ werknemers.
+Wij zijn gevestigd in West-Vlaanderen en voorzien van hieruit teambuildingactiviteiten in de ruime regio Vlaanderen en daarbuiten.
+Bovendien wordt elk concept volledig afgestemd op de wensen en doelstellingen van de klant.
+
+Neem contact op via de knop hieronder voor een vrijblijvende offerte.\n"
 "                    "
 msgstr ""
 "\n"
@@ -4419,15 +4418,16 @@ msgstr ""
 #: .\darts\templates\pages\teambuildings-en-workshops.html:212
 msgid ""
 "\n"
-"                      Iets te vieren? Onze dartstanden zorgen gegarandeerd "
-"voor fun op uw trouwfeest, communie, tuinfeest of privéfeest.\n"
-"                      U kunt kiezen uit, de dartstanden huren met animatie, "
-"waarbij wij alles opvrolijken en de sfeer erin brengen. Of ga voor de "
-"formule zonder animatie, waarbij je de dartstanden gewoon huurt en uw gasten "
-"vrij kunnen spelen wanneer ze willen. \n"
-"                      Huren kan al vanaf 1 dartstand. \n"
-"                      Beide opties zorgen voor sfeer, plezier en "
-"gezelligheid!  \n"
+"Iets te vieren? Speel darts als een pro op elk feest in Vlaanderen en omstreken. Onze dartstanden zorgen voor gegarandeerd plezier en gezelligheid, of het nu gaat om een trouwfeest, tuinfeest, personeelsfeest, bedrijfsfeest, communie, privéfeest, kerstfeest of een ander familie- of bedrijfsfeest. Bij ons vind je altijd een formule die past bij jouw gelegenheid.
+Je kunt kiezen uit twee mogelijkheden:
+
+    - Met animatie: onze begeleiders zorgen voor extra sfeer, uitleg en entertainment.
+    - Zonder animatie: huur de dartstanden en laat je gasten vrij spelen wanneer ze willen.
+
+Beide opties zorgen voor sfeer, plezier en gezelligheid en maken van jouw feest een unieke ervaring waar iedereen van geniet.
+Huren kan al vanaf één dartstand.
+
+Neem contact op via de knop hieronder voor een vrijblijvende offerte en laat jouw feest tot een onvergetelijke dartbeleving worden!  \n"
 "                      "
 msgstr ""
 "\n"
