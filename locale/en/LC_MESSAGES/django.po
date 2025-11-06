@@ -2607,7 +2607,7 @@ msgid ""
 "href=\"%(beurtkaart_url)s\">meerbeurtenkaart aankopen</a>. Voordat je dit "
 "kunt doen, dien je eerst het lidgeld te betalen.\n"
 "                      Het <a href=\"%(beurtkaart_url)s\">lidgeld</a> "
-"bedraagt € 50 voor een gans jaar.<br>Wat is inbegrepen ?\n"
+"bedraagt € 60 voor een gans jaar.<br>Wat is inbegrepen ?\n"
 "\n"
 "                      "
 msgstr ""
@@ -2616,7 +2616,7 @@ msgstr ""
 "you can <a href=\"%(beurtkaart_url)s\">purchase a multi-session card</a> "
 "online. Before you can do this, you must first pay the membership fee.\n"
 "                      The <a href=\"%(beurtkaart_url)s\">membership fee</a> "
-"is € 50 for a whole year.<br>What's included ?                      "
+"is € 60 for a whole year.<br>What's included ?                      "
 
 #: .\darts\templates\pages\dartschool-werkwijze.html:50
 msgid "Gebruik van het materiaal en de accommodatie"
@@ -2776,8 +2776,8 @@ msgstr ""
 "href=\"%(werkwijze_url)s\">method</a>.                    "
 
 #: .\darts\templates\pages\dartschool.html:101
-msgid "Lidgeld: € 50/jaar"
-msgstr "Membership fee: € 50/year"
+msgid "Lidgeld: € 60/jaar"
+msgstr "Membership fee: € 60/year"
 
 #: .\darts\templates\pages\dartschool.html:106
 #: .\darts\templates\pages\toernooi-inschrijving.html:27
