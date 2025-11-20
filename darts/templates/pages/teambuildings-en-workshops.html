@@ -216,12 +216,49 @@ ChudartZ | Teambuilding & Workshops
                     <h3>{% trans 'Feesten' %}</h3>
                     <p>
                       {% blocktrans %}
-                      Iets te vieren? Speel darts als een pro op elk feest in Vlaanderen en omstreken. Onze dartstanden zorgen voor gegarandeerd plezier en gezelligheid, of het nu gaat om een trouwfeest, tuinfeest, personeelsfeest, bedrijfsfeest, communie, privéfeest, kerstfeest of een ander familie- of bedrijfsfeest. Bij ons vind je altijd een formule die past bij jouw gelegenheid.
-                      Je kunt kiezen uit 2 mogelijkheden: 1. Met animatie: onze begeleiders zorgen voor extra sfeer, uitleg en entertainment. 2. Zonder animatie: huur de dartstanden en laat je gasten vrij spelen wanneer ze willen.
-                      Beide opties zorgen voor sfeer, plezier en gezelligheid en maken van jouw feest een unieke ervaring waar iedereen van geniet.
-                      Huren kan al vanaf één dartstand.
-                      Neem contact op via de knop hieronder voor een vrijblijvende offerte en laat jouw feest tot een onvergetelijke dartbeleving worden!
-                      {% endblocktrans %}
+Iets te vieren? Speel darts als een pro op elk feest in Vlaanderen en omstreken. Onze dartstanden zorgen voor gegarandeerd plezier en gezelligheid.
+{% endblocktrans %}
+
+<p>{% trans "Of het nu gaat om:" %}</p>
+
+<ul>
+    <li><i class="bi bi-check"></i><span>{% trans "Trouwfeest" %}</span></li>
+    <li><i class="bi bi-check"></i><span>{% trans "Tuinfeest" %}</span></li>
+    <li><i class="bi bi-check"></i><span>{% trans "Kerstfeest" %}</span></li>
+    <li><i class="bi bi-check"></i><span>{% trans "Kinderfeest" %}</span></li>
+    <li><i class="bi bi-check"></i><span>{% trans "Familiefeest" %}</span></li>
+    <li><i class="bi bi-check"></i><span>{% trans "Personeelsfeest" %}</span></li>
+    <li><i class="bi bi-check"></i><span>{% trans "Bedrijfsfeest" %}</span></li>
+    <li><i class="bi bi-check"></i><span>{% trans "Communie" %}</span></li>
+</ul>
+
+{% blocktrans %}
+Bij ons vind je altijd een formule die past bij uw gelegenheid. U kunt kiezen uit 2 mogelijkheden:
+{% endblocktrans %}
+
+<ul>
+    <li><i class="bi bi-check"></i><span>{% trans "Met animatie" %}</span></li>
+</ul>
+
+{% blocktrans %}
+Onze begeleiders zorgen voor extra sfeer, uitleg en entertainment.
+{% endblocktrans %}
+
+<ul>
+    <li><i class="bi bi-check"></i><span>{% trans "Zonder animatie" %}</span></li>
+</ul>
+
+{% blocktrans %}
+Huur de dartstanden en laat je gasten vrij spelen wanneer ze willen.
+{% endblocktrans %}
+
+{% blocktrans %}
+Beide opties zorgen voor sfeer, plezier en gezelligheid en maken van uw feest een unieke ervaring waar iedereen van geniet.
+{% endblocktrans %}
+
+{% blocktrans %}
+Huren kan al vanaf één dartstand. Neem contact op via de knop hieronder voor een vrijblijvende offerte en laat jouw feest tot een onvergetelijke dartbeleving worden!
+{% endblocktrans %}
                     </p>
                     <a href="{% url 'index' %}#contact" class="btn btn-get-started align-self-start">{% trans 'Contacteer Ons' %}</a>
                   
