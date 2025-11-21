@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-26 09:34+0100\n"
+"POT-Creation-Date: 2025-11-21 16:37+0100\n"
 "PO-Revision-Date: 2025-10-26 09:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -640,15 +640,15 @@ msgid "FAQ"
 msgstr "FAQ"
 
 #: .\darts\templates\blocks\footer.html:55
-#: .\darts\templates\pages\teambuildings-en-workshops.html:62
-#: .\darts\templates\pages\teambuildings-en-workshops.html:91
-#: .\darts\templates\pages\teambuildings-en-workshops.html:108
-#: .\darts\templates\pages\teambuildings-en-workshops.html:125
-#: .\darts\templates\pages\teambuildings-en-workshops.html:142
-#: .\darts\templates\pages\teambuildings-en-workshops.html:159
-#: .\darts\templates\pages\teambuildings-en-workshops.html:176
-#: .\darts\templates\pages\teambuildings-en-workshops.html:201
-#: .\darts\templates\pages\teambuildings-en-workshops.html:219
+#: .\darts\templates\pages\teambuildings-en-workshops.html:68
+#: .\darts\templates\pages\teambuildings-en-workshops.html:97
+#: .\darts\templates\pages\teambuildings-en-workshops.html:114
+#: .\darts\templates\pages\teambuildings-en-workshops.html:131
+#: .\darts\templates\pages\teambuildings-en-workshops.html:148
+#: .\darts\templates\pages\teambuildings-en-workshops.html:165
+#: .\darts\templates\pages\teambuildings-en-workshops.html:182
+#: .\darts\templates\pages\teambuildings-en-workshops.html:207
+#: .\darts\templates\pages\teambuildings-en-workshops.html:264
 #: .\pokemon\templates\pokemon\blocks\footer.html:52
 msgid "Contacteer Ons"
 msgstr "Contactez-nous"
@@ -710,19 +710,18 @@ msgstr "Ateliers"
 
 #: .\darts\templates\blocks\header.html:57
 #: .\darts\templates\pages\index.html:139
-#: .\darts\templates\pages\teambuildings-en-workshops.html:49
 msgid "Teambuilding"
 msgstr "Consolidation d’équipe"
 
 #: .\darts\templates\blocks\header.html:58
-#: .\darts\templates\pages\teambuildings-en-workshops.html:195
+#: .\darts\templates\pages\teambuildings-en-workshops.html:201
 msgid "Demolessen"
 msgstr "Cours de démonstration"
 
 #: .\darts\templates\blocks\header.html:59
-#: .\darts\templates\pages\teambuildings-en-workshops.html:210
+#: .\darts\templates\pages\teambuildings-en-workshops.html:216
 msgid "Feesten"
-msgstr "Parti"
+msgstr "Fêtes"
 
 #: .\darts\templates\blocks\header.html:62
 #: .\darts\templates\pages\index.html:284
@@ -1449,8 +1448,8 @@ msgid ""
 "                      de wedstrijd of set zijn, en de resterende legs, "
 "indien aanwezig, mogen niet meer worden gespeeld."
 msgstr ""
-"Dans un match ou un set divisé en manches, le match ou le set est joué au « "
-"meilleur des trois » (cinq, sept, etc.) \n"
+"Dans un match ou un set divisé en manches, le match ou le set est joué au "
+"« meilleur des trois » (cinq, sept, etc.) \n"
 "                      jambes. Par exemple, le premier joueur à gagner la "
 "majorité du nombre de manches donné doit être le gagnant de \n"
 "                      Le match ou le set, et les manches restantes, le cas "
@@ -2766,7 +2765,7 @@ msgid "Wedstrijdbord"
 msgstr "Planche de compétition"
 
 #: .\darts\templates\pages\dartschool.html:72
-#: .\darts\templates\pages\teambuildings-en-workshops.html:191
+#: .\darts\templates\pages\teambuildings-en-workshops.html:197
 msgid "Trainer bij ChudartZ logo"
 msgstr "Formateur chez ChudartZ logo"
 
@@ -3378,20 +3377,26 @@ msgid "Teambuildings & Workshops"
 msgstr "Team Buildings & Ateliers"
 
 #: .\darts\templates\pages\index.html:187
+#, fuzzy
+#| msgid ""
+#| "Bij ChudartZ weten we dat darten mensen samenbrengt.Daarom bieden we niet "
+#| "alleen jeugddartscholen aan, maar ook leuke teamactiviteiten en "
+#| "dartstanden die je kunt huren voor allerlei feesten — van personeelsfeest "
+#| "tot communie.Zo creëren we voor elke groep een unieke, verbindende "
+#| "dartbeleving."
 msgid ""
 "\n"
-"                Bij ChudartZ weten we dat geweldige prestaties op de "
-"dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral van "
-"de kracht van een hecht team. Daarom organiseren wij ook teambuilding-"
-"evenementen.\n"
+"                Bij ChudartZ weten we dat darten mensen samenbrengt. Daarom "
+"bieden we niet alleen jeugddartscholen aan, maar ook leuke teamactiviteiten "
+"en dartstanden die je kunt huren voor allerlei feesten — van personeelsfeest "
+"tot communie. Zo creëren we voor elke groep een unieke, verbindende "
+"dartbeleving.\n"
 "                "
 msgstr ""
-"\n"
 "Chez ChudartZ, nous savons qu’une bonne performance sur le terrain de "
 "fléchettes ne dépend pas seulement des compétences individuelles, mais "
 "surtout de la force d’une équipe soudée. C’est pourquoi nous organisons "
-"également des événements de team building.\n"
-"                "
+"également des événements de team building."
 
 #: .\darts\templates\pages\index.html:203
 msgid "Afbeeldingen"
@@ -3522,12 +3527,12 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"La politique de confidentialité s’applique au <a href=\"https://chudartz."
-"com\">site web chudartz.com</a> and <a href=\"https://chudartz-collectibles."
-"com\">chudartz-collectibles.com</a> (ci-après dénommé le « site web ») géré "
-"par ChudartZ, dont le siège social est situé Wilgenlaan 35 à 8210 Loppem, "
-"Belgique, sous le numéro BBE XXXXXXXXXXXX (ci-après dénommé « nous "
-"»).                    "
+"La politique de confidentialité s’applique au <a href=\"https://"
+"chudartz.com\">site web chudartz.com</a> and <a href=\"https://chudartz-"
+"collectibles.com\">chudartz-collectibles.com</a> (ci-après dénommé le « site "
+"web ») géré par ChudartZ, dont le siège social est situé Wilgenlaan 35 à "
+"8210 Loppem, Belgique, sous le numéro BBE XXXXXXXXXXXX (ci-après dénommé "
+"« nous »).                    "
 
 #: .\darts\templates\pages\privacybeleid.html:43
 #: .\pokemon\templates\pokemon\pages\privacybeleid.html:43
@@ -4049,8 +4054,8 @@ msgid ""
 msgstr ""
 "Si, à tout moment, vous estimez que l’un de vos droits n’a pas été respecté, "
 "vous pouvez également introduire une plainte auprès de la Commission belge "
-"de la protection de la vie privée (voir : <a href=\"https://www."
-"privacycommission.be/burger\">www.privacycommission.be/burger</a>)"
+"de la protection de la vie privée (voir : <a href=\"https://"
+"www.privacycommission.be/burger\">www.privacycommission.be/burger</a>)"
 
 #: .\darts\templates\pages\privacybeleid.html:211
 #: .\pokemon\templates\pokemon\pages\privacybeleid.html:211
@@ -4328,9 +4333,17 @@ msgstr ""
 "d’information précieux."
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:31
+#, fuzzy
+#| msgid ""
+#| "Bij ChudartZ weten we dat darten mensen samenbrengt.Daarom bieden we niet "
+#| "alleen jeugddartscholen aan, maar ook leuke teamactiviteiten en "
+#| "dartstanden die je kunt huren voor allerlei feesten — van personeelsfeest "
+#| "tot communie.Zo creëren we voor elke groep een unieke, verbindende "
+#| "dartbeleving."
 msgid ""
-"Bij ChudartZ weten we dat darten mensen samenbrengt."
-"Daarom bieden we niet alleen jeugddartscholen aan, maar ook leuke teamactiviteiten en dartstanden die je kunt huren voor allerlei feesten — van personeelsfeest tot communie."
+"Bij ChudartZ weten we dat darten mensen samenbrengt. Daarom bieden we niet "
+"alleen jeugddartscholen aan, maar ook leuke teamactiviteiten en dartstanden "
+"die je kunt huren voor allerlei feesten — van personeelsfeest tot communie. "
 "Zo creëren we voor elke groep een unieke, verbindende dartbeleving."
 msgstr ""
 "Chez ChudartZ, nous savons qu’une bonne performance sur le terrain de "
@@ -4338,54 +4351,73 @@ msgstr ""
 "surtout de la force d’une équipe soudée. C’est pourquoi nous organisons "
 "également des événements de team building."
 
+#: .\darts\templates\pages\teambuildings-en-workshops.html:49
+msgid "Teambuildings in België en omstreken"
+msgstr "Teambuildings en Belgique et environs"
+
 #: .\darts\templates\pages\teambuildings-en-workshops.html:51
 msgid ""
 "\n"
 "                    Een dag vol spannende dartscompetities, uitdagende "
-"teamopdrachten en een overvloed aan plezier en collegiale verbondenheid. Of "
-"de deelnemers nu ervaren darters zijn of voor het eerst een dartpijl "
-"vasthouden, deze teambuilding is zorgvuldig ontwikkeld om de onderlinge "
-"samenwerking te versterken en groepsdynamiek te bevorderen.\n"
-"                    Deze activiteit is geschikt voor kleine teams, kmo's en "
-"grotere bedrijven tot 100+ werknemers. Bovendien wordt dit concept "
-"georganiseerd op locaties in heel België en in het buitenland, volledig "
-"afgestemd op de wensen en doelstellingen van de klant.\n"
+"teamopdrachten en een overvloed aan plezier en collegiale verbondenheid.\n"
+"                    Of de deelnemers nu ervaren darters zijn of voor het "
+"eerst een dartpijl vasthouden, deze originele teambuilding is zorgvuldig "
+"ontwikkeld om teamspirit te versterken en de groepsdynamiek te bevorderen.\n"
+"\n"
+"                    Deze formule is geschikt voor kleine teams, kmo’s en "
+"grotere bedrijven tot 100+ werknemers.\n"
+"                    Wij zijn gevestigd in West-Vlaanderen en voorzien van "
+"hieruit teambuildingactiviteiten in de ruime regio Vlaanderen en "
+"daarbuiten.\n"
+"                    Bovendien wordt elk concept volledig afgestemd op de "
+"wensen en doelstellingen van de klant.\n"
+"\n"
+"                    Neem contact op via de knop hieronder voor een "
+"vrijblijvende offerte.\n"
 "                    "
 msgstr ""
 "\n"
-"Une journée remplie de compétitions de fléchettes passionnantes, de tâches "
-"d’équipe stimulantes et d’une abondance de plaisir et de liens collégiaux. "
-"Que les participants soient des joueurs de fléchettes expérimentés ou qu’ils "
-"tiennent une fléchette pour la première fois, ce team building a été "
-"soigneusement élaboré pour renforcer la coopération mutuelle et favoriser la "
-"dynamique de groupe.\n"
-"                    Cette activité convient aux petites équipes, aux PME et "
-"aux grandes entreprises jusqu’à 100+ employés. De plus, ce concept est "
-"organisé sur des sites dans toute la Belgique et à l’étranger, entièrement "
-"adapté aux souhaits et aux objectifs du client.\n"
+"                    Une journée remplie de compétitions de fléchettes "
+"passionnantes, de défis d’équipe stimulants et d’une abondance de plaisir "
+"et de cohésion entre collègues.\n"
+"                    Que les participants soient des joueurs de fléchettes "
+"expérimentés ou qu’ils tiennent une fléchette pour la première fois, ce "
+"teambuilding original est soigneusement conçu pour renforcer l’esprit "
+"d’équipe et améliorer la dynamique de groupe.\n"
+"\n"
+"                    Cette formule convient aux petites équipes, aux PME et "
+"aux grandes entreprises comptant plus de 100 employés.\n"
+"                    Nous sommes basés en Flandre-Occidentale et organisons "
+"à partir de là des activités de teambuilding dans la grande région "
+"flamande et au-delà.\n"
+"                    De plus, chaque concept est entièrement adapté aux "
+"besoins et aux objectifs du client.\n"
+"\n"
+"                    Contactez-nous via le bouton ci-dessous pour un devis "
+"gratuit et sans engagement.\n"
 "                    "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:57
+#: .\darts\templates\pages\teambuildings-en-workshops.html:63
 msgid "Versterk je team"
 msgstr "Responsabilisez votre équipe"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:58
+#: .\darts\templates\pages\teambuildings-en-workshops.html:64
 msgid "Verbeter je spel"
 msgstr "Améliorez votre jeu"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:59
+#: .\darts\templates\pages\teambuildings-en-workshops.html:65
 msgid "Plezier & ontspanning"
 msgstr "Plaisir et détente"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:60
+#: .\darts\templates\pages\teambuildings-en-workshops.html:66
 msgid "Onvergetelijke ervaring"
 msgstr "Une expérience inoubliable"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:81
+#: .\darts\templates\pages\teambuildings-en-workshops.html:87
 msgid "Darts competitie"
 msgstr "Concours de fléchettes"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:86
+#: .\darts\templates\pages\teambuildings-en-workshops.html:92
 msgid ""
 "\n"
 "                            Hier nemen teams het tegen elkaar op in een "
@@ -4401,11 +4433,11 @@ msgstr ""
 "réussir dans son ensemble.\n"
 "                            "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:98
+#: .\darts\templates\pages\teambuildings-en-workshops.html:104
 msgid "Darts bingo"
 msgstr "Bingo aux fléchettes"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:103
+#: .\darts\templates\pages\teambuildings-en-workshops.html:109
 msgid ""
 "\n"
 "                              Dit is een leuke en interactieve manier om "
@@ -4421,11 +4453,11 @@ msgstr ""
 "plaisir. \n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:115
+#: .\darts\templates\pages\teambuildings-en-workshops.html:121
 msgid "Teams challenge"
 msgstr "Défi d’équipe"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:120
+#: .\darts\templates\pages\teambuildings-en-workshops.html:126
 msgid ""
 "\n"
 "                              Hier strijden teams tegen elkaar in een serie "
@@ -4441,11 +4473,11 @@ msgstr ""
 "de cibles prédéfinies sur le jeu de fléchettes. \n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:132
+#: .\darts\templates\pages\teambuildings-en-workshops.html:138
 msgid "Strategische darts"
 msgstr "Fléchettes stratégiques"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:137
+#: .\darts\templates\pages\teambuildings-en-workshops.html:143
 msgid ""
 "\n"
 "                              Teams krijgen specifieke doelen en scenario's, "
@@ -4463,11 +4495,11 @@ msgstr ""
 "meilleures tactiques et marquer le plus de points.\n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:149
+#: .\darts\templates\pages\teambuildings-en-workshops.html:155
 msgid "Darts met een twist"
 msgstr "Fléchettes avec une touche d’originalité"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:154
+#: .\darts\templates\pages\teambuildings-en-workshops.html:160
 msgid ""
 "\n"
 "                              Dit brengt een creatieve en verrassende draai "
@@ -4483,11 +4515,11 @@ msgstr ""
 "avec un bandeau sur les yeux ou après une tâche ludique.\n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:166
+#: .\darts\templates\pages\teambuildings-en-workshops.html:172
 msgid "Andere mogelijkheden"
 msgstr "Autres caractéristiques"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:171
+#: .\darts\templates\pages\teambuildings-en-workshops.html:177
 msgid ""
 "\n"
 "                              Als je graag nog meer mogelijkheden wilt "
@@ -4500,7 +4532,7 @@ msgstr ""
 "building de fléchettes sur mesure, n’hésitez pas à nous contacter !\n"
 "                              "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:197
+#: .\darts\templates\pages\teambuildings-en-workshops.html:203
 msgid ""
 "\n"
 "                      Met ChudartZ brengen we de spannende wereld van darts "
@@ -4525,46 +4557,106 @@ msgstr ""
 "sportives et récréatives.\n"
 "                      "
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:212
+#: .\darts\templates\pages\teambuildings-en-workshops.html:218
 msgid ""
 "\n"
-"                      Iets te vieren? Onze dartstanden zorgen gegarandeerd "
-"voor fun op uw trouwfeest, communie, tuinfeest of privéfeest.\n"
-"                      U kunt kiezen uit, de dartstanden huren met animatie, "
-"waarbij wij alles opvrolijken en de sfeer erin brengen. Of ga voor de "
-"formule zonder animatie, waarbij je de dartstanden gewoon huurt en uw gasten "
-"vrij kunnen spelen wanneer ze willen. \n"
-"                      Huren kan al vanaf 1 dartstand. \n"
-"                      Beide opties zorgen voor sfeer, plezier en "
-"gezelligheid!  \n"
+"                      Iets te vieren? Speel darts als een pro op elk feest "
+"in Vlaanderen en omstreken. Onze dartstanden zorgen voor gegarandeerd "
+"plezier en gezelligheid.\n"
 "                      "
-msgstr ""
-"\n"
-"Quelque chose à fêter ? Nos supports de fléchettes sont garantis pour vous "
-"amuser lors de votre mariage, communion, garden-party ou fête privée.\n"
-"                      Vous pouvez choisir, louer les stands de fléchettes "
-"avec animation, où nous égayons tout et apportons l’atmosphère. Ou optez "
-"pour la formule sans animation, où vous louez simplement les supports de "
-"fléchettes et vos invités peuvent jouer librement quand ils le souhaitent. \n"
-"                      Vous pouvez louer à partir de 1 support de "
-"fléchettes. \n"
-"                      Les deux options offrent ambiance, plaisir et "
-"convivialité !  \n"
-"                      "
+msgstr "Quelque chose à fêter ? Jouez aux fléchettes comme un pro lors de toute fête en Flandre et dans les environs. Nos stands de fléchettes garantissent du plaisir et une ambiance conviviale."
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:224
-msgid "Verhuur van een dartsbord"
-msgstr "Location d’un jeu de fléchettes"
+#: .\darts\templates\pages\teambuildings-en-workshops.html:223
+msgid "Of het nu gaat om:"
+msgstr "Qu'il s'agisse:"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:225
+msgid "Trouwfeest"
+msgstr "Fête de mariage"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:226
+msgid "Tuinfeest"
+msgstr "Fête de jardin"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:227
+msgid "Kerstfeest"
+msgstr "Fête de Noël"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:228
+msgid "Kinderfeest"
+msgstr "Fête d’enfants"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:229
+msgid "Familiefeest"
+msgstr "Fête de famille"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:230
+msgid "Personeelsfeest"
+msgstr "Fête du personnel"
 
 #: .\darts\templates\pages\teambuildings-en-workshops.html:231
-msgid "feestopstelling bij ChudartZ"
-msgstr "mise en place d’une fête chez ChudartZ"
+msgid "Bedrijfsfeest"
+msgstr "Fête d’entreprise"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:234
+#: .\darts\templates\pages\teambuildings-en-workshops.html:232
+msgid "Communie"
+msgstr "Communion"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:236
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "                    Wij kunnen uw persoonsgegevens ook bekend maken:\n"
+#| "                    "
+msgid ""
+"\n"
+"                      Bij ons vind je altijd een formule die past bij uw "
+"gelegenheid. U kunt kiezen uit 2 mogelijkheden:\n"
+"                      "
+msgstr "Chez nous, vous trouverez toujours une formule adaptée à votre occasion. Vous pouvez choisir entre deux options :"
+"\n"
+"Nous pouvons également divulguer vos données personnelles :\n"
+"                    "
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:245
+msgid "Met animatie"
+msgstr "Avec animation"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:247
+msgid "Onze begeleiders zorgen voor extra sfeer, uitleg en entertainment."
+msgstr "Nos animateurs apportent une ambiance supplémentaire, des explications et du divertissement."
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:254
+msgid "Zonder animatie"
+msgstr "Sans animation"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:259
+msgid ""
+"\n"
+"                      Huur de dartstanden en laat je gasten vrij spelen "
+"wanneer ze willen. Beide opties zorgen voor sfeer, plezier en gezelligheid "
+"en maken van uw feest een unieke ervaring waar iedereen van geniet.\n"
+"                      Huren kan al vanaf één dartstand. Neem contact op via "
+"de knop hieronder voor een vrijblijvende offerte en laat jouw feest tot een "
+"onvergetelijke dartbeleving worden!\n"
+"                      "
+msgstr "Louez les stands de fléchettes et laissez vos invités jouer librement quand ils le souhaitent."
+"Les deux options garantissent une ambiance agréable, du plaisir et de la convivialité, faisant de votre fête une expérience unique pour tous."
+"La location est possible à partir d’un seul stand de fléchettes. Contactez-nous via le bouton ci-dessous pour un devis gratuit et transformez votre fête en une expérience de fléchettes inoubliable!"
+
+#:.\darts\templates\pages\teambuildings-en-workshops.html:269
 msgid "ChudartZ in actie op een feest"
 msgstr "ChudartZ en action lors d’une fête"
 
-#: .\darts\templates\pages\teambuildings-en-workshops.html:237
+#: .\darts\templates\pages\teambuildings-en-workshops.html:276
+msgid "feestopstelling bij ChudartZ"
+msgstr "mise en place d’une fête chez ChudartZ"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:279
+msgid "Verhuur van een dartsbord"
+msgstr "Location d’un jeu de fléchettes"
+
+#: .\darts\templates\pages\teambuildings-en-workshops.html:282
 msgid "ChudartZ bij een feest"
 msgstr "ChudartZ lors d’une soirée"
 
@@ -5626,8 +5718,8 @@ msgstr "Des objets de collection pour tous"
 #: .\pokemon\templates\pokemon\pages\evenement.html:106
 msgid ""
 "\n"
-"                  Onze beurs is dé ontmoetingsplek voor verzamelaars van o."
-"a. Pokémon-kaarten en unieke objecten. Ontdek zeldzame 'schatten' in een "
+"                  Onze beurs is dé ontmoetingsplek voor verzamelaars van "
+"o.a. Pokémon-kaarten en unieke objecten. Ontdek zeldzame 'schatten' in een "
 "gezellige sfeer waarin iedereen zich welkom voelt, van waar ook ter wereld.\n"
 "                  "
 msgstr ""
@@ -6047,8 +6139,8 @@ msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\huisreglement.html:112
 msgid ""
-"<b>Authenticiteit:</b> Alleen officiële Pokémon-, TCG-kaarten, -objecten en -"
-"artikelen zijn toegestaan bij ruilen, verkopen of wedstrijden."
+"<b>Authenticiteit:</b> Alleen officiële Pokémon-, TCG-kaarten, -objecten en "
+"-artikelen zijn toegestaan bij ruilen, verkopen of wedstrijden."
 msgstr ""
 
 #: .\pokemon\templates\pokemon\pages\huisreglement.html:115
@@ -6289,6 +6381,50 @@ msgstr ""
 #: .\pokemon\urls.py:28
 msgid "pokemon/scanner/"
 msgstr "flechettes/scanner/"
+
+#~ msgid ""
+#~ "\n"
+#~ "                Bij ChudartZ weten we dat geweldige prestaties op de "
+#~ "dartbaan niet alleen afhangen van individuele vaardigheden, maar vooral "
+#~ "van de kracht van een hecht team. Daarom organiseren wij ook teambuilding-"
+#~ "evenementen.\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "Chez ChudartZ, nous savons qu’une bonne performance sur le terrain de "
+#~ "fléchettes ne dépend pas seulement des compétences individuelles, mais "
+#~ "surtout de la force d’une équipe soudée. C’est pourquoi nous organisons "
+#~ "également des événements de team building.\n"
+#~ "                "
+
+#~ msgid ""
+#~ "\n"
+#~ "                      Iets te vieren? Onze dartstanden zorgen "
+#~ "gegarandeerd voor fun op uw trouwfeest, communie, tuinfeest of "
+#~ "privéfeest.\n"
+#~ "                      U kunt kiezen uit, de dartstanden huren met "
+#~ "animatie, waarbij wij alles opvrolijken en de sfeer erin brengen. Of ga "
+#~ "voor de formule zonder animatie, waarbij je de dartstanden gewoon huurt "
+#~ "en uw gasten vrij kunnen spelen wanneer ze willen. \n"
+#~ "                      Huren kan al vanaf 1 dartstand. \n"
+#~ "                      Beide opties zorgen voor sfeer, plezier en "
+#~ "gezelligheid!  \n"
+#~ "                      "
+#~ msgstr ""
+#~ "\n"
+#~ "Quelque chose à fêter ? Nos supports de fléchettes sont garantis pour "
+#~ "vous amuser lors de votre mariage, communion, garden-party ou fête "
+#~ "privée.\n"
+#~ "                      Vous pouvez choisir, louer les stands de fléchettes "
+#~ "avec animation, où nous égayons tout et apportons l’atmosphère. Ou optez "
+#~ "pour la formule sans animation, où vous louez simplement les supports de "
+#~ "fléchettes et vos invités peuvent jouer librement quand ils le "
+#~ "souhaitent. \n"
+#~ "                      Vous pouvez louer à partir de 1 support de "
+#~ "fléchettes. \n"
+#~ "                      Les deux options offrent ambiance, plaisir et "
+#~ "convivialité !  \n"
+#~ "                      "
 
 #~ msgid ""
 #~ "Een annulering van een reeds gemaakte boeking op de dag zelf leidt niet "
@@ -6758,9 +6894,8 @@ msgstr "flechettes/scanner/"
 #~ "Onze dartstoernooien zijn dé plek om uw vaardigheden te testen en de "
 #~ "competitie aan te gaan. Iedereen is altijd welkom om deel te nemen en "
 #~ "zich te meten met andere dartliefhebbers. Houd onze kalender in de gaten "
-#~ "voor aankomende toernooien en neem een kijkje binnen "
-#~ "'Darttoernooien' (link naar deze sectie) voor een van onze spannende "
-#~ "competities."
+#~ "voor aankomende toernooien en neem een kijkje binnen 'Darttoernooien' "
+#~ "(link naar deze sectie) voor een van onze spannende competities."
 #~ msgstr ""
 #~ "Nos tournois de fléchettes sont l’endroit idéal pour tester vos "
 #~ "compétences et concourir. Tout le monde est toujours le bienvenu pour "
