@@ -216,11 +216,49 @@ ChudartZ | Teambuilding & Workshops
                     <h3>{% trans 'Feesten' %}</h3>
                     <p>
                       {% blocktrans %}
-                      Iets te vieren? Speel darts als een pro op elk feest in Vlaanderen en omstreken. Onze dartstanden zorgen voor gegarandeerd plezier en gezelligheid, of het nu gaat om een trouwfeest, tuinfeest, personeelsfeest, bedrijfsfeest, communie, privéfeest, kerstfeest of een ander familie- of bedrijfsfeest. Bij ons vind je altijd een formule die past bij jouw gelegenheid.
-                      Je kunt kiezen uit 2 mogelijkheden: 1. Met animatie: onze begeleiders zorgen voor extra sfeer, uitleg en entertainment. 2. Zonder animatie: huur de dartstanden en laat je gasten vrij spelen wanneer ze willen.
-                      Beide opties zorgen voor sfeer, plezier en gezelligheid en maken van jouw feest een unieke ervaring waar iedereen van geniet.
-                      Huren kan al vanaf één dartstand.
-                      Neem contact op via de knop hieronder voor een vrijblijvende offerte en laat jouw feest tot een onvergetelijke dartbeleving worden!
+                      Iets te vieren? Speel darts als een pro op elk feest in Vlaanderen en omstreken. Onze dartstanden zorgen voor gegarandeerd plezier en gezelligheid.
+                      {% endblocktrans %}
+                    </p>
+
+                    <p>{% trans "Of het nu gaat om:" %}</p>
+                    <ul class="list-unstyled row">
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Trouwfeest" %}</span></li>
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Tuinfeest" %}</span></li>
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Kerstfeest" %}</span></li>
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Kinderfeest" %}</span></li>
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Familiefeest" %}</span></li>
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Personeelsfeest" %}</span></li>
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Bedrijfsfeest" %}</span></li>
+                      <li class="col-6"><i class="bi bi-check"></i> <span>{% trans "Communie" %}</span></li>
+                    </ul>
+
+                    <p>
+                      {% blocktrans %}
+                      Bij ons vind je altijd een formule die past bij uw gelegenheid. U kunt kiezen uit 2 mogelijkheden:
+                      {% endblocktrans %}
+                    </p>
+
+                    <ul class="list-unstyled">
+                      <li class="d-flex align-items-start mb-2">
+                          <i class="bi bi-check me-2 mt-1"></i>
+                          <div class="d-flex flex-column">
+                              <span>{% trans "Met animatie" %}</span>
+                              <small class="text-muted">
+                                  {% trans "Onze begeleiders zorgen voor extra sfeer, uitleg en entertainment." %}
+                              </small>
+                          </div>
+                      </li>
+
+                      <li class="d-flex align-items-center">
+                          <i class="bi bi-check me-2"></i>
+                          <span>{% trans "Zonder animatie" %}</span>
+                      </li>
+                    </ul>
+
+                    <p>
+                      {% blocktrans %}
+                      Huur de dartstanden en laat je gasten vrij spelen wanneer ze willen. Beide opties zorgen voor sfeer, plezier en gezelligheid en maken van uw feest een unieke ervaring waar iedereen van geniet.
+                      Huren kan al vanaf één dartstand. Neem contact op via de knop hieronder voor een vrijblijvende offerte en laat jouw feest tot een onvergetelijke dartbeleving worden!
                       {% endblocktrans %}
                     </p>
                     <a href="{% url 'index' %}#contact" class="btn btn-get-started align-self-start">{% trans 'Contacteer Ons' %}</a>
@@ -228,7 +266,7 @@ ChudartZ | Teambuilding & Workshops
                   </div>
 
                   <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
-                    <img src="{% static "img/feesten/verhuur.webp" %}" class="img-fluid" alt="{% trans "Verhuur van een dartsbord" %}">
+                    <img src="{% static "img/feesten/feest4.webp" %}" class="img-fluid" alt="{% trans "ChudartZ in actie op een feest" %}">
                   </div>
 
                 </div>
@@ -238,7 +276,7 @@ ChudartZ | Teambuilding & Workshops
                     <img src="{% static "img/feesten/feest3.webp" %}" class="img-fluid" alt="{% trans "feestopstelling bij ChudartZ" %}">
                   </div>
                   <div class="col-lg-4 col-md-12 d-flex align-items-center" data-aos="zoom-out">
-                    <img src="{% static "img/feesten/feest4.webp" %}" class="img-fluid" alt="{% trans "ChudartZ in actie op een feest" %}">
+                    <img src="{% static "img/feesten/verhuur.webp" %}" class="img-fluid" alt="{% trans "Verhuur van een dartsbord" %}">
                   </div>
                   <div class="col-lg-4 col-md-12 d-flex align-items-center" data-aos="zoom-out">
                     <img src="{% static "img/feesten/feest1.webp" %}" class="img-fluid" alt="{% trans "ChudartZ bij een feest" %}">
