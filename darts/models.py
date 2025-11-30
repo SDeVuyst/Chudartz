@@ -207,8 +207,18 @@ class Payment(models.Model):
         verbose_name_plural = "Betalingen"
     
     def save(self, *args, **kwargs):
-        # Check if payment is received
-        if self.status == PaymentStatus.PAID:
+        
+        # instantie bestaat al
+        if self.pk:
+            # check als de betaling reeds betaald is.
+            previous = Payment.objects.get(pk=self.pk)
+            status_changed_to_paid = (previous.status != PaymentStatus.PAID) and (self.status == PaymentStatus.PAID)
+        else:
+            # Nieuwe instantie
+            status_changed_to_paid = self.status == PaymentStatus.PAID
+
+
+        if status_changed_to_paid:
 
             # betaling van participant
             try:
@@ -231,8 +241,11 @@ class Payment(models.Model):
                 l.send_mail()
             except:
                 pass
-
+                
         super().save(*args, **kwargs)
+
+        print("Payment update received: mollie id ({self.mollie_id}) with status {self.status}")
+
 
     mollie_id = models.CharField(verbose_name=_("Mollie id"), blank=True, null=True)
     first_name = models.CharField(max_length=50, verbose_name=_("Voornaam"), blank=True, null=True)
