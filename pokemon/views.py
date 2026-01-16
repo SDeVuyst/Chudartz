@@ -49,6 +49,7 @@ def contact(request):
     
     name =  form.cleaned_data['name']
     email = form.cleaned_data['email']
+    phone = form.cleaned_data['phone']
     subject = form.cleaned_data['subject']
     message = form.cleaned_data['message']
 
@@ -56,7 +57,7 @@ def contact(request):
         # Send mail to admins
         send_mail(
             f'Contact Form - {subject}',
-            f'Name: {name}\nEmail: {email}\nMessage: {message}',
+            f'Name: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}',
             formataddr(('Contact | ChudartZ Collectibles', settings.EMAIL_HOST_USER)),
             [settings.EMAIL_HOST_USER],
             fail_silently=False,
@@ -373,11 +374,11 @@ def set_attendance(request):
 
 ###### ERROR HANDLERS #######
 
-def error_404(request, exception):
+def error_404(request, exception=None):
     context = get_default_context()
     return TemplateResponse(request, 'pokemon/errors/404.html', context, status=404)
 
-def error_500(request, exception):
+def error_500(request, exception=None):
     context = get_default_context()
     return TemplateResponse(request, 'pokemon/errors/500.html', context, status=500)
 

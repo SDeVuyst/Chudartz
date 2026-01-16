@@ -39,7 +39,7 @@
 
 
   </nav>
-
+  {% if evenement.slug %}
   <a class="btn-getstarted" href="{% url 'standhouder' slug=evenement.slug %}">{% trans 'Standhouder worden' %}</a>
-
+  {% endif %}
   </div>
