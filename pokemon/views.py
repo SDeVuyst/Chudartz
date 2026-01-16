@@ -66,7 +66,7 @@ def contact(request):
         # Send confirmation mail to user
         send_mail(
             'Chudartz | Bericht Ontvangen',
-            "Beste\n\nBedankt voor het invullen van het contactformulier. Wij hebben uw bericht in goede orde ontvangen en zullen zo snel mogelijk contact met u opnemen.\n\nMet vriendelijke groeten\n\nTeam ChudartZ",
+            "Beste\n\nBedankt voor het invullen van het contactformulier. Wij hebben uw bericht in goede orde ontvangen en zullen zo snel mogelijk contact met u opnemen.\nHou voor de zekerheid ook even je spam in de gaten, soms belandt de mail daar.\n\nMet vriendelijke groeten\n\nTeam ChudartZ",
             formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
             [email],
             fail_silently=False
@@ -249,7 +249,7 @@ def standhouder(request, slug):
             # Send confirmation mail to user
             send_mail(
                 'Chudartz Collectibles | Standhouder Aanvraag Ontvangen',
-                "Beste\n\nBedankt voor het invullen van het contactformulier. Wij hebben uw bericht in goede orde ontvangen en zullen zo snel mogelijk contact met u opnemen.\n\nMet vriendelijke groeten\n\nTeam ChudartZ Collectibles",
+                "Beste\n\nBedankt voor het invullen van het contactformulier. Wij hebben uw bericht in goede orde ontvangen en zullen zo snel mogelijk contact met u opnemen.\nHou voor de zekerheid ook even je spam in de gaten, soms belandt de mail daar.\n\nMet vriendelijke groeten\n\nTeam ChudartZ Collectibles",
                 formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
                 [data['email']],
                 fail_silently=False
