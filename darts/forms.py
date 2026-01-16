@@ -5,7 +5,7 @@ from phonenumber_field.formfields import PhoneNumberField
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
     email = forms.EmailField()
-    phone = forms.CharField(max_length=15, required=False)
+    phone = forms.CharField(max_length=18, required=False)
     subject = forms.CharField(max_length=100)
     message = forms.CharField()
 

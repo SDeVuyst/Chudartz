@@ -408,7 +408,7 @@ def contact(request):
     
     name =  form.cleaned_data['name']
     email = form.cleaned_data['email']
-    phone = form.cleander_data['phone']
+    phone = form.cleaned_data['phone']
     subject = form.cleaned_data['subject']
     message = form.cleaned_data['message']
 
