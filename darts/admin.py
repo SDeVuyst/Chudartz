@@ -398,12 +398,6 @@ class LocatieAdmin(SimpleHistoryAdmin, ModelAdmin):
         label = _("Ja") if obj.active else _("Nee")
         return obj.active, label
     
-    def get_readonly_fields(self, request, obj: Locatie=None):
-        # Make 'slug' field read-only for non-superusers
-        if not request.user.is_superuser:
-            return ('slug',) + self.readonly_fields
-        return self.readonly_fields  # Superusers can edit all fields
-    
 
 @admin.register(IndexFoto)
 class IndexFotoAdmin(ModelAdmin):
