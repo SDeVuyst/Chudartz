@@ -10,6 +10,10 @@ ChudartZ | Sponsors
 <meta name="robots" content="index, nofollow">
 {% endblock %}
 
+{% block head %}
+<link href="{% static 'css/sponsor-packages.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 <body class="sponsors-page">
 
@@ -18,14 +22,17 @@ ChudartZ | Sponsors
   <main class="main">
     
     {% trans "Sponsors" as page_name %}
+    {% trans "Wilt u ChudartZ steunen? Bekijk onze sponsorpakketten en ontdek welke samenwerking het beste bij uw bedrijf past." as page_description %}
+    {% trans "Word sponsor van ChudartZ" as page_button_label %}
+    {% url 'sponsor_worden' as sponsor_worden_url %}
 
-    {% include 'blocks/page-title.html' with name=page_name %}
+    {% include 'blocks/page-title.html' with name=page_name description=page_description button_url=sponsor_worden_url button_label=page_button_label %}
 
     <section id="portfolio-details" class="portfolio-details section pt-0"> 
 
       <div class="container" data-aos="fade-up">
 
-        <div class="row justify-content-between gy-4 mt-4">
+        <div class="row justify-content-between gy-4">
 
           <div data-aos="fade-up">
 

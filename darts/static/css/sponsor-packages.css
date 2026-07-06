@@ -1,0 +1,174 @@
+/*--------------------------------------------------------------
+# Sponsor Packages
+--------------------------------------------------------------*/
+
+.sponsor-packages .sponsor-packages__paid-title {
+  padding-bottom: 2rem;
+}
+
+.sponsor-packages .sponsor-tier {
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sponsor-packages .sponsor-tier:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+.sponsor-packages .sponsor-tier__header {
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  color: #fff;
+}
+
+.sponsor-packages .sponsor-tier__header h3 {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+.sponsor-packages .sponsor-tier__header p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.sponsor-packages .sponsor-tier__body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sponsor-packages .sponsor-tier__price--gift {
+  font-family: var(--heading-font);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  margin-bottom: 1rem;
+}
+
+.sponsor-packages .sponsor-tier ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  flex-grow: 1;
+}
+
+.sponsor-packages .sponsor-tier ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.45rem 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+}
+
+.sponsor-packages .sponsor-tier ul li i {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  font-size: 1rem;
+}
+
+.sponsor-packages .sponsor-tier .btn-get-started,
+.sponsor-packages .pricing .pricing-item .btn-get-started,
+.sponsors-page .features .features-item .btn-get-started,
+.sponsors-page .page-title .btn-get-started {
+  align-self: center;
+  margin-top: auto;
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 8px 30px 10px 30px;
+  border-radius: 4px;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.sponsor-packages .sponsor-tier .btn-get-started:hover,
+.sponsor-packages .pricing .pricing-item .btn-get-started:hover,
+.sponsors-page .features .features-item .btn-get-started:hover,
+.sponsors-page .page-title .btn-get-started:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  color: var(--contrast-color);
+}
+
+.sponsor-packages .sponsor-tier--gift {
+  border-color: #d5d8dc;
+}
+
+.sponsor-packages .sponsor-tier--gift .sponsor-tier__header {
+  background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+}
+
+.sponsor-packages .sponsor-tier--gift ul li i {
+  color: #7f8c8d;
+}
+
+.sponsor-packages .sponsor-tier--other {
+  border-color: var(--accent-color);
+}
+
+.sponsor-packages .sponsor-tier--other .sponsor-tier__header {
+  background: linear-gradient(135deg, #9a0e15, var(--accent-color));
+}
+
+.sponsor-packages .sponsor-tier--other ul li i {
+  color: var(--accent-color);
+}
+
+/* Paid packages: site-native pricing cards */
+.sponsor-packages .sponsor-packages__pricing {
+  padding: 0 0 20px;
+}
+
+.sponsor-packages .sponsor-packages__pricing .pricing-item {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 30px 30px;
+}
+
+.sponsor-packages .sponsor-packages__pricing .pricing-item__subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+  margin: -0.25rem 0 0;
+}
+
+.sponsor-packages .sponsor-packages__pricing .pricing-item__badge {
+  display: block;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+.sponsor-packages .sponsor-packages__pricing .pricing-item--highlight {
+  border: 2px solid var(--accent-color);
+}
+
+.sponsor-packages .sponsor-packages__pricing .pricing-item ul {
+  flex-grow: 1;
+}
+
+.sponsor-packages .sponsor-packages__pricing .pricing-item ul li {
+  align-items: flex-start;
+}
+
+.sponsor-packages .sponsor-packages__pricing .pricing-item ul li span {
+  line-height: 1.45;
+}

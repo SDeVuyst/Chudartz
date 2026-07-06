@@ -12,6 +12,11 @@
             {% if description %}
             <p class="mb-0"><b>{{ description }}</b></p>
             {% endif %}
+            {% if button_url and button_label %}
+            <p class="mt-4 mb-0">
+              <a href="{{ button_url }}" class="btn btn-get-started">{{ button_label }}</a>
+            </p>
+            {% endif %}
           </div>
         </div>
       </div>

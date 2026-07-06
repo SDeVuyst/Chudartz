@@ -10,6 +10,10 @@ ChudartZ | Sponsor Worden?
 <meta name="robots" content="index, nofollow">
 {% endblock %}
 
+{% block head %}
+<link href="{% static 'css/sponsor-packages.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 <body class="sponsors-page">
 
@@ -18,52 +22,143 @@ ChudartZ | Sponsor Worden?
   <main class="main">
     
     {% trans "Word sponsor van ChudartZ!" as page_name %}
+    {% trans "Overkoepelende activiteiten: jeugd dartschool, darttoernooien, teambuildings/workshops en dartsgerelateerde evenementen. Hieronder vindt u een overzicht van onze sponsorpakketten. Elk pakket biedt unieke voordelen en zichtbaarheid voor uw bedrijf." as page_description %}
 
-    {% include 'blocks/page-title.html' with name=page_name %}
+    {% include 'blocks/page-title.html' with name=page_name description=page_description %}
 
-    <section id="portfolio-details" class="portfolio-details section"> 
+    <section id="sponsorpakketten" class="sponsor-packages section">
 
-        <div class="container" data-aos="fade-up">
-  
-          <div class="row justify-content-between gy-4">
-            <h2 id="dartschool">Interesse om sponsor te worden?  </h2>
-            <p>{% blocktrans %}Elke vorm van sponsoring is van harte welkom, of het nu gaat om financiële ondersteuning of materiële bijdragen. Naast geldelijke bijdragen is ook niet-geldelijke steun van grote waarde. Denk hierbij aan:{% endblocktrans %}</p>
-            <ol>
-              <li>
-                <h6>{% blocktrans %}Vrijwilligers en assistent-trainers zijn ook van harte welkom{% endblocktrans %}</h6>
-              </li>
-              <li>
-                  <h6>{% blocktrans %}Het beschikbaar stellen van materialen of locaties{% endblocktrans %}</h6>
-              </li>
-              <li>
-                <h6>{% blocktrans %}Het sponsoren van prijzen voor toernooien{% endblocktrans %}</h6>
-              </li>
-              <li>
-                <h6>{% blocktrans %}Het drukken of ontwerpen van promotiemateriaal {% endblocktrans %}</h6>
-              </li>
-              <li>
-                <h6>{% blocktrans %}Het aanbieden van kleding of merchandise voor spelers {% endblocktrans %}</h6>
-              </li>
-              <li>
-                  <h6>{% blocktrans %}Het ondersteunen van vervoerskosten voor spelers bij competities{% endblocktrans %}</h6>
-              </li>
-  
-            </ol>
+      <div class="container" data-aos="fade-up">
 
-            <p>{% blocktrans %}Elke vorm van ondersteuning helpt ons om de jeugddartscholen verder te laten groeien en biedt uw bedrijf tegelijkertijd waardevolle zichtbaarheid binnen onze community. Laten we samen bouwen aan een sterkere dartsport en een hechte gemeenschap! {% endblocktrans %}</p>
-            
-            </div>
-            <div class="col-12 text-center features">
-              <div class="features-item">
-                <a href="/#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+        <div class="section-title text-center sponsor-packages__title">
+          <h2>{% trans 'Sponsorpakketten' %}</h2>
+        </div>
+
+        <div class="pricing sponsor-packages__pricing">
+          <div class="row g-4 justify-content-center">
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="pricing-item">
+                <h3>{% trans 'Bronze' %}</h3>
+                <p class="pricing-item__subtitle">{% trans 'Basis zichtbaarheid' %}</p>
+                <div class="icon">
+                  <i class="bi bi-award"></i>
+                </div>
+                <h4 class="mb-1"><sup>€</sup>200<span>{% trans 'excl. btw / sportseizoen' %}</span></h4>
+                <ul>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Logo/bedrijfsnaam op de sponsorpagina van onze website' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Logo/bedrijfsnaam op papieren flyers van evenementen' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Vermelding op de algemene sponsorflyer tijdens evenementen' %}</span></li>
+                </ul>
+                <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
               </div>
             </div>
-            
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
+              <div class="pricing-item">
+                <h3>{% trans 'Silver' %}</h3>
+                <p class="pricing-item__subtitle">{% trans 'Online zichtbaarheid + eventmateriaal' %}</p>
+                <div class="icon">
+                  <i class="bi bi-star"></i>
+                </div>
+                <h4 class="mb-1"><sup>€</sup>350<span>{% trans 'excl. btw / sportseizoen' %}</span></h4>
+                <ul>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Alles uit Bronze, plus:' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Logo met doorklik op sponsorpagina en in de footer' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Minstens één vermelding op sociale media' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Eigen banner tijdens evenementen' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Logo op T-shirts van jeugdspelers' %}</span></li>
+                </ul>
+                <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="pricing-item">
+                <h3>{% trans 'Gold' %}</h3>
+                <p class="pricing-item__subtitle">{% trans 'Hoofdsponsor met verhoogde visibiliteit' %}</p>
+                <div class="icon">
+                  <i class="bi bi-gem"></i>
+                </div>
+                <h4 class="mb-1"><sup>€</sup>500<span>{% trans 'excl. btw / sportseizoen' %}</span></h4>
+                <ul>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Alles uit Silver, plus:' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Door ons ontworpen banner (productie inbegrepen)' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Structurele visibiliteit in jeugddartscholen' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Groter logo op T-shirts van spelers en coaches' %}</span></li>
+                </ul>
+                <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="250">
+              <div class="pricing-item pricing-item--highlight">
+                <span class="pricing-item__badge">{% trans 'Exclusief' %}</span>
+                <h3>{% trans 'Platinum' %}</h3>
+                <p class="pricing-item__subtitle">{% trans 'Enige hoofdsponsor + naamkoppeling' %}</p>
+                <div class="icon">
+                  <i class="bi bi-trophy"></i>
+                </div>
+                <h4 class="mb-1"><sup>€</sup>750<span>{% trans 'excl. btw / sportseizoen' %}</span></h4>
+                <ul>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Alles uit Gold, plus:' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Status van enige en exclusieve hoofdsponsor' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Grootste logo op kleding, banners en eventmateriaal' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans 'Naamkoppeling aan een evenement' %}</span></li>
+                  <li><i class="bi bi-check"></i> <span>{% trans '2 extra toegangs- of deelnametickets' %}</span></li>
+                </ul>
+                <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+              </div>
+            </div>
+
           </div>
         </div>
-      </section>
 
-    </main>
+        <div class="row g-4 justify-content-center mb-5">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="sponsor-tier sponsor-tier--gift">
+              <div class="sponsor-tier__header">
+                <h3><i class="bi bi-heart me-2"></i>{% trans 'Vrije gift' %}</h3>
+                <p>{% trans 'Steun zonder tegenprestatie' %}</p>
+              </div>
+              <div class="sponsor-tier__body">
+                <div class="sponsor-tier__price sponsor-tier__price--gift">{% trans 'Op eigen keuze' %}</div>
+                <p class="text-center mb-4">
+                  {% blocktrans %}
+                  Zonder enige vorm van reclame, zichtbaarheid of andere (commerciële) tegenprestatie. Een symbolisch bedrag om ons te steunen in ons werk.
+                  {% endblocktrans %}
+                </p>
+                <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="sponsor-tier sponsor-tier--other">
+              <div class="sponsor-tier__header">
+                <h3><i class="bi bi-hand-thumbs-up me-2"></i>{% trans 'Andere vormen van sponsoring' %}</h3>
+                <p>{% trans 'Materiële en niet-geldelijke steun' %}</p>
+              </div>
+              <div class="sponsor-tier__body">
+                <ul>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>{% trans 'Vrijwilligers en assistent-trainers' %}</span></li>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>{% trans 'Beschikbaar stellen van materialen of locaties' %}</span></li>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>{% trans 'Sponsoren van prijzen voor toernooien' %}</span></li>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>{% trans 'Drukken of ontwerpen van promotiemateriaal' %}</span></li>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>{% trans 'Aanbieden van kleding of merchandise voor spelers' %}</span></li>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>{% trans 'Ondersteunen van vervoerskosten bij competities' %}</span></li>
+                </ul>
+                <a href="{% url 'index' %}#contact" class="btn btn-get-started">{% trans 'Neem contact op' %}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
   {% include 'blocks/footer.html' %}
 
 </body>
