@@ -1,0 +1,24 @@
+/*--------------------------------------------------------------
+# Sponsors Page
+--------------------------------------------------------------*/
+
+.sponsors-page .features .features-item {
+  align-items: center;
+}
+
+.sponsors-page .features .features-item .btn-get-started {
+  align-self: flex-start;
+  margin-top: 1.25rem;
+}
+
+.sponsors-page .features .features-item .features-img-bg {
+  min-height: auto;
+  justify-content: center;
+}
+
+.sponsors-page .features .features-item .features-img-bg img {
+  position: static;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}

@@ -83,7 +83,6 @@
 
 .sponsor-packages .sponsor-tier .btn-get-started,
 .sponsor-packages .pricing .pricing-item .btn-get-started,
-.sponsors-page .features .features-item .btn-get-started,
 .sponsors-page .page-title .btn-get-started {
   align-self: center;
   margin-top: auto;
@@ -96,10 +95,20 @@
   text-decoration: none;
 }
 
+.sponsors-page .features .features-item .btn-get-started {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 8px 30px 10px 30px;
+  border-radius: 4px;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+}
+
 .sponsor-packages .sponsor-tier .btn-get-started:hover,
 .sponsor-packages .pricing .pricing-item .btn-get-started:hover,
-.sponsors-page .features .features-item .btn-get-started:hover,
-.sponsors-page .page-title .btn-get-started:hover {
+.sponsors-page .page-title .btn-get-started:hover,
+.sponsors-page .features .features-item .btn-get-started:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
   color: var(--contrast-color);
 }
