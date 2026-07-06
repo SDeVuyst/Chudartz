@@ -22,7 +22,6 @@
           <li><a href="{% url 'priveles' %}">{% trans 'Privéles boeken' %}</a></li>
         </ul>
       </li>
-      <li><a href="https://triplefun.be/" target="_blank">{% trans 'Dartsclub' %}</a></li>
       <li><a href="{% url 'trainers' %}">{% trans 'Trainers' %}</a></li>
       <li class="dropdown"><a href="#"><span>{% trans 'Toernooien' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>
@@ -59,7 +58,9 @@
           <li><a href="{% url 'workshops' %}#feesten">{% trans 'Feesten' %}</a></li>
         </ul>
       </li>
+      <li><a href="{% url 'sponsors' %}">{% trans 'Sponsors' %}</a></li>
       <li><a href="{% url 'index' %}#contact">{% trans 'Contact' %}</a></li>
+      <li><a href="https://triplefun.be/" target="_blank">{% trans 'Dartsclub' %}</a></li>
 
       <li class="dropdown">
         {% get_current_language as LANGUAGE_CODE %}
