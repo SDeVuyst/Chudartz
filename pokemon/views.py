@@ -6,7 +6,9 @@ from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.db.models import Case, IntegerField, Value, When
+from django.db.models import Case, FloatField, IntegerField, Value, When
+from django.db.models.expressions import ExpressionWrapper
+from django.db.models.functions import Extract
 from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
                          HttpResponseNotFound, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect
@@ -87,18 +89,30 @@ def evenementen(request):
             When(start_datum__gte=today, then=Value(0)),
             default=Value(1),
             output_field=IntegerField(),
-        )
-    ).order_by('is_future', 'volgorde', 'start_datum')
-    
-    paginator = Paginator(evenementen, 6)
+        ),
+        sort_date=Case(
+            When(is_future=0, then=Extract('start_datum', 'epoch')),
+            default=ExpressionWrapper(
+                -Extract('start_datum', 'epoch'),
+                output_field=FloatField(),
+            ),
+            output_field=FloatField(),
+        ),
+    ).order_by('is_future', 'volgorde', 'sort_date')
+
+    paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
     context = get_default_context()
     context["evenementen"] = page_obj
-    context["has_future_events"] = evenementen.filter(is_future=0).exists()
-    context["has_past_events"] = evenementen.filter(is_future=1).exists()
+    context["has_future_events"] = any(
+        evenement.is_in_future or evenement.is_bezig for evenement in page_obj
+    )
+    context["has_past_events"] = any(
+        not evenement.is_in_future and not evenement.is_bezig for evenement in page_obj
+    )
     context["enable_pagination"] = paginator.num_pages > 1
 
     return TemplateResponse(request, 'pokemon/pages/evenementen.html', context)

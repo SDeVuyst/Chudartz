@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib import admin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
@@ -42,6 +43,30 @@ class EvenementFilter(DropdownFilter):
         # Filter the queryset of Participants based on the selected event
         if self.value():
             return queryset.filter(ticket__event__pk=self.value())
+        return queryset
+
+
+class EvenementEinddatumFilter(DropdownFilter):
+    title = _('Einddatum')
+    parameter_name = 'einddatum'
+
+    def lookups(self, request, model_admin):
+        return [
+            ('future', _('In de toekomst')),
+            ('past', _('Verlopen')),
+            ('all', _('Alle')),
+        ]
+
+    def queryset(self, request, queryset):
+        now = timezone.now()
+        value = self.value()
+
+        if value == 'past':
+            return queryset.filter(einde_datum__lt=now)
+        if value == 'all':
+            return queryset
+        if value == 'future' or (value is None and not request.GET.get('q')):
+            return queryset.filter(einde_datum__gte=now)
         return queryset
     
 # MODELS #
@@ -202,8 +227,17 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         EvenementFotoInline,
     ]
     actions_detail = ["generate_qr_code",]
+    list_filter = (EvenementEinddatumFilter,)
+    list_filter_submit = True
 
     search_fields = ('titel', 'beschrijving', 'start_datum', 'einde_datum', 'locatie_lang')
+
+    def changelist_view(self, request, extra_context=None):
+        if 'einddatum' not in request.GET and not request.GET.get('q'):
+            query = request.GET.copy()
+            query['einddatum'] = 'future'
+            return redirect(f'{request.path}?{query.urlencode()}')
+        return super().changelist_view(request, extra_context)
 
     @display(description=_("Titel"), header=True)
     def display_header(self, instance: Evenement):
