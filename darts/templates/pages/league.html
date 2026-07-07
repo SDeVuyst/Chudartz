@@ -1,0 +1,108 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | {{ league.titel }}
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="ChudartZ | {{ league.titel }}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block head %}
+<link href="{% static 'css/leagues.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<body class="league-detail-page {% if league.is_superleague %}league-detail-page--super{% endif %}">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Leagues" as page_previous_crumb %}
+    {% url 'leagues' as page_previous_crumb_link %}
+    {% trans "Dartschool" as page_second_previous_crumb %}
+    {% url 'dartschool' as page_second_previous_crumb_link %}
+
+    {% if league.is_superleague %}
+      {% blocktrans with year=league.jaar asvar league_description %}Superleague · {{ year }}{% endblocktrans %}
+    {% else %}
+      {% blocktrans with year=league.jaar asvar league_description %}{{ year }}{% endblocktrans %}
+    {% endif %}
+
+    {% if league.locatie %}
+      {% url 'locatie_detail' slug=league.locatie.slug as locatie_url %}
+      {% include 'blocks/page-title.html' with name=league.titel description=league_description middle_crumb=league.locatie.titel middle_crumb_link=locatie_url second_previous_crumb=page_second_previous_crumb second_previous_crumb_link=page_second_previous_crumb_link previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
+    {% else %}
+      {% include 'blocks/page-title.html' with name=league.titel description=league_description second_previous_crumb=page_second_previous_crumb second_previous_crumb_link=page_second_previous_crumb_link previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
+    {% endif %}
+
+    <section class="service-details section pt-0 league-divisies-section">
+      <div class="container">
+
+        {% for divisie in league.divisies.all %}
+        <div class="league-divisie {% if forloop.counter|divisibleby:2 %}league-divisie--alt{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+          <div class="league-divisie__header">
+            <div class="section-title">
+              <h2>
+                {% if "Eindronde" in divisie.naam or "Divisie 1" in divisie.naam %}
+                <i class="bi bi-lightning-charge-fill"></i>
+                {% else %}
+                <i class="bi bi-bullseye"></i>
+                {% endif %}
+                {{ divisie.naam }}
+              </h2>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            {% if divisie.stand %}
+            <div class="col-lg-6 order-lg-last order-first">
+              <div class="service-box league-table-box league-table-box--stand h-100">
+                <h4><i class="bi bi-bar-chart-fill"></i> {% trans "Stand" %}</h4>
+                <div class="table-responsive league-content league-stand">
+                  {{ divisie.stand|safe }}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            {% if divisie.uitslagen %}
+            <div class="col-lg-6 {% if not divisie.stand %}col-lg-12{% endif %}">
+              <div class="service-box league-table-box league-table-box--results h-100">
+                <h4><i class="bi bi-list-check"></i> {% trans "Uitslagen" %}</h4>
+                <div class="table-responsive league-content league-results">
+                  {{ divisie.uitslagen|safe }}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+
+          {% if divisie.toelichting %}
+          <div class="league-toelichting">
+            <p class="league-toelichting__label"><i class="bi bi-chat-left-text"></i> {% trans "Toelichting" %}</p>
+            <div class="league-toelichting__content">
+              {{ divisie.toelichting|safe }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% empty %}
+        <div class="text-center py-5">
+          <p>{% trans "Er zijn nog geen divisies toegevoegd aan deze league." %}</p>
+        </div>
+        {% endfor %}
+
+      </div>
+    </section>
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

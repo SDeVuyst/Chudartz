@@ -618,6 +618,88 @@ class Locatie(models.Model):
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
 
+class League(models.Model):
+
+    def __str__(self) -> str:
+        return self.titel
+
+    def get_absolute_url(self):
+        return f'https://chudartz.com/nl/dartschool/leagues/{self.slug}/'
+
+    class Meta:
+        verbose_name = "League"
+        verbose_name_plural = "Leagues"
+        ordering = ['-jaar', '-volgorde']
+
+    titel = models.CharField(max_length=100, verbose_name=_("Titel"))
+    slug = models.SlugField(unique=True)
+    locatie = models.ForeignKey(
+        Locatie,
+        on_delete=models.CASCADE,
+        related_name='leagues',
+        null=True,
+        blank=True,
+        verbose_name=_("Locatie"),
+    )
+    jaar = models.PositiveSmallIntegerField(verbose_name=_("Jaar"))
+    historisch = models.BooleanField(
+        verbose_name=_("Historisch"),
+        default=False,
+        help_text=_(
+            "Historische leagues verschijnen niet op het leagues-overzicht, "
+            "maar wel via de locatiepagina."
+        ),
+    )
+    active = models.BooleanField(verbose_name=_("Actief"), default=True)
+    volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    @property
+    def is_superleague(self):
+        return self.locatie_id is None
+
+
+class LeagueDivisie(models.Model):
+
+    def __str__(self) -> str:
+        return f"{self.league.titel} — {self.naam}"
+
+    class Meta:
+        verbose_name = "League Divisie"
+        verbose_name_plural = "League Divisies"
+        ordering = ['volgorde', 'id']
+
+    league = models.ForeignKey(
+        League,
+        on_delete=models.CASCADE,
+        related_name='divisies',
+        verbose_name=_("League"),
+    )
+    naam = models.CharField(max_length=100, verbose_name=_("Naam"))
+    volgorde = models.PositiveSmallIntegerField(verbose_name=_("Volgorde"), default=0)
+    uitslagen = RichTextField(
+        config_name='league_table',
+        verbose_name=_("Uitslagen"),
+        blank=True,
+    )
+    stand = RichTextField(
+        config_name='league_table',
+        verbose_name=_("Stand"),
+        blank=True,
+    )
+    toelichting = RichTextField(verbose_name=_("Toelichting"), blank=True)
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    def save(self, *args, **kwargs):
+        from .utils.league_tables import blank_if_default
+
+        self.uitslagen = blank_if_default(self.uitslagen, 'uitslagen')
+        self.stand = blank_if_default(self.stand, 'stand')
+        super().save(*args, **kwargs)
+
+
 class ToernooiFoto(models.Model):
     toernooi = models.ForeignKey(Toernooi, on_delete=models.CASCADE, related_name="fotos", verbose_name=_("Toernooi"))
     afbeelding = models.ImageField(upload_to="toernooi_fotos", verbose_name=_("Foto"), validators=[validate_image_max_size])

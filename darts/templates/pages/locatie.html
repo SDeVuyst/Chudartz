@@ -17,6 +17,10 @@ ChudartZ | {{ locatie.titel }}
 <meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
 {% endblock %}
 
+{% block head %}
+<link href="{% static 'css/leagues.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 <body class="locatie-page">
 
@@ -78,6 +82,49 @@ ChudartZ | {{ locatie.titel }}
                         </div>
                     </div>
               </div>
+
+              {% if actuele_leagues or historische_leagues %}
+              <div class="league-locatie-section" data-aos="fade-up">
+                <div class="league-locatie-section__header">
+                  <h3 class="league-locatie-heading"><i class="bi bi-trophy"></i> {% trans 'Leagues' %}</h3>
+                  <p>{% trans "Bekijk de actuele rankings en wedstrijduitslagen." %}</p>
+                </div>
+
+                {% if actuele_leagues %}
+                <div class="row gy-4">
+                {% for league in actuele_leagues %}
+                <div class="col-md-6">
+                  <a href="{% url 'league_detail' slug=league.slug %}" class="league-locatie-box">
+                    <span class="league-locatie-box__year">{{ league.jaar }}</span>
+                    <h4>{{ league.titel }}</h4>
+                    <span class="league-locatie-box__cta">{% trans "Bekijk ranking" %} <i class="bi bi-arrow-right"></i></span>
+                  </a>
+                </div>
+                {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if historische_leagues %}
+                <details class="league-history-toggle">
+                  <summary class="league-history-toggle__summary">
+                    {% blocktrans with locatie=locatie.titel %}Zie historische leagues in {{ locatie }}{% endblocktrans %}
+                    <i class="bi bi-chevron-down"></i>
+                  </summary>
+                  <div class="row gy-4 league-history-toggle__content">
+                  {% for league in historische_leagues %}
+                  <div class="col-md-6">
+                    <a href="{% url 'league_detail' slug=league.slug %}" class="league-locatie-box league-locatie-box--historisch">
+                      <span class="league-locatie-box__year">{{ league.jaar }}</span>
+                      <h4>{{ league.titel }}</h4>
+                      <span class="league-locatie-box__cta">{% trans "Bekijk ranking" %} <i class="bi bi-arrow-right"></i></span>
+                    </a>
+                  </div>
+                  {% endfor %}
+                  </div>
+                </details>
+                {% endif %}
+              </div>
+              {% endif %}
         
             </section>
           </div>

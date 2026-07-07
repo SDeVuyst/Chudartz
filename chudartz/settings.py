@@ -67,6 +67,38 @@ INSTALLED_APPS = [
     'import_export',
 ]
 
+def _league_ckeditor_styles():
+    path = BASE_DIR / 'darts' / 'static' / 'css' / 'league-ckeditor.css'
+    try:
+        return path.read_text(encoding='utf-8')
+    except OSError:
+        return ''
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+    'league_table': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Table', 'TableProperties'],
+            ['Undo', 'Redo'],
+        ],
+        'extraPlugins': 'table,tabletools,tableresize',
+        # Allow full table HTML so saved tables reload correctly in the editor
+        # (strict ACF stripped style/scope attrs and broke table rendering on edit)
+        'allowedContent': True,
+        # Inline CSS in the editor iframe — no external /static/ request needed
+        'contentsStyle': _league_ckeditor_styles(),
+        'bodyClass': 'league-content',
+        'height': 300,
+        'width': '100%',
+    },
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -315,6 +347,12 @@ UNFOLD = {
                         "title": _("Locaties"),
                         "icon": "location_away",
                         "link": "/admin/darts/locatie/",
+                    },
+
+                    {
+                        "title": _("Leagues"),
+                        "icon": "emoji_events",
+                        "link": "/admin/darts/league/",
                     },
 
                     {

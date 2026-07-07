@@ -1,0 +1,140 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ | {% trans "Leagues" %}
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="ChudartZ | {% trans 'Leagues' %}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block head %}
+<link href="{% static 'css/leagues.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<body class="leagues-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+    {% trans "Leagues" as page_name %}
+    {% trans "Dartschool" as page_previous_crumb %}
+    {% url 'dartschool' as page_previous_crumb_link %}
+    {% trans "Volg de rankings en wedstrijduitslagen van onze leagues per vestiging en de overkoepelende superleague." as page_description %}
+
+    {% include 'blocks/page-title.html' with name=page_name background="true" description=page_description previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link %}
+
+    {% if superleagues %}
+    <section class="leagues-super section">
+      <div class="container" data-aos="fade-up">
+        <div class="leagues-super__track">
+          {% for league in superleagues %}
+          <article class="leagues-super-card">
+            <span class="leagues-super-card__year">{{ league.jaar }}</span>
+            <div class="leagues-super-card__body">
+              <div class="leagues-super-card__content">
+                <p class="leagues-super-card__label"><i class="bi bi-trophy-fill"></i> {% trans "Superleague" %}</p>
+                <h2 class="leagues-super-card__title">
+                  <a href="{% url 'league_detail' slug=league.slug %}">{{ league.titel }}</a>
+                </h2>
+                <p class="leagues-super-card__desc">{% trans "De overkoepelende competitie over alle vestigingen heen." %}</p>
+                <a href="{% url 'league_detail' slug=league.slug %}" class="btn-get-started leagues-super-card__btn">
+                  {% trans "Bekijk ranking" %} <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+              <div class="leagues-super-card__decor" aria-hidden="true">
+                <img src="{% static 'img/logo-black.png' %}" alt="" class="leagues-super-card__logo" width="200" height="120">
+              </div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="leagues-vestiging section blog-posts">
+      <div class="container">
+
+        {% if vestiging_leagues %}
+        <div class="leagues-vestiging__header" data-aos="fade-up">
+          <div class="section-title">
+            <h2>{% trans "Vestigingsleagues" %}</h2>
+            <p>{% trans "Actuele leagues per ChudartZ-locatie." %}</p>
+          </div>
+        </div>
+        <div class="row gy-4">
+          {% for league in vestiging_leagues %}
+            {% include 'blocks/league-card.html' with league=league %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if not superleagues and not vestiging_leagues %}
+        <div class="text-center py-5" data-aos="fade-up">
+          <h2>{% trans "Er zijn nog geen leagues beschikbaar." %}</h2>
+        </div>
+        {% endif %}
+
+        {% if historische_superleagues or historische_vestiging_leagues %}
+        <details class="league-history-toggle leagues-history-toggle" data-aos="fade-up">
+          <summary class="league-history-toggle__summary">
+            {% trans "Zie historische leagues" %}
+            <i class="bi bi-chevron-down"></i>
+          </summary>
+
+          <div class="leagues-history-toggle__content">
+            {% if historische_superleagues %}
+            <div class="leagues-history-group">
+              <p class="leagues-history-group__title">{% trans "Superleague" %}</p>
+              <div class="row gy-3">
+                {% for league in historische_superleagues %}
+                <div class="col-lg-4 col-md-6">
+                  <a href="{% url 'league_detail' slug=league.slug %}" class="league-locatie-box league-locatie-box--historisch">
+                    <span class="league-locatie-box__year">{{ league.jaar }}</span>
+                    <h4>{{ league.titel }}</h4>
+                    <span class="league-locatie-box__cta">{% trans "Bekijk ranking" %} <i class="bi bi-arrow-right"></i></span>
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+            {% if historische_vestiging_leagues %}
+            <div class="leagues-history-group">
+              <p class="leagues-history-group__title">{% trans "Vestigingsleagues" %}</p>
+              <div class="row gy-3">
+                {% for league in historische_vestiging_leagues %}
+                <div class="col-lg-4 col-md-6">
+                  <a href="{% url 'league_detail' slug=league.slug %}" class="league-locatie-box league-locatie-box--historisch">
+                    <span class="league-locatie-box__year">{{ league.jaar }}</span>
+                    {% if league.locatie %}
+                    <p class="league-locatie-box__locatie"><i class="bi bi-geo-alt"></i> {{ league.locatie.locatie }}</p>
+                    {% endif %}
+                    <h4>{{ league.titel }}</h4>
+                    <span class="league-locatie-box__cta">{% trans "Bekijk ranking" %} <i class="bi bi-arrow-right"></i></span>
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </details>
+        {% endif %}
+
+      </div>
+    </section>
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

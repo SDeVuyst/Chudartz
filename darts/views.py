@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.db.models import Case, IntegerField, Value, When
+from django.db.models import Case, IntegerField, Prefetch, Value, When
 from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
                          HttpResponseNotFound, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect
@@ -50,8 +50,45 @@ def locatie_detail(request, slug):
     if locatie.active == False: return HttpResponseNotFound()
 
     context['locatie'] = locatie
+    locatie_leagues = League.objects.filter(
+        locatie=locatie,
+        active=True,
+    ).order_by('-jaar', '-volgorde')
+    context['actuele_leagues'] = locatie_leagues.filter(historisch=False)
+    context['historische_leagues'] = locatie_leagues.filter(historisch=True)
     
     return TemplateResponse(request, 'pages/locatie.html', context)
+
+
+def leagues(request):
+    context = get_default_context()
+    actuele_leagues = League.objects.filter(
+        active=True,
+        historisch=False,
+    ).select_related('locatie').order_by('-jaar', '-volgorde')
+    historische_leagues = League.objects.filter(
+        active=True,
+        historisch=True,
+    ).select_related('locatie').order_by('-jaar', '-volgorde')
+    context['superleagues'] = actuele_leagues.filter(locatie__isnull=True)
+    context['vestiging_leagues'] = actuele_leagues.filter(locatie__isnull=False)
+    context['historische_superleagues'] = historische_leagues.filter(locatie__isnull=True)
+    context['historische_vestiging_leagues'] = historische_leagues.filter(locatie__isnull=False)
+
+    return TemplateResponse(request, 'pages/leagues.html', context)
+
+
+def league_detail(request, slug):
+    league = get_object_or_404(
+        League.objects.select_related('locatie').prefetch_related(
+            Prefetch('divisies', queryset=LeagueDivisie.objects.order_by('volgorde', 'id'))
+        ),
+        slug=slug,
+        active=True,
+    )
+    context = get_default_context()
+    context['league'] = league
+    return TemplateResponse(request, 'pages/league.html', context)
 
 
 def dartschool(request):

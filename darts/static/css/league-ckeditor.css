@@ -1,0 +1,84 @@
+body.cke_editable.league-content {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  color: #212529;
+  margin: 0.5rem;
+}
+
+.league-content table {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+}
+
+.league-content table,
+.league-content table[style] {
+  border: none !important;
+}
+
+.league-content thead th,
+.league-content tbody th {
+  background: linear-gradient(180deg, #c3111a 0%, #a50e16 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-family: Montserrat, system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1rem !important;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.league-content tbody td {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.1) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  color: #212529 !important;
+  font-size: 0.95rem;
+  padding: 0.7rem 1rem !important;
+  vertical-align: middle;
+}
+
+.league-content tbody tr:nth-child(even) td {
+  background-color: rgba(33, 37, 41, 0.03) !important;
+}
+
+.league-content tbody tr:hover td {
+  background-color: rgba(195, 17, 26, 0.08) !important;
+}
+
+.league-content .league-table--uitslagen tbody td:first-child {
+  font-weight: 600;
+}
+
+.league-content .league-table--stand tbody tr:nth-child(1) td {
+  background-color: #fff9e6 !important;
+}
+
+.league-content .league-table--stand tbody tr:nth-child(1) td:first-child {
+  box-shadow: inset 4px 0 0 #d4af37;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.league-content .league-table--stand tbody tr:nth-child(2) td {
+  background-color: #f8f8f8 !important;
+}
+
+.league-content .league-table--stand tbody tr:nth-child(2) td:first-child {
+  box-shadow: inset 4px 0 0 #b0b0b0;
+  font-weight: 700;
+}
+
+.league-content .league-table--stand tbody tr:nth-child(3) td {
+  background-color: #fff5eb !important;
+}
+
+.league-content .league-table--stand tbody tr:nth-child(3) td:first-child {
+  box-shadow: inset 4px 0 0 #cd7f32;
+  font-weight: 700;
+}

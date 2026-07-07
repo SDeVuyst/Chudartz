@@ -4,15 +4,15 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
-from unfold.admin import ModelAdmin
+from unfold.admin import ModelAdmin, TabularInline
 from unfold.contrib.filters.admin import DropdownFilter, RelatedDropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
 from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportModelAdmin
 from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExportForm
+from .forms import LeagueDivisieForm
 from .models import *
-
 
 # INLINES #
 class TicketInline(StackedInline):
@@ -25,6 +25,23 @@ class ToernooiFotoInline(StackedInline):
     extra = 1
     verbose_name = _("Toernooi Foto")
     verbose_name_plural = _("Toernooi Foto's")
+
+class LeagueDivisieInline(StackedInline):
+    model = LeagueDivisie
+    form = LeagueDivisieForm
+    extra = 0
+    ordering = ('volgorde',)
+    fields = ('naam', 'volgorde', 'uitslagen', 'stand', 'toelichting')
+    verbose_name = _("Divisie")
+    verbose_name_plural = _("Divisies")
+
+class LeagueInline(TabularInline):
+    model = League
+    extra = 0
+    fields = ('titel', 'jaar', 'slug', 'historisch', 'active', 'volgorde')
+    show_change_link = True
+    verbose_name = _("League")
+    verbose_name_plural = _("Leagues")
 
 # FILTERS #
 class ToernooiFilter(DropdownFilter):
@@ -371,6 +388,7 @@ class LocatieAdmin(SimpleHistoryAdmin, ModelAdmin):
     
     list_display = ('display_header', 'is_active')
     search_fields = ('titel',)
+    inlines = [LeagueInline]
 
     @display(description=_("Titel"), header=True)
     def display_header(self, instance: Locatie):
@@ -398,6 +416,57 @@ class LocatieAdmin(SimpleHistoryAdmin, ModelAdmin):
         label = _("Ja") if obj.active else _("Nee")
         return obj.active, label
     
+
+@admin.register(League)
+class LeagueAdmin(SimpleHistoryAdmin, ModelAdmin):
+
+    list_display = ('titel', 'jaar', 'display_locatie', 'divisie_count', 'display_historisch', 'is_active')
+    list_filter = ('active', 'historisch', 'jaar', 'locatie')
+    search_fields = ('titel',)
+    ordering = ('-jaar', '-volgorde')
+    prepopulated_fields = {'slug': ('titel',)}
+    inlines = [LeagueDivisieInline]
+    fieldsets = (
+        (None, {
+            'fields': ('titel', 'slug', 'locatie', 'jaar', 'historisch', 'active', 'volgorde'),
+        }),
+    )
+
+    @display(description=_("Locatie"))
+    def display_locatie(self, obj):
+        if obj.locatie_id is None:
+            return _("Superleague")
+        return obj.locatie.titel
+
+    @display(description=_("Divisies"))
+    def divisie_count(self, obj):
+        return obj.divisies.count()
+
+    @display(
+        description=_("Historisch"),
+        label={
+            True: "warning",
+            False: "success",
+        },
+    )
+    def display_historisch(self, obj):
+        label = _("Ja") if obj.historisch else _("Nee")
+        return obj.historisch, label
+
+    @display(
+        description=_("Actief"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def is_active(self, obj):
+        label = _("Ja") if obj.active else _("Nee")
+        return obj.active, label
+
+    def view_on_site(self, obj):
+        return obj.get_absolute_url()
+
 
 @admin.register(IndexFoto)
 class IndexFotoAdmin(ModelAdmin):

@@ -697,6 +697,21 @@ h6 {
   backdrop-filter: blur(2px) saturate(75%);
 }
 
+.page-title .heading .btn-get-started {
+  background-color: var(--accent-color);
+  border-radius: 50px;
+  color: var(--contrast-color);
+  display: inline-block;
+  font-weight: 600;
+  padding: 10px 32px 12px;
+  transition: 0.3s;
+}
+
+.page-title .heading .btn-get-started:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 15%);
+  color: var(--contrast-color);
+}
+
 .page-title .heading.background2 {
   background-image: url("/static/img/backgrounds/overview.webp");
 }

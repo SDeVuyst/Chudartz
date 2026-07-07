@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div class="col-lg-4 col-md-6">
+  <article class="league-card {% if league.is_superleague %}league-card--super{% endif %}">
+    <div class="league-card__body">
+      <div class="league-card__meta">
+        <p class="post-category">
+          {% if league.is_superleague %}
+          <i class="bi bi-trophy-fill"></i> {% trans "Superleague" %}
+          {% elif league.locatie %}
+          <i class="bi bi-geo-alt-fill"></i> {{ league.locatie.locatie }}
+          {% endif %}
+        </p>
+        <span class="league-card__year">{{ league.jaar }}</span>
+      </div>
+      <h2 class="title">
+        <a href="{% url 'league_detail' slug=league.slug %}">{{ league.titel }}</a>
+      </h2>
+      <a href="{% url 'league_detail' slug=league.slug %}" class="btn-get-started leagues-super-card__btn">
+        {% trans "Bekijk ranking" %} <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+  </article>
+</div>

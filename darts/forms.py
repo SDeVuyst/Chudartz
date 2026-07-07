@@ -1,6 +1,12 @@
 from django import forms
-from  .models import Beurtkaart, SkillLevel
+from  .models import Beurtkaart, LeagueDivisie, SkillLevel
 from phonenumber_field.formfields import PhoneNumberField
+from .utils.league_tables import (
+    blank_if_default,
+    default_stand_html,
+    default_uitslagen_html,
+    is_default_league_table,
+)
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -67,3 +73,26 @@ class CodeForm(forms.Form):
     voornaam = forms.CharField(max_length=100)
     achternaam = forms.CharField(max_length=100)
     email = forms.EmailField(max_length=254)
+
+
+class LeagueDivisieForm(forms.ModelForm):
+    class Meta:
+        model = LeagueDivisie
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.is_bound:
+            return
+        uitslagen = self.instance.uitslagen
+        if not uitslagen or is_default_league_table(uitslagen, 'uitslagen'):
+            self.initial['uitslagen'] = default_uitslagen_html()
+        stand = self.instance.stand
+        if not stand or is_default_league_table(stand, 'stand'):
+            self.initial['stand'] = default_stand_html()
+
+    def clean_uitslagen(self):
+        return blank_if_default(self.cleaned_data.get('uitslagen'), 'uitslagen')
+
+    def clean_stand(self):
+        return blank_if_default(self.cleaned_data.get('stand'), 'stand')

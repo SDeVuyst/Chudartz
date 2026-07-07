@@ -33,6 +33,10 @@
           {% if previous_crumb %}
           <li><a href="{{ previous_crumb_link }}">{{ previous_crumb }}</a></li>
           {% endif %}
+
+          {% if middle_crumb %}
+          <li><a href="{{ middle_crumb_link }}">{{ middle_crumb }}</a></li>
+          {% endif %}
           
           <li class="current">{{ name }}</li>
         </ol>
