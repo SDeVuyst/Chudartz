@@ -1,0 +1,10 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load i18n %}
+
+{% block wizard_content %}
+<div class="text-center py-4">
+  <h4>{% trans 'Er is iets misgegaan' %}</h4>
+  {% if error %}<p>{{ error }}</p>{% endif %}
+  <a href="{% url 'index' %}#contact" class="btn btn-back mt-3">{% trans 'Contact opnemen' %}</a>
+</div>
+{% endblock %}

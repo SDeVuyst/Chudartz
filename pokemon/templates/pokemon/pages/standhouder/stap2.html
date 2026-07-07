@@ -1,0 +1,48 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load i18n %}
+
+{% block wizard_content %}
+<h4>{% trans 'Stap 2: Uw gegevens' %}</h4>
+
+<form method="post" class="register-form" id="gegevens-form">
+  {% csrf_token %}
+  <div class="row gy-4">
+    <div class="col-md-6">{{ form.bedrijfsnaam }}</div>
+    <div class="col-md-6">{{ form.naam }}</div>
+    <div class="col-md-6">{{ form.email }}</div>
+    <div class="col-md-6">{{ form.telefoon }}</div>
+    <div class="col-md-12">{{ form.opmerkingen }}</div>
+    <div class="col-12 d-flex justify-content-between">
+      <a href="{% url 'standhouder' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
+      <button type="submit" id="gegevens-next-btn">{% trans 'Volgende: vragen' %}</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+{% block wizard_scripts %}
+<script>
+(function () {
+  var form = document.getElementById('gegevens-form');
+  if (!form) return;
+  var btn = document.getElementById('gegevens-next-btn');
+  var verplicht = ['bedrijfsnaam', 'naam', 'email', 'telefoon'];
+
+  function veld(naam) {
+    return form.querySelector('[name="' + naam + '"]');
+  }
+  function check() {
+    var ok = verplicht.every(function (n) {
+      var el = veld(n);
+      return el && el.value.trim() !== '';
+    });
+    btn.disabled = !ok;
+  }
+  verplicht.forEach(function (n) {
+    var el = veld(n);
+    if (el) el.addEventListener('input', check);
+  });
+  check();
+})();
+</script>
+{% endblock %}

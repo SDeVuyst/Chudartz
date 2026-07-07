@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+<p>Beste {{ inschrijving.naam }},</p>
+
+<p>Bedankt voor uw standhouder-inschrijving voor <strong>{{ evenement.titel }}</strong>.</p>
+
+<h3>Uw gegevens</h3>
+<ul>
+  <li>Bedrijfsnaam: {{ inschrijving.bedrijfsnaam }}</li>
+  <li>Email: {{ inschrijving.email }}</li>
+  <li>Telefoon: {{ inschrijving.telefoon }}</li>
+</ul>
+
+<h3>Gekozen tafels</h3>
+<ul>
+  {% for tafel in tafels %}
+    <li>{{ tafel.display_label }} — €{{ tafel.effectieve_prijs.amount }}</li>
+  {% endfor %}
+</ul>
+
+{% if antwoorden %}
+<h3>Antwoorden</h3>
+<ul>
+  {% for antwoord in antwoorden %}
+    <li>{{ antwoord.vraag.tekst }}: {{ antwoord.weergave }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<p><strong>Indicatief totaalbedrag: €{{ inschrijving.totaal_bedrag.amount }}</strong></p>
+
+<p>Wij hebben uw inschrijving in goede orde ontvangen en nemen zo snel mogelijk contact met u op.</p>
+
+<p>Met vriendelijke groeten,<br>Team ChudartZ Collectibles</p>
+</body>
+</html>

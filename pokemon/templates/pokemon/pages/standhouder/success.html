@@ -1,0 +1,10 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load i18n %}
+
+{% block wizard_content %}
+<div class="text-center py-4">
+  <h4>{% trans 'Inschrijving ontvangen!' %}</h4>
+  <p>{% trans 'Uw standhouder-inschrijving is succesvol ontvangen. U ontvangt een bevestiging per e-mail. Wij nemen zo snel mogelijk contact met u op.' %}</p>
+  <a href="{{ evenement.get_absolute_url }}" class="btn btn-back mt-3">{% trans 'Ga terug naar evenement' %}</a>
+</div>
+{% endblock %}

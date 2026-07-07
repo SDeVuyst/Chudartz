@@ -17,9 +17,36 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from darts.utils import helpers
-from pokemon.forms import ContactForm, StandhouderForm
-from pokemon.models import Evenement, EvenementFoto, Participant, Payment, PaymentStatus, Sponsor, Ticket
+from pokemon.forms import (
+    ContactForm,
+    StandhouderGegevensForm,
+    StandhouderTafelsForm,
+    build_standhouder_vragen_form,
+)
+from pokemon.models import (
+    Evenement,
+    EvenementFoto,
+    Participant,
+    Payment,
+    PaymentStatus,
+    Sponsor,
+    Ticket,
+)
 from pokemon.payment import MollieClient
+from pokemon.services.standhouder import StandhouderValidationError, finalize_inschrijving
+from pokemon.standhouder_wizard import (
+    build_prijsopbouw,
+    clear_concept_inschrijving,
+    get_applicable_vragen,
+    get_concept_inschrijving,
+    get_or_create_concept_inschrijving,
+    get_zaalplan,
+    heeft_gegevens,
+    save_tafel_keuzes,
+    save_vraag_antwoorden,
+    serialize_zaalplan_grid,
+    standhouder_base_context,
+)
 
 
 def index(request):
@@ -220,71 +247,176 @@ def evenement_success(request, slug):
     return TemplateResponse(request, 'pokemon/pages/evenement-inschrijving-response.html', context)
 
 
-def standhouder(request, slug):
-
+def _get_standhouder_evenement(slug):
     evenement = get_object_or_404(Evenement, slug=slug)
-    if not evenement.toon_op_site: return HttpResponseNotFound()
+    if not evenement.toon_op_site:
+        return None
+    return evenement
 
-    context = {
-        "evenement": evenement,
-        'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
-    }
 
-    if request.POST:
-        if not evenement.enable_standhouder: return JsonResponse({'success': False, 'error': 'Standhouder inschrijvingen gesloten.'})
-        
-        if not helpers.verify_recaptcha(request.POST.get('recaptcha_token')):
-            context["success"] = False
-            context["error"] = "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
-            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
-    
-        form = StandhouderForm(request.POST)
-        
-        if not form.is_valid():
-            print(form.errors)
+def _require_concept_inschrijving(request, evenement):
+    inschrijving = get_concept_inschrijving(request, evenement)
+    if not inschrijving:
+        return None
+    return inschrijving
 
-            # form was not valid, send to error page
-            context["success"] = False
 
-            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
-        
-        # send mails
+def standhouder(request, slug):
+    """Stap 1: tafels kiezen."""
+    evenement = _get_standhouder_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    inschrijving = get_or_create_concept_inschrijving(request, evenement)
+    zaalplan = get_zaalplan(evenement)
+    context = standhouder_base_context(request, evenement, 1)
+    context["zaalplan"] = zaalplan
+    context["grid_json"] = json.dumps(serialize_zaalplan_grid(zaalplan, inschrijving)) if zaalplan else "null"
+
+    if request.method == "POST":
+        if not evenement.enable_standhouder:
+            context["error"] = "Standhouder inschrijvingen gesloten."
+            return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
+
+        if not zaalplan:
+            context["error"] = "Er is nog geen zaalplan geconfigureerd voor dit evenement."
+            return TemplateResponse(request, "pokemon/pages/standhouder/stap1.html", context)
+
+        tafel_ids = [t for t in request.POST.getlist("tafels") if t]
+        if not tafel_ids:
+            context["error"] = "Selecteer minstens één tafel."
+            return TemplateResponse(request, "pokemon/pages/standhouder/stap1.html", context)
         try:
-            data = form.cleaned_data
-            # Send mail to admins
-            send_mail(
-                f'Standhouder Aanvraag',
-                f'Evenement: {evenement.titel}\nBedrijfsnaam: {data['bedrijfsnaam']}\nNaam: {data['naam']}\nEmail: {data['email']}\nTelefoon: {data['telefoon']}\nAantal Tafels: {data['aantal_tafels']}\nFactuur: {'ja' if data['factuur'] else 'nee'}\nElectriciteit: {'ja' if data['electriciteit'] else 'nee'}\nTafel/Stoel: {'ja' if data['tafel'] else 'nee'}\nOpmerkingen: {data['opmerkingen']}',
-                formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
-                [settings.EMAIL_HOST_USER],
-                fail_silently=False,
-            )
+            save_tafel_keuzes(inschrijving, tafel_ids)
+            return redirect("standhouder_gegevens", slug=slug)
+        except ValueError as exc:
+            context["error"] = str(exc)
 
-            # Send confirmation mail to user
-            send_mail(
-                'Chudartz Collectibles | Standhouder Aanvraag Ontvangen',
-                "Beste\n\nBedankt voor het invullen van het contactformulier. Wij hebben uw bericht in goede orde ontvangen en zullen zo snel mogelijk contact met u opnemen.\nHou voor de zekerheid ook even je spam in de gaten, soms belandt de mail daar.\n\nMet vriendelijke groeten\n\nTeam ChudartZ Collectibles",
-                formataddr(('Contact | ChudartZ', settings.EMAIL_HOST_USER)),
-                [data['email']],
-                fail_silently=False
-            )
+    return TemplateResponse(request, "pokemon/pages/standhouder/stap1.html", context)
 
-            context["success"] = True
-            
-            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
-        
-        except Exception as e:
-            print(e)
-            context["success"] = False
-            return TemplateResponse(request, 'pokemon/pages/standhouder-response.html', context)
-        
 
-    # GET request
-    context = {
-        "evenement": evenement,
-        "form": StandhouderForm(),
-    }
-    return TemplateResponse(request, 'pokemon/pages/standhouder.html', context)
+def standhouder_gegevens(request, slug):
+    """Stap 2: contactgegevens."""
+    evenement = _get_standhouder_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    inschrijving = _require_concept_inschrijving(request, evenement)
+    if not inschrijving:
+        return redirect("standhouder", slug=slug)
+
+    if inschrijving.aantal_tafels == 0:
+        return redirect("standhouder", slug=slug)
+
+    context = standhouder_base_context(request, evenement, 2)
+    context["form"] = StandhouderGegevensForm(instance=inschrijving)
+
+    if request.method == "POST":
+        if not evenement.enable_standhouder:
+            context["error"] = "Standhouder inschrijvingen gesloten."
+            return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
+
+        form = StandhouderGegevensForm(request.POST, instance=inschrijving)
+        if form.is_valid():
+            form.save()
+            return redirect("standhouder_vragen", slug=slug)
+        context["form"] = form
+
+    return TemplateResponse(request, "pokemon/pages/standhouder/stap2.html", context)
+
+
+def standhouder_tafels(request, slug):
+    return redirect("standhouder", slug=slug)
+
+
+def standhouder_vragen(request, slug):
+    evenement = _get_standhouder_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    inschrijving = _require_concept_inschrijving(request, evenement)
+    if not inschrijving:
+        return redirect("standhouder", slug=slug)
+
+    if inschrijving.aantal_tafels == 0:
+        return redirect("standhouder", slug=slug)
+
+    if not heeft_gegevens(inschrijving):
+        return redirect("standhouder_gegevens", slug=slug)
+
+    vragen = get_applicable_vragen(evenement, inschrijving.aantal_tafels)
+    VragenForm = build_standhouder_vragen_form(vragen, inschrijving.aantal_tafels)
+
+    context = standhouder_base_context(request, evenement, 3)
+
+    if request.method == "POST":
+        form = VragenForm(request.POST)
+        if form.is_valid():
+            save_vraag_antwoorden(inschrijving, form.cleaned_data, vragen)
+            return redirect("standhouder_overzicht", slug=slug)
+        context["form"] = form
+    else:
+        initial = {}
+        for antwoord in inschrijving.antwoorden.select_related("vraag"):
+            field_name = f"vraag_{antwoord.vraag_id}"
+            if antwoord.vraag.vraag_type in ("boolean", "checkbox"):
+                initial[field_name] = antwoord.antwoord == "true"
+            else:
+                initial[field_name] = antwoord.antwoord
+        context["form"] = VragenForm(initial=initial)
+
+    context["vragen"] = vragen
+    return TemplateResponse(request, "pokemon/pages/standhouder/stap3.html", context)
+
+
+def standhouder_overzicht(request, slug):
+    evenement = _get_standhouder_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    inschrijving = _require_concept_inschrijving(request, evenement)
+    if not inschrijving:
+        return redirect("standhouder", slug=slug)
+
+    if inschrijving.aantal_tafels == 0:
+        return redirect("standhouder", slug=slug)
+
+    if not heeft_gegevens(inschrijving):
+        return redirect("standhouder_gegevens", slug=slug)
+
+    inschrijving.bereken_totaal()
+    regels, totaal = build_prijsopbouw(inschrijving)
+    context = standhouder_base_context(request, evenement, 4)
+    context["prijsopbouw"] = regels
+    context["totaal"] = totaal
+    context["antwoorden"] = inschrijving.antwoorden.select_related("vraag").order_by("vraag__volgorde")
+
+    if request.method == "POST":
+        if not evenement.enable_standhouder:
+            context["error"] = "Standhouder inschrijvingen gesloten."
+            return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
+
+        if not helpers.verify_recaptcha(request.POST.get("recaptcha_token")):
+            context["error"] = "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+            return TemplateResponse(request, "pokemon/pages/standhouder/stap4.html", context)
+
+        try:
+            response = finalize_inschrijving(inschrijving)
+            clear_concept_inschrijving(request, evenement)
+            return response
+        except StandhouderValidationError as exc:
+            context["error"] = str(exc)
+
+    return TemplateResponse(request, "pokemon/pages/standhouder/stap4.html", context)
+
+
+def standhouder_success(request, slug):
+    evenement = _get_standhouder_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    context = standhouder_base_context(request, evenement, 5)
+    return TemplateResponse(request, "pokemon/pages/standhouder/success.html", context)
 
 
 def algemene_voorwaarden(request):

@@ -1,0 +1,85 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load i18n %}
+
+{% block head %}
+{{ block.super }}
+<script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
+{% endblock %}
+
+{% block wizard_content %}
+<h4>{% trans 'Stap 4: Overzicht en bevestigen' %}</h4>
+
+<div class="mb-4">
+  <h5>{% trans 'Uw gegevens' %}</h5>
+  <p>
+    <strong>{{ inschrijving.bedrijfsnaam }}</strong> — {{ inschrijving.naam }}<br>
+    {{ inschrijving.email }} · {{ inschrijving.telefoon }}<br>
+    {% if inschrijving.opmerkingen %}<em>{{ inschrijving.opmerkingen }}</em>{% endif %}
+  </p>
+</div>
+
+<div class="mb-4">
+  <h5>{% trans 'Gekozen tafels' %}</h5>
+  <p>{% for cel in inschrijving.gekozen_tafels %}{{ cel.display_label }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+</div>
+
+{% if antwoorden %}
+<div class="mb-4">
+  <h5>{% trans 'Antwoorden' %}</h5>
+  <ul>
+    {% for antwoord in antwoorden %}
+      <li><strong>{{ antwoord.vraag.tekst }}:</strong> {{ antwoord.weergave }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="mb-4">
+  <h5>{% trans 'Prijsopbouw (indicatief)' %}</h5>
+  <table class="prijsopbouw-table">
+    {% for regel in prijsopbouw %}
+      <tr><td>{{ regel.omschrijving }}</td><td>€{{ regel.bedrag }}</td></tr>
+    {% endfor %}
+    <tr><td><strong>{% trans 'Totaal' %}</strong></td><td><strong>€{{ totaal }}</strong></td></tr>
+  </table>
+</div>
+
+<form method="post" id="confirm-form" class="register-form">
+  {% csrf_token %}
+  <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+
+  <div class="col-md-12 mb-3">
+    <div class="form-check">
+      <input name="terms_voorwaarden" class="form-check-input" type="checkbox" required>
+      <label class="form-check-label text-muted small">
+        {% url 'algemene_voorwaarden' as av_url %}
+        {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a>.{% endblocktrans %}
+      </label>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <a href="{% url 'standhouder_vragen' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
+    <button type="submit">{% trans 'Inschrijving bevestigen' %}</button>
+  </div>
+</form>
+{% endblock %}
+
+{% block wizard_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('confirm-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      grecaptcha.ready(function() {
+        grecaptcha.execute('6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV', {action: 'submit'}).then(function(token) {
+          document.getElementById('recaptcha_token').value = token;
+          form.submit();
+        });
+      });
+    });
+  }
+});
+</script>
+{% endblock %}

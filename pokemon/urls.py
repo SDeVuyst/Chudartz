@@ -14,6 +14,11 @@ urlpatterns = i18n_patterns(
     path(_('evenementen'), views.evenementen, name="evenementen"),
     path(_('evenement/<slug:slug>/'), views.evenement, name='evenement'),
     path(_('evenement/<slug:slug>/standhouder-worden/'), views.standhouder, name='standhouder'),
+    path(_('evenement/<slug:slug>/standhouder-worden/gegevens/'), views.standhouder_gegevens, name='standhouder_gegevens'),
+    path(_('evenement/<slug:slug>/standhouder-worden/tafels/'), views.standhouder_tafels, name='standhouder_tafels'),
+    path(_('evenement/<slug:slug>/standhouder-worden/vragen/'), views.standhouder_vragen, name='standhouder_vragen'),
+    path(_('evenement/<slug:slug>/standhouder-worden/overzicht/'), views.standhouder_overzicht, name='standhouder_overzicht'),
+    path(_('evenement/<slug:slug>/standhouder-worden/success/'), views.standhouder_success, name='standhouder_success'),
     path(_('evenement/<slug:slug>/success'), views.evenement_success, name='evenement_success'),
 
     path("pokemon/set-attendance/", views.set_attendance),

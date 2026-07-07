@@ -9,7 +9,7 @@ from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.utils.translation import pgettext_lazy
 from django.contrib.staticfiles import finders
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponse
@@ -65,6 +65,11 @@ class Evenement(models.Model):
     standhouder_inbegrepen = models.TextField(verbose_name=_("Inbegrepen Standhouder (Elk op een nieuwe lijn)"))
     standhouder_prijzen = models.TextField(verbose_name=_("Prijzen Standhouder (Elk op een nieuwe lijn)"))
     enable_standhouder = models.BooleanField(verbose_name=_("Standhouder Inschrijvingen Inschakelen"), default=True)
+    standhouder_betaling_verplicht = models.BooleanField(
+        verbose_name=_("Standhouder betaling verplicht (Mollie)"),
+        default=False,
+        help_text=_("Nog niet actief. Laat uit tot Mollie-integratie is ingeschakeld."),
+    )
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
     partners = models.ManyToManyField(Partner, verbose_name=_("Partners"), blank=True, null=True)
     toon_op_site = models.BooleanField(verbose_name=_("Toon op site"), default=False)
@@ -450,3 +455,441 @@ class EvenementFoto(models.Model):
 
     def __str__(self):
         return f"Foto voor {self.evenement.titel} ({self.id})"
+
+
+class CelType:
+    LEEG = "leeg"
+    TAFEL = "tafel"
+    GEBLOKKEERD = "geblokkeerd"
+
+    CHOICES = [
+        (LEEG, _("Leeg")),
+        (TAFEL, _("Tafel")),
+        (GEBLOKKEERD, _("Geblokkeerd")),
+    ]
+
+
+class StandhouderInschrijvingStatus:
+    CONCEPT = "concept"
+    INGEDIEND = "ingediend"
+    WACHT_OP_BETALING = "wacht_op_betaling"
+    BETAALD = "betaald"
+    VERLOPEN = "verlopen"
+
+    CHOICES = [
+        (CONCEPT, _("Concept")),
+        (INGEDIEND, _("Ingediend")),
+        (WACHT_OP_BETALING, _("Wacht op betaling")),
+        (BETAALD, _("Betaald")),
+        (VERLOPEN, _("Verlopen")),
+    ]
+
+    BEZET = {INGEDIEND, WACHT_OP_BETALING, BETAALD}
+
+
+class VraagType:
+    TEKST = "tekst"
+    TEXTAREA = "textarea"
+    BOOLEAN = "boolean"
+    CHECKBOX = "checkbox"
+    NUMBER = "number"
+    SELECT = "select"
+
+    CHOICES = [
+        (TEKST, _("Tekst")),
+        (TEXTAREA, _("Lange tekst")),
+        (BOOLEAN, _("Ja/Nee")),
+        (CHECKBOX, _("Checkbox")),
+        (NUMBER, _("Getal")),
+        (SELECT, _("Keuzelijst")),
+    ]
+
+
+class Zaalplan(models.Model):
+    evenement = models.OneToOneField(
+        Evenement,
+        on_delete=models.CASCADE,
+        related_name="zaalplan",
+        verbose_name=_("Evenement"),
+    )
+    rijen = models.PositiveIntegerField(verbose_name=_("Aantal rijen"), default=8)
+    kolommen = models.PositiveIntegerField(verbose_name=_("Aantal kolommen"), default=12)
+    standaard_prijs = MoneyField(
+        verbose_name=_("Standaard prijs per tafel"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+    )
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    class Meta:
+        verbose_name = _("Zaalplan")
+        verbose_name_plural = _("Zaalplannen")
+
+    def __str__(self):
+        return f"Zaalplan {self.evenement.titel}"
+
+    def genereer_rooster(self):
+        for rij in range(self.rijen):
+            for kolom in range(self.kolommen):
+                ZaalplanCel.objects.get_or_create(
+                    zaalplan=self,
+                    rij=rij,
+                    kolom=kolom,
+                    defaults={"cel_type": CelType.LEEG},
+                )
+        self.cellen.filter(rij__gte=self.rijen).delete()
+        self.cellen.filter(kolom__gte=self.kolommen).delete()
+
+        # Groepen met minder dan 2 overgebleven cellen ontkoppelen
+        from collections import Counter
+        counts = Counter(
+            self.cellen.exclude(groep=None).values_list("groep", flat=True)
+        )
+        for groep_id, aantal in counts.items():
+            if aantal < 2:
+                self.cellen.filter(groep=groep_id).update(groep=None)
+
+
+class ZaalplanCel(models.Model):
+    zaalplan = models.ForeignKey(
+        Zaalplan,
+        on_delete=models.CASCADE,
+        related_name="cellen",
+        verbose_name=_("Zaalplan"),
+    )
+    rij = models.PositiveIntegerField(verbose_name=_("Rij"))
+    kolom = models.PositiveIntegerField(verbose_name=_("Kolom"))
+    cel_type = models.CharField(
+        max_length=12,
+        choices=CelType.CHOICES,
+        default=CelType.LEEG,
+        verbose_name=_("Type"),
+    )
+    label = models.CharField(max_length=30, blank=True, verbose_name=_("Label"))
+    prijs = MoneyField(
+        verbose_name=_("Prijs override"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+    )
+    groep = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Groep (samengevoegde cel)"),
+    )
+    gereserveerd = models.BooleanField(
+        default=False,
+        verbose_name=_("Reeds gereserveerd"),
+    )
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    class Meta:
+        verbose_name = _("Zaalplan cel")
+        verbose_name_plural = _("Zaalplan cellen")
+        unique_together = ("zaalplan", "rij", "kolom")
+        ordering = ["rij", "kolom"]
+
+    def __str__(self):
+        return self.display_label
+
+    @property
+    def display_label(self):
+        if self.label:
+            return self.label
+        return f"{chr(65 + self.rij)}{self.kolom + 1}"
+
+    @property
+    def effectieve_prijs(self):
+        if self.prijs is not None:
+            return self.prijs
+        return self.zaalplan.standaard_prijs
+
+    @property
+    def is_samengevoegd(self):
+        return self.groep is not None
+
+    def groepsleden(self):
+        """Alle cellen die tot dezelfde samengevoegde entiteit behoren."""
+        if not self.groep:
+            return ZaalplanCel.objects.filter(pk=self.pk)
+        return ZaalplanCel.objects.filter(zaalplan=self.zaalplan, groep=self.groep)
+
+    def primary_cel(self):
+        """De hoofdcel van de groep (linksboven); draagt label/prijs/selectie."""
+        if not self.groep:
+            return self
+        return self.groepsleden().order_by("rij", "kolom").first()
+
+    @property
+    def is_primary(self):
+        return self.primary_cel().pk == self.pk
+
+    def is_bezet(self, exclude_inschrijving_id=None):
+        primary = self.primary_cel()
+        if primary.cel_type != CelType.TAFEL:
+            return False
+        qs = StandhouderTafelKeuze.objects.filter(
+            cel=primary,
+            inschrijving__status__in=StandhouderInschrijvingStatus.BEZET,
+        )
+        if exclude_inschrijving_id:
+            qs = qs.exclude(inschrijving_id=exclude_inschrijving_id)
+        return qs.exists()
+
+    def ontgroepeer(self):
+        """Maak van een samengevoegde cel weer losse cellen."""
+        if not self.groep:
+            return
+        self.groepsleden().update(groep=None)
+
+
+class StandhouderVraag(models.Model):
+    evenement = models.ForeignKey(
+        Evenement,
+        on_delete=models.CASCADE,
+        related_name="standhouder_vragen",
+        verbose_name=_("Evenement"),
+    )
+    tekst = models.CharField(max_length=200, verbose_name=_("Vraag"))
+    vraag_type = models.CharField(
+        max_length=10,
+        choices=VraagType.CHOICES,
+        default=VraagType.BOOLEAN,
+        verbose_name=_("Type"),
+    )
+    opties = models.TextField(
+        blank=True,
+        verbose_name=_("Opties (één per regel, voor keuzelijst)"),
+    )
+    verplicht = models.BooleanField(default=False, verbose_name=_("Verplicht"))
+    volgorde = models.SmallIntegerField(default=0, verbose_name=_("Volgorde"))
+    prijs_toeslag = MoneyField(
+        verbose_name=_("Prijs toeslag"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        help_text=_("Wordt toegevoegd bij een positief antwoord (ja/checkbox/select)."),
+    )
+    min_tafels = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        verbose_name=_("Min. aantal tafels"),
+        help_text=_("Vraag alleen tonen als minstens dit aantal tafels gekozen is."),
+    )
+    max_tafels = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        verbose_name=_("Max. aantal tafels"),
+        help_text=_("Vraag alleen tonen als hoogstens dit aantal tafels gekozen is."),
+    )
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    class Meta:
+        verbose_name = _("Standhouder vraag")
+        verbose_name_plural = _("Standhouder vragen")
+        ordering = ["volgorde", "id"]
+
+    def __str__(self):
+        return self.tekst
+
+    @property
+    def opties_lijst(self):
+        return [o.strip() for o in self.opties.split("\n") if o.strip()]
+
+
+class StandhouderInschrijving(models.Model):
+    evenement = models.ForeignKey(
+        Evenement,
+        on_delete=models.CASCADE,
+        related_name="standhouder_inschrijvingen",
+        verbose_name=_("Evenement"),
+    )
+    bedrijfsnaam = models.CharField(max_length=100, verbose_name=_("Bedrijfsnaam"), blank=True, default="")
+    naam = models.CharField(max_length=100, verbose_name=_("Naam"), blank=True, default="")
+    email = models.EmailField(verbose_name=_("Email"), blank=True, default="")
+    telefoon = models.CharField(max_length=20, verbose_name=_("Telefoon"), blank=True, default="")
+    factuur = models.BooleanField(default=False, verbose_name=_("Factuur gewenst"))
+    opmerkingen = models.TextField(blank=True, verbose_name=_("Opmerkingen"))
+    status = models.CharField(
+        max_length=20,
+        choices=StandhouderInschrijvingStatus.CHOICES,
+        default=StandhouderInschrijvingStatus.CONCEPT,
+        verbose_name=_("Status"),
+    )
+    totaal_bedrag = MoneyField(
+        verbose_name=_("Totaalbedrag"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+    )
+    payment = models.ForeignKey(
+        Payment,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name=_("Betaling"),
+    )
+    aangemaakt_op = models.DateTimeField(auto_now_add=True, verbose_name=_("Aangemaakt op"))
+    bijgewerkt_op = models.DateTimeField(auto_now=True, verbose_name=_("Bijgewerkt op"))
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    class Meta:
+        verbose_name = _("Standhouder inschrijving")
+        verbose_name_plural = _("Standhouder inschrijvingen")
+        ordering = ["-aangemaakt_op"]
+
+    def __str__(self):
+        return f"{self.bedrijfsnaam} - {self.evenement.titel}"
+
+    @property
+    def gekozen_tafels(self):
+        return ZaalplanCel.objects.filter(
+            standhoudertafelkeuze_set__inschrijving=self
+        ).order_by("rij", "kolom")
+
+    @property
+    def aantal_tafels(self):
+        return self.gekozen_tafels.count()
+
+    def bereken_totaal(self):
+        from decimal import Decimal
+
+        totaal = Decimal("0")
+        for cel in self.gekozen_tafels:
+            totaal += cel.effectieve_prijs.amount
+
+        for antwoord in self.antwoorden.select_related("vraag"):
+            if antwoord.heeft_toeslag():
+                totaal += antwoord.vraag.prijs_toeslag.amount
+
+        self.totaal_bedrag = totaal
+        return totaal
+
+    def valideer_tafels_beschikbaar(self):
+        for cel in self.gekozen_tafels:
+            if cel.cel_type != CelType.TAFEL:
+                raise ValueError(f"Cel {cel.display_label} is geen tafel.")
+            if cel.is_bezet(exclude_inschrijving_id=self.pk):
+                raise ValueError(f"Tafel {cel.display_label} is niet meer beschikbaar.")
+
+    def verstuur_bevestiging(self):
+        from email.utils import formataddr
+
+        tafels = list(self.gekozen_tafels)
+        antwoorden = list(self.antwoorden.select_related("vraag").order_by("vraag__volgorde"))
+
+        user_body = render_to_string(
+            "pokemon/email/confirmation-mail-standhouder.html",
+            {
+                "inschrijving": self,
+                "evenement": self.evenement,
+                "tafels": tafels,
+                "antwoorden": antwoorden,
+            },
+        )
+        email = EmailMessage(
+            "ChudartZ Collectibles | Standhouder Inschrijving Ontvangen",
+            user_body,
+            formataddr(("Evenementen | Chudartz", settings.EMAIL_HOST_USER)),
+            [self.email],
+        )
+        email.content_subtype = "html"
+        email.send()
+
+        admin_lines = [
+            f"Evenement: {self.evenement.titel}",
+            f"Bedrijfsnaam: {self.bedrijfsnaam}",
+            f"Naam: {self.naam}",
+            f"Email: {self.email}",
+            f"Telefoon: {self.telefoon}",
+            f"Tafels: {', '.join(c.display_label for c in tafels)}",
+            f"Totaalbedrag: €{self.totaal_bedrag}",
+        ]
+        for antwoord in antwoorden:
+            admin_lines.append(f"{antwoord.vraag.tekst}: {antwoord.weergave()}")
+        if self.opmerkingen:
+            admin_lines.append(f"Opmerkingen: {self.opmerkingen}")
+
+        send_mail(
+            "Standhouder Inschrijving",
+            "\n".join(admin_lines),
+            formataddr(("Contact | ChudartZ", settings.EMAIL_HOST_USER)),
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
+
+
+class StandhouderTafelKeuze(models.Model):
+    inschrijving = models.ForeignKey(
+        StandhouderInschrijving,
+        on_delete=models.CASCADE,
+        related_name="tafel_keuzes",
+        verbose_name=_("Inschrijving"),
+    )
+    cel = models.ForeignKey(
+        ZaalplanCel,
+        on_delete=models.CASCADE,
+        related_name="standhoudertafelkeuze_set",
+        verbose_name=_("Cel"),
+    )
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    class Meta:
+        verbose_name = _("Tafelkeuze")
+        verbose_name_plural = _("Tafelkeuzes")
+        unique_together = ("inschrijving", "cel")
+
+    def __str__(self):
+        return f"{self.inschrijving} - {self.cel.display_label}"
+
+
+class StandhouderVraagAntwoord(models.Model):
+    inschrijving = models.ForeignKey(
+        StandhouderInschrijving,
+        on_delete=models.CASCADE,
+        related_name="antwoorden",
+        verbose_name=_("Inschrijving"),
+    )
+    vraag = models.ForeignKey(
+        StandhouderVraag,
+        on_delete=models.CASCADE,
+        verbose_name=_("Vraag"),
+    )
+    antwoord = models.TextField(verbose_name=_("Antwoord"))
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    class Meta:
+        verbose_name = _("Standhouder vraag antwoord")
+        verbose_name_plural = _("Standhouder vraag antwoorden")
+        unique_together = ("inschrijving", "vraag")
+
+    def __str__(self):
+        return f"{self.vraag.tekst}: {self.antwoord}"
+
+    def weergave(self):
+        if self.vraag.vraag_type in (VraagType.BOOLEAN, VraagType.CHECKBOX):
+            return _("Ja") if self.antwoord in ("true", "1", "on", "yes") else _("Nee")
+        return self.antwoord
+
+    def heeft_toeslag(self):
+        if not self.vraag.prijs_toeslag:
+            return False
+        if self.vraag.vraag_type in (VraagType.BOOLEAN, VraagType.CHECKBOX):
+            return self.antwoord in ("true", "1", "on", "yes")
+        if self.vraag.vraag_type == VraagType.SELECT:
+            return bool(self.antwoord)
+        return False

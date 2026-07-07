@@ -1,0 +1,34 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load i18n %}
+
+{% block wizard_content %}
+<h4>{% trans 'Stap 3: Aanvullende vragen' %}</h4>
+
+{% if not vragen %}
+  <p class="text-muted">{% trans "Geen aanvullende vragen voor uw selectie." %}</p>
+{% endif %}
+
+<form method="post" class="register-form">
+  {% csrf_token %}
+  <div class="row gy-4">
+    {% for field in form %}
+      <div class="col-md-12">
+        {% if field.field.widget.input_type == 'checkbox' %}
+          <div class="form-check">
+            {{ field }}
+            <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          </div>
+        {% else %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+          {{ field }}
+        {% endif %}
+        {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    <div class="col-12 d-flex justify-content-between">
+      <a href="{% url 'standhouder_gegevens' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
+      <button type="submit">{% trans 'Volgende: overzicht' %}</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
