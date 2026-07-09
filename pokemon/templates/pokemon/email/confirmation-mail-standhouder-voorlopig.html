@@ -4,16 +4,16 @@
 <body>
 <p>Beste {{ inschrijving.naam }},</p>
 
-<p>Bedankt voor uw standhouder-inschrijving voor <strong>{{ evenement.titel }}</strong>.</p>
+<p>Bedankt voor uw standhouder-aanvraag voor <strong>{{ evenement.titel }}</strong>.</p>
 
-<p>Uw betaling is ontvangen en uw inschrijving is definitief bevestigd.</p>
+<p><strong>Dit is een voorlopige bevestiging.</strong> Uw aanvraag is bij ons binnengekomen. Wij bekijken deze en nemen zo snel mogelijk contact met u op om alles definitief te bevestigen{% if inschrijving.totaal_bedrag %} en de betaling te bespreken{% endif %}.</p>
 
 <h3>Uw gegevens</h3>
 <ul>
   <li>Bedrijfsnaam: {{ inschrijving.bedrijfsnaam }}</li>
   <li>Email: {{ inschrijving.email }}</li>
   <li>Telefoon: {{ inschrijving.telefoon }}</li>
-  {% if inschrijving.factuur %}<li>{% trans "Factuur gewenst" %}</li>{% endif %}
+  {% if inschrijving.factuur %}<li>Factuur gewenst</li>{% endif %}
 </ul>
 
 {% if inschrijving.zaalplan_actief %}
@@ -40,10 +40,8 @@
 <p><strong>Indicatief totaalbedrag: €{{ inschrijving.totaal_bedrag.amount }}</strong></p>
 
 {% if inschrijving.heeft_borg %}
-<p><em>Let op: deze inschrijving bevat een borg van €{{ inschrijving.borg_bedrag }}. Deze borg wordt niet terugbetaald bij annulatie.</em></p>
+<p><em>Let op: deze aanvraag bevat een borg van €{{ inschrijving.borg_bedrag }}. Deze borg wordt niet terugbetaald bij annulatie.</em></p>
 {% endif %}
-
-<p>Wij hebben uw inschrijving in goede orde ontvangen en nemen zo snel mogelijk contact met u op.</p>
 
 <p>Met vriendelijke groeten,<br>Team ChudartZ Collectibles</p>
 </body>

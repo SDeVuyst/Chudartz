@@ -14,7 +14,7 @@ class ContactForm(forms.Form):
 class StandhouderGegevensForm(forms.ModelForm):
     class Meta:
         model = StandhouderInschrijving
-        fields = ["bedrijfsnaam", "naam", "email", "telefoon", "opmerkingen"]
+        fields = ["bedrijfsnaam", "naam", "email", "telefoon", "factuur", "opmerkingen"]
         widgets = {
             "bedrijfsnaam": forms.TextInput(attrs={
                 "placeholder": "Bedrijfsnaam",
@@ -31,6 +31,9 @@ class StandhouderGegevensForm(forms.ModelForm):
             "telefoon": forms.TextInput(attrs={
                 "placeholder": "Gsm-nummer",
                 "class": "form-control",
+            }),
+            "factuur": forms.CheckboxInput(attrs={
+                "class": "form-check-input",
             }),
             "opmerkingen": forms.Textarea(attrs={
                 "placeholder": "Opmerkingen",
@@ -55,9 +58,18 @@ class StandhouderTafelsForm(forms.Form):
         return tafels
 
 
-def build_standhouder_vragen_form(vragen, aantal_tafels):
+def build_standhouder_vragen_form(vragen, aantal_tafels, vraag_aantal_tafels=False, max_tafels=10):
     class StandhouderVragenForm(forms.Form):
         pass
+
+    if vraag_aantal_tafels:
+        StandhouderVragenForm.base_fields["aantal_tafels"] = forms.IntegerField(
+            label="Aantal tafels",
+            min_value=1,
+            max_value=max_tafels,
+            required=True,
+            widget=forms.NumberInput(attrs={"class": "form-control", "min": 1, "max": max_tafels}),
+        )
 
     for vraag in vragen:
         if vraag.min_tafels and aantal_tafels < vraag.min_tafels:
@@ -82,13 +94,21 @@ def build_standhouder_vragen_form(vragen, aantal_tafels):
                 **field_kwargs,
             )
         elif vraag.vraag_type == VraagType.BOOLEAN:
-            field = forms.BooleanField(
-                widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
-                required=False,
-                label=vraag.tekst,
-            )
+            boolean_choices = [("true", "Ja"), ("false", "Nee")]
             if vraag.verplicht:
-                field.required = True
+                field = forms.ChoiceField(
+                    choices=boolean_choices,
+                    widget=forms.RadioSelect(attrs={"class": "form-check-input"}),
+                    required=True,
+                    label=vraag.tekst,
+                )
+            else:
+                field = forms.ChoiceField(
+                    choices=[("", "—")] + boolean_choices,
+                    widget=forms.RadioSelect(attrs={"class": "form-check-input"}),
+                    required=False,
+                    label=vraag.tekst,
+                )
         elif vraag.vraag_type == VraagType.CHECKBOX:
             field = forms.BooleanField(
                 widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
@@ -116,6 +136,10 @@ def build_standhouder_vragen_form(vragen, aantal_tafels):
 
 
 def serialize_vraag_antwoord(vraag, value):
-    if vraag.vraag_type in (VraagType.BOOLEAN, VraagType.CHECKBOX):
+    if vraag.vraag_type == VraagType.BOOLEAN:
+        if value in ("true", "false"):
+            return value
+        return "true" if value else "false"
+    if vraag.vraag_type == VraagType.CHECKBOX:
         return "true" if value else "false"
     return str(value) if value is not None else ""

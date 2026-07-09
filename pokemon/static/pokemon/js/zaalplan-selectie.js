@@ -12,6 +12,11 @@
   const nextBtn = document.getElementById('tafel-next-btn');
   const gridData = window.ZAALPLAN_SELECTIE_DATA;
 
+  function tafelLabel(cel) {
+    if (cel.label) return cel.label;
+    return String.fromCharCode(65 + cel.rij) + (cel.kolom + 1);
+  }
+
   function defaultSize() {
     if (gridData.kolommen > 24) return 34;
     if (gridData.kolommen > 16) return 40;
@@ -45,12 +50,23 @@
       div.style.gridRow = `${cel.rij + 1}`;
 
       if (!cel.groep) {
-        if (cel.type === 'tafel') div.textContent = cel.label;
+        if (cel.type === 'tafel') div.textContent = tafelLabel(cel);
         else if (cel.tekst) div.textContent = cel.tekst;
       }
 
       if (cel.type === 'tafel' && !onbeschikbaar) {
-        div.addEventListener('click', () => toggleGroep(cel.primary_id));
+        div.setAttribute('role', 'button');
+        div.setAttribute('tabindex', '0');
+        div.setAttribute('aria-label', 'Tafel ' + tafelLabel(cel));
+        div.setAttribute('aria-pressed', selected.has(cel.primary_id) ? 'true' : 'false');
+        const activate = () => toggleGroep(cel.primary_id);
+        div.addEventListener('click', activate);
+        div.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activate();
+          }
+        });
       }
       gridEl.appendChild(div);
     });
@@ -112,7 +128,7 @@
       label.className = cls;
       label.style.gridColumn = `${area.c1 + 1} / ${area.c2 + 2}`;
       label.style.gridRow = `${area.r1 + 1} / ${area.r2 + 2}`;
-      label.textContent = isTafel ? primary.label : (primary.tekst || '');
+      label.textContent = isTafel ? tafelLabel(primary) : (primary.tekst || '');
       gridEl.appendChild(label);
     });
   }
@@ -142,7 +158,7 @@
     gridData.cellen.forEach((cel) => {
       if (selected.has(cel.primary_id) && !gezien.has(cel.primary_id)) {
         gezien.add(cel.primary_id);
-        labels.push(cel.label);
+        labels.push(tafelLabel(cel));
         totaal += parseFloat(cel.prijs);
       }
     });

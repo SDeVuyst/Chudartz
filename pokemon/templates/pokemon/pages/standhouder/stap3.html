@@ -2,9 +2,11 @@
 {% load i18n %}
 
 {% block wizard_content %}
-<h4>{% trans 'Stap 3: Aanvullende vragen' %}</h4>
+<h4>{% trans 'Aanvullende vragen' %}</h4>
 
-{% if not vragen %}
+{% if not zaalplan_actief and not inschrijving.aantal_tafels_manueel %}
+  <p class="text-muted">{% trans "Geef eerst het gewenste aantal tafels op. Daarna tonen we de relevante vragen." %}</p>
+{% elif not form.fields %}
   <p class="text-muted">{% trans "Geen aanvullende vragen voor uw selectie." %}</p>
 {% endif %}
 
@@ -18,6 +20,16 @@
             {{ field }}
             <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
           </div>
+        {% elif field.field.widget.input_type == 'radio' %}
+          <fieldset class="standhouder-radio-group">
+            <legend class="form-label mb-2">{{ field.label }}{% if field.field.required %} *{% endif %}</legend>
+            {% for option in field %}
+              <div class="form-check">
+                {{ option.tag }}
+                <label class="form-check-label" for="{{ option.id_for_label }}">{{ option.choice_label }}</label>
+              </div>
+            {% endfor %}
+          </fieldset>
         {% else %}
           <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
           {{ field }}

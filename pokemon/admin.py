@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib import admin
+from django import forms
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import path, reverse
@@ -24,6 +25,7 @@ from pokemon.standhouder_wizard import serialize_zaalplan_grid
 # INLINES #
 class TicketInline(StackedInline):
     model = Ticket
+    extra = 0
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
 
@@ -40,6 +42,17 @@ class StandhouderVraagInline(StackedInline):
     verbose_name = _("Standhouder vraag")
     verbose_name_plural = _("Standhouder vragen")
     ordering = ("volgorde",)
+    fields = (
+        "tekst",
+        "vraag_type",
+        "opties",
+        "verplicht",
+        "volgorde",
+        "prijs_toeslag",
+        "is_borg",
+        "min_tafels",
+        "max_tafels",
+    )
 
 
 # FILTERS #
@@ -69,6 +82,29 @@ class StandhouderEvenementFilter(DropdownFilter):
         if self.value():
             return queryset.filter(evenement__pk=self.value())
         return queryset
+
+
+class StandhouderStatusFilter(DropdownFilter):
+    title = _('Status')
+    parameter_name = 'status'
+
+    def lookups(self, request, model_admin):
+        return [
+            ('actief', _('Actieve inschrijvingen')),
+            ('concept', _('Concept')),
+            ('ingediend', _('Ingediend')),
+            ('all', _('Alle statussen')),
+        ]
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'concept':
+            return queryset.filter(status=StandhouderInschrijvingStatus.CONCEPT)
+        if value == 'ingediend':
+            return queryset.filter(status=StandhouderInschrijvingStatus.INGEDIEND)
+        if value == 'all':
+            return queryset
+        return queryset.exclude(status=StandhouderInschrijvingStatus.CONCEPT)
 
 
 class EvenementEinddatumFilter(DropdownFilter):
@@ -246,17 +282,61 @@ class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
 class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('display_header', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
-    exclude = ('tickets',)
     inlines = [
+        StandhouderVraagInline,
         TicketInline,
         EvenementFotoInline,
-        StandhouderVraagInline,
     ]
     actions_detail = ["generate_qr_code", "beheer_zaalplan"]
     list_filter = (EvenementEinddatumFilter,)
     list_filter_submit = True
 
     search_fields = ('titel', 'beschrijving', 'start_datum', 'einde_datum', 'locatie_lang')
+
+    fieldsets = (
+        (_("Algemeen"), {
+            "fields": ("titel", "slug", "afbeelding", "intro_op_index"),
+        }),
+        (_("Pagina-inhoud"), {
+            "fields": ("titel_sectie_a", "tekst_sectie_a"),
+        }),
+        (_("Datum & locatie"), {
+            "fields": ("start_datum", "einde_datum", "max_deelnemers", "locatie_kort", "locatie_lang"),
+        }),
+        (_("Weergave op de site"), {
+            "fields": ("toon_op_site", "highlight_event", "volgorde", "partners"),
+        }),
+        (_("Bezoekers · tickets"), {
+            "fields": ("enable_inschrijvingen",),
+            "description": _("Ticketverkoop voor bezoekers. Tickets beheer je via de sectie 'Evenement Tickets' onderaan."),
+        }),
+        (_("Standhouders · algemeen"), {
+            "fields": ("enable_standhouder", "standhouder_inbegrepen", "standhouder_prijzen"),
+        }),
+        (_("Standhouders · tafels & prijzen"), {
+            "fields": (
+                "standhouder_zaalplan_actief",
+                "standhouder_prijs_per_tafel",
+                "standhouder_max_tafels",
+                "standhouder_betaling_verplicht",
+            ),
+            "description": _(
+                "Staat het zaalplan aan, dan kiezen standhouders hun tafel op de plattegrond "
+                "(beheer via de knop 'Zaalplan beheren' bovenaan). Staat het uit, dan geven ze enkel "
+                "een aantal tafels op tegen de prijs per tafel."
+            ),
+        }),
+    )
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        from djmoney.forms.widgets import MoneyWidget
+
+        if db_field.name in ("standhouder_prijs_per_tafel", "prijs_toeslag"):
+            kwargs["widget"] = MoneyWidget(
+                amount_widget=forms.NumberInput(attrs={"step": "0.01"}),
+                choices=[("EUR", "Euro")],
+            )
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     def get_urls(self):
         urls = super().get_urls()
@@ -575,11 +655,20 @@ class TicketEigenschapAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(StandhouderInschrijving)
 class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('bedrijfsnaam', 'naam', 'evenement_link', 'status', 'totaal_bedrag', 'tafels_display', 'aangemaakt_op')
-    list_filter = (StandhouderEvenementFilter, 'status')
+    list_display = (
+        'bedrijfsnaam', 'naam', 'evenement_link', 'status', 'betaling_status',
+        'totaal_bedrag', 'tafels_display', 'aangemaakt_op',
+    )
+    list_filter = (StandhouderStatusFilter, StandhouderEvenementFilter)
     list_filter_submit = True
     search_fields = ('bedrijfsnaam', 'naam', 'email', 'telefoon')
     readonly_fields = ('aangemaakt_op', 'bijgewerkt_op')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if "status" not in request.GET:
+            return qs.exclude(status=StandhouderInschrijvingStatus.CONCEPT)
+        return qs
 
     @display(description=_("Evenement"))
     def evenement_link(self, obj):
@@ -591,3 +680,9 @@ class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
     @display(description=_("Tafels"))
     def tafels_display(self, obj):
         return ', '.join(c.display_label for c in obj.gekozen_tafels)
+
+    @display(description=_("Betaling"))
+    def betaling_status(self, obj):
+        if not obj.payment_id:
+            return "—"
+        return obj.payment.get_status_display()

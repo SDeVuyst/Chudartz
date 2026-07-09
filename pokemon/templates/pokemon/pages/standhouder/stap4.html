@@ -7,20 +7,27 @@
 {% endblock %}
 
 {% block wizard_content %}
-<h4>{% trans 'Stap 4: Overzicht en bevestigen' %}</h4>
+<h4>{% trans 'Overzicht en bevestigen' %}</h4>
 
 <div class="mb-4">
   <h5>{% trans 'Uw gegevens' %}</h5>
   <p>
-    <strong>{{ inschrijving.bedrijfsnaam }}</strong> — {{ inschrijving.naam }}<br>
+    <strong>{{ inschrijving.bedrijfsnaam }}</strong><br>
+    {{ inschrijving.naam }} <br>
     {{ inschrijving.email }} · {{ inschrijving.telefoon }}<br>
+    {% if inschrijving.factuur %}<span>{% trans "Factuur gewenst" %}</span><br>{% endif %}
     {% if inschrijving.opmerkingen %}<em>{{ inschrijving.opmerkingen }}</em>{% endif %}
   </p>
 </div>
 
 <div class="mb-4">
-  <h5>{% trans 'Gekozen tafels' %}</h5>
-  <p>{% for cel in inschrijving.gekozen_tafels %}{{ cel.display_label }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  {% if zaalplan_actief %}
+    <h5>{% trans 'Gekozen tafels' %}</h5>
+    <p>{% for cel in inschrijving.gekozen_tafels %}{{ cel.display_label }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  {% else %}
+    <h5>{% trans 'Aantal tafels' %}</h5>
+    <p>{{ inschrijving.aantal_tafels_manueel }}</p>
+  {% endif %}
 </div>
 
 {% if antwoorden %}
@@ -42,7 +49,25 @@
     {% endfor %}
     <tr><td><strong>{% trans 'Totaal' %}</strong></td><td><strong>€{{ totaal }}</strong></td></tr>
   </table>
+
+  {% if inschrijving.heeft_borg %}
+  <div class="borg-melding">
+    {% blocktrans with bedrag=inschrijving.borg_bedrag %}
+    Let op: deze inschrijving bevat een borg van €{{ bedrag }}. Deze borg wordt niet terugbetaald bij annulatie van uw inschrijving.
+    {% endblocktrans %}
+  </div>
+  {% endif %}
 </div>
+
+{% if online_betaling %}
+<div class="alert-standhouder warning mb-4">
+  {% trans "Na bevestiging wordt u doorgestuurd naar de beveiligde betaalpagina van Mollie om het totaalbedrag te betalen." %}
+</div>
+{% else %}
+<div class="alert-standhouder warning mb-4">
+  {% trans "U betaalt nu nog niet online. U ontvangt een voorlopige bevestiging per e-mail. Wij nemen contact met u op om de inschrijving definitief te maken." %}
+</div>
+{% endif %}
 
 <form method="post" id="confirm-form" class="register-form">
   {% csrf_token %}
@@ -60,7 +85,13 @@
 
   <div class="d-flex justify-content-between">
     <a href="{% url 'standhouder_vragen' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
-    <button type="submit">{% trans 'Inschrijving bevestigen' %}</button>
+    <button type="submit">
+      {% if online_betaling %}
+        {% trans 'Bevestigen en betalen' %}
+      {% else %}
+        {% trans 'Aanvraag indienen' %}
+      {% endif %}
+    </button>
   </div>
 </form>
 {% endblock %}

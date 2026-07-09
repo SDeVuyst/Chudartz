@@ -2,14 +2,14 @@
 {% load static i18n %}
 
 {% block wizard_content %}
-<h4>{% trans 'Stap 1: Kies uw tafel(s)' %}{% if not evenement.enable_standhouder %} • {% trans "UITVERKOCHT!" %}{% endif %}</h4>
+<h4>{% trans 'Kies uw tafel(s)' %}{% if not evenement.enable_standhouder %} • {% trans "UITVERKOCHT!" %}{% endif %}</h4>
 
 {% if not zaalplan %}
   <div class="alert-standhouder warning">
     {% trans "Er is nog geen zaalplan beschikbaar voor dit evenement. Neem contact met ons op." %}
   </div>
 {% else %}
-  <p class="text-muted small">{% trans "Klik op een groene tafel om deze te selecteren. Rode tafels zijn al bezet." %}</p>
+  <p class="text-muted small">{% trans "Klik op een groene tafel om deze te selecteren." %}</p>
 
   <div class="zaalplan-legend mb-2">
     <span><i class="zp-swatch zp-beschikbaar"></i> {% trans "Beschikbaar" %}</span>
@@ -49,6 +49,6 @@
 {% block wizard_scripts %}
 {% if zaalplan %}
 <script>window.ZAALPLAN_SELECTIE_DATA = {{ grid_json|safe }};</script>
-<script src="{% static 'pokemon/js/zaalplan-selectie.js' %}?v=8"></script>
+<script src="{% static 'pokemon/js/zaalplan-selectie.js' %}?v=9"></script>
 {% endif %}
 {% endblock %}

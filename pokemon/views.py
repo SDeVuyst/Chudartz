@@ -30,22 +30,32 @@ from pokemon.models import (
     Payment,
     PaymentStatus,
     Sponsor,
+    StandhouderVraag,
     Ticket,
+    VraagType,
+    StandhouderInschrijving,
 )
 from pokemon.payment import MollieClient
-from pokemon.services.standhouder import StandhouderValidationError, finalize_inschrijving
+from pokemon.services.standhouder import (
+    StandhouderValidationError,
+    finalize_inschrijving,
+    verwerk_standhouder_betaling,
+)
 from pokemon.standhouder_wizard import (
     build_prijsopbouw,
     clear_concept_inschrijving,
+    email_sent_session_key,
     get_applicable_vragen,
     get_concept_inschrijving,
     get_or_create_concept_inschrijving,
     get_zaalplan,
     heeft_gegevens,
+    pending_inschrijving_session_key,
     save_tafel_keuzes,
     save_vraag_antwoorden,
     serialize_zaalplan_grid,
     standhouder_base_context,
+    voorlopig_session_key,
 )
 
 
@@ -262,14 +272,19 @@ def _require_concept_inschrijving(request, evenement):
 
 
 def standhouder(request, slug):
-    """Stap 1: tafels kiezen."""
+    """Stap 1: tafels kiezen (of overslaan als zaalplan uitstaat)."""
     evenement = _get_standhouder_evenement(slug)
     if not evenement:
         return HttpResponseNotFound()
 
+    # Zaalplan uitgeschakeld -> tafelkeuze overslaan
+    if not evenement.standhouder_zaalplan_actief:
+        get_or_create_concept_inschrijving(request, evenement)
+        return redirect("standhouder_gegevens", slug=slug)
+
     inschrijving = get_or_create_concept_inschrijving(request, evenement)
     zaalplan = get_zaalplan(evenement)
-    context = standhouder_base_context(request, evenement, 1)
+    context = standhouder_base_context(request, evenement, "tafels")
     context["zaalplan"] = zaalplan
     context["grid_json"] = json.dumps(serialize_zaalplan_grid(zaalplan, inschrijving)) if zaalplan else "null"
 
@@ -296,7 +311,7 @@ def standhouder(request, slug):
 
 
 def standhouder_gegevens(request, slug):
-    """Stap 2: contactgegevens."""
+    """Contactgegevens."""
     evenement = _get_standhouder_evenement(slug)
     if not evenement:
         return HttpResponseNotFound()
@@ -305,11 +320,11 @@ def standhouder_gegevens(request, slug):
     if not inschrijving:
         return redirect("standhouder", slug=slug)
 
-    if inschrijving.aantal_tafels == 0:
+    # Tafelkeuze verplicht enkel als het zaalplan actief is
+    if evenement.standhouder_zaalplan_actief and inschrijving.aantal_tafels == 0:
         return redirect("standhouder", slug=slug)
 
-    context = standhouder_base_context(request, evenement, 2)
-    context["form"] = StandhouderGegevensForm(instance=inschrijving)
+    context = standhouder_base_context(request, evenement, "gegevens")
 
     if request.method == "POST":
         if not evenement.enable_standhouder:
@@ -321,6 +336,8 @@ def standhouder_gegevens(request, slug):
             form.save()
             return redirect("standhouder_vragen", slug=slug)
         context["form"] = form
+    else:
+        context["form"] = StandhouderGegevensForm(instance=inschrijving)
 
     return TemplateResponse(request, "pokemon/pages/standhouder/stap2.html", context)
 
@@ -338,28 +355,61 @@ def standhouder_vragen(request, slug):
     if not inschrijving:
         return redirect("standhouder", slug=slug)
 
-    if inschrijving.aantal_tafels == 0:
+    if evenement.standhouder_zaalplan_actief and inschrijving.aantal_tafels == 0:
         return redirect("standhouder", slug=slug)
 
     if not heeft_gegevens(inschrijving):
         return redirect("standhouder_gegevens", slug=slug)
 
-    vragen = get_applicable_vragen(evenement, inschrijving.aantal_tafels)
-    VragenForm = build_standhouder_vragen_form(vragen, inschrijving.aantal_tafels)
+    vraag_aantal = not evenement.standhouder_zaalplan_actief
 
-    context = standhouder_base_context(request, evenement, 3)
+    if vraag_aantal:
+        if inschrijving.aantal_tafels_manueel:
+            vragen = get_applicable_vragen(evenement, inschrijving.aantal_tafels_manueel)
+        else:
+            vragen = []
+    else:
+        vragen = get_applicable_vragen(evenement, inschrijving.aantal_tafels)
+
+    aantal_voor_filter = (
+        inschrijving.aantal_tafels_manueel or 0
+        if vraag_aantal
+        else inschrijving.aantal_tafels
+    )
+
+    VragenForm = build_standhouder_vragen_form(
+        vragen, aantal_voor_filter,
+        vraag_aantal_tafels=vraag_aantal,
+        max_tafels=evenement.standhouder_max_tafels,
+    )
+
+    context = standhouder_base_context(request, evenement, "vragen")
 
     if request.method == "POST":
         form = VragenForm(request.POST)
         if form.is_valid():
+            if vraag_aantal:
+                inschrijving.aantal_tafels_manueel = form.cleaned_data.get("aantal_tafels")
+                inschrijving.save(update_fields=["aantal_tafels_manueel"])
+                if not vragen:
+                    applicable = get_applicable_vragen(
+                        evenement, inschrijving.aantal_tafels_manueel
+                    )
+                    if applicable:
+                        return redirect("standhouder_vragen", slug=slug)
+                    return redirect("standhouder_overzicht", slug=slug)
             save_vraag_antwoorden(inschrijving, form.cleaned_data, vragen)
             return redirect("standhouder_overzicht", slug=slug)
         context["form"] = form
     else:
         initial = {}
+        if vraag_aantal and inschrijving.aantal_tafels_manueel:
+            initial["aantal_tafels"] = inschrijving.aantal_tafels_manueel
         for antwoord in inschrijving.antwoorden.select_related("vraag"):
             field_name = f"vraag_{antwoord.vraag_id}"
-            if antwoord.vraag.vraag_type in ("boolean", "checkbox"):
+            if antwoord.vraag.vraag_type == VraagType.BOOLEAN:
+                initial[field_name] = antwoord.antwoord
+            elif antwoord.vraag.vraag_type == VraagType.CHECKBOX:
                 initial[field_name] = antwoord.antwoord == "true"
             else:
                 initial[field_name] = antwoord.antwoord
@@ -379,17 +429,21 @@ def standhouder_overzicht(request, slug):
         return redirect("standhouder", slug=slug)
 
     if inschrijving.aantal_tafels == 0:
-        return redirect("standhouder", slug=slug)
+        # Terug naar de juiste eerste stap
+        if evenement.standhouder_zaalplan_actief:
+            return redirect("standhouder", slug=slug)
+        return redirect("standhouder_vragen", slug=slug)
 
     if not heeft_gegevens(inschrijving):
         return redirect("standhouder_gegevens", slug=slug)
 
     inschrijving.bereken_totaal()
     regels, totaal = build_prijsopbouw(inschrijving)
-    context = standhouder_base_context(request, evenement, 4)
+    context = standhouder_base_context(request, evenement, "overzicht")
     context["prijsopbouw"] = regels
     context["totaal"] = totaal
     context["antwoorden"] = inschrijving.antwoorden.select_related("vraag").order_by("vraag__volgorde")
+    context["online_betaling"] = evenement.standhouder_betaling_verplicht
 
     if request.method == "POST":
         if not evenement.enable_standhouder:
@@ -401,9 +455,14 @@ def standhouder_overzicht(request, slug):
             return TemplateResponse(request, "pokemon/pages/standhouder/stap4.html", context)
 
         try:
-            response = finalize_inschrijving(inschrijving)
+            result = finalize_inschrijving(inschrijving, request)
             clear_concept_inschrijving(request, evenement)
-            return response
+            request.session[pending_inschrijving_session_key(evenement)] = inschrijving.pk
+            if result.redirect_url:
+                return redirect(result.redirect_url)
+            request.session[email_sent_session_key(evenement)] = result.email_sent
+            request.session[voorlopig_session_key(evenement)] = result.voorlopig
+            return redirect("standhouder_success", slug=slug)
         except StandhouderValidationError as exc:
             context["error"] = str(exc)
 
@@ -415,7 +474,39 @@ def standhouder_success(request, slug):
     if not evenement:
         return HttpResponseNotFound()
 
-    context = standhouder_base_context(request, evenement, 5)
+    context = standhouder_base_context(request, evenement, "success")
+    inschrijving_pk = request.session.get(pending_inschrijving_session_key(evenement))
+    inschrijving = None
+    if inschrijving_pk:
+        inschrijving = StandhouderInschrijving.objects.filter(
+            pk=inschrijving_pk,
+            evenement=evenement,
+        ).select_related("payment").first()
+
+    if inschrijving and inschrijving.payment_id:
+        payment = inschrijving.payment
+        if payment.mollie_id:
+            try:
+                mollie_payment = MollieClient().client.payments.get(payment.mollie_id)
+                mollie_status = mollie_payment.get("status", "").lower()
+                valid_statuses = [choice[0] for choice in PaymentStatus.CHOICES]
+                if mollie_status in valid_statuses and mollie_status != payment.status:
+                    payment.status = mollie_status
+                    payment.save()
+                    verwerk_standhouder_betaling(payment, mollie_status)
+                    inschrijving.refresh_from_db()
+                    payment.refresh_from_db()
+            except Exception:
+                pass
+
+        context["inschrijving"] = inschrijving
+        context["payment_status"] = payment.status
+        context["online_betaling"] = True
+    else:
+        context["email_sent"] = request.session.pop(email_sent_session_key(evenement), None)
+        context["voorlopig"] = request.session.pop(voorlopig_session_key(evenement), False)
+        context["online_betaling"] = False
+
     return TemplateResponse(request, "pokemon/pages/standhouder/success.html", context)
 
 
@@ -464,6 +555,7 @@ def mollie_webhook(request):
         if mollie_status in valid_statuses:
             payment.status = mollie_status
             payment.save()
+            verwerk_standhouder_betaling(payment, mollie_status)
 
         return HttpResponse(status=200)
 

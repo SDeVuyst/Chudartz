@@ -1,3 +1,4 @@
+import logging
 import secrets
 import string
 from email.utils import formataddr
@@ -8,6 +9,8 @@ import qrcode
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.utils.translation import pgettext_lazy
+
+logger = logging.getLogger(__name__)
 from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage, send_mail
 from django.db import models
@@ -65,10 +68,32 @@ class Evenement(models.Model):
     standhouder_inbegrepen = models.TextField(verbose_name=_("Inbegrepen Standhouder (Elk op een nieuwe lijn)"))
     standhouder_prijzen = models.TextField(verbose_name=_("Prijzen Standhouder (Elk op een nieuwe lijn)"))
     enable_standhouder = models.BooleanField(verbose_name=_("Standhouder Inschrijvingen Inschakelen"), default=True)
+    standhouder_zaalplan_actief = models.BooleanField(
+        verbose_name=_("Zaalplan (tafelkeuze) tonen"),
+        default=True,
+        help_text=_("Aan: standhouders kiezen hun tafel(s) op de plattegrond. Uit: de tafelkeuze-stap wordt overgeslagen en de standhouder geeft het gewenste aantal tafels op."),
+    )
+    standhouder_prijs_per_tafel = MoneyField(
+        verbose_name=_("Prijs per tafel (zonder zaalplan)"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        help_text=_("Enkel gebruikt wanneer het zaalplan uitstaat."),
+    )
+    standhouder_max_tafels = models.PositiveIntegerField(
+        verbose_name=_("Max. aantal tafels (zonder zaalplan)"),
+        default=10,
+        help_text=_("Enkel gebruikt wanneer het zaalplan uitstaat."),
+    )
     standhouder_betaling_verplicht = models.BooleanField(
-        verbose_name=_("Standhouder betaling verplicht (Mollie)"),
+        verbose_name=_("Online betaling via Mollie"),
         default=False,
-        help_text=_("Nog niet actief. Laat uit tot Mollie-integratie is ingeschakeld."),
+        help_text=_(
+            "Aan: standhouder betaalt direct online via Mollie na bevestiging. "
+            "Uit: geen online betaling; de standhouder ontvangt een voorlopige bevestiging "
+            "per e-mail en jullie nemen manueel contact op."
+        ),
     )
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
     partners = models.ManyToManyField(Partner, verbose_name=_("Partners"), blank=True, null=True)
@@ -214,11 +239,22 @@ class Payment(models.Model):
         return f"{self.mollie_id} | {self.first_name} {self.last_name}" 
     
     def save(self, *args, **kwargs):
-        # Check if payment is received
-        if self.status == PaymentStatus.PAID:
-            self.send_mail()
+        became_paid = False
+        if self.pk:
+            previous = Payment.objects.filter(pk=self.pk).only("status").first()
+            if (
+                previous
+                and previous.status != PaymentStatus.PAID
+                and self.status == PaymentStatus.PAID
+            ):
+                became_paid = True
+        elif self.status == PaymentStatus.PAID:
+            became_paid = True
 
         super().save(*args, **kwargs)
+
+        if became_paid and Participant.objects.filter(payment=self).exists():
+            self.send_mail()
 
     mollie_id = models.CharField(verbose_name=_("Mollie id"), blank=True, null=True)
     first_name = models.CharField(max_length=50, verbose_name=_("Voornaam"), blank=True, null=True)
@@ -678,6 +714,14 @@ class StandhouderVraag(models.Model):
         null=True,
         help_text=_("Wordt toegevoegd bij een positief antwoord (ja/checkbox/select)."),
     )
+    is_borg = models.BooleanField(
+        default=False,
+        verbose_name=_("Is borg"),
+        help_text=_(
+            "Markeer als borg: bij een positief antwoord verschijnt op het overzicht "
+            "een melding dat deze borg niet wordt terugbetaald bij annulatie."
+        ),
+    )
     min_tafels = models.PositiveIntegerField(
         blank=True,
         null=True,
@@ -733,6 +777,11 @@ class StandhouderInschrijving(models.Model):
         blank=True,
         null=True,
     )
+    aantal_tafels_manueel = models.PositiveIntegerField(
+        verbose_name=_("Aantal tafels (zonder zaalplan)"),
+        null=True,
+        blank=True,
+    )
     payment = models.ForeignKey(
         Payment,
         on_delete=models.SET_NULL,
@@ -760,15 +809,39 @@ class StandhouderInschrijving(models.Model):
         ).order_by("rij", "kolom")
 
     @property
+    def zaalplan_actief(self):
+        return self.evenement.standhouder_zaalplan_actief
+
+    @property
     def aantal_tafels(self):
-        return self.gekozen_tafels.count()
+        if self.zaalplan_actief:
+            return self.gekozen_tafels.count()
+        return self.aantal_tafels_manueel or 0
+
+    @property
+    def borg_bedrag(self):
+        from decimal import Decimal
+
+        totaal = Decimal("0")
+        for antwoord in self.antwoorden.select_related("vraag"):
+            if antwoord.vraag.is_borg and antwoord.heeft_toeslag():
+                totaal += antwoord.vraag.prijs_toeslag.amount
+        return totaal
+
+    @property
+    def heeft_borg(self):
+        return self.borg_bedrag > 0
 
     def bereken_totaal(self):
         from decimal import Decimal
 
         totaal = Decimal("0")
-        for cel in self.gekozen_tafels:
-            totaal += cel.effectieve_prijs.amount
+        if self.zaalplan_actief:
+            for cel in self.gekozen_tafels:
+                totaal += cel.effectieve_prijs.amount
+        else:
+            aantal = self.aantal_tafels_manueel or 0
+            totaal += aantal * self.evenement.standhouder_prijs_per_tafel.amount
 
         for antwoord in self.antwoorden.select_related("vraag"):
             if antwoord.heeft_toeslag():
@@ -784,51 +857,86 @@ class StandhouderInschrijving(models.Model):
             if cel.is_bezet(exclude_inschrijving_id=self.pk):
                 raise ValueError(f"Tafel {cel.display_label} is niet meer beschikbaar.")
 
-    def verstuur_bevestiging(self):
-        from email.utils import formataddr
-
+    def verstuur_bevestiging(self, voorlopig=False):
         tafels = list(self.gekozen_tafels)
         antwoorden = list(self.antwoorden.select_related("vraag").order_by("vraag__volgorde"))
+        user_sent = False
 
-        user_body = render_to_string(
-            "pokemon/email/confirmation-mail-standhouder.html",
-            {
-                "inschrijving": self,
-                "evenement": self.evenement,
-                "tafels": tafels,
-                "antwoorden": antwoorden,
-            },
-        )
-        email = EmailMessage(
-            "ChudartZ Collectibles | Standhouder Inschrijving Ontvangen",
-            user_body,
-            formataddr(("Evenementen | Chudartz", settings.EMAIL_HOST_USER)),
-            [self.email],
-        )
-        email.content_subtype = "html"
-        email.send()
+        if voorlopig:
+            template = "pokemon/email/confirmation-mail-standhouder-voorlopig.html"
+            subject = _("ChudartZ Collectibles | Voorlopige standhouder-aanvraag ontvangen")
+            admin_subject = "Standhouder aanvraag (voorlopig)"
+        else:
+            template = "pokemon/email/confirmation-mail-standhouder.html"
+            subject = _("ChudartZ Collectibles | Standhouder inschrijving bevestigd")
+            admin_subject = "Standhouder inschrijving (betaald)"
 
-        admin_lines = [
-            f"Evenement: {self.evenement.titel}",
-            f"Bedrijfsnaam: {self.bedrijfsnaam}",
-            f"Naam: {self.naam}",
-            f"Email: {self.email}",
-            f"Telefoon: {self.telefoon}",
-            f"Tafels: {', '.join(c.display_label for c in tafels)}",
-            f"Totaalbedrag: €{self.totaal_bedrag}",
-        ]
-        for antwoord in antwoorden:
-            admin_lines.append(f"{antwoord.vraag.tekst}: {antwoord.weergave()}")
-        if self.opmerkingen:
-            admin_lines.append(f"Opmerkingen: {self.opmerkingen}")
+        try:
+            user_body = render_to_string(
+                template,
+                {
+                    "inschrijving": self,
+                    "evenement": self.evenement,
+                    "tafels": tafels,
+                    "antwoorden": antwoorden,
+                },
+            )
+            email = EmailMessage(
+                subject,
+                user_body,
+                formataddr(("Evenementen | Chudartz", settings.EMAIL_HOST_USER)),
+                [self.email],
+            )
+            email.content_subtype = "html"
+            email.send()
+            user_sent = True
+        except Exception:
+            logger.exception(
+                "Kon bevestigingsmail niet versturen naar standhouder voor inschrijving %s",
+                self.pk,
+            )
 
-        send_mail(
-            "Standhouder Inschrijving",
-            "\n".join(admin_lines),
-            formataddr(("Contact | ChudartZ", settings.EMAIL_HOST_USER)),
-            [settings.EMAIL_HOST_USER],
-            fail_silently=False,
-        )
+        try:
+            if self.zaalplan_actief:
+                tafels_regel = f"Tafels: {', '.join(c.display_label for c in tafels)}"
+            else:
+                tafels_regel = f"Aantal tafels: {self.aantal_tafels_manueel or 0}"
+
+            admin_lines = [
+                f"Evenement: {self.evenement.titel}",
+                f"Status: {self.get_status_display()}",
+                f"Bedrijfsnaam: {self.bedrijfsnaam}",
+                f"Naam: {self.naam}",
+                f"Email: {self.email}",
+                f"Telefoon: {self.telefoon}",
+                tafels_regel,
+                f"Totaalbedrag: €{self.totaal_bedrag}",
+            ]
+            if self.factuur:
+                admin_lines.append("Factuur gewenst: Ja")
+            for antwoord in antwoorden:
+                admin_lines.append(f"{antwoord.vraag.tekst}: {antwoord.weergave()}")
+            if self.heeft_borg:
+                admin_lines.append(
+                    f"Borg: €{self.borg_bedrag} (niet terugbetaalbaar bij annulatie)"
+                )
+            if self.opmerkingen:
+                admin_lines.append(f"Opmerkingen: {self.opmerkingen}")
+
+            send_mail(
+                admin_subject,
+                "\n".join(admin_lines),
+                formataddr(("Contact | ChudartZ", settings.EMAIL_HOST_USER)),
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+        except Exception:
+            logger.exception(
+                "Kon admin-notificatie niet versturen voor standhouder-inschrijving %s",
+                self.pk,
+            )
+
+        return user_sent
 
 
 class StandhouderTafelKeuze(models.Model):

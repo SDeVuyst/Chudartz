@@ -1,48 +1,197 @@
 {% extends 'pokemon/pages/standhouder/base.html' %}
+
 {% load i18n %}
 
-{% block wizard_content %}
-<h4>{% trans 'Stap 2: Uw gegevens' %}</h4>
 
-<form method="post" class="register-form" id="gegevens-form">
+
+{% block wizard_content %}
+
+<h4>{% trans 'Uw gegevens' %}</h4>
+
+
+
+{% if form.non_field_errors %}
+
+  <div class="alert-standhouder error">{{ form.non_field_errors }}</div>
+
+{% endif %}
+
+
+
+<form method="post" class="register-form" id="gegevens-form" novalidate>
+
   {% csrf_token %}
+
   <div class="row gy-4">
-    <div class="col-md-6">{{ form.bedrijfsnaam }}</div>
-    <div class="col-md-6">{{ form.naam }}</div>
-    <div class="col-md-6">{{ form.email }}</div>
-    <div class="col-md-6">{{ form.telefoon }}</div>
-    <div class="col-md-12">{{ form.opmerkingen }}</div>
-    <div class="col-12 d-flex justify-content-between">
-      <a href="{% url 'standhouder' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
-      <button type="submit" id="gegevens-next-btn">{% trans 'Volgende: vragen' %}</button>
+
+    {% for field in form %}
+
+      <div class="col-md-{% if field.name == 'opmerkingen' or field.name == 'factuur' %}12{% else %}6{% endif %}">
+
+        {% if field.field.widget.input_type == 'checkbox' %}
+          <div class="form-check">
+            {{ field }}
+            <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          </div>
+        {% else %}
+        <label for="{{ field.id_for_label }}">
+
+          {{ field.label }}{% if field.field.required %} *{% endif %}
+
+        </label>
+
+        {{ field }}
+        {% endif %}
+
+        {% if field.errors %}
+
+          <div class="text-danger small mt-1">{{ field.errors }}</div>
+
+        {% endif %}
+
+      </div>
+
+    {% endfor %}
+
+    <div class="col-12">
+
+      <div id="gegevens-client-error" class="alert-standhouder error d-none"></div>
+
     </div>
+
+    <div class="col-12 d-flex justify-content-between">
+
+      {% if zaalplan_actief %}
+
+        <a href="{% url 'standhouder' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
+
+      {% else %}
+
+        <span></span>
+
+      {% endif %}
+
+      <button type="submit" id="gegevens-next-btn">{% trans 'Volgende: vragen' %}</button>
+
+    </div>
+
   </div>
+
 </form>
+
 {% endblock %}
+
+
 
 {% block wizard_scripts %}
+
 <script>
+
 (function () {
+
   var form = document.getElementById('gegevens-form');
+
   if (!form) return;
+
   var btn = document.getElementById('gegevens-next-btn');
+
+  var clientError = document.getElementById('gegevens-client-error');
+
   var verplicht = ['bedrijfsnaam', 'naam', 'email', 'telefoon'];
 
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
   function veld(naam) {
+
     return form.querySelector('[name="' + naam + '"]');
+
   }
-  function check() {
-    var ok = verplicht.every(function (n) {
+
+
+
+  function isGeldig() {
+
+    return verplicht.every(function (n) {
+
       var el = veld(n);
-      return el && el.value.trim() !== '';
+
+      if (!el || el.value.trim() === '') return false;
+
+      if (n === 'email' && !emailRe.test(el.value.trim())) return false;
+
+      return true;
+
     });
-    btn.disabled = !ok;
+
   }
-  verplicht.forEach(function (n) {
-    var el = veld(n);
-    if (el) el.addEventListener('input', check);
+
+
+
+  function check() {
+
+    btn.disabled = !isGeldig();
+
+    if (clientError) clientError.classList.add('d-none');
+
+  }
+
+
+
+  form.addEventListener('submit', function (e) {
+
+    if (!isGeldig()) {
+
+      e.preventDefault();
+
+      if (clientError) {
+
+        var emailEl = veld('email');
+
+        if (emailEl && emailEl.value.trim() && !emailRe.test(emailEl.value.trim())) {
+
+          clientError.textContent = '{% trans "Gelieve een geldig e-mailadres in te vullen." %}';
+
+        } else {
+
+          clientError.textContent = '{% trans "Vul alle verplichte velden in." %}';
+
+        }
+
+        clientError.classList.remove('d-none');
+
+      }
+
+      return;
+
+    }
+
+    if (clientError) clientError.classList.add('d-none');
+
   });
+
+
+
+  verplicht.forEach(function (n) {
+
+    var el = veld(n);
+
+    if (el) {
+
+      el.addEventListener('input', check);
+
+      el.addEventListener('change', check);
+
+    }
+
+  });
+
   check();
+
 })();
+
 </script>
+
 {% endblock %}
+

@@ -17,6 +17,26 @@ def session_key(evenement):
     return f"standhouder_{evenement.slug}"
 
 
+def email_sent_session_key(evenement):
+    return f"standhouder_email_sent_{evenement.slug}"
+
+
+def voorlopig_session_key(evenement):
+    return f"standhouder_voorlopig_{evenement.slug}"
+
+
+def pending_inschrijving_session_key(evenement):
+    return f"standhouder_pending_{evenement.slug}"
+
+
+STANDHOUDER_STAP_URLS = {
+    "tafels": "standhouder",
+    "gegevens": "standhouder_gegevens",
+    "vragen": "standhouder_vragen",
+    "overzicht": "standhouder_overzicht",
+}
+
+
 def get_concept_inschrijving(request, evenement):
     pk = request.session.get(session_key(evenement))
     if not pk:
@@ -187,33 +207,71 @@ def save_vraag_antwoorden(inschrijving, cleaned_data, vragen):
 
 
 def build_prijsopbouw(inschrijving):
+    from django.utils.translation import gettext as _
+
     regels = []
-    for cel in inschrijving.gekozen_tafels:
+    if inschrijving.zaalplan_actief:
+        for cel in inschrijving.gekozen_tafels:
+            regels.append({
+                "omschrijving": f"Tafel {cel.display_label}",
+                "bedrag": cel.effectieve_prijs.amount,
+            })
+    elif inschrijving.aantal_tafels_manueel:
         regels.append({
-            "omschrijving": f"Tafel {cel.display_label}",
-            "bedrag": cel.effectieve_prijs.amount,
+            "omschrijving": f"{inschrijving.aantal_tafels_manueel} tafel(s)",
+            "bedrag": (
+                inschrijving.aantal_tafels_manueel
+                * inschrijving.evenement.standhouder_prijs_per_tafel.amount
+            ),
         })
     for antwoord in inschrijving.antwoorden.select_related("vraag"):
         if antwoord.heeft_toeslag():
+            omschrijving = _("Borg") if antwoord.vraag.is_borg else antwoord.vraag.tekst
             regels.append({
-                "omschrijving": antwoord.vraag.tekst,
+                "omschrijving": omschrijving,
                 "bedrag": antwoord.vraag.prijs_toeslag.amount,
             })
     totaal = sum((r["bedrag"] for r in regels), Decimal("0"))
     return regels, totaal
 
 
-def standhouder_base_context(request, evenement, stap):
+def standhouder_base_context(request, evenement, actieve_key):
     from django.utils.translation import gettext as _
+
+    if evenement.standhouder_zaalplan_actief:
+        volgorde = [
+            ("tafels", _("Tafels")),
+            ("gegevens", _("Gegevens")),
+            ("vragen", _("Vragen")),
+            ("overzicht", _("Overzicht")),
+        ]
+    else:
+        volgorde = [
+            ("gegevens", _("Gegevens")),
+            ("vragen", _("Vragen")),
+            ("overzicht", _("Overzicht")),
+        ]
+
+    stappen = []
+    actief_nummer = 1
+    for i, (key, label) in enumerate(volgorde, start=1):
+        if key == actieve_key:
+            actief_nummer = i
+        stappen.append({
+            "nummer": i,
+            "label": label,
+            "key": key,
+            "url_name": STANDHOUDER_STAP_URLS[key],
+        })
+
+    for stap in stappen:
+        stap["is_reachable"] = stap["nummer"] < actief_nummer
+
     return {
         "evenement": evenement,
         "sponsors": Sponsor.objects.all().order_by("-volgorde_footer") or [],
-        "wizard_stap": stap,
+        "wizard_stap": actief_nummer,
         "inschrijving": get_concept_inschrijving(request, evenement),
-        "stappen": [
-            {"nummer": 1, "label": _("Tafels")},
-            {"nummer": 2, "label": _("Gegevens")},
-            {"nummer": 3, "label": _("Vragen")},
-            {"nummer": 4, "label": _("Overzicht")},
-        ],
+        "stappen": stappen,
+        "zaalplan_actief": evenement.standhouder_zaalplan_actief,
     }
