@@ -94,5 +94,17 @@
         z-index: 2;
       }
     }
+
+    .partner-logo {
+      max-width: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 0;
+        box-shadow: none;
+      }
+    }
   }
 }

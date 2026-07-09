@@ -1255,6 +1255,18 @@ section,
   z-index: 2;
 }
 
+.features .features-item .partner-logo {
+  max-width: 100%;
+}
+
+.features .features-item .partner-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+  box-shadow: none;
+}
+
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/

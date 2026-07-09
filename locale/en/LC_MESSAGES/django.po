@@ -6839,3 +6839,21 @@ msgstr "pokemon/scanner/"
 
 #~ msgid "Home"
 #~ msgstr "Home"
+
+msgid "Partner"
+msgstr "Partner"
+
+msgid "In samenwerking met Blent"
+msgstr "In partnership with Blent"
+
+msgid "Bezoek Blent"
+msgstr "Visit Blent"
+
+msgid ""
+"Wij werken samen met Blent, jouw entertainment webshop voor popcultuur, "
+"collectibles en meer. Via deze samenwerking brengen we de beste ervaringen "
+"naar onze evenementen en community van verzamelaars."
+msgstr ""
+"We work together with Blent, your entertainment webshop for pop culture, "
+"collectibles and more. Through this partnership, we bring the best "
+"experiences to our events and collector community."

@@ -6929,3 +6929,22 @@ msgstr "flechettes/scanner/"
 #~ msgstr ""
 #~ "Nous sommes également toujours ouverts aux cours privés, veuillez nous "
 #~ "contacter au"
+
+msgid "Partner"
+msgstr "Partenaire"
+
+msgid "In samenwerking met Blent"
+msgstr "En partenariat avec Blent"
+
+msgid "Bezoek Blent"
+msgstr "Visiter Blent"
+
+msgid ""
+"Wij werken samen met Blent, jouw entertainment webshop voor popcultuur, "
+"collectibles en meer. Via deze samenwerking brengen we de beste ervaringen "
+"naar onze evenementen en community van verzamelaars."
+msgstr ""
+"Nous collaborons avec Blent, votre boutique en ligne de divertissement pour "
+"la pop culture, les objets de collection et plus encore. Grâce à ce "
+"partenariat, nous offrons les meilleures expériences à nos événements et à "
+"notre communauté de collectionneurs."
