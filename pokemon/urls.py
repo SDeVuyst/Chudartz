@@ -13,6 +13,10 @@ urlpatterns = i18n_patterns(
 
     path(_('evenementen'), views.evenementen, name="evenementen"),
     path(_('evenement/<slug:slug>/'), views.evenement, name='evenement'),
+    path(_('evenement/<slug:slug>/tickets/'), views.ticket_kopen, name='ticket_kopen'),
+    path(_('evenement/<slug:slug>/tickets/gegevens/'), views.ticket_gegevens, name='ticket_gegevens'),
+    path(_('evenement/<slug:slug>/tickets/overzicht/'), views.ticket_overzicht, name='ticket_overzicht'),
+    path(_('evenement/<slug:slug>/tickets/kortingscode/'), views.ticket_validate_kortingscode, name='ticket_validate_kortingscode'),
     path(_('evenement/<slug:slug>/standhouder-worden/'), views.standhouder, name='standhouder'),
     path(_('evenement/<slug:slug>/standhouder-worden/gegevens/'), views.standhouder_gegevens, name='standhouder_gegevens'),
     path(_('evenement/<slug:slug>/standhouder-worden/tafels/'), views.standhouder_tafels, name='standhouder_tafels'),

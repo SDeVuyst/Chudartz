@@ -393,6 +393,11 @@ UNFOLD = {
                         "link": "/admin/pokemon/participant",
                     },
                     {
+                        "title": _("Kortingscodes"),
+                        "icon": "sell",
+                        "link": "/admin/pokemon/kortingscode",
+                    },
+                    {
                         "title": _("Standhouder inschrijvingen"),
                         "icon": "storefront",
                         "link": "/admin/pokemon/standhouderinschrijving",

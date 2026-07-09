@@ -21,6 +21,8 @@ from pokemon.forms import (
     ContactForm,
     StandhouderGegevensForm,
     StandhouderTafelsForm,
+    TicketGegevensForm,
+    TicketOverzichtForm,
     build_standhouder_vragen_form,
 )
 from pokemon.models import (
@@ -41,6 +43,14 @@ from pokemon.services.standhouder import (
     finalize_inschrijving,
     verwerk_standhouder_betaling,
 )
+from pokemon.services.ticket import (
+    TicketValidationError,
+    build_prijsopbouw as build_ticket_prijsopbouw,
+    finalize_checkout,
+    validate_kortingscode,
+    validate_ticket_selection,
+    verwerk_ticket_betaling,
+)
 from pokemon.standhouder_wizard import (
     build_prijsopbouw,
     clear_concept_inschrijving,
@@ -56,6 +66,17 @@ from pokemon.standhouder_wizard import (
     serialize_zaalplan_grid,
     standhouder_base_context,
     voorlopig_session_key,
+)
+from pokemon.ticket_wizard import (
+    clear_wizard_data,
+    get_ticket_quantities,
+    get_wizard_data,
+    heeft_ticket_gegevens,
+    heeft_tickets,
+    pending_payment_session_key,
+    serialize_tickets_for_js,
+    set_wizard_data,
+    ticket_base_context,
 )
 
 
@@ -155,104 +176,285 @@ def evenementen(request):
     return TemplateResponse(request, 'pokemon/pages/evenementen.html', context)
 
 
+def _get_gerelateerde_evenementen(evenement, limit=3):
+    today = timezone.now().date()
+    return Evenement.objects.filter(toon_op_site=True).exclude(pk=evenement.pk).annotate(
+        is_future=Case(
+            When(start_datum__gte=today, then=Value(0)),
+            default=Value(1),
+            output_field=IntegerField(),
+        ),
+        sort_date=Case(
+            When(is_future=0, then=Extract('start_datum', 'epoch')),
+            default=ExpressionWrapper(
+                -Extract('start_datum', 'epoch'),
+                output_field=FloatField(),
+            ),
+            output_field=FloatField(),
+        ),
+    ).order_by('is_future', 'volgorde', 'sort_date')[:limit]
+
+
 def evenement(request, slug):
     evenement = get_object_or_404(Evenement, slug=slug)
 
-    if not evenement.toon_op_site: return HttpResponseNotFound()
+    if not evenement.toon_op_site:
+        return HttpResponseNotFound()
 
-    if request.POST:
-
-        if not evenement.enable_inschrijvingen: return HttpResponseBadRequest("Inschrijvingen gesloten.")
-
-        tickets = Ticket.objects.filter(event=evenement)
-        ticket_quantities = {}
-
-        # get selected ticket quantities
-        for possible_ticket in tickets:
-           
-            ticket_quantity_key = f'ticket-form-number-{possible_ticket.id}'
-            quantity = request.POST.get(ticket_quantity_key)
-
-            try:
-                if quantity is not None:
-                    ticket_quantities[possible_ticket.id] = int(quantity)
-            except Exception:
-                pass
-
-        # check if at least 1 ticket has valid quantity
-        is_valid_quantitites = False
-        for ticket_id, quantity in ticket_quantities.items():
-            chosen_ticket = Ticket.objects.get(pk=ticket_id)
-
-            # check if ticket possible to buy
-            if chosen_ticket.disable_ticket or chosen_ticket.is_sold_out:
-                return HttpResponseBadRequest("Invalid ticket")
-            
-            # check if there are still enough tickets to buy
-            if quantity > chosen_ticket.remaining_tickets:
-                return HttpResponseBadRequest("Not enough remaining tickets")
-            
-            # quantity must be at least 0
-            if quantity < 0:
-                return HttpResponseBadRequest("Ticket count must be at least 0")
-            
-            # valid
-            if quantity > 0:
-                is_valid_quantitites = True
-                break
-
-        if not is_valid_quantitites: return HttpResponseBadRequest("There should be at least 1 ticket ordered")
-
-        # get total price of transaction
-        total_cost = 0
-        for ticket_id, quantity in ticket_quantities.items():
-            total_cost += quantity * Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
-
-
-        payment = Payment.objects.create(
-            mail = request.POST.get('email'),
-            amount=total_cost
-        )
-
-        for ticket_id, quantity in ticket_quantities.items():
-            for _ in range(quantity):
-                Participant.objects.create(
-                    mail = request.POST.get('email'),
-                    payment_id = payment.pk,
-                    ticket = get_object_or_404(Ticket, pk=ticket_id),
-                )
-
-        # create the mollie payment
-        mollie_payment = MollieClient().create_mollie_payment(
-            amount=total_cost,
-            description="ChudartZ Collectibles",
-            redirect_url=f'https://chudartz-collectibles.com/nl/evenement/{slug}/success',
-        )
-
-        payment.mollie_id = mollie_payment.id
-        payment.save()
-        
-        return redirect(mollie_payment.checkout_url)
-
-
-    # GET request
     context = {
         "evenement": evenement,
         "fotos": EvenementFoto.objects.filter(evenement=evenement).order_by("-volgorde"),
-        # "fotos": evenement.fotos_evenement.all().order_by("-volgorde"),
-        "tickets": Ticket.objects.filter(event=evenement),
+        "tickets": Ticket.objects.filter(event=evenement).order_by("pk"),
         "partners": evenement.partners.all(),
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
+        "gerelateerde_evenementen": _get_gerelateerde_evenementen(evenement),
+        "tickets_kopen_mogelijk": evenement.enable_inschrijvingen and not evenement.is_sold_out,
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
 
+def _get_ticket_evenement(slug):
+    evenement = get_object_or_404(Evenement, slug=slug)
+    if not evenement.toon_op_site:
+        return None
+    return evenement
+
+
+def ticket_kopen(request, slug):
+    """Stap 1: tickets selecteren."""
+    evenement = _get_ticket_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    if not evenement.enable_inschrijvingen or evenement.is_sold_out:
+        return redirect("evenement", slug=slug)
+
+    context = ticket_base_context(request, evenement, "tickets")
+    wizard_data = get_wizard_data(request, evenement)
+    context["tickets_json"] = json.dumps(serialize_tickets_for_js(evenement))
+    context["selected_quantities_json"] = json.dumps(wizard_data.get("ticket_quantities", {}))
+
+    if request.method == "POST":
+        quantities = {}
+        for ticket in context["tickets"]:
+            if ticket.is_sold_out:
+                continue
+            key = f"ticket_{ticket.pk}"
+            try:
+                qty = int(request.POST.get(key, 0))
+            except (TypeError, ValueError):
+                qty = 0
+            if qty > 0:
+                quantities[str(ticket.pk)] = qty
+
+        try:
+            validate_ticket_selection(evenement, {int(k): v for k, v in quantities.items()})
+            wizard_data["ticket_quantities"] = quantities
+            set_wizard_data(request, evenement, wizard_data)
+            return redirect("ticket_gegevens", slug=slug)
+        except TicketValidationError as exc:
+            context["error"] = str(exc)
+
+    return TemplateResponse(request, "pokemon/pages/tickets/stap1.html", context)
+
+
+def ticket_gegevens(request, slug):
+    """Stap 2: contactgegevens."""
+    evenement = _get_ticket_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    wizard_data = get_wizard_data(request, evenement)
+    if not heeft_tickets(wizard_data):
+        return redirect("ticket_kopen", slug=slug)
+
+    context = ticket_base_context(request, evenement, "gegevens")
+    initial = {
+        "email": wizard_data.get("email", ""),
+        "first_name": wizard_data.get("first_name", ""),
+        "last_name": wizard_data.get("last_name", ""),
+    }
+
+    if request.method == "POST":
+        form = TicketGegevensForm(request.POST)
+        if form.is_valid():
+            wizard_data.update(form.cleaned_data)
+            set_wizard_data(request, evenement, wizard_data)
+            return redirect("ticket_overzicht", slug=slug)
+    else:
+        form = TicketGegevensForm(initial=initial)
+
+    context["form"] = form
+    return TemplateResponse(request, "pokemon/pages/tickets/stap2.html", context)
+
+
+def ticket_overzicht(request, slug):
+    """Stap 3: overzicht, kortingscode en betalen."""
+    evenement = _get_ticket_evenement(slug)
+    if not evenement:
+        return HttpResponseNotFound()
+
+    wizard_data = get_wizard_data(request, evenement)
+    if not heeft_tickets(wizard_data):
+        return redirect("ticket_kopen", slug=slug)
+    if not heeft_ticket_gegevens(wizard_data):
+        return redirect("ticket_gegevens", slug=slug)
+
+    quantities = get_ticket_quantities(wizard_data)
+    kortingscode_obj = None
+    korting_bedrag = Decimal("0")
+    code = wizard_data.get("kortingscode", "")
+
+    if code:
+        try:
+            kortingscode_obj, korting_bedrag = validate_kortingscode(code, evenement, quantities)
+        except TicketValidationError:
+            wizard_data.pop("kortingscode", None)
+            set_wizard_data(request, evenement, wizard_data)
+
+    prijsopbouw, subtotaal, totaal = build_ticket_prijsopbouw(
+        evenement, quantities, kortingscode_obj, korting_bedrag
+    )
+
+    context = ticket_base_context(request, evenement, "overzicht")
+    context.update({
+        "prijsopbouw": prijsopbouw,
+        "subtotaal": subtotaal,
+        "totaal": totaal,
+        "kortingscode": code,
+        "korting_bedrag": korting_bedrag,
+        "quantities": quantities,
+    })
+
+    if request.method == "POST":
+        if "apply_kortingscode" in request.POST:
+            code_input = request.POST.get("kortingscode", "").strip()
+            if code_input:
+                try:
+                    validate_kortingscode(code_input, evenement, quantities)
+                    wizard_data["kortingscode"] = code_input
+                    set_wizard_data(request, evenement, wizard_data)
+                except TicketValidationError as exc:
+                    context["error"] = str(exc)
+                    context["form"] = TicketOverzichtForm(initial={"kortingscode": code_input})
+                    return TemplateResponse(request, "pokemon/pages/tickets/stap3.html", context)
+            else:
+                wizard_data.pop("kortingscode", None)
+                set_wizard_data(request, evenement, wizard_data)
+            return redirect("ticket_overzicht", slug=slug)
+
+        form = TicketOverzichtForm(request.POST)
+        if form.is_valid():
+            code_input = form.cleaned_data.get("kortingscode", "").strip()
+            if code_input:
+                try:
+                    validate_kortingscode(code_input, evenement, quantities)
+                    wizard_data["kortingscode"] = code_input
+                except TicketValidationError as exc:
+                    context["error"] = str(exc)
+                    context["form"] = form
+                    return TemplateResponse(request, "pokemon/pages/tickets/stap3.html", context)
+            else:
+                wizard_data.pop("kortingscode", None)
+
+            set_wizard_data(request, evenement, wizard_data)
+
+            try:
+                payment, checkout_url = finalize_checkout(request, evenement, wizard_data)
+                request.session[pending_payment_session_key(evenement)] = payment.pk
+                clear_wizard_data(request, evenement)
+                return redirect(checkout_url)
+            except TicketValidationError as exc:
+                context["error"] = str(exc)
+                context["form"] = form
+                return TemplateResponse(request, "pokemon/pages/tickets/stap3.html", context)
+
+        context["form"] = form
+    else:
+        context["form"] = TicketOverzichtForm(initial={"kortingscode": code})
+
+    return TemplateResponse(request, "pokemon/pages/tickets/stap3.html", context)
+
+
+def ticket_validate_kortingscode(request, slug):
+    """AJAX: valideer kortingscode en retourneer prijsopbouw."""
+    if request.method != "POST":
+        return JsonResponse({"valid": False, "error": "Invalid method"}, status=405)
+
+    evenement = _get_ticket_evenement(slug)
+    if not evenement:
+        return JsonResponse({"valid": False, "error": "Not found"}, status=404)
+
+    wizard_data = get_wizard_data(request, evenement)
+    quantities = get_ticket_quantities(wizard_data)
+    code = request.POST.get("kortingscode", "").strip()
+
+    if not code:
+        prijsopbouw, subtotaal, totaal = build_ticket_prijsopbouw(evenement, quantities)
+        return JsonResponse({
+            "valid": True,
+            "subtotaal": str(subtotaal),
+            "korting": "0.00",
+            "totaal": str(totaal),
+            "regels": [
+                {"omschrijving": r["omschrijving"], "bedrag": str(r["bedrag"])}
+                for r in prijsopbouw
+            ],
+        })
+
+    try:
+        kortingscode_obj, korting_bedrag = validate_kortingscode(code, evenement, quantities)
+        prijsopbouw, subtotaal, totaal = build_ticket_prijsopbouw(
+            evenement, quantities, kortingscode_obj, korting_bedrag
+        )
+        return JsonResponse({
+            "valid": True,
+            "subtotaal": str(subtotaal),
+            "korting": str(korting_bedrag),
+            "totaal": str(totaal),
+            "code": kortingscode_obj.code,
+            "regels": [
+                {"omschrijving": r["omschrijving"], "bedrag": str(r["bedrag"])}
+                for r in prijsopbouw
+            ],
+        })
+    except TicketValidationError as exc:
+        return JsonResponse({"valid": False, "error": str(exc)})
+
+
 def evenement_success(request, slug):
     context = get_default_context()
-    context["success"] = True
-    context["evenement"] = get_object_or_404(Evenement, slug=slug)
+    evenement = get_object_or_404(Evenement, slug=slug)
+    context["evenement"] = evenement
 
-    if not context["evenement"].toon_op_site: return HttpResponseNotFound()
+    if not evenement.toon_op_site:
+        return HttpResponseNotFound()
+
+    payment_pk = request.session.get(pending_payment_session_key(evenement))
+    payment = None
+    if payment_pk:
+        payment = Payment.objects.filter(pk=payment_pk).first()
+
+    if payment and payment.mollie_id:
+        try:
+            mollie_payment = MollieClient().client.payments.get(payment.mollie_id)
+            mollie_status = mollie_payment.get("status", "").lower()
+            valid_statuses = [choice[0] for choice in PaymentStatus.CHOICES]
+            if mollie_status in valid_statuses and mollie_status != payment.status:
+                payment.status = mollie_status
+                payment.save()
+                verwerk_ticket_betaling(payment, mollie_status)
+                payment.refresh_from_db()
+        except Exception:
+            pass
+
+        context["payment_status"] = payment.status
+        context["success"] = payment.status == PaymentStatus.PAID
+        context["pending"] = payment.status == PaymentStatus.OPEN
+        request.session.pop(pending_payment_session_key(evenement), None)
+    else:
+        context["success"] = True
+        context["pending"] = False
 
     return TemplateResponse(request, 'pokemon/pages/evenement-inschrijving-response.html', context)
 
@@ -556,6 +758,7 @@ def mollie_webhook(request):
             payment.status = mollie_status
             payment.save()
             verwerk_standhouder_betaling(payment, mollie_status)
+            verwerk_ticket_betaling(payment, mollie_status)
 
         return HttpResponse(status=200)
 

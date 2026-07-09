@@ -1,0 +1,40 @@
+{% extends 'pokemon/main.html' %}
+{% load static i18n %}
+
+{% block title %}ChudartZ Collectibles | {% trans "Tickets kopen" %}{% endblock %}
+
+{% block head %}
+{% block wizard_styles %}{% endblock %}
+{% endblock %}
+
+{% block body %}
+<body class="evenementen-page">
+  {% include 'pokemon/blocks/header-sticky.html' %}
+  <main class="main">
+    {% trans "Tickets kopen" as page_name %}
+    {% include 'pokemon/blocks/page-title.html' with name=page_name background="true" second_previous_crumb="Evenementen" second_previous_crumb_link="/nl/evenementen" previous_crumb=evenement.titel previous_crumb_link=evenement.get_absolute_url %}
+
+    <section class="ticket-wizard service-details section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-box register">
+              {% with wizard_stappen=stappen %}
+                {% include 'pokemon/pages/tickets/_wizard_nav.html' %}
+              {% endwith %}
+
+              {% if error %}
+                <div class="alert-standhouder error">{{ error }}</div>
+              {% endif %}
+
+              {% block wizard_content %}{% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'pokemon/blocks/footer.html' %}
+  {% block wizard_scripts %}{% endblock %}
+</body>
+{% endblock %}

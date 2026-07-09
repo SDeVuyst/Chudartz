@@ -267,8 +267,30 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
         return redirect(reverse('admin:pokemon_participant_change', args=[participant.pk]))
 
 
+@admin.register(Kortingscode)
+class KortingscodeAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ("code", "discount_type", "amount", "actief", "aantal_gebruikt", "max_gebruik", "geldig_tot")
+    list_filter = ("actief", "discount_type")
+    search_fields = ("code",)
+    filter_horizontal = ("evenementen", "tickets")
+    fieldsets = (
+        (None, {
+            "fields": ("code", "discount_type", "amount", "actief"),
+        }),
+        (_("Geldigheid"), {
+            "fields": ("geldig_van", "geldig_tot", "max_gebruik", "aantal_gebruikt"),
+        }),
+        (_("Voorwaarden"), {
+            "fields": ("min_bedrag", "evenementen", "tickets"),
+        }),
+    )
+    readonly_fields = ("aantal_gebruikt",)
+
+
 @admin.register(Payment)
 class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ("mollie_id", "mail", "amount", "korting_bedrag", "kortingscode", "status")
+    list_filter = ("status",)
     actions_detail = ["generate_ticket",]
 
     @action(description=_("Generate Ticket"))

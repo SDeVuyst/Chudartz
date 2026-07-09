@@ -178,8 +178,7 @@ class Ticket(models.Model):
     
     @property
     def remaining_tickets(self):
-        amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).count()
-        return self.max_deelnemers - amount_of_participants_with_this_as_ticket
+        return self.max_deelnemers - self.participants_count
     
     @property
     def participants_count(self):
@@ -212,6 +211,93 @@ class TicketEigenschap(models.Model):
     ticket = models.ManyToManyField(Ticket, related_name='eigenschappen')
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+
+class KortingscodeType:
+    PERCENT = "percent"
+    FIXED = "fixed"
+
+    CHOICES = [
+        (PERCENT, _("Percentage")),
+        (FIXED, _("Vast bedrag")),
+    ]
+
+
+class Kortingscode(models.Model):
+    class Meta:
+        verbose_name = _("Kortingscode")
+        verbose_name_plural = _("Kortingscodes")
+
+    def __str__(self):
+        return self.code
+
+    code = models.CharField(_("Code"), max_length=50, unique=True)
+    discount_type = models.CharField(
+        _("Type korting"),
+        max_length=10,
+        choices=KortingscodeType.CHOICES,
+        default=KortingscodeType.PERCENT,
+    )
+    amount = models.DecimalField(
+        _("Waarde"),
+        max_digits=10,
+        decimal_places=2,
+        help_text=_("Percentage (0-100) of vast bedrag in euro."),
+    )
+    geldig_van = models.DateTimeField(_("Geldig vanaf"), null=True, blank=True)
+    geldig_tot = models.DateTimeField(_("Geldig tot"), null=True, blank=True)
+    max_gebruik = models.PositiveIntegerField(
+        _("Max. aantal keer te gebruiken"),
+        null=True,
+        blank=True,
+        help_text=_("Leeg = onbeperkt."),
+    )
+    aantal_gebruikt = models.PositiveIntegerField(_("Aantal keer gebruikt"), default=0)
+    actief = models.BooleanField(_("Actief"), default=True)
+    evenementen = models.ManyToManyField(
+        Evenement,
+        verbose_name=_("Evenementen"),
+        blank=True,
+        help_text=_("Leeg = geldig voor alle evenementen."),
+    )
+    tickets = models.ManyToManyField(
+        Ticket,
+        verbose_name=_("Tickets"),
+        blank=True,
+        help_text=_("Leeg = geldig voor alle tickettypes."),
+    )
+    min_bedrag = MoneyField(
+        _("Minimum bestelbedrag"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+    )
+
+    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    def bereken_korting(self, subtotaal):
+        from decimal import Decimal
+
+        subtotaal = Decimal(str(subtotaal))
+        if self.discount_type == KortingscodeType.PERCENT:
+            korting = (subtotaal * self.amount / Decimal("100")).quantize(Decimal("0.01"))
+        else:
+            korting = min(self.amount, subtotaal)
+        return max(korting, Decimal("0"))
+
+    def is_geldig_op_moment(self):
+        now = timezone.now()
+        if not self.actief:
+            return False
+        if self.geldig_van and now < self.geldig_van:
+            return False
+        if self.geldig_tot and now > self.geldig_tot:
+            return False
+        if self.max_gebruik is not None and self.aantal_gebruikt >= self.max_gebruik:
+            return False
+        return True
 
 
 class PaymentStatus:
@@ -253,8 +339,14 @@ class Payment(models.Model):
 
         super().save(*args, **kwargs)
 
-        if became_paid and Participant.objects.filter(payment=self).exists():
-            self.send_mail()
+        if became_paid:
+            if Participant.objects.filter(payment=self).exists():
+                self.send_mail()
+            if self.kortingscode_id:
+                from django.db.models import F
+                Kortingscode.objects.filter(pk=self.kortingscode_id).update(
+                    aantal_gebruikt=F("aantal_gebruikt") + 1
+                )
 
     mollie_id = models.CharField(verbose_name=_("Mollie id"), blank=True, null=True)
     first_name = models.CharField(max_length=50, verbose_name=_("Voornaam"), blank=True, null=True)
@@ -262,6 +354,29 @@ class Payment(models.Model):
     mail = models.EmailField(verbose_name=_("Email"), max_length=254, blank=True, null=True)
     status = models.CharField(max_length=10, choices=PaymentStatus.CHOICES, default=PaymentStatus.OPEN)
     amount = MoneyField(verbose_name="Prijs", default_currency="EUR", max_digits=10, decimal_places=2, blank=True, null=True)
+    subtotaal = MoneyField(
+        verbose_name=_("Subtotaal"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+    )
+    korting_bedrag = MoneyField(
+        verbose_name=_("Korting"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+    )
+    kortingscode = models.ForeignKey(
+        Kortingscode,
+        verbose_name=_("Kortingscode"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="betalingen",
+    )
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 

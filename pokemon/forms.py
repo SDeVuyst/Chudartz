@@ -1,6 +1,43 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from pokemon.models import StandhouderInschrijving, StandhouderVraag, VraagType
+
+
+class TicketGegevensForm(forms.Form):
+    email = forms.EmailField(
+        label=_("E-mailadres"),
+        widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "E-mailadres"}),
+    )
+    first_name = forms.CharField(
+        label=_("Voornaam"),
+        max_length=50,
+        required=False,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Voornaam (optioneel)"}),
+    )
+    last_name = forms.CharField(
+        label=_("Achternaam"),
+        max_length=50,
+        required=False,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Achternaam (optioneel)"}),
+    )
+
+
+class TicketOverzichtForm(forms.Form):
+    kortingscode = forms.CharField(
+        label=_("Kortingscode"),
+        max_length=50,
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control",
+            "placeholder": "Kortingscode (optioneel)",
+            "autocomplete": "off",
+        }),
+    )
+    terms_voorwaarden = forms.BooleanField(required=True)
+    terms_privacy = forms.BooleanField(required=True)
+    terms_disclaimer = forms.BooleanField(required=True)
+    terms_huisreglement = forms.BooleanField(required=True)
 
 
 class ContactForm(forms.Form):

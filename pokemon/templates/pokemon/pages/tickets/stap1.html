@@ -1,0 +1,272 @@
+{% extends 'pokemon/pages/tickets/base.html' %}
+{% load static i18n %}
+
+{% block wizard_content %}
+<h4>{% trans 'Kies uw tickets' %}</h4>
+<p class="text-muted small">{% blocktrans with max=max_tickets_per_type %}Selecteer het aantal tickets per type. Maximaal {{ max }} per type.{% endblocktrans %}</p>
+
+<form method="post" id="ticket-select-form" class="register-form">
+  {% csrf_token %}
+
+  <div id="ticket-cards" class="row g-3 mb-4">
+    {% for ticket in tickets %}
+      {% if not ticket.is_sold_out %}
+      <div class="col-md-6">
+        <div class="ticket-select-card" data-ticket-id="{{ ticket.pk }}" data-price="{{ ticket.price.amount }}" data-max="{{ ticket.remaining_tickets|default:max_tickets_per_type }}">
+          <div class="ticket-select-card__body">
+            <div class="ticket-select-card__info">
+              <i class="bi bi-{{ ticket.icon }}"></i>
+              <div>
+                <strong>{{ ticket.titel }}</strong>
+                <span class="ticket-select-card__price">€{{ ticket.price.amount }}</span>
+                {% if ticket.remaining_tickets <= 10 %}
+                <small class="ticket-select-card__stock">{% blocktrans with rest=ticket.remaining_tickets %}Nog {{ rest }} beschikbaar{% endblocktrans %}</small>
+                {% endif %}
+              </div>
+            </div>
+            <div class="ticket-qty-stepper" role="group" aria-label="{% trans 'Aantal tickets' %}">
+              <span class="ticket-qty-stepper__btn qty-minus" role="button" tabindex="0" aria-label="{% trans 'Minder' %}">
+                <i class="bi bi-dash-lg"></i>
+              </span>
+              <input
+                type="number"
+                name="ticket_{{ ticket.pk }}"
+                class="ticket-qty-stepper__input ticket-qty-input"
+                min="0"
+                max="{% if ticket.remaining_tickets < max_tickets_per_type %}{{ ticket.remaining_tickets }}{% else %}{{ max_tickets_per_type }}{% endif %}"
+                value="0"
+                data-ticket-id="{{ ticket.pk }}"
+                inputmode="numeric"
+                aria-live="polite"
+              >
+              <span class="ticket-qty-stepper__btn qty-plus" role="button" tabindex="0" aria-label="{% trans 'Meer' %}">
+                <i class="bi bi-plus-lg"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% empty %}
+      <div class="col-12">
+        <p class="text-muted">{% trans "Er zijn momenteel geen tickets beschikbaar." %}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="ticket-order-summary mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <span>{% trans "Subtotaal" %}</span>
+      <strong id="ticket-subtotal">€0,00</strong>
+    </div>
+    <div id="ticket-summary-lines" class="ticket-summary-lines text-muted small mt-2"></div>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <a href="{{ evenement.get_absolute_url }}" class="btn btn-back">{% trans 'Terug' %}</a>
+    <button type="submit" id="ticket-next-btn" disabled>{% trans 'Volgende: gegevens' %}</button>
+  </div>
+</form>
+{% endblock %}
+
+{% block wizard_styles %}
+<style>
+.ticket-select-card {
+  border: 1px solid #e9ecef;
+  border-radius: 14px;
+  padding: 1rem 1.15rem;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  height: 100%;
+}
+.ticket-select-card.is-selected {
+  border-color: color-mix(in srgb, var(--accent-color), transparent 55%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 88%);
+}
+.ticket-select-card__body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ticket-select-card__info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.ticket-select-card__info .bi {
+  font-size: 1.45rem;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+.ticket-select-card__info strong {
+  display: block;
+  line-height: 1.25;
+}
+.ticket-select-card__price {
+  display: block;
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 0.1rem;
+}
+.ticket-select-card__stock {
+  display: block;
+  font-size: 0.78rem;
+  color: #9aa0a6;
+  margin-top: 0.15rem;
+}
+.ticket-qty-stepper {
+  display: inline-flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  border: 1px solid #e2e5e9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fafbfc;
+}
+.ticket-qty-stepper__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  min-height: 2.35rem;
+  cursor: pointer;
+  color: #9aa0a6;
+  background: transparent;
+  user-select: none;
+  transition: background 0.15s, color 0.15s;
+}
+.ticket-qty-stepper__btn:hover {
+  background: #f0f2f4;
+  color: #5c636a;
+}
+.ticket-qty-stepper__btn:active {
+  background: #e8eaed;
+  color: #495057;
+}
+.ticket-qty-stepper__btn .bi {
+  font-size: 0.85rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+.ticket-qty-stepper__input {
+  width: 2.5rem;
+  min-height: 2.35rem;
+  border: none;
+  border-left: 1px solid #e2e5e9;
+  border-right: 1px solid #e2e5e9;
+  background: #fff;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  padding: 0;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.ticket-qty-stepper__input:focus {
+  outline: none;
+  background: #fff;
+}
+.ticket-qty-stepper__input::-webkit-outer-spin-button,
+.ticket-qty-stepper__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.ticket-order-summary {
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+@media (max-width: 576px) {
+  .ticket-select-card__body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ticket-qty-stepper {
+    align-self: flex-end;
+  }
+}
+</style>
+{% endblock %}
+
+{% block wizard_scripts %}
+<script>window.TICKET_WIZARD_DATA = {{ tickets_json|safe }};</script>
+<script>
+(function() {
+  const data = window.TICKET_WIZARD_DATA || [];
+  const selected = {{ selected_quantities_json|safe }};
+  const subtotalEl = document.getElementById('ticket-subtotal');
+  const linesEl = document.getElementById('ticket-summary-lines');
+  const nextBtn = document.getElementById('ticket-next-btn');
+  const inputs = document.querySelectorAll('.ticket-qty-input');
+
+  inputs.forEach(function(input) {
+    const id = input.dataset.ticketId;
+    if (selected[id] !== undefined) {
+      input.value = selected[id];
+    }
+  });
+
+  function formatEuro(amount) {
+    return '€' + amount.toFixed(2).replace('.', ',');
+  }
+
+  function updateCardState(input) {
+    const card = input.closest('.ticket-select-card');
+    const qty = parseInt(input.value) || 0;
+    if (card) card.classList.toggle('is-selected', qty > 0);
+  }
+
+  function updateSummary() {
+    let total = 0;
+    let lines = [];
+    let hasTickets = false;
+
+    inputs.forEach(function(input) {
+      const id = parseInt(input.dataset.ticketId);
+      const qty = parseInt(input.value) || 0;
+      updateCardState(input);
+      const ticket = data.find(t => t.id === id);
+      if (ticket && qty > 0) {
+        hasTickets = true;
+        const lineTotal = qty * parseFloat(ticket.prijs);
+        total += lineTotal;
+        lines.push(qty + '× ' + ticket.titel);
+      }
+    });
+
+    subtotalEl.textContent = formatEuro(total);
+    linesEl.textContent = lines.join(' · ');
+    nextBtn.disabled = !hasTickets;
+  }
+
+  document.querySelectorAll('.qty-minus, .qty-plus').forEach(function(btn) {
+    function adjust(delta) {
+      const input = btn.closest('.ticket-qty-stepper').querySelector('.ticket-qty-input');
+      const max = parseInt(input.max) || {{ max_tickets_per_type }};
+      const val = parseInt(input.value) || 0;
+      input.value = Math.max(0, Math.min(max, val + delta));
+      updateSummary();
+    }
+    btn.addEventListener('click', function() {
+      adjust(btn.classList.contains('qty-plus') ? 1 : -1);
+    });
+    btn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        adjust(btn.classList.contains('qty-plus') ? 1 : -1);
+      }
+    });
+  });
+
+  inputs.forEach(function(input) {
+    input.addEventListener('input', updateSummary);
+  });
+
+  updateSummary();
+})();
+</script>
+{% endblock %}
