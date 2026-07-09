@@ -28,6 +28,15 @@ class TicketInline(StackedInline):
     extra = 0
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
+    fields = (
+        "titel",
+        "price",
+        "icon",
+        "max_deelnemers",
+        "disable_ticket",
+        "toegang_start",
+        "toegang_einde",
+    )
 
 class EvenementFotoInline(StackedInline):
     model = EvenementFoto

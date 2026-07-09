@@ -2,7 +2,6 @@ import logging
 import secrets
 import string
 from email.utils import formataddr
-from io import BytesIO
 
 import pytz
 import qrcode
@@ -11,25 +10,18 @@ from django.conf import settings
 from django.utils.translation import pgettext_lazy
 
 logger = logging.getLogger(__name__)
-from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage, send_mail
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
-from PIL import Image
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 from simple_history.models import HistoricalRecords
 from phonenumber_field.modelfields import PhoneNumberField
 
-from darts.templatetags import dutch_date
+from chudartz.ticket_renderer import render_ticket_pdf
 from darts.utils import helpers
 from darts.validators.image_validator import validate_image_max_size
 
@@ -165,8 +157,26 @@ class Ticket(models.Model):
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
     event = models.ForeignKey(Evenement, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
     disable_ticket = models.BooleanField(_("Schakel ticket uit"))
+    toegang_start = models.DateTimeField(
+        _("Toegang vanaf"),
+        null=True,
+        blank=True,
+        help_text=_("Laat leeg om de evenementtijden te gebruiken. Alleen zichtbaar op het ticket."),
+    )
+    toegang_einde = models.DateTimeField(
+        _("Toegang tot"),
+        null=True,
+        blank=True,
+        help_text=_("Laat leeg om de evenementtijden te gebruiken. Alleen zichtbaar op het ticket."),
+    )
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
+
+    def get_toegang_start(self):
+        return self.toegang_start or self.event.start_datum
+
+    def get_toegang_einde(self):
+        return self.toegang_einde or self.event.einde_datum
 
     @property 
     def is_sold_out(self):
@@ -381,16 +391,16 @@ class Payment(models.Model):
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
     def generate_ticket(self, for_email=False):
-        participants = Participant.objects.filter(payment=self)
-        tickets = []
-        for p in participants:
-            ticket = p.generate_ticket(return_as_http=False) 
+        from chudartz.ticket_renderer import render_tickets_pdf
 
-            tickets.append(ticket)
-
-            
-        merged_buffer = helpers.merge_pdfs(tickets)
-        if for_email: return merged_buffer
+        participants = Participant.objects.filter(payment=self).select_related("ticket__event")
+        ticket_items = [
+            (p.ticket.event, p.ticket, p.generate_qr_code())
+            for p in participants
+        ]
+        merged_buffer = render_tickets_pdf(ticket_items)
+        if for_email:
+            return merged_buffer
 
         response = HttpResponse(merged_buffer, content_type='application/pdf')
         response['Content-Disposition'] = f'inline; filename="tickets-{self.pk}.pdf"'
@@ -478,65 +488,15 @@ class Participant(models.Model):
     
 
     def generate_ticket(self, return_as_http=True):
-        # Create a buffer to hold the PDF data
-        buffer = BytesIO()
-
-        # Create a canvas object
-        p = canvas.Canvas(buffer, pagesize=letter)
-
-        qr_img = self.generate_qr_code()
-
-        # Save the QR code afbeelding to a BytesIO object
-        qr_buffer = BytesIO()
-        qr_img.save(qr_buffer, format='PNG')
-        qr_buffer.seek(0)
-
-        qr_afbeelding = Image.open(qr_buffer)
-        temp_path = "/tmp/qr_code.png"
-        qr_afbeelding.save(temp_path)
-
-        # Draw the QR code afbeelding onto the PDF
-        p.drawImage(temp_path, 400, 590, 170, 170)
-
-        # Add  logo
-        logo_path = finders.find('img/logo-black.png')
-        p.drawImage(logo_path, 75, 715, 906 * 0.15, 345 * 0.15)
-
-        # get info about event
-        event = self.ticket.event
-        if dutch_date.dutch_date(event.start_datum) == dutch_date.dutch_date(event.einde_datum):
-            formatted_date = f"{dutch_date.dutch_datetime(event.start_datum)} - {dutch_date.dutch_time(event.einde_datum)}"
-        else:
-            formatted_date = f"{dutch_date.dutch_datetime(event.start_datum)} - {dutch_date.dutch_datetime(event.einde_datum)}"
-
-        # Add ticket details
-        # Set correct font for titel
-        font_path = finders.find('fonts/outfit/Outfit-Bold.ttf')
-        pdfmetrics.registerFont(TTFont('Outfit', font_path))
-        p.setFont("Outfit", 18)
-        if len(str(event)) > 30:
-            p.drawString(75, 690, f"{str(event)[:28]}...")
-        else:
-            p.drawString(75, 690, str(event))
-
-        # Set correct font for beschrijving
-        font_path = finders.find('fonts/outfit/Outfit-Regular.ttf')
-        pdfmetrics.registerFont(TTFont('Outfit', font_path))
-        p.setFont("Outfit", 14)
-
-        p.drawString(75, 660, formatted_date)
-        p.drawString(75, 635, str(self.ticket))
-        p.drawString(75, 610, strip_tags(event.locatie_kort))
-
-        # Finalize the PDF
-        p.save()
-
-        # Get the value of the BytesIO buffer and write it to the response
-        buffer.seek(0)
+        buffer = render_ticket_pdf(
+            event=self.ticket.event,
+            ticket=self.ticket,
+            qr_image=self.generate_qr_code(),
+        )
 
         if not return_as_http:
             return buffer
-        
+
         response = HttpResponse(buffer, content_type='application/pdf')
         response['Content-Disposition'] = f'inline; filename="ticket-{self.pk}.pdf"'
 

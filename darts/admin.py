@@ -19,6 +19,13 @@ class TicketInline(StackedInline):
     model = Ticket
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
+    fields = (
+        "titel",
+        "price",
+        "max_deelnemers",
+        "toegang_start",
+        "toegang_einde",
+    )
 
 class ToernooiFotoInline(StackedInline):
     model = ToernooiFoto
