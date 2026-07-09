@@ -126,7 +126,7 @@ class EvenementEinddatumFilter(DropdownFilter):
             return queryset.filter(einde_datum__lt=now)
         if value == 'all':
             return queryset
-        if value == 'future' or (value is None and not request.GET.get('q')):
+        if value == 'future':
             return queryset.filter(einde_datum__gte=now)
         return queryset
     
@@ -556,6 +556,20 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     @action(description=_("Zaalplan beheren"))
     def beheer_zaalplan(self, request, object_id: int):
         return redirect(reverse('admin:pokemon_zaalplan_editor', args=[object_id]))
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.GET.get('q'):
+            return qs
+
+        einddatum = request.GET.get('einddatum')
+        now = timezone.now()
+
+        if einddatum == 'past':
+            return qs.filter(einde_datum__lt=now)
+        if einddatum == 'all':
+            return qs
+        return qs.filter(einde_datum__gte=now)
 
     def changelist_view(self, request, extra_context=None):
         if 'einddatum' not in request.GET and not request.GET.get('q'):
