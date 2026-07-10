@@ -479,6 +479,9 @@ def standhouder(request, slug):
     if not evenement:
         return HttpResponseNotFound()
 
+    if not evenement.standhouder_inschrijving_mogelijk:
+        return redirect("evenement", slug=slug)
+
     # Zaalplan uitgeschakeld -> tafelkeuze overslaan
     if not evenement.standhouder_zaalplan_actief:
         get_or_create_concept_inschrijving(request, evenement)
@@ -491,7 +494,7 @@ def standhouder(request, slug):
     context["grid_json"] = json.dumps(serialize_zaalplan_grid(zaalplan, inschrijving)) if zaalplan else "null"
 
     if request.method == "POST":
-        if not evenement.enable_standhouder:
+        if not evenement.standhouder_inschrijving_mogelijk:
             context["error"] = "Standhouder inschrijvingen gesloten."
             return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
 
@@ -529,7 +532,7 @@ def standhouder_gegevens(request, slug):
     context = standhouder_base_context(request, evenement, "gegevens")
 
     if request.method == "POST":
-        if not evenement.enable_standhouder:
+        if not evenement.standhouder_inschrijving_mogelijk:
             context["error"] = "Standhouder inschrijvingen gesloten."
             return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
 
@@ -648,7 +651,7 @@ def standhouder_overzicht(request, slug):
     context["online_betaling"] = evenement.standhouder_betaling_verplicht
 
     if request.method == "POST":
-        if not evenement.enable_standhouder:
+        if not evenement.standhouder_inschrijving_mogelijk:
             context["error"] = "Standhouder inschrijvingen gesloten."
             return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
 

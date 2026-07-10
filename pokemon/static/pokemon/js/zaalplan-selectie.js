@@ -54,6 +54,10 @@
         else if (cel.tekst) div.textContent = cel.tekst;
       }
 
+      if (cel.type === 'tafel') {
+        div.dataset.primaryId = cel.primary_id;
+      }
+
       if (cel.type === 'tafel' && !onbeschikbaar) {
         div.setAttribute('role', 'button');
         div.setAttribute('tabindex', '0');
@@ -217,6 +221,30 @@
       }
     });
   }
+
+  function clearGroupHover() {
+    gridEl.querySelectorAll('.zaalplan-selectie-cel.is-hovered').forEach((el) => {
+      el.classList.remove('is-hovered');
+    });
+  }
+
+  function setGroupHover(primaryId) {
+    clearGroupHover();
+    gridEl.querySelectorAll(`[data-primary-id="${primaryId}"]`).forEach((el) => {
+      el.classList.add('is-hovered');
+    });
+  }
+
+  gridEl.addEventListener('mouseover', (e) => {
+    const cel = e.target.closest('.zaalplan-selectie-cel.tafel:not(.bezet)');
+    if (cel && gridEl.contains(cel)) {
+      setGroupHover(cel.dataset.primaryId);
+    } else {
+      clearGroupHover();
+    }
+  });
+
+  gridEl.addEventListener('mouseleave', clearGroupHover);
 
   renderGrid();
 })();

@@ -142,6 +142,10 @@ class Evenement(models.Model):
     def standhouder_prijzen_lijst(self):
         return self.standhouder_prijzen.split('\n')
 
+    @property
+    def standhouder_inschrijving_mogelijk(self):
+        return self.enable_standhouder and self.is_in_future
+
 
 class Ticket(models.Model):
     class Meta:

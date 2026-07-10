@@ -137,7 +137,9 @@ ChudartZ Collectibles | {{ evenement.titel }}
                 <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="btn btn-get-started">{% trans 'Tickets kopen' %}</a>
                 {% endif %}
                 <a href="#pricing" class="evenement-btn-secondary">{% trans 'Bekijk tickets' %}</a>
+                {% if evenement.standhouder_inschrijving_mogelijk %}
                 <a href="{% url 'standhouder' slug=evenement.slug %}" class="evenement-btn-secondary">{% trans 'Standhouder worden' %}</a>
+                {% endif %}
               </div>
             </div>
             

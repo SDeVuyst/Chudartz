@@ -1257,6 +1257,9 @@ section,
 
 .features .features-item .partner-logo {
   max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
 }
 
 .features .features-item .partner-logo img {
