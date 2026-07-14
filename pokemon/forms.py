@@ -95,7 +95,7 @@ class StandhouderTafelsForm(forms.Form):
         return tafels
 
 
-def build_standhouder_vragen_form(vragen, aantal_tafels, vraag_aantal_tafels=False, max_tafels=10):
+def build_standhouder_vragen_form(vragen, aantal_tafels, vraag_aantal_tafels=False, max_tafels=3):
     class StandhouderVragenForm(forms.Form):
         pass
 

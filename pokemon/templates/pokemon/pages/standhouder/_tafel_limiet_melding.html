@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="standhouder-tafel-limiet-hint">
+  <p class="mb-1">
+    {% blocktrans with max=evenement.standhouder_max_tafels %}
+    U kunt maximaal {{ max }} tafel(s) selecteren.
+    {% endblocktrans %}
+  </p>
+  <p class="mb-0">
+    {% blocktrans with max=evenement.standhouder_max_tafels %}
+    Wenst u meer dan {{ max }} tafels?
+    {% endblocktrans %}
+    <a href="{% url 'index' %}#contact">{% trans 'Neem contact met ons op via de contactsectie op onze homepage.' %}</a>
+  </p>
+</div>

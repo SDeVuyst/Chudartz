@@ -1,5 +1,7 @@
 from decimal import Decimal
 
+from django.utils.translation import gettext as _
+
 from pokemon.models import (
     CelType,
     Sponsor,
@@ -151,8 +153,21 @@ def serialize_zaalplan_grid(zaalplan, inschrijving=None):
         "rijen": zaalplan.rijen,
         "kolommen": zaalplan.kolommen,
         "standaard_prijs": str(zaalplan.standaard_prijs.amount),
+        "max_tafels": zaalplan.evenement.standhouder_max_tafels,
         "cellen": cellen,
     }
+
+
+def valideer_max_tafels(evenement, aantal):
+    max_tafels = evenement.standhouder_max_tafels
+    if aantal > max_tafels:
+        raise ValueError(
+            _("U kunt maximaal %(max)s tafel(s) selecteren. %(contact)s")
+            % {
+                "max": max_tafels,
+                "contact": evenement.standhouder_tafel_limiet_bericht(),
+            }
+        )
 
 
 def save_tafel_keuzes(inschrijving, tafel_ids):
@@ -160,12 +175,15 @@ def save_tafel_keuzes(inschrijving, tafel_ids):
     if not zaalplan:
         raise ValueError("Geen zaalplan geconfigureerd.")
 
+    unique_ids = set(str(t) for t in tafel_ids)
+    valideer_max_tafels(inschrijving.evenement, len(unique_ids))
+
     cellen = ZaalplanCel.objects.filter(
         pk__in=tafel_ids,
         zaalplan=zaalplan,
         cel_type=CelType.TAFEL,
     )
-    if cellen.count() != len(set(str(t) for t in tafel_ids)):
+    if cellen.count() != len(unique_ids):
         raise ValueError("Ongeldige tafelselectie.")
 
     bezet_ids = get_bezette_cel_ids(exclude_inschrijving_id=inschrijving.pk)

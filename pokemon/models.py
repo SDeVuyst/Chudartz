@@ -74,9 +74,12 @@ class Evenement(models.Model):
         help_text=_("Enkel gebruikt wanneer het zaalplan uitstaat."),
     )
     standhouder_max_tafels = models.PositiveIntegerField(
-        verbose_name=_("Max. aantal tafels (zonder zaalplan)"),
-        default=10,
-        help_text=_("Enkel gebruikt wanneer het zaalplan uitstaat."),
+        verbose_name=_("Max. aantal tafels per standhouder"),
+        default=3,
+        help_text=_(
+            "Maximum aantal tafels dat één standhouder mag kiezen of opgeven, "
+            "ongeacht of het zaalplan aan of uit staat."
+        ),
     )
     standhouder_betaling_verplicht = models.BooleanField(
         verbose_name=_("Online betaling via Mollie"),
@@ -145,6 +148,13 @@ class Evenement(models.Model):
     @property
     def standhouder_inschrijving_mogelijk(self):
         return self.enable_standhouder and self.is_in_future
+
+    STANDHOUDER_CONTACT_EMAIL = "chudartz@gmail.com"
+
+    def standhouder_tafel_limiet_bericht(self):
+        return _(
+            "Wenst u meer dan %(max)s tafels? Neem dan contact met ons op."
+        ) % {"max": self.standhouder_max_tafels}
 
 
 class Ticket(models.Model):
@@ -930,11 +940,17 @@ class StandhouderInschrijving(models.Model):
         return totaal
 
     def valideer_tafels_beschikbaar(self):
-        for cel in self.gekozen_tafels:
-            if cel.cel_type != CelType.TAFEL:
-                raise ValueError(f"Cel {cel.display_label} is geen tafel.")
-            if cel.is_bezet(exclude_inschrijving_id=self.pk):
-                raise ValueError(f"Tafel {cel.display_label} is niet meer beschikbaar.")
+        from pokemon.standhouder_wizard import valideer_max_tafels
+
+        if self.zaalplan_actief:
+            valideer_max_tafels(self.evenement, self.aantal_tafels)
+            for cel in self.gekozen_tafels:
+                if cel.cel_type != CelType.TAFEL:
+                    raise ValueError(f"Cel {cel.display_label} is geen tafel.")
+                if cel.is_bezet(exclude_inschrijving_id=self.pk):
+                    raise ValueError(f"Tafel {cel.display_label} is niet meer beschikbaar.")
+        else:
+            valideer_max_tafels(self.evenement, self.aantal_tafels_manueel or 0)
 
     def verstuur_bevestiging(self, voorlopig=False):
         tafels = list(self.gekozen_tafels)

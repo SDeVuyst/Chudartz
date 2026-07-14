@@ -37,6 +37,9 @@
         {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
       </div>
     {% endfor %}
+    {% if not zaalplan_actief %}
+      {% include 'pokemon/pages/standhouder/_tafel_limiet_melding.html' %}
+    {% endif %}
     <div class="col-12 d-flex justify-content-between">
       <a href="{% url 'standhouder_gegevens' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
       <button type="submit">{% trans 'Volgende: overzicht' %}</button>

@@ -6857,3 +6857,62 @@ msgstr ""
 "We work together with Blent, your entertainment webshop for pop culture, "
 "collectibles and more. Through this partnership, we bring the best "
 "experiences to our events and collector community."
+
+msgid "Max. aantal tafels per standhouder"
+msgstr "Max. number of tables per exhibitor"
+
+msgid ""
+"Maximum aantal tafels dat één standhouder mag kiezen of opgeven, ongeacht of "
+"het zaalplan aan of uit staat."
+msgstr ""
+"Maximum number of tables a single exhibitor may choose or request, "
+"regardless of whether the floor plan is enabled."
+
+msgid "Wenst u meer dan %(max)s tafels? Neem contact met ons op via %(email)s."
+msgstr ""
+"Would you like more than %(max)s tables? Please contact us at %(email)s."
+
+msgid "Wenst u meer dan %(max)s tafels? Neem dan contact met ons op."
+msgstr ""
+"Would you like more than %(max)s tables? Please contact us."
+
+msgid "Neem contact met ons op via de contactsectie op onze homepage."
+msgstr "Please contact us via the contact section on our homepage."
+
+msgid "U kunt maximaal %(max)s tafel(s) selecteren. %(contact)s"
+msgstr ""
+"You can select a maximum of %(max)s table(s). %(contact)s"
+
+msgid "U kunt maximaal %(max)s tafel(s) selecteren."
+msgstr "You can select a maximum of %(max)s table(s)."
+
+#, python-format
+msgid ""
+"\n"
+"    U kunt maximaal %(max)s tafel(s) selecteren.\n"
+"    "
+msgstr ""
+"\n"
+"    You can select a maximum of %(max)s table(s).\n"
+"    "
+
+#, python-format
+msgid ""
+"\n"
+"    Wenst u meer dan %(max)s tafels?\n"
+"    "
+msgstr ""
+"\n"
+"    Would you like more than %(max)s tables?\n"
+"    "
+
+msgid ""
+"Het maximum aantal tafels per standhouder geldt altijd, met of zonder "
+"zaalplan. Staat het zaalplan aan, dan kiezen standhouders hun tafel op de "
+"plattegrond (beheer via de knop 'Zaalplan beheren' bovenaan). Staat het uit, "
+"dan geven ze enkel een aantal tafels op tegen de prijs per tafel."
+msgstr ""
+"The maximum number of tables per exhibitor always applies, with or without a "
+"floor plan. When the floor plan is enabled, exhibitors choose their table on "
+"the map (manage via the 'Manage floor plan' button at the top). When "
+"disabled, they only enter a number of tables at the price per table."

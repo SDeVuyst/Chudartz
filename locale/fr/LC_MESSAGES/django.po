@@ -6948,3 +6948,63 @@ msgstr ""
 "la pop culture, les objets de collection et plus encore. Grâce à ce "
 "partenariat, nous offrons les meilleures expériences à nos événements et à "
 "notre communauté de collectionneurs."
+
+msgid "Max. aantal tafels per standhouder"
+msgstr "Nombre max. de tables par exposant"
+
+msgid ""
+"Maximum aantal tafels dat één standhouder mag kiezen of opgeven, ongeacht of "
+"het zaalplan aan of uit staat."
+msgstr ""
+"Nombre maximum de tables qu'un exposant peut choisir ou demander, que le "
+"plan de salle soit activé ou non."
+
+msgid "Wenst u meer dan %(max)s tafels? Neem contact met ons op via %(email)s."
+msgstr ""
+"Souhaitez-vous plus de %(max)s tables ? Contactez-nous via %(email)s."
+
+msgid "Wenst u meer dan %(max)s tafels? Neem dan contact met ons op."
+msgstr ""
+"Souhaitez-vous plus de %(max)s tables ? Contactez-nous."
+
+msgid "Neem contact met ons op via de contactsectie op onze homepage."
+msgstr "Contactez-nous via la section contact sur notre page d'accueil."
+
+msgid "U kunt maximaal %(max)s tafel(s) selecteren. %(contact)s"
+msgstr ""
+"Vous pouvez sélectionner un maximum de %(max)s table(s). %(contact)s"
+
+msgid "U kunt maximaal %(max)s tafel(s) selecteren."
+msgstr "Vous pouvez sélectionner un maximum de %(max)s table(s)."
+
+#, python-format
+msgid ""
+"\n"
+"    U kunt maximaal %(max)s tafel(s) selecteren.\n"
+"    "
+msgstr ""
+"\n"
+"    Vous pouvez sélectionner un maximum de %(max)s table(s).\n"
+"    "
+
+#, python-format
+msgid ""
+"\n"
+"    Wenst u meer dan %(max)s tafels?\n"
+"    "
+msgstr ""
+"\n"
+"    Souhaitez-vous plus de %(max)s tables ?\n"
+"    "
+
+msgid ""
+"Het maximum aantal tafels per standhouder geldt altijd, met of zonder "
+"zaalplan. Staat het zaalplan aan, dan kiezen standhouders hun tafel op de "
+"plattegrond (beheer via de knop 'Zaalplan beheren' bovenaan). Staat het uit, "
+"dan geven ze enkel een aantal tafels op tegen de prijs per tafel."
+msgstr ""
+"Le nombre maximum de tables par exposant s'applique toujours, avec ou sans "
+"plan de salle. Lorsque le plan de salle est activé, les exposants choisissent "
+"leur table sur le plan (gestion via le bouton « Gérer le plan de salle » en "
+"haut). Lorsqu'il est désactivé, ils indiquent uniquement un nombre de tables "
+"au prix par table."

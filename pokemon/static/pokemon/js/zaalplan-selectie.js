@@ -11,6 +11,11 @@
   const viewport = document.getElementById('zaalplan-selectie-viewport');
   const nextBtn = document.getElementById('tafel-next-btn');
   const gridData = window.ZAALPLAN_SELECTIE_DATA;
+  const maxTafels = parseInt(
+    gridEl.dataset.maxTafels || gridData.max_tafels || '0',
+    10
+  ) || Infinity;
+  let limietBereikt = false;
 
   function tafelLabel(cel) {
     if (cel.label) return cel.label;
@@ -138,8 +143,16 @@
   }
 
   function toggleGroep(primaryId) {
-    if (selected.has(primaryId)) selected.delete(primaryId);
-    else selected.add(primaryId);
+    if (selected.has(primaryId)) {
+      selected.delete(primaryId);
+      limietBereikt = false;
+    } else if (selected.size >= maxTafels) {
+      limietBereikt = true;
+      return;
+    } else {
+      selected.add(primaryId);
+      limietBereikt = false;
+    }
     renderGrid();
   }
 
@@ -169,9 +182,13 @@
     if (labels.length === 0) {
       summaryEl.textContent = 'Geen tafels geselecteerd';
     } else {
-      summaryEl.innerHTML =
+      let html =
         `<strong>Geselecteerd (${labels.length}):</strong> ${labels.join(', ')}<br>` +
         `<strong>Totaal:</strong> €${totaal.toFixed(2)}`;
+      if (limietBereikt) {
+        html += `<br><span class="tafel-limiet-bereikt">Maximum van ${maxTafels} tafel(s) bereikt.</span>`;
+      }
+      summaryEl.innerHTML = html;
     }
 
     if (nextBtn) nextBtn.disabled = selected.size === 0;
@@ -218,6 +235,9 @@
       if (selected.size === 0) {
         e.preventDefault();
         alert('Selecteer minstens één tafel.');
+      } else if (selected.size > maxTafels) {
+        e.preventDefault();
+        alert(`U kunt maximaal ${maxTafels} tafel(s) selecteren.`);
       }
     });
   }

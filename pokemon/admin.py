@@ -347,11 +347,12 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         (_("Standhouders · tafels & prijzen"), {
             "fields": (
                 "standhouder_zaalplan_actief",
-                "standhouder_prijs_per_tafel",
                 "standhouder_max_tafels",
+                "standhouder_prijs_per_tafel",
                 "standhouder_betaling_verplicht",
             ),
             "description": _(
+                "Het maximum aantal tafels per standhouder geldt altijd, met of zonder zaalplan. "
                 "Staat het zaalplan aan, dan kiezen standhouders hun tafel op de plattegrond "
                 "(beheer via de knop 'Zaalplan beheren' bovenaan). Staat het uit, dan geven ze enkel "
                 "een aantal tafels op tegen de prijs per tafel."
