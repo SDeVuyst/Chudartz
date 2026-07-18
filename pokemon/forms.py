@@ -40,6 +40,14 @@ class TicketOverzichtForm(forms.Form):
     terms_huisreglement = forms.BooleanField(required=True)
 
 
+class StandhouderOverzichtForm(forms.Form):
+    terms_voorwaarden = forms.BooleanField(required=True)
+    terms_privacy = forms.BooleanField(required=True)
+    terms_disclaimer = forms.BooleanField(required=True)
+    terms_huisreglement = forms.BooleanField(required=True)
+    terms_wettelijk = forms.BooleanField(required=True)
+
+
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
     email = forms.EmailField()

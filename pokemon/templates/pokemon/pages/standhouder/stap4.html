@@ -75,10 +75,45 @@
 
   <div class="col-md-12 mb-3">
     <div class="form-check">
-      <input name="terms_voorwaarden" class="form-check-input" type="checkbox" required>
-      <label class="form-check-label text-muted small">
+      <input name="terms_voorwaarden" class="form-check-input" type="checkbox" required id="terms_av">
+      <label class="form-check-label text-muted small" for="terms_av">
         {% url 'algemene_voorwaarden' as av_url %}
-        {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a>.{% endblocktrans %}
+        {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> met inbegrip van de annuleringsvoorwaarden van ChudartZ Collectibles.{% endblocktrans %}
+      </label>
+    </div>
+  </div>
+  <div class="col-md-12 mb-3">
+    <div class="form-check">
+      <input name="terms_privacy" class="form-check-input" type="checkbox" required id="terms_priv">
+      <label class="form-check-label text-muted small" for="terms_priv">
+        {% url 'privacybeleid' as p_url %}
+        {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ Collectibles.{% endblocktrans %}
+      </label>
+    </div>
+  </div>
+  <div class="col-md-12 mb-3">
+    <div class="form-check">
+      <input name="terms_disclaimer" class="form-check-input" type="checkbox" required id="terms_dis">
+      <label class="form-check-label text-muted small" for="terms_dis">
+        {% url 'disclaimer' as d_url %}
+        {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ Collectibles.{% endblocktrans %}
+      </label>
+    </div>
+  </div>
+  <div class="col-md-12 mb-3">
+    <div class="form-check">
+      <input name="terms_huisreglement" class="form-check-input" type="checkbox" required id="terms_huis">
+      <label class="form-check-label text-muted small" for="terms_huis">
+        {% url 'huisreglement' as h_url %}
+        {% blocktrans %}Ik ga akkoord met het <a href="{{ h_url }}">huisreglement</a> van ChudartZ Collectibles.{% endblocktrans %}
+      </label>
+    </div>
+  </div>
+  <div class="col-md-12 mb-3">
+    <div class="form-check">
+      <input name="terms_wettelijk" class="form-check-input" type="checkbox" required id="terms_wettelijk">
+      <label class="form-check-label text-muted small" for="terms_wettelijk">
+        {% blocktrans %}Ik verklaar, als particulier of professionele verkoper, volledig in orde te zijn met alle toepasselijke wettelijke, fiscale en administratieve verplichtingen m.b.t. mijn verkoopactiviteiten (waaronder eventuele verplichtingen inzake belastingen, btw en ondernemingsformaliteiten). ChudartZ Collectibles kan hiervoor op geen enkele wijze aansprakelijk worden gesteld.{% endblocktrans %}
       </label>
     </div>
   </div>

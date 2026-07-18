@@ -22,6 +22,7 @@ from pokemon.forms import (
     StandhouderGegevensForm,
     StandhouderTafelsForm,
     TicketGegevensForm,
+    StandhouderOverzichtForm,
     TicketOverzichtForm,
     build_standhouder_vragen_form,
 )
@@ -654,6 +655,11 @@ def standhouder_overzicht(request, slug):
         if not evenement.standhouder_inschrijving_mogelijk:
             context["error"] = "Standhouder inschrijvingen gesloten."
             return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
+
+        form = StandhouderOverzichtForm(request.POST)
+        if not form.is_valid():
+            context["error"] = "Gelieve alle voorwaarden te aanvaarden."
+            return TemplateResponse(request, "pokemon/pages/standhouder/stap4.html", context)
 
         if not helpers.verify_recaptcha(request.POST.get("recaptcha_token")):
             context["error"] = "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
