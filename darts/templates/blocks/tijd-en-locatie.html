@@ -11,31 +11,35 @@
                 {{ locatie }}
             </span></p>
         {% else %}
-            {% if toernooi.is_same_day %}
+            {% if kamp.is_same_day %}
             <p><i class="bi bi-calendar4-event"></i><span>
-                {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_time }}
+                {{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_time }}
             </span></p>
             {% else %}
             <p><i class="bi bi-calendar4-week"></i><span>
-                {{ toernooi.start_datum|dutch_datetime }} - {{ toernooi.einde_datum|dutch_datetime }}
+                {{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_datetime }}
             </span></p>
             {% endif %}
             <p><i class="bi bi-geo-alt"></i><span>
-                {{ toernooi.locatie_lang }}
+                {{ kamp.locatie_lang }}
             </span></p>
+            {% if kamp.prijs %}
+            <p><i class="bi bi-cash"></i><span>
+                €{{ kamp.prijs.amount }}
+            </span></p>
+            {% endif %}
         {% endif %}
     </div>
 
     {% if not disable_inschrijvingen_knop %}
-    {% if toernooi.enable_inschrijvingen %}
-    <!-- Inschrijven knop -->
-    {% if toernooi.is_in_future and not toernooi.is_sold_out %}
-        <a href="{% url 'inschrijven_toernooi' slug=toernooi.slug %}" class="btn btn-get-started align-self-start">Schrijf je in</a>
+    {% if kamp.enable_inschrijvingen %}
+    {% if kamp.is_in_future and not kamp.is_sold_out %}
+        <a href="{% url 'inschrijven_dartskamp' slug=kamp.slug %}" class="btn btn-get-started align-self-start">{% trans "Schrijf je in" %}</a>
     {% else %}
-        {% if toernooi.is_in_future %}
-        <a href="#" class="btn disabled btn-get-started align-self-start">Schrijf je in</a>
+        {% if kamp.is_in_future %}
+        <a href="#" class="btn disabled btn-get-started align-self-start">{% trans "Volzet!" %}</a>
         {% else %}
-        <a href="#" class="btn disabled btn-get-started align-self-start">Uitverkocht!</a>
+        <a href="#" class="btn disabled btn-get-started align-self-start">{% trans "Schrijf je in" %}</a>
         {% endif %}
     {% endif %}
 

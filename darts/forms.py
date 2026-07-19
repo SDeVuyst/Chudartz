@@ -15,7 +15,7 @@ class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField()
 
-class ToernooiForm(forms.Form):
+class DartskampForm(forms.Form):
     voornaam = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={
         'placeholder': 'Voornaam',
         'class': 'form-control',
@@ -60,8 +60,12 @@ class ToernooiForm(forms.Form):
         'placeholder': 'Stad',
         'class': 'form-control',
     }))
-    
-    ticket = forms.CharField(required=True)
+
+
+class DartskampBetalenForm(forms.Form):
+    terms_voorwaarden = forms.BooleanField(required=True)
+    terms_privacy = forms.BooleanField(required=True)
+    terms_reglement = forms.BooleanField(required=True)
 
 
 class BeurtkaartForm(forms.Form):

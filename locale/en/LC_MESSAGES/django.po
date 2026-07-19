@@ -2651,9 +2651,8 @@ msgstr "Personal ambitions"
 
 #: .\darts\templates\pages\doelen.html:22
 #: .\darts\templates\pages\resultaat.html:31
-#: .\darts\templates\pages\toernooi.html:26
-msgid "/nl/toernooien"
-msgstr "/en/tournaments"
+msgid "/nl/dartskampen"
+msgstr "/en/dart-camps"
 
 #: .\darts\templates\pages\doelen.html:32
 msgid ""
@@ -4118,32 +4117,40 @@ msgid "dartschool/lidgeld/success/"
 msgstr "dartschool/membership-fee/success/"
 
 #: .\darts\urls.py:26
-msgid "toernooien/"
-msgstr "tournaments/"
+msgid "dartskampen/"
+msgstr "dart-camps/"
 
 #: .\darts\urls.py:27
-msgid "toernooien/doelen/"
-msgstr "tournaments/goals/"
+msgid "dartskampen/doelen/"
+msgstr "dart-camps/goals/"
 
 #: .\darts\urls.py:28
-msgid "toernooien/<slug:slug>/"
-msgstr "tournaments/<slug:slug>/"
+msgid "dartskampen/<slug:slug>/"
+msgstr "dart-camps/<slug:slug>/"
 
 #: .\darts\urls.py:29
-msgid "toernooien/<slug:slug>/inschrijven/"
-msgstr "tournaments/<slug:slug>/enroll/"
+msgid "dartskampen/<slug:slug>/inschrijven/"
+msgstr "dart-camps/<slug:slug>/enroll/"
 
 #: .\darts\urls.py:30
-msgid "toernooien/<slug:slug>/inschrijven/success/"
-msgstr "tournaments/<slug:slug>/enroll/success/"
+msgid "dartskampen/<slug:slug>/inschrijven/overzicht/"
+msgstr "dart-camps/<slug:slug>/enroll/overview/"
 
 #: .\darts\urls.py:31
-msgid "toernooien/resultaten"
-msgstr "tournaments/results/"
+msgid "dartskampen/<slug:slug>/inschrijven/betalen/"
+msgstr "dart-camps/<slug:slug>/enroll/pay/"
+
+#: .\darts\urls.py:30
+msgid "dartskampen/<slug:slug>/inschrijven/success/"
+msgstr "dart-camps/<slug:slug>/enroll/success/"
+
+#: .\darts\urls.py:31
+msgid "dartskampen/resultaten"
+msgstr "dart-camps/results/"
 
 #: .\darts\urls.py:32
-msgid "toernooien/<slug:slug>/resultaat"
-msgstr "tournaments/<slug:slug>/result"
+msgid "dartskampen/<slug:slug>/resultaat"
+msgstr "dart-camps/<slug:slug>/result"
 
 #: .\darts\urls.py:35
 msgid "priveles"
@@ -4166,8 +4173,8 @@ msgid "privacybeleid/"
 msgstr "privacy-policy/"
 
 #: .\darts\urls.py:41
-msgid "reglement-toernooien/"
-msgstr "tournament-rules/"
+msgid "reglement-dartskampen/"
+msgstr "dart-camp-rules/"
 
 #: .\darts\urls.py:42
 msgid "sponsor-worden/"

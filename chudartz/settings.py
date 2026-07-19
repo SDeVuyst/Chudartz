@@ -299,7 +299,7 @@ UNFOLD = {
                     {
                         "title": _("Navigatiebalk"),
                         "icon": "dropdown",
-                        "link": "/admin/darts/toernooiheadergroep/",
+                        "link": "/admin/darts/dartskampheadergroep/",
                     },
                     {
                         "title": _("Sfeerfoto's"),
@@ -310,26 +310,20 @@ UNFOLD = {
             },
             
             {
-                "title": "Darts Toernooien",
+                "title": "Dartskampen",
                 "collapsible": True,
                 "separator": True,
                 "items": [
                     {
-                        "title": _("Toernooien"),
-                        "icon": "trophy",
-                        "link": "/admin/darts/toernooi/",
+                        "title": _("Dartskampen"),
+                        "icon": "sports_kabaddi",
+                        "link": "/admin/darts/dartskamp/",
                     },
 
                     {
                         "title": _("Deelnemers"),
                         "icon": "group",
                         "link": "/admin/darts/participant/",
-                    },
-
-                    {
-                        "title": _("Scanner"),
-                        "icon": "qr_code_scanner",
-                        "link": "https://chudartz.com/darts/scanner/", # TODO reverse
                     },
                 ],
             },

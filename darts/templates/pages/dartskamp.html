@@ -3,16 +3,16 @@
 {% load static dutch_date i18n %}
 
 {% block title %}
-ChudartZ | {{ toernooi.titel}}
+ChudartZ | {{ kamp.titel}}
 {% endblock %}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="ChudartZ | {{ toernooi.titel }}">
+<meta property="og:title" content="ChudartZ | {{ kamp.titel }}">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ChudartZ | {{ toernooi.titel }}">
+<meta name="twitter:title" content="ChudartZ | {{ kamp.titel }}">
 <meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
 {% endblock %}
 
@@ -23,10 +23,10 @@ ChudartZ | {{ toernooi.titel}}
 
   <main class="main">
 
-    {% trans "/nl/toernooien" as page_previous_crumb_link %}
-    {% trans "Toernooien" as page_previous_crumb %}
+    {% trans "/nl/dartskampen" as page_previous_crumb_link %}
+    {% trans "Dartskampen" as page_previous_crumb %}
 
-    {% include 'blocks/page-title.html' with name=toernooi.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
+    {% include 'blocks/page-title.html' with name=kamp.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
 
     <section id="service-details" class="service-details section">
 
@@ -36,33 +36,33 @@ ChudartZ | {{ toernooi.titel}}
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            {% if toernooi.resultaten %}
+            {% if kamp.resultaten %}
             <div class="service-box">
               <h4>Resultaten Beschikbaar</h4>
               <div class="services-list">
-                <a href="{% url 'toernooi_resultaat' slug=toernooi.slug %}" class="btn btn-get-started align-self-start">{% blocktrans %}Bekijk Resultaten{% endblocktrans %}</a>
+                <a href="{% url 'dartskamp_resultaat' slug=kamp.slug %}" class="btn btn-get-started align-self-start">{% blocktrans %}Bekijk Resultaten{% endblocktrans %}</a>
               </div>
             </div>
             {% endif %}
 
-            {% include 'blocks/toernooi-info.html' with toernooi=toernooi %}
+            {% include 'blocks/dartskamp-info.html' with kamp=kamp %}
             
-            {% include 'blocks/tijd-en-locatie.html' with toernooi=toernooi %}
+            {% include 'blocks/tijd-en-locatie.html' with kamp=kamp %}
 
-            {% include 'blocks/vereisten.html' with vereisten=toernooi.vereisten_lijst %}
+            {% include 'blocks/vereisten.html' with vereisten=kamp.vereisten_lijst %}
             
-            {% if toernooi.afbeeldingen_download_url %}
-            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=toernooi.afbeeldingen_download_url %}
+            {% if kamp.afbeeldingen_download_url %}
+            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=kamp.afbeeldingen_download_url %}
             {% endif %}
 
           </div>  
           
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
 
-            {{ toernooi.beschrijving|safe }}
+            {{ kamp.beschrijving|safe }}
 
             {% if fotos %}
-            <div class="toernooi-fotos mb-4">
+            <div class="dartskamp-fotos mb-4">
               <div class="row g-3">
                 {% for foto in fotos %}
                   <div 
@@ -76,8 +76,8 @@ ChudartZ | {{ toernooi.titel}}
                       {% endif %}
                     ">
                     <div class="card h-100 border-0 shadow-sm">
-                      <a href="{{ foto.afbeelding.url }}" class="glightbox toernooi-foto-link" data-gallery="toernooi-gallery" title="{{ foto.omschrijving|default:'Toernooi foto' }}">
-                        <img src="{{ foto.afbeelding.url }}" class="card-img-top img-fluid rounded" alt="{{ foto.omschrijving|default:'Toernooi foto' }}">
+                      <a href="{{ foto.afbeelding.url }}" class="glightbox dartskamp-foto-link" data-gallery="dartskamp-gallery" title="{{ foto.omschrijving|default:'Dartskamp foto' }}">
+                        <img src="{{ foto.afbeelding.url }}" class="card-img-top img-fluid rounded" alt="{{ foto.omschrijving|default:'Dartskamp foto' }}">
                       </a>
                       {% if foto.omschrijving %}
                         <div class="card-body p-2">

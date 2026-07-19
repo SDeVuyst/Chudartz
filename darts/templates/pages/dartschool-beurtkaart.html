@@ -3,7 +3,7 @@
 {% load static dutch_date i18n %}
 
 {% block title %}
-ChudartZ | {{ toernooi.titel}} Inschrijven
+ChudartZ | Beurtenkaart Kopen
 {% endblock %}
 
 {% block head %}
@@ -12,7 +12,7 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
 
 {% block meta %}
 <meta name="robots" content="index, follow">
-<meta name="keywords" content="proefles, gratis, chudartz, dart, darts, school, zedelgem, jeugd, toernooien, privéles">
+<meta name="keywords" content="proefles, gratis, chudartz, dart, darts, school, zedelgem, jeugd, dartskampen, privéles">
 <meta property="og:title" content="ChudartZ | Dartschool Beurtenkaart Kopen">
 <meta property="og:description" content="Na je gratis proefles nodigen we je uit om verder te proeven van de wereld van darts. Ontdek de mogelijkheden met een meerbeurtenkaart en blijf je vaardigheden ontwikkelen. Meld je nu aan en ervaar zelf de plezier en uitdaging van darts!">
 <meta property="og:image" content="{% static 'img/logo-black.png' %}">
@@ -156,8 +156,8 @@ ChudartZ | {{ toernooi.titel}} Inschrijven
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label text-muted small" for="flexCheckDefault">
-                        {% url 'reglement_toernooien' as rt_url %}
-                        {% blocktrans %}Ik ga akkoord met het <a href="{{ rt_url }}">Algemeen reglement</a> voor darttoernooien.{% endblocktrans %}
+                        {% url 'reglement_dartskampen' as rt_url %}
+                        {% blocktrans %}Ik ga akkoord met het <a href="{{ rt_url }}">Algemeen reglement</a> voor dartskampen.{% endblocktrans %}
                       </label>
                     </div>  
                   </div>

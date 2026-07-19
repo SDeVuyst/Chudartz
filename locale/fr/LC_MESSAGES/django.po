@@ -2681,9 +2681,8 @@ msgstr "Ambitions personnelles"
 
 #: .\darts\templates\pages\doelen.html:22
 #: .\darts\templates\pages\resultaat.html:31
-#: .\darts\templates\pages\toernooi.html:26
-msgid "/nl/toernooien"
-msgstr "/fr/toernooien"
+msgid "/nl/dartskampen"
+msgstr "/fr/camps-de-flechettes"
 
 #: .\darts\templates\pages\doelen.html:32
 msgid ""
@@ -4186,32 +4185,40 @@ msgid "dartschool/lidgeld/success/"
 msgstr "ecole-de-flechettes/cotisation/succes/"
 
 #: .\darts\urls.py:26
-msgid "toernooien/"
-msgstr "tournois/"
+msgid "dartskampen/"
+msgstr "camps-de-flechettes/"
 
 #: .\darts\urls.py:27
-msgid "toernooien/doelen/"
-msgstr "tournois/resultats"
+msgid "dartskampen/doelen/"
+msgstr "camps-de-flechettes/objectifs/"
 
 #: .\darts\urls.py:28
-msgid "toernooien/<slug:slug>/"
-msgstr "tournois/<slug:slug>/"
+msgid "dartskampen/<slug:slug>/"
+msgstr "camps-de-flechettes/<slug:slug>/"
 
 #: .\darts\urls.py:29
-msgid "toernooien/<slug:slug>/inschrijven/"
-msgstr "tournois/<slug:slug>/s-inscrire/"
+msgid "dartskampen/<slug:slug>/inschrijven/"
+msgstr "camps-de-flechettes/<slug:slug>/s-inscrire/"
 
 #: .\darts\urls.py:30
-msgid "toernooien/<slug:slug>/inschrijven/success/"
-msgstr "tournois/<slug:slug>/s-inscrire/succes/"
+msgid "dartskampen/<slug:slug>/inschrijven/overzicht/"
+msgstr "camps-de-flechettes/<slug:slug>/s-inscrire/apercu/"
 
 #: .\darts\urls.py:31
-msgid "toernooien/resultaten"
-msgstr "tournois/resultats"
+msgid "dartskampen/<slug:slug>/inschrijven/betalen/"
+msgstr "camps-de-flechettes/<slug:slug>/s-inscrire/payer/"
+
+#: .\darts\urls.py:30
+msgid "dartskampen/<slug:slug>/inschrijven/success/"
+msgstr "camps-de-flechettes/<slug:slug>/s-inscrire/succes/"
+
+#: .\darts\urls.py:31
+msgid "dartskampen/resultaten"
+msgstr "camps-de-flechettes/resultats"
 
 #: .\darts\urls.py:32
-msgid "toernooien/<slug:slug>/resultaat"
-msgstr "tournois/<slug:slug>/resultats/"
+msgid "dartskampen/<slug:slug>/resultaat"
+msgstr "camps-de-flechettes/<slug:slug>/resultat"
 
 #: .\darts\urls.py:35
 msgid "priveles"
@@ -4234,8 +4241,8 @@ msgid "privacybeleid/"
 msgstr "politique-de-confidentialite/"
 
 #: .\darts\urls.py:41
-msgid "reglement-toernooien/"
-msgstr "regles-tournois/"
+msgid "reglement-dartskampen/"
+msgstr "reglement-camps-de-flechettes/"
 
 #: .\darts\urls.py:42
 msgid "sponsor-worden/"

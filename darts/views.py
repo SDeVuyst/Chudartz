@@ -3,19 +3,30 @@ from decimal import Decimal
 from email.utils import formataddr
 
 from django.conf import settings
-from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.db.models import Case, IntegerField, Prefetch, Value, When
+from django.forms import ValidationError
+from django.db.models import Case, IntegerField, Prefetch, Q, Value, When
 from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
                          HttpResponseNotFound, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.utils import timezone
+from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_exempt
 
+from darts.kamp_wizard import (
+    clear_wizard_data,
+    get_wizard_data,
+    heeft_kindgegevens,
+    kamp_base_context,
+    pending_payment_session_key,
+    set_wizard_data,
+)
 from darts.payment import MollieClient
+from darts.services.kamp_inschrijving import KampValidationError, finalize_checkout
 
-from .forms import BeurtkaartForm, CodeForm, ContactForm, ToernooiForm
+from .forms import BeurtkaartForm, CodeForm, ContactForm, DartskampBetalenForm, DartskampForm
 from .models import *
 from .utils import helpers
 
@@ -27,7 +38,7 @@ def index(request):
     # kies random 8 fotos uit de database
     context['fotos_selectie'] = IndexFoto.objects.filter(active=True).order_by('?')[:8]
     context['fotos_dartschool'] = IndexFoto.objects.filter(active=True, category=IndexFotoCategory.DARTSCHOOL).order_by('?')[:8]
-    context['fotos_toernooi'] = IndexFoto.objects.filter(active=True, category=IndexFotoCategory.TOERNOOI).order_by('?')[:8]
+    context['fotos_dartskamp'] = IndexFoto.objects.filter(active=True, category=IndexFotoCategory.DARTSKAMP).order_by('?')[:8]
     context['fotos_andere'] = IndexFoto.objects.filter(active=True, category=IndexFotoCategory.ANDERE).order_by('?')[:8]
     return TemplateResponse(request, 'pages/index.html', context)
 
@@ -243,9 +254,9 @@ def doelen(request):
     return TemplateResponse(request, 'pages/doelen.html', context)
 
 
-def toernooien(request):
+def dartskampen(request):
     today = timezone.now().date()
-    evenementen = Toernooi.objects.filter(toon_op_site=True).annotate(
+    evenementen = Dartskamp.objects.filter(toon_op_site=True).annotate(
         is_future=Case(
             When(start_datum__gte=today, then=Value(0)),
             default=Value(1),
@@ -259,134 +270,152 @@ def toernooien(request):
     page_obj = paginator.get_page(page_number)
 
     context = get_default_context()
-    context["toernooien"] = page_obj
-    context["has_future_tournaments"] = evenementen.filter(is_future=0).exists()
-    context["has_past_tournaments"] = evenementen.filter(is_future=1).exists()
+    context["dartskampen"] = page_obj
+    context["has_future_camps"] = evenementen.filter(is_future=0).exists()
+    context["has_past_camps"] = evenementen.filter(is_future=1).exists()
     context["enable_pagination"] = paginator.num_pages > 1
 
-    return TemplateResponse(request, 'pages/toernooien.html', context)
+    return TemplateResponse(request, 'pages/dartskampen.html', context)
 
 
-def toernooi(request, slug):
-    evenement = get_object_or_404(Toernooi, slug=slug)
+def dartskamp(request, slug):
+    kamp = get_object_or_404(Dartskamp, slug=slug)
 
-    # event must be public 
-    if not evenement.toon_op_site: return HttpResponseNotFound()
+    if not kamp.toon_op_site:
+        return HttpResponseNotFound()
 
     context = get_default_context()
-    context["toernooi"] = evenement
-    context["fotos"] = evenement.fotos.all().order_by('-volgorde')
+    context["kamp"] = kamp
+    context["fotos"] = kamp.fotos.all().order_by('-volgorde')
 
-    return TemplateResponse(request, 'pages/toernooi.html', context)
+    return TemplateResponse(request, 'pages/dartskamp.html', context)
 
 
-def inschrijven_toernooi(request, slug):
-    evenement = get_object_or_404(Toernooi, slug=slug)
+def inschrijven_dartskamp(request, slug):
+    """Stap 1: kindgegevens."""
+    kamp = get_object_or_404(Dartskamp, slug=slug)
+    if not kamp.toon_op_site:
+        return HttpResponseNotFound()
+
+    if not kamp.enable_inschrijvingen or kamp.is_sold_out:
+        return redirect('dartskamp', slug=slug)
+
+    wizard_data = get_wizard_data(request, kamp)
+    context = get_default_context()
+    context.update(kamp_base_context(request, kamp, "gegevens"))
 
     if request.method == 'POST':
-        form = ToernooiForm(request.POST)
-        
-        if not form.is_valid():
-            print(form.errors)
+        form = DartskampForm(request.POST)
+        if form.is_valid():
+            wizard_data.update(form.cleaned_data)
+            # PhoneNumberField returns a PhoneNumber object
+            wizard_data["gsm"] = str(form.cleaned_data["gsm"])
+            set_wizard_data(request, kamp, wizard_data)
+            return redirect('inschrijven_dartskamp_overzicht', slug=slug)
+        context["error"] = _("Controleer de ingevulde gegevens.")
+    else:
+        form = DartskampForm(initial=wizard_data)
 
-            # form was not valid, send to error page
-            context = get_default_context()
-            context["success"] = False
-            context["toernooi"] = get_object_or_404(Toernooi, slug=slug)
+    context["form"] = form
+    return TemplateResponse(request, 'pages/kampen/stap1.html', context)
 
-            return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
-        
-        voornaam = form.cleaned_data['voornaam']
-        achternaam = form.cleaned_data['achternaam']
-        geboortejaar = form.cleaned_data['geboortejaar']
-        email = form.cleaned_data['email']
-        straatnaam = form.cleaned_data['straatnaam']
-        nummer = form.cleaned_data['nummer']
-        postcode = form.cleaned_data['postcode']
-        stad = form.cleaned_data['stad']
-        gsm = form.cleaned_data['gsm']
-        ticket_id = form.cleaned_data['ticket']
 
-        price = Decimal(get_object_or_404(Ticket, pk=ticket_id).price.amount)
+def inschrijven_dartskamp_overzicht(request, slug):
+    """Stap 2: overzicht (nog niet betalen)."""
+    kamp = get_object_or_404(Dartskamp, slug=slug)
+    if not kamp.toon_op_site:
+        return HttpResponseNotFound()
 
-        payment = Payment.objects.create(
-            first_name=voornaam,
-            last_name=achternaam,
-            mail=email,
-            amount=price
-        )
+    wizard_data = get_wizard_data(request, kamp)
+    if not heeft_kindgegevens(wizard_data):
+        return redirect('inschrijven_dartskamp', slug=slug)
 
-        Participant.objects.create(
-            voornaam=voornaam,
-            achternaam=achternaam,
-            geboortejaar=geboortejaar,
-            email=email,
-            straatnaam=straatnaam,
-            nummer=nummer,
-            postcode=postcode,
-            stad=stad,
-            gsm=gsm,
-
-            payment_id = payment.pk,
-            ticket=get_object_or_404(Ticket, pk=ticket_id),
-        )
-
-        # create the mollie payment
-        mollie_payment = MollieClient().create_mollie_payment(
-            amount=price,
-            description="Toernooi ChudartZ",
-            redirect_url=f'https://chudartz.com/nl/toernooien/{slug}/inschrijven/success',
-        )
-
-        payment.mollie_id = mollie_payment.id
-        payment.save()
-        
-        return redirect(mollie_payment.checkout_url)
-        
-    
-    # GET request
-    if not evenement.toon_op_site: return HttpResponseNotFound()
-    tickets = Ticket.objects.filter(event=evenement)
-    
+    if request.method == 'POST':
+        return redirect('inschrijven_dartskamp_betalen', slug=slug)
 
     context = get_default_context()
-    context["toernooi"] = evenement
-    context["tickets"] = tickets
-    context['skill_level_choices'] = SkillLevel.CHOICES
-    context['form'] = ToernooiForm()
-
-    return TemplateResponse(request, 'pages/toernooi-inschrijving.html', context)
+    context.update(kamp_base_context(request, kamp, "overzicht"))
+    return TemplateResponse(request, 'pages/kampen/stap2.html', context)
 
 
-def inschrijven_toernooi_success(request, slug):
+def inschrijven_dartskamp_betalen(request, slug):
+    """Stap 3: voorwaarden + Mollie."""
+    kamp = get_object_or_404(Dartskamp, slug=slug)
+    if not kamp.toon_op_site:
+        return HttpResponseNotFound()
+
+    wizard_data = get_wizard_data(request, kamp)
+    if not heeft_kindgegevens(wizard_data):
+        return redirect('inschrijven_dartskamp', slug=slug)
+
+    context = get_default_context()
+    context.update(kamp_base_context(request, kamp, "betalen"))
+    context["form"] = DartskampBetalenForm()
+
+    if request.method == 'POST':
+        form = DartskampBetalenForm(request.POST)
+        context["form"] = form
+        if form.is_valid():
+            try:
+                payment, checkout_url = finalize_checkout(request, kamp, wizard_data)
+                clear_wizard_data(request, kamp)
+                request.session[pending_payment_session_key(kamp)] = payment.pk
+                return redirect(checkout_url)
+            except KampValidationError as exc:
+                context["error"] = str(exc)
+        else:
+            context["error"] = _("Gelieve alle voorwaarden te aanvaarden.")
+
+    return TemplateResponse(request, 'pages/kampen/stap3.html', context)
+
+
+def inschrijven_dartskamp_success(request, slug):
+    kamp = get_object_or_404(Dartskamp, slug=slug)
     context = get_default_context()
     context["success"] = True
-    context["toernooi"] = get_object_or_404(Toernooi, slug=slug)
+    context["kamp"] = kamp
 
-    return TemplateResponse(request, 'pages/toernooi-inschrijving-response.html', context)
+    payment_pk = request.session.get(pending_payment_session_key(kamp))
+    if payment_pk:
+        payment = Payment.objects.filter(pk=payment_pk).first()
+        if payment and payment.mollie_id and payment.status == PaymentStatus.OPEN:
+            try:
+                mollie_payment = MollieClient().client.payments.get(payment.mollie_id)
+                status = mollie_payment.get("status", "").lower()
+                valid_statuses = [choice[0] for choice in PaymentStatus.CHOICES]
+                if status in valid_statuses and status != payment.status:
+                    payment.status = status
+                    payment.save()
+            except Exception:
+                pass
+        context["payment"] = payment
+
+    return TemplateResponse(request, 'pages/dartskamp-inschrijving-response.html', context)
 
 
 def resultaten(request):
-    evenementen = Toernooi.objects.filter(toon_op_site=True).exclude(Q(resultaten__isnull=True) | Q(resultaten__exact=''))
+    evenementen = Dartskamp.objects.filter(toon_op_site=True).exclude(Q(resultaten__isnull=True) | Q(resultaten__exact=''))
     paginator = Paginator(evenementen, 12)
 
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
     context = get_default_context()
-    context["toernooien"] = page_obj
+    context["dartskampen"] = page_obj
     context["enable_pagination"] = paginator.num_pages > 1
 
     return TemplateResponse(request, 'pages/resultaten.html', context)
 
 
-def toernooi_resultaat(request, slug):
-    evenement = get_object_or_404(Toernooi, slug=slug)
-    if not evenement.toon_op_site: return HttpResponseNotFound()
-    if not evenement.resultaten: return HttpResponseNotFound()
+def dartskamp_resultaat(request, slug):
+    kamp = get_object_or_404(Dartskamp, slug=slug)
+    if not kamp.toon_op_site:
+        return HttpResponseNotFound()
+    if not kamp.resultaten:
+        return HttpResponseNotFound()
 
     context = get_default_context()
-    context["toernooi"] = evenement
+    context["kamp"] = kamp
 
     return TemplateResponse(request, 'pages/resultaat.html', context)
 
@@ -411,7 +440,7 @@ def privacybeleid(request):
     return TemplateResponse(request, 'pages/privacybeleid.html', get_default_context())
 
 
-def reglement_toernooien(request):
+def reglement_dartskampen(request):
     return TemplateResponse(request, 'pages/algemeen-reglement.html', get_default_context())
 
 
@@ -487,11 +516,6 @@ def faq(request):
     return TemplateResponse(request, 'pages/faq.html', get_default_context())
 
               
-@staff_member_required
-def scanner(request):
-    return TemplateResponse(request, "admin/scanner.html")
-
-
 @csrf_exempt
 def mollie_webhook(request):
     if request.method == 'POST':
@@ -585,49 +609,6 @@ def cal_webhook(request):
     return HttpResponse(status=200)
 
 
-@csrf_exempt
-@staff_member_required
-def set_attendance(request):
-
-    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}, Staff: {request.user.is_staff}")
-
-    if not request.user.is_authenticated:
-        return JsonResponse({'success': False, 'message': "User is not authenticated!"}, status=403)
-
-    if request.method == 'POST':
-
-        # get data from request
-        data = json.loads(request.body)
-        participant_id = data.get('participant_id')
-        seed = data.get('seed')
-
-        # validation
-        if participant_id is None or seed is None:
-            return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
-        
-        participant = get_object_or_404(Participant, pk=participant_id)
-
-        # participant hasnt paid
-        if participant.payment.status != PaymentStatus.PAID:
-            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
-
-        # check if seed is correct
-        if seed != participant.random_seed:
-            return JsonResponse({'success': False, 'message': "Fraud Detected!"}, status=400)
-        
-        # validation
-        if participant.attended:
-            return JsonResponse({'success': False, 'message': "Participant already attended!"}, status=400)
-        
-
-        participant.attended = True
-        participant.save()
-
-        return JsonResponse({'success': True, 'message': str(participant.ticket)})
-    
-    return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
-
-
 def leerling(request, code):
     if request.method != 'GET': return HttpResponseNotFound("Invalid request method")
 
@@ -687,5 +668,5 @@ def error_500(request, exception=None):
 def get_default_context():
     return {
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
-        'toernooi_groepen': ToernooiHeaderGroep.objects.filter(active=True).order_by('-volgorde'),
+        'dartskamp_groepen': DartskampHeaderGroep.objects.filter(active=True).order_by('-volgorde'),
     }

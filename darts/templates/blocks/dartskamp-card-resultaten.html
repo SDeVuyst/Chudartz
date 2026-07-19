@@ -1,0 +1,24 @@
+{% load static dutch_date i18n %}
+
+<div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+  <div class="service-item">
+    <div class="img">
+      <img src="{{ kamp.afbeelding.url }}" class="img-fluid" alt="{% trans "Afbeelding van dartskamp" %}">
+    </div>
+    <div class="details position-relative">
+      <div class="icon">
+        <i class="bi bi-trophy"></i>
+      </div>
+      <a href="{% url 'dartskamp_resultaat' slug=kamp.slug %}" class="stretched-link">
+        <h3>{{ kamp.titel }}</h3>
+      </a>
+      <p>
+        {% if kamp.is_same_day %}
+          {{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_time }}
+        {% else %}
+          {{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_datetime }}
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
