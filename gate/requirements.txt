@@ -1,3 +1,4 @@
 # The gate app uses only the Python standard library (tkinter, urllib, json).
-# On Raspberry Pi OS, ensure Tk is installed:
-#   sudo apt install python3-tk
+# On Raspberry Pi OS, ensure Tk + an MP3 player are installed:
+#   sudo apt install python3-tk mpg123
+# (ffplay from ffmpeg also works if mpg123 is unavailable)

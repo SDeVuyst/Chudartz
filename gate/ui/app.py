@@ -11,10 +11,12 @@ from tkinter import font as tkfont
 from api import check_in
 from config import is_configured, load_config, optional_id
 from parse_qr import QRParseError, parse_qr
+from sound import play_error, play_success
 from ui import i18n
 from ui.settings import SettingsDialog
 
 COOLDOWN_MS = 4000
+HEADER_IDLE_MS = 2500
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 LOGO_PATH = ASSETS_DIR / "logo.png"
 
@@ -54,6 +56,8 @@ class GateApp(tk.Tk):
         self._last_raw = ""
         self._request_gen = 0
         self._logo_image = None
+        self._header_visible = True
+        self._header_hide_after_id = None
 
         self.attributes("-fullscreen", True)
         self.configure(bg=COLORS["bg"])
@@ -63,6 +67,7 @@ class GateApp(tk.Tk):
         self.bind("<Escape>", self._on_escape)
         self.bind("<Control-comma>", lambda _e: self.open_settings())
         self.bind("<Configure>", self._on_resize)
+        self.bind_all("<Motion>", self._on_mouse_motion)
 
         sw = max(self.winfo_screenwidth(), 480)
         sh = max(self.winfo_screenheight(), 320)
@@ -75,6 +80,7 @@ class GateApp(tk.Tk):
         self._update_filter_label()
         self._apply_debug_visibility()
         self._set_debug_lines([i18n.DEBUG_WAITING])
+        self._schedule_header_hide()
 
         if not is_configured(self.config_data):
             self.after(200, self.open_settings)
@@ -263,7 +269,36 @@ class GateApp(tk.Tk):
             self.message_label.configure(wraplength=max(event.width - 48, 240))
 
     def open_settings(self):
+        self._show_header()
         SettingsDialog(self, self.config_data, on_save=self._on_config_saved)
+        self._schedule_header_hide()
+
+    def _on_mouse_motion(self, _event=None):
+        self._show_header()
+        self._schedule_header_hide()
+
+    def _schedule_header_hide(self):
+        if self._header_hide_after_id is not None:
+            try:
+                self.after_cancel(self._header_hide_after_id)
+            except tk.TclError:
+                pass
+        self._header_hide_after_id = self.after(HEADER_IDLE_MS, self._hide_header)
+
+    def _hide_header(self):
+        self._header_hide_after_id = None
+        if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
+            # Keep chrome visible while configuring
+            self._schedule_header_hide()
+            return
+        if self._header_visible:
+            self.header.pack_forget()
+            self._header_visible = False
+
+    def _show_header(self):
+        if not self._header_visible:
+            self.header.pack(fill="x", side="top", before=self.card)
+            self._header_visible = True
 
     def _on_config_saved(self, data: dict):
         self.config_data = data
@@ -358,6 +393,7 @@ class GateApp(tk.Tk):
                 i18n.translate_server_message("QR code not recognised!"),
             )
             self._set_debug_lines([f"RAW: {raw}", "Parsefout: QR niet herkend"])
+            play_error()
             return
 
         if not is_configured(self.config_data):
@@ -410,13 +446,14 @@ class GateApp(tk.Tk):
         )
         if result.success:
             self._set_state("success", i18n.TITLE_SUCCESS, result.message)
-            self.bell()
+            play_success()
         else:
             self._set_state(
                 "fail",
                 i18n.TITLE_DENIED,
                 i18n.translate_server_message(result.message),
             )
+            play_error()
 
     def _end_cooldown(self):
         self._cooldown_after_id = None

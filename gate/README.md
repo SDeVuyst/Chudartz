@@ -40,9 +40,10 @@ sudo raspi-config nonint do_boot_behaviour B4
 
 ```bash
 sudo apt update
-sudo apt install -y python3 python3-tk git
+sudo apt install -y python3 python3-tk git mpg123
 ```
 
+`mpg123` (or `ffmpeg`/`ffplay`) plays `assets/success.mp3` and `assets/error.mp3` on scan result.
 ### 3. Get the app
 
 ```bash
