@@ -18,6 +18,7 @@ from config import (
     config_path,
     is_configured,
     load_config,
+    optional_id,
     save_config,
 )
 
@@ -47,6 +48,21 @@ def _build_parser() -> argparse.ArgumentParser:
         "--host-header",
         help=f"HTTP Host header (default: {DEFAULT_HOST_HEADER}).",
     )
+    parser.add_argument("--event-id", help="Only accept tickets for this event ID (blank = any).")
+    parser.add_argument("--ticket-id", help="Only accept this ticket type ID (blank = any).")
+    parser.add_argument(
+        "--debug",
+        dest="debug",
+        action="store_true",
+        default=None,
+        help="Enable debug panel.",
+    )
+    parser.add_argument(
+        "--no-debug",
+        dest="debug",
+        action="store_false",
+        help="Disable debug panel.",
+    )
     return parser
 
 
@@ -64,8 +80,16 @@ def cmd_show_config() -> int:
     print(f"base_url:    {cfg.get('base_url')}")
     print(f"host_header: {cfg.get('host_header')}")
     print(f"api_key:     {_redact_key(cfg.get('api_key') or '')}")
+    print(f"event_id:    {cfg.get('event_id') or '(any)'}")
+    print(f"ticket_id:   {cfg.get('ticket_id') or '(any)'}")
+    print(f"debug:       {cfg.get('debug')}")
     print(f"configured:  {is_configured(cfg)}")
     return 0
+
+
+def _prompt(label: str, current: str) -> str:
+    entered = input(f"{label} [{current}]: ").strip()
+    return entered if entered else current
 
 
 def cmd_configure(args: argparse.Namespace) -> int:
@@ -73,18 +97,28 @@ def cmd_configure(args: argparse.Namespace) -> int:
     base_url = args.base_url
     api_key = args.api_key
     host_header = args.host_header
+    event_id = args.event_id
+    ticket_id = args.ticket_id
+    debug = args.debug
 
     if base_url is None and sys.stdin.isatty():
-        current = cfg.get("base_url") or DEFAULT_BASE_URL
-        entered = input(f"API base URL [{current}]: ").strip()
-        base_url = entered or current
+        base_url = _prompt("API base URL", cfg.get("base_url") or DEFAULT_BASE_URL)
     if host_header is None and sys.stdin.isatty():
-        current = cfg.get("host_header") or DEFAULT_HOST_HEADER
-        entered = input(f"Host header [{current}]: ").strip()
-        host_header = entered or current
+        host_header = _prompt("Host header", cfg.get("host_header") or DEFAULT_HOST_HEADER)
     if api_key is None and sys.stdin.isatty():
         entered = input("Device API key: ").strip()
         api_key = entered or cfg.get("api_key") or ""
+    if event_id is None and sys.stdin.isatty():
+        event_id = _prompt("Event ID (blank=any)", str(cfg.get("event_id") or ""))
+    if ticket_id is None and sys.stdin.isatty():
+        ticket_id = _prompt("Ticket ID (blank=any)", str(cfg.get("ticket_id") or ""))
+    if debug is None and sys.stdin.isatty():
+        current = "y" if cfg.get("debug") else "n"
+        entered = input(f"Debug mode (y/n) [{current}]: ").strip().lower()
+        if entered:
+            debug = entered in ("y", "yes", "1", "true", "on")
+        else:
+            debug = bool(cfg.get("debug"))
 
     if base_url is None:
         base_url = cfg.get("base_url") or DEFAULT_BASE_URL
@@ -92,6 +126,12 @@ def cmd_configure(args: argparse.Namespace) -> int:
         host_header = cfg.get("host_header") or DEFAULT_HOST_HEADER
     if api_key is None:
         api_key = cfg.get("api_key") or ""
+    if event_id is None:
+        event_id = cfg.get("event_id") or ""
+    if ticket_id is None:
+        ticket_id = cfg.get("ticket_id") or ""
+    if debug is None:
+        debug = bool(cfg.get("debug"))
 
     if not base_url:
         print("Error: --base-url is required (or use interactive --configure).", file=sys.stderr)
@@ -105,6 +145,9 @@ def cmd_configure(args: argparse.Namespace) -> int:
             "base_url": base_url,
             "api_key": api_key,
             "host_header": host_header,
+            "event_id": event_id,
+            "ticket_id": ticket_id,
+            "debug": debug,
         }
     )
     print(f"Saved config to {config_path()}")
@@ -117,17 +160,21 @@ def cmd_test() -> int:
         print("Error: not configured. Run with --configure first.", file=sys.stderr)
         return 1
 
-    # Invalid ids exercise auth + reachability without marking attendance.
     result = check_in(
         cfg["base_url"],
         cfg["api_key"],
         participant_id=0,
         seed="test",
         host_header=cfg.get("host_header") or DEFAULT_HOST_HEADER,
+        event_id=optional_id(cfg, "event_id"),
+        ticket_id=optional_id(cfg, "ticket_id"),
     )
     print(f"HTTP status: {result.status_code}")
     print(f"success:     {result.success}")
     print(f"message:     {result.message}")
+    if cfg.get("debug"):
+        print(f"request:     {result.request_body}")
+        print(f"response:    {result.response_body}")
 
     if result.status_code == 401:
         print("API key rejected (Unauthorized).", file=sys.stderr)
@@ -135,7 +182,6 @@ def cmd_test() -> int:
     if result.status_code == 0:
         print("Could not reach the server.", file=sys.stderr)
         return 1
-    # 400/404 from bogus participant means URL + key worked.
     print("Connection and API key look OK.")
     return 0
 
@@ -155,18 +201,25 @@ def main(argv: list[str] | None = None) -> int:
     if args.show_config:
         return cmd_show_config()
 
-    if args.configure or args.base_url or args.api_key or args.host_header:
-        # Allow one-shot: python3 main.py --base-url … --api-key … --configure
+    config_flags = (
+        args.base_url,
+        args.api_key,
+        args.host_header,
+        args.event_id,
+        args.ticket_id,
+        args.debug,
+    )
+    if args.configure or any(v is not None for v in config_flags):
         if args.configure or (args.base_url and args.api_key):
             code = cmd_configure(args)
             if code != 0:
                 return code
             if args.configure and not args.test:
                 return 0
-        elif args.base_url or args.api_key or args.host_header:
+        elif any(v is not None for v in config_flags):
             print(
-                "Error: pass --configure together with --base-url / --api-key "
-                "(and optional --host-header).",
+                "Error: pass --configure together with config flags "
+                "(or include both --base-url and --api-key).",
                 file=sys.stderr,
             )
             return 1

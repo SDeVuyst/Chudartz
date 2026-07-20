@@ -1,4 +1,4 @@
-"""Settings dialog for API base URL and device API key."""
+"""Settings dialog for gate configuration."""
 
 from __future__ import annotations
 
@@ -17,47 +17,79 @@ class SettingsDialog(tk.Toplevel):
         self.transient(master)
         self.grab_set()
 
-        frame = ttk.Frame(self, padding=16)
+        frame = ttk.Frame(self, padding=14)
         frame.grid(row=0, column=0, sticky="nsew")
 
-        ttk.Label(frame, text="API base URL").grid(row=0, column=0, sticky="w")
+        row = 0
+
+        ttk.Label(frame, text="API base URL").grid(row=row, column=0, sticky="w")
+        row += 1
         self.url_var = tk.StringVar(value=config.get("base_url") or DEFAULT_BASE_URL)
-        url_entry = ttk.Entry(frame, textvariable=self.url_var, width=48)
-        url_entry.grid(row=1, column=0, sticky="ew", pady=(4, 12))
+        ttk.Entry(frame, textvariable=self.url_var, width=44).grid(
+            row=row, column=0, sticky="ew", pady=(2, 8)
+        )
+        row += 1
 
-        ttk.Label(
-            frame,
-            text="Example: https://chudartz-collectibles.com  or  http://192.168.x.x:81",
-            foreground="#666",
-        ).grid(row=2, column=0, sticky="w", pady=(0, 12))
-
-        ttk.Label(frame, text="Host header").grid(row=3, column=0, sticky="w")
+        ttk.Label(frame, text="Host header").grid(row=row, column=0, sticky="w")
+        row += 1
         self.host_var = tk.StringVar(
             value=config.get("host_header") or DEFAULT_HOST_HEADER
         )
-        host_entry = ttk.Entry(frame, textvariable=self.host_var, width=48)
-        host_entry.grid(row=4, column=0, sticky="ew", pady=(4, 4))
+        ttk.Entry(frame, textvariable=self.host_var, width=44).grid(
+            row=row, column=0, sticky="ew", pady=(2, 8)
+        )
+        row += 1
+
+        ttk.Label(frame, text="Device API key").grid(row=row, column=0, sticky="w")
+        row += 1
+        self.key_var = tk.StringVar(value=config.get("api_key") or "")
+        ttk.Entry(frame, textvariable=self.key_var, width=44, show="•").grid(
+            row=row, column=0, sticky="ew", pady=(2, 8)
+        )
+        row += 1
+
+        ids = ttk.Frame(frame)
+        ids.grid(row=row, column=0, sticky="ew", pady=(4, 8))
+        ids.columnconfigure(0, weight=1)
+        ids.columnconfigure(1, weight=1)
+
+        ttk.Label(ids, text="Event ID (optional)").grid(row=0, column=0, sticky="w")
+        ttk.Label(ids, text="Ticket ID (optional)").grid(row=0, column=1, sticky="w", padx=(8, 0))
+        self.event_var = tk.StringVar(value=str(config.get("event_id") or ""))
+        self.ticket_var = tk.StringVar(value=str(config.get("ticket_id") or ""))
+        ttk.Entry(ids, textvariable=self.event_var, width=16).grid(
+            row=1, column=0, sticky="ew", pady=(2, 0)
+        )
+        ttk.Entry(ids, textvariable=self.ticket_var, width=16).grid(
+            row=1, column=1, sticky="ew", padx=(8, 0), pady=(2, 0)
+        )
+        row += 1
 
         ttk.Label(
             frame,
-            text="Keep chudartz-collectibles.com when using a LAN IP / localhost URL.",
+            text="Leave blank to accept any. Set event and/or ticket ID to lock this gate.",
             foreground="#666",
-        ).grid(row=5, column=0, sticky="w", pady=(0, 12))
+            wraplength=360,
+        ).grid(row=row, column=0, sticky="w", pady=(0, 10))
+        row += 1
 
-        ttk.Label(frame, text="Device API key").grid(row=6, column=0, sticky="w")
-        self.key_var = tk.StringVar(value=config.get("api_key") or "")
-        key_entry = ttk.Entry(frame, textvariable=self.key_var, width=48, show="•")
-        key_entry.grid(row=7, column=0, sticky="ew", pady=(4, 16))
+        self.debug_var = tk.BooleanVar(value=bool(config.get("debug")))
+        ttk.Checkbutton(
+            frame,
+            text="Debug mode (show scan buffer + request/response)",
+            variable=self.debug_var,
+        ).grid(row=row, column=0, sticky="w", pady=(0, 12))
+        row += 1
 
         buttons = ttk.Frame(frame)
-        buttons.grid(row=8, column=0, sticky="e")
-        ttk.Button(buttons, text="Cancel", command=self.destroy).pack(side="right", padx=(8, 0))
+        buttons.grid(row=row, column=0, sticky="e")
+        ttk.Button(buttons, text="Cancel", command=self.destroy).pack(
+            side="right", padx=(8, 0)
+        )
         ttk.Button(buttons, text="Save", command=self._save).pack(side="right")
 
         self.bind("<Escape>", lambda _e: self.destroy())
         self.protocol("WM_DELETE_WINDOW", self.destroy)
-        url_entry.focus_set()
-
         self.update_idletasks()
         self._center()
 
@@ -73,16 +105,33 @@ class SettingsDialog(tk.Toplevel):
         base_url = self.url_var.get().strip().rstrip("/")
         host_header = self.host_var.get().strip() or DEFAULT_HOST_HEADER
         api_key = self.key_var.get().strip()
+        event_id = self.event_var.get().strip()
+        ticket_id = self.ticket_var.get().strip()
+
         if not base_url:
             messagebox.showerror("Settings", "API base URL is required.", parent=self)
             return
         if not api_key:
             messagebox.showerror("Settings", "Device API key is required.", parent=self)
             return
+        for label, value in (("Event ID", event_id), ("Ticket ID", ticket_id)):
+            if value == "":
+                continue
+            try:
+                int(value)
+            except ValueError:
+                messagebox.showerror(
+                    "Settings", f"{label} must be a number (or blank).", parent=self
+                )
+                return
+
         data = {
             "base_url": base_url,
             "host_header": host_header,
             "api_key": api_key,
+            "event_id": event_id,
+            "ticket_id": ticket_id,
+            "debug": bool(self.debug_var.get()),
         }
         save_config(data)
         if self.on_save:

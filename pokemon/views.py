@@ -823,7 +823,12 @@ def gate_check_in(request):
         return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
 
     try:
-        result = check_in_participant(data.get('participant_id'), data.get('seed'))
+        result = check_in_participant(
+            data.get('participant_id'),
+            data.get('seed'),
+            event_id=data.get('event_id'),
+            ticket_id=data.get('ticket_id'),
+        )
     except AttendanceError as exc:
         return JsonResponse({'success': False, 'message': exc.message}, status=exc.status)
 

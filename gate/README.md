@@ -59,7 +59,9 @@ Non-interactive (best for scripts):
 python3 main.py --configure \
   --base-url https://chudartz-collectibles.com \
   --api-key 'PASTE_KEY_FROM_ADMIN' \
-  --host-header chudartz-collectibles.com
+  --host-header chudartz-collectibles.com \
+  --event-id 12 \
+  --debug
 ```
 
 Local Docker/nginx example:
@@ -68,8 +70,15 @@ Local Docker/nginx example:
 python3 main.py --configure \
   --base-url http://192.168.86.200:81 \
   --api-key 'PASTE_KEY_FROM_ADMIN' \
-  --host-header chudartz-collectibles.com
+  --host-header chudartz-collectibles.com \
+  --event-id 12
 ```
+
+| Flag | Purpose |
+|------|---------|
+| `--event-id` | Only accept tickets for this event (omit / blank = any) |
+| `--ticket-id` | Only accept this ticket type ID (omit / blank = any) |
+| `--debug` / `--no-debug` | Show live scan buffer + request/response on screen |
 
 Interactive prompts:
 
@@ -123,13 +132,18 @@ DISPLAY=:0 python3 ~/Chudartz/gate/main.py &
 
 ## Manual / on-device settings
 
-You can still open settings on the Pi display with **F2** or **Ctrl+,**.
+You can still open settings on the Pi display with **F2**, the ⚙ button, or **Ctrl+,**.
 
 | Setting | Example |
 |---------|---------|
 | API base URL | `https://chudartz-collectibles.com` or `http://192.168.x.x:81` |
 | Host header | `chudartz-collectibles.com` (keep when using a LAN IP) |
 | Device API key | key from Django admin |
+| Event ID | lock gate to one event (blank = any) |
+| Ticket ID | lock gate to one ticket type (blank = any) |
+| Debug mode | live buffer + last request/response |
+
+**RESET** (button or **F5**) clears accidental keyboard/scanner input and returns to idle — it does not change config.
 
 ## Scanner notes
 
