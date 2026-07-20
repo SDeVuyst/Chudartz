@@ -1,0 +1,3 @@
+# The gate app uses only the Python standard library (tkinter, urllib, json).
+# On Raspberry Pi OS, ensure Tk is installed:
+#   sudo apt install python3-tk

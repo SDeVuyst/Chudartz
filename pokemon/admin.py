@@ -732,3 +732,29 @@ class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
         if not obj.payment_id:
             return "—"
         return obj.payment.get_status_display()
+
+
+@admin.register(GateDevice)
+class GateDeviceAdmin(ModelAdmin):
+    list_display = ("name", "api_key_prefix", "is_active", "created_at", "last_used_at")
+    list_filter = ("is_active",)
+    search_fields = ("name", "api_key_prefix")
+    readonly_fields = ("api_key_prefix", "created_at", "last_used_at")
+
+    def get_fields(self, request, obj=None):
+        if obj is None:
+            return ("name", "is_active")
+        return ("name", "is_active", "api_key_prefix", "created_at", "last_used_at")
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            raw_key = GateDevice.generate_api_key()
+            obj.set_api_key(raw_key)
+            messages.warning(
+                request,
+                _(
+                    "API key (copy now — it will not be shown again): %(key)s"
+                )
+                % {"key": raw_key},
+            )
+        super().save_model(request, obj, form, change)

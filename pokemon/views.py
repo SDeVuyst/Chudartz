@@ -29,6 +29,7 @@ from pokemon.forms import (
 from pokemon.models import (
     Evenement,
     EvenementFoto,
+    GateDevice,
     Participant,
     Payment,
     PaymentStatus,
@@ -38,6 +39,7 @@ from pokemon.models import (
     VraagType,
     StandhouderInschrijving,
 )
+from pokemon.services.attendance import AttendanceError, check_in_participant
 from pokemon.payment import MollieClient
 from pokemon.services.standhouder import (
     StandhouderValidationError,
@@ -788,38 +790,45 @@ def set_attendance(request):
     if not request.user.is_authenticated:
         return JsonResponse({'success': False, 'message': "User is not authenticated!"}, status=403)
 
-    if request.method == 'POST':
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
 
-        # get data from request
+    try:
         data = json.loads(request.body)
-        participant_id = data.get('participant_id')
-        seed = data.get('seed')
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
 
-        # validation
-        if participant_id is None or seed is None:
-            return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
-        
-        participant = get_object_or_404(Participant, pk=participant_id)
+    try:
+        result = check_in_participant(data.get('participant_id'), data.get('seed'))
+    except AttendanceError as exc:
+        return JsonResponse({'success': False, 'message': exc.message}, status=exc.status)
 
-        # participant hasnt paid
-        if participant.payment.status != PaymentStatus.PAID:
-            return JsonResponse({'success': False, 'message': "Fraud Detected! Customer has not payed yet."}, status=400)
+    return JsonResponse({'success': True, 'message': result['message']})
 
-        # check if seed is correct
-        if seed != participant.random_seed:
-            return JsonResponse({'success': False, 'message': "Fraud Detected! QR code has been tampered with."}, status=400)
-        
-        # validation
-        if participant.attended:
-            return JsonResponse({'success': False, 'message': "Participant already attended!"}, status=400)
-        
 
-        participant.attended = True
-        participant.save()
+@csrf_exempt
+def gate_check_in(request):
+    """Device-API-key authenticated check-in for the Raspberry Pi gate scanner."""
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
 
-        return JsonResponse({'success': True, 'message': str(participant.ticket)})
-    
-    return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
+    raw_key = request.headers.get('X-Gate-Api-Key', '')
+    device = GateDevice.authenticate(raw_key)
+    if device is None:
+        return JsonResponse({'success': False, 'message': "Unauthorized"}, status=401)
+
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
+
+    try:
+        result = check_in_participant(data.get('participant_id'), data.get('seed'))
+    except AttendanceError as exc:
+        return JsonResponse({'success': False, 'message': exc.message}, status=exc.status)
+
+    device.touch_last_used()
+    return JsonResponse(result)
 
 
 ###### ERROR HANDLERS #######

@@ -1096,3 +1096,55 @@ class StandhouderVraagAntwoord(models.Model):
         if self.vraag.vraag_type == VraagType.SELECT:
             return bool(self.antwoord)
         return False
+
+
+class GateDevice(models.Model):
+    """Hardware gate scanner authenticated by a device API key."""
+
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Active"))
+    api_key_prefix = models.CharField(
+        max_length=8,
+        editable=False,
+        verbose_name=_("API key prefix"),
+        help_text=_("First 8 characters of the key, for identification."),
+    )
+    api_key_hash = models.CharField(max_length=255, editable=False, verbose_name=_("API key hash"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
+    last_used_at = models.DateTimeField(null=True, blank=True, verbose_name=_("Last used at"))
+
+    class Meta:
+        verbose_name = _("Gate device")
+        verbose_name_plural = _("Gate devices")
+
+    def __str__(self):
+        return self.name
+
+    @staticmethod
+    def generate_api_key():
+        return secrets.token_urlsafe(32)
+
+    def set_api_key(self, raw_key: str):
+        from django.contrib.auth.hashers import make_password
+
+        self.api_key_hash = make_password(raw_key)
+        self.api_key_prefix = raw_key[:8]
+
+    def check_api_key(self, raw_key: str) -> bool:
+        from django.contrib.auth.hashers import check_password
+
+        return check_password(raw_key, self.api_key_hash)
+
+    @classmethod
+    def authenticate(cls, raw_key: str):
+        if not raw_key or len(raw_key) < 8:
+            return None
+        prefix = raw_key[:8]
+        for device in cls.objects.filter(is_active=True, api_key_prefix=prefix):
+            if device.check_api_key(raw_key):
+                return device
+        return None
+
+    def touch_last_used(self):
+        self.last_used_at = timezone.now()
+        self.save(update_fields=["last_used_at"])
