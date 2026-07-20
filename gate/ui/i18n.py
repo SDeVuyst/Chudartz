@@ -16,7 +16,7 @@ MSG_RESET = "Scanner gereset — klaar om te scannen"
 MSG_NOT_CONFIGURED = "Open de instellingen en vul de server-URL en API-sleutel in"
 MSG_IGNORED_BUSY = "Even wachten — vorige scan is nog bezig"
 
-BTN_RESET = "Herstel"
+BTN_RESET = "Reset"
 BTN_SETTINGS = "Instellingen"
 BTN_SAVE = "Opslaan"
 BTN_CANCEL = "Annuleren"

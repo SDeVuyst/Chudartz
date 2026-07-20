@@ -199,39 +199,36 @@ class GateApp(tk.Tk):
             )
 
     def _build_card(self, sw: int):
-        outer = tk.Frame(self, bg=COLORS["bg"])
-        outer.pack(fill="both", expand=True, padx=12, pady=12)
-
-        self.card = tk.Frame(
-            outer,
-            bg=COLORS["idle"],
-            highlightbackground=COLORS["border"],
-            highlightthickness=1,
-        )
+        # Full-bleed status area under the header (no gray/white frame margin)
+        self.card = tk.Frame(self, bg=COLORS["idle"], highlightthickness=0)
         self.card.pack(fill="both", expand=True)
 
         self.accent_bar = tk.Frame(self.card, bg=COLORS["accent"], height=4)
         self.accent_bar.pack(fill="x", side="top")
 
+        # Keep title + feedback text as one centered block
+        self.content = tk.Frame(self.card, bg=COLORS["idle"])
+        self.content.place(relx=0.5, rely=0.45, anchor="center")
+
         self.status_label = tk.Label(
-            self.card,
+            self.content,
             text=i18n.TITLE_IDLE,
             font=self.title_font,
             fg=COLORS["text"],
             bg=COLORS["idle"],
         )
-        self.status_label.pack(expand=True, pady=(24, 6))
+        self.status_label.pack(pady=(0, 10))
 
         self.message_label = tk.Label(
-            self.card,
+            self.content,
             text=i18n.MSG_READY,
             font=self.message_font,
             fg=COLORS["muted"],
             bg=COLORS["idle"],
-            wraplength=max(sw - 64, 260),
+            wraplength=max(sw - 48, 260),
             justify="center",
         )
-        self.message_label.pack(pady=(0, 28), padx=16)
+        self.message_label.pack()
 
     def _build_debug(self):
         self.debug_frame = tk.Frame(self, bg=COLORS["debug_bg"])
@@ -263,7 +260,7 @@ class GateApp(tk.Tk):
 
     def _on_resize(self, event):
         if event.widget is self:
-            self.message_label.configure(wraplength=max(event.width - 64, 240))
+            self.message_label.configure(wraplength=max(event.width - 48, 240))
 
     def open_settings(self):
         SettingsDialog(self, self.config_data, on_save=self._on_config_saved)
@@ -450,7 +447,9 @@ class GateApp(tk.Tk):
             msg_fg = COLORS["muted"]
             bar = COLORS["accent"]
 
+        self.configure(bg=color)
         self.card.configure(bg=color)
+        self.content.configure(bg=color)
         self.accent_bar.configure(bg=bar)
         self.status_label.configure(text=title, fg=fg, bg=color)
         self.message_label.configure(text=message, fg=msg_fg, bg=color)
