@@ -98,27 +98,41 @@ python3 main.py --test
 Config file: `~/.config/chudartz-gate/config.json`  
 Override path with `CHUDARTZ_GATE_CONFIG=/path/to/config.json`.
 
-### 5. Autostart on boot (from SSH)
+### 5. Autostart on boot (pulls git, then starts)
+
+Use [`start.sh`](start.sh): it waits for network, runs `git pull --ff-only` on the repo, then launches the app. If pull fails (offline / conflicts), it still starts with the existing code.
 
 ```bash
+chmod +x ~/Chudartz/gate/start.sh
 mkdir -p ~/.config/autostart
+# Replace sdevuyst with your Pi username if different
 cat > ~/.config/autostart/chudartz-gate.desktop <<'EOF'
 [Desktop Entry]
 Type=Application
 Name=Chudartz Gate
-Exec=/usr/bin/python3 /home/pi/Chudartz/gate/main.py
-WorkingDirectory=/home/pi/Chudartz/gate
+Exec=/home/sdevuyst/Chudartz/gate/start.sh
+WorkingDirectory=/home/sdevuyst/Chudartz/gate
 X-GNOME-Autostart-enabled=true
 EOF
 ```
 
-Adjust `/home/pi/...` if your username or path differs. Reboot:
+Reboot:
 
 ```bash
 sudo reboot
 ```
 
-After reboot the desktop session should launch the fullscreen gate automatically.
+Startup log: `~/.local/state/chudartz-gate/startup.log`
+
+**Private GitHub repo:** set up deploy key or SSH auth on the Pi once, e.g.:
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
+# add ~/.ssh/id_ed25519.pub as a read-only deploy key on the repo
+cd ~/Chudartz && git remote -v   # should be git@github.com:...
+```
+
+Skip pull for one run: `CHUDARTZ_GATE_SKIP_PULL=1 ~/Chudartz/gate/start.sh`
 
 ### 6. Update config later over SSH
 
@@ -127,12 +141,12 @@ python3 ~/Chudartz/gate/main.py --configure --base-url https://chudartz-collecti
 # then restart the app, e.g.:
 pkill -f 'Chudartz/gate/main.py' || true
 # it will start again on next login/reboot, or start once:
-DISPLAY=:0 python3 ~/Chudartz/gate/main.py &
+DISPLAY=:0 ~/Chudartz/gate/start.sh &
 ```
 
 ## Manual / on-device settings
 
-You can still open settings on the Pi display with **F2**, the ⚙ button, or **Ctrl+,**.
+Open settings with **F2**, the **Instellingen** button, or **Ctrl+,**.
 
 | Setting | Example |
 |---------|---------|
@@ -143,13 +157,14 @@ You can still open settings on the Pi display with **F2**, the ⚙ button, or **
 | Ticket ID | lock gate to one ticket type (blank = any) |
 | Debug mode | live buffer + last request/response |
 
-**RESET** (button or **F5**) clears accidental keyboard/scanner input and returns to idle — it does not change config.
+**Herstel** (button or **F5**) clears accidental keyboard/scanner input and returns to idle — it does not change config.
 
 ## Scanner notes
 
 - Use a USB HID keyboard-wedge QR scanner (scan = type text + Enter).
 - Keep the gate window focused so key events reach the app.
-- **Esc** exits fullscreen; Esc again quits.
+- UI language is Dutch; brand colors match Collectibles (`#c3111a`).
+- **Esc** still exits fullscreen (no on-screen hint); Esc again quits.
 
 ## Deploy backend changes
 

@@ -14,7 +14,7 @@ def _optional_int(value):
     try:
         return int(value)
     except (TypeError, ValueError):
-        raise AttendanceError("Invalid event_id or ticket_id.")
+        raise AttendanceError("Ongeldig evenement- of ticketnummer.")
 
 
 def check_in_participant(participant_id, seed, *, event_id=None, ticket_id=None) -> dict:
@@ -24,7 +24,7 @@ def check_in_participant(participant_id, seed, *, event_id=None, ticket_id=None)
     Returns a success dict with message/ticket, or raises AttendanceError.
     """
     if participant_id is None or seed is None or seed == "":
-        raise AttendanceError("QR code not recognised!")
+        raise AttendanceError("QR-code niet herkend. Probeer opnieuw te scannen.")
 
     required_event_id = _optional_int(event_id)
     required_ticket_id = _optional_int(ticket_id)
@@ -34,22 +34,22 @@ def check_in_participant(participant_id, seed, *, event_id=None, ticket_id=None)
             "payment", "ticket", "ticket__event"
         ).get(pk=participant_id)
     except (Participant.DoesNotExist, ValueError, TypeError):
-        raise AttendanceError("QR code not recognised!", status=404)
+        raise AttendanceError("QR-code niet herkend. Probeer opnieuw te scannen.", status=404)
 
     if participant.payment is None or participant.payment.status != PaymentStatus.PAID:
-        raise AttendanceError("Fraud Detected! Customer has not payed yet.")
+        raise AttendanceError("Dit ticket is nog niet betaald.")
 
     if seed != participant.random_seed:
-        raise AttendanceError("Fraud Detected! QR code has been tampered with.")
+        raise AttendanceError("Deze QR-code is ongeldig of gewijzigd.")
 
     if required_event_id is not None and participant.ticket.event_id != required_event_id:
-        raise AttendanceError("Wrong event for this entrance!")
+        raise AttendanceError("Dit ticket hoort niet bij dit evenement.")
 
     if required_ticket_id is not None and participant.ticket_id != required_ticket_id:
-        raise AttendanceError("Wrong ticket type for this entrance!")
+        raise AttendanceError("Dit is niet het juiste tickettype voor deze ingang.")
 
     if participant.attended:
-        raise AttendanceError("Participant already attended!")
+        raise AttendanceError("Dit ticket is al gebruikt.")
 
     participant.attended = True
     participant.save(update_fields=["attended"])

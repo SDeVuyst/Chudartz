@@ -788,15 +788,15 @@ def set_attendance(request):
     print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}, Staff: {request.user.is_staff}")
 
     if not request.user.is_authenticated:
-        return JsonResponse({'success': False, 'message': "User is not authenticated!"}, status=403)
+        return JsonResponse({'success': False, 'message': "Gebruiker is niet aangemeld!"}, status=403)
 
     if request.method != 'POST':
-        return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
+        return JsonResponse({'success': False, 'message': "Onbekend verzoek."}, status=400)
 
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
-        return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
+        return JsonResponse({'success': False, 'message': "QR-code niet herkend. Probeer opnieuw te scannen."}, status=400)
 
     try:
         result = check_in_participant(data.get('participant_id'), data.get('seed'))
@@ -810,17 +810,17 @@ def set_attendance(request):
 def gate_check_in(request):
     """Device-API-key authenticated check-in for the Raspberry Pi gate scanner."""
     if request.method != 'POST':
-        return JsonResponse({'success': False, 'message': "unknown request."}, status=400)
+        return JsonResponse({'success': False, 'message': "Onbekend verzoek."}, status=400)
 
     raw_key = request.headers.get('X-Gate-Api-Key', '')
     device = GateDevice.authenticate(raw_key)
     if device is None:
-        return JsonResponse({'success': False, 'message': "Unauthorized"}, status=401)
+        return JsonResponse({'success': False, 'message': "API-sleutel geweigerd. Controleer de instellingen."}, status=401)
 
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
-        return JsonResponse({'success': False, 'message': "QR code not recognised!"}, status=400)
+        return JsonResponse({'success': False, 'message': "QR-code niet herkend. Probeer opnieuw te scannen."}, status=400)
 
     try:
         result = check_in_participant(

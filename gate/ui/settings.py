@@ -1,4 +1,4 @@
-"""Settings dialog for gate configuration."""
+"""Instellingenscherm voor het toegangspoortje."""
 
 from __future__ import annotations
 
@@ -6,12 +6,13 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 
 from config import DEFAULT_BASE_URL, DEFAULT_HOST_HEADER, save_config
+from ui import i18n
 
 
 class SettingsDialog(tk.Toplevel):
     def __init__(self, master, config: dict, on_save=None):
         super().__init__(master)
-        self.title("Gate settings")
+        self.title(i18n.SETTINGS_TITLE)
         self.on_save = on_save
         self.resizable(False, False)
         self.transient(master)
@@ -22,7 +23,7 @@ class SettingsDialog(tk.Toplevel):
 
         row = 0
 
-        ttk.Label(frame, text="API base URL").grid(row=row, column=0, sticky="w")
+        ttk.Label(frame, text="API-basis-URL").grid(row=row, column=0, sticky="w")
         row += 1
         self.url_var = tk.StringVar(value=config.get("base_url") or DEFAULT_BASE_URL)
         ttk.Entry(frame, textvariable=self.url_var, width=44).grid(
@@ -30,7 +31,7 @@ class SettingsDialog(tk.Toplevel):
         )
         row += 1
 
-        ttk.Label(frame, text="Host header").grid(row=row, column=0, sticky="w")
+        ttk.Label(frame, text="Host-header").grid(row=row, column=0, sticky="w")
         row += 1
         self.host_var = tk.StringVar(
             value=config.get("host_header") or DEFAULT_HOST_HEADER
@@ -40,7 +41,7 @@ class SettingsDialog(tk.Toplevel):
         )
         row += 1
 
-        ttk.Label(frame, text="Device API key").grid(row=row, column=0, sticky="w")
+        ttk.Label(frame, text="Apparaat-API-sleutel").grid(row=row, column=0, sticky="w")
         row += 1
         self.key_var = tk.StringVar(value=config.get("api_key") or "")
         ttk.Entry(frame, textvariable=self.key_var, width=44, show="•").grid(
@@ -53,8 +54,10 @@ class SettingsDialog(tk.Toplevel):
         ids.columnconfigure(0, weight=1)
         ids.columnconfigure(1, weight=1)
 
-        ttk.Label(ids, text="Event ID (optional)").grid(row=0, column=0, sticky="w")
-        ttk.Label(ids, text="Ticket ID (optional)").grid(row=0, column=1, sticky="w", padx=(8, 0))
+        ttk.Label(ids, text="Evenement-ID (optioneel)").grid(row=0, column=0, sticky="w")
+        ttk.Label(ids, text="Ticket-ID (optioneel)").grid(
+            row=0, column=1, sticky="w", padx=(8, 0)
+        )
         self.event_var = tk.StringVar(value=str(config.get("event_id") or ""))
         self.ticket_var = tk.StringVar(value=str(config.get("ticket_id") or ""))
         ttk.Entry(ids, textvariable=self.event_var, width=16).grid(
@@ -67,7 +70,7 @@ class SettingsDialog(tk.Toplevel):
 
         ttk.Label(
             frame,
-            text="Leave blank to accept any. Set event and/or ticket ID to lock this gate.",
+            text="Leeg laten = alles accepteren. Vul evenement- en/of ticket-ID in om deze ingang te beperken.",
             foreground="#666",
             wraplength=360,
         ).grid(row=row, column=0, sticky="w", pady=(0, 10))
@@ -76,17 +79,17 @@ class SettingsDialog(tk.Toplevel):
         self.debug_var = tk.BooleanVar(value=bool(config.get("debug")))
         ttk.Checkbutton(
             frame,
-            text="Debug mode (show scan buffer + request/response)",
+            text="Debugmodus (toon scanbuffer + verzoek/antwoord)",
             variable=self.debug_var,
         ).grid(row=row, column=0, sticky="w", pady=(0, 12))
         row += 1
 
         buttons = ttk.Frame(frame)
         buttons.grid(row=row, column=0, sticky="e")
-        ttk.Button(buttons, text="Cancel", command=self.destroy).pack(
+        ttk.Button(buttons, text=i18n.BTN_CANCEL, command=self.destroy).pack(
             side="right", padx=(8, 0)
         )
-        ttk.Button(buttons, text="Save", command=self._save).pack(side="right")
+        ttk.Button(buttons, text=i18n.BTN_SAVE, command=self._save).pack(side="right")
 
         self.bind("<Escape>", lambda _e: self.destroy())
         self.protocol("WM_DELETE_WINDOW", self.destroy)
@@ -109,19 +112,25 @@ class SettingsDialog(tk.Toplevel):
         ticket_id = self.ticket_var.get().strip()
 
         if not base_url:
-            messagebox.showerror("Settings", "API base URL is required.", parent=self)
+            messagebox.showerror(
+                i18n.SETTINGS_TITLE, "API-basis-URL is verplicht.", parent=self
+            )
             return
         if not api_key:
-            messagebox.showerror("Settings", "Device API key is required.", parent=self)
+            messagebox.showerror(
+                i18n.SETTINGS_TITLE, "Apparaat-API-sleutel is verplicht.", parent=self
+            )
             return
-        for label, value in (("Event ID", event_id), ("Ticket ID", ticket_id)):
+        for label, value in (("Evenement-ID", event_id), ("Ticket-ID", ticket_id)):
             if value == "":
                 continue
             try:
                 int(value)
             except ValueError:
                 messagebox.showerror(
-                    "Settings", f"{label} must be a number (or blank).", parent=self
+                    i18n.SETTINGS_TITLE,
+                    f"{label} moet een getal zijn (of leeg).",
+                    parent=self,
                 )
                 return
 
