@@ -48,7 +48,7 @@ services:
 volumes:
   postgres_data:
     external: true
-    name: chudartz_db_volume
+    name: postgres_data
 
   media_volume:
     external: true
