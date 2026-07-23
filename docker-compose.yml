@@ -6,9 +6,7 @@ services:
     restart: always
     command: gunicorn chudartz.wsgi:application --bind 0.0.0.0:8003
     env_file: stack.env
-
     volumes:
-      # - .:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     ports:
@@ -23,11 +21,11 @@ services:
     restart: always
     env_file: stack.env
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     expose:
       - "5434"
     ports:
-      - 5434:5434
+      - "5434:5434"
 
   backup:
     image: eeshugerman/postgres-backup-s3:16
@@ -49,6 +47,17 @@ services:
 
 volumes:
   postgres_data:
-  nginx_volume:
+    external: true
+    name: 8e729a199d6b951ce5e182fac1f1e186867acb684d4d225279c7405f7b78f037
+
   media_volume:
+    external: true
+    name: chudartz_media_volume
+
   static_volume:
+    external: true
+    name: chudartz_static_volume
+    
+  nginx_volume:
+    external: true
+    name: chudartz_nginx_volume
