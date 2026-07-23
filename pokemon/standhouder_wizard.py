@@ -12,6 +12,7 @@ from pokemon.models import (
     StandhouderVraagAntwoord,
     Zaalplan,
     ZaalplanCel,
+    bedrag_met_btw,
 )
 
 
@@ -228,7 +229,13 @@ def save_vraag_antwoorden(inschrijving, cleaned_data, vragen):
 
 def build_prijsopbouw(inschrijving):
     from django.utils.translation import gettext as _
-    from pokemon.models import bedrag_met_btw
+
+    def btw_label(percentage):
+        # Vermijd %-formatting met %% (gettext/ValueError-risico).
+        return f"{_('BTW')} {percentage}%"
+
+    def met_excl_label(omschrijving):
+        return f"{omschrijving} ({_('excl. btw')})"
 
     regels = []
     if inschrijving.zaalplan_actief:
@@ -244,7 +251,7 @@ def build_prijsopbouw(inschrijving):
             )
             omschrijving = f"Tafel {cel.display_label}"
             if zaalplan.prijs_excl_btw:
-                omschrijving = _("%(label)s (excl. btw)") % {"label": omschrijving}
+                omschrijving = met_excl_label(omschrijving)
                 btw_totaal += btw
                 btw_pct = zaalplan.btw_percentage
             regels.append({
@@ -254,7 +261,7 @@ def build_prijsopbouw(inschrijving):
             })
         if btw_totaal:
             regels.append({
-                "omschrijving": _("BTW %(pct)s%%") % {"pct": btw_pct},
+                "omschrijving": btw_label(btw_pct),
                 "bedrag": btw_totaal,
                 "is_btw": True,
             })
@@ -271,7 +278,7 @@ def build_prijsopbouw(inschrijving):
         )
         omschrijving = f"{inschrijving.aantal_tafels_manueel} tafel(s)"
         if evenement.standhouder_prijs_excl_btw:
-            omschrijving = _("%(label)s (excl. btw)") % {"label": omschrijving}
+            omschrijving = met_excl_label(omschrijving)
         regels.append({
             "omschrijving": omschrijving,
             "bedrag": excl,
@@ -279,9 +286,7 @@ def build_prijsopbouw(inschrijving):
         })
         if btw:
             regels.append({
-                "omschrijving": _("BTW %(pct)s%%") % {
-                    "pct": evenement.standhouder_prijs_btw_percentage,
-                },
+                "omschrijving": btw_label(evenement.standhouder_prijs_btw_percentage),
                 "bedrag": btw,
                 "is_btw": True,
             })
@@ -296,7 +301,7 @@ def build_prijsopbouw(inschrijving):
             )
             omschrijving = _("Borg") if vraag.is_borg else vraag.tekst
             if vraag.prijs_toeslag_excl_btw:
-                omschrijving = _("%(label)s (excl. btw)") % {"label": omschrijving}
+                omschrijving = met_excl_label(omschrijving)
             regels.append({
                 "omschrijving": omschrijving,
                 "bedrag": excl,
@@ -304,9 +309,7 @@ def build_prijsopbouw(inschrijving):
             })
             if btw:
                 regels.append({
-                    "omschrijving": _("BTW %(pct)s%%") % {
-                        "pct": vraag.prijs_toeslag_btw_percentage,
-                    },
+                    "omschrijving": btw_label(vraag.prijs_toeslag_btw_percentage),
                     "bedrag": btw,
                     "is_btw": True,
                 })

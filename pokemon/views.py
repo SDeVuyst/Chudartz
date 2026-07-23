@@ -1,4 +1,5 @@
 import json
+import logging
 from decimal import Decimal
 from email.utils import formataddr
 
@@ -81,6 +82,8 @@ from pokemon.ticket_wizard import (
     set_wizard_data,
     ticket_base_context,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -645,8 +648,16 @@ def standhouder_overzicht(request, slug):
     if not heeft_gegevens(inschrijving):
         return redirect("standhouder_gegevens", slug=slug)
 
-    inschrijving.bereken_totaal()
-    regels, totaal = build_prijsopbouw(inschrijving)
+    try:
+        inschrijving.bereken_totaal()
+        regels, totaal = build_prijsopbouw(inschrijving)
+    except Exception:
+        logger.exception(
+            "Standhouder overzicht prijsberekening mislukt (inschrijving=%s, evenement=%s)",
+            inschrijving.pk,
+            evenement.slug,
+        )
+        raise
     context = standhouder_base_context(request, evenement, "overzicht")
     context["prijsopbouw"] = regels
     context["totaal"] = totaal

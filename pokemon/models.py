@@ -29,9 +29,13 @@ from darts.validators.image_validator import validate_image_max_size
 
 def bereken_btw(excl_bedrag, percentage):
     """Bereken BTW-bedrag afgerond op 2 decimalen (half-up)."""
-    if not excl_bedrag or not percentage:
+    if excl_bedrag is None or percentage is None:
         return Decimal("0.00")
-    return (excl_bedrag * percentage / Decimal("100")).quantize(
+    bedrag = Decimal(str(excl_bedrag))
+    pct = Decimal(str(percentage))
+    if bedrag == 0 or pct == 0:
+        return Decimal("0.00")
+    return (bedrag * pct / Decimal("100")).quantize(
         Decimal("0.01"), rounding=ROUND_HALF_UP
     )
 
@@ -41,7 +45,7 @@ def bedrag_met_btw(excl_bedrag, excl_btw, percentage):
     Geef (totaal incl. btw, btw-bedrag) terug.
     Als excl_btw False is, blijft btw 0 en is totaal gelijk aan excl_bedrag.
     """
-    bedrag = excl_bedrag or Decimal("0")
+    bedrag = Decimal(str(excl_bedrag or 0))
     if not excl_btw:
         return bedrag, Decimal("0.00")
     btw = bereken_btw(bedrag, percentage)
