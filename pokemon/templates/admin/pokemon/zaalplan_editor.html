@@ -35,7 +35,8 @@
 
   .zaalplan-toolbar { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; align-items: end; }
   .zaalplan-toolbar .zp-field { display: flex; flex-direction: column; }
-  .zaalplan-toolbar label { font-size: 0.78rem; margin-bottom: 0.35rem; color: var(--zp-muted); font-weight: 600; }
+  .zaalplan-toolbar label,
+  .zaalplan-toolbar .zp-field-label { font-size: 0.78rem; margin-bottom: 0.35rem; color: var(--zp-muted); font-weight: 600; }
   .zaalplan-toolbar input {
     padding: 0.5rem 0.7rem; border: 1px solid var(--zp-border); border-radius: 8px;
     background: var(--zp-surface-2); color: var(--zp-text); width: 8rem; font-size: 0.9rem;
@@ -169,8 +170,8 @@
       <input type="number" id="standaard_prijs" min="0" step="0.01" value="{{ zaalplan.standaard_prijs.amount }}">
     </div>
     <div class="zp-field zp-field-check">
-      <label for="prijs_excl_btw">{% trans "Exclusief BTW" %}</label>
-      <label class="zp-check">
+      <span class="zp-field-label">{% trans "Exclusief BTW" %}</span>
+      <label class="zp-check" for="prijs_excl_btw">
         <input type="checkbox" id="prijs_excl_btw" {% if zaalplan.prijs_excl_btw %}checked{% endif %}>
         <span>{% trans "Prijs is excl. BTW" %}</span>
       </label>

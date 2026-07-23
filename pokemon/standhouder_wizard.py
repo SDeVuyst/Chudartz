@@ -228,14 +228,14 @@ def save_vraag_antwoorden(inschrijving, cleaned_data, vragen):
 
 
 def build_prijsopbouw(inschrijving):
-    from django.utils.translation import gettext as _
+    from django.utils.translation import gettext
 
     def btw_label(percentage):
         # Vermijd %-formatting met %% (gettext/ValueError-risico).
-        return f"{_('BTW')} {percentage}%"
+        return f"{gettext('BTW')} {percentage}%"
 
     def met_excl_label(omschrijving):
-        return f"{omschrijving} ({_('excl. btw')})"
+        return f"{omschrijving} ({gettext('excl. btw')})"
 
     regels = []
     if inschrijving.zaalplan_actief:
@@ -244,7 +244,7 @@ def build_prijsopbouw(inschrijving):
         for cel in inschrijving.gekozen_tafels.select_related("zaalplan"):
             zaalplan = cel.zaalplan
             excl = cel.effectieve_prijs.amount
-            _, btw = bedrag_met_btw(
+            _incl, btw = bedrag_met_btw(
                 excl,
                 zaalplan.prijs_excl_btw,
                 zaalplan.btw_percentage,
@@ -271,7 +271,7 @@ def build_prijsopbouw(inschrijving):
             inschrijving.aantal_tafels_manueel
             * evenement.standhouder_prijs_per_tafel.amount
         )
-        _, btw = bedrag_met_btw(
+        _incl, btw = bedrag_met_btw(
             excl,
             evenement.standhouder_prijs_excl_btw,
             evenement.standhouder_prijs_btw_percentage,
@@ -294,12 +294,12 @@ def build_prijsopbouw(inschrijving):
         if antwoord.heeft_toeslag():
             vraag = antwoord.vraag
             excl = vraag.prijs_toeslag.amount
-            _, btw = bedrag_met_btw(
+            _incl, btw = bedrag_met_btw(
                 excl,
                 vraag.prijs_toeslag_excl_btw,
                 vraag.prijs_toeslag_btw_percentage,
             )
-            omschrijving = _("Borg") if vraag.is_borg else vraag.tekst
+            omschrijving = gettext("Borg") if vraag.is_borg else vraag.tekst
             if vraag.prijs_toeslag_excl_btw:
                 omschrijving = met_excl_label(omschrijving)
             regels.append({

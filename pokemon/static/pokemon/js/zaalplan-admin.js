@@ -45,19 +45,24 @@
     };
   }
 
+  function updateBtwWrapVisibility() {
+    const exclEl = document.getElementById('prijs_excl_btw');
+    const wrap = document.getElementById('btw_percentage_wrap');
+    if (wrap && exclEl) {
+      wrap.style.opacity = exclEl.checked ? '1' : '0.45';
+    }
+  }
+
   function syncBtwUiFromGrid() {
     const exclEl = document.getElementById('prijs_excl_btw');
     const pctEl = document.getElementById('btw_percentage');
-    const wrap = document.getElementById('btw_percentage_wrap');
     if (exclEl && typeof gridData.prijs_excl_btw === 'boolean') {
       exclEl.checked = gridData.prijs_excl_btw;
     }
     if (pctEl && gridData.btw_percentage != null) {
       pctEl.value = gridData.btw_percentage;
     }
-    if (wrap && exclEl) {
-      wrap.style.opacity = exclEl.checked ? '1' : '0.45';
-    }
+    updateBtwWrapVisibility();
   }
 
   function postJson(url, body) {
@@ -371,7 +376,7 @@
 
   const exclToggle = document.getElementById('prijs_excl_btw');
   if (exclToggle) {
-    exclToggle.addEventListener('change', syncBtwUiFromGrid);
+    exclToggle.addEventListener('change', updateBtwWrapVisibility);
   }
   syncBtwUiFromGrid();
   renderGrid();
