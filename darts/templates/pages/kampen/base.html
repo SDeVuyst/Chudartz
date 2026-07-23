@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load static i18n %}
+
+{% block title %}ChudartZ | {% trans "Inschrijven" %} — {{ kamp.titel }}{% endblock %}
+
+{% block meta %}
+<meta NAME="robots" CONTENT="noindex, nofollow">
+{% endblock %}
+
+{% block body %}
+<body class="dartskamp-inschrijving-page">
+  {% include 'blocks/header-sticky.html' %}
+  <main class="main">
+    {% trans "Inschrijven" as page_name %}
+    {% trans "/nl/dartskampen" as page_second_previous_crumb_link %}
+    {% trans "Dartskampen" as page_second_previous_crumb %}
+    {% include 'blocks/page-title.html' with name=page_name background="true" second_previous_crumb=page_second_previous_crumb second_previous_crumb_link=page_second_previous_crumb_link previous_crumb=kamp.titel previous_crumb_link=kamp.get_absolute_url %}
+
+    <section class="kamp-wizard service-details section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-box register">
+              {% include 'pages/kampen/_wizard_nav.html' %}
+
+              {% if error %}
+                <div class="alert-kamp error">{{ error }}</div>
+              {% endif %}
+
+              {% block wizard_content %}{% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'blocks/footer.html' %}
+</body>
+{% endblock %}

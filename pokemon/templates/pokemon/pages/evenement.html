@@ -19,6 +19,72 @@ ChudartZ Collectibles | {{ evenement.titel }}
 <meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
 {% endblock %}
 
+{% block head %}
+<style>
+.evenement-acties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.evenement-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 22px 10px 22px;
+  border-radius: 4px;
+  border: 1px solid #d5d9de;
+  background: #fff;
+  color: var(--heading-color);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.features .features-item .evenement-acties .btn-get-started {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.25;
+}
+.evenement-btn-secondary:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 94%);
+}
+.evenement-pricing-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.evenement-pricing-notice--info {
+  background: #eef4ff;
+  color: #3d4f6f;
+  border: 1px solid #d4e2f5;
+}
+.evenement-pricing-notice--warning {
+  background: #fff8e6;
+  color: #8a6d1b;
+  border: 1px solid #ffe8a8;
+}
+.evenement-pricing-notice .bi {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.pricing-item--disabled {
+  opacity: 0.72;
+}
+</style>
+{% endblock %}
+
 {% block body %}
 <body class="evenementen-page">
 
@@ -66,8 +132,15 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
                   <li><i class="bi bi-geo-alt"></i><span>{{ evenement.locatie_lang }}</span></li>
               </ul>
-              <a href="#pricing" class="btn btn-get-started">{% trans 'Bekijk tickets' %}</a>
-              <a href="{% url 'standhouder' slug=evenement.slug %}" class="btn btn-get-started">{% trans 'Standhouder worden' %}</a> 
+              <div class="evenement-acties">
+                {% if evenement.enable_inschrijvingen and not evenement.is_sold_out %}
+                <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="btn btn-get-started">{% trans 'Tickets kopen' %}</a>
+                {% endif %}
+                <a href="#pricing" class="evenement-btn-secondary">{% trans 'Bekijk tickets' %}</a>
+                {% if evenement.standhouder_inschrijving_mogelijk %}
+                <a href="{% url 'standhouder' slug=evenement.slug %}" class="evenement-btn-secondary">{% trans 'Standhouder worden' %}</a>
+                {% endif %}
+              </div>
             </div>
             
             <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
@@ -81,11 +154,27 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
     <section id="pricing" class="pricing section light-background">
       <div class="container">
+        {% if tickets %}
+        {% if not evenement.enable_inschrijvingen %}
+        <div class="evenement-pricing-notice evenement-pricing-notice--info" data-aos="fade-up">
+          <i class="bi bi-info-circle"></i>
+          {% trans "Inschrijvingen zijn momenteel gesloten. Hieronder ziet u de beschikbare tickettypes en prijzen." %}
+        </div>
+        {% elif evenement.is_sold_out %}
+        <div class="evenement-pricing-notice evenement-pricing-notice--warning" data-aos="fade-up">
+          <i class="bi bi-exclamation-circle"></i>
+          {% trans "Dit evenement is uitverkocht. Hieronder ziet u nog steeds de ticketprijzen." %}
+        </div>
+        {% endif %}
+
         <div class="row g-4 justify-content-center">
           {% for ticket in tickets %}
           {% include 'pokemon/blocks/ticket.html' with ticket=ticket evenement=evenement %}
           {% endfor %}
         </div>
+        {% else %}
+        <p class="text-center text-muted mb-0">{% trans "Er zijn nog geen tickets geconfigureerd voor dit evenement." %}</p>
+        {% endif %}
       </div>
     </section>
 
@@ -149,110 +238,6 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
     </section>
 
-    {% if evenement.enable_inschrijvingen %}
-    <section class="section service-details" id="koopform" data-aos="fade-up" data-aos-delay="100">
-      <div class="container">
-        <div class="service-box register">
-          <h2>{% trans 'Koop uw tickets' %}</h2>
-
-          <form action="{{ request.path }}" method="post" id="register-form" class="register-form">
-            {% csrf_token %}
-            <div class="row gy-4 justify-content-center align-items-center">
-              <div class="col-md-5">
-
-                <div class="row gy-4">
-
-                  <!-- Email -->
-                  <div class="col-md-12">
-                    <input type="email" name="email" class="form-control" placeholder="{% trans 'Email' %}" maxlength="254" required>
-                  </div>
-
-                  {% for ticket in tickets %}
-                  {% if not ticket.disable_ticket %}
-                  {% if not ticket.is_sold_out %}
-                  <div class="col-md-12">
-                    
-                    <label class="form-check-label" for="flexCheckDefault"><b>
-                      {{ ticket }}
-                    </b></label>
-                    <input
-                      type="number" 
-                      name="ticket-form-number-{{ ticket.id }}" 
-                      id="ticket-form-number-{{ ticket.id }}"
-                      class="form-control ticket-input" 
-                      placeholder="Aantal Tickets"
-                      min="0"
-                      max="{{ ticket.remaining_tickets|max_value:5 }}"
-                      step="1"
-                    >
-                  </div>
-                  {% endif %}
-                  {% endif %}
-                  {% endfor %}
-                
-                </div>
-              </div>
-
-              <div class="col-md-1"></div>
-
-              <div class="col-md-5">
-                <div class="row gy-4">
-                  <div class="col-md-12 mt-0">
-                    <div class="form-check">
-                      <input name="terms_voorwaarden" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                      <label class="form-check-label text-muted small" for="flexCheckDefault">
-                        {% url 'algemene_voorwaarden' as av_url %}
-                        {% blocktrans %}Ik ga akkoord met de <a href="{{ av_url }}">Algemene voorwaarden</a> van ChudartZ Collectibles.{% endblocktrans %}
-                      </label>
-                    </div>  
-                  </div>
-    
-                  <div class="col-md-12 mt-0">
-                    <div class="form-check">
-                      <input name="terms_privacy" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                      <label class="form-check-label text-muted small" for="flexCheckDefault">
-                        {% url 'privacybeleid' as p_url %}
-                        {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ Collectibles.{% endblocktrans %}
-                      </label>
-                    </div>  
-                  </div>
-    
-                  <div class="col-md-12 mt-0">
-                    <div class="form-check">
-                      <input name="terms_disclaimer" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                      <label class="form-check-label text-muted small" for="flexCheckDefault">
-                        {% url 'disclaimer' as d_url %}
-                        {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ Collectibles.{% endblocktrans %}
-                      </label>
-                    </div>  
-                  </div>
-
-                  <div class="col-md-12 mt-0">
-                    <div class="form-check">
-                      <input name="terms_huisreglement" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                      <label class="form-check-label text-muted small" for="flexCheckDefault">
-                        {% url 'huisreglement' as h_url %}
-                        {% blocktrans %}Ik ga akkoord met het <a href="{{ h_url }}">huisreglement</a> van ChudartZ Collectibles.{% endblocktrans %}
-                      </label>
-                    </div>  
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Submit Button -->
-              <div class="col-12 text-center">
-                  <button type="submit" id="submitBtn" disabled data-disabled-message="{% trans 'You must order at least one ticket.' %}">{% trans 'Afrekenen' %}</button>
-              </div>
-                
-            </div>
-          </form>
-        
-        </div>
-      </div>
-    </section>
-    {% endif %}
-
     {% if partners %}
     <!-- Sponsors Section -->
     <section id="sponsors" class="sponsors section">
@@ -306,51 +291,29 @@ ChudartZ Collectibles | {{ evenement.titel }}
       </div>
     </section>
     {% endif %}
+
+    {% if gerelateerde_evenementen %}
+    <section id="andere-evenementen" class="blog-posts section light-background">
+      <div class="container" data-aos="fade-up">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+          <div>
+            <h2 class="mb-1">{% trans "Andere evenementen" %}</h2>
+            <p class="text-muted mb-0">{% trans "Ontdek meer beurzen en activiteiten van ChudartZ Collectibles." %}</p>
+          </div>
+          <a href="{% url 'evenementen' %}" class="evenement-btn-secondary">{% trans "Alle evenementen" %}</a>
+        </div>
+        <div class="row gy-4">
+          {% for evt in gerelateerde_evenementen %}
+            {% include 'pokemon/blocks/toernooi-card.html' with evenement=evt %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
     
   </main>
 
   {% include 'pokemon/blocks/footer.html' %}
 
 </body>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Get all ticket number inputs and the submit button
-    let ticketInputs = document.querySelectorAll('.ticket-input');
-    let submitBtn = document.getElementById('submitBtn');
-
-    let disabledMessage = submitBtn.getAttribute('data-disabled-message');
-  
-    // Function to check the validity of inputs
-    function checkValidity() {
-      let isValid = false;
-  
-      // Loop through each input to see if any has a value of 1 or more
-      ticketInputs.forEach(function(input) {
-        let value = parseInt(input.value);
-        if (value >= 1) {
-          isValid = true;
-        }
-      });
-  
-      // Enable the submit button if valid, otherwise disable it
-      if (isValid) {
-        submitBtn.disabled = false;
-        submitBtn.removeAttribute('title');
-      } else {
-        submitBtn.disabled = true;
-        submitBtn.setAttribute('title', disabledMessage);
-      }
-    }
-  
-    // Add event listeners to each ticket input field
-    ticketInputs.forEach(function(input) {
-      input.addEventListener('input', checkValidity); // Trigger checkValidity on input change
-    });
-  
-    // Initial check when the page loads
-    checkValidity();
-  });
-</script>
-
 {% endblock %}

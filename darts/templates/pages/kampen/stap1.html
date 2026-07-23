@@ -1,0 +1,63 @@
+{% extends 'pages/kampen/base.html' %}
+{% load i18n %}
+
+{% block wizard_content %}
+<h4>{% trans 'Persoonlijke gegevens van het kind' %}</h4>
+<p class="text-muted small">{% trans "Vul de gegevens van het kind in. U ontvangt een bevestiging per e-mail na betaling." %}</p>
+
+<form method="post" class="register-form">
+  {% csrf_token %}
+
+  <div class="row gy-3 mb-4">
+    <div class="col-md-6">
+      <label for="id_voornaam" class="form-label">{{ form.voornaam.label|default:_("Voornaam") }}</label>
+      {{ form.voornaam }}
+      {% if form.voornaam.errors %}<div class="text-danger small">{{ form.voornaam.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+      <label for="id_achternaam" class="form-label">{{ form.achternaam.label|default:_("Achternaam") }}</label>
+      {{ form.achternaam }}
+      {% if form.achternaam.errors %}<div class="text-danger small">{{ form.achternaam.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+      <label for="id_geboortejaar" class="form-label">{{ form.geboortejaar.label|default:_("Geboortejaar") }}</label>
+      {{ form.geboortejaar }}
+      {% if form.geboortejaar.errors %}<div class="text-danger small">{{ form.geboortejaar.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+      <label for="id_email" class="form-label">{{ form.email.label|default:_("Email") }}</label>
+      {{ form.email }}
+      {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+      <label for="id_gsm" class="form-label">{{ form.gsm.label|default:_("GSM") }}</label>
+      {{ form.gsm }}
+      {% if form.gsm.errors %}<div class="text-danger small">{{ form.gsm.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-8">
+      <label for="id_straatnaam" class="form-label">{{ form.straatnaam.label|default:_("Straatnaam") }}</label>
+      {{ form.straatnaam }}
+      {% if form.straatnaam.errors %}<div class="text-danger small">{{ form.straatnaam.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-4">
+      <label for="id_nummer" class="form-label">{{ form.nummer.label|default:_("Nummer") }}</label>
+      {{ form.nummer }}
+      {% if form.nummer.errors %}<div class="text-danger small">{{ form.nummer.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-4">
+      <label for="id_postcode" class="form-label">{{ form.postcode.label|default:_("Postcode") }}</label>
+      {{ form.postcode }}
+      {% if form.postcode.errors %}<div class="text-danger small">{{ form.postcode.errors }}</div>{% endif %}
+    </div>
+    <div class="col-md-8">
+      <label for="id_stad" class="form-label">{{ form.stad.label|default:_("Stad") }}</label>
+      {{ form.stad }}
+      {% if form.stad.errors %}<div class="text-danger small">{{ form.stad.errors }}</div>{% endif %}
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <button type="submit">{% trans 'Volgende: overzicht' %}</button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load i18n %}
+<nav class="kamp-wizard-nav mb-4" aria-label="{% trans 'Inschrijving stappen' %}">
+  <ol class="wizard-progress">
+    {% for stap in stappen %}
+      <li class="wizard-progress__step{% if stap.nummer == wizard_stap %} is-active{% elif stap.nummer < wizard_stap %} is-done{% endif %}">
+        <div class="wizard-progress__row">
+          <div class="wizard-progress__node">
+            {% if stap.is_reachable %}
+              <a href="{% url stap.url_name slug=kamp.slug %}" class="wizard-progress__link">
+                <span class="wizard-progress__dot" aria-hidden="true">
+                  <i class="bi bi-check-lg"></i>
+                </span>
+                <span class="wizard-progress__label">{{ stap.label }}</span>
+              </a>
+            {% else %}
+              <span class="wizard-progress__dot" aria-hidden="true">
+                {% if stap.nummer < wizard_stap %}
+                  <i class="bi bi-check-lg"></i>
+                {% else %}
+                  {{ stap.nummer }}
+                {% endif %}
+              </span>
+              <span class="wizard-progress__label">{{ stap.label }}</span>
+            {% endif %}
+          </div>
+          {% if not forloop.last %}
+            <span class="wizard-progress__connector" aria-hidden="true"></span>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ol>
+</nav>
+
+<style>
+.wizard-progress {
+  display: flex;
+  align-items: flex-start;
+  list-style: none;
+  padding: 0.25rem 0 0;
+  margin: 0 0 1.75rem;
+  width: 100%;
+}
+.wizard-progress__step { flex: 1 1 0; min-width: 0; }
+.wizard-progress__step:last-child { flex: 0 0 auto; }
+.wizard-progress__row { display: flex; align-items: flex-start; width: 100%; }
+.wizard-progress__node {
+  display: flex; flex-direction: column; align-items: center; gap: 0.45rem;
+  flex-shrink: 0; min-width: 4.25rem;
+}
+.wizard-progress__link {
+  display: flex; flex-direction: column; align-items: center; gap: 0.45rem;
+  text-decoration: none; color: inherit;
+}
+.wizard-progress__link:hover .wizard-progress__label { color: var(--accent-color); }
+.wizard-progress__dot {
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  border: 2px solid #dee2e6; background: #fff; color: #6c757d;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem; line-height: 1;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.wizard-progress__dot .bi { font-size: 1.1rem; font-weight: 700; }
+.wizard-progress__label {
+  font-size: 0.78rem; font-weight: 500; color: #6c757d;
+  text-align: center; line-height: 1.2; max-width: 5.5rem;
+}
+.wizard-progress__connector {
+  flex: 1 1 auto; height: 2px; background: #dee2e6;
+  margin: 1.2rem 0.35rem 0; min-width: 0.75rem; border-radius: 1px;
+}
+.wizard-progress__step.is-done .wizard-progress__dot {
+  background: var(--accent-color); border-color: var(--accent-color); color: #fff;
+}
+.wizard-progress__step.is-done .wizard-progress__label { color: var(--heading-color); font-weight: 600; }
+.wizard-progress__step.is-done .wizard-progress__connector { background: var(--accent-color); }
+.wizard-progress__step.is-active .wizard-progress__dot {
+  background: var(--accent-color); border-color: var(--accent-color); color: #fff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color), transparent 82%);
+}
+.wizard-progress__step.is-active .wizard-progress__label { color: var(--accent-color); font-weight: 700; }
+.wizard-progress__step:not(.is-active):not(.is-done) .wizard-progress__dot { background: #f8f9fa; }
+@media (max-width: 576px) {
+  .wizard-progress__node { min-width: 3.25rem; }
+  .wizard-progress__dot { width: 2rem; height: 2rem; font-size: 0.8rem; }
+  .wizard-progress__label { font-size: 0.68rem; max-width: 4rem; }
+  .wizard-progress__connector { margin-top: 0.95rem; min-width: 0.35rem; }
+}
+.alert-kamp { padding: 0.85rem 1.1rem; border-radius: 10px; margin-bottom: 1rem; }
+.alert-kamp.error { background: #fdecee; color: #a52834; border: 1px solid #f6cace; }
+.prijsopbouw-table { width: 100%; margin-top: 1rem; border-collapse: collapse; }
+.prijsopbouw-table td { padding: 0.5rem 0.25rem; border-bottom: 1px solid #f0f0f0; }
+.prijsopbouw-table tr:last-child td { border-bottom: none; border-top: 2px solid #e6e6e6; font-size: 1.05rem; }
+.prijsopbouw-table td:last-child { text-align: right; }
+</style>

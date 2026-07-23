@@ -18,25 +18,28 @@ ChudartZ Collectibles | {{ evenement.titel}}
     <main class="main">
         <div class="container d-flex justify-content-center align-items-center mt-5 mb-5">
             <div class="text-center">
-                
+
                 {% if success %}
 
-                    <h1>{% trans 'Ingeschreven!' %}</h1>
+                    <h1><i class="bi bi-check-circle text-success"></i> {% trans 'Betaling geslaagd!' %}</h1>
                     <p>{% trans 'Uw toegangsticket komt binnenkort aan in uw mailbox!' %}</p>
+
+                {% elif pending %}
+
+                    <h1><i class="bi bi-hourglass-split text-warning"></i> {% trans 'Betaling in behandeling' %}</h1>
+                    <p>{% trans 'Uw betaling wordt nog verwerkt. U ontvangt uw tickets per e-mail zodra de betaling is bevestigd.' %}</p>
 
                 {% else %}
 
-                    <h1>{% trans 'Er is iets misgegaan.' %}</h1>
-                    <p>{% trans 'Gelieve contact op te nemen via '%} <a href="{% url 'index' %}#contact">{% trans 'dit formulier.' %}</a></p>
-                    
+                    <h1><i class="bi bi-x-circle text-danger"></i> {% trans 'Betaling niet gelukt' %}</h1>
+                    <p>{% trans 'De betaling is niet voltooid. Probeer het opnieuw of neem contact met ons op.' %}</p>
+                    <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="btn btn-get-started mt-3">{% trans 'Opnieuw proberen' %}</a>
+
                 {% endif %}
-                
-                <a href="{{ evenement.get_absolute_url }}" class="btn btn-back align-self-start mt-4">{% trans 'Ga terug naar evenement' %}</a>         
+
+                <a href="{{ evenement.get_absolute_url }}" class="btn btn-back align-self-start mt-4">{% trans 'Ga terug naar evenement' %}</a>
             </div>
         </div>
-        
-
-        
     </main>
 
     {% include 'pokemon/blocks/footer.html' %}

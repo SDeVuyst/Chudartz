@@ -1,0 +1,37 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load i18n %}
+
+{% block wizard_content %}
+<div class="text-center py-4">
+  {% if online_betaling %}
+    <h4>{% trans 'Betaling' %}</h4>
+    {% if payment_status == 'paid' or inschrijving.status == 'betaald' %}
+      <p>{% trans 'Uw betaling is ontvangen. Uw standhouder-inschrijving is definitief bevestigd. U ontvangt een bevestiging per e-mail.' %}</p>
+    {% elif payment_status == 'open' %}
+      <p>{% trans 'Uw betaling wordt verwerkt. U ontvangt een bevestiging per e-mail zodra de betaling is afgerond.' %}</p>
+    {% elif payment_status == 'canceled' or payment_status == 'failed' or payment_status == 'expired' or inschrijving.status == 'verlopen' %}
+      <p>{% trans 'De betaling is niet gelukt of verlopen. Uw tafelreservatie is vrijgegeven. Neem contact met ons op als u opnieuw wilt inschrijven.' %}</p>
+    {% else %}
+      <p>{% trans 'Uw inschrijving is geregistreerd. Wij verwerken uw betaling.' %}</p>
+    {% endif %}
+  {% else %}
+    <h4>{% trans 'Aanvraag ontvangen!' %}</h4>
+    {% if voorlopig %}
+      {% if email_sent %}
+        <p>{% trans 'Uw standhouder-aanvraag is ontvangen. U ontvangt een voorlopige bevestiging per e-mail. Wij nemen zo snel mogelijk contact met u op om alles definitief te bevestigen.' %}</p>
+      {% else %}
+        <p>{% trans 'Uw standhouder-aanvraag is ontvangen. Wij nemen zo snel mogelijk contact met u op om alles definitief te bevestigen.' %}</p>
+        <p class="text-muted small">{% trans 'De bevestigingsmail kon niet automatisch worden verstuurd. Neem bij twijfel contact met ons op.' %}</p>
+      {% endif %}
+    {% else %}
+      {% if email_sent %}
+        <p>{% trans 'Uw standhouder-inschrijving is succesvol ontvangen. U ontvangt een bevestiging per e-mail.' %}</p>
+      {% else %}
+        <p>{% trans 'Uw standhouder-inschrijving is succesvol ontvangen.' %}</p>
+        <p class="text-muted small">{% trans 'De bevestigingsmail kon niet automatisch worden verstuurd. Neem bij twijfel contact met ons op.' %}</p>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  <a href="{{ evenement.get_absolute_url }}" class="btn btn-back mt-3">{% trans 'Ga terug naar evenement' %}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,345 @@
+{% load i18n %}
+<nav class="standhouder-wizard-nav mb-4" aria-label="{% trans 'Inschrijving stappen' %}">
+  <ol class="wizard-progress">
+    {% for stap in wizard_stappen %}
+      <li class="wizard-progress__step{% if stap.nummer == wizard_stap %} is-active{% elif stap.nummer < wizard_stap %} is-done{% endif %}">
+        <div class="wizard-progress__row">
+          <div class="wizard-progress__node">
+            {% if stap.is_reachable %}
+              <a href="{% url stap.url_name slug=evenement.slug %}" class="wizard-progress__link">
+                <span class="wizard-progress__dot" aria-hidden="true">
+                  <i class="bi bi-check-lg"></i>
+                </span>
+                <span class="wizard-progress__label">{{ stap.label }}</span>
+              </a>
+            {% else %}
+              <span class="wizard-progress__dot" aria-hidden="true">
+                {% if stap.nummer < wizard_stap %}
+                  <i class="bi bi-check-lg"></i>
+                {% else %}
+                  {{ stap.nummer }}
+                {% endif %}
+              </span>
+              <span class="wizard-progress__label">{{ stap.label }}</span>
+            {% endif %}
+          </div>
+          {% if not forloop.last %}
+            <span class="wizard-progress__connector" aria-hidden="true"></span>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ol>
+</nav>
+
+<style>
+.wizard-progress {
+  display: flex;
+  align-items: flex-start;
+  list-style: none;
+  padding: 0.25rem 0 0;
+  margin: 0 0 1.75rem;
+  width: 100%;
+}
+
+.wizard-progress__step {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.wizard-progress__step:last-child {
+  flex: 0 0 auto;
+}
+
+.wizard-progress__row {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.wizard-progress__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  min-width: 4.25rem;
+}
+
+.wizard-progress__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.wizard-progress__link:hover .wizard-progress__label {
+  color: var(--accent-color);
+}
+
+.wizard-progress__dot {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 2px solid #dee2e6;
+  background: #fff;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.wizard-progress__dot .bi {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.wizard-progress__label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #6c757d;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 5.5rem;
+}
+
+.wizard-progress__connector {
+  flex: 1 1 auto;
+  height: 2px;
+  background: #dee2e6;
+  margin: 1.2rem 0.35rem 0;
+  min-width: 0.75rem;
+  border-radius: 1px;
+  transition: background 0.2s;
+}
+
+/* Voltooid */
+.wizard-progress__step.is-done .wizard-progress__dot {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+}
+
+.wizard-progress__step.is-done .wizard-progress__label {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.wizard-progress__step.is-done .wizard-progress__connector {
+  background: var(--accent-color);
+}
+
+/* Actief */
+.wizard-progress__step.is-active .wizard-progress__dot {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color), transparent 82%);
+}
+
+.wizard-progress__step.is-active .wizard-progress__label {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+/* Komend */
+.wizard-progress__step:not(.is-active):not(.is-done) .wizard-progress__dot {
+  background: #f8f9fa;
+}
+
+@media (max-width: 576px) {
+  .wizard-progress__node {
+    min-width: 3.25rem;
+  }
+
+  .wizard-progress__dot {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .wizard-progress__label {
+    font-size: 0.68rem;
+    max-width: 4rem;
+  }
+
+  .wizard-progress__connector {
+    margin-top: 0.95rem;
+    min-width: 0.35rem;
+  }
+}
+
+/* Zaalplan legenda */
+.zaalplan-legend { display: flex; gap: 1.15rem; font-size: 0.85rem; flex-wrap: wrap; align-items: center; color: #6c757d; }
+.zaalplan-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.zp-swatch { width: 16px; height: 16px; border-radius: 5px; display: inline-block; border: 1px solid #d5d5d5; }
+.zp-swatch.zp-beschikbaar { background: linear-gradient(160deg, #e9f7ef, #d4edda); border-color: #b7dfc0; }
+.zp-swatch.zp-geselecteerd { background: #2563eb; border-color: #2563eb; }
+.zp-swatch.zp-bezet { background: linear-gradient(160deg, #fdecee, #f8d7da); border-color: #f1c2c7; }
+
+/* Zaalplan viewport */
+.zaalplan-selectie-viewport {
+  border: 1px solid #ececec;
+  border-radius: 16px;
+  background: #fff;
+  margin: 1.15rem 0;
+  position: relative;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.zaalplan-selectie-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+.zp-zoom-controls { display: flex; gap: 0.4rem; }
+.zaalplan-selectie-toolbar .zp-tool-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  border: 1px solid #e2e4e7 !important; background: #f4f5f6 !important; color: #5b6169 !important;
+  border-radius: 8px; padding: 0.45rem 0.8rem; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; box-shadow: none !important;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.05s;
+}
+.zaalplan-selectie-toolbar .zp-tool-btn:hover { background: #e7e9ec !important; border-color: #d3d7db !important; color: #3f444b !important; }
+.zaalplan-selectie-toolbar .zp-tool-btn:active { transform: translateY(1px); }
+.zaalplan-selectie-toolbar .zp-zoom-controls .zp-tool-btn { min-width: 2.4rem; }
+
+.zaalplan-selectie-scroll {
+  overflow: auto; padding: 1.5rem; max-height: 62vh;
+  background-image:
+    radial-gradient(circle, rgba(0,0,0,0.045) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.zaalplan-selectie-grid { display: grid; gap: 0; width: max-content; margin: 0 auto; position: relative; }
+.zaalplan-selectie-cel {
+  border: 1px solid #dcdcdc;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700; text-align: center;
+  line-height: 1.05; overflow: hidden; word-break: break-word; padding: 2px;
+  color: #495057;
+  transition: filter 0.12s ease;
+}
+.zaalplan-selectie-cel.leeg { --fill: transparent; background: transparent; border-color: transparent; color: #adb5bd; }
+.zaalplan-selectie-cel.tekst {
+  --fill: #eef1f4; background: #eef1f4; border-color: #d5dbe1; color: #6b7680;
+  font-weight: 600; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.03em;
+}
+.zaalplan-selectie-cel.geblokkeerd {
+  --fill: #3a4147;
+  background: repeating-linear-gradient(45deg, #343a40 0 7px, #40474e 7px 14px);
+  border-color: #2b3035;
+}
+.zaalplan-selectie-cel.tafel {
+  --fill: #d6efdd; background: #d6efdd;
+  border-color: #a9d9b6; color: #14683a; cursor: pointer;
+}
+.zaalplan-selectie-cel.tafel.is-hovered { filter: brightness(0.97); z-index: 2; }
+.zaalplan-selectie-cel.geselecteerd {
+  --fill: #2563eb; background: #2563eb;
+  border-color: #1d4ed8; color: #fff;
+}
+.zaalplan-selectie-cel.bezet {
+  --fill: #f6d0d4; background: #f6d0d4;
+  border-color: #eeb4ba; color: #a52834; cursor: not-allowed;
+}
+/* interne randen van een groep laten samensmelten met de vulling (naadloos) */
+.zaalplan-selectie-cel.nb-top { border-top-color: var(--fill, transparent); }
+.zaalplan-selectie-cel.nb-bottom { border-bottom-color: var(--fill, transparent); }
+.zaalplan-selectie-cel.nb-left { border-left-color: var(--fill, transparent); }
+.zaalplan-selectie-cel.nb-right { border-right-color: var(--fill, transparent); }
+
+.zaalplan-groep-label {
+  pointer-events: none; z-index: 3;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-weight: 700; font-size: 0.72rem; padding: 3px; overflow: hidden;
+  word-break: break-word; line-height: 1.1; color: #14683a;
+}
+.zaalplan-groep-label.op-geselecteerd { color: #fff; }
+.zaalplan-groep-label.op-tekst { color: #6b7680; text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.64rem; }
+
+/* Fullscreen */
+.zaalplan-selectie-viewport.is-fullscreen,
+.zaalplan-selectie-viewport:fullscreen {
+  position: fixed; inset: 0; z-index: 2000; margin: 0;
+  border-radius: 0; background: #fff; display: flex; flex-direction: column;
+  box-shadow: none;
+}
+.zaalplan-selectie-viewport.is-fullscreen .zaalplan-selectie-scroll,
+.zaalplan-selectie-viewport:fullscreen .zaalplan-selectie-scroll {
+  max-height: none; flex: 1;
+}
+
+.tafel-selectie-summary {
+  background: #f8f9fa; border: 1px solid #eee; border-radius: 12px;
+  padding: 0.9rem 1.1rem; font-size: 0.9rem; color: var(--default-color);
+}
+.tafel-selectie-summary strong { color: var(--heading-color); }
+
+.register-form button[disabled],
+.register-form button:disabled {
+  background: #d3d5d8 !important;
+  border-color: #d3d5d8 !important;
+  color: #8a8f96 !important;
+  opacity: 1 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+.prijsopbouw-table { width: 100%; margin-top: 1rem; border-collapse: collapse; }
+.prijsopbouw-table td { padding: 0.5rem 0.25rem; border-bottom: 1px solid #f0f0f0; }
+.prijsopbouw-table tr:last-child td { border-bottom: none; border-top: 2px solid #e6e6e6; font-size: 1.05rem; }
+.prijsopbouw-table td:last-child { text-align: right; }
+.borg-melding {
+  margin-top: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  background: #fff8e6;
+  color: #8a6d1b;
+  border: 1px solid #ffe8a8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.alert-standhouder { padding: 0.85rem 1.1rem; border-radius: 10px; margin-bottom: 1rem; }
+.alert-standhouder.error { background: #fdecee; color: #a52834; border: 1px solid #f6cace; }
+.alert-standhouder.warning {
+  background: #fff8e6;
+  color: #8a6d1b;
+  border: 1px solid #ffe8a8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.standhouder-tafel-limiet-hint {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #6c757d;
+}
+.standhouder-tafel-limiet-hint a {
+  color: #6c757d;
+  text-decoration: underline;
+}
+.standhouder-tafel-limiet-hint a:hover {
+  color: #495057;
+}
+.tafel-limiet-bereikt {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: #495057;
+  font-weight: 500;
+}
+.standhouder-radio-group { border: 0; padding: 0; margin: 0; }
+.standhouder-radio-group legend { font-size: 1rem; font-weight: 500; }
+</style>

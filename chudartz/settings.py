@@ -26,7 +26,16 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'chudartz.com', 'chudartz-collectibles.com']
-CSRF_TRUSTED_ORIGINS = ['https://chudartz.com', 'https://chudartz-collectibles.com', 'http://localhost:81']
+CSRF_TRUSTED_ORIGINS = [
+    'https://chudartz.com',
+    'https://chudartz-collectibles.com',
+    'http://localhost:81',
+    'http://127.0.0.1:81',
+]
+for _host in ('192.168.86.200', '192.168.86.24'):
+    _origin = f'http://{_host}:81'
+    if _origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(_origin)
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DBBACKUP_STORAGE_OPTIONS = {
@@ -197,10 +206,15 @@ LANGUAGES = [
 
 # Emailing
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = os.environ.get(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.smtp.EmailBackend'
+    if EMAIL_HOST_PASSWORD
+    else 'django.core.mail.backends.console.EmailBackend',
+)
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
@@ -285,7 +299,7 @@ UNFOLD = {
                     {
                         "title": _("Navigatiebalk"),
                         "icon": "dropdown",
-                        "link": "/admin/darts/toernooiheadergroep/",
+                        "link": "/admin/darts/dartskampheadergroep/",
                     },
                     {
                         "title": _("Sfeerfoto's"),
@@ -296,26 +310,20 @@ UNFOLD = {
             },
             
             {
-                "title": "Darts Toernooien",
+                "title": "Dartskampen",
                 "collapsible": True,
                 "separator": True,
                 "items": [
                     {
-                        "title": _("Toernooien"),
-                        "icon": "trophy",
-                        "link": "/admin/darts/toernooi/",
+                        "title": _("Dartskampen"),
+                        "icon": "sports_kabaddi",
+                        "link": "/admin/darts/dartskamp/",
                     },
 
                     {
                         "title": _("Deelnemers"),
                         "icon": "group",
                         "link": "/admin/darts/participant/",
-                    },
-
-                    {
-                        "title": _("Scanner"),
-                        "icon": "qr_code_scanner",
-                        "link": "https://chudartz.com/darts/scanner/", # TODO reverse
                     },
                 ],
             },
@@ -377,6 +385,16 @@ UNFOLD = {
                         "title": _("Deelnemers"),
                         "icon": "group",
                         "link": "/admin/pokemon/participant",
+                    },
+                    {
+                        "title": _("Kortingscodes"),
+                        "icon": "sell",
+                        "link": "/admin/pokemon/kortingscode",
+                    },
+                    {
+                        "title": _("Standhouder inschrijvingen"),
+                        "icon": "storefront",
+                        "link": "/admin/pokemon/standhouderinschrijving",
                     },
                     {
                         "title": _("Partners"),

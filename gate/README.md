@@ -1,0 +1,178 @@
+# Chudartz Gate Scanner
+
+Fullscreen Raspberry Pi app that reads ticket QR codes from a USB keyboard-wedge scanner and checks them in against the Collectibles backend.
+
+## How it works
+
+1. The USB scanner types the QR payload and presses Enter.
+2. The app parses `participant_id:{id}seed:{seed}`.
+3. It `POST`s to `{base_url}/en/pokemon/gate/check-in/` with header `X-Gate-Api-Key`.
+4. The screen turns green (welcome) or red (denied).
+
+## Create a device API key
+
+1. Log into the Collectibles Django admin.
+2. Open **Gate devices** → **Add gate device**.
+3. Enter a name (e.g. `Entrance Pi`) and save.
+4. Copy the API key from the warning message — it is shown only once.
+5. Deactivate a device in admin to revoke access.
+
+## SSH-only Raspberry Pi setup
+
+You can do the whole install over SSH. The HDMI screen is only needed at the door for feedback; configuration does not require touching the Pi UI.
+
+### 1. Enable SSH + desktop auto-login (once, if needed)
+
+On a fresh Pi (with keyboard/monitor or Raspberry Pi Imager options):
+
+- Enable SSH
+- Boot to desktop with auto-login (so the gate UI can start without a local login)
+
+From SSH later you can set desktop auto-login with:
+
+```bash
+sudo raspi-config nonint do_boot_behaviour B4
+```
+
+(`B4` = Desktop autologin on Raspberry Pi OS.)
+
+### 2. Install dependencies
+
+```bash
+sudo apt update
+sudo apt install -y python3 python3-tk git mpg123
+```
+
+`mpg123` (or `ffmpeg`/`ffplay`) plays `assets/success.mp3` and `assets/error.mp3` on scan result.
+### 3. Get the app
+
+```bash
+git clone <your-repo-url> ~/Chudartz
+# or: scp -r gate/ pi@<pi-ip>:~/Chudartz/gate
+cd ~/Chudartz/gate
+```
+
+### 4. Configure over SSH (no GUI)
+
+Non-interactive (best for scripts):
+
+```bash
+python3 main.py --configure \
+  --base-url https://chudartz-collectibles.com \
+  --api-key 'PASTE_KEY_FROM_ADMIN' \
+  --host-header chudartz-collectibles.com \
+  --event-id 12 \
+  --debug
+```
+
+Local Docker/nginx example:
+
+```bash
+python3 main.py --configure \
+  --base-url http://192.168.86.200:81 \
+  --api-key 'PASTE_KEY_FROM_ADMIN' \
+  --host-header chudartz-collectibles.com \
+  --event-id 12
+```
+
+| Flag | Purpose |
+|------|---------|
+| `--event-id` | Only accept tickets for this event (omit / blank = any) |
+| `--ticket-id` | Only accept this ticket type ID (omit / blank = any) |
+| `--debug` / `--no-debug` | Show live scan buffer + request/response on screen |
+
+Interactive prompts:
+
+```bash
+python3 main.py --configure
+```
+
+Inspect / verify:
+
+```bash
+python3 main.py --show-config
+python3 main.py --test
+```
+
+`--test` should print that the connection and API key look OK (a fake ticket id returns 400/404 after auth succeeds).
+
+Config file: `~/.config/chudartz-gate/config.json`  
+Override path with `CHUDARTZ_GATE_CONFIG=/path/to/config.json`.
+
+### 5. Autostart on boot (pulls git, then starts)
+
+Use [`start.sh`](start.sh): it waits for network, runs `git pull --ff-only` on the repo, then launches the app. If pull fails (offline / conflicts), it still starts with the existing code.
+
+```bash
+chmod +x ~/Chudartz/gate/start.sh
+mkdir -p ~/.config/autostart
+# Replace sdevuyst with your Pi username if different
+cat > ~/.config/autostart/chudartz-gate.desktop <<'EOF'
+[Desktop Entry]
+Type=Application
+Name=Chudartz Gate
+Exec=/home/sdevuyst/Chudartz/gate/start.sh
+WorkingDirectory=/home/sdevuyst/Chudartz/gate
+X-GNOME-Autostart-enabled=true
+EOF
+```
+
+Reboot:
+
+```bash
+sudo reboot
+```
+
+Startup log: `~/.local/state/chudartz-gate/startup.log`
+
+**Private GitHub repo:** set up deploy key or SSH auth on the Pi once, e.g.:
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
+# add ~/.ssh/id_ed25519.pub as a read-only deploy key on the repo
+cd ~/Chudartz && git remote -v   # should be git@github.com:...
+```
+
+Skip pull for one run: `CHUDARTZ_GATE_SKIP_PULL=1 ~/Chudartz/gate/start.sh`
+
+### 6. Update config later over SSH
+
+```bash
+python3 ~/Chudartz/gate/main.py --configure --base-url https://chudartz-collectibles.com --api-key 'NEW_KEY'
+# then restart the app, e.g.:
+pkill -f 'Chudartz/gate/main.py' || true
+# it will start again on next login/reboot, or start once:
+DISPLAY=:0 ~/Chudartz/gate/start.sh &
+```
+
+## Manual / on-device settings
+
+Open settings with **F2**, the **Instellingen** button, or **Ctrl+,**.
+
+| Setting | Example |
+|---------|---------|
+| API base URL | `https://chudartz-collectibles.com` or `http://192.168.x.x:81` |
+| Host header | `chudartz-collectibles.com` (keep when using a LAN IP) |
+| Device API key | key from Django admin |
+| Event ID | lock gate to one event (blank = any) |
+| Ticket ID | lock gate to one ticket type (blank = any) |
+| Debug mode | live buffer + last request/response |
+
+**Herstel** (button or **F5**) clears accidental keyboard/scanner input and returns to idle — it does not change config.
+
+## Scanner notes
+
+- Use a USB HID keyboard-wedge QR scanner (scan = type text + Enter).
+- Keep the gate window focused so key events reach the app.
+- UI language is Dutch; brand colors match Collectibles (`#c3111a`).
+- **Esc** still exits fullscreen (no on-screen hint); Esc again quits.
+
+## Deploy backend changes
+
+Apply the `GateDevice` migration on the server that the Pi will call:
+
+```bash
+python manage.py migrate pokemon
+```
+
+Ensure the Pi can reach the host. When using a LAN IP, leave **Host header** as `chudartz-collectibles.com` so `DomainMiddleware` selects the Collectibles URLConf.

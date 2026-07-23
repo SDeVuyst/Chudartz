@@ -1,0 +1,56 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load static i18n %}
+
+{% block wizard_content %}
+<h4>{% trans 'Kies uw tafel(s)' %}{% if not evenement.standhouder_inschrijving_mogelijk %} • {% trans "UITVERKOCHT!" %}{% endif %}</h4>
+
+{% if not zaalplan %}
+  <div class="alert-standhouder warning">
+    {% trans "Er is nog geen zaalplan beschikbaar voor dit evenement. Neem contact met ons op." %}
+  </div>
+{% else %}
+  <p class="text-muted small">{% trans "Klik op een groene tafel om deze te selecteren." %}</p>
+
+  <div class="zaalplan-legend mb-2">
+    <span><i class="zp-swatch zp-beschikbaar"></i> {% trans "Beschikbaar" %}</span>
+    <span><i class="zp-swatch zp-geselecteerd"></i> {% trans "Geselecteerd" %}</span>
+    <span><i class="zp-swatch zp-bezet"></i> {% trans "Bezet" %}</span>
+  </div>
+
+  <form method="post" id="tafel-form" class="register-form" {% if not evenement.standhouder_inschrijving_mogelijk %}inert{% endif %}>
+    {% csrf_token %}
+    <div id="tafel-hidden-inputs"></div>
+
+    <div id="zaalplan-selectie-viewport" class="zaalplan-selectie-viewport">
+      <div class="zaalplan-selectie-toolbar">
+        <button type="button" id="zp-fullscreen-btn" class="zp-tool-btn" title="{% trans 'Volledig scherm' %}">
+          <i class="bi bi-arrows-fullscreen"></i> <span class="zp-tool-label">{% trans "Volledig scherm" %}</span>
+        </button>
+        <div class="zp-zoom-controls">
+          <button type="button" id="zp-zoom-out" class="zp-tool-btn" title="{% trans 'Uitzoomen' %}"><i class="bi bi-dash-lg"></i></button>
+          <button type="button" id="zp-zoom-in" class="zp-tool-btn" title="{% trans 'Inzoomen' %}"><i class="bi bi-plus-lg"></i></button>
+        </div>
+      </div>
+      <div id="zaalplan-selectie-scroll" class="zaalplan-selectie-scroll">
+        <div id="zaalplan-selectie-grid" class="zaalplan-selectie-grid"
+             data-selected="{% if inschrijving %}{% for k in inschrijving.tafel_keuzes.all %}{{ k.cel_id }}{% if not forloop.last %},{% endif %}{% endfor %}{% endif %}"
+             data-max-tafels="{{ evenement.standhouder_max_tafels }}">
+        </div>
+      </div>
+    </div>
+
+    <div id="tafel-selectie-summary" class="tafel-selectie-summary mb-3"></div>
+    {% include 'pokemon/pages/standhouder/_tafel_limiet_melding.html' %}
+    <div class="text-end">
+      <button type="submit" id="tafel-next-btn" disabled>{% trans 'Volgende: gegevens' %}</button>
+    </div>
+  </form>
+{% endif %}
+{% endblock %}
+
+{% block wizard_scripts %}
+{% if zaalplan %}
+<script>window.ZAALPLAN_SELECTIE_DATA = {{ grid_json|safe }};</script>
+<script src="{% static 'pokemon/js/zaalplan-selectie.js' %}?v=12"></script>
+{% endif %}
+{% endblock %}

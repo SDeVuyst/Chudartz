@@ -15,16 +15,11 @@ from .forms import LeagueDivisieForm
 from .models import *
 
 # INLINES #
-class TicketInline(StackedInline):
-    model = Ticket
-    verbose_name = _("Evenement Ticket")
-    verbose_name_plural = _("Evenement Tickets")
-
-class ToernooiFotoInline(StackedInline):
-    model = ToernooiFoto
+class DartskampFotoInline(StackedInline):
+    model = DartskampFoto
     extra = 1
-    verbose_name = _("Toernooi Foto")
-    verbose_name_plural = _("Toernooi Foto's")
+    verbose_name = _("Dartskamp Foto")
+    verbose_name_plural = _("Dartskamp Foto's")
 
 class LeagueDivisieInline(StackedInline):
     model = LeagueDivisie
@@ -44,44 +39,38 @@ class LeagueInline(TabularInline):
     verbose_name_plural = _("Leagues")
 
 # FILTERS #
-class ToernooiFilter(DropdownFilter):
-    title = 'Toernooi'  # Display name of the filter in the admin
-    parameter_name = 'toernooi'  # URL parameter name used for filtering
+class DartskampFilter(DropdownFilter):
+    title = 'Dartskamp'
+    parameter_name = 'dartskamp'
 
     def lookups(self, request, model_admin):
-        # Provide options for filtering based on distinct events
-        events = Toernooi.objects.all()
+        events = Dartskamp.objects.all()
         return [(event.pk, event.titel) for event in events]
 
     def queryset(self, request, queryset):
-        # Filter the queryset of Participants based on the selected event
         if self.value():
-            return queryset.filter(ticket__event__pk=self.value())
+            return queryset.filter(dartskamp__pk=self.value())
         return queryset
 
 
 # MODELS #
-@admin.register(ToernooiHeaderGroep)
-class ToernooiHeaderGroepAdmin(SimpleHistoryAdmin, ModelAdmin):
+@admin.register(DartskampHeaderGroep)
+class DartskampHeaderGroepAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('naam', 'active', )
 
 
-@admin.register(Toernooi)
-class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('display_header', 'participants_count', 'remaining_tickets', 'is_sold_out')
+@admin.register(Dartskamp)
+class DartskampAdmin(SimpleHistoryAdmin, ModelAdmin):
+    list_display = ('display_header', 'prijs', 'participants_count', 'remaining_plaatsen', 'is_sold_out')
     ordering = ('id',)
-    exclude = ('tickets',)
 
     search_fields = ('titel', 'beschrijving', 'start_datum', 'einde_datum', 'locatie_lang')
     inlines = [
-        TicketInline,
-        ToernooiFotoInline,
+        DartskampFotoInline,
     ]
 
-    actions_detail = ["generate_qr_code",]
-
     @display(description=_("Titel"), header=True)
-    def display_header(self, instance: Toernooi):
+    def display_header(self, instance: Dartskamp):
         return [
             instance.titel,
             None,
@@ -108,23 +97,6 @@ class ToernooiAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     def view_on_site(self, obj):
         return obj.get_absolute_url()
-    
-    @action(description=_("Genereer QR Code"))
-    def generate_qr_code(modeladmin, request, object_id: int):
-        toernooi = get_object_or_404(Toernooi, pk=object_id)
-
-        url = request.build_absolute_uri(toernooi.get_absolute_url())
-        qr = qrcode.make(url)
-
-        # Save the QR code to an in-memory file
-        buffer = BytesIO()
-        qr.save(buffer, format="PNG")
-        buffer.seek(0)
-
-        # Create an HTTP response with the image
-        response = HttpResponse(buffer, content_type="image/png")
-        response['Content-Disposition'] = f'attachment; filename=qr_{toernooi.titel}.png'
-        return response         
 
 
 @admin.register(Participant)
@@ -132,7 +104,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     import_form_class = ImportForm
     export_form_class = SelectableFieldsExportForm
 
-    list_display = ['voornaam', 'achternaam', 'evenement', 'payment_status', 'attendance']
+    list_display = ['voornaam', 'achternaam', 'evenement', 'payment_status']
     ordering = ('id',)
 
     @display(
@@ -151,41 +123,23 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
         if obj.payment is None: return PaymentStatus.OPEN
 
         return obj.payment.status
-    
-    @display(
-        description=_("Attended"),
-        label={
-            True: "success",
-            False: "danger"
-        }
-    )
-    def attendance(self, obj):
-        label = _("Yes") if obj.attended else _("No")
-        return obj.attended, label
 
-    @display(description=_("Evenement"))
+    @display(description=_("Dartskamp"))
     def evenement(self, obj):
         return mark_safe('<a href="{}">{}</a>'.format(
-            reverse("admin:darts_toernooi_change", args=(obj.ticket.event.pk,)),
-            obj.ticket.event.titel
+            reverse("admin:darts_dartskamp_change", args=(obj.dartskamp.pk,)),
+            obj.dartskamp.titel
         ))
     
 
     search_fields = ('voornaam', 'achternaam', 'email')
     list_filter = (
-        ToernooiFilter,
-        ('attended', admin.BooleanFieldListFilter),
-        ('ticket', RelatedDropdownFilter),
+        DartskampFilter,
+        ('dartskamp', RelatedDropdownFilter),
     )
 
     list_filter_submit = True
-    actions_detail = ["generate_ticket", "send_confirmation_mail"]
-    
-    @action(description=_("Genereer Ticket"))
-    def generate_ticket(modeladmin, request, object_id: int):
-        participant = get_object_or_404(Participant, pk=object_id)
-
-        return participant.generate_ticket()
+    actions_detail = ["send_confirmation_mail"]
 
     @action(description=_("Stuur bevestiging mail"))
     def send_confirmation_mail(modeladmin, request, object_id: int):
@@ -202,37 +156,11 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
         return redirect(reverse('admin:darts_participant_change', args=[participant.pk]))
 
 
-
-
 @admin.register(Payment)
 class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
-    actions_detail = ["generate_ticket",]
+    list_display = ('mollie_id', 'first_name', 'last_name', 'status', 'amount')
+    search_fields = ('mollie_id', 'first_name', 'last_name', 'mail')
 
-    @action(description=_("Generate Ticket"))
-    def generate_ticket(modeladmin, request, object_id: int):
-        p = get_object_or_404(Payment, pk=object_id)
-
-        return p.generate_ticket()
-
-
-@admin.register(Ticket)
-class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('titel', 'price', 'participants_count', 'remaining_tickets', 'is_sold_out')
-    ordering = ("id",)
-
-    search_fields = ('titel', 'beschrijving')
-
-    @display(
-        description=_("Sold out"),
-        label={
-            True: "danger",
-            False: "success"
-        }
-    )
-    def is_sold_out(self, obj):
-        label = _("Sold out!") if obj.is_sold_out else _("Available")
-        return obj.is_sold_out, label
-    
 
 @admin.register(Sponsor)
 class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):

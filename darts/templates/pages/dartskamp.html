@@ -1,0 +1,115 @@
+{% extends 'main.html' %}
+
+{% load static dutch_date i18n %}
+
+{% block title %}
+ChudartZ | {{ kamp.titel}}
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="ChudartZ | {{ kamp.titel }}">
+<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ | {{ kamp.titel }}">
+<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="services-details-page">
+
+  {% include 'blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% trans "/nl/dartskampen" as page_previous_crumb_link %}
+    {% trans "Dartskampen" as page_previous_crumb %}
+
+    {% include 'blocks/page-title.html' with name=kamp.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
+
+    <section id="service-details" class="service-details section">
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+
+            {% if kamp.resultaten %}
+            <div class="service-box">
+              <h4>Resultaten Beschikbaar</h4>
+              <div class="services-list">
+                <a href="{% url 'dartskamp_resultaat' slug=kamp.slug %}" class="btn btn-get-started align-self-start">{% blocktrans %}Bekijk Resultaten{% endblocktrans %}</a>
+              </div>
+            </div>
+            {% endif %}
+
+            {% include 'blocks/dartskamp-info.html' with kamp=kamp %}
+            
+            {% include 'blocks/tijd-en-locatie.html' with kamp=kamp %}
+
+            {% include 'blocks/vereisten.html' with vereisten=kamp.vereisten_lijst %}
+            
+            {% if kamp.afbeeldingen_download_url %}
+            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=kamp.afbeeldingen_download_url %}
+            {% endif %}
+
+          </div>  
+          
+          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+
+            {{ kamp.beschrijving|safe }}
+
+            {% if fotos %}
+            <div class="dartskamp-fotos mb-4">
+              <div class="row g-3">
+                {% for foto in fotos %}
+                  <div 
+                    class="
+                      {% if fotos|length <= 4 %}
+                        col-6
+                      {% elif fotos|length <= 6 %}
+                        col-6 col-md-4
+                      {% else %}
+                        col-6 col-md-4 col-lg-3
+                      {% endif %}
+                    ">
+                    <div class="card h-100 border-0 shadow-sm">
+                      <a href="{{ foto.afbeelding.url }}" class="glightbox dartskamp-foto-link" data-gallery="dartskamp-gallery" title="{{ foto.omschrijving|default:'Dartskamp foto' }}">
+                        <img src="{{ foto.afbeelding.url }}" class="card-img-top img-fluid rounded" alt="{{ foto.omschrijving|default:'Dartskamp foto' }}">
+                      </a>
+                      {% if foto.omschrijving %}
+                        <div class="card-body p-2">
+                          <p class="card-text small text-muted mb-0">{{ foto.omschrijving }}</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+          </div>          
+
+        </div>
+
+      </div>
+
+    </section>
+    
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    GLightbox({ selector: '.glightbox' });
+  });
+</script>

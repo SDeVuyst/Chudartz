@@ -25,21 +25,21 @@
         </ul>
       </li>
       <li><a href="{% url 'trainers' %}">{% trans 'Trainers' %}</a></li>
-      <li class="dropdown"><a href="#"><span>{% trans 'Toernooien' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+      <li class="dropdown"><a href="#"><span>{% trans 'Dartskampen' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
         <ul>        
-          <li><a href="{% url 'toernooien' %}">Alle toernooien</a></li>
+          <li><a href="{% url 'dartskampen' %}">{% trans 'Alle dartskampen' %}</a></li>
           
-          {% for groep in toernooi_groepen %}
+          {% for groep in dartskamp_groepen %}
           <li class="dropdown"><a href="#"><span>{{ groep.naam }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
 
-              {% for toernooi_in_groep in groep.toernooien.all %}
-              {% if toernooi_in_groep.toon_op_site %}
-              <li><a href="{% url 'toernooi' slug=toernooi_in_groep.slug %}">
-                {% if toernooi_in_groep.naam_in_header %}
-                  {{ toernooi_in_groep.naam_in_header }}
+              {% for kamp_in_groep in groep.dartskampen.all %}
+              {% if kamp_in_groep.toon_op_site %}
+              <li><a href="{% url 'dartskamp' slug=kamp_in_groep.slug %}">
+                {% if kamp_in_groep.naam_in_header %}
+                  {{ kamp_in_groep.naam_in_header }}
                 {% else %}
-                  {{ toernooi_in_groep.titel }}
+                  {{ kamp_in_groep.titel }}
                 {% endif %}
               </a></li>
               {% endif %}

@@ -36,7 +36,7 @@ ChudartZ | Over Ons
                 <h3>{% trans '<span>Veel Gestelde</span><strong> Vragen</strong>' %}</h3>
                 <p>
                   {% blocktrans %}
-                  Heb je vragen over het toernooi? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om
+                  Heb je vragen over het dartskamp? Bekijk dan onze FAQ! Hier vind je antwoorden op de meest gestelde vragen over inschrijvingen, speelschema's, regels en meer. Zo ben je meteen op de hoogte van alle belangrijke informatie. Mis je nog iets? Aarzel niet om
                   <a href="{{ index_url }}#contact">contact</a> met ons op te nemen!
                   {% endblocktrans %}
                 </p>
@@ -47,10 +47,10 @@ ChudartZ | Over Ons
   
               <div class="faq-container">
                 <div class="faq-item faq-active">
-                  <h3><span class="num">1.</span> <span>{% blocktrans %}Hoe kan ik me inschrijven voor het toernooi?{% endblocktrans %}</span></h3>
+                  <h3><span class="num">1.</span> <span>{% blocktrans %}Hoe kan ik me inschrijven voor het dartskamp?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    {% url 'toernooien' as toernooi_url %}
-                    <p>{% blocktrans %}Inschrijven kan via <a href="{{ toernooi_url }}">onze website</a> of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid{% endblocktrans %}</p>
+                    {% url 'dartskampen' as dartskamp_url %}
+                    <p>{% blocktrans %}Inschrijven kan via <a href="{{ dartskamp_url }}">onze website</a> of ter plaatse op de dag van het evenement, afhankelijk van beschikbaarheid{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>
@@ -58,7 +58,7 @@ ChudartZ | Over Ons
                 <div class="faq-item">
                   <h3><span class="num">2.</span> <span>{% blocktrans %}Wat zijn de dartregels ?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    {% url 'reglement_toernooien' as reglement_url %}
+                    {% url 'reglement_dartskampen' as reglement_url %}
                     <p>{% blocktrans %}Onze dartregels kan u <a href="{{ reglement_url }}">hier</a> terugvinden.{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
@@ -73,9 +73,9 @@ ChudartZ | Over Ons
                 </div>
   
                 <div class="faq-item">
-                  <h3><span class="num">4.</span> <span>{% blocktrans %}Is er een leeftijdsbeperking om lid te worden van de school of deel te nemen aan een toernooi?{% endblocktrans %}</span></h3>
+                  <h3><span class="num">4.</span> <span>{% blocktrans %}Is er een leeftijdsbeperking om lid te worden van de school of deel te nemen aan een dartskamp?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    <p>{% blocktrans %}Onze school en toernooien staan open voor iedereen vanaf 10 jaar. In uitzonderlijke gevallen kunnen jongere talenten zich ook inschrijven. Ouderlijke toestemming is hierbij altijd vereist. Bij verdere vragen, neem gerust <a href="{{ index_url }}#contact">contact</a> met ons op.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}Onze school en dartskampen staan open voor iedereen vanaf 10 jaar. In uitzonderlijke gevallen kunnen jongere talenten zich ook inschrijven. Ouderlijke toestemming is hierbij altijd vereist. Bij verdere vragen, neem gerust <a href="{{ index_url }}#contact">contact</a> met ons op.{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>
@@ -83,7 +83,7 @@ ChudartZ | Over Ons
                 <div class="faq-item">
                   <h3><span class="num">5.</span> <span>{% blocktrans %}Wat is de prijzenpot voor de winnaars?{% endblocktrans %}</span></h3>
                   <div class="faq-content">
-                    <p>{% blocktrans %}De prijzenpot verschilt per toernooi, maar bevat vaak geldprijzen, trofeeën en andere leuke verrassingen.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}De prijzenpot verschilt per dartskamp, maar bevat vaak geldprijzen, trofeeën en andere leuke verrassingen.{% endblocktrans %}</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div>

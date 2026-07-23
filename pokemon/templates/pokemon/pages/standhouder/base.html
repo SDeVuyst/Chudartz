@@ -1,0 +1,40 @@
+{% extends 'pokemon/main.html' %}
+{% load static i18n %}
+
+{% block title %}ChudartZ Collectibles | {% trans "Standhouder Worden" %}{% endblock %}
+
+{% block body %}
+<body class="evenementen-page">
+  {% include 'pokemon/blocks/header-sticky.html' %}
+  <main class="main">
+    {% trans "Standhouder Worden" as page_name %}
+    {% include 'pokemon/blocks/page-title.html' with name=page_name background="true" second_previous_crumb="Evenementen" second_previous_crumb_link="/nl/evenementen" previous_crumb=evenement.titel previous_crumb_link=evenement.get_absolute_url %}
+
+    <section class="standhouder service-details section">
+      <div class="container">
+        <div class="row gy-5">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            {% include 'pokemon/blocks/standhouder-prijzen.html' with prijzen=evenement.standhouder_prijzen_lijst %}
+            {% include 'pokemon/blocks/inbegrepen.html' with items=evenement.standhouder_inbegrepen_lijst %}
+          </div>
+          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-box register">
+              {% with wizard_stappen=stappen %}
+                {% include 'pokemon/pages/standhouder/_wizard_nav.html' %}
+              {% endwith %}
+
+              {% if error %}
+                <div class="alert-standhouder error">{{ error }}</div>
+              {% endif %}
+
+              {% block wizard_content %}{% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'pokemon/blocks/footer.html' %}
+  {% block wizard_scripts %}{% endblock %}
+</body>
+{% endblock %}

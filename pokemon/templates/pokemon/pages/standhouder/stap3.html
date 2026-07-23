@@ -1,0 +1,49 @@
+{% extends 'pokemon/pages/standhouder/base.html' %}
+{% load i18n %}
+
+{% block wizard_content %}
+<h4>{% trans 'Aanvullende vragen' %}</h4>
+
+{% if not zaalplan_actief and not inschrijving.aantal_tafels_manueel %}
+  <p class="text-muted">{% trans "Geef eerst het gewenste aantal tafels op. Daarna tonen we de relevante vragen." %}</p>
+{% elif not form.fields %}
+  <p class="text-muted">{% trans "Geen aanvullende vragen voor uw selectie." %}</p>
+{% endif %}
+
+<form method="post" class="register-form">
+  {% csrf_token %}
+  <div class="row gy-4">
+    {% for field in form %}
+      <div class="col-md-12">
+        {% if field.field.widget.input_type == 'checkbox' %}
+          <div class="form-check">
+            {{ field }}
+            <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          </div>
+        {% elif field.field.widget.input_type == 'radio' %}
+          <fieldset class="standhouder-radio-group">
+            <legend class="form-label mb-2">{{ field.label }}{% if field.field.required %} *{% endif %}</legend>
+            {% for option in field %}
+              <div class="form-check">
+                {{ option.tag }}
+                <label class="form-check-label" for="{{ option.id_for_label }}">{{ option.choice_label }}</label>
+              </div>
+            {% endfor %}
+          </fieldset>
+        {% else %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+          {{ field }}
+        {% endif %}
+        {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    {% if not zaalplan_actief %}
+      {% include 'pokemon/pages/standhouder/_tafel_limiet_melding.html' %}
+    {% endif %}
+    <div class="col-12 d-flex justify-content-between">
+      <a href="{% url 'standhouder_gegevens' slug=evenement.slug %}" class="btn btn-back">{% trans 'Terug' %}</a>
+      <button type="submit">{% trans 'Volgende: overzicht' %}</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

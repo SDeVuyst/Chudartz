@@ -1,0 +1,226 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Zaalplan beheren" %}: {{ evenement.titel }} | Chudartz Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+  :root {
+    --zp-surface: #1e293b;
+    --zp-surface-2: #0f172a;
+    --zp-border: #334155;
+    --zp-text: #e2e8f0;
+    --zp-muted: #94a3b8;
+    --zp-accent: #6366f1;
+    --zp-tafel: #22c55e;
+    --zp-tafel-bg: #15361f;
+    --zp-blok: #0b1220;
+    --zp-bezet: #dc2626;
+  }
+
+  .zp-page-head { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.35rem; }
+  .zp-page-head h1 { margin: 0; }
+  .zaalplan-hint { color: var(--zp-muted); font-size: 0.92rem; margin: 0 0 1.5rem; max-width: 60ch; }
+
+  .zp-card {
+    background: var(--zp-surface);
+    border: 1px solid var(--zp-border);
+    border-radius: 14px;
+    padding: 1.15rem 1.25rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .zp-card-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--zp-muted); font-weight: 700; margin: 0 0 0.85rem; }
+
+  .zaalplan-toolbar { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; align-items: end; }
+  .zaalplan-toolbar .zp-field { display: flex; flex-direction: column; }
+  .zaalplan-toolbar label { font-size: 0.78rem; margin-bottom: 0.35rem; color: var(--zp-muted); font-weight: 600; }
+  .zaalplan-toolbar input {
+    padding: 0.5rem 0.7rem; border: 1px solid var(--zp-border); border-radius: 8px;
+    background: var(--zp-surface-2); color: var(--zp-text); width: 8rem; font-size: 0.9rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .zaalplan-toolbar input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.25); }
+  .zaalplan-toolbar .zp-actions { display: flex; gap: 0.6rem; margin-left: auto; }
+
+  .zp-btn {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    padding: 0.55rem 1rem; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--zp-border); background: var(--zp-surface-2); color: var(--zp-text);
+    font-size: 0.88rem; font-weight: 600; transition: background 0.15s, border-color 0.15s, transform 0.05s;
+  }
+  .zp-btn:hover { border-color: var(--zp-accent); background: #172033; }
+  .zp-btn:active { transform: translateY(1px); }
+  .zp-btn.zp-btn-primary { background: var(--zp-accent); border-color: var(--zp-accent); color: #fff; }
+  .zp-btn.zp-btn-primary:hover { background: #4f46e5; }
+
+  .zaalplan-modes { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .zaalplan-mode-btn {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.6rem 1.05rem; border-radius: 10px; cursor: pointer;
+    border: 1.5px solid var(--zp-border); background: var(--zp-surface-2); color: var(--zp-text);
+    font-size: 0.88rem; font-weight: 600; user-select: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s, transform 0.05s;
+  }
+  .zaalplan-mode-btn:hover { background: #172033; }
+  .zaalplan-mode-btn:active { transform: translateY(1px); }
+  .zaalplan-mode-btn .swatch { width: 16px; height: 16px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.15); }
+  .zaalplan-mode-btn .bi { font-size: 1rem; color: var(--zp-muted); }
+  .zaalplan-mode-btn.is-active { border-color: var(--zp-accent); background: #1b2540; box-shadow: 0 0 0 3px rgba(99,102,241,0.22); }
+  .zaalplan-mode-btn.is-active .bi { color: #a5b4fc; }
+  .zp-mode-hint { color: var(--zp-muted); font-size: 0.82rem; margin: 0.85rem 0 0; }
+
+  .zaalplan-legend { display: flex; gap: 1.15rem; font-size: 0.85rem; flex-wrap: wrap; color: var(--zp-muted); margin-top: 0.35rem; }
+  .zaalplan-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .zaalplan-legend i { width: 15px; height: 15px; border-radius: 4px; display: inline-block; border: 1px solid rgba(255,255,255,0.12); }
+
+  .zaalplan-grid-wrap {
+    overflow: auto; padding: 1.25rem; max-width: 100%;
+    background:
+      linear-gradient(var(--zp-surface-2) 0 0) padding-box,
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0 10px, transparent 10px 20px);
+    border: 1px solid var(--zp-border); border-radius: 14px;
+  }
+  .zaalplan-grid { display: grid; gap: 0; width: max-content; margin: 0 auto; position: relative; }
+  .zaalplan-cel {
+    border: 1px solid rgba(255,255,255,0.09);
+    cursor: pointer;
+    font-size: 0.62rem;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 2px; user-select: none;
+    line-height: 1.05; overflow: hidden; word-break: break-word;
+    transition: filter 0.12s;
+  }
+  .zaalplan-cel:hover { filter: brightness(1.15); z-index: 3; }
+  .zaalplan-cel.leeg { --fill: #212b3b; background: #212b3b; color: var(--zp-muted); }
+  .zaalplan-cel.tafel { --fill: #1ba24f; background: #1ba24f; color: #052e16; font-weight: 700; }
+  .zaalplan-cel.geblokkeerd { --fill: #10192b; background: repeating-linear-gradient(45deg, #0b1220 0 6px, #131c2e 6px 12px); color: var(--zp-muted); }
+  .zaalplan-cel.bezet { --fill: #c93030; background: #c93030; color: #fff; cursor: not-allowed; }
+  .zaalplan-cel.bezet:hover { filter: none; }
+  .zaalplan-cel.gereserveerd { --fill: #c93030; background: #c93030; color: #fff; }
+  .zaalplan-cel.heeft-tekst { text-transform: uppercase; letter-spacing: 0.02em; }
+  .zaalplan-cel.merge-preview { box-shadow: inset 0 0 0 2px #a5b4fc; filter: brightness(1.3); z-index: 2; }
+  /* interne randen van een groep laten samensmelten met de vulling (naadloos) */
+  .zaalplan-cel.nb-top { border-top-color: var(--fill); }
+  .zaalplan-cel.nb-bottom { border-bottom-color: var(--fill); }
+  .zaalplan-cel.nb-left { border-left-color: var(--fill); }
+  .zaalplan-cel.nb-right { border-right-color: var(--fill); }
+  .zaalplan-cel.grouped { border-color: rgba(255,255,255,0.28); }
+
+  .zaalplan-groep-label {
+    pointer-events: none; z-index: 4;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-weight: 700; font-size: 0.7rem; color: #052e16;
+    padding: 2px; overflow: hidden; word-break: break-word; line-height: 1.1;
+  }
+  .zaalplan-groep-label.op-donker { color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.03em; }
+
+  .zaalplan-cel-detail { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--zp-border); border-radius: 14px; max-width: 420px; background: var(--zp-surface); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+  .zaalplan-cel-detail.hidden { display: none; }
+  .zaalplan-cel-detail h3 { margin: 0 0 1rem; font-size: 1.05rem; color: var(--zp-text); }
+  .zaalplan-cel-detail h3 span { color: var(--zp-tafel); }
+  .zaalplan-cel-detail label { color: var(--zp-muted); font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem; }
+  .zaalplan-cel-detail input {
+    background: var(--zp-surface-2); color: var(--zp-text); border: 1px solid var(--zp-border);
+    border-radius: 8px; padding: 0.5rem 0.7rem; width: 100%;
+  }
+  .zaalplan-cel-detail input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.25); }
+  .zaalplan-cel-detail .zp-detail-actions { display: flex; gap: 0.6rem; margin-top: 0.35rem; }
+
+  .zaalplan-empty { padding: 3rem 2rem; text-align: center; color: var(--zp-muted); border: 1.5px dashed var(--zp-border); border-radius: 12px; }
+  .zp-back-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.5rem; color: var(--zp-muted); text-decoration: none; font-weight: 600; }
+  .zp-back-link:hover { color: var(--zp-text); }
+  .hidden { display: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="zp-page-head">
+  <h1>{% trans "Zaalplan beheren" %}: {{ evenement.titel }}</h1>
+</div>
+
+<p class="zaalplan-hint">{% trans "Kies eerst een actie, klik of sleep daarna over het rooster om tafels te plaatsen. Met 'Bewerken' pas je een tafelprijs of tekst (bv. 'Gang', 'Ingang') aan." %}</p>
+
+<form id="csrf-form" style="display:none">{% csrf_token %}</form>
+
+<div class="zp-card">
+  <p class="zp-card-title">{% trans "Roosterinstellingen" %}</p>
+  <div class="zaalplan-toolbar">
+    <div class="zp-field">
+      <label for="rijen">{% trans "Rijen" %}</label>
+      <input type="number" id="rijen" min="1" max="40" value="{{ zaalplan.rijen }}">
+    </div>
+    <div class="zp-field">
+      <label for="kolommen">{% trans "Kolommen" %}</label>
+      <input type="number" id="kolommen" min="1" max="40" value="{{ zaalplan.kolommen }}">
+    </div>
+    <div class="zp-field">
+      <label for="standaard_prijs">{% trans "Standaard prijs per tafel (€)" %}</label>
+      <input type="number" id="standaard_prijs" min="0" step="0.01" value="{{ zaalplan.standaard_prijs.amount }}">
+    </div>
+    <div class="zp-actions">
+      <button type="button" id="btn-opslaan" class="zp-btn">{% trans "Grootte/prijs opslaan" %}</button>
+      <button type="button" id="btn-genereer" class="zp-btn">{% trans "Rooster genereren" %}</button>
+    </div>
+  </div>
+</div>
+
+<div class="zp-card">
+  <p class="zp-card-title">{% trans "Actie" %}</p>
+  <div class="zaalplan-modes" id="zaalplan-modes">
+    <span class="zaalplan-mode-btn is-active" data-mode="tafel"><span class="swatch" style="background:#22c55e"></span>{% trans "Tafel plaatsen" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="geblokkeerd"><span class="swatch" style="background:#0b1220"></span>{% trans "Blokkeren" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="leeg"><span class="swatch" style="background:#263143"></span>{% trans "Leeg maken" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="reserveren"><span class="swatch" style="background:#c93030"></span>{% trans "Reserveren" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="samenvoegen"><i class="bi bi-bounding-box"></i>{% trans "Samenvoegen" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="splitsen"><i class="bi bi-grid-3x3-gap"></i>{% trans "Splitsen" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="bewerken"><span class="swatch" style="background:#6366f1"></span>{% trans "Bewerken (tekst/prijs)" %}</span>
+  </div>
+  <p class="zp-mode-hint" id="zp-mode-hint">{% trans "Klik of sleep om tafels te plaatsen. Rechtermuisklik maakt een vakje leeg." %}</p>
+  <div class="zaalplan-legend">
+    <span><i style="background:#263143"></i> {% trans "Leeg" %}</span>
+    <span><i style="background:#22c55e"></i> {% trans "Tafel" %}</span>
+    <span><i style="background:#0b1220"></i> {% trans "Geblokkeerd (gang/geen plaats)" %}</span>
+    <span><i style="background:#c93030"></i> {% trans "Gereserveerd / bezet" %}</span>
+  </div>
+</div>
+
+<div class="zaalplan-grid-wrap">
+  <div id="zaalplan-grid" class="zaalplan-grid"
+       data-save-url="{% url 'admin:pokemon_zaalplan_save_cel' evenement.pk %}"
+       data-settings-url="{% url 'admin:pokemon_zaalplan_settings' evenement.pk %}"
+       data-generate-url="{% url 'admin:pokemon_zaalplan_generate' evenement.pk %}"
+       data-merge-url="{% url 'admin:pokemon_zaalplan_merge' evenement.pk %}"
+       data-split-url="{% url 'admin:pokemon_zaalplan_split' evenement.pk %}">
+  </div>
+  <div id="zaalplan-empty" class="zaalplan-empty hidden">{% trans "Geen rooster geladen. Klik op 'Rooster genereren'." %}</div>
+</div>
+
+<div id="cel-detail" class="zaalplan-cel-detail hidden">
+  <h3>{% trans "Cel bewerken" %}: <span id="cel-label"></span></h3>
+  <input type="hidden" id="cel-id">
+  <div style="margin-bottom: 1rem;">
+    <label for="cel-label-input">{% trans "Tekst / label (bv. Gang, Ingang, of tafelnummer)" %}</label>
+    <input type="text" id="cel-label-input">
+  </div>
+  <div style="margin-bottom: 1rem;" id="cel-prijs-wrap">
+    <label for="cel-prijs-input">{% trans "Prijs override (€, leeg = standaard)" %}</label>
+    <input type="number" id="cel-prijs-input" min="0" step="0.01">
+  </div>
+  <div class="zp-detail-actions">
+    <button type="button" id="btn-cel-opslaan" class="zp-btn zp-btn-primary">{% trans "Opslaan" %}</button>
+    <button type="button" id="btn-cel-annuleren" class="zp-btn">{% trans "Annuleren" %}</button>
+  </div>
+</div>
+
+<a class="zp-back-link" href="{% url 'admin:pokemon_evenement_change' evenement.pk %}">&larr; {% trans "Terug naar evenement" %}</a>
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<script>
+  window.ZAALPLAN_DATA = {{ grid_json|safe }};
+</script>
+<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=8"></script>
+{% endblock %}

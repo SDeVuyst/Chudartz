@@ -1,53 +1,39 @@
-import random
-import secrets
-import string
 from email.utils import formataddr
-from io import BytesIO
 
 from django.forms import ValidationError
 import pytz
-import qrcode
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.utils.translation import pgettext_lazy
-from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage
 from django.db import models
 from django.db.models import Q
-from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
-from PIL import Image
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfgen import canvas
 from simple_history.models import HistoricalRecords
 from phonenumber_field.modelfields import PhoneNumberField
 
 from darts.validators.image_validator import validate_image_max_size
 
-from .templatetags import dutch_date
 from .utils import helpers
 
 
-class ToernooiHeaderGroep(models.Model):
+class DartskampHeaderGroep(models.Model):
     def __str__(self) -> str:
         return self.naam
     
     class Meta:
-        verbose_name = "Toernooi Header Groep"
-        verbose_name_plural = "Toernooi Header Groepen"
+        verbose_name = "Dartskamp Header Groep"
+        verbose_name_plural = "Dartskamp Header Groepen"
 
     naam = models.CharField(verbose_name=_("Naam"))
     active = models.BooleanField(verbose_name=_("Actief"), default=True)
     volgorde = models.SmallIntegerField(verbose_name=_("Volgorde"), default=0)
 
 
-class Toernooi(models.Model):
+class Dartskamp(models.Model):
 
     def __str__(self) -> str:
         return self.titel
@@ -55,8 +41,8 @@ class Toernooi(models.Model):
     class Meta:
         get_latest_by = "start_datum"
         ordering = ['-start_datum']
-        verbose_name = "Toernooi"
-        verbose_name_plural = "Toernooien"
+        verbose_name = "Dartskamp"
+        verbose_name_plural = "Dartskampen"
     
     titel = models.CharField(max_length=100, verbose_name=_("Titel"))
     slug = models.SlugField(unique=True)
@@ -65,6 +51,13 @@ class Toernooi(models.Model):
     start_datum = models.DateTimeField(verbose_name=_("Start Datum"))
     einde_datum = models.DateTimeField(verbose_name=_("Eind Datum"))
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
+    prijs = MoneyField(
+        verbose_name=_("Prijs"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+    )
     locatie_kort = models.CharField(max_length=25, verbose_name=_("Locatie (kort)"))
     locatie_lang = models.TextField(verbose_name=_("Locatie (lang)"))
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="darts")
@@ -74,19 +67,21 @@ class Toernooi(models.Model):
 
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
 
-    header_groepen = models.ManyToManyField(ToernooiHeaderGroep, verbose_name=_("Groepen in header"), related_name='toernooien', blank=True, null=True)
+    header_groepen = models.ManyToManyField(
+        DartskampHeaderGroep,
+        verbose_name=_("Groepen in header"),
+        related_name='dartskampen',
+        blank=True,
+    )
     naam_in_header = models.CharField(max_length=25, verbose_name=_("Naam in header"), blank=True, null=True)   
 
     resultaten = RichTextField(verbose_name=_("Resultaten"), blank=True, null=True)
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
-    # make tz aware
     def save(self, *args, **kwargs):
-        # Get the Brussels timezone
         brussels_tz = pytz.timezone('Europe/Brussels')
 
-        # Convert the fields to the Brussels timezone before saving
         if self.start_datum and timezone.is_naive(self.start_datum):
             self.start_datum = timezone.make_aware(self.start_datum, brussels_tz)
 
@@ -115,66 +110,30 @@ class Toernooi(models.Model):
     
     @property
     def is_sold_out(self):
-        # Total participants limit exceeded
-        event_sold_out = self.participants_count >= self.max_deelnemers
-
-        # All tickets have their max participants limit exceeded
-        tickets_are_sold_out = all(ticket.is_sold_out for ticket in self.ticket_set.all())
-
-        return tickets_are_sold_out or event_sold_out
+        return self.participants_count >= self.max_deelnemers
 
     @property
+    def remaining_plaatsen(self):
+        return max(self.max_deelnemers - self.participants_count, 0)
+
+    # Backwards-compatible alias used in some templates
+    @property
     def remaining_tickets(self):
-        return self.max_deelnemers - self.participants_count
+        return self.remaining_plaatsen
     
     @property
     def participants_count(self):
-        return sum(ticket.participants_count for ticket in self.ticket_set.all())
+        return self.deelnemers.filter(
+            Q(payment__status=PaymentStatus.PAID) |
+            Q(payment__status=PaymentStatus.OPEN)
+        ).count()
     
     def get_absolute_url(self):
-        return f'https://chudartz.com/nl/toernooien/{str(self.slug)}/'
+        return f'https://chudartz.com/nl/dartskampen/{str(self.slug)}/'
     
     @property
     def vereisten_lijst(self):
         return self.vereisten.split('\n')
-
-
-class Ticket(models.Model):
-
-    class Meta:
-        verbose_name = "Ticket"
-        verbose_name_plural = "Tickets"
-
-    def __str__(self) -> str:
-        return f"{self.titel} - {self.price}"
-    
-    titel = models.CharField(max_length=100, verbose_name=_("titel"))
-    price = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
-    max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
-    event = models.ForeignKey(Toernooi, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
-
-    history = HistoricalRecords(verbose_name=_("Geschiedenis"))
-
-    @property 
-    def is_sold_out(self):
-        amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).filter(
-            Q(payment__status=PaymentStatus.PAID) | 
-            Q(payment__status=PaymentStatus.OPEN)
-        ).count()
-        return amount_of_participants_with_this_as_ticket >= self.max_deelnemers
-    
-    @property
-    def remaining_tickets(self):
-        amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).count()
-        return self.max_deelnemers - amount_of_participants_with_this_as_ticket
-    
-    @property
-    def participants_count(self):
-        return Participant.objects.filter(ticket_id=self.pk).filter(
-            Q(payment__status=PaymentStatus.PAID) | 
-            Q(payment__status=PaymentStatus.OPEN)
-        ).count()
-
 
 
 class PaymentStatus:
@@ -271,7 +230,7 @@ class SkillLevel:
 
 
 
-# Deelnemer van toernooi
+# Deelnemer van dartskamp
 class Participant(models.Model):
 
     def __str__(self) -> str:
@@ -290,135 +249,37 @@ class Participant(models.Model):
     nummer = models.CharField(verbose_name=_("Nummer"), max_length=6)
     postcode = models.IntegerField(verbose_name=_("Postcode"))
     stad = models.CharField(verbose_name=_("Stad"), max_length=40)
-    # niveau = models.CharField(max_length=10, choices=SkillLevel.CHOICES, default=SkillLevel.GEMIDDELD)
     gsm = PhoneNumberField(verbose_name=_("GSM"), null=False, blank=False)
     
     payment = models.ForeignKey(Payment, on_delete=models.RESTRICT, verbose_name="Payment", blank=True, null=True)
-    attended = models.BooleanField(verbose_name=_("Attended"), default=False)
     beschrijving = models.TextField(blank=True, null=True, verbose_name=_("beschrijving"))
-    ticket = models.ForeignKey(Ticket, verbose_name=_("Ticket"), on_delete=models.RESTRICT)
-
-    # seed for the QR codes
-    random_seed = models.CharField(max_length=10, verbose_name="Random Seed", editable=False)
+    dartskamp = models.ForeignKey(
+        Dartskamp,
+        verbose_name=_("Dartskamp"),
+        on_delete=models.RESTRICT,
+        related_name="deelnemers",
+    )
     
     history = HistoricalRecords(verbose_name=_("History"))
 
-
-    def save(self, *args, **kwargs):
-        if not self.random_seed:
-            self.random_seed = self._generate_random_seed()
-        super().save(*args, **kwargs)
-
-    def _generate_random_seed(self):
-        alphabet = string.ascii_letters + string.digits
-        return ''.join(secrets.choice(alphabet) for _ in range(10))
-    
-    def generate_qr_code(self):
-        qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4,
-        )
-        qr.add_data(f'participant_id:{self.pk}')
-        qr.add_data(f'seed:{self.random_seed}')
-
-        qr.make(fit=True)
-
-        return qr.make_image(fill='black', back_color='white')
-    
-
-    def generate_ticket(self, return_as_http=True):
-        # Create a buffer to hold the PDF data
-        buffer = BytesIO()
-
-        # Create a canvas object
-        p = canvas.Canvas(buffer, pagesize=letter)
-
-        qr_img = self.generate_qr_code()
-
-        # Save the QR code afbeelding to a BytesIO object
-        qr_buffer = BytesIO()
-        qr_img.save(qr_buffer, format='PNG')
-        qr_buffer.seek(0)
-
-        qr_afbeelding = Image.open(qr_buffer)
-        temp_path = "/tmp/qr_code.png"
-        qr_afbeelding.save(temp_path)
-
-        # Draw the QR code afbeelding onto the PDF
-        p.drawImage(temp_path, 400, 590, 170, 170)
-
-        # Add  logo
-        logo_path = finders.find('img/logo-black.png')
-        p.drawImage(logo_path, 75, 715, 906 * 0.15, 345 * 0.15)
-
-        # get info about event
-        event = self.ticket.event
-        if dutch_date.dutch_date(event.start_datum) == dutch_date.dutch_date(event.einde_datum):
-            formatted_date = f"{dutch_date.dutch_datetime(event.start_datum)} - {dutch_date.dutch_time(event.einde_datum)}"
-        else:
-            formatted_date = f"{dutch_date.dutch_datetime(event.start_datum)} - {dutch_date.dutch_datetime(event.einde_datum)}"
-
-        # Add ticket details
-        # Set correct font for titel
-        font_path = finders.find('fonts/outfit/Outfit-Bold.ttf')
-        pdfmetrics.registerFont(TTFont('Outfit', font_path))
-        p.setFont("Outfit", 18)
-        if len(str(event)) > 30:
-            p.drawString(75, 690, f"{str(event)[:28]}...")
-        else:
-            p.drawString(75, 690, str(event))
-
-        # Set correct font for beschrijving
-        font_path = finders.find('fonts/outfit/Outfit-Regular.ttf')
-        pdfmetrics.registerFont(TTFont('Outfit', font_path))
-        p.setFont("Outfit", 14)
-
-        p.drawString(75, 660, formatted_date)
-        p.drawString(75, 635, str(self.ticket))
-        p.drawString(75, 610, strip_tags(event.locatie_kort))
-
-        # Finalize the PDF
-        p.save()
-
-        # Get the value of the BytesIO buffer and write it to the response
-        buffer.seek(0)
-
-        if not return_as_http:
-            return buffer
-        
-        response = HttpResponse(buffer, content_type='application/pdf')
-        response['Content-Disposition'] = f'inline; filename="ticket-{self.pk}.pdf"'
-
-        return response
-    
     def send_mail(self):
-        event = self.ticket.event
+        event = self.dartskamp
         
         email_body = render_to_string('email/confirmation-mail-participant.html', {
             'event': event,
             'participant': self,
         })
 
-        # Generate tickets PDF
-        tickets_pdf = self.generate_ticket()
-
         email = EmailMessage(
             'ChudartZ | Bevestiging',
             email_body,
-            formataddr(('Toernooien | Chudartz', settings.EMAIL_HOST_USER)),
+            formataddr(('Dartskampen | Chudartz', settings.EMAIL_HOST_USER)),
             [self.email],
             bcc=[settings.EMAIL_HOST_USER]
         )
         email.content_subtype = 'html'
 
-        # add tickets as attachment
-        email.attach(f'ticket.pdf', tickets_pdf.getvalue(), 'application/pdf')
-
         helpers.attach_image(email, "logo-black")
-
-        # Send the email
         email.send()
 
 
@@ -700,29 +561,29 @@ class LeagueDivisie(models.Model):
         super().save(*args, **kwargs)
 
 
-class ToernooiFoto(models.Model):
-    toernooi = models.ForeignKey(Toernooi, on_delete=models.CASCADE, related_name="fotos", verbose_name=_("Toernooi"))
-    afbeelding = models.ImageField(upload_to="toernooi_fotos", verbose_name=_("Foto"), validators=[validate_image_max_size])
+class DartskampFoto(models.Model):
+    dartskamp = models.ForeignKey(Dartskamp, on_delete=models.CASCADE, related_name="fotos", verbose_name=_("Dartskamp"))
+    afbeelding = models.ImageField(upload_to="dartskamp_fotos", verbose_name=_("Foto"), validators=[validate_image_max_size])
     omschrijving = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Omschrijving"))
     volgorde = models.PositiveIntegerField(default=0, verbose_name=_("Volgorde"))
 
     class Meta:
         ordering = ["volgorde", "id"]
-        verbose_name = "Toernooi Foto"
-        verbose_name_plural = "Toernooi Foto's"
+        verbose_name = "Dartskamp Foto"
+        verbose_name_plural = "Dartskamp Foto's"
 
     def __str__(self):
-        return f"Foto voor {self.toernooi.titel} ({self.id})"
+        return f"Foto voor {self.dartskamp.titel} ({self.id})"
 
 
 class IndexFotoCategory:
     DARTSCHOOL = "dartschool"
-    TOERNOOI = "toernooi"
+    DARTSKAMP = "dartskamp"
     ANDERE = "andere"
 
     CHOICES = [
         (DARTSCHOOL, pgettext_lazy("indexfoto category", "Dartschool")),
-        (TOERNOOI, pgettext_lazy("indexfoto category", "Toernooi")),
+        (DARTSKAMP, pgettext_lazy("indexfoto category", "Dartskamp")),
         (ANDERE, pgettext_lazy("indexfoto category", "Andere")),
     ]
 
