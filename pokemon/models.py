@@ -1,6 +1,7 @@
 import logging
 import secrets
 import string
+from decimal import Decimal, ROUND_HALF_UP
 from email.utils import formataddr
 
 import pytz
@@ -24,6 +25,27 @@ from phonenumber_field.modelfields import PhoneNumberField
 from chudartz.ticket_renderer import render_ticket_pdf
 from darts.utils import helpers
 from darts.validators.image_validator import validate_image_max_size
+
+
+def bereken_btw(excl_bedrag, percentage):
+    """Bereken BTW-bedrag afgerond op 2 decimalen (half-up)."""
+    if not excl_bedrag or not percentage:
+        return Decimal("0.00")
+    return (excl_bedrag * percentage / Decimal("100")).quantize(
+        Decimal("0.01"), rounding=ROUND_HALF_UP
+    )
+
+
+def bedrag_met_btw(excl_bedrag, excl_btw, percentage):
+    """
+    Geef (totaal incl. btw, btw-bedrag) terug.
+    Als excl_btw False is, blijft btw 0 en is totaal gelijk aan excl_bedrag.
+    """
+    bedrag = excl_bedrag or Decimal("0")
+    if not excl_btw:
+        return bedrag, Decimal("0.00")
+    btw = bereken_btw(bedrag, percentage)
+    return bedrag + btw, btw
 
 
 class Partner(models.Model):
@@ -72,6 +94,21 @@ class Evenement(models.Model):
         decimal_places=2,
         default=0,
         help_text=_("Enkel gebruikt wanneer het zaalplan uitstaat."),
+    )
+    standhouder_prijs_excl_btw = models.BooleanField(
+        verbose_name=_("Prijs per tafel exclusief BTW"),
+        default=False,
+        help_text=_(
+            "Aan: de prijs per tafel is exclusief BTW; het BTW-percentage "
+            "wordt achteraf bij het totaal opgeteld."
+        ),
+    )
+    standhouder_prijs_btw_percentage = models.DecimalField(
+        verbose_name=_("BTW-percentage (prijs per tafel)"),
+        max_digits=5,
+        decimal_places=2,
+        default=Decimal("21.00"),
+        help_text=_("Standaard 21%. Alleen gebruikt als 'exclusief BTW' aan staat."),
     )
     standhouder_max_tafels = models.PositiveIntegerField(
         verbose_name=_("Max. aantal tafels per standhouder"),
@@ -646,6 +683,21 @@ class Zaalplan(models.Model):
         decimal_places=2,
         default=0,
     )
+    prijs_excl_btw = models.BooleanField(
+        verbose_name=_("Tafelprijzen exclusief BTW"),
+        default=False,
+        help_text=_(
+            "Aan: standaardprijs en prijs-overrides zijn exclusief BTW; "
+            "het BTW-percentage wordt achteraf bij het totaal opgeteld."
+        ),
+    )
+    btw_percentage = models.DecimalField(
+        verbose_name=_("BTW-percentage"),
+        max_digits=5,
+        decimal_places=2,
+        default=Decimal("21.00"),
+        help_text=_("Standaard 21%. Alleen gebruikt als 'exclusief BTW' aan staat."),
+    )
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
@@ -803,6 +855,21 @@ class StandhouderVraag(models.Model):
         null=True,
         help_text=_("Wordt toegevoegd bij een positief antwoord (ja/checkbox/select)."),
     )
+    prijs_toeslag_excl_btw = models.BooleanField(
+        verbose_name=_("Toeslag exclusief BTW"),
+        default=False,
+        help_text=_(
+            "Aan: de toeslag is exclusief BTW; het BTW-percentage wordt "
+            "achteraf bij het totaal opgeteld."
+        ),
+    )
+    prijs_toeslag_btw_percentage = models.DecimalField(
+        verbose_name=_("BTW-percentage (toeslag)"),
+        max_digits=5,
+        decimal_places=2,
+        default=Decimal("21.00"),
+        help_text=_("Standaard 21%. Alleen gebruikt als 'exclusief BTW' aan staat."),
+    )
     is_borg = models.BooleanField(
         default=False,
         verbose_name=_("Is borg"),
@@ -909,12 +976,16 @@ class StandhouderInschrijving(models.Model):
 
     @property
     def borg_bedrag(self):
-        from decimal import Decimal
-
         totaal = Decimal("0")
         for antwoord in self.antwoorden.select_related("vraag"):
             if antwoord.vraag.is_borg and antwoord.heeft_toeslag():
-                totaal += antwoord.vraag.prijs_toeslag.amount
+                vraag = antwoord.vraag
+                incl, _ = bedrag_met_btw(
+                    vraag.prijs_toeslag.amount,
+                    vraag.prijs_toeslag_excl_btw,
+                    vraag.prijs_toeslag_btw_percentage,
+                )
+                totaal += incl
         return totaal
 
     @property
@@ -922,19 +993,35 @@ class StandhouderInschrijving(models.Model):
         return self.borg_bedrag > 0
 
     def bereken_totaal(self):
-        from decimal import Decimal
-
         totaal = Decimal("0")
         if self.zaalplan_actief:
-            for cel in self.gekozen_tafels:
-                totaal += cel.effectieve_prijs.amount
+            for cel in self.gekozen_tafels.select_related("zaalplan"):
+                zaalplan = cel.zaalplan
+                incl, _ = bedrag_met_btw(
+                    cel.effectieve_prijs.amount,
+                    zaalplan.prijs_excl_btw,
+                    zaalplan.btw_percentage,
+                )
+                totaal += incl
         else:
             aantal = self.aantal_tafels_manueel or 0
-            totaal += aantal * self.evenement.standhouder_prijs_per_tafel.amount
+            excl = aantal * self.evenement.standhouder_prijs_per_tafel.amount
+            incl, _ = bedrag_met_btw(
+                excl,
+                self.evenement.standhouder_prijs_excl_btw,
+                self.evenement.standhouder_prijs_btw_percentage,
+            )
+            totaal += incl
 
         for antwoord in self.antwoorden.select_related("vraag"):
             if antwoord.heeft_toeslag():
-                totaal += antwoord.vraag.prijs_toeslag.amount
+                vraag = antwoord.vraag
+                incl, _ = bedrag_met_btw(
+                    vraag.prijs_toeslag.amount,
+                    vraag.prijs_toeslag_excl_btw,
+                    vraag.prijs_toeslag_btw_percentage,
+                )
+                totaal += incl
 
         self.totaal_bedrag = totaal
         return totaal

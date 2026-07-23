@@ -171,20 +171,32 @@
     if (!summaryEl) return;
     const gezien = new Set();
     const labels = [];
-    let totaal = 0;
+    let subtotaal = 0;
+    let btwTotaal = 0;
+    const exclBtw = !!gridData.prijs_excl_btw;
+    const btwPct = parseFloat(gridData.btw_percentage || '0') || 0;
     gridData.cellen.forEach((cel) => {
       if (selected.has(cel.primary_id) && !gezien.has(cel.primary_id)) {
         gezien.add(cel.primary_id);
         labels.push(tafelLabel(cel));
-        totaal += parseFloat(cel.prijs);
+        const prijs = parseFloat(cel.prijs) || 0;
+        subtotaal += prijs;
+        if (exclBtw) {
+          btwTotaal += Math.round(prijs * btwPct) / 100;
+        }
       }
     });
+    const totaal = subtotaal + btwTotaal;
     if (labels.length === 0) {
       summaryEl.textContent = 'Geen tafels geselecteerd';
     } else {
       let html =
         `<strong>Geselecteerd (${labels.length}):</strong> ${labels.join(', ')}<br>` +
-        `<strong>Totaal:</strong> €${totaal.toFixed(2)}`;
+        `<strong>Subtotaal${exclBtw ? ' (excl. btw)' : ''}:</strong> €${subtotaal.toFixed(2)}`;
+      if (exclBtw && btwTotaal > 0) {
+        html += `<br><strong>BTW ${btwPct}%:</strong> €${btwTotaal.toFixed(2)}`;
+      }
+      html += `<br><strong>Totaal:</strong> €${totaal.toFixed(2)}`;
       if (limietBereikt) {
         html += `<br><span class="tafel-limiet-bereikt">Maximum van ${maxTafels} tafel(s) bereikt.</span>`;
       }

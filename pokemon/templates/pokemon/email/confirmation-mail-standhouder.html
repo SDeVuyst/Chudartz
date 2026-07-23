@@ -20,12 +20,12 @@
 <h3>Gekozen tafels</h3>
 <ul>
   {% for tafel in tafels %}
-    <li>{{ tafel.display_label }}: €{{ tafel.effectieve_prijs.amount }}</li>
+    <li>{{ tafel.display_label }}: €{{ tafel.effectieve_prijs.amount }}{% if tafel.zaalplan.prijs_excl_btw %} (excl. btw){% endif %}</li>
   {% endfor %}
 </ul>
 {% else %}
 <h3>Aantal tafels</h3>
-<p>{{ inschrijving.aantal_tafels_manueel }}</p>
+<p>{{ inschrijving.aantal_tafels_manueel }}{% if evenement.standhouder_prijs_excl_btw %} (prijs excl. btw){% endif %}</p>
 {% endif %}
 
 {% if antwoorden %}

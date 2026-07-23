@@ -42,6 +42,15 @@
     transition: border-color 0.15s, box-shadow 0.15s;
   }
   .zaalplan-toolbar input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.25); }
+  .zaalplan-toolbar .zp-field-check .zp-check {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 0.7rem; border: 1px solid var(--zp-border); border-radius: 8px;
+    background: var(--zp-surface-2); color: var(--zp-text); font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; user-select: none; min-height: 2.4rem;
+  }
+  .zaalplan-toolbar .zp-field-check input[type="checkbox"] {
+    width: auto; margin: 0; accent-color: var(--zp-accent);
+  }
   .zaalplan-toolbar .zp-actions { display: flex; gap: 0.6rem; margin-left: auto; }
 
   .zp-btn {
@@ -159,6 +168,17 @@
       <label for="standaard_prijs">{% trans "Standaard prijs per tafel (€)" %}</label>
       <input type="number" id="standaard_prijs" min="0" step="0.01" value="{{ zaalplan.standaard_prijs.amount }}">
     </div>
+    <div class="zp-field zp-field-check">
+      <label for="prijs_excl_btw">{% trans "Exclusief BTW" %}</label>
+      <label class="zp-check">
+        <input type="checkbox" id="prijs_excl_btw" {% if zaalplan.prijs_excl_btw %}checked{% endif %}>
+        <span>{% trans "Prijs is excl. BTW" %}</span>
+      </label>
+    </div>
+    <div class="zp-field" id="btw_percentage_wrap">
+      <label for="btw_percentage">{% trans "BTW %" %}</label>
+      <input type="number" id="btw_percentage" min="0" max="100" step="0.01" value="{{ zaalplan.btw_percentage }}">
+    </div>
     <div class="zp-actions">
       <button type="button" id="btn-opslaan" class="zp-btn">{% trans "Grootte/prijs opslaan" %}</button>
       <button type="button" id="btn-genereer" class="zp-btn">{% trans "Rooster genereren" %}</button>
@@ -222,5 +242,5 @@
 <script>
   window.ZAALPLAN_DATA = {{ grid_json|safe }};
 </script>
-<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=8"></script>
+<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=9"></script>
 {% endblock %}

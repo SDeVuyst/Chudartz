@@ -58,6 +58,8 @@ class StandhouderVraagInline(StackedInline):
         "verplicht",
         "volgorde",
         "prijs_toeslag",
+        "prijs_toeslag_excl_btw",
+        "prijs_toeslag_btw_percentage",
         "is_borg",
         "min_tafels",
         "max_tafels",
@@ -349,13 +351,17 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 "standhouder_zaalplan_actief",
                 "standhouder_max_tafels",
                 "standhouder_prijs_per_tafel",
+                "standhouder_prijs_excl_btw",
+                "standhouder_prijs_btw_percentage",
                 "standhouder_betaling_verplicht",
             ),
             "description": _(
                 "Het maximum aantal tafels per standhouder geldt altijd, met of zonder zaalplan. "
                 "Staat het zaalplan aan, dan kiezen standhouders hun tafel op de plattegrond "
-                "(beheer via de knop 'Zaalplan beheren' bovenaan). Staat het uit, dan geven ze enkel "
-                "een aantal tafels op tegen de prijs per tafel."
+                "(beheer via de knop 'Zaalplan beheren' bovenaan; BTW stel je daar ook in). "
+                "Staat het uit, dan geven ze enkel een aantal tafels op tegen de prijs per tafel. "
+                "Zet 'exclusief BTW' aan als de ingevoerde prijs zonder btw is; het percentage "
+                "wordt dan achteraf bij het te betalen totaal opgeteld."
             ),
         }),
     )
@@ -433,6 +439,10 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
             zaalplan.rijen = int(data.get('rijen', zaalplan.rijen))
             zaalplan.kolommen = int(data.get('kolommen', zaalplan.kolommen))
             zaalplan.standaard_prijs = data.get('standaard_prijs', zaalplan.standaard_prijs.amount)
+            if 'prijs_excl_btw' in data:
+                zaalplan.prijs_excl_btw = bool(data['prijs_excl_btw'])
+            if data.get('btw_percentage') is not None and data.get('btw_percentage') != '':
+                zaalplan.btw_percentage = data['btw_percentage']
             zaalplan.save()
             zaalplan.genereer_rooster()
             return JsonResponse({'success': True, 'grid': serialize_zaalplan_grid(zaalplan)})
@@ -450,6 +460,10 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
             zaalplan.kolommen = int(data.get('kolommen', zaalplan.kolommen))
             if data.get('standaard_prijs') is not None:
                 zaalplan.standaard_prijs = data['standaard_prijs']
+            if 'prijs_excl_btw' in data:
+                zaalplan.prijs_excl_btw = bool(data['prijs_excl_btw'])
+            if data.get('btw_percentage') is not None and data.get('btw_percentage') != '':
+                zaalplan.btw_percentage = data['btw_percentage']
             zaalplan.save()
             zaalplan.genereer_rooster()
             return JsonResponse({'success': True, 'grid': serialize_zaalplan_grid(zaalplan)})
