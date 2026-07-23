@@ -36,6 +36,30 @@
     return match ? match[1] : '';
   }
 
+  function getBtwSettings() {
+    const exclEl = document.getElementById('prijs_excl_btw');
+    const pctEl = document.getElementById('btw_percentage');
+    return {
+      prijs_excl_btw: exclEl ? exclEl.checked : false,
+      btw_percentage: pctEl ? pctEl.value : '21',
+    };
+  }
+
+  function syncBtwUiFromGrid() {
+    const exclEl = document.getElementById('prijs_excl_btw');
+    const pctEl = document.getElementById('btw_percentage');
+    const wrap = document.getElementById('btw_percentage_wrap');
+    if (exclEl && typeof gridData.prijs_excl_btw === 'boolean') {
+      exclEl.checked = gridData.prijs_excl_btw;
+    }
+    if (pctEl && gridData.btw_percentage != null) {
+      pctEl.value = gridData.btw_percentage;
+    }
+    if (wrap && exclEl) {
+      wrap.style.opacity = exclEl.checked ? '1' : '0.45';
+    }
+  }
+
   function postJson(url, body) {
     return fetch(url, {
       method: 'POST',
@@ -315,11 +339,13 @@
       rijen: parseInt(document.getElementById('rijen').value, 10),
       kolommen: parseInt(document.getElementById('kolommen').value, 10),
       standaard_prijs: document.getElementById('standaard_prijs').value,
+      ...getBtwSettings(),
     })
       .then((data) => {
         gridData = data.grid;
         document.getElementById('rijen').value = gridData.rijen;
         document.getElementById('kolommen').value = gridData.kolommen;
+        syncBtwUiFromGrid();
         renderGrid();
       })
       .catch((err) => alert(err.message));
@@ -331,15 +357,22 @@
       rijen: parseInt(document.getElementById('rijen').value, 10),
       kolommen: parseInt(document.getElementById('kolommen').value, 10),
       standaard_prijs: document.getElementById('standaard_prijs').value,
+      ...getBtwSettings(),
     })
       .then((data) => {
         gridData = data.grid;
         document.getElementById('rijen').value = gridData.rijen;
         document.getElementById('kolommen').value = gridData.kolommen;
+        syncBtwUiFromGrid();
         renderGrid();
       })
       .catch((err) => alert(err.message));
   });
 
+  const exclToggle = document.getElementById('prijs_excl_btw');
+  if (exclToggle) {
+    exclToggle.addEventListener('change', syncBtwUiFromGrid);
+  }
+  syncBtwUiFromGrid();
   renderGrid();
 })();

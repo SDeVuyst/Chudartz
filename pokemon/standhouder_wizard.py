@@ -153,6 +153,8 @@ def serialize_zaalplan_grid(zaalplan, inschrijving=None):
         "rijen": zaalplan.rijen,
         "kolommen": zaalplan.kolommen,
         "standaard_prijs": str(zaalplan.standaard_prijs.amount),
+        "prijs_excl_btw": zaalplan.prijs_excl_btw,
+        "btw_percentage": str(zaalplan.btw_percentage),
         "max_tafels": zaalplan.evenement.standhouder_max_tafels,
         "cellen": cellen,
     }
@@ -226,29 +228,88 @@ def save_vraag_antwoorden(inschrijving, cleaned_data, vragen):
 
 def build_prijsopbouw(inschrijving):
     from django.utils.translation import gettext as _
+    from pokemon.models import bedrag_met_btw
 
     regels = []
     if inschrijving.zaalplan_actief:
-        for cel in inschrijving.gekozen_tafels:
-            regels.append({
-                "omschrijving": f"Tafel {cel.display_label}",
-                "bedrag": cel.effectieve_prijs.amount,
-            })
-    elif inschrijving.aantal_tafels_manueel:
-        regels.append({
-            "omschrijving": f"{inschrijving.aantal_tafels_manueel} tafel(s)",
-            "bedrag": (
-                inschrijving.aantal_tafels_manueel
-                * inschrijving.evenement.standhouder_prijs_per_tafel.amount
-            ),
-        })
-    for antwoord in inschrijving.antwoorden.select_related("vraag"):
-        if antwoord.heeft_toeslag():
-            omschrijving = _("Borg") if antwoord.vraag.is_borg else antwoord.vraag.tekst
+        btw_totaal = Decimal("0")
+        btw_pct = None
+        for cel in inschrijving.gekozen_tafels.select_related("zaalplan"):
+            zaalplan = cel.zaalplan
+            excl = cel.effectieve_prijs.amount
+            _, btw = bedrag_met_btw(
+                excl,
+                zaalplan.prijs_excl_btw,
+                zaalplan.btw_percentage,
+            )
+            omschrijving = f"Tafel {cel.display_label}"
+            if zaalplan.prijs_excl_btw:
+                omschrijving = _("%(label)s (excl. btw)") % {"label": omschrijving}
+                btw_totaal += btw
+                btw_pct = zaalplan.btw_percentage
             regels.append({
                 "omschrijving": omschrijving,
-                "bedrag": antwoord.vraag.prijs_toeslag.amount,
+                "bedrag": excl,
+                "is_btw": False,
             })
+        if btw_totaal:
+            regels.append({
+                "omschrijving": _("BTW %(pct)s%%") % {"pct": btw_pct},
+                "bedrag": btw_totaal,
+                "is_btw": True,
+            })
+    elif inschrijving.aantal_tafels_manueel:
+        evenement = inschrijving.evenement
+        excl = (
+            inschrijving.aantal_tafels_manueel
+            * evenement.standhouder_prijs_per_tafel.amount
+        )
+        _, btw = bedrag_met_btw(
+            excl,
+            evenement.standhouder_prijs_excl_btw,
+            evenement.standhouder_prijs_btw_percentage,
+        )
+        omschrijving = f"{inschrijving.aantal_tafels_manueel} tafel(s)"
+        if evenement.standhouder_prijs_excl_btw:
+            omschrijving = _("%(label)s (excl. btw)") % {"label": omschrijving}
+        regels.append({
+            "omschrijving": omschrijving,
+            "bedrag": excl,
+            "is_btw": False,
+        })
+        if btw:
+            regels.append({
+                "omschrijving": _("BTW %(pct)s%%") % {
+                    "pct": evenement.standhouder_prijs_btw_percentage,
+                },
+                "bedrag": btw,
+                "is_btw": True,
+            })
+    for antwoord in inschrijving.antwoorden.select_related("vraag"):
+        if antwoord.heeft_toeslag():
+            vraag = antwoord.vraag
+            excl = vraag.prijs_toeslag.amount
+            _, btw = bedrag_met_btw(
+                excl,
+                vraag.prijs_toeslag_excl_btw,
+                vraag.prijs_toeslag_btw_percentage,
+            )
+            omschrijving = _("Borg") if vraag.is_borg else vraag.tekst
+            if vraag.prijs_toeslag_excl_btw:
+                omschrijving = _("%(label)s (excl. btw)") % {"label": omschrijving}
+            regels.append({
+                "omschrijving": omschrijving,
+                "bedrag": excl,
+                "is_btw": False,
+            })
+            if btw:
+                regels.append({
+                    "omschrijving": _("BTW %(pct)s%%") % {
+                        "pct": vraag.prijs_toeslag_btw_percentage,
+                    },
+                    "bedrag": btw,
+                    "is_btw": True,
+                })
     totaal = sum((r["bedrag"] for r in regels), Decimal("0"))
     return regels, totaal
 

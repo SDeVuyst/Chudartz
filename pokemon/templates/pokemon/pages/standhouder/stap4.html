@@ -45,7 +45,7 @@
   <h5>{% trans 'Prijsopbouw (indicatief)' %}</h5>
   <table class="prijsopbouw-table">
     {% for regel in prijsopbouw %}
-      <tr><td>{{ regel.omschrijving }}</td><td>€{{ regel.bedrag }}</td></tr>
+      <tr{% if regel.is_btw %} class="prijsopbouw-btw"{% endif %}><td>{{ regel.omschrijving }}</td><td>€{{ regel.bedrag }}</td></tr>
     {% endfor %}
     <tr><td><strong>{% trans 'Totaal' %}</strong></td><td><strong>€{{ totaal }}</strong></td></tr>
   </table>
