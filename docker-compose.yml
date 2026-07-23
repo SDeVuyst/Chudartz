@@ -47,8 +47,6 @@ services:
 
 volumes:
   postgres_data:
-    external: true
-    name: postgres_data
 
   media_volume:
     external: true
