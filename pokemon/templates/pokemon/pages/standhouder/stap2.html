@@ -26,7 +26,49 @@
 
     {% for field in form %}
 
-      <div class="col-md-{% if field.name == 'opmerkingen' or field.name == 'factuur' %}12{% else %}6{% endif %}">
+      {% if field.name == 'btw_of_kvk_nummer' or field.name == 'bedrijfsnummer' %}
+        {# Rendered inside #factuur-extra below #}
+      {% elif field.name == 'factuur' %}
+
+      <div class="col-md-12">
+        <div class="form-check">
+          {{ field }}
+          <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        </div>
+        {% if field.errors %}
+          <div class="text-danger small mt-1">{{ field.errors }}</div>
+        {% endif %}
+
+        <div id="factuur-extra" class="mt-3{% if not form.factuur.value %} d-none{% endif %}">
+          <div class="alert-standhouder info mb-3">
+            {% trans "De factuur volgt na betaling." %}
+          </div>
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <label for="{{ form.btw_of_kvk_nummer.id_for_label }}">
+                {{ form.btw_of_kvk_nummer.label }} *
+              </label>
+              {{ form.btw_of_kvk_nummer }}
+              {% if form.btw_of_kvk_nummer.errors %}
+                <div class="text-danger small mt-1">{{ form.btw_of_kvk_nummer.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              <label for="{{ form.bedrijfsnummer.id_for_label }}">
+                {{ form.bedrijfsnummer.label }} *
+              </label>
+              {{ form.bedrijfsnummer }}
+              {% if form.bedrijfsnummer.errors %}
+                <div class="text-danger small mt-1">{{ form.bedrijfsnummer.errors }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% else %}
+
+      <div class="col-md-{% if field.name == 'opmerkingen' %}12{% else %}6{% endif %}">
 
         {% if field.field.widget.input_type == 'checkbox' %}
           <div class="form-check">
@@ -50,6 +92,8 @@
         {% endif %}
 
       </div>
+
+      {% endif %}
 
     {% endfor %}
 
@@ -97,7 +141,11 @@
 
   var clientError = document.getElementById('gegevens-client-error');
 
+  var factuurExtra = document.getElementById('factuur-extra');
+
   var verplicht = ['bedrijfsnaam', 'naam', 'email', 'telefoon'];
+
+  var factuurVerplicht = ['btw_of_kvk_nummer', 'bedrijfsnummer'];
 
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -111,9 +159,37 @@
 
 
 
+  function factuurGewenst() {
+
+    var el = veld('factuur');
+
+    return el && el.checked;
+
+  }
+
+
+
+  function syncFactuurExtra() {
+
+    if (!factuurExtra) return;
+
+    if (factuurGewenst()) {
+
+      factuurExtra.classList.remove('d-none');
+
+    } else {
+
+      factuurExtra.classList.add('d-none');
+
+    }
+
+  }
+
+
+
   function isGeldig() {
 
-    return verplicht.every(function (n) {
+    var basisOk = verplicht.every(function (n) {
 
       var el = veld(n);
 
@@ -125,11 +201,29 @@
 
     });
 
+    if (!basisOk) return false;
+
+    if (factuurGewenst()) {
+
+      return factuurVerplicht.every(function (n) {
+
+        var el = veld(n);
+
+        return el && el.value.trim() !== '';
+
+      });
+
+    }
+
+    return true;
+
   }
 
 
 
   function check() {
+
+    syncFactuurExtra();
 
     btn.disabled = !isGeldig();
 
@@ -173,7 +267,7 @@
 
 
 
-  verplicht.forEach(function (n) {
+  verplicht.concat(factuurVerplicht).forEach(function (n) {
 
     var el = veld(n);
 
@@ -187,6 +281,14 @@
 
   });
 
+  var factuurEl = veld('factuur');
+
+  if (factuurEl) {
+
+    factuurEl.addEventListener('change', check);
+
+  }
+
   check();
 
 })();
@@ -194,4 +296,3 @@
 </script>
 
 {% endblock %}
-

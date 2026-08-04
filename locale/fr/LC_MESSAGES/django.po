@@ -5673,8 +5673,8 @@ msgid ""
 "Wenst u meer dan %(max)s tafels? Neem contact met ons op via %(email)s."
 msgstr "Souhaitez-vous plus de %(max)s tables ? Contactez-nous via %(email)s."
 
-msgid "Wenst u meer dan %(max)s tafels? Neem dan contact met ons op."
-msgstr "Souhaitez-vous plus de %(max)s tables ? Contactez-nous."
+msgid "Wenst u meer dan %(max)s tafels? Boek alvast het maximale aantal tafels en neem dan contact met ons op."
+msgstr "Souhaitez-vous plus de %(max)s tables ? Réservez d'abord le nombre maximum de tables et contactez-nous ensuite."
 
 msgid "Neem contact met ons op via de contactsectie op onze homepage."
 msgstr "Contactez-nous via la section contact sur notre page d'accueil."
@@ -5698,11 +5698,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"    Wenst u meer dan %(max)s tafels?\n"
+"    Wenst u meer dan %(max)s tafels? Boek alvast het maximale aantal tafels en\n"
 "    "
 msgstr ""
 "\n"
-"    Souhaitez-vous plus de %(max)s tables ?\n"
+"    Souhaitez-vous plus de %(max)s tables ? Réservez d'abord le nombre maximum de tables et\n"
 "    "
 
 msgid ""
@@ -5839,6 +5839,27 @@ msgstr ""
 " éventuelles obligations en matière d’impôts, de TVA et de formalités "
 "d’entreprise). ChudartZ Collectibles ne peut en aucun cas en être tenu "
 "responsable."
+
+#: pokemon/models.py
+msgid "BTW-nummer of KVK-nummer"
+msgstr "Numéro de TVA ou numéro KVK"
+
+#: pokemon/models.py
+msgid "Bedrijfsnummer"
+msgstr "Numéro d’entreprise"
+
+#: pokemon/forms.py
+msgid "Dit veld is verplicht wanneer u een factuur wenst."
+msgstr "Ce champ est obligatoire si vous souhaitez une facture."
+
+#: pokemon/templates/pokemon/pages/standhouder/stap2.html
+msgid "De factuur volgt na betaling."
+msgstr "La facture suivra après le paiement."
+
+#: pokemon/templates/pokemon/pages/standhouder/stap4.html
+#: pokemon/templates/pokemon/email/confirmation-mail-standhouder.html
+msgid "Factuur gewenst"
+msgstr "Facture souhaitée"
 
 #~ msgid ""
 #~ "\n"

@@ -5505,8 +5505,8 @@ msgid ""
 msgstr ""
 "Would you like more than %(max)s tables? Please contact us at %(email)s."
 
-msgid "Wenst u meer dan %(max)s tafels? Neem dan contact met ons op."
-msgstr "Would you like more than %(max)s tables? Please contact us."
+msgid "Wenst u meer dan %(max)s tafels? Boek alvast het maximale aantal tafels en neem dan contact met ons op."
+msgstr "Would you like more than %(max)s tables? Please book the maximum number of tables first and then contact us."
 
 msgid "Neem contact met ons op via de contactsectie op onze homepage."
 msgstr "Please contact us via the contact section on our homepage."
@@ -5530,11 +5530,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"    Wenst u meer dan %(max)s tafels?\n"
+"    Wenst u meer dan %(max)s tafels? Boek alvast het maximale aantal tafels en\n"
 "    "
 msgstr ""
 "\n"
-"    Would you like more than %(max)s tables?\n"
+"    Would you like more than %(max)s tables? Please book the maximum number of tables first and\n"
 "    "
 
 msgid ""
@@ -6155,3 +6155,24 @@ msgstr ""
 
 #~ msgid "Home"
 #~ msgstr "Home"
+
+#: pokemon/models.py
+msgid "BTW-nummer of KVK-nummer"
+msgstr "VAT number or Chamber of Commerce number"
+
+#: pokemon/models.py
+msgid "Bedrijfsnummer"
+msgstr "Company number"
+
+#: pokemon/forms.py
+msgid "Dit veld is verplicht wanneer u een factuur wenst."
+msgstr "This field is required when you request an invoice."
+
+#: pokemon/templates/pokemon/pages/standhouder/stap2.html
+msgid "De factuur volgt na betaling."
+msgstr "The invoice will follow after payment."
+
+#: pokemon/templates/pokemon/pages/standhouder/stap4.html
+#: pokemon/templates/pokemon/email/confirmation-mail-standhouder.html
+msgid "Factuur gewenst"
+msgstr "Invoice requested"

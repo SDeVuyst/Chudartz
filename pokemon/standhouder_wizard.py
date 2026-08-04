@@ -299,7 +299,11 @@ def build_prijsopbouw(inschrijving):
                 vraag.prijs_toeslag_excl_btw,
                 vraag.prijs_toeslag_btw_percentage,
             )
-            omschrijving = gettext("Borg") if vraag.is_borg else vraag.tekst
+            omschrijving = (
+                gettext("Niet-terugbetaalbare reservatie- en administratiekost")
+                if vraag.is_borg
+                else vraag.tekst
+            )
             if vraag.prijs_toeslag_excl_btw:
                 omschrijving = met_excl_label(omschrijving)
             regels.append({

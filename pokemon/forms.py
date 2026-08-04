@@ -59,7 +59,16 @@ class ContactForm(forms.Form):
 class StandhouderGegevensForm(forms.ModelForm):
     class Meta:
         model = StandhouderInschrijving
-        fields = ["bedrijfsnaam", "naam", "email", "telefoon", "factuur", "opmerkingen"]
+        fields = [
+            "bedrijfsnaam",
+            "naam",
+            "email",
+            "telefoon",
+            "factuur",
+            "btw_of_kvk_nummer",
+            "bedrijfsnummer",
+            "opmerkingen",
+        ]
         widgets = {
             "bedrijfsnaam": forms.TextInput(attrs={
                 "placeholder": "Bedrijfsnaam",
@@ -80,6 +89,14 @@ class StandhouderGegevensForm(forms.ModelForm):
             "factuur": forms.CheckboxInput(attrs={
                 "class": "form-check-input",
             }),
+            "btw_of_kvk_nummer": forms.TextInput(attrs={
+                "placeholder": "BTW-nummer of KVK-nummer",
+                "class": "form-control",
+            }),
+            "bedrijfsnummer": forms.TextInput(attrs={
+                "placeholder": "Bedrijfsnummer",
+                "class": "form-control",
+            }),
             "opmerkingen": forms.Textarea(attrs={
                 "placeholder": "Opmerkingen",
                 "class": "form-control",
@@ -91,6 +108,21 @@ class StandhouderGegevensForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name in ("bedrijfsnaam", "naam", "email", "telefoon"):
             self.fields[field_name].required = True
+        self.fields["btw_of_kvk_nummer"].required = False
+        self.fields["bedrijfsnummer"].required = False
+
+    def clean(self):
+        cleaned = super().clean()
+        if cleaned.get("factuur"):
+            for field_name in ("btw_of_kvk_nummer", "bedrijfsnummer"):
+                value = (cleaned.get(field_name) or "").strip()
+                cleaned[field_name] = value
+                if not value:
+                    self.add_error(
+                        field_name,
+                        _("Dit veld is verplicht wanneer u een factuur wenst."),
+                    )
+        return cleaned
 
 
 class StandhouderTafelsForm(forms.Form):

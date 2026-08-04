@@ -721,7 +721,10 @@ class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
     list_filter = (StandhouderStatusFilter, StandhouderEvenementFilter)
     list_filter_submit = True
-    search_fields = ('bedrijfsnaam', 'naam', 'email', 'telefoon')
+    search_fields = (
+        'bedrijfsnaam', 'naam', 'email', 'telefoon',
+        'btw_of_kvk_nummer', 'bedrijfsnummer',
+    )
     readonly_fields = ('aangemaakt_op', 'bijgewerkt_op')
 
     def get_queryset(self, request):

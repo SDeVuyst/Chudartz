@@ -194,7 +194,7 @@ class Evenement(models.Model):
 
     def standhouder_tafel_limiet_bericht(self):
         return _(
-            "Wenst u meer dan %(max)s tafels? Neem dan contact met ons op."
+            "Wenst u meer dan %(max)s tafels? Boek alvast het maximale aantal tafels en neem dan contact met ons op."
         ) % {"max": self.standhouder_max_tafels}
 
 
@@ -876,10 +876,11 @@ class StandhouderVraag(models.Model):
     )
     is_borg = models.BooleanField(
         default=False,
-        verbose_name=_("Is borg"),
+        verbose_name=_("Niet-terugbetaalbare reservatie- en administratiekost"),
         help_text=_(
-            "Markeer als borg: bij een positief antwoord verschijnt op het overzicht "
-            "een melding dat deze borg niet wordt terugbetaald bij annulatie."
+            "Markeer als niet-terugbetaalbare reservatie- en administratiekost: bij een "
+            "positief antwoord verschijnt op het overzicht een melding dat dit bedrag "
+            "niet wordt terugbetaald bij annulatie."
         ),
     )
     min_tafels = models.PositiveIntegerField(
@@ -922,6 +923,18 @@ class StandhouderInschrijving(models.Model):
     email = models.EmailField(verbose_name=_("Email"), blank=True, default="")
     telefoon = models.CharField(max_length=20, verbose_name=_("Telefoon"), blank=True, default="")
     factuur = models.BooleanField(default=False, verbose_name=_("Factuur gewenst"))
+    btw_of_kvk_nummer = models.CharField(
+        max_length=50,
+        blank=True,
+        default="",
+        verbose_name=_("BTW-nummer of KVK-nummer"),
+    )
+    bedrijfsnummer = models.CharField(
+        max_length=50,
+        blank=True,
+        default="",
+        verbose_name=_("Bedrijfsnummer"),
+    )
     opmerkingen = models.TextField(blank=True, verbose_name=_("Opmerkingen"))
     status = models.CharField(
         max_length=20,
@@ -1100,11 +1113,16 @@ class StandhouderInschrijving(models.Model):
             ]
             if self.factuur:
                 admin_lines.append("Factuur gewenst: Ja")
+                if self.btw_of_kvk_nummer:
+                    admin_lines.append(f"BTW-nummer of KVK-nummer: {self.btw_of_kvk_nummer}")
+                if self.bedrijfsnummer:
+                    admin_lines.append(f"Bedrijfsnummer: {self.bedrijfsnummer}")
             for antwoord in antwoorden:
                 admin_lines.append(f"{antwoord.vraag.tekst}: {antwoord.weergave()}")
             if self.heeft_borg:
                 admin_lines.append(
-                    f"Borg: €{self.borg_bedrag} (niet terugbetaalbaar bij annulatie)"
+                    f"Niet-terugbetaalbare reservatie- en administratiekost: "
+                    f"€{self.borg_bedrag}"
                 )
             if self.opmerkingen:
                 admin_lines.append(f"Opmerkingen: {self.opmerkingen}")

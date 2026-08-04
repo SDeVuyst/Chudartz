@@ -13,7 +13,11 @@
   <li>Bedrijfsnaam: {{ inschrijving.bedrijfsnaam }}</li>
   <li>Email: {{ inschrijving.email }}</li>
   <li>Telefoon: {{ inschrijving.telefoon }}</li>
-  {% if inschrijving.factuur %}<li>Factuur gewenst</li>{% endif %}
+  {% if inschrijving.factuur %}
+  <li>Factuur gewenst</li>
+  <li>BTW-nummer of KVK-nummer: {{ inschrijving.btw_of_kvk_nummer }}</li>
+  <li>Bedrijfsnummer: {{ inschrijving.bedrijfsnummer }}</li>
+  {% endif %}
 </ul>
 
 {% if inschrijving.zaalplan_actief %}
@@ -37,10 +41,10 @@
 </ul>
 {% endif %}
 
-<p><strong>Indicatief totaalbedrag: €{{ inschrijving.totaal_bedrag.amount }}</strong></p>
+<p><strong>Indicatief totaalbedrag: {{ inschrijving.totaal_bedrag.amount }}</strong></p>
 
 {% if inschrijving.heeft_borg %}
-<p><em>Let op: deze aanvraag bevat een borg van €{{ inschrijving.borg_bedrag }}. Deze borg wordt niet terugbetaald bij annulatie.</em></p>
+<p><em>Let op: €{{ inschrijving.borg_bedrag }} van het totaalbedrag betreft een niet-terugbetaalbare reservatie- en administratiekost. Dit bedrag wordt niet terugbetaald bij annulatie.</em></p>
 {% endif %}
 
 <p>Met vriendelijke groeten,<br>Team ChudartZ Collectibles</p>

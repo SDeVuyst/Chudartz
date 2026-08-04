@@ -15,7 +15,11 @@
     <strong>{{ inschrijving.bedrijfsnaam }}</strong><br>
     {{ inschrijving.naam }} <br>
     {{ inschrijving.email }} · {{ inschrijving.telefoon }}<br>
-    {% if inschrijving.factuur %}<span>{% trans "Factuur gewenst" %}</span><br>{% endif %}
+    {% if inschrijving.factuur %}
+      <span>{% trans "Factuur gewenst" %}</span><br>
+      {% trans "BTW-nummer of KVK-nummer" %}: {{ inschrijving.btw_of_kvk_nummer }}<br>
+      {% trans "Bedrijfsnummer" %}: {{ inschrijving.bedrijfsnummer }}<br>
+    {% endif %}
     {% if inschrijving.opmerkingen %}<em>{{ inschrijving.opmerkingen }}</em>{% endif %}
   </p>
 </div>
@@ -53,7 +57,7 @@
   {% if inschrijving.heeft_borg %}
   <div class="borg-melding">
     {% blocktrans with bedrag=inschrijving.borg_bedrag %}
-    Let op: deze inschrijving bevat een borg van €{{ bedrag }}. Deze borg wordt niet terugbetaald bij annulatie van uw inschrijving.
+    Let op: €{{ bedrag }} van het totaalbedrag betreft een niet-terugbetaalbare reservatie- en administratiekost. Dit bedrag wordt niet terugbetaald bij annulatie van uw inschrijving.
     {% endblocktrans %}
   </div>
   {% endif %}

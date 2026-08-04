@@ -162,7 +162,7 @@ def evenementen(request):
             ),
             output_field=FloatField(),
         ),
-    ).order_by('is_future', 'volgorde', 'sort_date')
+    ).order_by('-is_future', 'volgorde', 'sort_date')
 
     paginator = Paginator(evenementen, 12)
 
@@ -198,7 +198,7 @@ def _get_gerelateerde_evenementen(evenement, limit=3):
             ),
             output_field=FloatField(),
         ),
-    ).order_by('is_future', 'volgorde', 'sort_date')[:limit]
+    ).order_by('-is_future', 'volgorde', 'sort_date')[:limit]
 
 
 def evenement(request, slug):

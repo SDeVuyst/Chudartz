@@ -2,6 +2,7 @@
 <html>
 <head><meta charset="utf-8"></head>
 <body>
+{% load i18n %}
 <p>Beste {{ inschrijving.naam }},</p>
 
 <p>Bedankt voor uw standhouder-inschrijving voor <strong>{{ evenement.titel }}</strong>.</p>
@@ -13,7 +14,11 @@
   <li>Bedrijfsnaam: {{ inschrijving.bedrijfsnaam }}</li>
   <li>Email: {{ inschrijving.email }}</li>
   <li>Telefoon: {{ inschrijving.telefoon }}</li>
-  {% if inschrijving.factuur %}<li>{% trans "Factuur gewenst" %}</li>{% endif %}
+  {% if inschrijving.factuur %}
+  <li>{% trans "Factuur gewenst" %}</li>
+  <li>{% trans "BTW-nummer of KVK-nummer" %}: {{ inschrijving.btw_of_kvk_nummer }}</li>
+  <li>{% trans "Bedrijfsnummer" %}: {{ inschrijving.bedrijfsnummer }}</li>
+  {% endif %}
 </ul>
 
 {% if inschrijving.zaalplan_actief %}
@@ -37,10 +42,10 @@
 </ul>
 {% endif %}
 
-<p><strong>Indicatief totaalbedrag: €{{ inschrijving.totaal_bedrag.amount }}</strong></p>
+<p><strong>Indicatief totaalbedrag: {{ inschrijving.totaal_bedrag.amount }}</strong></p>
 
 {% if inschrijving.heeft_borg %}
-<p><em>Let op: deze inschrijving bevat een borg van €{{ inschrijving.borg_bedrag }}. Deze borg wordt niet terugbetaald bij annulatie.</em></p>
+<p><em>Let op: €{{ inschrijving.borg_bedrag }} van het totaalbedrag betreft een niet-terugbetaalbare reservatie- en administratiekost. Dit bedrag wordt niet terugbetaald bij annulatie.</em></p>
 {% endif %}
 
 <p>Wij hebben uw inschrijving in goede orde ontvangen en nemen zo snel mogelijk contact met u op.</p>
