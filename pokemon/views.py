@@ -7,9 +7,7 @@ from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.db.models import Case, FloatField, IntegerField, Value, When
-from django.db.models.expressions import ExpressionWrapper
-from django.db.models.functions import Extract
+from django.db.models import Case, DateTimeField, F, IntegerField, Value, When
 from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
                          HttpResponseNotFound, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect
@@ -148,21 +146,22 @@ def contact(request):
 
 def evenementen(request):
     today = timezone.now().date()
+    # Future first (soonest → furthest), then past (newest → oldest).
     evenementen = Evenement.objects.filter(toon_op_site=True).annotate(
         is_future=Case(
             When(start_datum__gte=today, then=Value(0)),
             default=Value(1),
             output_field=IntegerField(),
         ),
-        sort_date=Case(
-            When(is_future=0, then=Extract('start_datum', 'epoch')),
-            default=ExpressionWrapper(
-                -Extract('start_datum', 'epoch'),
-                output_field=FloatField(),
-            ),
-            output_field=FloatField(),
+    ).order_by(
+        'is_future',
+        'volgorde',
+        Case(
+            When(start_datum__gte=today, then=F('start_datum')),
+            output_field=DateTimeField(),
         ),
-    ).order_by('-is_future', 'volgorde', 'sort_date')
+        F('start_datum').desc(),
+    )
 
     paginator = Paginator(evenementen, 12)
 
@@ -190,15 +189,15 @@ def _get_gerelateerde_evenementen(evenement, limit=3):
             default=Value(1),
             output_field=IntegerField(),
         ),
-        sort_date=Case(
-            When(is_future=0, then=Extract('start_datum', 'epoch')),
-            default=ExpressionWrapper(
-                -Extract('start_datum', 'epoch'),
-                output_field=FloatField(),
-            ),
-            output_field=FloatField(),
+    ).order_by(
+        '-is_future',
+        'volgorde',
+        Case(
+            When(start_datum__gte=today, then=F('start_datum')),
+            output_field=DateTimeField(),
         ),
-    ).order_by('-is_future', 'volgorde', 'sort_date')[:limit]
+        F('start_datum').desc(),
+    )[:limit]
 
 
 def evenement(request, slug):
