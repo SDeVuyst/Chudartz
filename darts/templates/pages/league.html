@@ -44,7 +44,7 @@ ChudartZ | {{ league.titel }}
       <div class="container">
 
         {% for divisie in league.divisies.all %}
-        <div class="league-divisie {% if forloop.counter|divisibleby:2 %}league-divisie--alt{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="league-divisie" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
           <div class="league-divisie__header">
             <div class="section-title">
               <h2>
