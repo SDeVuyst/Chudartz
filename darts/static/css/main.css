@@ -716,6 +716,11 @@ h6 {
   background-image: url("/static/img/backgrounds/overview.webp");
 }
 
+.page-title .heading.background-about {
+  background-image: url("/static/img/backgrounds/over-ons.webp");
+  background-position: center 20%;
+}
+
 .page-title nav {
   background-color: color-mix(in srgb, var(--default-color), transparent 95%);
   padding: 20px 0;
