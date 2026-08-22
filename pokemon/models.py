@@ -1109,7 +1109,7 @@ class StandhouderInschrijving(models.Model):
                 f"Email: {self.email}",
                 f"Telefoon: {self.telefoon}",
                 tafels_regel,
-                f"Totaalbedrag: €{self.totaal_bedrag}",
+                f"Totaalbedrag: {self.totaal_bedrag}",
             ]
             if self.factuur:
                 admin_lines.append("Factuur gewenst: Ja")
