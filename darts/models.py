@@ -539,6 +539,14 @@ class LeagueDivisie(models.Model):
     )
     naam = models.CharField(max_length=100, verbose_name=_("Naam"))
     volgorde = models.PositiveSmallIntegerField(verbose_name=_("Volgorde"), default=0)
+    stand_boven_uitslagen = models.BooleanField(
+        verbose_name=_("Stand boven uitslagen"),
+        default=False,
+        help_text=_(
+            "Toon stand en uitslagen onder elkaar op volle breedte "
+            "(stand eerst). Standaard staan ze naast elkaar."
+        ),
+    )
     uitslagen = RichTextField(
         config_name='league_table',
         verbose_name=_("Uitslagen"),

@@ -26,7 +26,7 @@ class LeagueDivisieInline(StackedInline):
     form = LeagueDivisieForm
     extra = 0
     ordering = ('volgorde',)
-    fields = ('naam', 'volgorde', 'uitslagen', 'stand', 'toelichting')
+    fields = ('naam', 'volgorde', 'stand_boven_uitslagen', 'uitslagen', 'stand', 'toelichting')
     verbose_name = _("Divisie")
     verbose_name_plural = _("Divisies")
 
