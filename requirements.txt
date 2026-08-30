@@ -11,7 +11,7 @@ gunicorn==23.0.0
 mollie-api-python==3.7.2
 qrcode[pil]==7.4.2
 reportlab==4.2.2
-pypdf==5.0.0
+pypdf==6.6.2
 requests==2.32.3
 django-phonenumber-field==8.0.0
 django-lockdown==4.0.0
