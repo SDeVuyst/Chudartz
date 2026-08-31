@@ -39,6 +39,7 @@ from pokemon.models import (
     StandhouderInschrijving,
 )
 from pokemon.services.attendance import AttendanceError, check_in_participant
+from pokemon.services.gate import log_gate_scan
 from pokemon.payment import MollieClient
 from pokemon.services.standhouder import (
     StandhouderValidationError,
@@ -842,18 +843,45 @@ def gate_check_in(request):
     except json.JSONDecodeError:
         return JsonResponse({'success': False, 'message': "QR-code niet herkend. Probeer opnieuw te scannen."}, status=400)
 
+    participant_id = data.get('participant_id')
     try:
         result = check_in_participant(
-            data.get('participant_id'),
+            participant_id,
             data.get('seed'),
             event_id=data.get('event_id'),
             ticket_id=data.get('ticket_id'),
         )
     except AttendanceError as exc:
+        log_gate_scan(device, participant_id, False, exc.message)
         return JsonResponse({'success': False, 'message': exc.message}, status=exc.status)
 
+    log_gate_scan(device, participant_id, True, result['message'])
     device.touch_last_used()
     return JsonResponse(result)
+
+
+@csrf_exempt
+def gate_heartbeat(request):
+    """Periodic status ping from a gate scanner, used for live admin monitoring."""
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'message': "Onbekend verzoek."}, status=400)
+
+    raw_key = request.headers.get('X-Gate-Api-Key', '')
+    device = GateDevice.authenticate(raw_key)
+    if device is None:
+        return JsonResponse({'success': False, 'message': "API-sleutel geweigerd. Controleer de instellingen."}, status=401)
+
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        data = {}
+
+    config = data.get('config')
+    device.register_heartbeat(
+        data.get('status', ''),
+        config if isinstance(config, dict) else None,
+    )
+    return JsonResponse({'success': True})
 
 
 ###### ERROR HANDLERS #######

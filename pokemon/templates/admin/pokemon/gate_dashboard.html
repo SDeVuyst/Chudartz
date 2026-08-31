@@ -1,0 +1,203 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Gate dashboard" %}: {{ device.name }} | Chudartz Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'pokemon/css/gate-monitor.css' %}">
+{% endblock %}
+
+{% block content %}
+<script type="application/json" id="gate-dashboard-boot">{{ boot_json|safe }}</script>
+
+<div id="gate-admin">
+<div class="gate-page-head">
+  <h1>{{ device.name }}</h1>
+  <span class="gate-live-dot" id="gate-live-indicator">{% trans "Live" %}</span>
+  <a class="gate-btn" href="{{ monitor_url }}">{% trans "Terug naar monitor" %}</a>
+  <a class="gate-btn" href="{% url 'admin:pokemon_gatedevice_change' device.pk %}">
+    {% trans "Instellingen wijzigen" %}
+  </a>
+</div>
+
+<div class="gate-cards" id="gate-cards"></div>
+
+<div class="gate-kpis">
+  <div class="gate-kpi">
+    <div class="gate-kpi__label">{% trans "Scans vandaag" %}</div>
+    <div class="gate-kpi__value" data-kpi="today_total">0</div>
+  </div>
+  <div class="gate-kpi">
+    <div class="gate-kpi__label">{% trans "Toegelaten" %}</div>
+    <div class="gate-kpi__value" data-kpi="today_success">0</div>
+  </div>
+  <div class="gate-kpi">
+    <div class="gate-kpi__label">{% trans "Geweigerd" %}</div>
+    <div class="gate-kpi__value" data-kpi="today_fail">0</div>
+  </div>
+</div>
+
+<div class="gate-card-base">
+  <h2 class="gate-card-title">{% trans "Live scans" %}</h2>
+  <div class="gate-feed-wrap">
+    <table class="gate-feed">
+      <thead>
+        <tr>
+          <th>{% trans "Tijd" %}</th>
+          <th>{% trans "Resultaat" %}</th>
+          <th>{% trans "Ticket / bericht" %}</th>
+          <th>{% trans "Deelnemer" %}</th>
+        </tr>
+      </thead>
+      <tbody id="gate-feed-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="gate-card-base">
+  <h2 class="gate-card-title">{% trans "Toestel" %}</h2>
+  <dl class="gate-defs">
+    <div>
+      <dt>{% trans "Actief" %}</dt>
+      <dd>{% if device.is_active %}{% trans "Ja" %}{% else %}{% trans "Nee" %}{% endif %}</dd>
+    </div>
+    <div>
+      <dt>{% trans "API-sleutel" %}</dt>
+      <dd>{{ device.api_key_prefix }}…</dd>
+    </div>
+    <div>
+      <dt>{% trans "Laatste heartbeat" %}</dt>
+      <dd>{{ device.last_heartbeat_at|default:"—" }}</dd>
+    </div>
+    <div>
+      <dt>{% trans "Laatste geldige scan" %}</dt>
+      <dd>{{ device.last_used_at|default:"—" }}</dd>
+    </div>
+  </dl>
+</div>
+
+<div class="gate-card-base">
+  <h2 class="gate-card-title">{% trans "Instellingen op het toestel" %}</h2>
+  {% if reported_config %}
+    {% trans "Alle" as label_alle %}
+    <dl class="gate-defs">
+      <div>
+        <dt>{% trans "API-basis-URL" %}</dt>
+        <dd>{{ reported_config.base_url|default:"—" }}</dd>
+      </div>
+      <div>
+        <dt>{% trans "Host-header" %}</dt>
+        <dd>{{ reported_config.host_header|default:"—" }}</dd>
+      </div>
+      <div>
+        <dt>{% trans "Evenement-ID" %}</dt>
+        <dd>{{ reported_config.event_id|default:label_alle }}</dd>
+      </div>
+      <div>
+        <dt>{% trans "Ticket-ID" %}</dt>
+        <dd>{{ reported_config.ticket_id|default:label_alle }}</dd>
+      </div>
+      <div>
+        <dt>{% trans "Debugmodus" %}</dt>
+        <dd>{% if reported_config.debug %}{% trans "Aan" %}{% else %}{% trans "Uit" %}{% endif %}</dd>
+      </div>
+    </dl>
+    <p class="gate-hint" style="margin: 1rem 0 0;">
+      {% trans "Deze waarden worden door het toestel gerapporteerd en zijn hier alleen-lezen. Wijzig ze met F2 op de scanner zelf." %}
+    </p>
+  {% else %}
+    <p class="gate-hint" style="margin: 0;">
+      {% trans "Nog geen configuratie ontvangen. Zodra de scanner een heartbeat stuurt, verschijnen de instellingen hier." %}
+    </p>
+  {% endif %}
+</div>
+
+<div class="gate-card-base">
+  <h2 class="gate-card-title">{% trans "Geschiedenis" %}</h2>
+
+  <form class="gate-form" method="get">
+    <div class="gate-field">
+      <label for="gate-datum">{% trans "Datum" %}</label>
+      <input type="date" id="gate-datum" name="datum" value="{{ history_filters.datum }}">
+    </div>
+    <div class="gate-field">
+      <label for="gate-outcome">{% trans "Resultaat" %}</label>
+      <select id="gate-outcome" name="outcome">
+        <option value="">{% trans "Alle" %}</option>
+        <option value="success" {% if history_filters.outcome == 'success' %}selected{% endif %}>
+          {% trans "Toegelaten" %}
+        </option>
+        <option value="fail" {% if history_filters.outcome == 'fail' %}selected{% endif %}>
+          {% trans "Geweigerd" %}
+        </option>
+      </select>
+    </div>
+    <div class="gate-field">
+      <label for="gate-q">{% trans "Zoek" %}</label>
+      <input type="search" id="gate-q" name="q" value="{{ history_filters.q }}"
+             placeholder="{% trans 'Deelnemer-ID of bericht' %}">
+    </div>
+    <button type="submit" class="gate-btn gate-btn--primary">{% trans "Filter" %}</button>
+    <a class="gate-btn" href="{{ request.path }}">{% trans "Wis" %}</a>
+  </form>
+
+  <div class="gate-feed-wrap">
+    <table class="gate-feed">
+      <thead>
+        <tr>
+          <th>{% trans "Tijdstip" %}</th>
+          <th>{% trans "Resultaat" %}</th>
+          <th>{% trans "Ticket / bericht" %}</th>
+          <th>{% trans "Deelnemer" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in history %}
+          <tr>
+            <td class="gate-feed__time">{{ log.created_at|date:"d/m/Y H:i:s" }}</td>
+            <td class="gate-feed__outcome {% if log.success %}is-success{% else %}is-fail{% endif %}">
+              {% if log.success %}{% trans "Toegelaten" %}{% else %}{% trans "Geweigerd" %}{% endif %}
+            </td>
+            <td>{{ log.message|default:"—" }}</td>
+            <td>
+              {% if log.participant_id %}
+                <a href="{% url 'admin:pokemon_participant_change' log.participant_id %}">
+                  {{ log.participant_id_raw }}
+                </a>
+              {% else %}
+                {{ log.participant_id_raw|default:"—" }}
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4" class="gate-feed__empty">{% trans "Geen scans gevonden." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if history.has_other_pages %}
+    <div class="gate-pagination">
+      {% if history.has_previous %}
+        <a class="gate-btn" href="?{{ querystring_base }}page={{ history.previous_page_number }}">
+          {% trans "Vorige" %}
+        </a>
+      {% endif %}
+      <span>
+        {% blocktrans with number=history.number total=history.paginator.num_pages %}
+          Pagina {{ number }} van {{ total }}
+        {% endblocktrans %}
+      </span>
+      {% if history.has_next %}
+        <a class="gate-btn" href="?{{ querystring_base }}page={{ history.next_page_number }}">
+          {% trans "Volgende" %}
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+</div>
+
+<script src="{% static 'pokemon/js/gate-dashboard.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,407 @@
+#gate-admin {
+  --gate-radius: 12px;
+  --gate-border: rgb(229 231 235);
+  --gate-surface: rgb(249 250 251);
+  --gate-muted: rgb(107 114 128);
+  --gate-accent: rgb(195 17 26);
+  --gate-success: rgb(22 163 74);
+  --gate-fail: rgb(220 38 38);
+  --gate-offline: rgb(156 163 175);
+  --gate-flash-success: rgb(22 163 74 / 0.25);
+  --gate-flash-fail: rgb(220 38 38 / 0.25);
+}
+
+.dark #gate-admin {
+  --gate-border: rgb(55 65 81);
+  --gate-surface: rgb(31 41 55);
+  --gate-muted: rgb(156 163 175);
+  --gate-success: rgb(34 197 94);
+  --gate-fail: rgb(248 113 113);
+  --gate-offline: rgb(107 114 128);
+  --gate-flash-success: rgb(34 197 94 / 0.3);
+  --gate-flash-fail: rgb(248 113 113 / 0.3);
+}
+
+#gate-admin .gate-page-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+#gate-admin .gate-page-head h1 {
+  margin: 0;
+}
+
+#gate-admin .gate-hint {
+  color: var(--gate-muted);
+  font-size: 0.92rem;
+  margin: 0 0 1.5rem;
+  max-width: 70ch;
+}
+
+#gate-admin .gate-card-base {
+  border: 1px solid var(--gate-border);
+  border-radius: var(--gate-radius);
+  padding: 1rem 1.1rem;
+  margin-bottom: var(--gate-radius);
+  background: inherit;
+}
+
+#gate-admin .gate-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 0.85rem;
+}
+
+/* ---- Live gate cards ---- */
+
+#gate-admin .gate-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+#gate-admin .gate-card {
+  border: 2px solid var(--gate-border);
+  border-radius: var(--gate-radius);
+  padding: 0.9rem 1rem;
+  background: inherit;
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+#gate-admin a.gate-card:hover {
+  border-color: var(--gate-accent);
+}
+
+#gate-admin .gate-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#gate-admin .gate-card__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--gate-offline);
+  flex: 0 0 auto;
+}
+
+#gate-admin .gate-card__dot.is-online {
+  background: var(--gate-success);
+}
+
+#gate-admin .gate-card__name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#gate-admin .gate-card__ticket {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+}
+
+#gate-admin .gate-card__ticket.is-empty {
+  color: var(--gate-muted);
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+#gate-admin .gate-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--gate-muted);
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--gate-border);
+}
+
+/* Border-only flash so the card content stays readable in both themes */
+@keyframes gateCardFlashSuccess {
+  0% {
+    border-color: var(--gate-success);
+    box-shadow: 0 0 0 4px var(--gate-flash-success);
+  }
+  100% {
+    border-color: var(--gate-border);
+    box-shadow: none;
+  }
+}
+
+@keyframes gateCardFlashFail {
+  0% {
+    border-color: var(--gate-fail);
+    box-shadow: 0 0 0 4px var(--gate-flash-fail);
+  }
+  100% {
+    border-color: var(--gate-border);
+    box-shadow: none;
+  }
+}
+
+#gate-admin .gate-card.flash-success {
+  animation: gateCardFlashSuccess 1.2s ease-out;
+}
+
+#gate-admin .gate-card.flash-fail {
+  animation: gateCardFlashFail 1.2s ease-out;
+}
+
+/* ---- KPI bar ---- */
+
+#gate-admin .gate-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+#gate-admin .gate-kpi {
+  border: 1px solid var(--gate-border);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+}
+
+#gate-admin .gate-kpi__label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--gate-muted);
+  font-weight: 600;
+}
+
+#gate-admin .gate-kpi__value {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 0.15rem;
+}
+
+/* ---- Feed / tables ---- */
+
+#gate-admin .gate-feed-wrap {
+  overflow-x: auto;
+}
+
+#gate-admin .gate-feed {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+#gate-admin .gate-feed th {
+  text-align: left;
+  font-size: 0.75rem;
+  color: var(--gate-muted);
+  font-weight: 600;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--gate-border);
+  white-space: nowrap;
+}
+
+#gate-admin .gate-feed td {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--gate-border);
+  vertical-align: middle;
+}
+
+#gate-admin .gate-feed tbody tr:last-child td {
+  border-bottom: none;
+}
+
+#gate-admin .gate-feed__time {
+  font-variant-numeric: tabular-nums;
+  color: var(--gate-muted);
+  white-space: nowrap;
+}
+
+#gate-admin .gate-feed__outcome {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+#gate-admin .gate-feed__outcome.is-success {
+  color: var(--gate-success);
+}
+
+#gate-admin .gate-feed__outcome.is-fail {
+  color: var(--gate-fail);
+}
+
+#gate-admin .gate-feed__empty {
+  color: var(--gate-muted);
+  padding: 1.2rem 0.7rem;
+  text-align: center;
+}
+
+/* ---- Filters and buttons ---- */
+
+#gate-admin .gate-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.9rem;
+}
+
+#gate-admin .gate-chip {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--gate-border);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+#gate-admin .gate-chip:hover {
+  border-color: var(--gate-accent);
+}
+
+#gate-admin .gate-chip.is-active {
+  background: var(--gate-accent);
+  border-color: var(--gate-accent);
+  color: #fff;
+}
+
+#gate-admin .gate-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+#gate-admin .gate-field {
+  display: flex;
+  flex-direction: column;
+}
+
+#gate-admin .gate-field label {
+  font-size: 0.75rem;
+  color: var(--gate-muted);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+#gate-admin .gate-field input,
+#gate-admin .gate-field select {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--gate-border);
+  border-radius: 8px;
+  background: var(--gate-surface);
+  color: inherit;
+  font-size: 0.88rem;
+}
+
+#gate-admin .gate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 8px;
+  border: 1px solid var(--gate-border);
+  background: transparent;
+  color: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+#gate-admin .gate-btn:hover {
+  border-color: var(--gate-accent);
+}
+
+#gate-admin .gate-btn--primary {
+  background: var(--gate-accent);
+  border-color: var(--gate-accent);
+  color: #fff;
+}
+
+/* ---- Definition lists ---- */
+
+#gate-admin .gate-defs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+#gate-admin .gate-defs div {
+  border: 1px solid var(--gate-border);
+  border-radius: 8px;
+  padding: 0.65rem 0.8rem;
+}
+
+#gate-admin .gate-defs dt {
+  font-size: 0.75rem;
+  color: var(--gate-muted);
+  font-weight: 600;
+}
+
+#gate-admin .gate-defs dd {
+  margin: 0.25rem 0 0;
+  font-size: 0.92rem;
+  word-break: break-word;
+}
+
+#gate-admin .gate-pagination {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 1rem;
+  color: var(--gate-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- Live indicator ---- */
+
+#gate-admin .gate-live-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--gate-muted);
+}
+
+#gate-admin .gate-live-dot::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--gate-success);
+  animation: gateLivePulse 2s ease-in-out infinite;
+}
+
+@keyframes gateLivePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #gate-admin .gate-card.flash-success,
+  #gate-admin .gate-card.flash-fail,
+  #gate-admin .gate-live-dot::before {
+    animation: none;
+  }
+}

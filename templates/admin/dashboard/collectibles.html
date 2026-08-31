@@ -34,6 +34,38 @@
     </div>
 </section>
 
+<section class="dash-card">
+    <div class="dash-card__head">
+        <h2 class="dash-card__title">{% trans "Toegangscontrole" %}</h2>
+        <a class="dash-card__link" href="{{ gate_stats.monitor_url }}">{% trans "Open gate monitor" %}</a>
+    </div>
+
+    {% if gate_stats.devices %}
+        <div class="dash-kpis">
+            <div class="dash-kpi">
+                <span class="dash-kpi__label">{% trans "Scanners online" %}</span>
+                <span class="dash-kpi__value">
+                    {{ gate_stats.aggregate.online_count }}/{{ gate_stats.aggregate.total_count }}
+                </span>
+            </div>
+            <div class="dash-kpi">
+                <span class="dash-kpi__label">{% trans "Scans vandaag" %}</span>
+                <span class="dash-kpi__value">{{ gate_stats.aggregate.today_total }}</span>
+            </div>
+            <div class="dash-kpi">
+                <span class="dash-kpi__label">{% trans "Toegelaten" %}</span>
+                <span class="dash-kpi__value">{{ gate_stats.aggregate.today_success }}</span>
+            </div>
+            <div class="dash-kpi">
+                <span class="dash-kpi__label">{% trans "Geweigerd" %}</span>
+                <span class="dash-kpi__value">{{ gate_stats.aggregate.today_fail }}</span>
+            </div>
+        </div>
+    {% else %}
+        <p class="dash-empty">{% trans "Nog geen gate-scanners aangemaakt." %}</p>
+    {% endif %}
+</section>
+
 <div class="dash-grid-2">
     <section class="dash-card">
         <div class="dash-card__head">

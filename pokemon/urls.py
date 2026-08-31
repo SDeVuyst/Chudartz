@@ -27,6 +27,7 @@ urlpatterns = i18n_patterns(
 
     path("pokemon/set-attendance/", views.set_attendance),
     path("pokemon/gate/check-in/", views.gate_check_in, name="gate_check_in"),
+    path("pokemon/gate/heartbeat/", views.gate_heartbeat, name="gate_heartbeat"),
 
     path(_('sponsors/'), views.sponsors, name='sponsors'),
     path(_('algemene_voorwaarden/'), views.algemene_voorwaarden, name='algemene_voorwaarden'),

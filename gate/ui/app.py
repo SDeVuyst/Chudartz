@@ -8,7 +8,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import font as tkfont
 
-from api import check_in
+from api import check_in, send_heartbeat
 from config import is_configured, load_config, optional_id
 from parse_qr import QRParseError, parse_qr
 from sound import play_error, play_success
@@ -17,6 +17,7 @@ from ui.settings import SettingsDialog
 
 COOLDOWN_MS = 4000
 HEADER_IDLE_MS = 2500
+HEARTBEAT_MS = 30000
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 LOGO_PATH = ASSETS_DIR / "logo.png"
 
@@ -81,6 +82,7 @@ class GateApp(tk.Tk):
         self._apply_debug_visibility()
         self._set_debug_lines([i18n.DEBUG_WAITING])
         self._schedule_header_hide()
+        self._schedule_heartbeat()
 
         if not is_configured(self.config_data):
             self.after(200, self.open_settings)
@@ -461,7 +463,27 @@ class GateApp(tk.Tk):
         if not self._busy and self._state in ("success", "fail"):
             self._set_state("idle", i18n.TITLE_IDLE, i18n.MSG_READY)
 
+    def _schedule_heartbeat(self):
+        self._send_heartbeat(self._state)
+        self.after(HEARTBEAT_MS, self._schedule_heartbeat)
+
+    def _send_heartbeat(self, status: str):
+        if not is_configured(self.config_data):
+            return
+        config = dict(self.config_data)
+        thread = threading.Thread(
+            target=send_heartbeat,
+            args=(config["base_url"], config["api_key"], status, config),
+            kwargs={
+                "host_header": config.get("host_header") or "chudartz-collectibles.com"
+            },
+            daemon=True,
+        )
+        thread.start()
+
     def _set_state(self, state: str, title: str, message: str):
+        if state != self._state:
+            self._send_heartbeat(state)
         self._state = state
         if state == "success":
             color = COLORS["success"]

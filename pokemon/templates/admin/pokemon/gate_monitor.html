@@ -1,0 +1,67 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Gate monitor" %} | Chudartz Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'pokemon/css/gate-monitor.css' %}">
+{% endblock %}
+
+{% block content %}
+<script type="application/json" id="gate-monitor-boot">{{ boot_json|safe }}</script>
+
+<div id="gate-admin">
+<div class="gate-page-head">
+  <h1>{% trans "Gate monitor" %}</h1>
+  <span class="gate-live-dot" id="gate-live-indicator">{% trans "Live" %}</span>
+</div>
+<p class="gate-hint">
+  {% trans "Alle scanners in één overzicht. De kaart van een ingang licht groen op bij een geldig ticket en rood bij een weigering." %}
+</p>
+
+<div class="gate-cards" id="gate-cards"></div>
+
+<div class="gate-kpis">
+  <div class="gate-kpi">
+    <div class="gate-kpi__label">{% trans "Scans vandaag" %}</div>
+    <div class="gate-kpi__value" data-kpi="today_total">0</div>
+  </div>
+  <div class="gate-kpi">
+    <div class="gate-kpi__label">{% trans "Toegelaten" %}</div>
+    <div class="gate-kpi__value" data-kpi="today_success">0</div>
+  </div>
+  <div class="gate-kpi">
+    <div class="gate-kpi__label">{% trans "Geweigerd" %}</div>
+    <div class="gate-kpi__value" data-kpi="today_fail">0</div>
+  </div>
+  <div class="gate-kpi">
+    <div class="gate-kpi__label">{% trans "Online" %}</div>
+    <div class="gate-kpi__value" data-kpi="online">0/0</div>
+  </div>
+</div>
+
+<div class="gate-card-base">
+  <h2 class="gate-card-title">{% trans "Live scans" %}</h2>
+
+  <div class="gate-filters" id="gate-feed-filters"></div>
+
+  <div class="gate-feed-wrap">
+    <table class="gate-feed">
+      <thead>
+        <tr>
+          <th>{% trans "Tijd" %}</th>
+          <th>{% trans "Ingang" %}</th>
+          <th>{% trans "Resultaat" %}</th>
+          <th>{% trans "Ticket / bericht" %}</th>
+          <th>{% trans "Deelnemer" %}</th>
+        </tr>
+      </thead>
+      <tbody id="gate-feed-body"></tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<script src="{% static 'pokemon/js/gate-monitor.js' %}"></script>
+{% endblock %}

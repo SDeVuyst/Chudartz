@@ -1,10 +1,13 @@
 from django.contrib import messages
 from django.contrib import admin
 from django import forms
-from django.http import HttpResponse, JsonResponse
+from django.core.paginator import Paginator
+from django.db.models import Count, Q
+from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import path, reverse
 from django.utils import timezone
+from django.utils.dateparse import parse_date
 from django.utils.translation import gettext as _
 import json
 from io import BytesIO
@@ -30,6 +33,7 @@ from pokemon.standhouder_studio import (
     handle_preview_post,
     preview_steps_for,
 )
+from pokemon.services.gate import device_payload, monitor_payload
 from pokemon.models import VraagType
 from decimal import Decimal, InvalidOperation
 from djmoney.money import Money
@@ -1017,15 +1021,63 @@ class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(GateDevice)
 class GateDeviceAdmin(ModelAdmin):
-    list_display = ("name", "api_key_prefix", "is_active", "created_at", "last_used_at")
+    list_display = (
+        "name",
+        "online_badge",
+        "status_badge",
+        "scans_today",
+        "api_key_prefix",
+        "is_active",
+        "last_used_at",
+    )
     list_filter = ("is_active",)
     search_fields = ("name", "api_key_prefix")
-    readonly_fields = ("api_key_prefix", "created_at", "last_used_at")
+    readonly_fields = (
+        "api_key_prefix",
+        "created_at",
+        "last_used_at",
+        "last_heartbeat_at",
+        "last_status",
+        "reported_config",
+    )
+    actions_list = ["open_monitor"]
+    actions_detail = ["open_gate_dashboard"]
 
     def get_fields(self, request, obj=None):
         if obj is None:
             return ("name", "is_active")
-        return ("name", "is_active", "api_key_prefix", "created_at", "last_used_at")
+        return (
+            "name",
+            "is_active",
+            "api_key_prefix",
+            "created_at",
+            "last_used_at",
+            "last_heartbeat_at",
+            "last_status",
+            "reported_config",
+        )
+
+    def get_queryset(self, request):
+        today_start = timezone.localtime().replace(
+            hour=0, minute=0, second=0, microsecond=0
+        )
+        return super().get_queryset(request).annotate(
+            today_scans=Count(
+                "scan_logs", filter=Q(scan_logs__created_at__gte=today_start)
+            )
+        )
+
+    @display(description=_("Verbinding"), label=True)
+    def online_badge(self, obj):
+        return _("Online") if obj.is_online else _("Offline")
+
+    @display(description=_("Status"))
+    def status_badge(self, obj):
+        return obj.get_last_status_display()
+
+    @display(description=_("Scans vandaag"), ordering="today_scans")
+    def scans_today(self, obj):
+        return obj.today_scans
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -1039,3 +1091,133 @@ class GateDeviceAdmin(ModelAdmin):
                 % {"key": raw_key},
             )
         super().save_model(request, obj, form, change)
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                'monitor/',
+                self.admin_site.admin_view(self.gate_monitor_view),
+                name='pokemon_gate_monitor',
+            ),
+            path(
+                'monitor/status/',
+                self.admin_site.admin_view(self.gate_monitor_status_view),
+                name='pokemon_gate_monitor_status',
+            ),
+            path(
+                '<int:object_id>/dashboard/',
+                self.admin_site.admin_view(self.gate_dashboard_view),
+                name='pokemon_gate_dashboard',
+            ),
+            path(
+                '<int:object_id>/dashboard/status/',
+                self.admin_site.admin_view(self.gate_dashboard_status_view),
+                name='pokemon_gate_dashboard_status',
+            ),
+        ]
+        return custom_urls + urls
+
+    @action(description=_("Gate monitor"))
+    def open_monitor(self, request):
+        return redirect(reverse('admin:pokemon_gate_monitor'))
+
+    @action(description=_("Live dashboard"))
+    def open_gate_dashboard(self, request, object_id: int):
+        return redirect(reverse('admin:pokemon_gate_dashboard', args=[object_id]))
+
+    def gate_monitor_view(self, request):
+        payload = monitor_payload()
+        return render(request, 'admin/pokemon/gate_monitor.html', {
+            'title': _('Gate monitor'),
+            'boot_json': json.dumps({
+                'statusUrl': reverse('admin:pokemon_gate_monitor_status'),
+                'detailUrlTemplate': reverse(
+                    'admin:pokemon_gate_dashboard', args=[0]
+                ).replace('/0/', '/__ID__/'),
+                'pollMs': 2000,
+                **payload,
+            }),
+        })
+
+    def gate_monitor_status_view(self, request):
+        return JsonResponse(monitor_payload(request.GET.get('since_scan_id')))
+
+    def gate_dashboard_view(self, request, object_id):
+        device = get_object_or_404(GateDevice, pk=object_id)
+        payload = device_payload(device)
+        history = self._scan_history(request, device)
+        return render(request, 'admin/pokemon/gate_dashboard.html', {
+            'title': _('Gate dashboard'),
+            'device': device,
+            'monitor_url': reverse('admin:pokemon_gate_monitor'),
+            'reported_config': (device.reported_config or {}),
+            'history': history['page'],
+            'history_filters': history['filters'],
+            'querystring_base': history['querystring_base'],
+            'boot_json': json.dumps({
+                'statusUrl': reverse(
+                    'admin:pokemon_gate_dashboard_status', args=[object_id]
+                ),
+                'pollMs': 2000,
+                **payload,
+            }),
+        })
+
+    def gate_dashboard_status_view(self, request, object_id):
+        device = get_object_or_404(GateDevice, pk=object_id)
+        return JsonResponse(
+            device_payload(device, request.GET.get('since_scan_id'))
+        )
+
+    def _scan_history(self, request, device):
+        """Paginated, filterable scan history for the detail page."""
+        outcome = request.GET.get('outcome', '')
+        datum = request.GET.get('datum', '')
+        zoek = request.GET.get('q', '').strip()
+
+        logs = device.scan_logs.select_related('device')
+        if outcome == 'success':
+            logs = logs.filter(success=True)
+        elif outcome == 'fail':
+            logs = logs.filter(success=False)
+        if datum:
+            parsed = parse_date(datum)
+            if parsed:
+                logs = logs.filter(created_at__date=parsed)
+        if zoek:
+            filters = Q(message__icontains=zoek)
+            if zoek.isdigit():
+                filters |= Q(participant_id_raw=int(zoek))
+            logs = logs.filter(filters)
+
+        params = QueryDict(mutable=True)
+        for key, value in (('outcome', outcome), ('datum', datum), ('q', zoek)):
+            if value:
+                params[key] = value
+        querystring_base = params.urlencode()
+
+        paginator = Paginator(logs, 50)
+        return {
+            'page': paginator.get_page(request.GET.get('page')),
+            'filters': {'outcome': outcome, 'datum': datum, 'q': zoek},
+            'querystring_base': f'{querystring_base}&' if querystring_base else '',
+        }
+
+
+@admin.register(GateScanLog)
+class GateScanLogAdmin(ModelAdmin):
+    list_display = ("created_at", "device", "outcome", "message", "participant_id_raw")
+    list_filter = ("success", ("device", RelatedDropdownFilter))
+    search_fields = ("message", "participant_id_raw")
+    date_hierarchy = "created_at"
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    @display(description=_("Resultaat"), label=True)
+    def outcome(self, obj):
+        return _("Toegelaten") if obj.success else _("Geweigerd")

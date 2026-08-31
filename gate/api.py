@@ -105,6 +105,48 @@ def check_in(
         )
 
 
+def send_heartbeat(
+    base_url: str,
+    api_key: str,
+    status: str,
+    config: dict,
+    host_header: str = "chudartz-collectibles.com",
+    timeout: float = 5.0,
+) -> bool:
+    """Report the current gate status to the server. Failures are silent by design."""
+    url = base_url.rstrip("/") + "/en/pokemon/gate/heartbeat/"
+    payload = {"status": status, "config": _safe_config(config)}
+    headers = {
+        "Content-Type": "application/json",
+        "X-Gate-Api-Key": api_key,
+        "Accept": "application/json",
+    }
+    if host_header:
+        headers["Host"] = host_header
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        method="POST",
+        headers=headers,
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return response.getcode() == 200
+    except (urllib.error.URLError, TimeoutError, OSError):
+        return False
+
+
+def _safe_config(config: dict) -> dict:
+    """Config snapshot for the server, without the API key itself."""
+    return {
+        "base_url": config.get("base_url", ""),
+        "host_header": config.get("host_header", ""),
+        "event_id": config.get("event_id", ""),
+        "ticket_id": config.get("ticket_id", ""),
+        "debug": bool(config.get("debug")),
+    }
+
+
 def _parse_json(raw: str) -> dict:
     try:
         data = json.loads(raw) if raw else {}

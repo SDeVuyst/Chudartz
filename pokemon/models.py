@@ -1207,8 +1207,18 @@ class StandhouderVraagAntwoord(models.Model):
         return False
 
 
+class GateStatus(models.TextChoices):
+    IDLE = "idle", _("Idle")
+    CHECKING = "checking", _("Checking")
+    SUCCESS = "success", _("Success")
+    FAIL = "fail", _("Failed")
+
+
 class GateDevice(models.Model):
     """Hardware gate scanner authenticated by a device API key."""
+
+    # A gate counts as online when it sent a heartbeat within this window.
+    ONLINE_TIMEOUT_SECONDS = 90
 
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     is_active = models.BooleanField(default=True, verbose_name=_("Active"))
@@ -1221,6 +1231,21 @@ class GateDevice(models.Model):
     api_key_hash = models.CharField(max_length=255, editable=False, verbose_name=_("API key hash"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
     last_used_at = models.DateTimeField(null=True, blank=True, verbose_name=_("Last used at"))
+    last_heartbeat_at = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Last heartbeat at")
+    )
+    last_status = models.CharField(
+        max_length=20,
+        choices=GateStatus.choices,
+        default=GateStatus.IDLE,
+        verbose_name=_("Last status"),
+    )
+    reported_config = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name=_("Reported config"),
+        help_text=_("Configuration snapshot as reported by the device."),
+    )
 
     class Meta:
         verbose_name = _("Gate device")
@@ -1257,3 +1282,61 @@ class GateDevice(models.Model):
     def touch_last_used(self):
         self.last_used_at = timezone.now()
         self.save(update_fields=["last_used_at"])
+
+    def register_heartbeat(self, status: str, config: dict | None = None):
+        self.last_heartbeat_at = timezone.now()
+        fields = ["last_heartbeat_at"]
+        if status in GateStatus.values:
+            self.last_status = status
+            fields.append("last_status")
+        if config is not None:
+            self.reported_config = config
+            fields.append("reported_config")
+        self.save(update_fields=fields)
+
+    @property
+    def is_online(self) -> bool:
+        if not self.last_heartbeat_at:
+            return False
+        age = (timezone.now() - self.last_heartbeat_at).total_seconds()
+        return age <= self.ONLINE_TIMEOUT_SECONDS
+
+
+class GateScanLog(models.Model):
+    """Audit trail of every gate scan attempt, successful or rejected."""
+
+    device = models.ForeignKey(
+        GateDevice,
+        on_delete=models.CASCADE,
+        related_name="scan_logs",
+        verbose_name=_("Gate device"),
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Scanned at"))
+    success = models.BooleanField(verbose_name=_("Accepted"))
+    message = models.CharField(max_length=255, blank=True, verbose_name=_("Message"))
+    participant = models.ForeignKey(
+        "Participant",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="gate_scans",
+        verbose_name=_("Participant"),
+    )
+    participant_id_raw = models.IntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Scanned participant ID"),
+        help_text=_("Raw ID from the QR code, also kept when no participant was found."),
+    )
+
+    class Meta:
+        verbose_name = _("Gate scan")
+        verbose_name_plural = _("Gate scans")
+        ordering = ("-created_at",)
+        indexes = [
+            models.Index(fields=["device", "-created_at"]),
+        ]
+
+    def __str__(self):
+        outcome = _("accepted") if self.success else _("rejected")
+        return f"{self.device.name} — {outcome} — {self.created_at:%Y-%m-%d %H:%M:%S}"

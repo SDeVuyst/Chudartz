@@ -416,6 +416,11 @@ UNFOLD = {
                         "icon": "qr_code_scanner",
                         "link": "https://chudartz-collectibles.com/pokemon/scanner/", #TODO reverse
                     },
+                    {
+                        "title": _("Gate monitor"),
+                        "icon": "sensor_door",
+                        "link": "/admin/pokemon/gatedevice/monitor/",
+                    },
                 ]
             },
 

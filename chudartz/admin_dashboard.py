@@ -179,6 +179,18 @@ def _collectibles_recent_activity():
     return items[:15]
 
 
+def _gate_stats():
+    """Summary of gate activity for the dashboard card."""
+    from pokemon.services.gate import monitor_payload
+
+    payload = monitor_payload()
+    return {
+        "aggregate": payload["aggregate"],
+        "devices": payload["devices"],
+        "monitor_url": reverse("admin:pokemon_gate_monitor"),
+    }
+
+
 def dashboard_callback(request, context):
     view = _resolve_view(request)
 
@@ -213,6 +225,7 @@ def dashboard_callback(request, context):
                 "evenementen": evenementen,
                 "standhouders": _pending_standhouders(),
                 "recent_activity": _collectibles_recent_activity(),
+                "gate_stats": _gate_stats(),
             }
         )
 
