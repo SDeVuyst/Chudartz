@@ -1,0 +1,44 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block title %}
+    {% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_("Django site admin") }}
+{% endblock %}
+
+{% block content %}
+<div id="admin-dashboard">
+    <div class="dash-wrap">
+
+        <nav class="dash-nav" aria-label="{% trans 'Dashboard navigatie' %}">
+            <div class="dash-nav__tabs">
+                {% for tab in dashboard_tabs %}
+                    <a
+                        href="?view={{ tab.id }}"
+                        class="dash-nav__btn {% if dashboard_view == tab.id %}is-active{% endif %}"
+                    >
+                        <span class="material-symbols-outlined">{{ tab.icon }}</span>
+                        {{ tab.label }}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="dash-nav__external">
+                {% for link in external_links %}
+                    <a class="dash-nav__btn dash-nav__btn--external" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+                        <span class="material-symbols-outlined">{{ link.icon }}</span>
+                        {{ link.title }}
+                    </a>
+                {% endfor %}
+            </div>
+        </nav>
+
+        {% if dashboard_view == "darts" %}
+            {% include "admin/dashboard/darts.html" %}
+        {% else %}
+            {% include "admin/dashboard/collectibles.html" %}
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

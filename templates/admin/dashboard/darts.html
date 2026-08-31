@@ -1,0 +1,164 @@
+{% load i18n %}
+<section class="dash-card">
+    <div class="dash-card__head">
+        <h2 class="dash-card__title">{% trans "Mollie omzet (30 dagen)" %}</h2>
+        <a class="dash-card__link" href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">
+            {% trans "Open Mollie" %}
+        </a>
+    </div>
+
+    {% if mollie_stats.error %}
+        <p class="dash-alert">
+            {{ mollie_stats.error }}.
+            <a href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">{% trans "Bekijk in Mollie" %}</a>
+        </p>
+    {% endif %}
+
+    <div class="dash-kpis">
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Betaald" %}</span>
+            <span class="dash-kpi__value">€{{ mollie_stats.totals.paid_amount|floatformat:2 }}</span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Betalingen" %}</span>
+            <span class="dash-kpi__value">{{ mollie_stats.totals.paid }}</span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Open" %}</span>
+            <span class="dash-kpi__value">{{ mollie_stats.totals.open }}</span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Mislukt" %}</span>
+            <span class="dash-kpi__value">{{ mollie_stats.totals.failed }}</span>
+        </div>
+    </div>
+</section>
+
+<section class="dash-card">
+    <div class="dash-card__head">
+        <h2 class="dash-card__title">{% trans "Dartschool waarschuwing" %}</h2>
+        <a class="dash-card__link" href="{% url 'admin:darts_leerling_changelist' %}">{% trans "Beheer" %}</a>
+    </div>
+
+    {% if leerlingen_waarschuwing %}
+        <ul class="dash-list">
+            {% for leerling in leerlingen_waarschuwing %}
+                <li class="dash-list__item">
+                    <div class="dash-list__main">
+                        <a class="dash-list__title" href="{% url 'admin:darts_leerling_change' leerling.pk %}">
+                            {{ leerling.voornaam }} {{ leerling.achternaam }}
+                        </a>
+                        <div class="dash-list__meta">{{ leerling.email }}</div>
+                    </div>
+                    <span class="dash-badge {% if leerling.resterende_beurten == 0 %}dash-badge--danger{% else %}dash-badge--warning{% endif %}">
+                        {{ leerling.resterende_beurten }} {% trans "beurten" %}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="dash-empty">{% trans "Geen leerlingen met weinig beurten." %}</p>
+    {% endif %}
+</section>
+
+<div class="dash-grid-2">
+    <section class="dash-card">
+        <div class="dash-card__head">
+            <h2 class="dash-card__title">{% trans "Cal.com boekingen" %}</h2>
+            <a class="dash-card__link" href="{{ calcom_bookings.url }}" target="_blank" rel="noopener noreferrer">
+                {% trans "Alle boekingen" %}
+            </a>
+        </div>
+
+        {% if calcom_bookings.error %}
+            <p class="dash-alert">
+                {{ calcom_bookings.error }}.
+                <a href="{{ calcom_bookings.url }}" target="_blank" rel="noopener noreferrer">{% trans "Open Cal.com" %}</a>
+            </p>
+        {% endif %}
+
+        {% if calcom_bookings.bookings %}
+            <ul class="dash-list">
+                {% for booking in calcom_bookings.bookings %}
+                    <li class="dash-list__item">
+                        <div class="dash-list__main">
+                            <a class="dash-list__title" href="{{ booking.url }}" target="_blank" rel="noopener noreferrer">
+                                {{ booking.title }}
+                            </a>
+                            <div class="dash-list__meta">
+                                {% if booking.start %}{{ booking.start|date:"d/m/Y H:i" }}{% endif %}
+                                {% if booking.attendees %} · {{ booking.attendees|join:", " }}{% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% elif not calcom_bookings.error %}
+            <p class="dash-empty">{% trans "Geen aankomende boekingen." %}</p>
+        {% endif %}
+    </section>
+
+    <section class="dash-card">
+        <div class="dash-card__head">
+            <h2 class="dash-card__title">{% trans "Aankomende dartskampen" %}</h2>
+            <a class="dash-card__link" href="{% url 'admin:darts_dartskamp_changelist' %}">{% trans "Beheer" %}</a>
+        </div>
+
+        {% if dartskampen %}
+            <ul class="dash-list">
+                {% for kamp in dartskampen %}
+                    <li class="dash-list__item">
+                        <div class="dash-list__main">
+                            <a class="dash-list__title" href="{% url 'admin:darts_dartskamp_change' kamp.pk %}">
+                                {{ kamp.titel }}
+                            </a>
+                            <div class="dash-list__meta">
+                                {{ kamp.start_datum|date:"d/m/Y H:i" }} · {{ kamp.deelnemers_count }}/{{ kamp.max_deelnemers }}
+                            </div>
+                            <div class="dash-progress">
+                                <div class="dash-progress__bar" style="width: {% if kamp.max_deelnemers %}{% widthratio kamp.deelnemers_count kamp.max_deelnemers 100 %}{% else %}0{% endif %}%;"></div>
+                            </div>
+                        </div>
+                        {% if kamp.is_sold_out %}
+                            <span class="dash-badge dash-badge--danger">{% trans "Volzet" %}</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="dash-empty">{% trans "Geen aankomende dartskampen." %}</p>
+        {% endif %}
+    </section>
+</div>
+
+<section class="dash-card">
+    <div class="dash-card__head">
+        <h2 class="dash-card__title">{% trans "Recente activiteit" %}</h2>
+        <a class="dash-card__link" href="{% url 'admin:darts_participant_changelist' %}">{% trans "Beheer" %}</a>
+    </div>
+
+    {% if recent_activity %}
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Naam" %}</th>
+                    <th>{% trans "Detail" %}</th>
+                    <th>{% trans "Datum" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in recent_activity %}
+                    <tr>
+                        <td>{{ item.type_label }}</td>
+                        <td><a href="{{ item.url }}">{{ item.label }}</a></td>
+                        <td>{{ item.detail }}</td>
+                        <td>{{ item.sort_key|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="dash-empty">{% trans "Geen recente activiteit." %}</p>
+    {% endif %}
+</section>

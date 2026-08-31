@@ -1,0 +1,130 @@
+{% load i18n %}
+<section class="dash-card">
+    <div class="dash-card__head">
+        <h2 class="dash-card__title">{% trans "Mollie omzet (30 dagen)" %}</h2>
+        <a class="dash-card__link" href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">
+            {% trans "Open Mollie" %}
+        </a>
+    </div>
+
+    {% if mollie_stats.error %}
+        <p class="dash-alert">
+            {{ mollie_stats.error }}.
+            <a href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">{% trans "Bekijk in Mollie" %}</a>
+        </p>
+    {% endif %}
+
+    <div class="dash-kpis">
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Betaald" %}</span>
+            <span class="dash-kpi__value">€{{ mollie_stats.totals.paid_amount|floatformat:2 }}</span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Betalingen" %}</span>
+            <span class="dash-kpi__value">{{ mollie_stats.totals.paid }}</span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Open" %}</span>
+            <span class="dash-kpi__value">{{ mollie_stats.totals.open }}</span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Mislukt" %}</span>
+            <span class="dash-kpi__value">{{ mollie_stats.totals.failed }}</span>
+        </div>
+    </div>
+</section>
+
+<div class="dash-grid-2">
+    <section class="dash-card">
+        <div class="dash-card__head">
+            <h2 class="dash-card__title">{% trans "Aankomende evenementen" %}</h2>
+            <a class="dash-card__link" href="{% url 'admin:pokemon_evenement_changelist' %}">{% trans "Beheer" %}</a>
+        </div>
+
+        {% if evenementen %}
+            <ul class="dash-list">
+                {% for evenement in evenementen %}
+                    {% with count=evenement.dashboard_participants max=evenement.max_deelnemers %}
+                        <li class="dash-list__item">
+                            <div class="dash-list__main">
+                                <a class="dash-list__title" href="{% url 'admin:pokemon_evenement_change' evenement.pk %}">
+                                    {{ evenement.titel }}
+                                </a>
+                                <div class="dash-list__meta">
+                                    {{ evenement.start_datum|date:"d/m/Y H:i" }} · {{ count }}/{{ max }}
+                                </div>
+                                <div class="dash-progress">
+                                    <div class="dash-progress__bar" style="width: {% if max %}{% widthratio count max 100 %}{% else %}0{% endif %}%;"></div>
+                                </div>
+                            </div>
+                            {% if evenement.is_sold_out %}
+                                <span class="dash-badge dash-badge--danger">{% trans "Uitverkocht" %}</span>
+                            {% endif %}
+                        </li>
+                    {% endwith %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="dash-empty">{% trans "Geen aankomende evenementen." %}</p>
+        {% endif %}
+    </section>
+
+    <section class="dash-card">
+        <div class="dash-card__head">
+            <h2 class="dash-card__title">{% trans "Standhouder ingediend" %}</h2>
+            <a class="dash-card__link" href="{% url 'admin:pokemon_standhouderinschrijving_changelist' %}">{% trans "Beheer" %}</a>
+        </div>
+
+        {% if standhouders %}
+            <ul class="dash-list">
+                {% for inschrijving in standhouders %}
+                    <li class="dash-list__item">
+                        <div class="dash-list__main">
+                            <a class="dash-list__title" href="{% url 'admin:pokemon_standhouderinschrijving_change' inschrijving.pk %}">
+                                {{ inschrijving.bedrijfsnaam|default:inschrijving.naam }}
+                            </a>
+                            <div class="dash-list__meta">
+                                {{ inschrijving.evenement.titel }} · {{ inschrijving.aangemaakt_op|date:"d/m/Y H:i" }}
+                            </div>
+                        </div>
+                        <span class="dash-badge dash-badge--warning">{% trans "Ingediend" %}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="dash-empty">{% trans "Geen openstaande standhouder-inschrijvingen." %}</p>
+        {% endif %}
+    </section>
+</div>
+
+<section class="dash-card">
+    <div class="dash-card__head">
+        <h2 class="dash-card__title">{% trans "Recente activiteit" %}</h2>
+        <a class="dash-card__link" href="{% url 'admin:pokemon_participant_changelist' %}">{% trans "Beheer" %}</a>
+    </div>
+
+    {% if recent_activity %}
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Naam" %}</th>
+                    <th>{% trans "Detail" %}</th>
+                    <th>{% trans "Datum" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in recent_activity %}
+                    <tr>
+                        <td>{{ item.type_label }}</td>
+                        <td><a href="{{ item.url }}">{{ item.label }}</a></td>
+                        <td>{{ item.detail }}</td>
+                        <td>{{ item.sort_key|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="dash-empty">{% trans "Geen recente activiteit." %}</p>
+    {% endif %}
+</section>

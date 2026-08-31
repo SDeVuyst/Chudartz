@@ -227,6 +227,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'chudartz', 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
@@ -250,6 +251,10 @@ UNFOLD = {
     "SITE_SYMBOL": "target",
     "SHOW_HISTORY": True, 
     "SHOW_VIEW_ON_SITE": True,
+    "DASHBOARD_CALLBACK": "chudartz.admin_dashboard.dashboard_callback",
+    "STYLES": [
+        lambda request: static("chudartz/admin-dashboard.css"),
+    ],
 
     "COLORS": {
         "primary": {
