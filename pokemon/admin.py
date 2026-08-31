@@ -20,7 +20,19 @@ from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExpor
 
 
 from .models import *
-from pokemon.standhouder_wizard import serialize_zaalplan_grid
+from pokemon.standhouder_wizard import (
+    clear_studio_preview_inschrijving,
+    serialize_standhouder_vraag,
+    serialize_zaalplan_grid,
+)
+from pokemon.standhouder_studio import (
+    build_preview_step_context,
+    handle_preview_post,
+    preview_steps_for,
+)
+from pokemon.models import VraagType
+from decimal import Decimal, InvalidOperation
+from djmoney.money import Money
 
 # INLINES #
 class TicketInline(StackedInline):
@@ -47,9 +59,10 @@ class EvenementFotoInline(StackedInline):
 
 class StandhouderVraagInline(StackedInline):
     model = StandhouderVraag
-    extra = 1
+    extra = 0
+    classes = ["collapse"]
     verbose_name = _("Standhouder vraag")
-    verbose_name_plural = _("Standhouder vragen")
+    verbose_name_plural = _("Standhouder vragen (legacy — gebruik Standhouder studio)")
     ordering = ("volgorde",)
     fields = (
         "tekst",
@@ -320,7 +333,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         TicketInline,
         EvenementFotoInline,
     ]
-    actions_detail = ["generate_qr_code", "beheer_zaalplan"]
+    actions_detail = ["generate_qr_code", "beheer_zaalplan", "standhouder_studio"]
     list_filter = (EvenementEinddatumFilter,)
     list_filter_submit = True
 
@@ -345,6 +358,10 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         }),
         (_("Standhouders · algemeen"), {
             "fields": ("enable_standhouder", "standhouder_inbegrepen", "standhouder_prijzen"),
+            "description": _(
+                "Vragen en live voorvertoning beheer je via de knop 'Standhouder studio' bovenaan. "
+                "Zaalplan via 'Zaalplan beheren'."
+            ),
         }),
         (_("Standhouders · tafels & prijzen"), {
             "fields": (
@@ -408,6 +425,41 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 '<int:object_id>/zaalplan/split/',
                 self.admin_site.admin_view(self.zaalplan_split_view),
                 name='pokemon_zaalplan_split',
+            ),
+            path(
+                '<int:object_id>/standhouder-studio/',
+                self.admin_site.admin_view(self.standhouder_studio_view),
+                name='pokemon_standhouder_studio',
+            ),
+            path(
+                '<int:object_id>/standhouder-studio/preview/',
+                self.admin_site.admin_view(self.standhouder_studio_preview_view),
+                name='pokemon_standhouder_studio_preview',
+            ),
+            path(
+                '<int:object_id>/standhouder-studio/vragen/',
+                self.admin_site.admin_view(self.standhouder_studio_vragen_list_view),
+                name='pokemon_standhouder_studio_vragen',
+            ),
+            path(
+                '<int:object_id>/standhouder-studio/vragen/save/',
+                self.admin_site.admin_view(self.standhouder_studio_vraag_save_view),
+                name='pokemon_standhouder_studio_vraag_save',
+            ),
+            path(
+                '<int:object_id>/standhouder-studio/vragen/delete/',
+                self.admin_site.admin_view(self.standhouder_studio_vraag_delete_view),
+                name='pokemon_standhouder_studio_vraag_delete',
+            ),
+            path(
+                '<int:object_id>/standhouder-studio/vragen/reorder/',
+                self.admin_site.admin_view(self.standhouder_studio_vragen_reorder_view),
+                name='pokemon_standhouder_studio_vragen_reorder',
+            ),
+            path(
+                '<int:object_id>/standhouder-studio/copy/',
+                self.admin_site.admin_view(self.standhouder_studio_copy_save_view),
+                name='pokemon_standhouder_studio_copy',
             ),
         ]
         return custom_urls + urls
@@ -580,6 +632,218 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     @action(description=_("Zaalplan beheren"))
     def beheer_zaalplan(self, request, object_id: int):
         return redirect(reverse('admin:pokemon_zaalplan_editor', args=[object_id]))
+
+    @action(description=_("Standhouder studio"))
+    def standhouder_studio(self, request, object_id: int):
+        return redirect(reverse('admin:pokemon_standhouder_studio', args=[object_id]))
+
+    def standhouder_studio_view(self, request, object_id):
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        vragen = [
+            serialize_standhouder_vraag(v)
+            for v in StandhouderVraag.objects.filter(evenement=evenement).order_by("volgorde", "id")
+        ]
+        prijs = evenement.standhouder_prijs_per_tafel
+        boot = {
+            'previewUrl': reverse('admin:pokemon_standhouder_studio_preview', args=[object_id]),
+            'previewSteps': preview_steps_for(evenement),
+            'vragen': vragen,
+            'vraagTypes': [{"value": c[0], "label": str(c[1])} for c in VraagType.CHOICES],
+            'zaalplanActief': evenement.standhouder_zaalplan_actief,
+            'csrfToken': request.META.get('CSRF_COOKIE') or '',
+            'api': {
+                'vragen': reverse('admin:pokemon_standhouder_studio_vragen', args=[object_id]),
+                'vraagSave': reverse('admin:pokemon_standhouder_studio_vraag_save', args=[object_id]),
+                'vraagDelete': reverse('admin:pokemon_standhouder_studio_vraag_delete', args=[object_id]),
+                'vragenReorder': reverse('admin:pokemon_standhouder_studio_vragen_reorder', args=[object_id]),
+                'copy': reverse('admin:pokemon_standhouder_studio_copy', args=[object_id]),
+            },
+            'copy': {
+                'standhouder_inbegrepen': evenement.standhouder_inbegrepen or '',
+                'standhouder_prijzen': evenement.standhouder_prijzen or '',
+                'standhouder_prijs_per_tafel': str(prijs.amount) if prijs else '0',
+                'standhouder_prijs_excl_btw': evenement.standhouder_prijs_excl_btw,
+                'standhouder_prijs_btw_percentage': str(evenement.standhouder_prijs_btw_percentage),
+                'standhouder_max_tafels': evenement.standhouder_max_tafels,
+                'standhouder_zaalplan_actief': evenement.standhouder_zaalplan_actief,
+            },
+        }
+        # Prefer form csrf token
+        from django.middleware.csrf import get_token
+        boot['csrfToken'] = get_token(request)
+
+        return render(request, 'admin/pokemon/standhouder_studio.html', {
+            'evenement': evenement,
+            'title': _('Standhouder studio'),
+            'boot_json': json.dumps(boot),
+            'zaalplan_url': reverse('admin:pokemon_zaalplan_editor', args=[object_id]),
+            'event_change_url': reverse('admin:pokemon_evenement_change', args=[object_id]),
+        })
+
+    def standhouder_studio_preview_view(self, request, object_id):
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        step = request.GET.get('step') or request.POST.get('step') or ''
+
+        if request.method == 'POST':
+            from pokemon.standhouder_wizard import get_or_create_studio_preview_inschrijving
+            inschrijving = get_or_create_studio_preview_inschrijving(request, evenement)
+            next_step, err = handle_preview_post(request, evenement, step, inschrijving)
+            if err is None:
+                return redirect(
+                    reverse('admin:pokemon_standhouder_studio_preview', args=[object_id])
+                    + f'?step={next_step}'
+                )
+            context, template = build_preview_step_context(request, evenement, step)
+            if hasattr(err, 'is_bound'):
+                context['form'] = err
+            else:
+                context['error'] = str(err)
+            return render(request, template, context)
+
+        context, template = build_preview_step_context(request, evenement, step)
+        return render(request, template, context)
+
+    def standhouder_studio_vragen_list_view(self, request, object_id):
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        vragen = [
+            serialize_standhouder_vraag(v)
+            for v in StandhouderVraag.objects.filter(evenement=evenement).order_by("volgorde", "id")
+        ]
+        return JsonResponse({'success': True, 'vragen': vragen})
+
+    def _parse_vraag_payload(self, data, evenement, vraag=None):
+        tekst = (data.get('tekst') or '').strip()
+        if not tekst:
+            raise ValueError(_('Vraagtekst is verplicht.'))
+        vraag_type = data.get('vraag_type') or VraagType.BOOLEAN
+        valid_types = {c[0] for c in VraagType.CHOICES}
+        if vraag_type not in valid_types:
+            raise ValueError(_('Ongeldig vraagtype.'))
+
+        toeslag_raw = data.get('prijs_toeslag')
+        toeslag = None
+        if toeslag_raw not in (None, ''):
+            try:
+                toeslag = Money(Decimal(str(toeslag_raw)), 'EUR')
+            except (InvalidOperation, ValueError) as exc:
+                raise ValueError(_('Ongeldige toeslag.')) from exc
+
+        btw_pct = data.get('prijs_toeslag_btw_percentage')
+        if btw_pct in (None, ''):
+            btw_pct = Decimal('21.00')
+        else:
+            btw_pct = Decimal(str(btw_pct))
+
+        def opt_int(key):
+            val = data.get(key)
+            if val in (None, ''):
+                return None
+            return int(val)
+
+        fields = {
+            'evenement': evenement,
+            'tekst': tekst[:200],
+            'vraag_type': vraag_type,
+            'opties': data.get('opties') or '',
+            'verplicht': bool(data.get('verplicht')),
+            'volgorde': int(data.get('volgorde') or (vraag.volgorde if vraag else 0)),
+            'prijs_toeslag': toeslag,
+            'prijs_toeslag_excl_btw': bool(data.get('prijs_toeslag_excl_btw')),
+            'prijs_toeslag_btw_percentage': btw_pct,
+            'is_borg': bool(data.get('is_borg')),
+            'min_tafels': opt_int('min_tafels'),
+            'max_tafels': opt_int('max_tafels'),
+        }
+        return fields
+
+    def standhouder_studio_vraag_save_view(self, request, object_id):
+        if request.method != 'POST':
+            return JsonResponse({'success': False, 'error': 'POST required'}, status=405)
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        try:
+            data = json.loads(request.body)
+            vraag_id = data.get('id')
+            vraag = None
+            if vraag_id:
+                vraag = get_object_or_404(StandhouderVraag, pk=vraag_id, evenement=evenement)
+            fields = self._parse_vraag_payload(data, evenement, vraag)
+            if vraag:
+                for key, value in fields.items():
+                    if key == 'evenement':
+                        continue
+                    setattr(vraag, key, value)
+                vraag.save()
+            else:
+                max_volgorde = (
+                    StandhouderVraag.objects.filter(evenement=evenement)
+                    .order_by('-volgorde')
+                    .values_list('volgorde', flat=True)
+                    .first()
+                )
+                if data.get('volgorde') in (None, ''):
+                    fields['volgorde'] = (max_volgorde or 0) + 1
+                vraag = StandhouderVraag.objects.create(**fields)
+            return JsonResponse({'success': True, 'vraag': serialize_standhouder_vraag(vraag)})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+    def standhouder_studio_vraag_delete_view(self, request, object_id):
+        if request.method != 'POST':
+            return JsonResponse({'success': False, 'error': 'POST required'}, status=405)
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        try:
+            data = json.loads(request.body)
+            vraag = get_object_or_404(StandhouderVraag, pk=data['id'], evenement=evenement)
+            vraag.delete()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+    def standhouder_studio_vragen_reorder_view(self, request, object_id):
+        if request.method != 'POST':
+            return JsonResponse({'success': False, 'error': 'POST required'}, status=405)
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        try:
+            data = json.loads(request.body)
+            order = data.get('order') or []
+            for index, vraag_id in enumerate(order):
+                StandhouderVraag.objects.filter(pk=vraag_id, evenement=evenement).update(volgorde=index)
+            vragen = [
+                serialize_standhouder_vraag(v)
+                for v in StandhouderVraag.objects.filter(evenement=evenement).order_by("volgorde", "id")
+            ]
+            return JsonResponse({'success': True, 'vragen': vragen})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+    def standhouder_studio_copy_save_view(self, request, object_id):
+        if request.method != 'POST':
+            return JsonResponse({'success': False, 'error': 'POST required'}, status=405)
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        try:
+            data = json.loads(request.body)
+            if 'standhouder_inbegrepen' in data:
+                evenement.standhouder_inbegrepen = data['standhouder_inbegrepen'] or ''
+            if 'standhouder_prijzen' in data:
+                evenement.standhouder_prijzen = data['standhouder_prijzen'] or ''
+            if not evenement.standhouder_zaalplan_actief:
+                if data.get('standhouder_prijs_per_tafel') not in (None, ''):
+                    evenement.standhouder_prijs_per_tafel = Money(
+                        Decimal(str(data['standhouder_prijs_per_tafel'])), 'EUR'
+                    )
+                if 'standhouder_prijs_excl_btw' in data:
+                    evenement.standhouder_prijs_excl_btw = bool(data['standhouder_prijs_excl_btw'])
+                if data.get('standhouder_prijs_btw_percentage') not in (None, ''):
+                    evenement.standhouder_prijs_btw_percentage = Decimal(
+                        str(data['standhouder_prijs_btw_percentage'])
+                    )
+            if data.get('standhouder_max_tafels') not in (None, ''):
+                evenement.standhouder_max_tafels = max(1, int(data['standhouder_max_tafels']))
+            evenement.save()
+            clear_studio_preview_inschrijving(request, evenement)
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

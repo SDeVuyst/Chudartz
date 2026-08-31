@@ -1,0 +1,58 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'nl' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% trans "Voorvertoning" %} — {{ evenement.titel }}</title>
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'pokemon/css/main.css' %}" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #f5f6f8;
+      font-family: "Open Sans", system-ui, sans-serif;
+    }
+    .studio-preview-banner {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 0.45rem 0.75rem;
+    }
+    .studio-preview-banner span { color: #94a3b8; font-weight: 500; }
+    .standhouder.service-details { padding: 1.25rem 0 2rem; }
+    .service-box.register {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.25rem 1.35rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    }
+  </style>
+</head>
+<body class="evenementen-page studio-preview-body">
+
+  <section class="standhouder service-details section">
+    <div class="container-fluid px-3">
+      <div class="row gy-4">
+        <div class="col-lg-4">
+          {% include 'pokemon/blocks/standhouder-prijzen.html' with prijzen=evenement.standhouder_prijzen_lijst %}
+          {% include 'pokemon/blocks/inbegrepen.html' with items=evenement.standhouder_inbegrepen_lijst %}
+        </div>
+        <div class="col-lg-8">
+          <div class="service-box register">
+            {% if error %}
+              <div class="alert-standhouder error">{{ error }}</div>
+            {% endif %}
+            {% block preview_content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% block preview_scripts %}{% endblock %}
+</body>
+</html>

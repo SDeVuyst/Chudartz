@@ -1,0 +1,62 @@
+{% load i18n %}
+<h4>{% trans 'Overzicht en bevestigen' %}</h4>
+
+{% if not inschrijving or inschrijving.aantal_tafels == 0 %}
+  <p class="text-muted">{% trans "Selecteer eerst tafels (of een aantal) en vul gegevens in om het overzicht te zien." %}</p>
+  <a href="?step={% if zaalplan_actief %}tafels{% else %}vragen{% endif %}" class="btn btn-back">{% trans 'Terug naar start' %}</a>
+{% else %}
+<div class="mb-4">
+  <h5>{% trans 'Uw gegevens' %}</h5>
+  <p>
+    <strong>{{ inschrijving.bedrijfsnaam|default:"—" }}</strong><br>
+    {{ inschrijving.naam|default:"—" }} <br>
+    {{ inschrijving.email|default:"—" }} · {{ inschrijving.telefoon|default:"—" }}
+  </p>
+</div>
+
+<div class="mb-4">
+  {% if zaalplan_actief %}
+    <h5>{% trans 'Gekozen tafels' %}</h5>
+    <p>{% for cel in inschrijving.gekozen_tafels %}{{ cel.display_label }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</p>
+  {% else %}
+    <h5>{% trans 'Aantal tafels' %}</h5>
+    <p>{{ inschrijving.aantal_tafels_manueel|default:"—" }}</p>
+  {% endif %}
+</div>
+
+{% if antwoorden %}
+<div class="mb-4">
+  <h5>{% trans 'Antwoorden' %}</h5>
+  <ul>
+    {% for antwoord in antwoorden %}
+      <li><strong>{{ antwoord.vraag.tekst }}:</strong> {{ antwoord.weergave }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="mb-4">
+  <h5>{% trans 'Prijsopbouw (indicatief)' %}</h5>
+  <table class="prijsopbouw-table">
+    {% for regel in prijsopbouw %}
+      <tr{% if regel.is_btw %} class="prijsopbouw-btw"{% endif %}><td>{{ regel.omschrijving }}</td><td>€{{ regel.bedrag }}</td></tr>
+    {% endfor %}
+    <tr><td><strong>{% trans 'Totaal' %}</strong></td><td><strong>€{{ totaal }}</strong></td></tr>
+  </table>
+</div>
+
+{% if online_betaling %}
+<div class="alert-standhouder warning mb-4">
+  {% trans "Bezoekers zouden na bevestiging naar Mollie gaan." %}
+</div>
+{% else %}
+<div class="alert-standhouder warning mb-4">
+  {% trans "Bezoekers dienen een voorlopige aanvraag in (geen online betaling)." %}
+</div>
+{% endif %}
+
+<div class="d-flex justify-content-between">
+  <a href="?step=vragen" class="btn btn-back">{% trans 'Terug' %}</a>
+  <span class="text-muted small align-self-center">{% trans "Voorvertoning — indienen gebeurt via testmodus" %}</span>
+</div>
+{% endif %}

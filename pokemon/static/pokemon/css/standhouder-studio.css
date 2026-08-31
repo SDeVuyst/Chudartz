@@ -1,0 +1,313 @@
+.sh-studio {
+  --sh-bg: #0f172a;
+  --sh-surface: #1e293b;
+  --sh-surface-2: #162032;
+  --sh-border: #334155;
+  --sh-text: #e2e8f0;
+  --sh-muted: #94a3b8;
+  --sh-accent: #6366f1;
+  --sh-danger: #ef4444;
+  color: var(--sh-text);
+}
+
+.sh-studio__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.sh-studio__head h1 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.sh-studio__sub {
+  margin: 0.25rem 0 0;
+  color: var(--sh-muted);
+}
+
+.sh-studio__head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sh-studio__grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .sh-studio__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sh-card {
+  background: var(--sh-surface);
+  border: 1px solid var(--sh-border);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.sh-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.sh-card__title {
+  margin: 0 0 0.75rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sh-muted);
+  font-weight: 700;
+}
+
+.sh-card__head .sh-card__title {
+  margin: 0;
+}
+
+.sh-hint {
+  color: var(--sh-muted);
+  font-size: 0.82rem;
+  margin: 0 0 0.85rem;
+}
+
+.sh-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--sh-muted);
+  font-weight: 600;
+  margin: 0.65rem 0 0.3rem;
+}
+
+.sh-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--sh-border);
+  background: var(--sh-surface-2);
+  color: var(--sh-text);
+  font-size: 0.9rem;
+}
+
+.sh-input:focus {
+  outline: none;
+  border-color: var(--sh-accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22);
+}
+
+.sh-check {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.65rem 0;
+  font-size: 0.88rem;
+}
+
+.sh-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.sh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--sh-border);
+  background: var(--sh-surface-2);
+  color: var(--sh-text);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.sh-btn:hover {
+  border-color: var(--sh-accent);
+}
+
+.sh-btn--primary {
+  background: var(--sh-accent);
+  border-color: var(--sh-accent);
+  color: #fff;
+}
+
+.sh-btn--danger {
+  border-color: #7f1d1d;
+  color: #fecaca;
+}
+
+.sh-btn--ghost {
+  background: transparent;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.78rem;
+}
+
+.sh-vragen-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-height: 2rem;
+}
+
+.sh-vraag-card {
+  background: var(--sh-surface-2);
+  border: 1px solid var(--sh-border);
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  cursor: grab;
+}
+
+.sh-vraag-card.is-dragging {
+  opacity: 0.6;
+}
+
+.sh-vraag-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.sh-vraag-card__tekst {
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.sh-vraag-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+}
+
+.sh-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: #1b2540;
+  color: #c7d2fe;
+  border: 1px solid #3730a3;
+}
+
+.sh-badge--warn {
+  background: #3b1d1d;
+  color: #fecaca;
+  border-color: #7f1d1d;
+}
+
+.sh-vraag-card__actions {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.sh-studio__preview {
+  background: var(--sh-surface);
+  border: 1px solid var(--sh-border);
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-preview-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--sh-border);
+  background: var(--sh-surface-2);
+}
+
+.sh-preview-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sh-muted);
+  font-weight: 700;
+  margin-right: 0.35rem;
+}
+
+.sh-preview-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.sh-preview-step {
+  border: 1px solid var(--sh-border);
+  background: var(--sh-bg);
+  color: var(--sh-text);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sh-preview-step.is-active {
+  border-color: var(--sh-accent);
+  background: #1b2540;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+}
+
+.sh-preview-frame {
+  width: 100%;
+  flex: 1;
+  min-height: 65vh;
+  border: 0;
+  background: #f5f6f8;
+}
+
+.sh-dialog {
+  border: 1px solid var(--sh-border);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+  background: var(--sh-surface);
+  color: var(--sh-text);
+  width: min(520px, 94vw);
+}
+
+.sh-dialog::backdrop {
+  background: rgba(2, 6, 23, 0.65);
+}
+
+.sh-dialog h3 {
+  margin: 0 0 0.75rem;
+}
+
+.sh-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.sh-empty {
+  color: var(--sh-muted);
+  font-size: 0.88rem;
+  padding: 0.5rem 0;
+}

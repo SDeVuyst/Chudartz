@@ -1,0 +1,452 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Standhouder studio" %}: {{ evenement.titel }} | Chudartz Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<style>
+  #standhouder-studio {
+    --sh-bg: #0f172a;
+    --sh-surface: #1e293b;
+    --sh-surface-2: #0f172a;
+    --sh-border: #334155;
+    --sh-text: #e2e8f0;
+    --sh-muted: #94a3b8;
+    --sh-accent: #6366f1;
+    --sh-danger: #ef4444;
+    color: var(--sh-text);
+    max-width: 100%;
+  }
+  #standhouder-studio * { box-sizing: border-box; }
+
+  #standhouder-studio .sh-studio__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+  }
+  #standhouder-studio .sh-studio__head h1 {
+    margin: 0;
+    font-size: 1.45rem;
+    color: var(--sh-text);
+    font-weight: 700;
+  }
+  #standhouder-studio .sh-studio__sub {
+    margin: 0.3rem 0 0;
+    color: var(--sh-muted);
+    font-size: 0.95rem;
+  }
+  #standhouder-studio .sh-studio__head-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  #standhouder-studio .sh-studio__grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+    gap: 1.1rem;
+    align-items: stretch;
+  }
+  @media (max-width: 1100px) {
+    #standhouder-studio .sh-studio__grid { grid-template-columns: 1fr; }
+  }
+
+  #standhouder-studio .sh-card {
+    background: var(--sh-surface);
+    border: 1px solid var(--sh-border);
+    border-radius: 14px;
+    padding: 1.05rem 1.15rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+  }
+  #standhouder-studio .sh-card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.55rem;
+  }
+  #standhouder-studio .sh-card__title {
+    margin: 0 0 0.85rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sh-muted);
+    font-weight: 700;
+  }
+  #standhouder-studio .sh-card__head .sh-card__title { margin: 0; }
+  #standhouder-studio .sh-hint {
+    color: var(--sh-muted);
+    font-size: 0.82rem;
+    margin: 0 0 0.85rem;
+    line-height: 1.4;
+  }
+
+  #standhouder-studio .sh-field { margin-bottom: 0.75rem; }
+  #standhouder-studio .sh-label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--sh-muted);
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+  }
+  #standhouder-studio .sh-input,
+  #standhouder-studio textarea.sh-input,
+  #standhouder-studio select.sh-input,
+  #standhouder-studio input.sh-input {
+    display: block;
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid var(--sh-border);
+    background: var(--sh-surface-2) !important;
+    color: var(--sh-text) !important;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  #standhouder-studio textarea.sh-input { min-height: 5.5rem; resize: vertical; }
+  #standhouder-studio .sh-input:focus {
+    outline: none;
+    border-color: var(--sh-accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+  }
+  #standhouder-studio .sh-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.55rem 0 0.85rem;
+    font-size: 0.88rem;
+    color: var(--sh-text);
+  }
+  #standhouder-studio .sh-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  #standhouder-studio .sh-btn,
+  #standhouder-studio a.sh-btn,
+  #standhouder-studio button.sh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 8px;
+    border: 1px solid var(--sh-border);
+    background: var(--sh-surface-2);
+    color: var(--sh-text) !important;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none !important;
+    line-height: 1.2;
+  }
+  #standhouder-studio .sh-btn:hover {
+    border-color: var(--sh-accent);
+    background: #172033;
+  }
+  #standhouder-studio .sh-btn--primary {
+    background: var(--sh-accent) !important;
+    border-color: var(--sh-accent) !important;
+    color: #fff !important;
+  }
+  #standhouder-studio .sh-btn--primary:hover { background: #4f46e5 !important; }
+  #standhouder-studio .sh-btn--danger {
+    border-color: #7f1d1d;
+    color: #fecaca !important;
+    background: #1f1212;
+  }
+  #standhouder-studio .sh-btn--ghost {
+    background: transparent;
+    padding: 0.3rem 0.55rem;
+    font-size: 0.78rem;
+  }
+  #standhouder-studio .sh-actions-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.85rem;
+  }
+
+  #standhouder-studio .sh-vragen-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    min-height: 2rem;
+  }
+  #standhouder-studio .sh-vraag-card {
+    background: var(--sh-surface-2);
+    border: 1px solid var(--sh-border);
+    border-radius: 10px;
+    padding: 0.75rem 0.85rem;
+    cursor: grab;
+  }
+  #standhouder-studio .sh-vraag-card.is-dragging { opacity: 0.55; }
+  #standhouder-studio .sh-vraag-card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  #standhouder-studio .sh-vraag-card__tekst {
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin: 0;
+    color: var(--sh-text);
+  }
+  #standhouder-studio .sh-vraag-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.45rem;
+  }
+  #standhouder-studio .sh-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: #1b2540;
+    color: #c7d2fe;
+    border: 1px solid #3730a3;
+  }
+  #standhouder-studio .sh-badge--warn {
+    background: #3b1d1d;
+    color: #fecaca;
+    border-color: #7f1d1d;
+  }
+  #standhouder-studio .sh-vraag-card__actions {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+  #standhouder-studio .sh-empty {
+    color: var(--sh-muted);
+    font-size: 0.88rem;
+    padding: 0.65rem 0.2rem;
+  }
+
+  #standhouder-studio .sh-studio__preview {
+    background: var(--sh-surface);
+    border: 1px solid var(--sh-border);
+    border-radius: 14px;
+    overflow: hidden;
+    min-height: 72vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+  }
+  #standhouder-studio .sh-preview-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    align-items: center;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--sh-border);
+    background: var(--sh-surface-2);
+  }
+  #standhouder-studio .sh-preview-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sh-muted);
+    font-weight: 700;
+    margin-right: 0.25rem;
+  }
+  #standhouder-studio .sh-preview-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    flex: 1;
+  }
+  #standhouder-studio .sh-preview-step {
+    border: 1px solid var(--sh-border);
+    background: var(--sh-bg);
+    color: var(--sh-text);
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #standhouder-studio .sh-preview-step.is-active {
+    border-color: var(--sh-accent);
+    background: #1b2540;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+  }
+  #standhouder-studio .sh-preview-frame {
+    width: 100%;
+    flex: 1;
+    min-height: 64vh;
+    border: 0;
+    background: #f5f6f8;
+  }
+
+  #standhouder-studio .sh-dialog {
+    border: 1px solid var(--sh-border);
+    border-radius: 14px;
+    padding: 1.15rem 1.25rem;
+    background: var(--sh-surface);
+    color: var(--sh-text);
+    width: min(520px, 94vw);
+  }
+  #standhouder-studio .sh-dialog::backdrop { background: rgba(2, 6, 23, 0.65); }
+  #standhouder-studio .sh-dialog h3 { margin: 0 0 0.85rem; color: var(--sh-text); }
+  #standhouder-studio .sh-dialog__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  #standhouder-studio .sh-toast {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 40;
+    margin: 0 0 0.85rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 10px;
+    background: #14532d;
+    border: 1px solid #166534;
+    color: #dcfce7;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  #standhouder-studio .sh-toast.is-error {
+    background: #3b1d1d;
+    border-color: #7f1d1d;
+    color: #fecaca;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<script type="application/json" id="sh-studio-boot">{{ boot_json|safe }}</script>
+
+<div class="sh-studio" id="standhouder-studio">
+  <div class="sh-studio__head">
+    <div>
+      <h1>{% trans "Standhouder studio" %}</h1>
+      <p class="sh-studio__sub">{{ evenement.titel }}</p>
+    </div>
+    <div class="sh-studio__head-actions">
+      <a class="sh-btn" href="{{ event_change_url }}">{% trans "Terug naar evenement" %}</a>
+      {% if evenement.standhouder_zaalplan_actief %}
+        <a class="sh-btn" href="{{ zaalplan_url }}">{% trans "Zaalplan beheren" %}</a>
+      {% endif %}
+      <button type="button" class="sh-btn sh-btn--primary" id="sh-save-all">{% trans "Opslaan" %}</button>
+    </div>
+  </div>
+  <div id="sh-toast" class="sh-toast" hidden></div>
+
+  <div class="sh-studio__grid">
+    <aside class="sh-studio__builder">
+      <section class="sh-card">
+        <h2 class="sh-card__title">{% trans "Sidebar-teksten" %}</h2>
+        <div class="sh-field">
+          <label class="sh-label" for="sh-copy-prijzen">{% trans "Prijzen (één per regel)" %}</label>
+          <textarea id="sh-copy-prijzen" class="sh-input" rows="4"></textarea>
+        </div>
+        <div class="sh-field">
+          <label class="sh-label" for="sh-copy-inbegrepen">{% trans "Inbegrepen (één per regel)" %}</label>
+          <textarea id="sh-copy-inbegrepen" class="sh-input" rows="4"></textarea>
+        </div>
+        {% if not evenement.standhouder_zaalplan_actief %}
+        <div class="sh-row">
+          <div class="sh-field">
+            <label class="sh-label" for="sh-copy-prijs">{% trans "Prijs per tafel" %}</label>
+            <input type="number" step="0.01" id="sh-copy-prijs" class="sh-input">
+          </div>
+          <div class="sh-field">
+            <label class="sh-label" for="sh-copy-btw">{% trans "BTW %" %}</label>
+            <input type="number" step="0.01" id="sh-copy-btw" class="sh-input">
+          </div>
+        </div>
+        <label class="sh-check">
+          <input type="checkbox" id="sh-copy-excl-btw">
+          {% trans "Prijs exclusief BTW" %}
+        </label>
+        {% endif %}
+        <div class="sh-field" style="max-width: 10rem;">
+          <label class="sh-label" for="sh-copy-max-tafels">{% trans "Max. tafels" %}</label>
+          <input type="number" min="1" id="sh-copy-max-tafels" class="sh-input">
+        </div>
+        <p class="sh-hint" style="margin-top:0.35rem;margin-bottom:0;">{% trans "Gebruik ‘Opslaan’ bovenaan om teksten en instellingen te bewaren. Vragen worden apart per bewerking opgeslagen." %}</p>
+      </section>
+
+      <section class="sh-card">
+        <div class="sh-card__head">
+          <h2 class="sh-card__title">{% trans "Vragen" %}</h2>
+          <button type="button" class="sh-btn sh-btn--primary" id="sh-vraag-add">{% trans "Vraag toevoegen" %}</button>
+        </div>
+        <p class="sh-hint">{% trans "Sleep om te herordenen. Wijzigingen verschijnen meteen in de voorvertoning." %}</p>
+        <div id="sh-vragen-list" class="sh-vragen-list"></div>
+      </section>
+    </aside>
+
+    <section class="sh-studio__preview">
+      <div class="sh-preview-toolbar">
+        <span class="sh-preview-label">{% trans "Live voorvertoning" %}</span>
+        <div id="sh-preview-steps" class="sh-preview-steps"></div>
+        <button type="button" class="sh-btn" id="sh-preview-refresh">{% trans "Vernieuwen" %}</button>
+      </div>
+      <iframe id="sh-preview-frame" class="sh-preview-frame" title="{% trans 'Voorvertoning standhouder' %}"></iframe>
+    </section>
+  </div>
+
+  <dialog id="sh-vraag-dialog" class="sh-dialog">
+    <form id="sh-vraag-form" action="#">
+      <h3 id="sh-vraag-dialog-title">{% trans "Vraag bewerken" %}</h3>
+      <input type="hidden" id="sh-vraag-id">
+      <div class="sh-field">
+        <label class="sh-label" for="sh-vraag-tekst">{% trans "Vraag" %}</label>
+        <input type="text" id="sh-vraag-tekst" class="sh-input" required maxlength="200">
+      </div>
+      <div class="sh-field">
+        <label class="sh-label" for="sh-vraag-type">{% trans "Type" %}</label>
+        <select id="sh-vraag-type" class="sh-input"></select>
+      </div>
+      <div class="sh-field">
+        <label class="sh-label" for="sh-vraag-opties">{% trans "Opties (één per regel, voor keuzelijst)" %}</label>
+        <textarea id="sh-vraag-opties" class="sh-input" rows="3"></textarea>
+      </div>
+      <label class="sh-check"><input type="checkbox" id="sh-vraag-verplicht"> {% trans "Verplicht" %}</label>
+      <div class="sh-row">
+        <div class="sh-field">
+          <label class="sh-label" for="sh-vraag-toeslag">{% trans "Toeslag (€)" %}</label>
+          <input type="number" step="0.01" id="sh-vraag-toeslag" class="sh-input">
+        </div>
+        <div class="sh-field">
+          <label class="sh-label" for="sh-vraag-btw">{% trans "BTW %" %}</label>
+          <input type="number" step="0.01" id="sh-vraag-btw" class="sh-input" value="21">
+        </div>
+      </div>
+      <label class="sh-check"><input type="checkbox" id="sh-vraag-excl-btw"> {% trans "Toeslag exclusief BTW" %}</label>
+      <label class="sh-check"><input type="checkbox" id="sh-vraag-borg"> {% trans "Niet-terugbetaalbare reservatiekost" %}</label>
+      <div class="sh-row">
+        <div class="sh-field">
+          <label class="sh-label" for="sh-vraag-min">{% trans "Min. tafels" %}</label>
+          <input type="number" min="1" id="sh-vraag-min" class="sh-input">
+        </div>
+        <div class="sh-field">
+          <label class="sh-label" for="sh-vraag-max">{% trans "Max. tafels" %}</label>
+          <input type="number" min="1" id="sh-vraag-max" class="sh-input">
+        </div>
+      </div>
+      <div class="sh-dialog__actions">
+        <button type="button" class="sh-btn" id="sh-vraag-cancel">{% trans "Annuleren" %}</button>
+        <button type="submit" class="sh-btn sh-btn--primary">{% trans "Opslaan" %}</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+
+<script>
+{% include "admin/pokemon/_standhouder_studio.js" %}
+</script>
+{% endblock %}

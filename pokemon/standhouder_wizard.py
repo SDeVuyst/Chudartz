@@ -32,6 +32,10 @@ def pending_inschrijving_session_key(evenement):
     return f"standhouder_pending_{evenement.slug}"
 
 
+def studio_preview_session_key(evenement):
+    return f"standhouder_studio_preview_{evenement.slug}"
+
+
 STANDHOUDER_STAP_URLS = {
     "tafels": "standhouder",
     "gegevens": "standhouder_gegevens",
@@ -40,8 +44,8 @@ STANDHOUDER_STAP_URLS = {
 }
 
 
-def get_concept_inschrijving(request, evenement):
-    pk = request.session.get(session_key(evenement))
+def get_concept_inschrijving(request, evenement, *, session_key_fn=session_key):
+    pk = request.session.get(session_key_fn(evenement))
     if not pk:
         return None
     return StandhouderInschrijving.objects.filter(
@@ -51,24 +55,65 @@ def get_concept_inschrijving(request, evenement):
     ).first()
 
 
-def set_concept_inschrijving(request, inschrijving):
-    request.session[session_key(inschrijving.evenement)] = inschrijving.pk
+def set_concept_inschrijving(request, inschrijving, *, session_key_fn=session_key):
+    request.session[session_key_fn(inschrijving.evenement)] = inschrijving.pk
 
 
-def clear_concept_inschrijving(request, evenement):
-    request.session.pop(session_key(evenement), None)
+def clear_concept_inschrijving(request, evenement, *, session_key_fn=session_key):
+    request.session.pop(session_key_fn(evenement), None)
 
 
-def get_or_create_concept_inschrijving(request, evenement):
-    inschrijving = get_concept_inschrijving(request, evenement)
+def get_or_create_concept_inschrijving(request, evenement, *, session_key_fn=session_key):
+    inschrijving = get_concept_inschrijving(request, evenement, session_key_fn=session_key_fn)
     if inschrijving:
         return inschrijving
     inschrijving = StandhouderInschrijving.objects.create(
         evenement=evenement,
         status=StandhouderInschrijvingStatus.CONCEPT,
     )
-    set_concept_inschrijving(request, inschrijving)
+    set_concept_inschrijving(request, inschrijving, session_key_fn=session_key_fn)
     return inschrijving
+
+
+def get_or_create_studio_preview_inschrijving(request, evenement):
+    return get_or_create_concept_inschrijving(
+        request, evenement, session_key_fn=studio_preview_session_key
+    )
+
+
+def get_studio_preview_inschrijving(request, evenement):
+    return get_concept_inschrijving(
+        request, evenement, session_key_fn=studio_preview_session_key
+    )
+
+
+def clear_studio_preview_inschrijving(request, evenement):
+    inschrijving = get_studio_preview_inschrijving(request, evenement)
+    clear_concept_inschrijving(
+        request, evenement, session_key_fn=studio_preview_session_key
+    )
+    if inschrijving and inschrijving.status == StandhouderInschrijvingStatus.CONCEPT:
+        inschrijving.delete()
+
+
+def serialize_standhouder_vraag(vraag):
+    toeslag = None
+    if vraag.prijs_toeslag is not None:
+        toeslag = str(vraag.prijs_toeslag.amount)
+    return {
+        "id": vraag.pk,
+        "tekst": vraag.tekst,
+        "vraag_type": vraag.vraag_type,
+        "opties": vraag.opties,
+        "verplicht": vraag.verplicht,
+        "volgorde": vraag.volgorde,
+        "prijs_toeslag": toeslag,
+        "prijs_toeslag_excl_btw": vraag.prijs_toeslag_excl_btw,
+        "prijs_toeslag_btw_percentage": str(vraag.prijs_toeslag_btw_percentage),
+        "is_borg": vraag.is_borg,
+        "min_tafels": vraag.min_tafels,
+        "max_tafels": vraag.max_tafels,
+    }
 
 
 def heeft_gegevens(inschrijving):

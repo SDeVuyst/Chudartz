@@ -6,9 +6,13 @@
         <div class="wizard-progress__row">
           <div class="wizard-progress__node">
             {% if stap.is_reachable %}
-              <a href="{% url stap.url_name slug=evenement.slug %}" class="wizard-progress__link">
+              <a href="{% if stap.preview_url %}{{ stap.preview_url }}{% else %}{% url stap.url_name slug=evenement.slug %}{% endif %}" class="wizard-progress__link">
                 <span class="wizard-progress__dot" aria-hidden="true">
-                  <i class="bi bi-check-lg"></i>
+                  {% if stap.nummer < wizard_stap %}
+                    <i class="bi bi-check-lg"></i>
+                  {% else %}
+                    {{ stap.nummer }}
+                  {% endif %}
                 </span>
                 <span class="wizard-progress__label">{{ stap.label }}</span>
               </a>

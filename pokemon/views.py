@@ -526,6 +526,9 @@ def standhouder_gegevens(request, slug):
     if not evenement:
         return HttpResponseNotFound()
 
+    if not evenement.standhouder_inschrijving_mogelijk:
+        return redirect("evenement", slug=slug)
+
     inschrijving = _require_concept_inschrijving(request, evenement)
     if not inschrijving:
         return redirect("standhouder", slug=slug)
@@ -560,6 +563,9 @@ def standhouder_vragen(request, slug):
     evenement = _get_standhouder_evenement(slug)
     if not evenement:
         return HttpResponseNotFound()
+
+    if not evenement.standhouder_inschrijving_mogelijk:
+        return redirect("evenement", slug=slug)
 
     inschrijving = _require_concept_inschrijving(request, evenement)
     if not inschrijving:
@@ -634,6 +640,9 @@ def standhouder_overzicht(request, slug):
     if not evenement:
         return HttpResponseNotFound()
 
+    if not evenement.standhouder_inschrijving_mogelijk:
+        return redirect("evenement", slug=slug)
+
     inschrijving = _require_concept_inschrijving(request, evenement)
     if not inschrijving:
         return redirect("standhouder", slug=slug)
@@ -698,6 +707,7 @@ def standhouder_success(request, slug):
         return HttpResponseNotFound()
 
     context = standhouder_base_context(request, evenement, "success")
+
     inschrijving_pk = request.session.get(pending_inschrijving_session_key(evenement))
     inschrijving = None
     if inschrijving_pk:

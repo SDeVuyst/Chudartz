@@ -1,0 +1,23 @@
+{% extends 'admin/pokemon/standhouder_preview/frame.html' %}
+{% load static i18n %}
+
+{% block preview_content %}
+{% include 'pokemon/pages/standhouder/_wizard_nav.html' with wizard_stappen=stappen %}
+
+{% if preview_step == 'tafels' %}
+  {% include 'admin/pokemon/standhouder_preview/_content_tafels.html' %}
+{% elif preview_step == 'gegevens' %}
+  {% include 'admin/pokemon/standhouder_preview/_content_gegevens.html' %}
+{% elif preview_step == 'vragen' %}
+  {% include 'admin/pokemon/standhouder_preview/_content_vragen.html' %}
+{% elif preview_step == 'overzicht' %}
+  {% include 'admin/pokemon/standhouder_preview/_content_overzicht.html' %}
+{% endif %}
+{% endblock %}
+
+{% block preview_scripts %}
+{% if preview_step == 'tafels' and zaalplan %}
+<script>window.ZAALPLAN_SELECTIE_DATA = {{ grid_json|safe }};</script>
+<script src="{% static 'pokemon/js/zaalplan-selectie.js' %}?v=13"></script>
+{% endif %}
+{% endblock %}
