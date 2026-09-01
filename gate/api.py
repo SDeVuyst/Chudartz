@@ -7,6 +7,9 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 
+# Gate device API — fixed paths outside i18n_patterns (no /en/ prefix).
+GATE_API_PREFIX = "/pokemon/gate"
+
 
 @dataclass(frozen=True)
 class CheckInResult:
@@ -28,7 +31,7 @@ def check_in(
     ticket_id=None,
     timeout: float = 10.0,
 ) -> CheckInResult:
-    url = base_url.rstrip("/") + "/gate/check-in/"
+    url = base_url.rstrip("/") + f"{GATE_API_PREFIX}/check-in/"
     payload = {
         "participant_id": participant_id,
         "seed": seed,
@@ -107,14 +110,14 @@ def check_in(
 
 @dataclass(frozen=True)
 class HeartbeatResult:
-  success: bool
-  url: str
-  status_code: int = 0
-  error: str = ""
+    success: bool
+    url: str
+    status_code: int = 0
+    error: str = ""
 
 
 def heartbeat_url(base_url: str) -> str:
-    return base_url.rstrip("/") + "/gate/heartbeat/"
+    return base_url.rstrip("/") + f"{GATE_API_PREFIX}/heartbeat/"
 
 
 def send_heartbeat(

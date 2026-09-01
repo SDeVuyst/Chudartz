@@ -199,7 +199,7 @@ def cmd_test() -> int:
         print(
             "Heartbeat endpoint unreachable, so this gate will show as offline in "
             "the admin monitor. Check that the server runs a version with "
-            "/gate/heartbeat/.",
+            "/pokemon/gate/heartbeat/.",
             file=sys.stderr,
         )
         return 1

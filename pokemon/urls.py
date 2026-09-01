@@ -4,8 +4,14 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import include, path
 from . import views
 
-urlpatterns = i18n_patterns(
+# Fixed paths for devices, webhooks, and staff tools — no /en/ language prefix.
+urlpatterns = [
+    path("pokemon/set-attendance/", views.set_attendance),
+    path("pokemon/gate/check-in/", views.gate_check_in, name="gate_check_in"),
+    path("pokemon/gate/heartbeat/", views.gate_heartbeat, name="gate_heartbeat"),
+]
 
+urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path(_('over-ons'), views.over_ons, name="over_ons"),
@@ -24,10 +30,6 @@ urlpatterns = i18n_patterns(
     path(_('evenement/<slug:slug>/standhouder-worden/overzicht/'), views.standhouder_overzicht, name='standhouder_overzicht'),
     path(_('evenement/<slug:slug>/standhouder-worden/success/'), views.standhouder_success, name='standhouder_success'),
     path(_('evenement/<slug:slug>/success'), views.evenement_success, name='evenement_success'),
-
-    path("pokemon/set-attendance/", views.set_attendance),
-    path("/gate/check-in/", views.gate_check_in, name="gate_check_in"),
-    path("/gate/heartbeat/", views.gate_heartbeat, name="gate_heartbeat"),
 
     path(_('sponsors/'), views.sponsors, name='sponsors'),
     path(_('algemene_voorwaarden/'), views.algemene_voorwaarden, name='algemene_voorwaarden'),

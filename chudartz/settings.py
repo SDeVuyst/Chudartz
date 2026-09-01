@@ -149,7 +149,8 @@ LOCKDOWN_PASSWORDS = (os.environ.get("LOCKDOWN_PASS"),)
 LOCKDOWN_URL_EXCEPTIONS = (
     r'^/static/',
     r'cal-webhook/',
-    r'mollie-webhook/'
+    r'mollie-webhook/',
+    r'pokemon/gate/',
 )
 
 # Database
