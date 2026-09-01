@@ -29,6 +29,11 @@ DEBUG_WAITING = "Wachten op scannerinvoer…"
 WINDOW_TITLE = "ChudartZ Collectibles — Toegang"
 SETTINGS_TITLE = "Poortinstellingen"
 
+HEARTBEAT_LABEL = "hartslag"
+HEARTBEAT_OK = "OK"
+HEARTBEAT_FAILED = "MISLUKT"
+HEARTBEAT_UNCONFIGURED = "niet ingesteld"
+
 # Serverfouten → duidelijke NL-tekst (EN + NL keys for older/newer backends)
 _SERVER_MESSAGES = {
     "QR code not recognised!": "QR-code niet herkend. Probeer opnieuw te scannen.",

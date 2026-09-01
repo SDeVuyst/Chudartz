@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import threading
+import time
 import tkinter as tk
 from pathlib import Path
 from tkinter import font as tkfont
@@ -59,6 +60,7 @@ class GateApp(tk.Tk):
         self._logo_image = None
         self._header_visible = True
         self._header_hide_after_id = None
+        self._last_heartbeat = "—"
 
         self.attributes("-fullscreen", True)
         self.configure(bg=COLORS["bg"])
@@ -307,6 +309,8 @@ class GateApp(tk.Tk):
         self._update_filter_label()
         self._apply_debug_visibility()
         self.reset_scanner(message=i18n.MSG_SETTINGS_SAVED)
+        # Report the new settings right away instead of waiting for the next interval.
+        self._send_heartbeat(self._state)
 
     def _update_filter_label(self):
         self.filter_label.configure(
@@ -469,17 +473,38 @@ class GateApp(tk.Tk):
 
     def _send_heartbeat(self, status: str):
         if not is_configured(self.config_data):
+            self._log_heartbeat(status, None)
             return
         config = dict(self.config_data)
         thread = threading.Thread(
-            target=send_heartbeat,
-            args=(config["base_url"], config["api_key"], status, config),
-            kwargs={
-                "host_header": config.get("host_header") or "chudartz-collectibles.com"
-            },
+            target=self._heartbeat_worker,
+            args=(status, config),
             daemon=True,
         )
         thread.start()
+
+    def _heartbeat_worker(self, status: str, config: dict):
+        ok = send_heartbeat(
+            config["base_url"],
+            config["api_key"],
+            status,
+            config,
+            host_header=config.get("host_header") or "chudartz-collectibles.com",
+        )
+        self.after(0, lambda: self._log_heartbeat(status, ok))
+
+    def _log_heartbeat(self, status: str, ok: bool | None):
+        """Record the heartbeat outcome on screen and on stdout for the log file."""
+        stamp = time.strftime("%H:%M:%S")
+        if ok is None:
+            outcome = i18n.HEARTBEAT_UNCONFIGURED
+        else:
+            outcome = i18n.HEARTBEAT_OK if ok else i18n.HEARTBEAT_FAILED
+        self._last_heartbeat = f"{stamp} {status} {outcome}"
+        self.debug_header.configure(
+            text=f"DEBUG — {i18n.HEARTBEAT_LABEL}: {self._last_heartbeat}"
+        )
+        print(f"[{stamp}] heartbeat status={status} result={outcome}", flush=True)
 
     def _set_state(self, state: str, title: str, message: str):
         if state != self._state:

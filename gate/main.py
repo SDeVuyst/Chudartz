@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from api import check_in
+from api import check_in, send_heartbeat
 from config import (
     DEFAULT_BASE_URL,
     DEFAULT_HOST_HEADER,
@@ -183,6 +183,24 @@ def cmd_test() -> int:
         print("Could not reach the server.", file=sys.stderr)
         return 1
     print("Connection and API key look OK.")
+
+    heartbeat_ok = send_heartbeat(
+        cfg["base_url"],
+        cfg["api_key"],
+        "idle",
+        cfg,
+        host_header=cfg.get("host_header") or DEFAULT_HOST_HEADER,
+    )
+    print(f"heartbeat:   {'OK' if heartbeat_ok else 'FAILED'}")
+    if not heartbeat_ok:
+        print(
+            "Heartbeat endpoint unreachable, so this gate will show as offline in "
+            "the admin monitor. Check that the server runs a version with "
+            "/pokemon/gate/heartbeat/.",
+            file=sys.stderr,
+        )
+        return 1
+    print("This gate will appear online in the admin monitor.")
     return 0
 
 

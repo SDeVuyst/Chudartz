@@ -45,4 +45,5 @@ else
 fi
 
 export DISPLAY="${DISPLAY:-:0}"
-exec /usr/bin/python3 "$GATE_DIR/main.py"
+# -u keeps output unbuffered so heartbeat lines reach the log as they happen.
+exec /usr/bin/python3 -u "$GATE_DIR/main.py" 2>&1 | tee -a "$LOG_FILE"
