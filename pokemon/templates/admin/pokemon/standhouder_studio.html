@@ -8,6 +8,31 @@
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 <style>
   #standhouder-studio {
+    --sh-bg: #f9fafb;
+    --sh-surface: #ffffff;
+    --sh-surface-2: #f9fafb;
+    --sh-border: #e5e7eb;
+    --sh-text: #111827;
+    --sh-muted: #6b7280;
+    --sh-accent: #4f46e5;
+    --sh-accent-hover: #4338ca;
+    --sh-accent-soft: #eef2ff;
+    --sh-focus-ring: rgba(79, 70, 229, 0.22);
+    --sh-hover: #f3f4f6;
+    --sh-shadow: rgba(15, 23, 42, 0.08);
+    --sh-badge-bg: #eef2ff;
+    --sh-badge-text: #3730a3;
+    --sh-badge-border: #c7d2fe;
+    --sh-warn-bg: #fef2f2;
+    --sh-warn-text: #991b1b;
+    --sh-warn-border: #fecaca;
+    --sh-ok-bg: #f0fdf4;
+    --sh-ok-text: #166534;
+    --sh-ok-border: #bbf7d0;
+    color: var(--sh-text);
+    max-width: 100%;
+  }
+  .dark #standhouder-studio {
     --sh-bg: #0f172a;
     --sh-surface: #1e293b;
     --sh-surface-2: #0f172a;
@@ -15,9 +40,20 @@
     --sh-text: #e2e8f0;
     --sh-muted: #94a3b8;
     --sh-accent: #6366f1;
-    --sh-danger: #ef4444;
-    color: var(--sh-text);
-    max-width: 100%;
+    --sh-accent-hover: #4f46e5;
+    --sh-accent-soft: #1b2540;
+    --sh-focus-ring: rgba(99, 102, 241, 0.25);
+    --sh-hover: #172033;
+    --sh-shadow: rgba(0, 0, 0, 0.22);
+    --sh-badge-bg: #1b2540;
+    --sh-badge-text: #c7d2fe;
+    --sh-badge-border: #3730a3;
+    --sh-warn-bg: #3b1d1d;
+    --sh-warn-text: #fecaca;
+    --sh-warn-border: #7f1d1d;
+    --sh-ok-bg: #14532d;
+    --sh-ok-text: #dcfce7;
+    --sh-ok-border: #166534;
   }
   #standhouder-studio * { box-sizing: border-box; }
 
@@ -63,7 +99,7 @@
     border-radius: 14px;
     padding: 1.05rem 1.15rem;
     margin-bottom: 1rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+    box-shadow: 0 1px 3px var(--sh-shadow);
   }
   #standhouder-studio .sh-card__head {
     display: flex;
@@ -114,7 +150,7 @@
   #standhouder-studio .sh-input:focus {
     outline: none;
     border-color: var(--sh-accent);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 0 0 3px var(--sh-focus-ring);
   }
   #standhouder-studio .sh-check {
     display: flex;
@@ -150,18 +186,18 @@
   }
   #standhouder-studio .sh-btn:hover {
     border-color: var(--sh-accent);
-    background: #172033;
+    background: var(--sh-hover);
   }
   #standhouder-studio .sh-btn--primary {
     background: var(--sh-accent) !important;
     border-color: var(--sh-accent) !important;
     color: #fff !important;
   }
-  #standhouder-studio .sh-btn--primary:hover { background: #4f46e5 !important; }
+  #standhouder-studio .sh-btn--primary:hover { background: var(--sh-accent-hover) !important; }
   #standhouder-studio .sh-btn--danger {
-    border-color: #7f1d1d;
-    color: #fecaca !important;
-    background: #1f1212;
+    border-color: var(--sh-warn-border);
+    color: var(--sh-warn-text) !important;
+    background: var(--sh-warn-bg);
   }
   #standhouder-studio .sh-btn--ghost {
     background: transparent;
@@ -212,14 +248,14 @@
     letter-spacing: 0.03em;
     padding: 0.15rem 0.45rem;
     border-radius: 999px;
-    background: #1b2540;
-    color: #c7d2fe;
-    border: 1px solid #3730a3;
+    background: var(--sh-badge-bg);
+    color: var(--sh-badge-text);
+    border: 1px solid var(--sh-badge-border);
   }
   #standhouder-studio .sh-badge--warn {
-    background: #3b1d1d;
-    color: #fecaca;
-    border-color: #7f1d1d;
+    background: var(--sh-warn-bg);
+    color: var(--sh-warn-text);
+    border-color: var(--sh-warn-border);
   }
   #standhouder-studio .sh-vraag-card__actions {
     display: flex;
@@ -240,7 +276,7 @@
     min-height: 72vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+    box-shadow: 0 1px 3px var(--sh-shadow);
   }
   #standhouder-studio .sh-preview-toolbar {
     display: flex;
@@ -277,8 +313,8 @@
   }
   #standhouder-studio .sh-preview-step.is-active {
     border-color: var(--sh-accent);
-    background: #1b2540;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+    background: var(--sh-accent-soft);
+    box-shadow: 0 0 0 2px var(--sh-focus-ring);
   }
   #standhouder-studio .sh-preview-frame {
     width: 100%;
@@ -311,16 +347,16 @@
     margin: 0 0 0.85rem;
     padding: 0.65rem 0.9rem;
     border-radius: 10px;
-    background: #14532d;
-    border: 1px solid #166534;
-    color: #dcfce7;
+    background: var(--sh-ok-bg);
+    border: 1px solid var(--sh-ok-border);
+    color: var(--sh-ok-text);
     font-size: 0.88rem;
     font-weight: 600;
   }
   #standhouder-studio .sh-toast.is-error {
-    background: #3b1d1d;
-    border-color: #7f1d1d;
-    color: #fecaca;
+    background: var(--sh-warn-bg);
+    border-color: var(--sh-warn-border);
+    color: var(--sh-warn-text);
   }
 </style>
 {% endblock %}

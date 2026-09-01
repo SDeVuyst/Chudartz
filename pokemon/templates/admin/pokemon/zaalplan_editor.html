@@ -7,16 +7,59 @@
 {{ block.super }}
 <style>
   :root {
+    --zp-surface: #ffffff;
+    --zp-surface-2: #f9fafb;
+    --zp-border: #e5e7eb;
+    --zp-text: #111827;
+    --zp-muted: #6b7280;
+    --zp-accent: #4f46e5;
+    --zp-accent-hover: #4338ca;
+    --zp-accent-soft: #eef2ff;
+    --zp-focus-ring: rgba(79, 70, 229, 0.22);
+    --zp-hover: #f3f4f6;
+    --zp-shadow: rgba(15, 23, 42, 0.08);
+    --zp-shadow-strong: rgba(15, 23, 42, 0.16);
+    --zp-tafel: #15803d;
+
+    --zp-cel-border: rgba(17, 24, 39, 0.12);
+    --zp-cel-border-groep: rgba(17, 24, 39, 0.3);
+    --zp-cel-leeg: #eceef2;
+    --zp-cel-leeg-text: #6b7280;
+    --zp-cel-tafel: #1ba24f;
+    --zp-cel-tafel-text: #052e16;
+    --zp-cel-blok: #334155;
+    --zp-cel-blok-2: #1e293b;
+    --zp-cel-blok-text: #cbd5e1;
+    --zp-cel-bezet: #c93030;
+    --zp-grid-texture: rgba(17, 24, 39, 0.025);
+    --zp-label-op-donker: #f1f5f9;
+    --zp-label-op-leeg: #374151;
+  }
+
+  .dark {
     --zp-surface: #1e293b;
     --zp-surface-2: #0f172a;
     --zp-border: #334155;
     --zp-text: #e2e8f0;
     --zp-muted: #94a3b8;
     --zp-accent: #6366f1;
+    --zp-accent-hover: #4f46e5;
+    --zp-accent-soft: #1b2540;
+    --zp-focus-ring: rgba(99, 102, 241, 0.25);
+    --zp-hover: #172033;
+    --zp-shadow: rgba(0, 0, 0, 0.25);
+    --zp-shadow-strong: rgba(0, 0, 0, 0.35);
     --zp-tafel: #22c55e;
-    --zp-tafel-bg: #15361f;
-    --zp-blok: #0b1220;
-    --zp-bezet: #dc2626;
+
+    --zp-cel-border: rgba(255, 255, 255, 0.09);
+    --zp-cel-border-groep: rgba(255, 255, 255, 0.28);
+    --zp-cel-leeg: #212b3b;
+    --zp-cel-leeg-text: #94a3b8;
+    --zp-cel-blok: #0b1220;
+    --zp-cel-blok-2: #131c2e;
+    --zp-cel-blok-text: #94a3b8;
+    --zp-grid-texture: rgba(255, 255, 255, 0.015);
+    --zp-label-op-leeg: #e2e8f0;
   }
 
   .zp-page-head { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.35rem; }
@@ -29,7 +72,7 @@
     border-radius: 14px;
     padding: 1.15rem 1.25rem;
     margin-bottom: 1.25rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    box-shadow: 0 1px 3px var(--zp-shadow);
   }
   .zp-card-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--zp-muted); font-weight: 700; margin: 0 0 0.85rem; }
 
@@ -42,7 +85,7 @@
     background: var(--zp-surface-2); color: var(--zp-text); width: 8rem; font-size: 0.9rem;
     transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .zaalplan-toolbar input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.25); }
+  .zaalplan-toolbar input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px var(--zp-focus-ring); }
   .zaalplan-toolbar .zp-field-check .zp-check {
     display: inline-flex; align-items: center; gap: 0.5rem;
     padding: 0.5rem 0.7rem; border: 1px solid var(--zp-border); border-radius: 8px;
@@ -60,10 +103,10 @@
     border: 1px solid var(--zp-border); background: var(--zp-surface-2); color: var(--zp-text);
     font-size: 0.88rem; font-weight: 600; transition: background 0.15s, border-color 0.15s, transform 0.05s;
   }
-  .zp-btn:hover { border-color: var(--zp-accent); background: #172033; }
+  .zp-btn:hover { border-color: var(--zp-accent); background: var(--zp-hover); }
   .zp-btn:active { transform: translateY(1px); }
   .zp-btn.zp-btn-primary { background: var(--zp-accent); border-color: var(--zp-accent); color: #fff; }
-  .zp-btn.zp-btn-primary:hover { background: #4f46e5; }
+  .zp-btn.zp-btn-primary:hover { background: var(--zp-accent-hover); }
 
   .zaalplan-modes { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .zaalplan-mode-btn {
@@ -73,28 +116,28 @@
     font-size: 0.88rem; font-weight: 600; user-select: none;
     transition: border-color 0.15s, box-shadow 0.15s, background 0.15s, transform 0.05s;
   }
-  .zaalplan-mode-btn:hover { background: #172033; }
+  .zaalplan-mode-btn:hover { background: var(--zp-hover); }
   .zaalplan-mode-btn:active { transform: translateY(1px); }
-  .zaalplan-mode-btn .swatch { width: 16px; height: 16px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.15); }
+  .zaalplan-mode-btn .swatch { width: 16px; height: 16px; border-radius: 5px; border: 1px solid var(--zp-cel-border-groep); }
   .zaalplan-mode-btn .bi { font-size: 1rem; color: var(--zp-muted); }
-  .zaalplan-mode-btn.is-active { border-color: var(--zp-accent); background: #1b2540; box-shadow: 0 0 0 3px rgba(99,102,241,0.22); }
-  .zaalplan-mode-btn.is-active .bi { color: #a5b4fc; }
+  .zaalplan-mode-btn.is-active { border-color: var(--zp-accent); background: var(--zp-accent-soft); box-shadow: 0 0 0 3px var(--zp-focus-ring); }
+  .zaalplan-mode-btn.is-active .bi { color: var(--zp-accent); }
   .zp-mode-hint { color: var(--zp-muted); font-size: 0.82rem; margin: 0.85rem 0 0; }
 
   .zaalplan-legend { display: flex; gap: 1.15rem; font-size: 0.85rem; flex-wrap: wrap; color: var(--zp-muted); margin-top: 0.35rem; }
   .zaalplan-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
-  .zaalplan-legend i { width: 15px; height: 15px; border-radius: 4px; display: inline-block; border: 1px solid rgba(255,255,255,0.12); }
+  .zaalplan-legend i { width: 15px; height: 15px; border-radius: 4px; display: inline-block; border: 1px solid var(--zp-cel-border-groep); }
 
   .zaalplan-grid-wrap {
     overflow: auto; padding: 1.25rem; max-width: 100%;
     background:
       linear-gradient(var(--zp-surface-2) 0 0) padding-box,
-      repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0 10px, transparent 10px 20px);
+      repeating-linear-gradient(45deg, var(--zp-grid-texture) 0 10px, transparent 10px 20px);
     border: 1px solid var(--zp-border); border-radius: 14px;
   }
   .zaalplan-grid { display: grid; gap: 0; width: max-content; margin: 0 auto; position: relative; }
   .zaalplan-cel {
-    border: 1px solid rgba(255,255,255,0.09);
+    border: 1px solid var(--zp-cel-border);
     cursor: pointer;
     font-size: 0.62rem;
     display: flex; align-items: center; justify-content: center;
@@ -103,30 +146,31 @@
     transition: filter 0.12s;
   }
   .zaalplan-cel:hover { filter: brightness(1.15); z-index: 3; }
-  .zaalplan-cel.leeg { --fill: #212b3b; background: #212b3b; color: var(--zp-muted); }
-  .zaalplan-cel.tafel { --fill: #1ba24f; background: #1ba24f; color: #052e16; font-weight: 700; }
-  .zaalplan-cel.geblokkeerd { --fill: #10192b; background: repeating-linear-gradient(45deg, #0b1220 0 6px, #131c2e 6px 12px); color: var(--zp-muted); }
-  .zaalplan-cel.bezet { --fill: #c93030; background: #c93030; color: #fff; cursor: not-allowed; }
+  .zaalplan-cel.leeg { --fill: var(--zp-cel-leeg); background: var(--zp-cel-leeg); color: var(--zp-cel-leeg-text); }
+  .zaalplan-cel.tafel { --fill: var(--zp-cel-tafel); background: var(--zp-cel-tafel); color: var(--zp-cel-tafel-text); font-weight: 700; }
+  .zaalplan-cel.geblokkeerd { --fill: var(--zp-cel-blok); background: repeating-linear-gradient(45deg, var(--zp-cel-blok) 0 6px, var(--zp-cel-blok-2) 6px 12px); color: var(--zp-cel-blok-text); }
+  .zaalplan-cel.bezet { --fill: var(--zp-cel-bezet); background: var(--zp-cel-bezet); color: #fff; cursor: not-allowed; }
   .zaalplan-cel.bezet:hover { filter: none; }
-  .zaalplan-cel.gereserveerd { --fill: #c93030; background: #c93030; color: #fff; }
+  .zaalplan-cel.gereserveerd { --fill: var(--zp-cel-bezet); background: var(--zp-cel-bezet); color: #fff; }
   .zaalplan-cel.heeft-tekst { text-transform: uppercase; letter-spacing: 0.02em; }
-  .zaalplan-cel.merge-preview { box-shadow: inset 0 0 0 2px #a5b4fc; filter: brightness(1.3); z-index: 2; }
+  .zaalplan-cel.merge-preview { box-shadow: inset 0 0 0 2px var(--zp-accent); filter: brightness(1.15); z-index: 2; }
   /* interne randen van een groep laten samensmelten met de vulling (naadloos) */
   .zaalplan-cel.nb-top { border-top-color: var(--fill); }
   .zaalplan-cel.nb-bottom { border-bottom-color: var(--fill); }
   .zaalplan-cel.nb-left { border-left-color: var(--fill); }
   .zaalplan-cel.nb-right { border-right-color: var(--fill); }
-  .zaalplan-cel.grouped { border-color: rgba(255,255,255,0.28); }
+  .zaalplan-cel.grouped { border-color: var(--zp-cel-border-groep); }
 
   .zaalplan-groep-label {
     pointer-events: none; z-index: 4;
     display: flex; align-items: center; justify-content: center; text-align: center;
-    font-weight: 700; font-size: 0.7rem; color: #052e16;
+    font-weight: 700; font-size: 0.7rem; color: var(--zp-cel-tafel-text);
     padding: 2px; overflow: hidden; word-break: break-word; line-height: 1.1;
   }
-  .zaalplan-groep-label.op-donker { color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.03em; }
+  .zaalplan-groep-label.op-donker { color: var(--zp-label-op-donker); text-transform: uppercase; letter-spacing: 0.03em; }
+  .zaalplan-groep-label.op-leeg { color: var(--zp-label-op-leeg); }
 
-  .zaalplan-cel-detail { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--zp-border); border-radius: 14px; max-width: 420px; background: var(--zp-surface); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+  .zaalplan-cel-detail { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--zp-border); border-radius: 14px; max-width: 420px; background: var(--zp-surface); box-shadow: 0 8px 24px var(--zp-shadow-strong); }
   .zaalplan-cel-detail.hidden { display: none; }
   .zaalplan-cel-detail h3 { margin: 0 0 1rem; font-size: 1.05rem; color: var(--zp-text); }
   .zaalplan-cel-detail h3 span { color: var(--zp-tafel); }
@@ -135,13 +179,13 @@
     background: var(--zp-surface-2); color: var(--zp-text); border: 1px solid var(--zp-border);
     border-radius: 8px; padding: 0.5rem 0.7rem; width: 100%;
   }
-  .zaalplan-cel-detail input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.25); }
+  .zaalplan-cel-detail input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px var(--zp-focus-ring); }
   .zaalplan-cel-detail .zp-detail-actions { display: flex; gap: 0.6rem; margin-top: 0.35rem; }
 
   .zaalplan-empty { padding: 3rem 2rem; text-align: center; color: var(--zp-muted); border: 1.5px dashed var(--zp-border); border-radius: 12px; }
   .zp-back-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.5rem; color: var(--zp-muted); text-decoration: none; font-weight: 600; }
   .zp-back-link:hover { color: var(--zp-text); }
-  .hidden { display: none; }
+  .zaalplan-empty.hidden { display: none; }
 </style>
 {% endblock %}
 
@@ -190,20 +234,20 @@
 <div class="zp-card">
   <p class="zp-card-title">{% trans "Actie" %}</p>
   <div class="zaalplan-modes" id="zaalplan-modes">
-    <span class="zaalplan-mode-btn is-active" data-mode="tafel"><span class="swatch" style="background:#22c55e"></span>{% trans "Tafel plaatsen" %}</span>
-    <span class="zaalplan-mode-btn" data-mode="geblokkeerd"><span class="swatch" style="background:#0b1220"></span>{% trans "Blokkeren" %}</span>
-    <span class="zaalplan-mode-btn" data-mode="leeg"><span class="swatch" style="background:#263143"></span>{% trans "Leeg maken" %}</span>
-    <span class="zaalplan-mode-btn" data-mode="reserveren"><span class="swatch" style="background:#c93030"></span>{% trans "Reserveren" %}</span>
+    <span class="zaalplan-mode-btn is-active" data-mode="tafel"><span class="swatch" style="background:var(--zp-cel-tafel)"></span>{% trans "Tafel plaatsen" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="geblokkeerd"><span class="swatch" style="background:var(--zp-cel-blok)"></span>{% trans "Blokkeren" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="leeg"><span class="swatch" style="background:var(--zp-cel-leeg)"></span>{% trans "Leeg maken" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="reserveren"><span class="swatch" style="background:var(--zp-cel-bezet)"></span>{% trans "Reserveren" %}</span>
     <span class="zaalplan-mode-btn" data-mode="samenvoegen"><i class="bi bi-bounding-box"></i>{% trans "Samenvoegen" %}</span>
     <span class="zaalplan-mode-btn" data-mode="splitsen"><i class="bi bi-grid-3x3-gap"></i>{% trans "Splitsen" %}</span>
-    <span class="zaalplan-mode-btn" data-mode="bewerken"><span class="swatch" style="background:#6366f1"></span>{% trans "Bewerken (tekst/prijs)" %}</span>
+    <span class="zaalplan-mode-btn" data-mode="bewerken"><span class="swatch" style="background:var(--zp-accent)"></span>{% trans "Bewerken (tekst/prijs)" %}</span>
   </div>
   <p class="zp-mode-hint" id="zp-mode-hint">{% trans "Klik of sleep om tafels te plaatsen. Rechtermuisklik maakt een vakje leeg." %}</p>
   <div class="zaalplan-legend">
-    <span><i style="background:#263143"></i> {% trans "Leeg" %}</span>
-    <span><i style="background:#22c55e"></i> {% trans "Tafel" %}</span>
-    <span><i style="background:#0b1220"></i> {% trans "Geblokkeerd (gang/geen plaats)" %}</span>
-    <span><i style="background:#c93030"></i> {% trans "Gereserveerd / bezet" %}</span>
+    <span><i style="background:var(--zp-cel-leeg)"></i> {% trans "Leeg" %}</span>
+    <span><i style="background:var(--zp-cel-tafel)"></i> {% trans "Tafel" %}</span>
+    <span><i style="background:var(--zp-cel-blok)"></i> {% trans "Geblokkeerd (gang/geen plaats)" %}</span>
+    <span><i style="background:var(--zp-cel-bezet)"></i> {% trans "Gereserveerd / bezet" %}</span>
   </div>
 </div>
 
@@ -243,5 +287,5 @@
 <script>
   window.ZAALPLAN_DATA = {{ grid_json|safe }};
 </script>
-<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=9"></script>
+<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=10"></script>
 {% endblock %}

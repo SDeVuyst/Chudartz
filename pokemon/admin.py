@@ -479,6 +479,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
             zaalplan.genereer_rooster()
         grid = serialize_zaalplan_grid(zaalplan)
         return render(request, 'admin/pokemon/zaalplan_editor.html', {
+            **self.admin_site.each_context(request),
             'evenement': evenement,
             'zaalplan': zaalplan,
             'grid_json': json.dumps(grid),
@@ -677,6 +678,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         boot['csrfToken'] = get_token(request)
 
         return render(request, 'admin/pokemon/standhouder_studio.html', {
+            **self.admin_site.each_context(request),
             'evenement': evenement,
             'title': _('Standhouder studio'),
             'boot_json': json.dumps(boot),
@@ -1129,6 +1131,7 @@ class GateDeviceAdmin(ModelAdmin):
     def gate_monitor_view(self, request):
         payload = monitor_payload()
         return render(request, 'admin/pokemon/gate_monitor.html', {
+            **self.admin_site.each_context(request),
             'title': _('Gate monitor'),
             'boot_json': json.dumps({
                 'statusUrl': reverse('admin:pokemon_gate_monitor_status'),
@@ -1148,6 +1151,7 @@ class GateDeviceAdmin(ModelAdmin):
         payload = device_payload(device)
         history = self._scan_history(request, device)
         return render(request, 'admin/pokemon/gate_dashboard.html', {
+            **self.admin_site.each_context(request),
             'title': _('Gate dashboard'),
             'device': device,
             'monitor_url': reverse('admin:pokemon_gate_monitor'),

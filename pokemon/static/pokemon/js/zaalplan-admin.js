@@ -198,7 +198,9 @@
       const area = bestLabelArea(leden);
 
       const label = document.createElement('div');
-      label.className = 'zaalplan-groep-label' + (isDonkerType(primary.type) ? ' op-donker' : '');
+      label.className = 'zaalplan-groep-label'
+        + (isDonkerType(primary.type) ? ' op-donker' : '')
+        + (primary.type === 'leeg' ? ' op-leeg' : '');
       label.style.gridColumn = `${area.c1 + 1} / ${area.c2 + 2}`;
       label.style.gridRow = `${area.r1 + 1} / ${area.r2 + 2}`;
       label.textContent = primary.type === 'tafel' ? primary.label : (primary.tekst || '');
