@@ -184,19 +184,22 @@ def cmd_test() -> int:
         return 1
     print("Connection and API key look OK.")
 
-    heartbeat_ok = send_heartbeat(
+    heartbeat = send_heartbeat(
         cfg["base_url"],
         cfg["api_key"],
         "idle",
         cfg,
         host_header=cfg.get("host_header") or DEFAULT_HOST_HEADER,
     )
-    print(f"heartbeat:   {'OK' if heartbeat_ok else 'FAILED'}")
-    if not heartbeat_ok:
+    print(f"heartbeat:   {'OK' if heartbeat.success else 'FAILED'}")
+    print(f"heartbeat url: {heartbeat.url}")
+    if heartbeat.error:
+        print(f"heartbeat err: {heartbeat.error}")
+    if not heartbeat.success:
         print(
             "Heartbeat endpoint unreachable, so this gate will show as offline in "
             "the admin monitor. Check that the server runs a version with "
-            "/pokemon/gate/heartbeat/.",
+            "/gate/heartbeat/.",
             file=sys.stderr,
         )
         return 1

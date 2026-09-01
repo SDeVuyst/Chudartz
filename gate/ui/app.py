@@ -484,27 +484,34 @@ class GateApp(tk.Tk):
         thread.start()
 
     def _heartbeat_worker(self, status: str, config: dict):
-        ok = send_heartbeat(
+        result = send_heartbeat(
             config["base_url"],
             config["api_key"],
             status,
             config,
             host_header=config.get("host_header") or "chudartz-collectibles.com",
         )
-        self.after(0, lambda: self._log_heartbeat(status, ok))
+        self.after(0, lambda: self._log_heartbeat(status, result))
 
-    def _log_heartbeat(self, status: str, ok: bool | None):
+    def _log_heartbeat(self, status: str, result):
         """Record the heartbeat outcome on screen and on stdout for the log file."""
         stamp = time.strftime("%H:%M:%S")
-        if ok is None:
+        if result is None:
             outcome = i18n.HEARTBEAT_UNCONFIGURED
+            detail = ""
+        elif result.success:
+            outcome = i18n.HEARTBEAT_OK
+            detail = f" -> {result.url}"
         else:
-            outcome = i18n.HEARTBEAT_OK if ok else i18n.HEARTBEAT_FAILED
+            outcome = i18n.HEARTBEAT_FAILED
+            detail = f" -> {result.url}"
+            if result.error:
+                detail += f" ({result.error})"
         self._last_heartbeat = f"{stamp} {status} {outcome}"
         self.debug_header.configure(
             text=f"DEBUG — {i18n.HEARTBEAT_LABEL}: {self._last_heartbeat}"
         )
-        print(f"[{stamp}] heartbeat status={status} result={outcome}", flush=True)
+        print(f"[{stamp}] heartbeat status={status} result={outcome}{detail}", flush=True)
 
     def _set_state(self, state: str, title: str, message: str):
         if state != self._state:

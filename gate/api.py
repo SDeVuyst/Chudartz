@@ -28,7 +28,7 @@ def check_in(
     ticket_id=None,
     timeout: float = 10.0,
 ) -> CheckInResult:
-    url = base_url.rstrip("/") + "/en/pokemon/gate/check-in/"
+    url = base_url.rstrip("/") + "/gate/check-in/"
     payload = {
         "participant_id": participant_id,
         "seed": seed,
@@ -105,6 +105,18 @@ def check_in(
         )
 
 
+@dataclass(frozen=True)
+class HeartbeatResult:
+  success: bool
+  url: str
+  status_code: int = 0
+  error: str = ""
+
+
+def heartbeat_url(base_url: str) -> str:
+    return base_url.rstrip("/") + "/gate/heartbeat/"
+
+
 def send_heartbeat(
     base_url: str,
     api_key: str,
@@ -112,9 +124,9 @@ def send_heartbeat(
     config: dict,
     host_header: str = "chudartz-collectibles.com",
     timeout: float = 5.0,
-) -> bool:
-    """Report the current gate status to the server. Failures are silent by design."""
-    url = base_url.rstrip("/") + "/en/pokemon/gate/heartbeat/"
+) -> HeartbeatResult:
+    """Report the current gate status to the server."""
+    url = heartbeat_url(base_url)
     payload = {"status": status, "config": _safe_config(config)}
     headers = {
         "Content-Type": "application/json",
@@ -131,9 +143,19 @@ def send_heartbeat(
     )
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
-            return response.getcode() == 200
-    except (urllib.error.URLError, TimeoutError, OSError):
-        return False
+            code = response.getcode()
+            if code == 200:
+                return HeartbeatResult(True, url, code)
+            return HeartbeatResult(False, url, code, f"HTTP {code}")
+    except urllib.error.HTTPError as exc:
+        return HeartbeatResult(False, url, exc.code, f"HTTP {exc.code}")
+    except urllib.error.URLError as exc:
+        reason = str(exc.reason)
+        if "WRONG_VERSION_NUMBER" in reason or "SSL" in reason:
+            reason += " — gebruik http:// voor lokale Docker/nginx, niet https://"
+        return HeartbeatResult(False, url, 0, reason or "netwerkfout")
+    except (TimeoutError, OSError) as exc:
+        return HeartbeatResult(False, url, 0, str(exc))
 
 
 def _safe_config(config: dict) -> dict:
