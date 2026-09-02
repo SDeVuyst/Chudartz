@@ -46,7 +46,6 @@
         <span class="gate-card__dot"></span>
         <span class="gate-card__name"></span>
       </div>
-      <div class="gate-card__ticket"></div>
       <div class="gate-card__meta">
         <span data-role="count"><span class="gate-anim-count" data-role="count-num">0</span> scans</span>
         <span data-role="time"></span>
@@ -62,11 +61,6 @@
     } else {
       dot.classList.toggle('is-online', device.online);
     }
-
-    const ticketEl = card.querySelector('.gate-card__ticket');
-    const message = device.last_scan ? device.last_scan.message : '';
-    ticketEl.textContent = message || 'Wachten op scan…';
-    ticketEl.classList.toggle('is-empty', !message);
 
     const countNum = card.querySelector('[data-role="count-num"]');
     if (countNum && anim) {

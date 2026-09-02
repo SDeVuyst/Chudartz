@@ -416,30 +416,12 @@
   white-space: nowrap;
 }
 
-#gate-admin .gate-card__ticket {
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.3;
-  min-height: 2.6em;
-  display: flex;
-  align-items: center;
-}
-
-#gate-admin .gate-card__ticket.is-empty {
-  color: var(--gate-muted);
-  font-weight: 400;
-  font-size: 0.95rem;
-}
-
 #gate-admin .gate-card__meta {
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
   font-size: 0.78rem;
   color: var(--gate-muted);
-  margin-top: 0.6rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid var(--gate-border);
 }
 
 /* Border-only flash so the card content stays readable in both themes */
@@ -926,7 +908,6 @@
 }
 
 #gate-admin .gate-feed a {
-  color: var(--gate-accent);
   font-weight: 600;
   text-decoration: none;
 }
