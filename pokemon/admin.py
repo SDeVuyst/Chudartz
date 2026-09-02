@@ -1161,7 +1161,22 @@ class GateDeviceAdmin(ModelAdmin):
         })
 
     def gate_monitor_status_view(self, request):
-        return JsonResponse(monitor_payload(request.GET.get('since_scan_id')))
+        filters = scan_filters_from_params(request.GET)
+        device_id = request.GET.get('device_id')
+        if device_id:
+            try:
+                device_id = int(device_id)
+            except (TypeError, ValueError):
+                device_id = None
+        else:
+            device_id = None
+        return JsonResponse(
+            monitor_payload(
+                request.GET.get('since_scan_id'),
+                filters=filters,
+                device_id=device_id,
+            )
+        )
 
     def gate_dashboard_view(self, request, object_id):
         device = get_object_or_404(

@@ -67,8 +67,7 @@ def scan_filters_from_params(params) -> dict:
     }
 
 
-def filtered_scan_queryset(device: GateDevice, filters: dict):
-    logs = device.scan_logs.select_related("device")
+def apply_scan_filters(logs, filters: dict):
     outcome = filters.get("outcome", "")
     datum = filters.get("datum", "")
     zoek = filters.get("q", "")
@@ -86,6 +85,19 @@ def filtered_scan_queryset(device: GateDevice, filters: dict):
         if zoek.isdigit():
             q_filters |= Q(participant_id_raw=int(zoek))
         logs = logs.filter(q_filters)
+    return logs
+
+
+def filtered_scan_queryset(device: GateDevice, filters: dict):
+    return apply_scan_filters(device.scan_logs.select_related("device"), filters)
+
+
+def all_scans_queryset(filters: dict | None = None, device_id: int | None = None):
+    logs = GateScanLog.objects.select_related("device")
+    if device_id:
+        logs = logs.filter(device_id=device_id)
+    if filters:
+        logs = apply_scan_filters(logs, filters)
     return logs
 
 
@@ -147,6 +159,7 @@ def serialize_device(device: GateDevice, stats: dict | None = None) -> dict:
         "id": device.id,
         "name": device.name,
         "is_active": device.is_active,
+        "api_key_prefix": device.api_key_prefix,
         "online": device.is_online,
         "last_status": device.last_status,
         "last_heartbeat_at": (
@@ -189,8 +202,13 @@ def _serialize_scans_page(queryset, page_num: int) -> dict:
     }
 
 
-def monitor_payload(since_scan_id=None) -> dict:
+def monitor_payload(
+    since_scan_id=None,
+    filters: dict | None = None,
+    device_id: int | None = None,
+) -> dict:
     """Live state of every gate plus the unified scan feed."""
+    filters = filters or scan_filters_from_params({})
     stats = _today_stats_by_device()
     devices = [
         serialize_device(device, stats.get(device.id))
@@ -198,7 +216,19 @@ def monitor_payload(since_scan_id=None) -> dict:
             "remote_event", "remote_ticket"
         ).order_by("name")
     ]
-    scans = _feed(GateScanLog.objects.select_related("device"), since_scan_id)
+    queryset = all_scans_queryset(filters, device_id)
+
+    if since_scan_id:
+        delta = _feed(queryset, since_scan_id)
+        recent_scans = {
+            "items": [serialize_scan(log) for log in delta],
+            "is_delta": True,
+        }
+    else:
+        recent_scans = {
+            "items": [serialize_scan(log) for log in queryset[:FEED_LIMIT]],
+            "is_delta": False,
+        }
 
     return {
         "aggregate": {
@@ -209,7 +239,13 @@ def monitor_payload(since_scan_id=None) -> dict:
             "today_fail": sum(d["today_fail"] for d in devices),
         },
         "devices": devices,
-        "recent_scans": [serialize_scan(log) for log in scans],
+        "recent_scans": recent_scans,
+        "filters": {
+            "outcome": filters.get("outcome", ""),
+            "datum": filters.get("datum", ""),
+            "q": filters.get("q", ""),
+            "device_id": device_id,
+        },
     }
 
 
@@ -223,17 +259,39 @@ def device_payload(
     filters = filters or scan_filters_from_params({})
     page_num = filters.get("page", 1)
     queryset = filtered_scan_queryset(device, filters)
+    paginator = Paginator(queryset, SCAN_PAGE_SIZE)
 
-    if since_scan_id and page_num == 1:
-        delta = _feed(queryset, since_scan_id)
-        scans = {
-            "items": [serialize_scan(log) for log in delta],
-            "page": 1,
-            "total_pages": Paginator(queryset, SCAN_PAGE_SIZE).num_pages,
-            "has_previous": False,
-            "has_next": Paginator(queryset, SCAN_PAGE_SIZE).num_pages > 1,
-            "is_delta": True,
-        }
+    since_id = None
+    if since_scan_id:
+        try:
+            since_id = int(since_scan_id)
+        except (TypeError, ValueError):
+            since_id = None
+
+    if since_id:
+        if page_num == 1:
+            delta = _feed(queryset, since_scan_id)
+            scans = {
+                "items": [serialize_scan(log) for log in delta],
+                "page": 1,
+                "total_pages": paginator.num_pages,
+                "has_previous": False,
+                "has_next": paginator.num_pages > 1,
+                "is_delta": True,
+            }
+        elif queryset.filter(id__gt=since_id).exists():
+            scans = _serialize_scans_page(queryset, page_num)
+            scans["is_delta"] = False
+        else:
+            page = paginator.get_page(page_num)
+            scans = {
+                "items": [],
+                "page": page.number,
+                "total_pages": paginator.num_pages,
+                "has_previous": page.has_previous(),
+                "has_next": page.has_next(),
+                "is_delta": True,
+            }
     else:
         scans = _serialize_scans_page(queryset, page_num)
         scans["is_delta"] = False

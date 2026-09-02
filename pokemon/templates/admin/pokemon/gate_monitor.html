@@ -12,9 +12,12 @@
 <script type="application/json" id="gate-monitor-boot">{{ boot_json|safe }}</script>
 
 <div id="gate-admin">
-<div class="gate-page-head">
-  <h1>{% trans "Gate monitor" %}</h1>
-  <span class="gate-live-dot" id="gate-live-indicator">{% trans "Live" %}</span>
+<div class="gate-page-head gate-page-head--bar">
+  <div class="gate-page-head__left">
+    <h1>{% trans "Gate monitor" %}</h1>
+    <span class="gate-page-head__sep" aria-hidden="true">|</span>
+    <span class="gate-live-dot" id="gate-live-indicator">{% trans "Live updates actief" %}</span>
+  </div>
 </div>
 
 <div class="gate-cards" id="gate-cards"></div>
@@ -34,14 +37,33 @@
   </div>
   <div class="gate-kpi">
     <div class="gate-kpi__label">{% trans "Online" %}</div>
-    <div class="gate-kpi__value" data-kpi="online">0/0</div>
+    <div class="gate-kpi__value" data-kpi="online"><span data-role="online-num">0</span>/<span data-role="total-num">0</span></div>
   </div>
 </div>
 
 <div class="gate-card-base">
   <h2 class="gate-card-title">{% trans "Live scans" %}</h2>
 
-  <div class="gate-filters" id="gate-feed-filters"></div>
+  <form class="gate-form" id="gate-scans-filter-form" method="get">
+    <div class="gate-field">
+      <label for="gate-datum">{% trans "Datum" %}</label>
+      <input type="date" id="gate-datum" name="datum">
+    </div>
+    <div class="gate-field">
+      <label for="gate-outcome">{% trans "Resultaat" %}</label>
+      <select id="gate-outcome" name="outcome">
+        <option value="">{% trans "Alle" %}</option>
+        <option value="success">{% trans "Toegelaten" %}</option>
+        <option value="fail">{% trans "Geweigerd" %}</option>
+      </select>
+    </div>
+    <div class="gate-field">
+      <label for="gate-q">{% trans "Zoek" %}</label>
+      <input type="search" id="gate-q" name="q" placeholder="{% trans 'Deelnemer-ID of bericht' %}">
+    </div>
+    <button type="submit" class="gate-btn gate-btn--primary">{% trans "Filter" %}</button>
+    <button type="button" class="gate-btn" id="gate-scans-clear">{% trans "Wis" %}</button>
+  </form>
 
   <div class="gate-feed-wrap">
     <table class="gate-feed">
@@ -57,8 +79,11 @@
       <tbody id="gate-feed-body"></tbody>
     </table>
   </div>
+
+  <div class="gate-filters gate-filters--below" id="gate-feed-filters"></div>
 </div>
 </div>
 
+<script src="{% static 'pokemon/js/gate-animations.js' %}"></script>
 <script src="{% static 'pokemon/js/gate-monitor.js' %}"></script>
 {% endblock %}

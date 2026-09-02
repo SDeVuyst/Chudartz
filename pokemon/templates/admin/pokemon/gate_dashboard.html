@@ -12,87 +12,24 @@
 <script type="application/json" id="gate-dashboard-boot">{{ boot_json|safe }}</script>
 
 <div id="gate-admin">
-<div class="gate-page-head">
-  <h1>{{ device.name }}</h1>
-  <span class="gate-live-dot" id="gate-live-indicator">{% trans "Live" %}</span>
-  <a class="gate-btn" href="{{ monitor_url }}">{% trans "Terug naar monitor" %}</a>
-  <a class="gate-btn" href="{% url 'admin:pokemon_gatedevice_change' device.pk %}">
-    {% trans "Toestel beheren" %}
-  </a>
-</div>
-
-<div class="gate-cards" id="gate-cards"></div>
-
-<div class="gate-kpis">
-  <div class="gate-kpi">
-    <div class="gate-kpi__label">{% trans "Scans vandaag" %}</div>
-    <div class="gate-kpi__value" data-kpi="today_total">0</div>
+<div class="gate-page-head gate-page-head--bar">
+  <div class="gate-page-head__left">
+    <h1>{% trans "Gate dashboard" %}</h1>
+    <span class="gate-page-head__sep" aria-hidden="true">|</span>
+    <span class="gate-live-dot" id="gate-live-indicator">{% trans "Live updates actief" %}</span>
   </div>
-  <div class="gate-kpi">
-    <div class="gate-kpi__label">{% trans "Toegelaten" %}</div>
-    <div class="gate-kpi__value" data-kpi="today_success">0</div>
-  </div>
-  <div class="gate-kpi">
-    <div class="gate-kpi__label">{% trans "Geweigerd" %}</div>
-    <div class="gate-kpi__value" data-kpi="today_fail">0</div>
+  <div class="gate-page-head__actions">
+    <a class="gate-btn" href="{{ monitor_url }}">{% trans "Terug naar monitor" %}</a>
+    <a class="gate-btn" href="{% url 'admin:pokemon_gatedevice_change' device.pk %}">
+      {% trans "Toestel beheren" %}
+    </a>
   </div>
 </div>
 
-<div class="gate-card-base" id="gate-config-card">
-  <h2 class="gate-card-title">{% trans "Ingangfilters" %}</h2>
-  <div class="gate-config-head">
-    <span class="gate-config-badge" id="gate-config-badge" data-status="unmanaged">
-      {% trans "Niet beheerd vanuit admin" %}
-    </span>
-  </div>
-  <div class="gate-config-grid">
-    <div class="gate-config-col">
-      <h3 class="gate-config-subtitle">{% trans "Gewenst (admin)" %}</h3>
-      <form class="gate-form gate-config-form" id="gate-config-form">
-        <div class="gate-field">
-          <label for="gate-config-event">{% trans "Evenement" %}</label>
-          <select id="gate-config-event" name="event_id">
-            <option value="">{% trans "Alle evenementen" %}</option>
-          </select>
-        </div>
-        <div class="gate-field">
-          <label for="gate-config-ticket">{% trans "Tickettype" %}</label>
-          <select id="gate-config-ticket" name="ticket_id" disabled>
-            <option value="">{% trans "Alle tickettypes" %}</option>
-          </select>
-        </div>
-        <div class="gate-config-actions">
-          <button type="submit" class="gate-btn gate-btn--primary" id="gate-config-save">
-            {% trans "Opslaan" %}
-          </button>
-        </div>
-        <p class="gate-hint gate-config-hint">
-          {% trans "Wijziging wordt door het toestel opgepikt bij de volgende heartbeat (max. ~30s)." %}
-        </p>
-        <p class="gate-config-error" id="gate-config-error" hidden></p>
-      </form>
-    </div>
-    <div class="gate-config-col">
-      <h3 class="gate-config-subtitle">{% trans "Actief op toestel" %}</h3>
-      <dl class="gate-defs" id="gate-reported-config">
-        <div>
-          <dt>{% trans "Evenement" %}</dt>
-          <dd id="gate-reported-event">—</dd>
-        </div>
-        <div>
-          <dt>{% trans "Tickettype" %}</dt>
-          <dd id="gate-reported-ticket">—</dd>
-        </div>
-      </dl>
-    </div>
-  </div>
-</div>
+<div class="gate-card-base gate-dashboard-card" id="gate-dashboard-hero"></div>
 
 <div class="gate-card-base">
-  <h2 class="gate-card-title">{% trans "Scans" %}</h2>
-  <p class="gate-hint gate-scans-live-hint" id="gate-scans-live-hint" hidden>
-    {% trans "Live updates alleen op pagina 1." %}
-  </p>
+  <h2 class="gate-card-title">{% trans "Live Scans" %}</h2>
 
   <form class="gate-form" id="gate-scans-filter-form" method="get">
     <div class="gate-field">
@@ -140,28 +77,54 @@
   </div>
 </div>
 
-<div class="gate-card-base">
-  <h2 class="gate-card-title">{% trans "Toestel" %}</h2>
-  <dl class="gate-defs">
-    <div>
-      <dt>{% trans "Actief" %}</dt>
-      <dd>{% if device.is_active %}{% trans "Ja" %}{% else %}{% trans "Nee" %}{% endif %}</dd>
+<div class="gate-card-base" id="gate-config-card">
+  <div class="gate-card-title-row">
+    <h2 class="gate-card-title">{% trans "Ingangfilters" %}</h2>
+    <span class="gate-config-badge" id="gate-config-badge" data-status="unmanaged">
+      {% trans "Niet beheerd vanuit admin" %}
+    </span>
+  </div>
+  <div class="gate-config-grid">
+    <div class="gate-config-col">
+      <h3 class="gate-config-subtitle">{% trans "Gewenst (admin)" %}</h3>
+      <form class="gate-form gate-config-form" id="gate-config-form">
+        <div class="gate-field">
+          <label for="gate-config-event">{% trans "Evenement" %}</label>
+          <select id="gate-config-event" name="event_id">
+            <option value="">{% trans "Alle evenementen" %}</option>
+          </select>
+        </div>
+        <div class="gate-field">
+          <label for="gate-config-ticket">{% trans "Tickettype" %}</label>
+          <select id="gate-config-ticket" name="ticket_id" disabled>
+            <option value="">{% trans "Alle tickettypes" %}</option>
+          </select>
+        </div>
+        <div class="gate-config-actions">
+          <button type="submit" class="gate-btn gate-btn--primary" id="gate-config-save">
+            {% trans "Opslaan" %}
+          </button>
+        </div>
+        <p class="gate-config-error" id="gate-config-error" hidden></p>
+      </form>
     </div>
-    <div>
-      <dt>{% trans "API-sleutel" %}</dt>
-      <dd>{{ device.api_key_prefix }}…</dd>
+    <div class="gate-config-col">
+      <h3 class="gate-config-subtitle">{% trans "Actief op toestel" %}</h3>
+      <dl class="gate-defs" id="gate-reported-config">
+        <div>
+          <dt>{% trans "Evenement" %}</dt>
+          <dd id="gate-reported-event">—</dd>
+        </div>
+        <div>
+          <dt>{% trans "Tickettype" %}</dt>
+          <dd id="gate-reported-ticket">—</dd>
+        </div>
+      </dl>
     </div>
-    <div>
-      <dt>{% trans "Laatste heartbeat" %}</dt>
-      <dd>{{ device.last_heartbeat_at|default:"—" }}</dd>
-    </div>
-    <div>
-      <dt>{% trans "Laatste geldige scan" %}</dt>
-      <dd>{{ device.last_used_at|default:"—" }}</dd>
-    </div>
-  </dl>
+  </div>
 </div>
 </div>
 
+<script src="{% static 'pokemon/js/gate-animations.js' %}"></script>
 <script src="{% static 'pokemon/js/gate-dashboard.js' %}"></script>
 {% endblock %}
