@@ -9,24 +9,49 @@ const audio_success = new Audio('/static/audio/success.mp3');
 const audio_failed = new Audio('/static/audio/failed.mp3');
 
 
-function extractParticipantId(str) {
-    const match = str.match(/participant_id:(\d+)/);
-    if (match) {
-        return parseInt(match[1], 10);
-    } else {
+function parseTicketQr(str) {
+    const text = (str || '').trim();
+    if (!text) {
         throw new Error("QR code not recognised!");
     }
-}
 
-function extractSeed(str) {
-    const keyword = "seed:";
-    const startIndex = str.indexOf(keyword);
-    
-    if (startIndex !== -1) {
-        return str.substring(startIndex + keyword.length);
+    if (text.includes('participant_id:')) {
+        const match = text.match(/participant_id:(\d+)/);
+        if (!match) {
+            throw new Error("QR code not recognised!");
+        }
+
+        const keyword = "seed:";
+        const startIndex = text.indexOf(keyword);
+        if (startIndex === -1) {
+            throw new Error("QR code not recognised!");
+        }
+
+        const seed = text.substring(startIndex + keyword.length).trim();
+        if (!seed) {
+            throw new Error("QR code not recognised!");
+        }
+
+        return {
+            participantId: parseInt(match[1], 10),
+            seed: seed,
+        };
     }
-    
-    return "";
+
+    if (text.length < 11) {
+        throw new Error("QR code not recognised!");
+    }
+
+    const seed = text.slice(-10);
+    const idPart = text.slice(0, -10);
+    if (!/^\d+$/.test(idPart) || !/^[A-Za-z0-9]+$/.test(seed)) {
+        throw new Error("QR code not recognised!");
+    }
+
+    return {
+        participantId: parseInt(idPart, 10),
+        seed: seed,
+    };
 }
 
 let isCooldown = false;
@@ -50,8 +75,9 @@ function onScanSuccess(decodedText, decodedResult) {
     var seed = '';
 
     try {
-        id = extractParticipantId(decodedText);
-        seed = extractSeed(decodedText);
+        const parsed = parseTicketQr(decodedText);
+        id = parsed.participantId;
+        seed = parsed.seed;
     } catch (error) {
         return setStatusToFailed(error.message);
     }

@@ -534,8 +534,7 @@ class Participant(models.Model):
             box_size=10,
             border=4,
         )
-        qr.add_data(f'participant_id:{self.pk}')
-        qr.add_data(f'seed:{self.random_seed}')
+        qr.add_data(f'{self.pk}{self.random_seed}')
 
         qr.make(fit=True)
 

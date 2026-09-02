@@ -5,7 +5,7 @@ Fullscreen Raspberry Pi app that reads ticket QR codes from a USB keyboard-wedge
 ## How it works
 
 1. The USB scanner types the QR payload and presses Enter.
-2. The app parses `participant_id:{id}seed:{seed}`.
+2. The app parses the QR payload (compact `{id}{seed}` or legacy `participant_id:{id}seed:{seed}`).
 3. It `POST`s to `{base_url}/pokemon/gate/check-in/` with header `X-Gate-Api-Key`.
 4. The screen turns green (welcome) or red (denied).
 
