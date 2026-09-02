@@ -405,3 +405,93 @@
     animation: none;
   }
 }
+
+/* ---- Remote config ---- */
+
+#gate-admin .gate-config-head {
+  margin-bottom: 0.85rem;
+}
+
+#gate-admin .gate-config-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid var(--gate-border);
+}
+
+#gate-admin .gate-config-badge[data-status="synced"] {
+  color: var(--gate-success);
+  border-color: var(--gate-success);
+  background: rgb(22 163 74 / 0.08);
+}
+
+#gate-admin .gate-config-badge[data-status="pending"] {
+  color: rgb(202 138 4);
+  border-color: rgb(202 138 4);
+  background: rgb(202 138 4 / 0.1);
+}
+
+#gate-admin .gate-config-badge[data-status="offline_pending"] {
+  color: var(--gate-muted);
+  border-color: var(--gate-border);
+  background: var(--gate-surface);
+}
+
+#gate-admin .gate-config-badge[data-status="unmanaged"] {
+  color: var(--gate-muted);
+  border-color: var(--gate-border);
+}
+
+#gate-admin .gate-config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+#gate-admin .gate-config-subtitle {
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  color: var(--gate-muted);
+}
+
+#gate-admin .gate-config-form {
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: 0;
+}
+
+#gate-admin .gate-config-form .gate-field {
+  width: 100%;
+}
+
+#gate-admin .gate-config-form .gate-field select {
+  width: 100%;
+}
+
+#gate-admin .gate-config-hint {
+  margin: 0.5rem 0 0;
+}
+
+#gate-admin .gate-config-error {
+  color: var(--gate-fail);
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
+
+#gate-admin .gate-scans-live-hint {
+  margin: 0 0 0.75rem;
+}
+
+#gate-admin .gate-feed a {
+  color: var(--gate-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+#gate-admin .gate-feed a:hover {
+  text-decoration: underline;
+}

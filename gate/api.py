@@ -114,6 +114,7 @@ class HeartbeatResult:
     url: str
     status_code: int = 0
     error: str = ""
+    config_update: dict | None = None
 
 
 def heartbeat_url(base_url: str) -> str:
@@ -147,8 +148,15 @@ def send_heartbeat(
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             code = response.getcode()
+            raw = response.read().decode("utf-8")
+            data = _parse_json(raw)
             if code == 200:
-                return HeartbeatResult(True, url, code)
+                config_update = data.get("config_update")
+                if not isinstance(config_update, dict):
+                    config_update = None
+                return HeartbeatResult(
+                    True, url, code, config_update=config_update
+                )
             return HeartbeatResult(False, url, code, f"HTTP {code}")
     except urllib.error.HTTPError as exc:
         return HeartbeatResult(False, url, exc.code, f"HTTP {exc.code}")

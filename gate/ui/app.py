@@ -10,15 +10,21 @@ from pathlib import Path
 from tkinter import font as tkfont
 
 from api import check_in, send_heartbeat
-from config import is_configured, load_config, optional_id
+from config import is_configured, load_config, optional_id, save_config
 from parse_qr import QRParseError, parse_qr
 from sound import play_error, play_success
 from ui import i18n
 from ui.settings import SettingsDialog
 
-COOLDOWN_MS = 4000
+COOLDOWN_MS = 2000
 HEADER_IDLE_MS = 2500
 HEARTBEAT_MS = 30000
+SCAN_EXPECTED_LEN = 40
+SCAN_PROGRESS_CAP = 0.95
+CHECKING_PULSE_MS = 80
+PROGRESS_MIN_WIDTH = 240
+PROGRESS_MAX_WIDTH = 480
+PROGRESS_HEIGHT = 8
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 LOGO_PATH = ASSETS_DIR / "logo.png"
 
@@ -61,6 +67,11 @@ class GateApp(tk.Tk):
         self._header_visible = True
         self._header_hide_after_id = None
         self._last_heartbeat = "—"
+        self._progress_mode = "hidden"
+        self._checking_pulse_after_id = None
+        self._checking_pulse_step = 0
+        self._progress_visible = False
+        self._progress_track_width = PROGRESS_MAX_WIDTH
 
         self.attributes("-fullscreen", True)
         self.configure(bg=COLORS["bg"])
@@ -240,6 +251,32 @@ class GateApp(tk.Tk):
         )
         self.message_label.pack()
 
+        self._build_scan_progress(sw)
+
+    def _progress_track_width_for(self, sw: int) -> int:
+        return max(PROGRESS_MIN_WIDTH, min(int(sw * 0.5), PROGRESS_MAX_WIDTH))
+
+    def _build_scan_progress(self, sw: int):
+        self._progress_track_width = self._progress_track_width_for(sw)
+        bg = COLORS["idle"]
+
+        self.progress_wrap = tk.Frame(self.content, bg=bg)
+        self.progress_track = tk.Frame(
+            self.progress_wrap,
+            bg=COLORS["border"],
+            width=self._progress_track_width,
+            height=PROGRESS_HEIGHT,
+        )
+        self.progress_track.pack()
+        self.progress_track.pack_propagate(False)
+
+        self.progress_fill = tk.Frame(
+            self.progress_track,
+            bg=COLORS["accent"],
+            height=PROGRESS_HEIGHT,
+        )
+        self.progress_fill.place(relx=0, rely=0, relheight=1, relwidth=0, anchor="nw")
+
     def _build_debug(self):
         self.debug_frame = tk.Frame(self, bg=COLORS["debug_bg"])
         self.debug_header = tk.Label(
@@ -271,6 +308,102 @@ class GateApp(tk.Tk):
     def _on_resize(self, event):
         if event.widget is self:
             self.message_label.configure(wraplength=max(event.width - 48, 240))
+            width = self._progress_track_width_for(event.width)
+            if width != self._progress_track_width:
+                self._progress_track_width = width
+                self.progress_track.configure(width=width)
+
+    def _sync_progress_colors(self, state: str, card_bg: str):
+        if self._progress_mode == "hidden" and not self._progress_visible:
+            return
+
+        if state == "checking":
+            wrap_bg = card_bg
+            track_bg = "#4a4f56"
+            fill_bg = COLORS["text_on_dark"]
+        else:
+            wrap_bg = card_bg
+            track_bg = COLORS["border"]
+            fill_bg = COLORS["accent"]
+
+        self.progress_wrap.configure(bg=wrap_bg)
+        self.progress_track.configure(bg=track_bg)
+        self.progress_fill.configure(bg=fill_bg)
+
+    def _show_progress_bar(self):
+        if not self._progress_visible:
+            self.progress_wrap.pack(after=self.message_label, pady=(16, 0))
+            self._progress_visible = True
+
+    def _hide_progress_bar(self):
+        if self._progress_visible:
+            self.progress_wrap.pack_forget()
+            self._progress_visible = False
+
+    def _set_progress_fill(self, ratio: float):
+        ratio = max(0.0, min(ratio, 1.0))
+        self.progress_fill.place(relx=0, rely=0, relheight=1, relwidth=ratio, anchor="nw")
+
+    def _update_scan_progress(self):
+        if self.cooldown or self._busy:
+            return
+
+        if self._state != "idle":
+            return
+
+        if not self.scan_buffer:
+            if self._progress_mode == "input":
+                self._progress_mode = "hidden"
+                self._hide_progress_bar()
+                self.message_label.configure(text=i18n.MSG_READY)
+            return
+
+        self._progress_mode = "input"
+        self._show_progress_bar()
+        self._sync_progress_colors("idle", COLORS["idle"])
+        self.message_label.configure(text=i18n.MSG_SCANNING)
+        ratio = min(len(self.scan_buffer) / SCAN_EXPECTED_LEN, SCAN_PROGRESS_CAP)
+        self._set_progress_fill(ratio)
+
+    def _complete_input_progress(self):
+        self._show_progress_bar()
+        self._set_progress_fill(1.0)
+
+    def _stop_checking_progress(self):
+        if self._checking_pulse_after_id is not None:
+            try:
+                self.after_cancel(self._checking_pulse_after_id)
+            except tk.TclError:
+                pass
+            self._checking_pulse_after_id = None
+        self._checking_pulse_step = 0
+        self._progress_mode = "hidden"
+        self._hide_progress_bar()
+
+    def _start_checking_progress(self):
+        self._stop_checking_progress()
+        self._progress_mode = "checking"
+        self._show_progress_bar()
+        self._sync_progress_colors("checking", COLORS["checking"])
+        self._set_progress_fill(1.0)
+        self._pulse_checking_progress()
+
+    def _pulse_checking_progress(self):
+        if self._progress_mode != "checking" or self._state != "checking":
+            self._checking_pulse_after_id = None
+            return
+
+        # Oscillate between 70% and 100% width.
+        phase = self._checking_pulse_step % 20
+        if phase <= 10:
+            ratio = 0.7 + (phase / 10) * 0.3
+        else:
+            ratio = 1.0 - ((phase - 10) / 10) * 0.3
+        self._set_progress_fill(ratio)
+        self._checking_pulse_step += 1
+        self._checking_pulse_after_id = self.after(
+            CHECKING_PULSE_MS, self._pulse_checking_progress
+        )
 
     def open_settings(self):
         self._show_header()
@@ -339,6 +472,7 @@ class GateApp(tk.Tk):
         self._busy = False
         self._last_raw = ""
         self._request_gen += 1
+        self._stop_checking_progress()
         self._set_state("idle", i18n.TITLE_IDLE, message or i18n.MSG_RESET)
         self._refresh_debug_live()
 
@@ -359,22 +493,28 @@ class GateApp(tk.Tk):
 
         if event.keysym == "Return":
             raw = "".join(self.scan_buffer)
+            if raw:
+                self._complete_input_progress()
             self.scan_buffer.clear()
             self._refresh_debug_live()
             if raw:
                 self._handle_scan(raw)
+            else:
+                self._update_scan_progress()
             return
 
         if event.keysym == "BackSpace":
             if self.scan_buffer:
                 self.scan_buffer.pop()
                 self._refresh_debug_live()
+                self._update_scan_progress()
             return
 
         char = event.char
         if char and char.isprintable():
             self.scan_buffer.append(char)
             self._refresh_debug_live()
+            self._update_scan_progress()
 
     def _handle_scan(self, raw: str):
         if self.cooldown or self._busy:
@@ -384,6 +524,7 @@ class GateApp(tk.Tk):
                     f"cooldown={self.cooldown} busy={self._busy}",
                 ]
             )
+            self._stop_checking_progress()
             return
 
         self.cooldown = True
@@ -491,6 +632,14 @@ class GateApp(tk.Tk):
             config,
             host_header=config.get("host_header") or "chudartz-collectibles.com",
         )
+        if result.success and result.config_update:
+            merged = dict(self.config_data)
+            for key in ("event_id", "ticket_id"):
+                if key in result.config_update:
+                    merged[key] = result.config_update[key]
+            save_config(merged)
+            self.config_data = load_config()
+            config = dict(self.config_data)
         self.after(0, lambda: self._log_heartbeat(status, result))
 
     def _log_heartbeat(self, status: str, result):
@@ -544,6 +693,13 @@ class GateApp(tk.Tk):
         self.accent_bar.configure(bg=bar)
         self.status_label.configure(text=title, fg=fg, bg=color)
         self.message_label.configure(text=message, fg=msg_fg, bg=color)
+
+        if state == "checking":
+            self._start_checking_progress()
+        elif state in ("success", "fail", "idle"):
+            self._stop_checking_progress()
+        elif self._progress_mode == "input":
+            self._sync_progress_colors(state, color)
 
     def _refresh_debug_live(self):
         if not self.config_data.get("debug"):

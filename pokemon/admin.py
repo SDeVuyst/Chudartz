@@ -33,7 +33,14 @@ from pokemon.standhouder_studio import (
     handle_preview_post,
     preview_steps_for,
 )
-from pokemon.services.gate import device_payload, monitor_payload
+from pokemon.services.gate import (
+    apply_remote_gate_config,
+    device_payload,
+    gate_config_options,
+    GateConfigError,
+    monitor_payload,
+    scan_filters_from_params,
+)
 from pokemon.models import VraagType
 from decimal import Decimal, InvalidOperation
 from djmoney.money import Money
@@ -1117,6 +1124,16 @@ class GateDeviceAdmin(ModelAdmin):
                 self.admin_site.admin_view(self.gate_dashboard_status_view),
                 name='pokemon_gate_dashboard_status',
             ),
+            path(
+                '<int:object_id>/dashboard/config/',
+                self.admin_site.admin_view(self.gate_dashboard_config_view),
+                name='pokemon_gate_dashboard_config',
+            ),
+            path(
+                '<int:object_id>/dashboard/config-options/',
+                self.admin_site.admin_view(self.gate_dashboard_config_options_view),
+                name='pokemon_gate_dashboard_config_options',
+            ),
         ]
         return custom_urls + urls
 
@@ -1147,66 +1164,105 @@ class GateDeviceAdmin(ModelAdmin):
         return JsonResponse(monitor_payload(request.GET.get('since_scan_id')))
 
     def gate_dashboard_view(self, request, object_id):
-        device = get_object_or_404(GateDevice, pk=object_id)
-        payload = device_payload(device)
-        history = self._scan_history(request, device)
+        device = get_object_or_404(
+            GateDevice.objects.select_related("remote_event", "remote_ticket"),
+            pk=object_id,
+        )
+        filters = scan_filters_from_params(request.GET)
+        payload = device_payload(device, filters=filters)
+        config_options = gate_config_options()
         return render(request, 'admin/pokemon/gate_dashboard.html', {
             **self.admin_site.each_context(request),
             'title': _('Gate dashboard'),
             'device': device,
             'monitor_url': reverse('admin:pokemon_gate_monitor'),
-            'reported_config': (device.reported_config or {}),
-            'history': history['page'],
-            'history_filters': history['filters'],
-            'querystring_base': history['querystring_base'],
             'boot_json': json.dumps({
                 'statusUrl': reverse(
                     'admin:pokemon_gate_dashboard_status', args=[object_id]
                 ),
+                'configUrl': reverse(
+                    'admin:pokemon_gate_dashboard_config', args=[object_id]
+                ),
+                'configOptionsUrl': reverse(
+                    'admin:pokemon_gate_dashboard_config_options', args=[object_id]
+                ),
                 'pollMs': 2000,
+                'configOptions': config_options,
                 **payload,
             }),
         })
 
     def gate_dashboard_status_view(self, request, object_id):
-        device = get_object_or_404(GateDevice, pk=object_id)
+        device = get_object_or_404(
+            GateDevice.objects.select_related("remote_event", "remote_ticket"),
+            pk=object_id,
+        )
+        filters = scan_filters_from_params(request.GET)
         return JsonResponse(
-            device_payload(device, request.GET.get('since_scan_id'))
+            device_payload(
+                device,
+                request.GET.get('since_scan_id'),
+                filters=filters,
+            )
         )
 
-    def _scan_history(self, request, device):
-        """Paginated, filterable scan history for the detail page."""
-        outcome = request.GET.get('outcome', '')
-        datum = request.GET.get('datum', '')
-        zoek = request.GET.get('q', '').strip()
+    def gate_dashboard_config_view(self, request, object_id):
+        if request.method != 'POST':
+            return JsonResponse(
+                {'success': False, 'message': 'Onbekend verzoek.'},
+                status=400,
+            )
+        device = get_object_or_404(GateDevice, pk=object_id)
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse(
+                {'success': False, 'message': 'Ongeldige JSON.'},
+                status=400,
+            )
 
-        logs = device.scan_logs.select_related('device')
-        if outcome == 'success':
-            logs = logs.filter(success=True)
-        elif outcome == 'fail':
-            logs = logs.filter(success=False)
-        if datum:
-            parsed = parse_date(datum)
-            if parsed:
-                logs = logs.filter(created_at__date=parsed)
-        if zoek:
-            filters = Q(message__icontains=zoek)
-            if zoek.isdigit():
-                filters |= Q(participant_id_raw=int(zoek))
-            logs = logs.filter(filters)
+        event_id = data.get('event_id')
+        ticket_id = data.get('ticket_id')
+        if event_id is not None:
+            try:
+                event_id = int(event_id)
+            except (TypeError, ValueError):
+                return JsonResponse(
+                    {'success': False, 'message': 'Ongeldig evenement-ID.'},
+                    status=400,
+                )
+        else:
+            event_id = None
+        if ticket_id is not None:
+            try:
+                ticket_id = int(ticket_id)
+            except (TypeError, ValueError):
+                return JsonResponse(
+                    {'success': False, 'message': 'Ongeldig ticket-ID.'},
+                    status=400,
+                )
+        else:
+            ticket_id = None
 
-        params = QueryDict(mutable=True)
-        for key, value in (('outcome', outcome), ('datum', datum), ('q', zoek)):
-            if value:
-                params[key] = value
-        querystring_base = params.urlencode()
+        try:
+            device = apply_remote_gate_config(device, event_id, ticket_id)
+        except GateConfigError as exc:
+            return JsonResponse(
+                {'success': False, 'message': exc.message},
+                status=400,
+            )
 
-        paginator = Paginator(logs, 50)
-        return {
-            'page': paginator.get_page(request.GET.get('page')),
-            'filters': {'outcome': outcome, 'datum': datum, 'q': zoek},
-            'querystring_base': f'{querystring_base}&' if querystring_base else '',
-        }
+        device = GateDevice.objects.select_related(
+            "remote_event", "remote_ticket"
+        ).get(pk=device.pk)
+        return JsonResponse({
+            'success': True,
+            'config': device_payload(device)['device']['config'],
+        })
+
+    def gate_dashboard_config_options_view(self, request, object_id):
+        get_object_or_404(GateDevice, pk=object_id)
+        return JsonResponse(gate_config_options())
 
 
 @admin.register(GateScanLog)

@@ -881,7 +881,10 @@ def gate_heartbeat(request):
         data.get('status', ''),
         config if isinstance(config, dict) else None,
     )
-    return JsonResponse({'success': True})
+    payload = {'success': True}
+    if update := device.config_update_payload():
+        payload['config_update'] = update
+    return JsonResponse(payload)
 
 
 ###### ERROR HANDLERS #######

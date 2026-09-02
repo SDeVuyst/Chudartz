@@ -1246,6 +1246,30 @@ class GateDevice(models.Model):
         verbose_name=_("Reported config"),
         help_text=_("Configuration snapshot as reported by the device."),
     )
+    remote_event = models.ForeignKey(
+        Evenement,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="gate_devices",
+        verbose_name=_("Remote event filter"),
+        help_text=_("Desired event filter pushed to the device via heartbeat."),
+    )
+    remote_ticket = models.ForeignKey(
+        Ticket,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="gate_devices",
+        verbose_name=_("Remote ticket filter"),
+        help_text=_("Desired ticket filter pushed to the device via heartbeat."),
+    )
+    remote_config_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_("Remote config updated at"),
+        help_text=_("When set, the device receives config updates via heartbeat."),
+    )
 
     class Meta:
         verbose_name = _("Gate device")
@@ -1300,6 +1324,45 @@ class GateDevice(models.Model):
             return False
         age = (timezone.now() - self.last_heartbeat_at).total_seconds()
         return age <= self.ONLINE_TIMEOUT_SECONDS
+
+    @staticmethod
+    def _normalize_config_id(value):
+        if value in (None, "", "0"):
+            return None
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
+
+    def _reported_ids(self) -> dict:
+        reported = self.reported_config or {}
+        return {
+            "event_id": self._normalize_config_id(reported.get("event_id")),
+            "ticket_id": self._normalize_config_id(reported.get("ticket_id")),
+        }
+
+    def config_sync_status(self) -> str:
+        if not self.remote_config_at:
+            return "unmanaged"
+        reported = self._reported_ids()
+        if (
+            reported["event_id"] == self.remote_event_id
+            and reported["ticket_id"] == self.remote_ticket_id
+        ):
+            return "synced"
+        if not self.is_online:
+            return "offline_pending"
+        return "pending"
+
+    def config_update_payload(self) -> dict | None:
+        if not self.remote_config_at:
+            return None
+        if self.config_sync_status() == "synced":
+            return None
+        return {
+            "event_id": str(self.remote_event_id or ""),
+            "ticket_id": str(self.remote_ticket_id or ""),
+        }
 
 
 class GateScanLog(models.Model):

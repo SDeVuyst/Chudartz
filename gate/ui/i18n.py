@@ -10,6 +10,7 @@ TITLE_DENIED = "Toegang geweigerd"
 TITLE_NOT_CONFIGURED = "Nog niet ingesteld"
 
 MSG_READY = "Houd de QR-code voor de scanner"
+MSG_SCANNING = "Ticket wordt ingelezen…"
 MSG_CHECKING = "Je ticket wordt gecontroleerd"
 MSG_SETTINGS_SAVED = "Instellingen opgeslagen"
 MSG_RESET = "Scanner gereset — klaar om te scannen"
