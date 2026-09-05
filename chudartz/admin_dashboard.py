@@ -2,11 +2,12 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from django.db.models import Count, Prefetch, Q
+from django.http import JsonResponse
 from django.urls import reverse
 from django.utils import timezone
 
 from chudartz.services.calcom import get_upcoming_bookings
-from chudartz.services.mollie_stats import get_mollie_stats
+from chudartz.services.mollie_stats import MOLLIE_DASHBOARD_URL, get_mollie_stats
 from darts.models import Dartskamp, Leerling, Participant as DartsParticipant, PaymentStatus as DartsPaymentStatus
 from pokemon.models import (
     Evenement,
@@ -191,6 +192,17 @@ def _gate_stats():
     }
 
 
+def mollie_stats_api(request):
+    """Async JSON endpoint for the Mollie KPI card on the admin dashboard."""
+    account = request.GET.get("account", "darts")
+    if account not in DASHBOARD_VIEWS:
+        return JsonResponse(
+            {"ok": False, "error": "Ongeldig account", "totals": None},
+            status=400,
+        )
+    return JsonResponse(get_mollie_stats(account))
+
+
 def dashboard_callback(request, context):
     view = _resolve_view(request)
 
@@ -202,7 +214,9 @@ def dashboard_callback(request, context):
                 {"id": "collectibles", "label": "Collectibles", "icon": "festival"},
             ],
             "external_links": EXTERNAL_LINKS,
-            "mollie_stats": get_mollie_stats(view),
+            "mollie_account": view,
+            "mollie_url": MOLLIE_DASHBOARD_URL,
+            "mollie_stats_url": reverse("admin_dashboard_mollie_stats"),
         }
     )
 

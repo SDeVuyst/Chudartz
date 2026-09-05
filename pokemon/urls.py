@@ -2,16 +2,25 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
 from django.urls import include, path
+
+from chudartz.admin_dashboard import mollie_stats_api
+
 from . import views
 
 # Fixed paths for devices, webhooks, and staff tools — no /en/ language prefix.
 urlpatterns = [
     path("pokemon/set-attendance/", views.set_attendance),
+    path("pokemon/manual-check/", views.manual_check, name="manual_check"),
     path("pokemon/gate/check-in/", views.gate_check_in, name="gate_check_in"),
     path("pokemon/gate/heartbeat/", views.gate_heartbeat, name="gate_heartbeat"),
 ]
 
 urlpatterns += i18n_patterns(
+    path(
+        'admin/dashboard/mollie-stats/',
+        admin.site.admin_view(mollie_stats_api),
+        name='admin_dashboard_mollie_stats',
+    ),
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path(_('over-ons'), views.over_ons, name="over_ons"),

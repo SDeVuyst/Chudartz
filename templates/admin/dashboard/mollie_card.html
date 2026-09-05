@@ -1,0 +1,42 @@
+{% load i18n %}
+<section
+    class="dash-card"
+    id="mollie-stats-card"
+    data-endpoint="{{ mollie_stats_url }}?account={{ mollie_account }}"
+>
+    <div class="dash-card__head">
+        <h2 class="dash-card__title">{% trans "Mollie omzet (30 dagen)" %}</h2>
+        <a class="dash-card__link" href="{{ mollie_url }}" target="_blank" rel="noopener noreferrer">
+            {% trans "Open Mollie" %}
+        </a>
+    </div>
+
+    <p class="dash-alert" data-role="mollie-error" hidden></p>
+
+    <div class="dash-kpis" data-role="mollie-kpis" aria-busy="true">
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Betaald" %}</span>
+            <span class="dash-kpi__value">
+                <span class="dash-skeleton" data-field="paid_amount"></span>
+            </span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Betalingen" %}</span>
+            <span class="dash-kpi__value">
+                <span class="dash-skeleton" data-field="paid"></span>
+            </span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Open" %}</span>
+            <span class="dash-kpi__value">
+                <span class="dash-skeleton dash-skeleton--sm" data-field="open"></span>
+            </span>
+        </div>
+        <div class="dash-kpi">
+            <span class="dash-kpi__label">{% trans "Mislukt" %}</span>
+            <span class="dash-kpi__value">
+                <span class="dash-skeleton dash-skeleton--sm" data-field="failed"></span>
+            </span>
+        </div>
+    </div>
+</section>

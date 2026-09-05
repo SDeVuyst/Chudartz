@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block breadcrumbs %}{% endblock %}
 
@@ -41,4 +41,5 @@
 
     </div>
 </div>
+<script src="{% static 'chudartz/mollie-stats.js' %}" defer></script>
 {% endblock %}

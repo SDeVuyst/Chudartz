@@ -1,38 +1,5 @@
 {% load i18n %}
-<section class="dash-card">
-    <div class="dash-card__head">
-        <h2 class="dash-card__title">{% trans "Mollie omzet (30 dagen)" %}</h2>
-        <a class="dash-card__link" href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">
-            {% trans "Open Mollie" %}
-        </a>
-    </div>
-
-    {% if mollie_stats.error %}
-        <p class="dash-alert">
-            {{ mollie_stats.error }}.
-            <a href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">{% trans "Bekijk in Mollie" %}</a>
-        </p>
-    {% endif %}
-
-    <div class="dash-kpis">
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Betaald" %}</span>
-            <span class="dash-kpi__value">€{{ mollie_stats.totals.paid_amount|floatformat:2 }}</span>
-        </div>
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Betalingen" %}</span>
-            <span class="dash-kpi__value">{{ mollie_stats.totals.paid }}</span>
-        </div>
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Open" %}</span>
-            <span class="dash-kpi__value">{{ mollie_stats.totals.open }}</span>
-        </div>
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Mislukt" %}</span>
-            <span class="dash-kpi__value">{{ mollie_stats.totals.failed }}</span>
-        </div>
-    </div>
-</section>
+{% include "admin/dashboard/mollie_card.html" %}
 
 <section class="dash-card">
     <div class="dash-card__head">

@@ -4,6 +4,7 @@ from decimal import Decimal
 from email.utils import formataddr
 
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
@@ -38,7 +39,11 @@ from pokemon.models import (
     VraagType,
     StandhouderInschrijving,
 )
-from pokemon.services.attendance import AttendanceError, check_in_participant
+from pokemon.services.attendance import (
+    AttendanceError,
+    check_in_participant,
+    lookup_raw_qr,
+)
 from pokemon.services.gate import log_gate_scan
 from pokemon.payment import MollieClient
 from pokemon.services.standhouder import (
@@ -825,6 +830,42 @@ def set_attendance(request):
         return JsonResponse({'success': False, 'message': exc.message}, status=exc.status)
 
     return JsonResponse({'success': True, 'message': result['message']})
+
+
+@staff_member_required
+def manual_check(request):
+    """Staff QR lookup: resolve participant without marking attendance."""
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'message': "Onbekend verzoek."}, status=400)
+
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {'success': False, 'message': "QR-code niet herkend. Probeer opnieuw te scannen."},
+            status=400,
+        )
+
+    raw = data.get('raw')
+    if raw is None or str(raw).strip() == '':
+        return JsonResponse(
+            {'success': False, 'message': "QR-code niet herkend. Probeer opnieuw te scannen."},
+            status=400,
+        )
+
+    try:
+        result = lookup_raw_qr(str(raw))
+    except AttendanceError as exc:
+        return JsonResponse({'success': False, 'message': exc.message}, status=exc.status)
+
+    for warning in result['warnings']:
+        messages.warning(request, warning)
+
+    return JsonResponse({
+        'success': True,
+        'redirect_url': result['admin_url'],
+        'warnings': result['warnings'],
+    })
 
 
 @csrf_exempt

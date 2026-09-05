@@ -1,3 +1,6 @@
+from django.urls import reverse
+
+from gate.parse_qr import QRParseError, parse_qr
 from pokemon.models import Participant, PaymentStatus
 
 
@@ -15,6 +18,53 @@ def _optional_int(value):
         return int(value)
     except (TypeError, ValueError):
         raise AttendanceError("Ongeldig evenement- of ticketnummer.")
+
+
+def lookup_participant(participant_id, seed) -> dict:
+    """Resolve a QR payload to a participant admin URL without marking attendance.
+
+    Returns admin_url and non-blocking warning messages for unpaid / wrong seed /
+    already attended. Raises AttendanceError if the participant cannot be found.
+    """
+    if seed is None or seed == "":
+        raise AttendanceError("QR-code niet herkend. Probeer opnieuw te scannen.")
+
+    if participant_id is None:
+        raise AttendanceError("Deelnemer niet gevonden voor deze QR-code.", status=404)
+
+    try:
+        participant = Participant.objects.select_related(
+            "payment", "ticket", "ticket__event"
+        ).get(pk=participant_id)
+    except (Participant.DoesNotExist, ValueError, TypeError):
+        raise AttendanceError("Deelnemer niet gevonden voor deze QR-code.", status=404)
+
+    warnings: list[str] = []
+
+    if participant.payment is None or participant.payment.status != PaymentStatus.PAID:
+        warnings.append("Dit ticket is nog niet betaald.")
+
+    if seed != participant.random_seed:
+        warnings.append("Deze QR-code is ongeldig of gewijzigd.")
+
+    if participant.attended:
+        warnings.append("Dit ticket is al gebruikt.")
+
+    return {
+        "participant_id": participant.pk,
+        "admin_url": reverse("admin:pokemon_participant_change", args=[participant.pk]),
+        "warnings": warnings,
+    }
+
+
+def lookup_raw_qr(raw: str) -> dict:
+    """Parse raw scanner input with the same gate parser, then look up the participant."""
+    try:
+        ticket = parse_qr(raw)
+    except QRParseError:
+        raise AttendanceError("QR-code niet herkend. Probeer opnieuw te scannen.")
+
+    return lookup_participant(ticket.participant_id, ticket.seed)
 
 
 def check_in_participant(participant_id, seed, *, event_id=None, ticket_id=None) -> dict:

@@ -18,8 +18,15 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
 
+from chudartz.admin_dashboard import mollie_stats_api
+
 
 urlpatterns = i18n_patterns(
+    path(
+        'admin/dashboard/mollie-stats/',
+        admin.site.admin_view(mollie_stats_api),
+        name='admin_dashboard_mollie_stats',
+    ),
     path('admin/', admin.site.urls),
     # path("", include('darts.urls')),
     # path("pokemon", include('pokemon.urls')),

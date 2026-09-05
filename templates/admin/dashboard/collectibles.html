@@ -1,70 +1,65 @@
-{% load i18n %}
-<section class="dash-card">
-    <div class="dash-card__head">
-        <h2 class="dash-card__title">{% trans "Mollie omzet (30 dagen)" %}</h2>
-        <a class="dash-card__link" href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">
-            {% trans "Open Mollie" %}
-        </a>
+{% load i18n static %}
+{% include "admin/dashboard/mollie_card.html" %}
+
+<div class="dash-row-gate">
+    <section class="dash-card">
+        <div class="dash-card__head">
+            <h2 class="dash-card__title">{% trans "Toegangscontrole" %}</h2>
+            <a class="dash-card__link" href="{{ gate_stats.monitor_url }}">{% trans "Open gate monitor" %}</a>
+        </div>
+
+        {% if gate_stats.devices %}
+            <div class="dash-kpis">
+                <div class="dash-kpi">
+                    <span class="dash-kpi__label">{% trans "Scanners online" %}</span>
+                    <span class="dash-kpi__value">
+                        {{ gate_stats.aggregate.online_count }}/{{ gate_stats.aggregate.total_count }}
+                    </span>
+                </div>
+                <div class="dash-kpi">
+                    <span class="dash-kpi__label">{% trans "Scans vandaag" %}</span>
+                    <span class="dash-kpi__value">{{ gate_stats.aggregate.today_total }}</span>
+                </div>
+                <div class="dash-kpi">
+                    <span class="dash-kpi__label">{% trans "Toegelaten" %}</span>
+                    <span class="dash-kpi__value">{{ gate_stats.aggregate.today_success }}</span>
+                </div>
+                <div class="dash-kpi">
+                    <span class="dash-kpi__label">{% trans "Geweigerd" %}</span>
+                    <span class="dash-kpi__value">{{ gate_stats.aggregate.today_fail }}</span>
+                </div>
+            </div>
+        {% else %}
+            <p class="dash-empty">{% trans "Nog geen gate-scanners aangemaakt." %}</p>
+        {% endif %}
+    </section>
+
+    <div
+        id="manual-check-card"
+        class="dash-card dash-card--manual-check"
+        role="button"
+        tabindex="0"
+        aria-pressed="false"
+        data-csrf="{{ csrf_token }}"
+        data-endpoint="/pokemon/manual-check/"
+    >
+        <span class="dash-card__title">{% trans "Manuele check" %}</span>
+        <span class="material-symbols-outlined dash-card--manual-check__icon" aria-hidden="true">qr_code_scanner</span>
+        <span class="dash-card--manual-check__status" data-role="status" hidden></span>
+        <span class="dash-card--manual-check__error" data-role="error" hidden></span>
+        <input
+            type="text"
+            id="manual-check-input"
+            class="dash-card--manual-check__input"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            tabindex="-1"
+            aria-label="{% trans 'Scanner invoer' %}"
+        >
     </div>
-
-    {% if mollie_stats.error %}
-        <p class="dash-alert">
-            {{ mollie_stats.error }}.
-            <a href="{{ mollie_stats.mollie_url }}" target="_blank" rel="noopener noreferrer">{% trans "Bekijk in Mollie" %}</a>
-        </p>
-    {% endif %}
-
-    <div class="dash-kpis">
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Betaald" %}</span>
-            <span class="dash-kpi__value">€{{ mollie_stats.totals.paid_amount|floatformat:2 }}</span>
-        </div>
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Betalingen" %}</span>
-            <span class="dash-kpi__value">{{ mollie_stats.totals.paid }}</span>
-        </div>
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Open" %}</span>
-            <span class="dash-kpi__value">{{ mollie_stats.totals.open }}</span>
-        </div>
-        <div class="dash-kpi">
-            <span class="dash-kpi__label">{% trans "Mislukt" %}</span>
-            <span class="dash-kpi__value">{{ mollie_stats.totals.failed }}</span>
-        </div>
-    </div>
-</section>
-
-<section class="dash-card">
-    <div class="dash-card__head">
-        <h2 class="dash-card__title">{% trans "Toegangscontrole" %}</h2>
-        <a class="dash-card__link" href="{{ gate_stats.monitor_url }}">{% trans "Open gate monitor" %}</a>
-    </div>
-
-    {% if gate_stats.devices %}
-        <div class="dash-kpis">
-            <div class="dash-kpi">
-                <span class="dash-kpi__label">{% trans "Scanners online" %}</span>
-                <span class="dash-kpi__value">
-                    {{ gate_stats.aggregate.online_count }}/{{ gate_stats.aggregate.total_count }}
-                </span>
-            </div>
-            <div class="dash-kpi">
-                <span class="dash-kpi__label">{% trans "Scans vandaag" %}</span>
-                <span class="dash-kpi__value">{{ gate_stats.aggregate.today_total }}</span>
-            </div>
-            <div class="dash-kpi">
-                <span class="dash-kpi__label">{% trans "Toegelaten" %}</span>
-                <span class="dash-kpi__value">{{ gate_stats.aggregate.today_success }}</span>
-            </div>
-            <div class="dash-kpi">
-                <span class="dash-kpi__label">{% trans "Geweigerd" %}</span>
-                <span class="dash-kpi__value">{{ gate_stats.aggregate.today_fail }}</span>
-            </div>
-        </div>
-    {% else %}
-        <p class="dash-empty">{% trans "Nog geen gate-scanners aangemaakt." %}</p>
-    {% endif %}
-</section>
+</div>
+<script src="{% static 'chudartz/manual-check.js' %}" defer></script>
 
 <div class="dash-grid-2">
     <section class="dash-card">

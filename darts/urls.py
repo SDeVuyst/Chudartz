@@ -2,6 +2,9 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
+
+from chudartz.admin_dashboard import mollie_stats_api
+
 from . import views
 
 
@@ -54,6 +57,11 @@ urlpatterns = i18n_patterns(
     path('leerling/<int:code>/', views.leerling),
     path('code/<int:code>/', views.code_bestaat, name="code_bestaat"),
 
+    path(
+        'admin/dashboard/mollie-stats/',
+        admin.site.admin_view(mollie_stats_api),
+        name='admin_dashboard_mollie_stats',
+    ),
     path('admin/', admin.site.urls),
 
     path('i18n/', include('django.conf.urls.i18n')),

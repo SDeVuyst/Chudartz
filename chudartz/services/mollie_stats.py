@@ -30,12 +30,17 @@ def _fetch_account_stats(api_key):
     cutoff = (date.today() - timedelta(days=DAYS)).isoformat()
     paid_amount = Decimal("0")
 
+    # Mollie returns newest-first; stop once we pass the 30-day cutoff.
+    reached_cutoff = False
     collection = client.payments.list(limit=250)
     while True:
         for payment in collection:
             created = (payment.get("createdAt") or "")[:10]
-            if not created or created < cutoff:
+            if not created:
                 continue
+            if created < cutoff:
+                reached_cutoff = True
+                break
 
             status = payment.get("status", "")
             amount = Decimal(payment.get("amount", {}).get("value", "0") or "0")
@@ -48,7 +53,7 @@ def _fetch_account_stats(api_key):
             elif status in ("failed", "expired", "canceled"):
                 counts["failed"] += 1
 
-        if not collection.has_next():
+        if reached_cutoff or not collection.has_next():
             break
         collection = collection.get_next()
 
