@@ -20,22 +20,49 @@
   </div>
 </div>
 
-<div class="gate-kpis">
-  <div class="gate-kpi">
-    <div class="gate-kpi__label">{% trans "Scans vandaag" %}</div>
-    <div class="gate-kpi__value" data-kpi="today_total">0</div>
+<div class="gate-kpis-row">
+  <div class="gate-kpis">
+    <div class="gate-kpi">
+      <div class="gate-kpi__label">{% trans "Scans vandaag" %}</div>
+      <div class="gate-kpi__value" data-kpi="today_total">0</div>
+    </div>
+    <div class="gate-kpi">
+      <div class="gate-kpi__label">{% trans "Toegelaten" %}</div>
+      <div class="gate-kpi__value" data-kpi="today_success">0</div>
+    </div>
+    <div class="gate-kpi">
+      <div class="gate-kpi__label">{% trans "Geweigerd" %}</div>
+      <div class="gate-kpi__value" data-kpi="today_fail">0</div>
+    </div>
+    <div class="gate-kpi">
+      <div class="gate-kpi__label">{% trans "Online" %}</div>
+      <div class="gate-kpi__value" data-kpi="online"><span data-role="online-num">0</span>/<span data-role="total-num">0</span></div>
+    </div>
   </div>
-  <div class="gate-kpi">
-    <div class="gate-kpi__label">{% trans "Toegelaten" %}</div>
-    <div class="gate-kpi__value" data-kpi="today_success">0</div>
-  </div>
-  <div class="gate-kpi">
-    <div class="gate-kpi__label">{% trans "Geweigerd" %}</div>
-    <div class="gate-kpi__value" data-kpi="today_fail">0</div>
-  </div>
-  <div class="gate-kpi">
-    <div class="gate-kpi__label">{% trans "Online" %}</div>
-    <div class="gate-kpi__value" data-kpi="online"><span data-role="online-num">0</span>/<span data-role="total-num">0</span></div>
+
+  <div
+    id="manual-check-card"
+    class="gate-manual-check"
+    role="button"
+    tabindex="0"
+    aria-pressed="false"
+    data-csrf="{{ csrf_token }}"
+    data-endpoint="/pokemon/manual-check/"
+  >
+    <span class="gate-manual-check__title">{% trans "Manuele check" %}</span>
+    <span class="material-symbols-outlined gate-manual-check__icon" aria-hidden="true">barcode_reader</span>
+    <span class="gate-manual-check__status" data-role="status" hidden></span>
+    <span class="gate-manual-check__error" data-role="error" hidden></span>
+    <input
+      type="text"
+      id="manual-check-input"
+      class="gate-manual-check__input"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      tabindex="-1"
+      aria-label="{% trans 'Scanner invoer' %}"
+    >
   </div>
 </div>
 
@@ -84,6 +111,7 @@
 </div>
 </div>
 
+<script src="{% static 'chudartz/manual-check.js' %}"></script>
 <script src="{% static 'pokemon/js/gate-animations.js' %}"></script>
 <script src="{% static 'pokemon/js/gate-monitor.js' %}"></script>
 {% endblock %}

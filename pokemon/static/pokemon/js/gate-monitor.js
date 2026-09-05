@@ -37,6 +37,14 @@
     return '—';
   }
 
+  function filterSubtitle(device) {
+    const config = device.config || {};
+    const parts = [];
+    if (config.remote_event_label) parts.push(config.remote_event_label);
+    if (config.remote_ticket_label) parts.push(config.remote_ticket_label);
+    return parts.length ? parts.join(' · ') : 'Alle evenementen';
+  }
+
   function buildCard(device) {
     const card = document.createElement('a');
     card.className = 'gate-card';
@@ -46,6 +54,7 @@
         <span class="gate-card__dot"></span>
         <span class="gate-card__name"></span>
       </div>
+      <div class="gate-card__filter" data-role="filter"></div>
       <div class="gate-card__meta">
         <span data-role="count"><span class="gate-anim-count" data-role="count-num">0</span> scans</span>
         <span data-role="time"></span>
@@ -55,6 +64,11 @@
 
   function updateCard(card, device) {
     card.querySelector('.gate-card__name').textContent = device.name;
+    const filterEl = card.querySelector('[data-role="filter"]');
+    if (filterEl) {
+      filterEl.textContent = filterSubtitle(device);
+      filterEl.title = filterEl.textContent;
+    }
     const dot = card.querySelector('.gate-card__dot');
     if (anim) {
       anim.updateStatusDot(dot, device.online, isLive);

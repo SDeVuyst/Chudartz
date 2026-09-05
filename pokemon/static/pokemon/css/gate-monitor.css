@@ -356,56 +356,9 @@
   background: var(--gate-success);
 }
 
-#gate-admin .gate-card__dot.is-polling.is-online {
-  animation: gateDotPulseOnline 2s ease-in-out infinite;
-}
-
+#gate-admin .gate-card__dot.is-polling.is-online,
 #gate-admin .gate-card__dot.is-polling:not(.is-online) {
-  animation: gateDotPulseOffline 2s ease-in-out infinite;
-}
-
-@keyframes gateDotPulseOnline {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgb(22 163 74 / 0);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgb(22 163 74 / 0.35);
-  }
-}
-
-@keyframes gateDotPulseOffline {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgb(220 38 38 / 0);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgb(220 38 38 / 0.35);
-  }
-}
-
-.dark #gate-admin .gate-card__dot.is-polling.is-online {
-  animation-name: gateDotPulseOnlineDark;
-}
-
-.dark #gate-admin .gate-card__dot.is-polling:not(.is-online) {
-  animation-name: gateDotPulseOfflineDark;
-}
-
-@keyframes gateDotPulseOnlineDark {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgb(34 197 94 / 0);
-  }
-  50% {
-    box-shadow: 0 0 0 3px rgb(34 197 94 / 0.4);
-  }
-}
-
-@keyframes gateDotPulseOfflineDark {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgb(248 113 113 / 0);
-  }
-  50% {
-    box-shadow: 0 0 0 3px rgb(248 113 113 / 0.4);
-  }
+  animation: gateLivePulse 2s ease-in-out infinite;
 }
 
 #gate-admin .gate-card__name {
@@ -414,6 +367,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+#gate-admin .gate-card__filter {
+  font-size: 0.9rem;
+  line-height: 1.3;
+  color: var(--gate-muted);
+  margin: -0.15rem 0 0.55rem;
+  overflow: hidden;
 }
 
 #gate-admin .gate-card__meta {
@@ -455,13 +416,28 @@
   animation: gateCardFlashFail 1.2s ease-out;
 }
 
-/* ---- KPI bar ---- */
+/* ---- KPI bar + manuele check ---- */
+
+#gate-admin .gate-kpis-row {
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+  gap: 0.75rem;
+  align-items: stretch;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  #gate-admin .gate-kpis-row {
+    grid-template-columns: 1fr;
+  }
+}
 
 #gate-admin .gate-kpis {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 0.75rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
+  min-width: 0;
 }
 
 #gate-admin .gate-kpi {
@@ -483,6 +459,94 @@
   font-weight: 700;
   line-height: 1.25;
   margin-top: 0.15rem;
+}
+
+#gate-admin .gate-manual-check {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--gate-border);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+#gate-admin .gate-manual-check:hover {
+  border-color: var(--gate-accent);
+}
+
+#gate-admin .gate-manual-check.is-listening {
+  border-color: var(--gate-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gate-accent) 25%, transparent);
+}
+
+#gate-admin .gate-manual-check.is-error {
+  border-color: var(--gate-accent);
+}
+
+#gate-admin .gate-manual-check__title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+#gate-admin .gate-manual-check__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--gate-muted);
+}
+
+#gate-admin .gate-manual-check.is-listening .gate-manual-check__icon {
+  color: var(--gate-accent);
+}
+
+#gate-admin .gate-manual-check__status {
+  font-size: 0.7rem;
+  color: var(--gate-muted);
+}
+
+#gate-admin .gate-manual-check.is-listening .gate-manual-check__status {
+  color: var(--gate-accent);
+  font-weight: 600;
+}
+
+#gate-admin .gate-manual-check__error {
+  display: block;
+  max-width: 100%;
+  margin-top: 0.15rem;
+  padding: 0.35rem 0.4rem;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  text-align: left;
+  word-break: break-all;
+  white-space: pre-wrap;
+  color: var(--gate-accent);
+  background: color-mix(in srgb, var(--gate-accent) 8%, transparent);
+  border-radius: 6px;
+}
+
+#gate-admin .gate-manual-check__status[hidden],
+#gate-admin .gate-manual-check__error[hidden] {
+  display: none !important;
+}
+
+#gate-admin .gate-manual-check__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
 }
 
 /* ---- Feed / tables ---- */
