@@ -16,10 +16,12 @@
   const configForm = document.getElementById('gate-config-form');
   const configEvent = document.getElementById('gate-config-event');
   const configTicket = document.getElementById('gate-config-ticket');
+  const configDebug = document.getElementById('gate-config-debug');
   const configBadge = document.getElementById('gate-config-badge');
   const configError = document.getElementById('gate-config-error');
   const reportedEvent = document.getElementById('gate-reported-event');
   const reportedTicket = document.getElementById('gate-reported-ticket');
+  const reportedDebug = document.getElementById('gate-reported-debug');
 
   const CONFIG_STATUS_LABELS = {
     synced: 'Actief op toestel',
@@ -442,10 +444,16 @@
       config.reported_ticket_id,
       config.reported_ticket_label
     );
+    if (reportedDebug) {
+      reportedDebug.textContent = config.reported_debug ? 'Aan' : 'Uit';
+    }
 
     if (!configFormDirty) {
       populateEventOptions(config.remote_event_id);
       populateTicketOptions(config.remote_event_id, config.remote_ticket_id);
+      if (configDebug) {
+        configDebug.checked = Boolean(config.remote_debug);
+      }
     }
   }
 
@@ -570,6 +578,12 @@
     });
   }
 
+  if (configDebug) {
+    configDebug.addEventListener('change', function () {
+      configFormDirty = true;
+    });
+  }
+
   if (configForm) {
     configForm.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -583,6 +597,7 @@
       const body = {
         event_id: eventVal ? parseInt(eventVal, 10) : null,
         ticket_id: ticketVal ? parseInt(ticketVal, 10) : null,
+        debug: configDebug ? Boolean(configDebug.checked) : false,
       };
 
       fetch(boot.configUrl, {

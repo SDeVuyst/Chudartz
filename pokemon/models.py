@@ -1263,6 +1263,11 @@ class GateDevice(models.Model):
         verbose_name=_("Remote ticket filter"),
         help_text=_("Desired ticket filter pushed to the device via heartbeat."),
     )
+    remote_debug = models.BooleanField(
+        default=False,
+        verbose_name=_("Remote debug mode"),
+        help_text=_("Desired debug mode pushed to the device via heartbeat."),
+    )
     remote_config_at = models.DateTimeField(
         null=True,
         blank=True,
@@ -1338,6 +1343,7 @@ class GateDevice(models.Model):
         return {
             "event_id": self._normalize_config_id(reported.get("event_id")),
             "ticket_id": self._normalize_config_id(reported.get("ticket_id")),
+            "debug": bool(reported.get("debug")),
         }
 
     def config_sync_status(self) -> str:
@@ -1347,6 +1353,7 @@ class GateDevice(models.Model):
         if (
             reported["event_id"] == self.remote_event_id
             and reported["ticket_id"] == self.remote_ticket_id
+            and reported["debug"] == self.remote_debug
         ):
             return "synced"
         if not self.is_online:
@@ -1361,6 +1368,7 @@ class GateDevice(models.Model):
         return {
             "event_id": str(self.remote_event_id or ""),
             "ticket_id": str(self.remote_ticket_id or ""),
+            "debug": bool(self.remote_debug),
         }
 
 

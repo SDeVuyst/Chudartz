@@ -634,12 +634,21 @@ class GateApp(tk.Tk):
         )
         if result.success and result.config_update:
             merged = dict(self.config_data)
-            for key in ("event_id", "ticket_id"):
+            changed = False
+            for key in ("event_id", "ticket_id", "debug"):
                 if key in result.config_update:
                     merged[key] = result.config_update[key]
-            save_config(merged)
-            self.config_data = load_config()
-            config = dict(self.config_data)
+                    changed = True
+            if changed:
+                save_config(merged)
+                self.config_data = load_config()
+                config = dict(self.config_data)
+
+                def _apply_remote_ui():
+                    self._update_filter_label()
+                    self._apply_debug_visibility()
+
+                self.after(0, _apply_remote_ui)
         self.after(0, lambda: self._log_heartbeat(status, result))
 
     def _log_heartbeat(self, status: str, result):

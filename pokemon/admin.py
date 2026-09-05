@@ -1238,6 +1238,7 @@ class GateDeviceAdmin(ModelAdmin):
 
         event_id = data.get('event_id')
         ticket_id = data.get('ticket_id')
+        debug = bool(data.get('debug'))
         if event_id is not None:
             try:
                 event_id = int(event_id)
@@ -1260,7 +1261,7 @@ class GateDeviceAdmin(ModelAdmin):
             ticket_id = None
 
         try:
-            device = apply_remote_gate_config(device, event_id, ticket_id)
+            device = apply_remote_gate_config(device, event_id, ticket_id, debug=debug)
         except GateConfigError as exc:
             return JsonResponse(
                 {'success': False, 'message': exc.message},

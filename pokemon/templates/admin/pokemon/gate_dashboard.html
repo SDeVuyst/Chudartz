@@ -30,7 +30,7 @@
 
 <div class="gate-card-base" id="gate-config-card">
   <div class="gate-card-title-row">
-    <h2 class="gate-card-title">{% trans "Ingangfilters" %}</h2>
+    <h2 class="gate-card-title">{% trans "Apparaatinstellingen" %}</h2>
     <span class="gate-config-badge" id="gate-config-badge" data-status="unmanaged">
       {% trans "Niet beheerd vanuit admin" %}
     </span>
@@ -40,16 +40,25 @@
       <h3 class="gate-config-subtitle">{% trans "Gewenst (admin)" %}</h3>
       <form class="gate-form gate-config-form" id="gate-config-form">
         <div class="gate-field">
-          <label for="gate-config-event">{% trans "Evenement" %}</label>
+          <label for="gate-config-event">{% trans "Filter Evenement" %}</label>
           <select id="gate-config-event" name="event_id">
             <option value="">{% trans "Alle evenementen" %}</option>
           </select>
         </div>
         <div class="gate-field">
-          <label for="gate-config-ticket">{% trans "Tickettype" %}</label>
+          <label for="gate-config-ticket">{% trans "Filter Tickettype" %}</label>
           <select id="gate-config-ticket" name="ticket_id" disabled>
             <option value="">{% trans "Alle tickettypes" %}</option>
           </select>
+        </div>
+        <div class="gate-field gate-field--switch">
+          <span class="gate-field__label" id="gate-config-debug-label">{% trans "Debugmodus" %}</span>
+          <label class="gate-switch" for="gate-config-debug">
+            <input type="checkbox" id="gate-config-debug" name="debug" role="switch" aria-labelledby="gate-config-debug-label">
+            <span class="gate-switch__track" aria-hidden="true">
+              <span class="gate-switch__thumb"></span>
+            </span>
+          </label>
         </div>
         <div class="gate-config-actions">
           <button type="submit" class="gate-btn gate-btn--primary" id="gate-config-save">
@@ -61,16 +70,20 @@
     </div>
     <div class="gate-config-col">
       <h3 class="gate-config-subtitle">{% trans "Actief op toestel" %}</h3>
-      <dl class="gate-defs" id="gate-reported-config">
-        <div>
-          <dt>{% trans "Evenement" %}</dt>
-          <dd id="gate-reported-event">—</dd>
+      <div class="gate-config-reported">
+        <div class="gate-field">
+          <span class="gate-field__label">{% trans "Filter Evenement" %}</span>
+          <div class="gate-field__value" id="gate-reported-event">—</div>
         </div>
-        <div>
-          <dt>{% trans "Tickettype" %}</dt>
-          <dd id="gate-reported-ticket">—</dd>
+        <div class="gate-field">
+          <span class="gate-field__label">{% trans "Filter Tickettype" %}</span>
+          <div class="gate-field__value" id="gate-reported-ticket">—</div>
         </div>
-      </dl>
+        <div class="gate-field gate-field--switch">
+          <span class="gate-field__label">{% trans "Debugmodus" %}</span>
+          <div class="gate-field__value" id="gate-reported-debug">—</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

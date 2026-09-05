@@ -144,10 +144,12 @@ def serialize_device_config(device: GateDevice) -> dict:
         "remote_event_label": remote_event.titel if remote_event else None,
         "remote_ticket_id": device.remote_ticket_id,
         "remote_ticket_label": remote_ticket.titel if remote_ticket else None,
+        "remote_debug": bool(device.remote_debug),
         "reported_event_id": reported["event_id"],
         "reported_ticket_id": reported["ticket_id"],
         "reported_event_label": reported_event_label,
         "reported_ticket_label": reported_ticket_label,
+        "reported_debug": reported["debug"],
     }
 
 
@@ -312,6 +314,7 @@ def apply_remote_gate_config(
     device: GateDevice,
     event_id: int | None,
     ticket_id: int | None,
+    debug: bool = False,
 ) -> GateDevice:
     if ticket_id is not None and event_id is None:
         raise GateConfigError("Tickettype vereist een evenement.")
@@ -333,8 +336,16 @@ def apply_remote_gate_config(
 
     device.remote_event = remote_event
     device.remote_ticket = remote_ticket
+    device.remote_debug = bool(debug)
     device.remote_config_at = timezone.now()
-    device.save(update_fields=["remote_event", "remote_ticket", "remote_config_at"])
+    device.save(
+        update_fields=[
+            "remote_event",
+            "remote_ticket",
+            "remote_debug",
+            "remote_config_at",
+        ]
+    )
     return device
 
 
