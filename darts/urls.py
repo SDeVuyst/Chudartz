@@ -4,11 +4,18 @@ from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
 
 from chudartz.admin_dashboard import mollie_stats_api
+from pokemon import views as pokemon_views
 
 from . import views
 
 
-urlpatterns = i18n_patterns(
+# Staff tools shared with the unified admin on chudartz.com (collectibles tab).
+urlpatterns = [
+    path("pokemon/set-attendance/", pokemon_views.set_attendance),
+    path("pokemon/manual-check/", pokemon_views.manual_check, name="manual_check"),
+]
+
+urlpatterns += i18n_patterns(
     path('', views.index, name="index"),
 
     path(_('trainers/'), views.trainers, name="trainers"),

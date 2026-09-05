@@ -88,6 +88,14 @@
         body: JSON.stringify({ raw: raw }),
       })
         .then(function (response) {
+          const contentType = response.headers.get('content-type') || '';
+          if (contentType.indexOf('application/json') === -1) {
+            return response.text().then(function () {
+              throw new Error(
+                'Serverantwoord was geen JSON (HTTP ' + response.status + ').'
+              );
+            });
+          }
           return response.json().then(function (data) {
             return { ok: response.ok, status: response.status, data: data };
           });
