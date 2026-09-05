@@ -506,36 +506,6 @@
   color: var(--gate-accent);
 }
 
-#gate-admin .gate-manual-check__status {
-  font-size: 0.7rem;
-  color: var(--gate-muted);
-}
-
-#gate-admin .gate-manual-check.is-listening .gate-manual-check__status {
-  color: var(--gate-accent);
-  font-weight: 600;
-}
-
-#gate-admin .gate-manual-check__error {
-  display: block;
-  max-width: 100%;
-  margin-top: 0.15rem;
-  padding: 0.35rem 0.4rem;
-  font-size: 0.65rem;
-  line-height: 1.35;
-  text-align: left;
-  word-break: break-all;
-  white-space: pre-wrap;
-  color: var(--gate-accent);
-  background: color-mix(in srgb, var(--gate-accent) 8%, transparent);
-  border-radius: 6px;
-}
-
-#gate-admin .gate-manual-check__status[hidden],
-#gate-admin .gate-manual-check__error[hidden] {
-  display: none !important;
-}
-
 #gate-admin .gate-manual-check__input {
   position: absolute;
   width: 1px;
