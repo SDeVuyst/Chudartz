@@ -152,22 +152,30 @@ def contact(request):
 
 
 def evenementen(request):
-    today = timezone.now().date()
-    # Future first (soonest → furthest), then past (newest → oldest).
+    now = timezone.now()
+    # Eerst de aankomende en lopende evenementen (dichtste startdatum eerst),
+    # daarna de voorbije (recentste eerst). De sortering gebeurt in de database
+    # zodat de volgorde ook over meerdere paginas correct blijft.
     evenementen = Evenement.objects.filter(toon_op_site=True).annotate(
-        is_future=Case(
-            When(start_datum__gte=today, then=Value(0)),
-            default=Value(1),
+        is_voorbij=Case(
+            When(einde_datum__lt=now, then=Value(1)),
+            default=Value(0),
             output_field=IntegerField(),
         ),
-    ).order_by(
-        'is_future',
-        'volgorde',
-        Case(
-            When(start_datum__gte=today, then=F('start_datum')),
+        aankomend_datum=Case(
+            When(einde_datum__gte=now, then=F('start_datum')),
             output_field=DateTimeField(),
         ),
-        F('start_datum').desc(),
+        voorbij_datum=Case(
+            When(einde_datum__lt=now, then=F('start_datum')),
+            output_field=DateTimeField(),
+        ),
+    ).order_by(
+        'is_voorbij',
+        'aankomend_datum',
+        F('voorbij_datum').desc(nulls_last=True),
+        'volgorde',
+        'pk',
     )
 
     paginator = Paginator(evenementen, 12)
@@ -177,12 +185,12 @@ def evenementen(request):
 
     context = get_default_context()
     context["evenementen"] = page_obj
-    context["has_future_events"] = any(
-        evenement.is_in_future or evenement.is_bezig for evenement in page_obj
-    )
-    context["has_past_events"] = any(
-        not evenement.is_in_future and not evenement.is_bezig for evenement in page_obj
-    )
+    context["aankomende_evenementen"] = [
+        evenement for evenement in page_obj if not evenement.is_voorbij
+    ]
+    context["voorbije_evenementen"] = [
+        evenement for evenement in page_obj if evenement.is_voorbij
+    ]
     context["enable_pagination"] = paginator.num_pages > 1
 
     return TemplateResponse(request, 'pokemon/pages/evenementen.html', context)
