@@ -87,7 +87,7 @@
 
 #admin-dashboard .dash-row-gate {
   display: grid;
-  grid-template-columns: 7fr 1fr;
+  grid-template-columns: 7fr 1fr 1fr;
   gap: var(--dash-gap);
   align-items: stretch;
 }
@@ -131,6 +131,11 @@
 
 #admin-dashboard .dash-card--manual-check.is-error {
   border-color: var(--dash-accent);
+}
+
+#admin-dashboard .dash-card--manual-check.is-success {
+  border-color: rgb(22 163 74);
+  box-shadow: 0 0 0 2px color-mix(in srgb, rgb(22 163 74) 25%, transparent);
 }
 
 #admin-dashboard .dash-card--manual-check__input {
@@ -362,6 +367,7 @@
 
 .manual-check-modal {
   --manual-check-accent: rgb(195 17 26);
+  --manual-check-success: rgb(22 163 74);
   --manual-check-muted: rgb(107 114 128);
   --manual-check-surface: rgb(255 255 255);
   --manual-check-border: rgb(229 231 235);
@@ -417,6 +423,10 @@
   border-color: var(--manual-check-accent);
 }
 
+.manual-check-modal.is-success .manual-check-modal__panel {
+  border-color: var(--manual-check-success);
+}
+
 .manual-check-modal__title {
   margin: 0;
   font-size: 1.05rem;
@@ -435,6 +445,10 @@
   color: var(--manual-check-accent);
 }
 
+.manual-check-modal.is-success .manual-check-modal__message {
+  color: var(--manual-check-success);
+}
+
 .manual-check-modal__raw {
   margin: 0;
   padding: 0.65rem 0.75rem;
@@ -451,6 +465,30 @@
 
 .manual-check-modal__raw[hidden] {
   display: none !important;
+}
+
+.manual-check-modal__link {
+  display: inline-flex;
+  align-self: flex-start;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--manual-check-text);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.manual-check-modal__link[hidden] {
+  display: none !important;
+}
+
+.manual-check-modal.is-success .manual-check-modal__link {
+  color: var(--manual-check-success);
+}
+
+.manual-check-modal.is-error .manual-check-modal__link {
+  color: var(--manual-check-accent);
 }
 
 .manual-check-modal__hint {

@@ -13,6 +13,7 @@ from . import views
 urlpatterns = [
     path("pokemon/set-attendance/", pokemon_views.set_attendance),
     path("pokemon/manual-check/", pokemon_views.manual_check, name="manual_check"),
+    path("pokemon/scan-ticket/", pokemon_views.scan_ticket, name="scan_ticket"),
 ]
 
 urlpatterns += i18n_patterns(

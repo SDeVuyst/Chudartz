@@ -5,9 +5,18 @@ from pokemon.models import Participant, PaymentStatus
 
 
 class AttendanceError(Exception):
-    def __init__(self, message: str, status: int = 400):
+    def __init__(
+        self,
+        message: str,
+        status: int = 400,
+        *,
+        admin_url: str | None = None,
+        participant_id=None,
+    ):
         self.message = message
         self.status = status
+        self.admin_url = admin_url
+        self.participant_id = participant_id
         super().__init__(message)
 
 
@@ -18,6 +27,10 @@ def _optional_int(value):
         return int(value)
     except (TypeError, ValueError):
         raise AttendanceError("Ongeldig evenement- of ticketnummer.")
+
+
+def _participant_admin_url(participant_id) -> str:
+    return reverse("admin:pokemon_participant_change", args=[participant_id])
 
 
 def lookup_participant(participant_id, seed) -> dict:
@@ -52,7 +65,7 @@ def lookup_participant(participant_id, seed) -> dict:
 
     return {
         "participant_id": participant.pk,
-        "admin_url": reverse("admin:pokemon_participant_change", args=[participant.pk]),
+        "admin_url": _participant_admin_url(participant.pk),
         "warnings": warnings,
     }
 
@@ -65,6 +78,16 @@ def lookup_raw_qr(raw: str) -> dict:
         raise AttendanceError("QR-code niet herkend. Probeer opnieuw te scannen.")
 
     return lookup_participant(ticket.participant_id, ticket.seed)
+
+
+def check_in_raw_qr(raw: str) -> dict:
+    """Parse raw scanner input and mark the participant as attended (gate-style hard checks)."""
+    try:
+        ticket = parse_qr(raw)
+    except QRParseError:
+        raise AttendanceError("QR-code niet herkend. Probeer opnieuw te scannen.")
+
+    return check_in_participant(ticket.participant_id, ticket.seed)
 
 
 def check_in_participant(participant_id, seed, *, event_id=None, ticket_id=None) -> dict:
@@ -86,20 +109,30 @@ def check_in_participant(participant_id, seed, *, event_id=None, ticket_id=None)
     except (Participant.DoesNotExist, ValueError, TypeError):
         raise AttendanceError("QR-code niet herkend. Probeer opnieuw te scannen.", status=404)
 
+    admin_url = _participant_admin_url(participant.pk)
+
+    def _reject(message: str, status: int = 400):
+        raise AttendanceError(
+            message,
+            status,
+            admin_url=admin_url,
+            participant_id=participant.pk,
+        )
+
     if participant.payment is None or participant.payment.status != PaymentStatus.PAID:
-        raise AttendanceError("Dit ticket is nog niet betaald.")
+        _reject("Dit ticket is nog niet betaald.")
 
     if seed != participant.random_seed:
-        raise AttendanceError("Deze QR-code is ongeldig of gewijzigd.")
+        _reject("Deze QR-code is ongeldig of gewijzigd.")
 
     if required_event_id is not None and participant.ticket.event_id != required_event_id:
-        raise AttendanceError("Dit ticket hoort niet bij dit evenement.")
+        _reject("Dit ticket hoort niet bij dit evenement.")
 
     if required_ticket_id is not None and participant.ticket_id != required_ticket_id:
-        raise AttendanceError("Dit is niet het juiste tickettype voor deze ingang.")
+        _reject("Dit is niet het juiste tickettype voor deze ingang.")
 
     if participant.attended:
-        raise AttendanceError("Dit ticket is al gebruikt.")
+        _reject("Dit ticket is al gebruikt.")
 
     participant.attended = True
     participant.save(update_fields=["attended"])
@@ -112,4 +145,6 @@ def check_in_participant(participant_id, seed, *, event_id=None, ticket_id=None)
         "ticket_id": participant.ticket_id,
         "event_id": participant.ticket.event_id,
         "event": str(participant.ticket.event),
+        "participant_id": participant.pk,
+        "admin_url": admin_url,
     }

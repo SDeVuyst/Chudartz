@@ -1,4 +1,6 @@
 (function () {
+  var activeController = null;
+
   function clampToViewport(top, left, right, bottom) {
     var viewTop = 0;
     var viewLeft = 0;
@@ -55,20 +57,27 @@
     };
   }
 
-  function initManualCheck() {
-    var card = document.getElementById('manual-check-card');
-    var input = document.getElementById('manual-check-input');
+  function initScanCard(card) {
+    var input = card.querySelector('input[type="text"]');
     if (!card || !input || card.dataset.manualCheckBound === '1') {
       return;
     }
     card.dataset.manualCheckBound = '1';
 
+    var mode = card.dataset.mode || 'lookup';
     var endpoint = card.dataset.endpoint || '/pokemon/manual-check/';
     var csrfToken = card.dataset.csrf || '';
+    var titleLabel =
+      (card.querySelector('.dash-card__title, .gate-manual-check__title') || {}).textContent ||
+      (mode === 'checkin' ? 'Scan ticket' : 'Bekijk deelnemer');
+    titleLabel = String(titleLabel).trim() || (mode === 'checkin' ? 'Scan ticket' : 'Bekijk deelnemer');
 
     var listening = false;
     var busy = false;
     var modalOpen = false;
+    var successResetTimer = null;
+
+    var titleId = (card.id || 'scan-card') + '-modal-title';
 
     var modalRoot = document.createElement('div');
     modalRoot.className = 'manual-check-modal';
@@ -76,10 +85,15 @@
     modalRoot.setAttribute('aria-hidden', 'true');
     modalRoot.innerHTML =
       '<div class="manual-check-modal__backdrop" data-role="backdrop"></div>' +
-      '<div class="manual-check-modal__panel" role="dialog" aria-modal="true" aria-labelledby="manual-check-modal-title">' +
-      '<h2 class="manual-check-modal__title" id="manual-check-modal-title" data-role="title"></h2>' +
+      '<div class="manual-check-modal__panel" role="dialog" aria-modal="true" aria-labelledby="' +
+      titleId +
+      '">' +
+      '<h2 class="manual-check-modal__title" id="' +
+      titleId +
+      '" data-role="title"></h2>' +
       '<p class="manual-check-modal__message" data-role="message"></p>' +
       '<pre class="manual-check-modal__raw" data-role="raw" hidden></pre>' +
+      '<a class="manual-check-modal__link" data-role="link" hidden target="_blank" rel="noopener noreferrer"></a>' +
       '<p class="manual-check-modal__hint" data-role="hint"></p>' +
       '</div>';
     document.body.appendChild(modalRoot);
@@ -88,7 +102,15 @@
     var titleEl = modalRoot.querySelector('[data-role="title"]');
     var messageEl = modalRoot.querySelector('[data-role="message"]');
     var rawEl = modalRoot.querySelector('[data-role="raw"]');
+    var linkEl = modalRoot.querySelector('[data-role="link"]');
     var hintEl = modalRoot.querySelector('[data-role="hint"]');
+
+    function clearSuccessTimer() {
+      if (successResetTimer !== null) {
+        window.clearTimeout(successResetTimer);
+        successResetTimer = null;
+      }
+    }
 
     function positionModal() {
       if (!modalOpen) {
@@ -123,7 +145,7 @@
       modalOpen = false;
       modalRoot.hidden = true;
       modalRoot.setAttribute('aria-hidden', 'true');
-      modalRoot.classList.remove('is-error');
+      modalRoot.classList.remove('is-error', 'is-success');
       window.removeEventListener('resize', onViewportChange);
       window.removeEventListener('scroll', onViewportChange, true);
       if (titleEl) {
@@ -137,14 +159,34 @@
         rawEl.textContent = '';
         rawEl.hidden = true;
       }
+      if (linkEl) {
+        linkEl.textContent = '';
+        linkEl.removeAttribute('href');
+        linkEl.hidden = true;
+      }
       if (hintEl) {
         hintEl.textContent = '';
       }
     }
 
+    function setParticipantLink(adminUrl) {
+      if (!linkEl) {
+        return;
+      }
+      if (adminUrl) {
+        linkEl.href = adminUrl;
+        linkEl.textContent = 'Open deelnemer';
+        linkEl.hidden = false;
+      } else {
+        linkEl.textContent = '';
+        linkEl.removeAttribute('href');
+        linkEl.hidden = true;
+      }
+    }
+
     function setStatus(title, message, hint) {
-      card.classList.remove('is-error');
-      modalRoot.classList.remove('is-error');
+      card.classList.remove('is-error', 'is-success');
+      modalRoot.classList.remove('is-error', 'is-success');
       showModal();
       if (titleEl) {
         titleEl.textContent = title || '';
@@ -157,13 +199,43 @@
         rawEl.textContent = '';
         rawEl.hidden = true;
       }
+      setParticipantLink(null);
       if (hintEl) {
         hintEl.textContent = hint || '';
       }
     }
 
-    function setError(message, raw) {
+    function setSuccess(message, adminUrl) {
+      clearSuccessTimer();
+      card.classList.remove('is-error');
+      card.classList.add('is-success');
+      modalRoot.classList.remove('is-error');
+      modalRoot.classList.add('is-success');
+      showModal();
+      if (titleEl) {
+        titleEl.textContent = 'Toegelaten';
+      }
+      if (messageEl) {
+        messageEl.textContent = message || 'Ticket geregistreerd.';
+        messageEl.setAttribute('role', 'status');
+      }
+      if (rawEl) {
+        rawEl.textContent = '';
+        rawEl.hidden = true;
+      }
+      setParticipantLink(adminUrl);
+      if (hintEl) {
+        hintEl.textContent = adminUrl
+          ? 'Klik om deelnemer te openen, of scan de volgende. Esc om te stoppen.'
+          : 'Klaar voor volgende scan. Esc om te stoppen.';
+      }
+    }
+
+    function setError(message, raw, adminUrl) {
+      clearSuccessTimer();
+      card.classList.remove('is-success');
       card.classList.add('is-error');
+      modalRoot.classList.remove('is-success');
       modalRoot.classList.add('is-error');
       showModal();
       if (titleEl) {
@@ -182,40 +254,48 @@
           rawEl.hidden = true;
         }
       }
+      setParticipantLink(adminUrl || null);
       if (hintEl) {
-        hintEl.textContent = 'Scan opnieuw of druk Esc om te sluiten.';
+        hintEl.textContent = adminUrl
+          ? 'Klik om deelnemer te openen, of scan opnieuw. Esc om te sluiten.'
+          : 'Scan opnieuw of druk Esc om te sluiten.';
       }
     }
 
     function clearError() {
-      card.classList.remove('is-error');
-      modalRoot.classList.remove('is-error');
+      card.classList.remove('is-error', 'is-success');
+      modalRoot.classList.remove('is-error', 'is-success');
     }
 
     function startListening() {
+      if (activeController && activeController !== controller) {
+        activeController.stopListening();
+      }
+      activeController = controller;
+      clearSuccessTimer();
       listening = true;
       busy = false;
       input.value = '';
       clearError();
       card.classList.add('is-listening');
       card.setAttribute('aria-pressed', 'true');
-      setStatus(
-        'Manuele check',
-        'Aan het wachten op scanner…',
-        'Esc om te annuleren.'
-      );
+      setStatus(titleLabel, 'Aan het wachten op scanner…', 'Esc om te annuleren.');
       input.focus();
     }
 
     function stopListening() {
+      clearSuccessTimer();
       listening = false;
       busy = false;
       input.value = '';
-      card.classList.remove('is-listening');
+      card.classList.remove('is-listening', 'is-error', 'is-success');
       card.setAttribute('aria-pressed', 'false');
       clearError();
       hideModal();
       input.blur();
+      if (activeController === controller) {
+        activeController = null;
+      }
     }
 
     function handleScan(raw) {
@@ -223,8 +303,9 @@
         return;
       }
       busy = true;
+      clearSuccessTimer();
       clearError();
-      setStatus('Manuele check', 'Opzoeken…', '');
+      setStatus(titleLabel, mode === 'checkin' ? 'Controleren…' : 'Opzoeken…', '');
 
       fetch(endpoint, {
         method: 'POST',
@@ -249,6 +330,28 @@
           });
         })
         .then(function (result) {
+          if (mode === 'checkin') {
+            if (!result.ok || !result.data.success) {
+              setError(
+                (result.data && result.data.message) || 'Check-in mislukt.',
+                raw,
+                result.data && result.data.admin_url
+              );
+              busy = false;
+              input.value = '';
+              input.focus();
+              return;
+            }
+            setSuccess(
+              result.data.message || result.data.ticket || 'Ticket geregistreerd.',
+              result.data.admin_url
+            );
+            busy = false;
+            input.value = '';
+            input.focus();
+            return;
+          }
+
           if (!result.ok || !result.data.success || !result.data.redirect_url) {
             setError(
               (result.data && result.data.message) || 'Opzoeken mislukt.',
@@ -259,7 +362,7 @@
             input.focus();
             return;
           }
-          setStatus('Manuele check', 'Doorsturen…', '');
+          setStatus(titleLabel, 'Doorsturen…', '');
           window.location.href = result.data.redirect_url;
         })
         .catch(function (err) {
@@ -269,6 +372,10 @@
           input.focus();
         });
     }
+
+    var controller = {
+      stopListening: stopListening,
+    };
 
     card.addEventListener('click', function (event) {
       if (event.target === input) {
@@ -320,7 +427,7 @@
       if (event.key !== 'Escape' || !modalOpen) {
         return;
       }
-      if (listening || card.classList.contains('is-error')) {
+      if (listening || card.classList.contains('is-error') || card.classList.contains('is-success')) {
         event.preventDefault();
         stopListening();
       }
@@ -336,6 +443,15 @@
         }, 0);
       }
     });
+  }
+
+  function initManualCheck() {
+    var cards = document.querySelectorAll(
+      '#manual-check-card, #scan-ticket-card, [data-mode][data-endpoint]'
+    );
+    for (var i = 0; i < cards.length; i++) {
+      initScanCard(cards[i]);
+    }
   }
 
   if (document.readyState === 'loading') {

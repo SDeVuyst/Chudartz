@@ -40,14 +40,39 @@
         role="button"
         tabindex="0"
         aria-pressed="false"
+        data-mode="lookup"
         data-csrf="{{ csrf_token }}"
         data-endpoint="/pokemon/manual-check/"
     >
-        <span class="dash-card__title">{% trans "Manuele check" %}</span>
+        <span class="dash-card__title">{% trans "Bekijk deelnemer" %}</span>
         <span class="material-symbols-outlined dash-card--manual-check__icon" aria-hidden="true">barcode_reader</span>
         <input
             type="text"
             id="manual-check-input"
+            class="dash-card--manual-check__input"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            tabindex="-1"
+            aria-label="{% trans 'Scanner invoer' %}"
+        >
+    </div>
+
+    <div
+        id="scan-ticket-card"
+        class="dash-card dash-card--manual-check"
+        role="button"
+        tabindex="0"
+        aria-pressed="false"
+        data-mode="checkin"
+        data-csrf="{{ csrf_token }}"
+        data-endpoint="/pokemon/scan-ticket/"
+    >
+        <span class="dash-card__title">{% trans "Scan ticket" %}</span>
+        <span class="material-symbols-outlined dash-card--manual-check__icon" aria-hidden="true">qr_code_scanner</span>
+        <input
+            type="text"
+            id="scan-ticket-input"
             class="dash-card--manual-check__input"
             autocomplete="off"
             autocapitalize="off"

@@ -42,6 +42,7 @@ from pokemon.models import (
 from pokemon.services.attendance import (
     AttendanceError,
     check_in_participant,
+    check_in_raw_qr,
     lookup_raw_qr,
 )
 from pokemon.services.gate import log_gate_scan
@@ -866,6 +867,39 @@ def manual_check(request):
         'redirect_url': result['admin_url'],
         'warnings': result['warnings'],
     })
+
+
+@staff_member_required
+def scan_ticket(request):
+    """Staff USB-wedge check-in: mark attendance like the gate, without redirecting."""
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'message': "Onbekend verzoek."}, status=400)
+
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {'success': False, 'message': "QR-code niet herkend. Probeer opnieuw te scannen."},
+            status=400,
+        )
+
+    raw = data.get('raw')
+    if raw is None or str(raw).strip() == '':
+        return JsonResponse(
+            {'success': False, 'message': "QR-code niet herkend. Probeer opnieuw te scannen."},
+            status=400,
+        )
+
+    try:
+        result = check_in_raw_qr(str(raw))
+    except AttendanceError as exc:
+        payload = {'success': False, 'message': exc.message}
+        if exc.admin_url:
+            payload['admin_url'] = exc.admin_url
+            payload['participant_id'] = exc.participant_id
+        return JsonResponse(payload, status=exc.status)
+
+    return JsonResponse(result)
 
 
 @csrf_exempt

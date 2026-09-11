@@ -420,7 +420,7 @@
 
 #gate-admin .gate-kpis-row {
   display: grid;
-  grid-template-columns: 7fr 1fr;
+  grid-template-columns: 7fr 1fr 1fr;
   gap: 0.75rem;
   align-items: stretch;
   margin-bottom: 1.25rem;
@@ -488,6 +488,11 @@
 
 #gate-admin .gate-manual-check.is-error {
   border-color: var(--gate-accent);
+}
+
+#gate-admin .gate-manual-check.is-success {
+  border-color: rgb(22 163 74);
+  box-shadow: 0 0 0 2px color-mix(in srgb, rgb(22 163 74) 25%, transparent);
 }
 
 #gate-admin .gate-manual-check__title {

@@ -11,6 +11,7 @@ from . import views
 urlpatterns = [
     path("pokemon/set-attendance/", views.set_attendance),
     path("pokemon/manual-check/", views.manual_check, name="manual_check"),
+    path("pokemon/scan-ticket/", views.scan_ticket, name="scan_ticket"),
     path("pokemon/gate/check-in/", views.gate_check_in, name="gate_check_in"),
     path("pokemon/gate/heartbeat/", views.gate_heartbeat, name="gate_heartbeat"),
 ]
