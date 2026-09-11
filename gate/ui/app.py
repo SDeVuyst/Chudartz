@@ -16,7 +16,8 @@ from sound import play_error, play_success
 from ui import i18n
 from ui.settings import SettingsDialog
 
-COOLDOWN_MS = 2000
+SUCCESS_HOLD_MS = 2000
+FAIL_HOLD_MS = 4000
 HEADER_IDLE_MS = 2500
 HEARTBEAT_MS = 30000
 SCAN_EXPECTED_LEN = 20
@@ -528,7 +529,6 @@ class GateApp(tk.Tk):
             return
 
         self.cooldown = True
-        self._cooldown_after_id = self.after(COOLDOWN_MS, self._end_cooldown)
         self._last_raw = raw
 
         try:
@@ -541,6 +541,7 @@ class GateApp(tk.Tk):
             )
             self._set_debug_lines([f"RAW: {raw}", "Parsefout: QR niet herkend"])
             play_error()
+            self._schedule_feedback_hold(ok=False)
             return
 
         if not is_configured(self.config_data):
@@ -594,6 +595,7 @@ class GateApp(tk.Tk):
         if result.success:
             self._set_state("success", i18n.TITLE_SUCCESS, result.message)
             play_success()
+            self._schedule_feedback_hold(ok=True)
         else:
             self._set_state(
                 "fail",
@@ -601,6 +603,17 @@ class GateApp(tk.Tk):
                 i18n.translate_server_message(result.message),
             )
             play_error()
+            self._schedule_feedback_hold(ok=False)
+
+    def _schedule_feedback_hold(self, ok: bool):
+        if self._cooldown_after_id is not None:
+            try:
+                self.after_cancel(self._cooldown_after_id)
+            except tk.TclError:
+                pass
+            self._cooldown_after_id = None
+        hold_ms = SUCCESS_HOLD_MS if ok else FAIL_HOLD_MS
+        self._cooldown_after_id = self.after(hold_ms, self._end_cooldown)
 
     def _end_cooldown(self):
         self._cooldown_after_id = None
