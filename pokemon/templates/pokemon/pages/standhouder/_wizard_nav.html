@@ -263,13 +263,20 @@
 .zaalplan-selectie-cel.nb-right { border-right-color: var(--fill, transparent); }
 
 .zaalplan-groep-label {
-  pointer-events: none; z-index: 3;
+  pointer-events: none; z-index: 3; position: relative;
   display: flex; align-items: center; justify-content: center; text-align: center;
   font-weight: 700; font-size: 0.72rem; padding: 3px; overflow: hidden;
   word-break: break-word; line-height: 1.1; color: #14683a;
 }
 .zaalplan-groep-label.op-geselecteerd { color: #fff; }
 .zaalplan-groep-label.op-tekst { color: #6b7680; text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.64rem; }
+.zaalplan-groep-label .zp-label-tekst { display: block; width: 100%; }
+/* Lange namen op een smalle, hoge vorm: gekanteld tonen i.p.v. in stukjes knippen */
+.zaalplan-groep-label.is-verticaal .zp-label-tekst {
+  position: absolute; left: 50%; top: 50%; width: auto;
+  transform: translate(-50%, -50%) rotate(90deg);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 
 /* Fullscreen */
 .zaalplan-selectie-viewport.is-fullscreen,

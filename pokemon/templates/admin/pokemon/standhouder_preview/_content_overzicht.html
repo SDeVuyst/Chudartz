@@ -17,7 +17,7 @@
 <div class="mb-4">
   {% if zaalplan_actief %}
     <h5>{% trans 'Gekozen tafels' %}</h5>
-    <p>{% for cel in inschrijving.gekozen_tafels %}{{ cel.display_label }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</p>
+    <p>{% for cel in inschrijving.gekozen_tafels %}{{ cel.display_label }}{% if cel.tafelgewicht > 1 %} (×{{ cel.tafelgewicht }}){% endif %}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</p>
   {% else %}
     <h5>{% trans 'Aantal tafels' %}</h5>
     <p>{{ inschrijving.aantal_tafels_manueel|default:"—" }}</p>

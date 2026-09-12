@@ -26,7 +26,7 @@
     reserveren: 'Klik op een tafel om ze als "reeds gereserveerd" te markeren (of opnieuw vrij te geven).',
     samenvoegen: 'Sleep over de cellen (elke vorm mag, ook een hoek of L-vorm) en laat los om samen te voegen.',
     splitsen: 'Klik op een samengevoegde cel om ze weer op te splitsen.',
-    bewerken: 'Klik op een cel om tekst (bv. Gang, Ingang) of een tafelprijs in te stellen.',
+    bewerken: 'Klik op een cel om tekst (bv. Gang, Ingang), een tafelprijs of het aantal tafels waarvoor ze meetelt in te stellen.',
   };
 
   function getCsrf() {
@@ -97,9 +97,29 @@
     return type !== 'tafel';
   }
 
+  // padding links + rechts van .zaalplan-groep-label
+  const LABEL_PADDING = 4;
+
+  function tafelTitel(cel) {
+    let titel = `${cel.label} (€${cel.prijs})`;
+    if ((cel.telt_als || 1) > 1) titel += ` – telt als ${cel.telt_als} tafels`;
+    return titel;
+  }
+
   // Bepaal de langste aaneengesloten strook (horizontaal of verticaal) van een groep,
   // zodat het label altijd op gevulde cellen staat (ook bij L-vormen).
   function bestLabelArea(leden) {
+    // Volledig gevulde rechthoek: label over de hele vorm centreren.
+    const rijen = leden.map((c) => c.rij);
+    const kolommen = leden.map((c) => c.kolom);
+    const vr1 = Math.min(...rijen), vr2 = Math.max(...rijen);
+    const vc1 = Math.min(...kolommen), vc2 = Math.max(...kolommen);
+    const hoogte = vr2 - vr1 + 1;
+    const breedte = vc2 - vc1 + 1;
+    if (leden.length === hoogte * breedte) {
+      return { len: Math.max(hoogte, breedte), r1: vr1, r2: vr2, c1: vc1, c2: vc2 };
+    }
+
     let best = { len: 0, r1: leden[0].rij, r2: leden[0].rij, c1: leden[0].kolom, c2: leden[0].kolom };
 
     const rows = {};
@@ -131,6 +151,47 @@
     return best;
   }
 
+  // Zet de labeltekst in een span. Past ze niet horizontaal op een vorm die
+  // hoger is dan breed, dan kantelen we ze 90 graden i.p.v. ze in korte
+  // stukjes af te breken. Meten kan pas na het toevoegen aan het rooster,
+  // daarom geeft deze functie een meetfunctie terug.
+  function plaatsLabelTekst(label, tekst, area, size) {
+    const span = document.createElement('span');
+    span.className = 'zp-label-tekst';
+    span.textContent = tekst;
+    label.appendChild(span);
+
+    const kolommen = area.c2 - area.c1 + 1;
+    const rijen = area.r2 - area.r1 + 1;
+
+    return function bepaalRichting() {
+      label.classList.remove('is-verticaal');
+      span.style.maxWidth = '';
+      if (!tekst || rijen <= kolommen) return;
+      const breedte = kolommen * size - LABEL_PADDING;
+      const hoogte = rijen * size - LABEL_PADDING;
+
+      span.style.position = 'absolute';
+      span.style.whiteSpace = 'nowrap';
+      span.style.width = 'auto';
+      const natuurlijkeBreedte = span.getBoundingClientRect().width;
+      span.style.position = '';
+      span.style.whiteSpace = '';
+      span.style.width = '';
+
+      // 0 betekent dat er nog geen layout is; een latere meting beslist dan.
+      if (!natuurlijkeBreedte || natuurlijkeBreedte <= breedte) return;
+      label.classList.add('is-verticaal');
+      span.style.maxWidth = `${hoogte}px`;
+    };
+  }
+
+  let labelMetingen = [];
+
+  function meetLabels() {
+    labelMetingen.forEach((bepaalRichting) => bepaalRichting());
+  }
+
   function renderGrid() {
     const size = cellSize();
     gridEl.style.gridTemplateColumns = `repeat(${gridData.kolommen}, ${size}px)`;
@@ -157,6 +218,10 @@
       } else if (cel.type !== 'tafel' && cel.tekst) {
         cls += ' heeft-tekst';
       }
+      if (cel.type === 'tafel' && cel.is_primary && (cel.telt_als || 1) > 1) {
+        cls += ' telt-meervoudig';
+        div.dataset.teltAls = cel.telt_als;
+      }
       div.className = cls;
       div.dataset.id = cel.id;
       div.style.gridColumn = `${cel.kolom + 1}`;
@@ -166,7 +231,7 @@
       if (!cel.groep) {
         if (cel.type === 'tafel') {
           div.textContent = cel.label;
-          div.title = `${cel.label} (€${cel.prijs})`;
+          div.title = tafelTitel(cel);
         } else if (cel.tekst) {
           div.textContent = cel.tekst;
           div.title = cel.tekst;
@@ -193,6 +258,7 @@
       (groepen[cel.groep] = groepen[cel.groep] || []).push(cel);
     });
 
+    const metingen = [];
     Object.values(groepen).forEach((leden) => {
       const primary = leden.find((c) => c.is_primary) || leden[0];
       const area = bestLabelArea(leden);
@@ -203,9 +269,12 @@
         + (primary.type === 'leeg' ? ' op-leeg' : '');
       label.style.gridColumn = `${area.c1 + 1} / ${area.c2 + 2}`;
       label.style.gridRow = `${area.r1 + 1} / ${area.r2 + 2}`;
-      label.textContent = primary.type === 'tafel' ? primary.label : (primary.tekst || '');
+      const tekst = primary.type === 'tafel' ? primary.label : (primary.tekst || '');
+      metingen.push(plaatsLabelTekst(label, tekst, area, size));
       gridEl.appendChild(label);
     });
+    labelMetingen = metingen;
+    meetLabels();
   }
 
   function applyTypeLocally(cel, newType) {
@@ -306,7 +375,9 @@
     document.getElementById('cel-label').textContent = cel.label;
     document.getElementById('cel-label-input').value = cel.tekst || '';
     document.getElementById('cel-prijs-input').value = '';
+    document.getElementById('cel-telt-input').value = cel.telt_als || 1;
     document.getElementById('cel-prijs-wrap').style.display = cel.type === 'tafel' ? '' : 'none';
+    document.getElementById('cel-telt-wrap').style.display = cel.type === 'tafel' ? '' : 'none';
     detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
@@ -332,7 +403,17 @@
     const celId = parseInt(document.getElementById('cel-id').value, 10);
     const label = document.getElementById('cel-label-input').value;
     const prijs = document.getElementById('cel-prijs-input').value;
-    postJson(saveUrl, { cel_id: celId, label: label, prijs: prijs || null })
+    const teltAls = parseInt(document.getElementById('cel-telt-input').value, 10);
+    if (!teltAls || teltAls < 1) {
+      alert('Een tafel moet voor minstens 1 tafel meetellen.');
+      return;
+    }
+    postJson(saveUrl, {
+      cel_id: celId,
+      label: label,
+      prijs: prijs || null,
+      telt_als_tafels: teltAls,
+    })
       .then((data) => { gridData = data.grid; renderGrid(); detailEl.classList.add('hidden'); })
       .catch((err) => alert(err.message));
   });
@@ -382,4 +463,14 @@
   }
   syncBtwUiFromGrid();
   renderGrid();
+
+  // Het admin-thema toont de pagina pas na initialisatie, waardoor tekst bij het
+  // eerste render 0px breed meet. Opnieuw meten zodra het rooster afmetingen
+  // heeft of de fonts geladen zijn.
+  if (window.ResizeObserver) {
+    new ResizeObserver(meetLabels).observe(gridEl);
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(meetLabels);
+  }
 })();

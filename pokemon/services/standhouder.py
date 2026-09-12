@@ -4,8 +4,14 @@ from decimal import Decimal
 from django.db import transaction
 from django.urls import reverse
 
-from pokemon.models import Payment, PaymentStatus, StandhouderInschrijvingStatus
+from pokemon.models import (
+    Payment,
+    PaymentStatus,
+    StandhouderInschrijving,
+    StandhouderInschrijvingStatus,
+)
 from pokemon.payment import MollieClient
+from pokemon.standhouder_wizard import lock_tafelcellen
 
 
 class StandhouderValidationError(Exception):
@@ -28,6 +34,15 @@ def _split_naam(naam: str) -> tuple[str, str]:
 
 @transaction.atomic
 def finalize_inschrijving(inschrijving, request) -> FinalizeResult:
+    inschrijving = (
+        StandhouderInschrijving.objects.select_for_update()
+        .select_related("evenement")
+        .get(pk=inschrijving.pk)
+    )
+    lock_tafelcellen(
+        inschrijving.tafel_keuzes.order_by("cel_id").values_list("cel_id", flat=True)
+    )
+
     inschrijving.bereken_totaal()
 
     try:

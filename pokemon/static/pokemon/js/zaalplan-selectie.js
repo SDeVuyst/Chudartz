@@ -17,9 +17,33 @@
   ) || Infinity;
   let limietBereikt = false;
 
+  // padding links + rechts van .zaalplan-groep-label
+  const LABEL_PADDING = 6;
+
   function tafelLabel(cel) {
     if (cel.label) return cel.label;
     return String.fromCharCode(65 + cel.rij) + (cel.kolom + 1);
+  }
+
+  // Een tafel kan als meerdere tafels meetellen voor het maximum per standhouder.
+  function teltAls(cel) {
+    return Math.max(1, cel.telt_als || 1);
+  }
+
+  function celVoorPrimary(primaryId) {
+    return gridData.cellen.find((c) => c.primary_id === primaryId);
+  }
+
+  function geselecteerdeTafels() {
+    const gezien = new Set();
+    let aantal = 0;
+    gridData.cellen.forEach((cel) => {
+      if (selected.has(cel.primary_id) && !gezien.has(cel.primary_id)) {
+        gezien.add(cel.primary_id);
+        aantal += teltAls(cel);
+      }
+    });
+    return aantal;
   }
 
   function defaultSize() {
@@ -64,6 +88,7 @@
       }
 
       if (cel.type === 'tafel' && !onbeschikbaar) {
+        div.title = 'Tafel ' + tafelLabel(cel);
         div.setAttribute('role', 'button');
         div.setAttribute('tabindex', '0');
         div.setAttribute('aria-label', 'Tafel ' + tafelLabel(cel));
@@ -86,6 +111,17 @@
   }
 
   function bestLabelArea(leden) {
+    // Volledig gevulde rechthoek: label over de hele vorm centreren.
+    const rijen = leden.map((c) => c.rij);
+    const kolommen = leden.map((c) => c.kolom);
+    const vr1 = Math.min(...rijen), vr2 = Math.max(...rijen);
+    const vc1 = Math.min(...kolommen), vc2 = Math.max(...kolommen);
+    const hoogte = vr2 - vr1 + 1;
+    const breedte = vc2 - vc1 + 1;
+    if (leden.length === hoogte * breedte) {
+      return { len: Math.max(hoogte, breedte), r1: vr1, r2: vr2, c1: vc1, c2: vc2 };
+    }
+
     let best = { len: 0, r1: leden[0].rij, r2: leden[0].rij, c1: leden[0].kolom, c2: leden[0].kolom };
 
     const rows = {};
@@ -117,6 +153,48 @@
     return best;
   }
 
+  // Zet de labeltekst in een span. Past ze niet horizontaal op een vorm die
+  // hoger is dan breed, dan kantelen we ze 90 graden i.p.v. ze in korte
+  // stukjes af te breken. Meten kan pas na het toevoegen aan het rooster,
+  // daarom geeft deze functie een meetfunctie terug.
+  function plaatsLabelTekst(label, tekst, area) {
+    const span = document.createElement('span');
+    span.className = 'zp-label-tekst';
+    span.textContent = tekst;
+    label.appendChild(span);
+
+    const kolommen = area.c2 - area.c1 + 1;
+    const rijen = area.r2 - area.r1 + 1;
+
+    const breedte = kolommen * cellSize - LABEL_PADDING;
+    const hoogte = rijen * cellSize - LABEL_PADDING;
+
+    return function bepaalRichting() {
+      label.classList.remove('is-verticaal');
+      span.style.maxWidth = '';
+      if (!tekst || rijen <= kolommen) return;
+
+      span.style.position = 'absolute';
+      span.style.whiteSpace = 'nowrap';
+      span.style.width = 'auto';
+      const natuurlijkeBreedte = span.getBoundingClientRect().width;
+      span.style.position = '';
+      span.style.whiteSpace = '';
+      span.style.width = '';
+
+      // 0 betekent dat er nog geen layout is; een latere meting beslist dan.
+      if (!natuurlijkeBreedte || natuurlijkeBreedte <= breedte) return;
+      label.classList.add('is-verticaal');
+      span.style.maxWidth = `${hoogte}px`;
+    };
+  }
+
+  let labelMetingen = [];
+
+  function meetLabels() {
+    labelMetingen.forEach((bepaalRichting) => bepaalRichting());
+  }
+
   function renderGroupLabels() {
     const groepen = {};
     gridData.cellen.forEach((cel) => {
@@ -124,6 +202,7 @@
       (groepen[cel.groep] = groepen[cel.groep] || []).push(cel);
     });
 
+    const metingen = [];
     Object.values(groepen).forEach((leden) => {
       const primary = leden.find((c) => c.is_primary) || leden[0];
       const area = bestLabelArea(leden);
@@ -137,19 +216,26 @@
       label.className = cls;
       label.style.gridColumn = `${area.c1 + 1} / ${area.c2 + 2}`;
       label.style.gridRow = `${area.r1 + 1} / ${area.r2 + 2}`;
-      label.textContent = isTafel ? tafelLabel(primary) : (primary.tekst || '');
+      const tekst = isTafel ? tafelLabel(primary) : (primary.tekst || '');
+      metingen.push(plaatsLabelTekst(label, tekst, area));
       gridEl.appendChild(label);
     });
+    labelMetingen = metingen;
+    meetLabels();
   }
 
   function toggleGroep(primaryId) {
     if (selected.has(primaryId)) {
       selected.delete(primaryId);
       limietBereikt = false;
-    } else if (selected.size >= maxTafels) {
-      limietBereikt = true;
-      return;
     } else {
+      const cel = celVoorPrimary(primaryId);
+      const gewicht = cel ? teltAls(cel) : 1;
+      if (geselecteerdeTafels() + gewicht > maxTafels) {
+        limietBereikt = true;
+        renderGrid();
+        return;
+      }
       selected.add(primaryId);
       limietBereikt = false;
     }
@@ -173,12 +259,14 @@
     const labels = [];
     let subtotaal = 0;
     let btwTotaal = 0;
+    let aantalTafels = 0;
     const exclBtw = !!gridData.prijs_excl_btw;
     const btwPct = parseFloat(gridData.btw_percentage || '0') || 0;
     gridData.cellen.forEach((cel) => {
       if (selected.has(cel.primary_id) && !gezien.has(cel.primary_id)) {
         gezien.add(cel.primary_id);
         labels.push(tafelLabel(cel));
+        aantalTafels += teltAls(cel);
         const prijs = parseFloat(cel.prijs) || 0;
         subtotaal += prijs;
         if (exclBtw) {
@@ -187,18 +275,25 @@
       }
     });
     const totaal = subtotaal + btwTotaal;
+    const limietMelding = limietBereikt
+      ? `<span class="tafel-limiet-bereikt">Maximum van ${maxTafels} tafel(s) bereikt.</span>`
+      : '';
     if (labels.length === 0) {
-      summaryEl.textContent = 'Geen tafels geselecteerd';
+      summaryEl.innerHTML = 'Geen tafels geselecteerd'
+        + (limietMelding ? `<br>${limietMelding}` : '');
     } else {
+      const telling = aantalTafels === labels.length
+        ? `${labels.length}`
+        : `${labels.length}, telt als ${aantalTafels} tafels`;
       let html =
-        `<strong>Geselecteerd (${labels.length}):</strong> ${labels.join(', ')}<br>` +
+        `<strong>Geselecteerd (${telling}):</strong> ${labels.join(', ')}<br>` +
         `<strong>Subtotaal${exclBtw ? ' (excl. btw)' : ''}:</strong> €${subtotaal.toFixed(2)}`;
       if (exclBtw && btwTotaal > 0) {
         html += `<br><strong>BTW ${btwPct}%:</strong> €${btwTotaal.toFixed(2)}`;
       }
       html += `<br><strong>Totaal:</strong> €${totaal.toFixed(2)}`;
-      if (limietBereikt) {
-        html += `<br><span class="tafel-limiet-bereikt">Maximum van ${maxTafels} tafel(s) bereikt.</span>`;
+      if (limietMelding) {
+        html += `<br>${limietMelding}`;
       }
       summaryEl.innerHTML = html;
     }
@@ -247,7 +342,7 @@
       if (selected.size === 0) {
         e.preventDefault();
         alert('Selecteer minstens één tafel.');
-      } else if (selected.size > maxTafels) {
+      } else if (geselecteerdeTafels() > maxTafels) {
         e.preventDefault();
         alert(`U kunt maximaal ${maxTafels} tafel(s) selecteren.`);
       }
@@ -279,4 +374,13 @@
   gridEl.addEventListener('mouseleave', clearGroupHover);
 
   renderGrid();
+
+  // Bij het eerste render kan het rooster nog geen layout hebben, waardoor tekst
+  // 0px breed meet. Opnieuw meten zodra er afmetingen zijn of fonts geladen zijn.
+  if (window.ResizeObserver) {
+    new ResizeObserver(meetLabels).observe(gridEl);
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(meetLabels);
+  }
 })();

@@ -12,6 +12,7 @@ from django.utils.translation import pgettext_lazy
 
 logger = logging.getLogger(__name__)
 from django.core.mail import EmailMessage, send_mail
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponse
@@ -730,7 +731,7 @@ class Zaalplan(models.Model):
         )
         for groep_id, aantal in counts.items():
             if aantal < 2:
-                self.cellen.filter(groep=groep_id).update(groep=None)
+                self.cellen.filter(groep=groep_id).update(groep=None, telt_als_tafels=1)
 
 
 class ZaalplanCel(models.Model):
@@ -766,6 +767,16 @@ class ZaalplanCel(models.Model):
         default=False,
         verbose_name=_("Reeds gereserveerd"),
     )
+    telt_als_tafels = models.PositiveSmallIntegerField(
+        default=1,
+        validators=[MinValueValidator(1)],
+        verbose_name=_("Telt als aantal tafels"),
+        help_text=_(
+            "Voor hoeveel tafels dit verkoopbare object meetelt bij het maximum "
+            "aantal tafels per standhouder. Samengevoegde cellen zijn standaard "
+            "één tafel; zet dit hoger als het object als meerdere tafels telt."
+        ),
+    )
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
@@ -789,6 +800,11 @@ class ZaalplanCel(models.Model):
         if self.prijs is not None:
             return self.prijs
         return self.zaalplan.standaard_prijs
+
+    @property
+    def tafelgewicht(self):
+        """Voor hoeveel tafels deze entiteit meetelt bij het maximum per standhouder."""
+        return max(1, self.telt_als_tafels or 1)
 
     @property
     def is_samengevoegd(self):
@@ -826,7 +842,8 @@ class ZaalplanCel(models.Model):
         """Maak van een samengevoegde cel weer losse cellen."""
         if not self.groep:
             return
-        self.groepsleden().update(groep=None)
+        # Losse cellen zijn elk één tafel; een gewicht van de groep vervalt.
+        self.groepsleden().update(groep=None, telt_als_tafels=1)
 
 
 class StandhouderVraag(models.Model):
@@ -986,6 +1003,14 @@ class StandhouderInschrijving(models.Model):
 
     @property
     def aantal_tafels(self):
+        """Aantal tafels waarvoor deze inschrijving meetelt (gewicht per object)."""
+        if self.zaalplan_actief:
+            return sum(cel.tafelgewicht for cel in self.gekozen_tafels)
+        return self.aantal_tafels_manueel or 0
+
+    @property
+    def aantal_tafelobjecten(self):
+        """Aantal afzonderlijk gekozen tafels/objecten op het zaalplan."""
         if self.zaalplan_actief:
             return self.gekozen_tafels.count()
         return self.aantal_tafels_manueel or 0

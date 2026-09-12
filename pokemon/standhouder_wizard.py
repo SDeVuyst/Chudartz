@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.db import transaction
 from django.utils.translation import gettext as _
 
 from pokemon.models import (
@@ -193,6 +194,7 @@ def serialize_zaalplan_grid(zaalplan, inschrijving=None):
             "bezet": primary.pk in bezet_ids,
             "gereserveerd": primary.gereserveerd,
             "geselecteerd": primary.pk in selected_ids,
+            "telt_als": primary.tafelgewicht,
         })
 
     return {
@@ -218,21 +220,36 @@ def valideer_max_tafels(evenement, aantal):
         )
 
 
+def lock_tafelcellen(cel_ids):
+    """Vergrendel de gekozen cellen in vaste volgorde, zodat twee afrondingen
+    niet dezelfde tafel tegelijk als vrij kunnen zien."""
+    ids = sorted({int(pk) for pk in cel_ids})
+    if not ids:
+        return
+    list(ZaalplanCel.objects.select_for_update().filter(pk__in=ids).order_by("pk"))
+
+
+@transaction.atomic
 def save_tafel_keuzes(inschrijving, tafel_ids):
     zaalplan = get_zaalplan(inschrijving.evenement)
     if not zaalplan:
         raise ValueError("Geen zaalplan geconfigureerd.")
 
     unique_ids = set(str(t) for t in tafel_ids)
-    valideer_max_tafels(inschrijving.evenement, len(unique_ids))
 
-    cellen = ZaalplanCel.objects.filter(
+    cellen = list(ZaalplanCel.objects.select_for_update().filter(
         pk__in=tafel_ids,
         zaalplan=zaalplan,
         cel_type=CelType.TAFEL,
-    )
-    if cellen.count() != len(unique_ids):
+    ).order_by("pk"))
+    if len(cellen) != len(unique_ids):
         raise ValueError("Ongeldige tafelselectie.")
+
+    # Een object kan voor meer dan één tafel meetellen (telt_als_tafels).
+    valideer_max_tafels(
+        inschrijving.evenement,
+        sum(cel.tafelgewicht for cel in cellen),
+    )
 
     bezet_ids = get_bezette_cel_ids(exclude_inschrijving_id=inschrijving.pk)
     for cel in cellen:

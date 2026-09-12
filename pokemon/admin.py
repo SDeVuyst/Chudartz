@@ -555,6 +555,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 cel.label = ''
                 cel.prijs = None
                 cel.gereserveerd = False
+                cel.telt_als_tafels = 1
                 cel.save()
                 return JsonResponse({'success': True, 'grid': serialize_zaalplan_grid(zaalplan)})
 
@@ -570,12 +571,20 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 primary.gereserveerd = bool(data['gereserveerd'])
                 primary.save(update_fields=['gereserveerd'])
 
-            # Label/prijs horen bij de hoofdcel van de groep
+            # Label/prijs/tafelgewicht horen bij de hoofdcel van de groep
             primary.refresh_from_db()
             if 'label' in data:
                 primary.label = data['label']
             if 'prijs' in data:
                 primary.prijs = data['prijs'] if data['prijs'] not in (None, '') else None
+            if 'telt_als_tafels' in data:
+                try:
+                    telt_als = int(data['telt_als_tafels'] or 1)
+                except (TypeError, ValueError):
+                    raise ValueError(_('Geef een geldig aantal tafels op.'))
+                if telt_als < 1:
+                    raise ValueError(_('Een tafel moet voor minstens 1 tafel meetellen.'))
+                primary.telt_als_tafels = telt_als
             primary.save()
 
             return JsonResponse({'success': True, 'grid': serialize_zaalplan_grid(zaalplan)})
@@ -620,7 +629,9 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 cel_type=bestaand_type,
             )
             # Label van bestaande primary behouden, andere labels wissen
-            ZaalplanCel.objects.filter(pk__in=pks).exclude(pk=primary.pk).update(label='', prijs=None)
+            ZaalplanCel.objects.filter(pk__in=pks).exclude(pk=primary.pk).update(
+                label='', prijs=None, telt_als_tafels=1,
+            )
 
             return JsonResponse({'success': True, 'grid': serialize_zaalplan_grid(zaalplan)})
         except Exception as e:

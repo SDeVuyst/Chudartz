@@ -153,6 +153,14 @@
   .zaalplan-cel.bezet:hover { filter: none; }
   .zaalplan-cel.gereserveerd { --fill: var(--zp-cel-bezet); background: var(--zp-cel-bezet); color: #fff; }
   .zaalplan-cel.heeft-tekst { text-transform: uppercase; letter-spacing: 0.02em; }
+  /* Tafel die voor meerdere tafels meetelt */
+  .zaalplan-cel.telt-meervoudig { position: relative; }
+  .zaalplan-cel.telt-meervoudig::after {
+    content: "×" attr(data-telt-als);
+    position: absolute; top: 1px; right: 2px; z-index: 5;
+    font-size: 0.55rem; font-weight: 700; line-height: 1; opacity: 0.8;
+    pointer-events: none;
+  }
   .zaalplan-cel.merge-preview { box-shadow: inset 0 0 0 2px var(--zp-accent); filter: brightness(1.15); z-index: 2; }
   /* interne randen van een groep laten samensmelten met de vulling (naadloos) */
   .zaalplan-cel.nb-top { border-top-color: var(--fill); }
@@ -162,13 +170,20 @@
   .zaalplan-cel.grouped { border-color: var(--zp-cel-border-groep); }
 
   .zaalplan-groep-label {
-    pointer-events: none; z-index: 4;
+    pointer-events: none; z-index: 4; position: relative;
     display: flex; align-items: center; justify-content: center; text-align: center;
     font-weight: 700; font-size: 0.7rem; color: var(--zp-cel-tafel-text);
     padding: 2px; overflow: hidden; word-break: break-word; line-height: 1.1;
   }
   .zaalplan-groep-label.op-donker { color: var(--zp-label-op-donker); text-transform: uppercase; letter-spacing: 0.03em; }
   .zaalplan-groep-label.op-leeg { color: var(--zp-label-op-leeg); }
+  .zaalplan-groep-label .zp-label-tekst { display: block; width: 100%; }
+  /* Lange namen op een smalle, hoge vorm: gekanteld tonen i.p.v. in stukjes knippen */
+  .zaalplan-groep-label.is-verticaal .zp-label-tekst {
+    position: absolute; left: 50%; top: 50%; width: auto;
+    transform: translate(-50%, -50%) rotate(90deg);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
 
   .zaalplan-cel-detail { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--zp-border); border-radius: 14px; max-width: 420px; background: var(--zp-surface); box-shadow: 0 8px 24px var(--zp-shadow-strong); }
   .zaalplan-cel-detail.hidden { display: none; }
@@ -180,6 +195,7 @@
     border-radius: 8px; padding: 0.5rem 0.7rem; width: 100%;
   }
   .zaalplan-cel-detail input:focus { outline: none; border-color: var(--zp-accent); box-shadow: 0 0 0 3px var(--zp-focus-ring); }
+  .zaalplan-cel-detail .zp-field-help { color: var(--zp-muted); font-size: 0.75rem; margin: 0.4rem 0 0; line-height: 1.35; }
   .zaalplan-cel-detail .zp-detail-actions { display: flex; gap: 0.6rem; margin-top: 0.35rem; }
 
   .zaalplan-empty { padding: 3rem 2rem; text-align: center; color: var(--zp-muted); border: 1.5px dashed var(--zp-border); border-radius: 12px; }
@@ -194,7 +210,7 @@
   <h1>{% trans "Zaalplan beheren" %}: {{ evenement.titel }}</h1>
 </div>
 
-<p class="zaalplan-hint">{% trans "Kies eerst een actie, klik of sleep daarna over het rooster om tafels te plaatsen. Met 'Bewerken' pas je een tafelprijs of tekst (bv. 'Gang', 'Ingang') aan." %}</p>
+<p class="zaalplan-hint">{% trans "Kies eerst een actie, klik of sleep daarna over het rooster om tafels te plaatsen. Met 'Bewerken' pas je een tafelprijs, tekst (bv. 'Gang', 'Ingang') of het aantal tafels waarvoor een object meetelt aan." %}</p>
 
 <form id="csrf-form" style="display:none">{% csrf_token %}</form>
 
@@ -248,6 +264,7 @@
     <span><i style="background:var(--zp-cel-tafel)"></i> {% trans "Tafel" %}</span>
     <span><i style="background:var(--zp-cel-blok)"></i> {% trans "Geblokkeerd (gang/geen plaats)" %}</span>
     <span><i style="background:var(--zp-cel-bezet)"></i> {% trans "Gereserveerd / bezet" %}</span>
+    <span>&times;2 {% trans "Telt als meerdere tafels" %}</span>
   </div>
 </div>
 
@@ -273,6 +290,11 @@
     <label for="cel-prijs-input">{% trans "Prijs override (€, leeg = standaard)" %}</label>
     <input type="number" id="cel-prijs-input" min="0" step="0.01">
   </div>
+  <div style="margin-bottom: 1rem;" id="cel-telt-wrap">
+    <label for="cel-telt-input">{% trans "Telt als aantal tafels" %}</label>
+    <input type="number" id="cel-telt-input" min="1" step="1" value="1">
+    <p class="zp-field-help">{% trans "Hoeveel tafels dit object opgebruikt van het maximum per standhouder. Standaard 1, ook als het uit meerdere vakjes bestaat." %}</p>
+  </div>
   <div class="zp-detail-actions">
     <button type="button" id="btn-cel-opslaan" class="zp-btn zp-btn-primary">{% trans "Opslaan" %}</button>
     <button type="button" id="btn-cel-annuleren" class="zp-btn">{% trans "Annuleren" %}</button>
@@ -287,5 +309,5 @@
 <script>
   window.ZAALPLAN_DATA = {{ grid_json|safe }};
 </script>
-<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=10"></script>
+<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=12"></script>
 {% endblock %}
