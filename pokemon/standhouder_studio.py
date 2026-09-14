@@ -89,14 +89,12 @@ def build_preview_step_context(request, evenement, step):
         initial = {}
         if vraag_aantal and inschrijving.aantal_tafels_manueel:
             initial["aantal_tafels"] = inschrijving.aantal_tafels_manueel
+        from pokemon.forms import deserialize_vraag_antwoord_initial
         for antwoord in inschrijving.antwoorden.select_related("vraag"):
             field_name = f"vraag_{antwoord.vraag_id}"
-            if antwoord.vraag.vraag_type == VraagType.BOOLEAN:
-                initial[field_name] = antwoord.antwoord
-            elif antwoord.vraag.vraag_type == VraagType.CHECKBOX:
-                initial[field_name] = antwoord.antwoord == "true"
-            else:
-                initial[field_name] = antwoord.antwoord
+            initial[field_name] = deserialize_vraag_antwoord_initial(
+                antwoord.vraag, antwoord.antwoord
+            )
         context["form"] = VragenForm(initial=initial)
         context["vragen"] = vragen
     elif step == "overzicht":

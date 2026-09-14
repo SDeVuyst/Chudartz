@@ -34,9 +34,7 @@ from pokemon.models import (
     Payment,
     PaymentStatus,
     Sponsor,
-    StandhouderVraag,
     Ticket,
-    VraagType,
     StandhouderInschrijving,
 )
 from pokemon.services.attendance import (
@@ -228,7 +226,7 @@ def evenement(request, slug):
         "partners": evenement.partners.all(),
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
         "gerelateerde_evenementen": _get_gerelateerde_evenementen(evenement),
-        "tickets_kopen_mogelijk": evenement.enable_inschrijvingen and not evenement.is_sold_out,
+        "tickets_kopen_mogelijk": evenement.tickets_kopen_mogelijk,
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 
@@ -246,7 +244,7 @@ def ticket_kopen(request, slug):
     if not evenement:
         return HttpResponseNotFound()
 
-    if not evenement.enable_inschrijvingen or evenement.is_sold_out:
+    if not evenement.tickets_kopen_mogelijk:
         return redirect("evenement", slug=slug)
 
     context = ticket_base_context(request, evenement, "tickets")
@@ -636,14 +634,12 @@ def standhouder_vragen(request, slug):
         initial = {}
         if vraag_aantal and inschrijving.aantal_tafels_manueel:
             initial["aantal_tafels"] = inschrijving.aantal_tafels_manueel
+        from pokemon.forms import deserialize_vraag_antwoord_initial
         for antwoord in inschrijving.antwoorden.select_related("vraag"):
             field_name = f"vraag_{antwoord.vraag_id}"
-            if antwoord.vraag.vraag_type == VraagType.BOOLEAN:
-                initial[field_name] = antwoord.antwoord
-            elif antwoord.vraag.vraag_type == VraagType.CHECKBOX:
-                initial[field_name] = antwoord.antwoord == "true"
-            else:
-                initial[field_name] = antwoord.antwoord
+            initial[field_name] = deserialize_vraag_antwoord_initial(
+                antwoord.vraag, antwoord.antwoord
+            )
         context["form"] = VragenForm(initial=initial)
 
     context["vragen"] = vragen

@@ -18,7 +18,7 @@
               <i class="bi bi-{{ ticket.icon }}"></i>
               <div>
                 <strong>{{ ticket.titel }}</strong>
-                <span class="ticket-select-card__price">€{{ ticket.price.amount }}</span>
+                <span class="ticket-select-card__price">{% if ticket.is_gratis %}{% trans 'Gratis' %}{% else %}€{{ ticket.price.amount }}{% endif %}</span>
                 {% if ticket.remaining_tickets <= 10 %}
                 <small class="ticket-select-card__stock">{% blocktrans with rest=ticket.remaining_tickets %}Nog {{ rest }} beschikbaar{% endblocktrans %}</small>
                 {% endif %}

@@ -1,7 +1,8 @@
+import json
 import logging
 import secrets
 import string
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from email.utils import formataddr
 
 import pytz
@@ -188,6 +189,19 @@ class Evenement(models.Model):
         return self.standhouder_prijzen.split('\n')
 
     @property
+    def heeft_online_tickets(self):
+        tickets = self.ticket_set.filter(disable_ticket=False, enkel_inkom=False)
+        return any(not ticket.is_sold_out for ticket in tickets)
+
+    @property
+    def tickets_kopen_mogelijk(self):
+        return (
+            self.enable_inschrijvingen
+            and not self.is_sold_out
+            and self.heeft_online_tickets
+        )
+
+    @property
     def standhouder_inschrijving_mogelijk(self):
         return self.enable_standhouder and self.is_in_future
 
@@ -205,6 +219,8 @@ class Ticket(models.Model):
         verbose_name_plural = "Tickets"
 
     def __str__(self) -> str:
+        if self.is_gratis:
+            return f"{self.titel} - {_('Gratis')}"
         return f"{self.titel} - {self.price}"
     
     titel = models.CharField(max_length=100, verbose_name=_("titel"))
@@ -213,6 +229,30 @@ class Ticket(models.Model):
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
     event = models.ForeignKey(Evenement, verbose_name=_("Evenement"), on_delete=models.RESTRICT)
     disable_ticket = models.BooleanField(_("Schakel ticket uit"))
+    is_gratis = models.BooleanField(
+        _("Gratis"),
+        default=False,
+        help_text=_("Zet de prijs automatisch op €0,00 en toont 'Gratis' op de site."),
+    )
+    enkel_inkom = models.BooleanField(
+        _("Enkel aan de inkom"),
+        default=False,
+        help_text=_(
+            "Niet online te koop. Bezoekers zien het ticket wel, met de melding "
+            "dat het enkel aan de inkom verkrijgbaar is. Combineer met 'Gratis' "
+            "voor een gratis inkomticket."
+        ),
+    )
+    voordelen_tekst = models.TextField(
+        _("Voordelen"),
+        blank=True,
+        help_text=_("Eén voordeel per regel. Wordt getoond met een groen vinkje."),
+    )
+    nadelen_tekst = models.TextField(
+        _("Nadelen"),
+        blank=True,
+        help_text=_("Eén nadeel per regel. Wordt doorgestreept getoond."),
+    )
     toegang_start = models.DateTimeField(
         _("Toegang vanaf"),
         null=True,
@@ -228,11 +268,28 @@ class Ticket(models.Model):
 
     history = HistoricalRecords(verbose_name=_("Geschiedenis"))
 
+    def save(self, *args, **kwargs):
+        if self.is_gratis:
+            from djmoney.money import Money
+            currency = getattr(self.price, "currency", None) or "EUR"
+            self.price = Money(Decimal("0.00"), currency)
+        super().save(*args, **kwargs)
+
     def get_toegang_start(self):
         return self.toegang_start or self.event.start_datum
 
     def get_toegang_einde(self):
         return self.toegang_einde or self.event.einde_datum
+
+    @property
+    def is_online_koopbaar(self):
+        return not self.disable_ticket and not self.enkel_inkom
+
+    @staticmethod
+    def _regels(waarde):
+        if not waarde:
+            return []
+        return [regel.strip() for regel in waarde.splitlines() if regel.strip()]
 
     @property 
     def is_sold_out(self):
@@ -255,11 +312,11 @@ class Ticket(models.Model):
     
     @property
     def voordelen(self):
-        return self.eigenschappen.filter(is_voordeel=True).order_by('volgorde')
+        return self._regels(self.voordelen_tekst)
 
     @property
     def nadelen(self):
-        return self.eigenschappen.filter(is_voordeel=False).order_by('volgorde')
+        return self._regels(self.nadelen_tekst)
 
 
 class TicketEigenschap(models.Model):
@@ -660,6 +717,7 @@ class VraagType:
     CHECKBOX = "checkbox"
     NUMBER = "number"
     SELECT = "select"
+    MULTISELECT = "multiselect"
 
     CHOICES = [
         (TEKST, _("Tekst")),
@@ -668,6 +726,7 @@ class VraagType:
         (CHECKBOX, _("Checkbox")),
         (NUMBER, _("Getal")),
         (SELECT, _("Keuzelijst")),
+        (MULTISELECT, _("Meervoudige keuze")),
     ]
 
 
@@ -855,7 +914,7 @@ class StandhouderVraag(models.Model):
     )
     tekst = models.CharField(max_length=200, verbose_name=_("Vraag"))
     vraag_type = models.CharField(
-        max_length=10,
+        max_length=15,
         choices=VraagType.CHOICES,
         default=VraagType.BOOLEAN,
         verbose_name=_("Type"),
@@ -863,6 +922,10 @@ class StandhouderVraag(models.Model):
     opties = models.TextField(
         blank=True,
         verbose_name=_("Opties (één per regel, voor keuzelijst)"),
+        help_text=_(
+            "Voor keuzelijst: één label per regel. "
+            "Voor meervoudige keuze: JSON-lijst met label en optionele prijs."
+        ),
     )
     verplicht = models.BooleanField(default=False, verbose_name=_("Verplicht"))
     volgorde = models.SmallIntegerField(default=0, verbose_name=_("Volgorde"))
@@ -880,7 +943,8 @@ class StandhouderVraag(models.Model):
         default=False,
         help_text=_(
             "Aan: de toeslag is exclusief BTW; het BTW-percentage wordt "
-            "achteraf bij het totaal opgeteld."
+            "achteraf bij het totaal opgeteld. Voor meervoudige keuze geldt dit "
+            "voor alle optieprijzen."
         ),
     )
     prijs_toeslag_btw_percentage = models.DecimalField(
@@ -898,6 +962,18 @@ class StandhouderVraag(models.Model):
             "positief antwoord verschijnt op het overzicht een melding dat dit bedrag "
             "niet wordt terugbetaald bij annulatie."
         ),
+    )
+    min_selecties = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        verbose_name=_("Min. selecties"),
+        help_text=_("Alleen voor meervoudige keuze: minimum aantal te selecteren items."),
+    )
+    max_selecties = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        verbose_name=_("Max. selecties"),
+        help_text=_("Alleen voor meervoudige keuze: maximum aantal te selecteren items."),
     )
     min_tafels = models.PositiveIntegerField(
         blank=True,
@@ -925,6 +1001,54 @@ class StandhouderVraag(models.Model):
     @property
     def opties_lijst(self):
         return [o.strip() for o in self.opties.split("\n") if o.strip()]
+
+    def multiselect_opties(self):
+        """Parse JSON-opties voor meervoudige keuze.
+
+        Returns a list of dicts: {"label": str, "prijs": Decimal|None}.
+        """
+        if not self.opties or not self.opties.strip():
+            return []
+        try:
+            raw = json.loads(self.opties)
+        except (json.JSONDecodeError, TypeError):
+            return []
+        if not isinstance(raw, list):
+            return []
+        result = []
+        for item in raw:
+            if isinstance(item, str):
+                label = item.strip()
+                if label:
+                    result.append({"label": label, "prijs": None})
+                continue
+            if not isinstance(item, dict):
+                continue
+            label = str(item.get("label") or "").strip()
+            if not label:
+                continue
+            prijs = None
+            raw_prijs = item.get("prijs")
+            if raw_prijs not in (None, ""):
+                try:
+                    prijs = Decimal(str(raw_prijs)).quantize(Decimal("0.01"))
+                except (InvalidOperation, ValueError, TypeError):
+                    prijs = None
+            result.append({"label": label, "prijs": prijs})
+        return result
+
+    def optie_prijs_map(self):
+        """Label -> Decimal prijs (alleen labels met prijs)."""
+        return {
+            o["label"]: o["prijs"]
+            for o in self.multiselect_opties()
+            if o["prijs"] is not None and o["prijs"] > 0
+        }
+
+    def opties_voor_form(self):
+        if self.vraag_type == VraagType.MULTISELECT:
+            return [o["label"] for o in self.multiselect_opties()]
+        return self.opties_lijst
 
 
 class StandhouderInschrijving(models.Model):
@@ -1022,7 +1146,7 @@ class StandhouderInschrijving(models.Model):
             if antwoord.vraag.is_borg and antwoord.heeft_toeslag():
                 vraag = antwoord.vraag
                 incl, _ = bedrag_met_btw(
-                    vraag.prijs_toeslag.amount,
+                    antwoord.toeslag_bedrag(),
                     vraag.prijs_toeslag_excl_btw,
                     vraag.prijs_toeslag_btw_percentage,
                 )
@@ -1058,7 +1182,7 @@ class StandhouderInschrijving(models.Model):
             if antwoord.heeft_toeslag():
                 vraag = antwoord.vraag
                 incl, _ = bedrag_met_btw(
-                    vraag.prijs_toeslag.amount,
+                    antwoord.toeslag_bedrag(),
                     vraag.prijs_toeslag_excl_btw,
                     vraag.prijs_toeslag_btw_percentage,
                 )
@@ -1216,12 +1340,60 @@ class StandhouderVraagAntwoord(models.Model):
     def __str__(self):
         return f"{self.vraag.tekst}: {self.antwoord}"
 
+    def multiselect_gekozen(self):
+        """Parse geselecteerde labels uit het antwoordveld."""
+        if not self.antwoord or not self.antwoord.strip():
+            return []
+        try:
+            raw = json.loads(self.antwoord)
+        except (json.JSONDecodeError, TypeError):
+            return []
+        if not isinstance(raw, list):
+            return []
+        return [str(item).strip() for item in raw if str(item).strip()]
+
+    def toeslag_regels(self):
+        """Lijst van (omschrijving, excl_bedrag) voor prijsopbouw."""
+        vraag = self.vraag
+        if vraag.vraag_type == VraagType.MULTISELECT:
+            prijs_map = vraag.optie_prijs_map()
+            regels = []
+            for label in self.multiselect_gekozen():
+                prijs = prijs_map.get(label)
+                if prijs is not None and prijs > 0:
+                    regels.append((f"{vraag.tekst}: {label}", prijs))
+            return regels
+        if not self.heeft_toeslag():
+            return []
+        if not vraag.prijs_toeslag:
+            return []
+        omschrijving = (
+            str(_("Niet-terugbetaalbare reservatie- en administratiekost"))
+            if vraag.is_borg
+            else vraag.tekst
+        )
+        return [(omschrijving, vraag.prijs_toeslag.amount)]
+
+    def toeslag_bedrag(self):
+        """Excl. BTW-bedrag van de toeslag voor dit antwoord."""
+        if self.vraag.vraag_type == VraagType.MULTISELECT:
+            return sum((bedrag for _, bedrag in self.toeslag_regels()), Decimal("0"))
+        if not self.heeft_toeslag():
+            return Decimal("0")
+        if not self.vraag.prijs_toeslag:
+            return Decimal("0")
+        return self.vraag.prijs_toeslag.amount
+
     def weergave(self):
         if self.vraag.vraag_type in (VraagType.BOOLEAN, VraagType.CHECKBOX):
             return _("Ja") if self.antwoord in ("true", "1", "on", "yes") else _("Nee")
+        if self.vraag.vraag_type == VraagType.MULTISELECT:
+            return ", ".join(self.multiselect_gekozen())
         return self.antwoord
 
     def heeft_toeslag(self):
+        if self.vraag.vraag_type == VraagType.MULTISELECT:
+            return self.toeslag_bedrag() > 0
         if not self.vraag.prijs_toeslag:
             return False
         if self.vraag.vraag_type in (VraagType.BOOLEAN, VraagType.CHECKBOX):

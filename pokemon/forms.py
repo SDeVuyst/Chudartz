@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+import json
 
 from pokemon.models import StandhouderInschrijving, StandhouderVraag, VraagType
 
@@ -135,6 +136,14 @@ class StandhouderTafelsForm(forms.Form):
         return tafels
 
 
+def _multiselect_choice_label(optie):
+    label = optie["label"]
+    prijs = optie.get("prijs")
+    if prijs is not None and prijs > 0:
+        return f"{label} (+€{prijs})"
+    return label
+
+
 def build_standhouder_vragen_form(vragen, aantal_tafels, vraag_aantal_tafels=False, max_tafels=3):
     class StandhouderVragenForm(forms.Form):
         pass
@@ -203,11 +212,56 @@ def build_standhouder_vragen_form(vragen, aantal_tafels, vraag_aantal_tafels=Fal
                 widget=forms.Select(attrs={"class": "form-control"}),
                 **field_kwargs,
             )
+        elif vraag.vraag_type == VraagType.MULTISELECT:
+            opties = vraag.multiselect_opties()
+            choices = [(o["label"], _multiselect_choice_label(o)) for o in opties]
+            field = forms.MultipleChoiceField(
+                choices=choices,
+                widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"}),
+                required=False,
+                label=vraag.tekst,
+            )
         else:
             continue
 
         StandhouderVragenForm.base_fields[field_name] = field
         StandhouderVragenForm.base_fields[field_name].vraag = vraag
+
+    for vraag in vragen:
+        if vraag.vraag_type != VraagType.MULTISELECT:
+            continue
+        if vraag.min_tafels and aantal_tafels < vraag.min_tafels:
+            continue
+        if vraag.max_tafels and aantal_tafels > vraag.max_tafels:
+            continue
+
+        field_name = f"vraag_{vraag.pk}"
+        min_sel = vraag.min_selecties
+        if vraag.verplicht and not min_sel:
+            min_sel = 1
+        max_sel = vraag.max_selecties
+
+        def _make_clean(fname, minimum, maximum):
+            def clean_method(self):
+                value = self.cleaned_data.get(fname) or []
+                count = len(value)
+                if minimum and count < minimum:
+                    raise forms.ValidationError(
+                        _("Selecteer minstens %(min)s optie(s).") % {"min": minimum}
+                    )
+                if maximum and count > maximum:
+                    raise forms.ValidationError(
+                        _("Selecteer maximaal %(max)s optie(s).") % {"max": maximum}
+                    )
+                return value
+
+            return clean_method
+
+        setattr(
+            StandhouderVragenForm,
+            f"clean_{field_name}",
+            _make_clean(field_name, min_sel, max_sel),
+        )
 
     return StandhouderVragenForm
 
@@ -219,4 +273,29 @@ def serialize_vraag_antwoord(vraag, value):
         return "true" if value else "false"
     if vraag.vraag_type == VraagType.CHECKBOX:
         return "true" if value else "false"
+    if vraag.vraag_type == VraagType.MULTISELECT:
+        if not value:
+            return "[]"
+        if isinstance(value, str):
+            return value
+        return json.dumps(list(value), ensure_ascii=False)
     return str(value) if value is not None else ""
+
+
+def deserialize_vraag_antwoord_initial(vraag, antwoord_tekst):
+    """Zet opgeslagen antwoord om naar form-initialwaarde."""
+    if vraag.vraag_type == VraagType.BOOLEAN:
+        return antwoord_tekst
+    if vraag.vraag_type == VraagType.CHECKBOX:
+        return antwoord_tekst == "true"
+    if vraag.vraag_type == VraagType.MULTISELECT:
+        if not antwoord_tekst:
+            return []
+        try:
+            raw = json.loads(antwoord_tekst)
+        except (json.JSONDecodeError, TypeError):
+            return []
+        if isinstance(raw, list):
+            return [str(x) for x in raw]
+        return []
+    return antwoord_tekst

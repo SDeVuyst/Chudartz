@@ -311,3 +311,24 @@
   font-size: 0.88rem;
   padding: 0.5rem 0;
 }
+
+.sh-opties-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sh-optie-row {
+  display: grid;
+  grid-template-columns: 1fr 110px auto;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.sh-optie-row .sh-optie-remove {
+  min-width: 2rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+}

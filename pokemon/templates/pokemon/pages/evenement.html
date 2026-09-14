@@ -82,6 +82,9 @@ ChudartZ Collectibles | {{ evenement.titel }}
 .pricing-item--disabled {
   opacity: 0.72;
 }
+.pricing .pricing-item h4.ticket-price-gratis {
+  font-size: 36px;
+}
 </style>
 {% endblock %}
 
@@ -133,7 +136,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
                   <li><i class="bi bi-geo-alt"></i><span>{{ evenement.locatie_lang }}</span></li>
               </ul>
               <div class="evenement-acties">
-                {% if evenement.enable_inschrijvingen and not evenement.is_sold_out %}
+                {% if tickets_kopen_mogelijk %}
                 <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="btn btn-get-started">{% trans 'Tickets kopen' %}</a>
                 {% endif %}
                 <a href="#pricing" class="evenement-btn-secondary">{% trans 'Bekijk tickets' %}</a>

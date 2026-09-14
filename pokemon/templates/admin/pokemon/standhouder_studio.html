@@ -330,7 +330,7 @@
     padding: 1.15rem 1.25rem;
     background: var(--sh-surface);
     color: var(--sh-text);
-    width: min(520px, 94vw);
+    width: min(560px, 94vw);
   }
   #standhouder-studio .sh-dialog::backdrop { background: rgba(2, 6, 23, 0.65); }
   #standhouder-studio .sh-dialog h3 { margin: 0 0 0.85rem; color: var(--sh-text); }
@@ -339,6 +339,24 @@
     justify-content: flex-end;
     gap: 0.5rem;
     margin-top: 1rem;
+  }
+  #standhouder-studio .sh-opties-builder {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  #standhouder-studio .sh-optie-row {
+    display: grid;
+    grid-template-columns: 1fr 110px auto;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  #standhouder-studio .sh-optie-row .sh-optie-remove {
+    min-width: 2rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 1.1rem;
+    line-height: 1;
   }
   #standhouder-studio .sh-toast {
     position: sticky;
@@ -447,13 +465,28 @@
         <label class="sh-label" for="sh-vraag-type">{% trans "Type" %}</label>
         <select id="sh-vraag-type" class="sh-input"></select>
       </div>
-      <div class="sh-field">
+      <div class="sh-field" id="sh-field-opties-text">
         <label class="sh-label" for="sh-vraag-opties">{% trans "Opties (één per regel, voor keuzelijst)" %}</label>
         <textarea id="sh-vraag-opties" class="sh-input" rows="3"></textarea>
       </div>
+      <div class="sh-field" id="sh-field-opties-multi" hidden>
+        <label class="sh-label">{% trans "Opties (meervoudige keuze)" %}</label>
+        <div id="sh-opties-builder" class="sh-opties-builder"></div>
+        <button type="button" class="sh-btn sh-btn--ghost" id="sh-optie-add">{% trans "Optie toevoegen" %}</button>
+      </div>
       <label class="sh-check"><input type="checkbox" id="sh-vraag-verplicht"> {% trans "Verplicht" %}</label>
-      <div class="sh-row">
+      <div class="sh-row" id="sh-field-selecties" hidden>
         <div class="sh-field">
+          <label class="sh-label" for="sh-vraag-min-sel">{% trans "Min. selecties" %}</label>
+          <input type="number" min="0" id="sh-vraag-min-sel" class="sh-input">
+        </div>
+        <div class="sh-field">
+          <label class="sh-label" for="sh-vraag-max-sel">{% trans "Max. selecties" %}</label>
+          <input type="number" min="1" id="sh-vraag-max-sel" class="sh-input">
+        </div>
+      </div>
+      <div class="sh-row">
+        <div class="sh-field" id="sh-field-toeslag">
           <label class="sh-label" for="sh-vraag-toeslag">{% trans "Toeslag (€)" %}</label>
           <input type="number" step="0.01" id="sh-vraag-toeslag" class="sh-input">
         </div>

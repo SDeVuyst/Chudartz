@@ -15,7 +15,17 @@
   <div class="row gy-4">
     {% for field in form %}
       <div class="col-md-12">
-        {% if field.field.widget.input_type == 'checkbox' %}
+        {% if field.field.widget.allow_multiple_selected %}
+          <fieldset class="standhouder-radio-group">
+            <legend class="form-label mb-2">{{ field.label }}{% if field.field.required %} *{% endif %}</legend>
+            {% for option in field %}
+              <div class="form-check">
+                {{ option.tag }}
+                <label class="form-check-label" for="{{ option.id_for_label }}">{{ option.choice_label }}</label>
+              </div>
+            {% endfor %}
+          </fieldset>
+        {% elif field.field.widget.input_type == 'checkbox' %}
           <div class="form-check">
             {{ field }}
             <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>

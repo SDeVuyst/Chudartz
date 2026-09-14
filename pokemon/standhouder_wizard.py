@@ -11,6 +11,7 @@ from pokemon.models import (
     StandhouderTafelKeuze,
     StandhouderVraag,
     StandhouderVraagAntwoord,
+    VraagType,
     Zaalplan,
     ZaalplanCel,
     bedrag_met_btw,
@@ -101,17 +102,34 @@ def serialize_standhouder_vraag(vraag):
     toeslag = None
     if vraag.prijs_toeslag is not None:
         toeslag = str(vraag.prijs_toeslag.amount)
+
+    if vraag.vraag_type == VraagType.MULTISELECT:
+        opties_serialized = [
+            {
+                "label": o["label"],
+                "prijs": str(o["prijs"]) if o["prijs"] is not None else None,
+            }
+            for o in vraag.multiselect_opties()
+        ]
+        opties_raw = vraag.opties
+    else:
+        opties_serialized = None
+        opties_raw = vraag.opties
+
     return {
         "id": vraag.pk,
         "tekst": vraag.tekst,
         "vraag_type": vraag.vraag_type,
-        "opties": vraag.opties,
+        "opties": opties_raw,
+        "opties_parsed": opties_serialized,
         "verplicht": vraag.verplicht,
         "volgorde": vraag.volgorde,
         "prijs_toeslag": toeslag,
         "prijs_toeslag_excl_btw": vraag.prijs_toeslag_excl_btw,
         "prijs_toeslag_btw_percentage": str(vraag.prijs_toeslag_btw_percentage),
         "is_borg": vraag.is_borg,
+        "min_selecties": vraag.min_selecties,
+        "max_selecties": vraag.max_selecties,
         "min_tafels": vraag.min_tafels,
         "max_tafels": vraag.max_tafels,
     }
@@ -353,9 +371,35 @@ def build_prijsopbouw(inschrijving):
                 "is_btw": True,
             })
     for antwoord in inschrijving.antwoorden.select_related("vraag"):
+        vraag = antwoord.vraag
+        if vraag.vraag_type == VraagType.MULTISELECT:
+            for omschrijving, excl in antwoord.toeslag_regels():
+                if vraag.is_borg:
+                    omschrijving = gettext(
+                        "Niet-terugbetaalbare reservatie- en administratiekost"
+                    ) + f": {omschrijving.split(': ', 1)[-1]}"
+                _incl, btw = bedrag_met_btw(
+                    excl,
+                    vraag.prijs_toeslag_excl_btw,
+                    vraag.prijs_toeslag_btw_percentage,
+                )
+                if vraag.prijs_toeslag_excl_btw:
+                    omschrijving = met_excl_label(omschrijving)
+                regels.append({
+                    "omschrijving": omschrijving,
+                    "bedrag": excl,
+                    "is_btw": False,
+                })
+                if btw:
+                    regels.append({
+                        "omschrijving": btw_label(vraag.prijs_toeslag_btw_percentage),
+                        "bedrag": btw,
+                        "is_btw": True,
+                    })
+            continue
+
         if antwoord.heeft_toeslag():
-            vraag = antwoord.vraag
-            excl = vraag.prijs_toeslag.amount
+            excl = antwoord.toeslag_bedrag()
             _incl, btw = bedrag_met_btw(
                 excl,
                 vraag.prijs_toeslag_excl_btw,

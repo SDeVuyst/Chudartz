@@ -36,7 +36,7 @@ def validate_ticket_selection(evenement, quantities):
         except Ticket.DoesNotExist:
             raise TicketValidationError(_("Ongeldig ticket."))
 
-        if ticket.disable_ticket or ticket.is_sold_out:
+        if ticket.disable_ticket or ticket.enkel_inkom or ticket.is_sold_out:
             raise TicketValidationError(_("Eén of meer tickets zijn niet meer beschikbaar."))
 
         if qty < 0:

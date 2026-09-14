@@ -49,7 +49,11 @@ def heeft_ticket_gegevens(wizard_data):
 
 
 def get_beschikbare_tickets(evenement):
-    return Ticket.objects.filter(event=evenement, disable_ticket=False).order_by("pk")
+    return Ticket.objects.filter(
+        event=evenement,
+        disable_ticket=False,
+        enkel_inkom=False,
+    ).order_by("pk")
 
 
 def build_wizard_stappen(evenement, huidige_stap, wizard_data=None):

@@ -16,6 +16,7 @@
   var dialog = document.getElementById("sh-vraag-dialog");
   var form = document.getElementById("sh-vraag-form");
   var typeSelect = document.getElementById("sh-vraag-type");
+  var optiesBuilder = document.getElementById("sh-opties-builder");
 
   function csrfHeaders() {
     return {
@@ -121,6 +122,15 @@
     });
   }
 
+  function multiselectPrijsBadge(v) {
+    if (v.vraag_type !== "multiselect" || !v.opties_parsed) return "";
+    var priced = v.opties_parsed.filter(function (o) {
+      return o.prijs !== null && o.prijs !== "" && Number(o.prijs) > 0;
+    });
+    if (!priced.length) return "";
+    return '<span class="sh-badge">Optieprijzen</span>';
+  }
+
   function renderVragen() {
     listEl.innerHTML = "";
     if (!vragen.length) {
@@ -152,10 +162,18 @@
         (typeLabels[v.vraag_type] || v.vraag_type) +
         "</span>" +
         (v.verplicht ? '<span class="sh-badge">Verplicht</span>' : "") +
-        (v.prijs_toeslag
+        (v.vraag_type !== "multiselect" && v.prijs_toeslag
           ? '<span class="sh-badge">€' + v.prijs_toeslag + "</span>"
           : "") +
+        multiselectPrijsBadge(v) +
         (v.is_borg ? '<span class="sh-badge sh-badge--warn">Borg</span>' : "") +
+        (v.vraag_type === "multiselect" && (v.min_selecties || v.max_selecties)
+          ? '<span class="sh-badge">Selecties ' +
+            (v.min_selecties || "…") +
+            "–" +
+            (v.max_selecties || "…") +
+            "</span>"
+          : "") +
         (v.min_tafels || v.max_tafels
           ? '<span class="sh-badge">Tafels ' +
             (v.min_tafels || "…") +
@@ -215,12 +233,66 @@
     });
   }
 
+  function addOptieRow(label, prijs) {
+    if (!optiesBuilder) return;
+    var row = document.createElement("div");
+    row.className = "sh-optie-row";
+    row.innerHTML =
+      '<input type="text" class="sh-input sh-optie-label" placeholder="Label" value="">' +
+      '<input type="number" step="0.01" min="0" class="sh-input sh-optie-prijs" placeholder="Prijs € (optioneel)" value="">' +
+      '<button type="button" class="sh-btn sh-btn--ghost sh-optie-remove" title="Verwijder">×</button>';
+    var labelInput = row.querySelector(".sh-optie-label");
+    var prijsInput = row.querySelector(".sh-optie-prijs");
+    labelInput.value = label || "";
+    prijsInput.value = prijs !== null && prijs !== undefined && prijs !== "" ? prijs : "";
+    row.querySelector(".sh-optie-remove").addEventListener("click", function () {
+      row.remove();
+    });
+    optiesBuilder.appendChild(row);
+  }
+
+  function clearOptieRows() {
+    if (optiesBuilder) optiesBuilder.innerHTML = "";
+  }
+
+  function collectOpties() {
+    var rows = optiesBuilder ? optiesBuilder.querySelectorAll(".sh-optie-row") : [];
+    var result = [];
+    Array.prototype.forEach.call(rows, function (row) {
+      var label = (row.querySelector(".sh-optie-label").value || "").trim();
+      if (!label) return;
+      var prijsRaw = (row.querySelector(".sh-optie-prijs").value || "").trim();
+      result.push({
+        label: label,
+        prijs: prijsRaw === "" ? null : prijsRaw,
+      });
+    });
+    return result;
+  }
+
+  function syncTypeFields() {
+    var type = typeSelect.value;
+    var isMulti = type === "multiselect";
+    var isSelect = type === "select";
+    var textField = document.getElementById("sh-field-opties-text");
+    var multiField = document.getElementById("sh-field-opties-multi");
+    var selectiesField = document.getElementById("sh-field-selecties");
+    var toeslagField = document.getElementById("sh-field-toeslag");
+    if (textField) textField.hidden = isMulti || (!isSelect && !isMulti);
+    // Show plain options for select only; hide for other non-multi types
+    if (textField) textField.hidden = !isSelect;
+    if (multiField) multiField.hidden = !isMulti;
+    if (selectiesField) selectiesField.hidden = !isMulti;
+    if (toeslagField) toeslagField.hidden = isMulti;
+  }
+
   function openVraagDialog(vraag) {
     document.getElementById("sh-vraag-id").value = vraag && vraag.id ? vraag.id : "";
     document.getElementById("sh-vraag-tekst").value = (vraag && vraag.tekst) || "";
     document.getElementById("sh-vraag-type").value =
       (vraag && vraag.vraag_type) || "boolean";
-    document.getElementById("sh-vraag-opties").value = (vraag && vraag.opties) || "";
+    document.getElementById("sh-vraag-opties").value =
+      vraag && vraag.vraag_type !== "multiselect" ? vraag.opties || "" : "";
     document.getElementById("sh-vraag-verplicht").checked = !!(vraag && vraag.verplicht);
     document.getElementById("sh-vraag-toeslag").value =
       (vraag && vraag.prijs_toeslag) || "";
@@ -234,24 +306,76 @@
       (vraag && vraag.min_tafels) || "";
     document.getElementById("sh-vraag-max").value =
       (vraag && vraag.max_tafels) || "";
+    document.getElementById("sh-vraag-min-sel").value =
+      (vraag && vraag.min_selecties) || "";
+    document.getElementById("sh-vraag-max-sel").value =
+      (vraag && vraag.max_selecties) || "";
+
+    clearOptieRows();
+    if (vraag && vraag.vraag_type === "multiselect") {
+      var parsed = vraag.opties_parsed || [];
+      if (parsed.length) {
+        parsed.forEach(function (o) {
+          addOptieRow(o.label, o.prijs);
+        });
+      } else {
+        addOptieRow("", "");
+      }
+    } else if (!vraag) {
+      addOptieRow("", "");
+    }
+
     document.getElementById("sh-vraag-dialog-title").textContent = vraag && vraag.id
       ? "Vraag bewerken"
       : "Vraag toevoegen";
+    syncTypeFields();
     if (typeof dialog.showModal === "function") dialog.showModal();
+  }
+
+  typeSelect.addEventListener("change", function () {
+    if (typeSelect.value === "multiselect" && optiesBuilder && !optiesBuilder.children.length) {
+      addOptieRow("", "");
+    }
+    syncTypeFields();
+  });
+
+  var addOptieBtn = document.getElementById("sh-optie-add");
+  if (addOptieBtn) {
+    addOptieBtn.addEventListener("click", function () {
+      addOptieRow("", "");
+    });
   }
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    var vraagType = document.getElementById("sh-vraag-type").value;
+    var optiesValue = document.getElementById("sh-vraag-opties").value;
+    var toeslagValue = document.getElementById("sh-vraag-toeslag").value;
+    var minSel = document.getElementById("sh-vraag-min-sel").value;
+    var maxSel = document.getElementById("sh-vraag-max-sel").value;
+
+    if (vraagType === "multiselect") {
+      var optiesList = collectOpties();
+      if (!optiesList.length) {
+        alert("Voeg minstens één optie toe.");
+        return;
+      }
+      optiesValue = JSON.stringify(optiesList);
+      toeslagValue = "";
+    }
+
     var payload = {
       id: document.getElementById("sh-vraag-id").value || null,
       tekst: document.getElementById("sh-vraag-tekst").value,
-      vraag_type: document.getElementById("sh-vraag-type").value,
-      opties: document.getElementById("sh-vraag-opties").value,
+      vraag_type: vraagType,
+      opties: optiesValue,
       verplicht: document.getElementById("sh-vraag-verplicht").checked,
-      prijs_toeslag: document.getElementById("sh-vraag-toeslag").value,
+      prijs_toeslag: toeslagValue,
       prijs_toeslag_btw_percentage: document.getElementById("sh-vraag-btw").value,
       prijs_toeslag_excl_btw: document.getElementById("sh-vraag-excl-btw").checked,
       is_borg: document.getElementById("sh-vraag-borg").checked,
+      min_selecties: vraagType === "multiselect" ? minSel : "",
+      max_selecties: vraagType === "multiselect" ? maxSel : "",
       min_tafels: document.getElementById("sh-vraag-min").value,
       max_tafels: document.getElementById("sh-vraag-max").value,
     };

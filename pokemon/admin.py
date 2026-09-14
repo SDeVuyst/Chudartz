@@ -51,14 +51,31 @@ class TicketInline(StackedInline):
     extra = 0
     verbose_name = _("Evenement Ticket")
     verbose_name_plural = _("Evenement Tickets")
-    fields = (
-        "titel",
-        "price",
-        "icon",
-        "max_deelnemers",
-        "disable_ticket",
-        "toegang_start",
-        "toegang_einde",
+    fieldsets = (
+        (None, {
+            "fields": (
+                "titel",
+                "icon",
+                "max_deelnemers",
+                "disable_ticket",
+            ),
+        }),
+        (_("Prijs & type"), {
+            "fields": ("is_gratis", "enkel_inkom", "price"),
+            "description": _(
+                "Vink 'Gratis' aan voor een ticket van €0,00. "
+                "Vink 'Enkel aan de inkom' aan als het ticket niet online te koop is. "
+                "Beide samen = gratis inkomticket."
+            ),
+        }),
+        (_("Eigenschappen"), {
+            "fields": ("voordelen_tekst", "nadelen_tekst"),
+            "description": _("Eén eigenschap per regel. Dit verschijnt op de ticketkaart op de evenementpagina."),
+        }),
+        (_("Toegang op het ticket"), {
+            "fields": ("toegang_start", "toegang_einde"),
+            "classes": ("collapse",),
+        }),
     )
 
 class EvenementFotoInline(StackedInline):
@@ -85,6 +102,8 @@ class StandhouderVraagInline(StackedInline):
         "prijs_toeslag_excl_btw",
         "prijs_toeslag_btw_percentage",
         "is_borg",
+        "min_selecties",
+        "max_selecties",
         "min_tafels",
         "max_tafels",
     )
@@ -168,10 +187,67 @@ class EvenementEinddatumFilter(DropdownFilter):
 # MODELS #
 @admin.register(Ticket)
 class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('titel', 'price', 'participants_count', 'remaining_tickets', 'is_sold_out')
+    list_display = (
+        'titel', 'event', 'prijs_weergave', 'is_gratis_display',
+        'enkel_inkom_display', 'participants_count', 'remaining_tickets', 'is_sold_out',
+    )
+    list_filter = ('event', 'is_gratis', 'enkel_inkom', 'disable_ticket')
+    list_filter_submit = True
     ordering = ("id",)
+    search_fields = ('titel', 'event__titel')
+    autocomplete_fields = ('event',)
+    fieldsets = (
+        (_("Algemeen"), {
+            "fields": ("event", "titel", "icon", "max_deelnemers", "disable_ticket"),
+        }),
+        (_("Prijs & type"), {
+            "fields": ("is_gratis", "enkel_inkom", "price"),
+            "description": _(
+                "Vink 'Gratis' aan voor een ticket van €0,00. "
+                "Vink 'Enkel aan de inkom' aan als het ticket niet online te koop is. "
+                "Beide samen = gratis inkomticket."
+            ),
+        }),
+        (_("Eigenschappen"), {
+            "fields": ("voordelen_tekst", "nadelen_tekst"),
+            "description": _("Eén eigenschap per regel. Dit verschijnt op de ticketkaart op de evenementpagina."),
+        }),
+        (_("Toegang op het ticket"), {
+            "fields": ("toegang_start", "toegang_einde"),
+        }),
+    )
 
-    search_fields = ('titel', 'beschrijving')
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        from djmoney.forms.widgets import MoneyWidget
+
+        if db_field.name == "price":
+            kwargs["widget"] = MoneyWidget(
+                amount_widget=forms.NumberInput(attrs={"step": "0.01"}),
+                choices=[("EUR", "Euro")],
+            )
+        if db_field.name in ("voordelen_tekst", "nadelen_tekst"):
+            kwargs["widget"] = forms.Textarea(attrs={"rows": 4})
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+    @display(description=_("Prijs"))
+    def prijs_weergave(self, obj):
+        if obj.is_gratis:
+            return _("Gratis")
+        return obj.price
+
+    @display(
+        description=_("Gratis"),
+        label={True: "success", False: "info"},
+    )
+    def is_gratis_display(self, obj):
+        return obj.is_gratis, (_("Ja") if obj.is_gratis else _("Nee"))
+
+    @display(
+        description=_("Aan de inkom"),
+        label={True: "warning", False: "info"},
+    )
+    def enkel_inkom_display(self, obj):
+        return obj.enkel_inkom, (_("Ja") if obj.enkel_inkom else _("Nee"))
 
     @display(
         description=_("Sold out"),
@@ -365,7 +441,10 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         }),
         (_("Bezoekers · tickets"), {
             "fields": ("enable_inschrijvingen",),
-            "description": _("Ticketverkoop voor bezoekers. Tickets beheer je via de sectie 'Evenement Tickets' onderaan."),
+            "description": _(
+                "Ticketverkoop voor bezoekers. Tickets, eigenschappen, gratis- en "
+                "inkom-instellingen beheer je via de sectie 'Evenement Tickets' onderaan."
+            ),
         }),
         (_("Standhouders · algemeen"), {
             "fields": ("enable_standhouder", "standhouder_inbegrepen", "standhouder_prijzen"),
@@ -397,11 +476,13 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         from djmoney.forms.widgets import MoneyWidget
 
-        if db_field.name in ("standhouder_prijs_per_tafel", "prijs_toeslag"):
+        if db_field.name in ("standhouder_prijs_per_tafel", "prijs_toeslag", "price"):
             kwargs["widget"] = MoneyWidget(
                 amount_widget=forms.NumberInput(attrs={"step": "0.01"}),
                 choices=[("EUR", "Euro")],
             )
+        if db_field.name in ("voordelen_tekst", "nadelen_tekst"):
+            kwargs["widget"] = forms.Textarea(attrs={"rows": 4})
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     def get_urls(self):
@@ -746,7 +827,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
 
         toeslag_raw = data.get('prijs_toeslag')
         toeslag = None
-        if toeslag_raw not in (None, ''):
+        if vraag_type != VraagType.MULTISELECT and toeslag_raw not in (None, ''):
             try:
                 toeslag = Money(Decimal(str(toeslag_raw)), 'EUR')
             except (InvalidOperation, ValueError) as exc:
@@ -764,17 +845,72 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 return None
             return int(val)
 
+        opties_raw = data.get('opties') or ''
+        min_selecties = None
+        max_selecties = None
+
+        if vraag_type == VraagType.MULTISELECT:
+            if isinstance(opties_raw, list):
+                opties_list = opties_raw
+            else:
+                try:
+                    opties_list = json.loads(opties_raw)
+                except (json.JSONDecodeError, TypeError) as exc:
+                    raise ValueError(_('Ongeldige multiselect-opties.')) from exc
+            if not isinstance(opties_list, list) or not opties_list:
+                raise ValueError(_('Voeg minstens één optie toe.'))
+
+            seen = set()
+            normalized = []
+            for item in opties_list:
+                if isinstance(item, str):
+                    label = item.strip()
+                    prijs = None
+                elif isinstance(item, dict):
+                    label = str(item.get('label') or '').strip()
+                    prijs_raw = item.get('prijs')
+                    if prijs_raw in (None, ''):
+                        prijs = None
+                    else:
+                        try:
+                            prijs = str(Decimal(str(prijs_raw)).quantize(Decimal('0.01')))
+                        except (InvalidOperation, ValueError) as exc:
+                            raise ValueError(_('Ongeldige optieprijs.')) from exc
+                else:
+                    raise ValueError(_('Ongeldige multiselect-opties.'))
+                if not label:
+                    raise ValueError(_('Elke optie heeft een label nodig.'))
+                if label in seen:
+                    raise ValueError(_('Optielabels moeten uniek zijn.'))
+                seen.add(label)
+                normalized.append({'label': label, 'prijs': prijs})
+
+            opties_raw = json.dumps(normalized, ensure_ascii=False)
+            min_selecties = opt_int('min_selecties')
+            max_selecties = opt_int('max_selecties')
+            if min_selecties is not None and max_selecties is not None:
+                if min_selecties > max_selecties:
+                    raise ValueError(_('Min. selecties mag niet groter zijn dan max. selecties.'))
+            if max_selecties is not None and max_selecties < 1:
+                raise ValueError(_('Max. selecties moet minstens 1 zijn.'))
+            toeslag = None
+        elif vraag_type == VraagType.SELECT:
+            if not str(opties_raw).strip():
+                raise ValueError(_('Keuzelijst vereist minstens één optie.'))
+
         fields = {
             'evenement': evenement,
             'tekst': tekst[:200],
             'vraag_type': vraag_type,
-            'opties': data.get('opties') or '',
+            'opties': opties_raw,
             'verplicht': bool(data.get('verplicht')),
             'volgorde': int(data.get('volgorde') or (vraag.volgorde if vraag else 0)),
             'prijs_toeslag': toeslag,
             'prijs_toeslag_excl_btw': bool(data.get('prijs_toeslag_excl_btw')),
             'prijs_toeslag_btw_percentage': btw_pct,
             'is_borg': bool(data.get('is_borg')),
+            'min_selecties': min_selecties,
+            'max_selecties': max_selecties,
             'min_tafels': opt_int('min_tafels'),
             'max_tafels': opt_int('max_tafels'),
         }
@@ -998,7 +1134,12 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
 
 @admin.register(TicketEigenschap)
 class TicketEigenschapAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('tekst', )
+    list_display = ('tekst', 'is_voordeel', 'volgorde')
+    list_editable = ('is_voordeel', 'volgorde')
+    search_fields = ('tekst',)
+
+    def has_module_permission(self, request):
+        return False
 
 
 @admin.register(StandhouderInschrijving)
