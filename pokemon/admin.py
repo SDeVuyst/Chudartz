@@ -55,6 +55,7 @@ class TicketInline(StackedInline):
         (None, {
             "fields": (
                 "titel",
+                "subtitel",
                 "icon",
                 "max_deelnemers",
                 "disable_ticket",
@@ -64,8 +65,8 @@ class TicketInline(StackedInline):
             "fields": ("is_gratis", "enkel_inkom", "price"),
             "description": _(
                 "Vink 'Gratis' aan voor een ticket van €0,00. "
-                "Vink 'Enkel aan de inkom' aan als het ticket niet online te koop is. "
-                "Beide samen = gratis inkomticket."
+                "Vink 'Ticket aan de deur' aan als het ticket niet online te koop is. "
+                "Beide samen = gratis deurticket."
             ),
         }),
         (_("Eigenschappen"), {
@@ -198,14 +199,14 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     autocomplete_fields = ('event',)
     fieldsets = (
         (_("Algemeen"), {
-            "fields": ("event", "titel", "icon", "max_deelnemers", "disable_ticket"),
+            "fields": ("event", "titel", "subtitel", "icon", "max_deelnemers", "disable_ticket"),
         }),
         (_("Prijs & type"), {
             "fields": ("is_gratis", "enkel_inkom", "price"),
             "description": _(
                 "Vink 'Gratis' aan voor een ticket van €0,00. "
-                "Vink 'Enkel aan de inkom' aan als het ticket niet online te koop is. "
-                "Beide samen = gratis inkomticket."
+                "Vink 'Ticket aan de deur' aan als het ticket niet online te koop is. "
+                "Beide samen = gratis deurticket."
             ),
         }),
         (_("Eigenschappen"), {
@@ -243,7 +244,7 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
         return obj.is_gratis, (_("Ja") if obj.is_gratis else _("Nee"))
 
     @display(
-        description=_("Aan de inkom"),
+        description=_("Ticket aan de deur"),
         label={True: "warning", False: "info"},
     )
     def enkel_inkom_display(self, obj):

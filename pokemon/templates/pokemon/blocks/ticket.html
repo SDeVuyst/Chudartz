@@ -3,6 +3,9 @@
 <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
     <div class="pricing-item{% if ticket.disable_ticket %} pricing-item--disabled{% endif %}">
         <h3>{{ ticket.titel }}</h3>
+        {% if ticket.subtitel %}
+        <p class="ticket-subtitel">{{ ticket.subtitel }}</p>
+        {% endif %}
 
         <div class="icon">
             <i class="bi bi-{{ ticket.icon }}"></i>
@@ -20,7 +23,7 @@
         </div>
         {% elif ticket.enkel_inkom %}
         <div class="text-center">
-            <span class="badge bg-secondary">{% trans 'Aan de inkom' %}</span>
+            <span class="badge bg-secondary">{% trans 'Ticket aan de deur' %}</span>
         </div>
         {% elif ticket.is_sold_out %}
         <div class="text-center">
@@ -41,7 +44,7 @@
             {% if ticket.disable_ticket %}
             <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Niet beschikbaar' %}</span>
             {% elif ticket.enkel_inkom %}
-            <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Aan de inkom' %}</span>
+            <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Ticket aan de deur' %}</span>
             {% elif not evenement.enable_inschrijvingen %}
             <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Inschrijvingen gesloten' %}</span>
             {% elif evenement.is_sold_out or ticket.is_sold_out %}

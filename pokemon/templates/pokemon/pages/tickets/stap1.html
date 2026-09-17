@@ -18,6 +18,9 @@
               <i class="bi bi-{{ ticket.icon }}"></i>
               <div>
                 <strong>{{ ticket.titel }}</strong>
+                {% if ticket.subtitel %}
+                <span class="ticket-select-card__subtitel">{{ ticket.subtitel }}</span>
+                {% endif %}
                 <span class="ticket-select-card__price">{% if ticket.is_gratis %}{% trans 'Gratis' %}{% else %}€{{ ticket.price.amount }}{% endif %}</span>
                 {% if ticket.remaining_tickets <= 10 %}
                 <small class="ticket-select-card__stock">{% blocktrans with rest=ticket.remaining_tickets %}Nog {{ rest }} beschikbaar{% endblocktrans %}</small>
@@ -103,6 +106,14 @@
 .ticket-select-card__info strong {
   display: block;
   line-height: 1.25;
+}
+.ticket-select-card__subtitel {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #5c636a;
+  margin-top: 0.15rem;
 }
 .ticket-select-card__price {
   display: block;

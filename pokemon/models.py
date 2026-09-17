@@ -224,6 +224,12 @@ class Ticket(models.Model):
         return f"{self.titel} - {self.price}"
     
     titel = models.CharField(max_length=100, verbose_name=_("titel"))
+    subtitel = models.CharField(
+        max_length=150,
+        blank=True,
+        verbose_name=_("subtitel"),
+        help_text=_("Optionele korte regel onder de titel op de ticketkaart."),
+    )
     price = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2)
     icon = models.CharField(max_length=40, verbose_name=_("Bootstrap Icon"))
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
@@ -235,12 +241,12 @@ class Ticket(models.Model):
         help_text=_("Zet de prijs automatisch op €0,00 en toont 'Gratis' op de site."),
     )
     enkel_inkom = models.BooleanField(
-        _("Enkel aan de inkom"),
+        _("Ticket aan de deur"),
         default=False,
         help_text=_(
             "Niet online te koop. Bezoekers zien het ticket wel, met de melding "
-            "dat het enkel aan de inkom verkrijgbaar is. Combineer met 'Gratis' "
-            "voor een gratis inkomticket."
+            "dat het ticket aan de deur verkrijgbaar is. Combineer met 'Gratis' "
+            "voor een gratis deurticket."
         ),
     )
     voordelen_tekst = models.TextField(

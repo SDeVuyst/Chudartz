@@ -18,7 +18,7 @@ EVENTS = [
         "slug": "ticket-demo-overzicht",
         "titel": "Tickettypes — overzicht",
         "titel_sectie_a": "Alle tickettypes",
-        "intro": "Demo-evenement met alle tickettypes naast elkaar: online, gratis, aan de inkom en gratis inkomticket.",
+        "intro": "Demo-evenement met alle tickettypes naast elkaar: online, gratis, ticket aan de deur en gratis deurticket.",
         "tekst": (
             "<p>Dit evenement toont de vier tickettypes op één pagina. "
             "Gebruik het om de kaarten, knoppen en de ticketwizard te vergelijken.</p>"
@@ -29,6 +29,7 @@ EVENTS = [
         "tickets": [
             {
                 "titel": "Standaard ticket",
+                "subtitel": "",
                 "price": Decimal("8.00"),
                 "icon": "ticket-perforated",
                 "is_gratis": False,
@@ -38,6 +39,7 @@ EVENTS = [
             },
             {
                 "titel": "Gratis ticket",
+                "subtitel": "",
                 "price": Decimal("0.00"),
                 "icon": "gift",
                 "is_gratis": True,
@@ -46,7 +48,8 @@ EVENTS = [
                 "nadelen_tekst": "",
             },
             {
-                "titel": "Ticket aan de inkom",
+                "titel": "Ticket aan de deur",
+                "subtitel": "Betaal aan de kassa",
                 "price": Decimal("10.00"),
                 "icon": "door-open",
                 "is_gratis": False,
@@ -55,12 +58,13 @@ EVENTS = [
                 "nadelen_tekst": "Niet online te koop",
             },
             {
-                "titel": "Gratis inkomticket",
+                "titel": "Gratis deurticket",
+                "subtitel": "Geen online reservatie",
                 "price": Decimal("0.00"),
                 "icon": "ticket",
                 "is_gratis": True,
                 "enkel_inkom": True,
-                "voordelen_tekst": "Gratis aan de inkom\nGeen reservatie nodig",
+                "voordelen_tekst": "Gratis aan de deur\nGeen reservatie nodig",
                 "nadelen_tekst": "Niet online te reserveren",
             },
         ],
@@ -80,6 +84,7 @@ EVENTS = [
         "tickets": [
             {
                 "titel": "Gratis toegang",
+                "subtitel": "",
                 "price": Decimal("0.00"),
                 "icon": "gift",
                 "is_gratis": True,
@@ -91,9 +96,9 @@ EVENTS = [
     },
     {
         "slug": "ticket-demo-inkom",
-        "titel": "Tickettypes — aan de inkom",
-        "titel_sectie_a": "Enkel aan de inkom",
-        "intro": "Demo-evenement met een ticket dat enkel aan de inkom te koop is.",
+        "titel": "Tickettypes — ticket aan de deur",
+        "titel_sectie_a": "Ticket aan de deur",
+        "intro": "Demo-evenement met een ticket dat enkel aan de deur te koop is.",
         "tekst": (
             "<p>Dit ticket is niet online te koop. Bezoekers zien de prijs op de site "
             "en kopen het aan de kassa.</p>"
@@ -104,22 +109,23 @@ EVENTS = [
         "tickets": [
             {
                 "titel": "Dagticket aan de kassa",
+                "subtitel": "Ticket aan de deur",
                 "price": Decimal("12.00"),
                 "icon": "door-open",
                 "is_gratis": False,
                 "enkel_inkom": True,
-                "voordelen_tekst": "Te koop aan de inkom\nToegang tot de beurs\nContant of kaart",
+                "voordelen_tekst": "Te koop aan de deur\nToegang tot de beurs\nContant of kaart",
                 "nadelen_tekst": "Niet online te koop",
             },
         ],
     },
     {
         "slug": "ticket-demo-gratis-inkom",
-        "titel": "Tickettypes — gratis aan de inkom",
-        "titel_sectie_a": "Gratis inkomticket",
-        "intro": "Demo-evenement met een gratis ticket dat enkel aan de inkom verkrijgbaar is.",
+        "titel": "Tickettypes — gratis aan de deur",
+        "titel_sectie_a": "Gratis deurticket",
+        "intro": "Demo-evenement met een gratis ticket dat enkel aan de deur verkrijgbaar is.",
         "tekst": (
-            "<p>Gratis én enkel aan de inkom. De site toont “Gratis” en “Aan de inkom”; "
+            "<p>Gratis én enkel aan de deur. De site toont “Gratis” en “Ticket aan de deur”; "
             "er is geen online reservatie.</p>"
         ),
         "start": datetime(2026, 10, 21, 10, 0),
@@ -127,12 +133,13 @@ EVENTS = [
         "volgorde": 40,
         "tickets": [
             {
-                "titel": "Gratis inkomticket",
+                "titel": "Gratis deurticket",
+                "subtitel": "Geen online reservatie",
                 "price": Decimal("0.00"),
                 "icon": "ticket",
                 "is_gratis": True,
                 "enkel_inkom": True,
-                "voordelen_tekst": "Gratis aan de inkom\nGeen reservatie nodig",
+                "voordelen_tekst": "Gratis aan de deur\nGeen reservatie nodig",
                 "nadelen_tekst": "Niet online te reserveren",
             },
         ],
@@ -180,6 +187,7 @@ class Command(BaseCommand):
                 Ticket.objects.create(
                     event=evenement,
                     titel=ticket_spec["titel"],
+                    subtitel=ticket_spec.get("subtitel", ""),
                     price=Money(ticket_spec["price"], "EUR"),
                     icon=ticket_spec["icon"],
                     max_deelnemers=100,

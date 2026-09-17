@@ -89,6 +89,7 @@ def serialize_tickets_for_js(evenement):
         items.append({
             "id": ticket.pk,
             "titel": ticket.titel,
+            "subtitel": ticket.subtitel,
             "prijs": str(ticket.price.amount),
             "max": min(ticket.remaining_tickets, MAX_TICKETS_PER_TYPE),
             "icon": ticket.icon,
