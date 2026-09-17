@@ -1,0 +1,43 @@
+/* League admin: CKEditor stand/uitslagen volle contentbreedte.
+   django-ckeditor zet style="display: inline-block;" op de wrapper. */
+
+.django-ckeditor-widget,
+div.django-ckeditor-widget[style] {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+.django-ckeditor-widget .cke,
+.django-ckeditor-widget .cke_inner,
+.django-ckeditor-widget .cke_contents,
+.django-ckeditor-widget .cke_chrome {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+.django-ckeditor-widget .cke_contents {
+  overflow-x: auto !important;
+}
+
+/* Unfold stacked-inline: veldkolom niet knijpen */
+form .inline-group .field-stand,
+form .inline-group .field-uitslagen,
+form .inline-related .field-stand,
+form .inline-related .field-uitslagen {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+form .inline-group .field-stand .flex-grow,
+form .inline-group .field-uitslagen .flex-grow,
+form .inline-group .field-stand > div,
+form .inline-group .field-uitslagen > div,
+form .inline-related .field-stand > div,
+form .inline-related .field-uitslagen > div {
+  max-width: 100% !important;
+  width: 100% !important;
+  flex: 1 1 100% !important;
+}

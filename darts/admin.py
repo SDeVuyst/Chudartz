@@ -360,6 +360,11 @@ class LeagueAdmin(SimpleHistoryAdmin, ModelAdmin):
         }),
     )
 
+    class Media:
+        css = {
+            'all': ('css/league-admin.css',),
+        }
+
     @display(description=_("Locatie"))
     def display_locatie(self, obj):
         if obj.locatie_id is None:

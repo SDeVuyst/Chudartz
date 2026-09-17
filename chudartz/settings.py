@@ -94,9 +94,17 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             ['Table', 'TableProperties'],
+            ['RowMoveUp', 'RowMoveDown'],
             ['Undo', 'Redo'],
         ],
-        'extraPlugins': 'table,tabletools,tableresize',
+        'extraPlugins': 'table,tabletools,tableresize,tablerowmove',
+        'external_plugin_resources': [
+            (
+                'tablerowmove',
+                '/static/darts/ckeditor/tablerowmove/',
+                'plugin.js',
+            ),
+        ],
         # Allow full table HTML so saved tables reload correctly in the editor
         # (strict ACF stripped style/scope attrs and broke table rendering on edit)
         'allowedContent': True,
