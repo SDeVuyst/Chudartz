@@ -1067,7 +1067,7 @@ class StandhouderInschrijving(models.Model):
         max_length=50,
         blank=True,
         default="",
-        verbose_name=_("BTW-nummer of KVK-nummer"),
+        verbose_name=_("BTW-nummer"),
     )
     bedrijfsnummer = models.CharField(
         max_length=50,
@@ -1262,7 +1262,7 @@ class StandhouderInschrijving(models.Model):
             if self.factuur:
                 admin_lines.append("Factuur gewenst: Ja")
                 if self.btw_of_kvk_nummer:
-                    admin_lines.append(f"BTW-nummer of KVK-nummer: {self.btw_of_kvk_nummer}")
+                    admin_lines.append(f"BTW-nummer: {self.btw_of_kvk_nummer}")
                 if self.bedrijfsnummer:
                     admin_lines.append(f"Bedrijfsnummer: {self.bedrijfsnummer}")
             for antwoord in antwoorden:

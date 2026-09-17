@@ -17,8 +17,7 @@
     {{ inschrijving.email }} · {{ inschrijving.telefoon }}<br>
     {% if inschrijving.factuur %}
       <span>{% trans "Factuur gewenst" %}</span><br>
-      {% trans "BTW-nummer of KVK-nummer" %}: {{ inschrijving.btw_of_kvk_nummer }}<br>
-      {% trans "Bedrijfsnummer" %}: {{ inschrijving.bedrijfsnummer }}<br>
+      {% trans "BTW-nummer" %}: {{ inschrijving.btw_of_kvk_nummer }}<br>
     {% endif %}
     {% if inschrijving.opmerkingen %}<em>{{ inschrijving.opmerkingen }}</em>{% endif %}
   </p>
@@ -91,25 +90,9 @@
       <input name="terms_privacy" class="form-check-input" type="checkbox" required id="terms_priv">
       <label class="form-check-label text-muted small" for="terms_priv">
         {% url 'privacybeleid' as p_url %}
-        {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a> van ChudartZ Collectibles.{% endblocktrans %}
-      </label>
-    </div>
-  </div>
-  <div class="col-md-12 mb-3">
-    <div class="form-check">
-      <input name="terms_disclaimer" class="form-check-input" type="checkbox" required id="terms_dis">
-      <label class="form-check-label text-muted small" for="terms_dis">
         {% url 'disclaimer' as d_url %}
-        {% blocktrans %}Ik ga akkoord met de <a href="{{ d_url }}">Disclaimer</a> van ChudartZ Collectibles.{% endblocktrans %}
-      </label>
-    </div>
-  </div>
-  <div class="col-md-12 mb-3">
-    <div class="form-check">
-      <input name="terms_huisreglement" class="form-check-input" type="checkbox" required id="terms_huis">
-      <label class="form-check-label text-muted small" for="terms_huis">
         {% url 'huisreglement' as h_url %}
-        {% blocktrans %}Ik ga akkoord met het <a href="{{ h_url }}">huisreglement</a> van ChudartZ Collectibles.{% endblocktrans %}
+        {% blocktrans %}Ik ga akkoord met het <a href="{{ p_url }}">Privacybeleid</a>, de <a href="{{ d_url }}">Disclaimer</a> en het <a href="{{ h_url }}">huisreglement</a> van ChudartZ Collectibles.{% endblocktrans %}
       </label>
     </div>
   </div>

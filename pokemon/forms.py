@@ -44,8 +44,6 @@ class TicketOverzichtForm(forms.Form):
 class StandhouderOverzichtForm(forms.Form):
     terms_voorwaarden = forms.BooleanField(required=True)
     terms_privacy = forms.BooleanField(required=True)
-    terms_disclaimer = forms.BooleanField(required=True)
-    terms_huisreglement = forms.BooleanField(required=True)
     terms_wettelijk = forms.BooleanField(required=True)
 
 
@@ -67,7 +65,6 @@ class StandhouderGegevensForm(forms.ModelForm):
             "telefoon",
             "factuur",
             "btw_of_kvk_nummer",
-            "bedrijfsnummer",
             "opmerkingen",
         ]
         widgets = {
@@ -91,11 +88,7 @@ class StandhouderGegevensForm(forms.ModelForm):
                 "class": "form-check-input",
             }),
             "btw_of_kvk_nummer": forms.TextInput(attrs={
-                "placeholder": "BTW-nummer of KVK-nummer",
-                "class": "form-control",
-            }),
-            "bedrijfsnummer": forms.TextInput(attrs={
-                "placeholder": "Bedrijfsnummer",
+                "placeholder": "BTW-nummer",
                 "class": "form-control",
             }),
             "opmerkingen": forms.Textarea(attrs={
@@ -110,19 +103,17 @@ class StandhouderGegevensForm(forms.ModelForm):
         for field_name in ("bedrijfsnaam", "naam", "email", "telefoon"):
             self.fields[field_name].required = True
         self.fields["btw_of_kvk_nummer"].required = False
-        self.fields["bedrijfsnummer"].required = False
 
     def clean(self):
         cleaned = super().clean()
         if cleaned.get("factuur"):
-            for field_name in ("btw_of_kvk_nummer", "bedrijfsnummer"):
-                value = (cleaned.get(field_name) or "").strip()
-                cleaned[field_name] = value
-                if not value:
-                    self.add_error(
-                        field_name,
-                        _("Dit veld is verplicht wanneer u een factuur wenst."),
-                    )
+            value = (cleaned.get("btw_of_kvk_nummer") or "").strip()
+            cleaned["btw_of_kvk_nummer"] = value
+            if not value:
+                self.add_error(
+                    "btw_of_kvk_nummer",
+                    _("Dit veld is verplicht wanneer u een factuur wenst."),
+                )
         return cleaned
 
 
