@@ -21,10 +21,6 @@
         <div class="text-center">
             <span class="badge bg-secondary">{% trans 'Niet beschikbaar' %}</span>
         </div>
-        {% elif ticket.enkel_inkom %}
-        <div class="text-center">
-            <span class="badge bg-secondary">{% trans 'Ticket aan de deur' %}</span>
-        </div>
         {% elif ticket.is_sold_out %}
         <div class="text-center">
             <span class="badge bg-danger">{% trans 'Uitverkocht' %}</span>
