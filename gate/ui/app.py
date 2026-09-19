@@ -241,9 +241,6 @@ class GateApp(tk.Tk):
         self.card = tk.Frame(self, bg=COLORS["idle"], highlightthickness=0)
         self.card.pack(fill="both", expand=True)
 
-        self.accent_bar = tk.Frame(self.card, bg=COLORS["accent"], height=4)
-        self.accent_bar.pack(fill="x", side="top")
-
         # Keep title + feedback text as one centered block
         self.content = tk.Frame(self.card, bg=COLORS["idle"])
         self.content.place(relx=0.5, rely=0.45, anchor="center")
@@ -837,27 +834,22 @@ class GateApp(tk.Tk):
             color = COLORS["success"]
             fg = COLORS["text_on_dark"]
             msg_fg = COLORS["text_on_dark"]
-            bar = COLORS["success"]
         elif state == "fail":
             color = COLORS["fail"]
             fg = COLORS["text_on_dark"]
             msg_fg = COLORS["text_on_dark"]
-            bar = COLORS["fail"]
         elif state == "checking":
             color = COLORS["checking"]
             fg = COLORS["text_on_dark"]
             msg_fg = "#cfd4da"
-            bar = COLORS["accent"]
         else:
             color = COLORS["idle"]
             fg = COLORS["text"]
             msg_fg = COLORS["muted"]
-            bar = COLORS["accent"]
 
         self.configure(bg=color)
         self.card.configure(bg=color)
         self.content.configure(bg=color)
-        self.accent_bar.configure(bg=bar)
         self.status_label.configure(text=title, fg=fg, bg=color)
         self.message_label.configure(text=message, fg=msg_fg, bg=color)
 
