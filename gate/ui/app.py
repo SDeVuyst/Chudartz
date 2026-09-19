@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import queue
 import threading
 import time
 import tkinter as tk
@@ -12,6 +13,7 @@ from tkinter import font as tkfont
 from api import check_in, send_heartbeat
 from config import is_configured, load_config, optional_id, save_config
 from parse_qr import QRParseError, parse_qr
+from scanner_input import ScannerReader
 from sound import play_error, play_success
 from ui import i18n
 from ui.settings import SettingsDialog
@@ -19,6 +21,7 @@ from ui.settings import SettingsDialog
 SUCCESS_HOLD_MS = 2000
 FAIL_HOLD_MS = 4000
 HEADER_IDLE_MS = 2500
+CURSOR_IDLE_MS = 3000
 HEARTBEAT_MS = 30000
 SCAN_EXPECTED_LEN = 20
 SCAN_PROGRESS_CAP = 0.95
@@ -73,14 +76,20 @@ class GateApp(tk.Tk):
         self._checking_pulse_step = 0
         self._progress_visible = False
         self._progress_track_width = PROGRESS_MAX_WIDTH
+        self._cursor_visible = True
+        self._cursor_hide_after_id = None
+        self._scanner_reader: ScannerReader | None = None
+        # When True, USB scanner is grabbed via evdev — ignore duplicate Key events.
+        self._evdev_active = False
 
         self.attributes("-fullscreen", True)
         self.configure(bg=COLORS["bg"])
-        self.bind("<Key>", self._on_key)
-        self.bind("<F2>", lambda _e: self.open_settings())
-        self.bind("<F5>", lambda _e: self.reset_scanner())
+        # bind_all: keep receiving keys even if a button briefly steals focus.
+        self.bind_all("<Key>", self._on_key)
+        self.bind_all("<F2>", lambda _e: self.open_settings())
+        self.bind_all("<F5>", lambda _e: self.reset_scanner())
         self.bind("<Escape>", self._on_escape)
-        self.bind("<Control-comma>", lambda _e: self.open_settings())
+        self.bind_all("<Control-comma>", lambda _e: self.open_settings())
         self.bind("<Configure>", self._on_resize)
         self.bind_all("<Motion>", self._on_mouse_motion)
 
@@ -96,10 +105,15 @@ class GateApp(tk.Tk):
         self._apply_debug_visibility()
         self._set_debug_lines([i18n.DEBUG_WAITING])
         self._schedule_header_hide()
+        self._schedule_cursor_hide()
         self._schedule_heartbeat()
+        self.after(100, self._ensure_focus)
+        self.after(150, self._start_scanner_reader)
 
         if not is_configured(self.config_data):
             self.after(200, self.open_settings)
+
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
 
     def _scale_fonts(self, sw: int, sh: int):
         unit = max(min(sw, sh) / 480, 0.75)
@@ -165,6 +179,7 @@ class GateApp(tk.Tk):
             pady=7,
             cursor="hand2",
             highlightthickness=0,
+            takefocus=0,
         )
 
     def _make_outline_button(self, parent, text, command) -> tk.Button:
@@ -185,6 +200,7 @@ class GateApp(tk.Tk):
             padx=12,
             pady=6,
             cursor="hand2",
+            takefocus=0,
         )
 
     def _load_logo(self):
@@ -408,12 +424,16 @@ class GateApp(tk.Tk):
 
     def open_settings(self):
         self._show_header()
+        self._show_cursor()
         SettingsDialog(self, self.config_data, on_save=self._on_config_saved)
         self._schedule_header_hide()
+        self._schedule_cursor_hide()
 
     def _on_mouse_motion(self, _event=None):
         self._show_header()
+        self._show_cursor()
         self._schedule_header_hide()
+        self._schedule_cursor_hide()
 
     def _schedule_header_hide(self):
         if self._header_hide_after_id is not None:
@@ -422,6 +442,106 @@ class GateApp(tk.Tk):
             except tk.TclError:
                 pass
         self._header_hide_after_id = self.after(HEADER_IDLE_MS, self._hide_header)
+
+    def _schedule_cursor_hide(self):
+        if self._cursor_hide_after_id is not None:
+            try:
+                self.after_cancel(self._cursor_hide_after_id)
+            except tk.TclError:
+                pass
+        self._cursor_hide_after_id = self.after(CURSOR_IDLE_MS, self._hide_cursor)
+
+    def _set_cursor_tree(self, widget, cursor: str):
+        try:
+            widget.configure(cursor=cursor)
+        except tk.TclError:
+            pass
+        for child in widget.winfo_children():
+            self._set_cursor_tree(child, cursor)
+
+    def _hide_cursor(self):
+        self._cursor_hide_after_id = None
+        if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
+            self._schedule_cursor_hide()
+            return
+        if self._cursor_visible:
+            self._set_cursor_tree(self, "none")
+            self._cursor_visible = False
+
+    def _show_cursor(self):
+        if not self._cursor_visible:
+            self._set_cursor_tree(self, "")
+            # Restore hand cursors on buttons after blanking the tree.
+            try:
+                self.settings_btn.configure(cursor="hand2")
+                self.reset_btn.configure(cursor="hand2")
+            except tk.TclError:
+                pass
+            self._cursor_visible = True
+
+    def _ensure_focus(self):
+        try:
+            self.lift()
+            self.focus_force()
+        except tk.TclError:
+            pass
+
+    def _start_scanner_reader(self):
+        if self._scanner_reader is not None:
+            return
+        self._scanner_reader = ScannerReader()
+        if self._scanner_reader.start():
+            self.after(20, self._poll_scanner_events)
+
+    def _poll_scanner_events(self):
+        reader = self._scanner_reader
+        if reader is None:
+            return
+        while True:
+            try:
+                kind, payload = reader.events.get_nowait()
+            except queue.Empty:
+                break
+            self._on_scanner_event(kind, payload)
+        self.after(20, self._poll_scanner_events)
+
+    def _on_scanner_event(self, kind: str, payload):
+        if kind == "active":
+            self._evdev_active = bool(payload)
+            return
+        if kind == "status":
+            if self.config_data.get("debug"):
+                lines = [str(payload)]
+                if self.scan_buffer:
+                    lines.append(f"BUFFER: {''.join(self.scan_buffer)!r}")
+                self._set_debug_lines(lines)
+            return
+        if kind == "partial":
+            if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
+                return
+            text = str(payload or "")
+            self.scan_buffer = list(text)
+            self._refresh_debug_live()
+            self._update_scan_progress()
+            return
+        if kind == "scan":
+            if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
+                return
+            raw = str(payload or "")
+            self.scan_buffer.clear()
+            if raw:
+                self._complete_input_progress()
+            self._refresh_debug_live()
+            if raw:
+                self._handle_scan(raw)
+            else:
+                self._update_scan_progress()
+
+    def _on_close(self):
+        if self._scanner_reader is not None:
+            self._scanner_reader.stop()
+            self._scanner_reader = None
+        self.destroy()
 
     def _hide_header(self):
         self._header_hide_after_id = None
@@ -482,7 +602,42 @@ class GateApp(tk.Tk):
             self.attributes("-fullscreen", False)
             self.geometry("800x480")
         else:
-            self.destroy()
+            self._on_close()
+
+    def _ingest_char(self, char: str):
+        if self._evdev_active:
+            return
+        if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
+            return
+        if char and char.isprintable():
+            self.scan_buffer.append(char)
+            self._refresh_debug_live()
+            self._update_scan_progress()
+
+    def _ingest_backspace(self):
+        if self._evdev_active:
+            return
+        if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
+            return
+        if self.scan_buffer:
+            self.scan_buffer.pop()
+            self._refresh_debug_live()
+            self._update_scan_progress()
+
+    def _submit_buffer(self):
+        if self._evdev_active:
+            return
+        if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
+            return
+        raw = "".join(self.scan_buffer)
+        if raw:
+            self._complete_input_progress()
+        self.scan_buffer.clear()
+        self._refresh_debug_live()
+        if raw:
+            self._handle_scan(raw)
+        else:
+            self._update_scan_progress()
 
     def _on_key(self, event: tk.Event):
         if event.keysym in ("F2", "F5", "Escape"):
@@ -491,31 +646,21 @@ class GateApp(tk.Tk):
             return
         if any(isinstance(w, SettingsDialog) for w in self.winfo_children()):
             return
+        # When the USB scanner is grabbed via evdev, ignore window Key events from it.
+        if self._evdev_active:
+            return
 
         if event.keysym == "Return":
-            raw = "".join(self.scan_buffer)
-            if raw:
-                self._complete_input_progress()
-            self.scan_buffer.clear()
-            self._refresh_debug_live()
-            if raw:
-                self._handle_scan(raw)
-            else:
-                self._update_scan_progress()
+            self._submit_buffer()
             return
 
         if event.keysym == "BackSpace":
-            if self.scan_buffer:
-                self.scan_buffer.pop()
-                self._refresh_debug_live()
-                self._update_scan_progress()
+            self._ingest_backspace()
             return
 
         char = event.char
         if char and char.isprintable():
-            self.scan_buffer.append(char)
-            self._refresh_debug_live()
-            self._update_scan_progress()
+            self._ingest_char(char)
 
     def _handle_scan(self, raw: str):
         if self.cooldown or self._busy:
