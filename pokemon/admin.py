@@ -1006,21 +1006,9 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.GET.get('q'):
-            return qs
-
-        einddatum = request.GET.get('einddatum')
-        now = timezone.now()
-
-        if einddatum == 'past':
-            return qs.filter(einde_datum__lt=now)
-        if einddatum == 'all':
-            return qs
-        return qs.filter(einde_datum__gte=now)
-
     def changelist_view(self, request, extra_context=None):
+        # Default list to future events; filtering stays on EvenementEinddatumFilter
+        # only so change/delete lookup is not restricted to future rows.
         if 'einddatum' not in request.GET and not request.GET.get('q'):
             query = request.GET.copy()
             query['einddatum'] = 'future'
