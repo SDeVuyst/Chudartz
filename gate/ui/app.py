@@ -19,7 +19,7 @@ from ui import i18n
 from ui.settings import SettingsDialog
 
 SUCCESS_HOLD_MS = 2000
-FAIL_HOLD_MS = 4000
+FAIL_HOLD_MS = 3000
 HEADER_IDLE_MS = 2500
 CURSOR_IDLE_MS = 3000
 HEARTBEAT_MS = 30000
