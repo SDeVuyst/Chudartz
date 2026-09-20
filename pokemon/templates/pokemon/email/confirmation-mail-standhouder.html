@@ -43,9 +43,7 @@
 
 <p><strong>Indicatief totaalbedrag: {{ inschrijving.totaal_bedrag.amount }}</strong></p>
 
-{% if inschrijving.heeft_borg %}
-<p><em>Let op: €{{ inschrijving.borg_bedrag }} van het totaalbedrag betreft een niet-terugbetaalbare reservatie- en administratiekost. Dit bedrag wordt niet terugbetaald bij annulatie.</em></p>
-{% endif %}
+{% include "pokemon/email/_borg_melding.html" %}
 
 <p>Wij hebben uw inschrijving in goede orde ontvangen en nemen zo snel mogelijk contact met u op.</p>
 

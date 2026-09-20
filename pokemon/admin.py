@@ -459,6 +459,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 "standhouder_zaalplan_actief",
                 "standhouder_max_tafels",
                 "standhouder_prijs_per_tafel",
+                "standhouder_borg_per_tafel",
                 "standhouder_prijs_excl_btw",
                 "standhouder_prijs_btw_percentage",
                 "standhouder_betaling_verplicht",
@@ -468,6 +469,8 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 "Staat het zaalplan aan, dan kiezen standhouders hun tafel op de plattegrond "
                 "(beheer via de knop 'Zaalplan beheren' bovenaan; BTW stel je daar ook in). "
                 "Staat het uit, dan geven ze enkel een aantal tafels op tegen de prijs per tafel. "
+                "De niet-terugbetaalbare reservatiekost (zonder zaalplan) is een deel van die "
+                "prijs per tafel; 0 = geen borg. "
                 "Zet 'exclusief BTW' aan als de ingevoerde prijs zonder btw is; het percentage "
                 "wordt dan achteraf bij het te betalen totaal opgeteld."
             ),
@@ -477,7 +480,12 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         from djmoney.forms.widgets import MoneyWidget
 
-        if db_field.name in ("standhouder_prijs_per_tafel", "prijs_toeslag", "price"):
+        if db_field.name in (
+            "standhouder_prijs_per_tafel",
+            "standhouder_borg_per_tafel",
+            "prijs_toeslag",
+            "price",
+        ):
             kwargs["widget"] = MoneyWidget(
                 amount_widget=forms.NumberInput(attrs={"step": "0.01"}),
                 choices=[("EUR", "Euro")],
@@ -636,6 +644,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 cel.cel_type = CelType.LEEG
                 cel.label = ''
                 cel.prijs = None
+                cel.borg = None
                 cel.gereserveerd = False
                 cel.telt_als_tafels = 1
                 cel.save()
@@ -653,12 +662,14 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 primary.gereserveerd = bool(data['gereserveerd'])
                 primary.save(update_fields=['gereserveerd'])
 
-            # Label/prijs/tafelgewicht horen bij de hoofdcel van de groep
+            # Label/prijs/borg/tafelgewicht horen bij de hoofdcel van de groep
             primary.refresh_from_db()
             if 'label' in data:
                 primary.label = data['label']
             if 'prijs' in data:
                 primary.prijs = data['prijs'] if data['prijs'] not in (None, '') else None
+            if 'borg' in data:
+                primary.borg = data['borg'] if data['borg'] not in (None, '') else None
             if 'telt_als_tafels' in data:
                 try:
                     telt_als = int(data['telt_als_tafels'] or 1)
@@ -712,7 +723,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
             )
             # Label van bestaande primary behouden, andere labels wissen
             ZaalplanCel.objects.filter(pk__in=pks).exclude(pk=primary.pk).update(
-                label='', prijs=None, telt_als_tafels=1,
+                label='', prijs=None, borg=None, telt_als_tafels=1,
             )
 
             return JsonResponse({'success': True, 'grid': serialize_zaalplan_grid(zaalplan)})
@@ -749,6 +760,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
             for v in StandhouderVraag.objects.filter(evenement=evenement).order_by("volgorde", "id")
         ]
         prijs = evenement.standhouder_prijs_per_tafel
+        borg = evenement.standhouder_borg_per_tafel
         boot = {
             'previewUrl': reverse('admin:pokemon_standhouder_studio_preview', args=[object_id]),
             'previewSteps': preview_steps_for(evenement),
@@ -767,6 +779,7 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 'standhouder_inbegrepen': evenement.standhouder_inbegrepen or '',
                 'standhouder_prijzen': evenement.standhouder_prijzen or '',
                 'standhouder_prijs_per_tafel': str(prijs.amount) if prijs else '0',
+                'standhouder_borg_per_tafel': str(borg.amount) if borg else '0',
                 'standhouder_prijs_excl_btw': evenement.standhouder_prijs_excl_btw,
                 'standhouder_prijs_btw_percentage': str(evenement.standhouder_prijs_btw_percentage),
                 'standhouder_max_tafels': evenement.standhouder_max_tafels,
@@ -992,6 +1005,14 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                     evenement.standhouder_prijs_per_tafel = Money(
                         Decimal(str(data['standhouder_prijs_per_tafel'])), 'EUR'
                     )
+                if 'standhouder_borg_per_tafel' in data:
+                    borg_raw = data.get('standhouder_borg_per_tafel')
+                    if borg_raw in (None, ''):
+                        evenement.standhouder_borg_per_tafel = Money(Decimal('0'), 'EUR')
+                    else:
+                        evenement.standhouder_borg_per_tafel = Money(
+                            Decimal(str(borg_raw)), 'EUR'
+                        )
                 if 'standhouder_prijs_excl_btw' in data:
                     evenement.standhouder_prijs_excl_btw = bool(data['standhouder_prijs_excl_btw'])
                 if data.get('standhouder_prijs_btw_percentage') not in (None, ''):

@@ -84,6 +84,8 @@
     if (prijs) prijs.value = c.standhouder_prijs_per_tafel || "";
     if (btw) btw.value = c.standhouder_prijs_btw_percentage || "21";
     if (excl) excl.checked = !!c.standhouder_prijs_excl_btw;
+    var borg = document.getElementById("sh-copy-borg");
+    if (borg) borg.value = c.standhouder_borg_per_tafel || "";
   }
 
   var sortable = null;
@@ -423,6 +425,8 @@
       payload.standhouder_prijs_per_tafel = prijs.value;
       payload.standhouder_prijs_btw_percentage = document.getElementById("sh-copy-btw").value;
       payload.standhouder_prijs_excl_btw = document.getElementById("sh-copy-excl-btw").checked;
+      var borg = document.getElementById("sh-copy-borg");
+      if (borg) payload.standhouder_borg_per_tafel = borg.value;
     }
     return api(boot.api.copy, payload);
   }

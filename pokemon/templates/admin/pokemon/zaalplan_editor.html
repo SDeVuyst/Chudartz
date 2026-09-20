@@ -290,6 +290,11 @@
     <label for="cel-prijs-input">{% trans "Prijs override (€, leeg = standaard)" %}</label>
     <input type="number" id="cel-prijs-input" min="0" step="0.01">
   </div>
+  <div style="margin-bottom: 1rem;" id="cel-borg-wrap">
+    <label for="cel-borg-input">{% trans "Niet-terugbetaalbare reservatie- en administratiekost (€, leeg = geen borg)" %}</label>
+    <input type="number" id="cel-borg-input" min="0" step="0.01">
+    <p class="zp-field-help">{% trans "Deel van de tafelprijs. Tip: vul de volle prijs in als de hele tafel niet-terugbetaalbaar is." %}</p>
+  </div>
   <div style="margin-bottom: 1rem;" id="cel-telt-wrap">
     <label for="cel-telt-input">{% trans "Telt als aantal tafels" %}</label>
     <input type="number" id="cel-telt-input" min="1" step="1" value="1">
@@ -309,5 +314,5 @@
 <script>
   window.ZAALPLAN_DATA = {{ grid_json|safe }};
 </script>
-<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=12"></script>
+<script src="{% static 'pokemon/js/zaalplan-admin.js' %}?v=14"></script>
 {% endblock %}

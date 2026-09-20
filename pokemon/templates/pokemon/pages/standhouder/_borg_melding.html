@@ -1,0 +1,17 @@
+{% load i18n %}
+{% if inschrijving.heeft_borg %}
+<div class="alert-standhouder info borg-melding mb-4">
+  <i class="bi bi-info-circle" aria-hidden="true"></i>
+  <div>
+    {% blocktrans with bedrag=inschrijving.borg_bedrag %}
+    Let op: €{{ bedrag }} betreft een niet-terugbetaalbare reservatie- en administratiekost:
+    {% endblocktrans %}
+    <ul class="borg-melding__list">
+      {% for regel in inschrijving.borg_regels %}
+        <li>{{ regel.omschrijving }}: €{{ regel.bedrag }}</li>
+      {% endfor %}
+    </ul>
+    {% trans "Dit bedrag wordt niet terugbetaald bij annulatie van uw inschrijving." %}
+  </div>
+</div>
+{% endif %}

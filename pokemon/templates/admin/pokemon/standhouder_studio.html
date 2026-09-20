@@ -421,6 +421,11 @@
             <input type="number" step="0.01" id="sh-copy-btw" class="sh-input">
           </div>
         </div>
+        <div class="sh-field">
+          <label class="sh-label" for="sh-copy-borg">{% trans "Niet-terugbetaalbare reservatie- en administratiekost (€)" %}</label>
+          <input type="number" step="0.01" min="0" id="sh-copy-borg" class="sh-input" placeholder="0">
+          <p class="sh-hint" style="margin-top:0.25rem;">{% trans "Deel van de prijs per tafel. Leeg of 0 = geen borg." %}</p>
+        </div>
         <label class="sh-check">
           <input type="checkbox" id="sh-copy-excl-btw">
           {% trans "Prijs exclusief BTW" %}

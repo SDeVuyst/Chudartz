@@ -45,7 +45,7 @@
 {% endif %}
 
 <div class="mb-4">
-  <h5>{% trans 'Prijsopbouw (indicatief)' %}</h5>
+  <h5>{% trans 'Prijsopbouw' %}</h5>
   <table class="prijsopbouw-table">
     {% for regel in prijsopbouw %}
       <tr{% if regel.is_btw %} class="prijsopbouw-btw"{% endif %}><td>{{ regel.omschrijving }}</td><td>€{{ regel.bedrag }}</td></tr>
@@ -53,22 +53,18 @@
     <tr><td><strong>{% trans 'Totaal' %}</strong></td><td><strong>€{{ totaal }}</strong></td></tr>
   </table>
 
-  {% if inschrijving.heeft_borg %}
-  <div class="borg-melding">
-    {% blocktrans with bedrag=inschrijving.borg_bedrag %}
-    Let op: €{{ bedrag }} van het totaalbedrag betreft een niet-terugbetaalbare reservatie- en administratiekost. Dit bedrag wordt niet terugbetaald bij annulatie van uw inschrijving.
-    {% endblocktrans %}
-  </div>
-  {% endif %}
+  {% include "pokemon/pages/standhouder/_borg_melding.html" %}
 </div>
 
 {% if online_betaling %}
 <div class="alert-standhouder warning mb-4">
-  {% trans "Na bevestiging wordt u doorgestuurd naar de beveiligde betaalpagina van Mollie om het totaalbedrag te betalen." %}
+  <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+  <div>{% trans "Na bevestiging wordt u doorgestuurd naar de beveiligde betaalpagina van Mollie om het totaalbedrag te betalen." %}</div>
 </div>
 {% else %}
 <div class="alert-standhouder warning mb-4">
-  {% trans "U betaalt nu nog niet online. U ontvangt een voorlopige bevestiging per e-mail. Wij nemen contact met u op om de inschrijving definitief te maken." %}
+  <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+  <div>{% trans "U betaalt nu nog niet online. U ontvangt een voorlopige bevestiging per e-mail. Wij nemen contact met u op om de inschrijving definitief te maken." %}</div>
 </div>
 {% endif %}
 

@@ -205,6 +205,13 @@ def serialize_zaalplan_grid(zaalplan, inschrijving=None):
             "label": primary.display_label,
             "tekst": primary.label,
             "prijs": str(primary.effectieve_prijs.amount),
+            "prijs_override": (
+                str(primary.prijs.amount) if primary.prijs is not None else None
+            ),
+            "borg": (
+                str(primary.borg.amount) if primary.borg is not None else None
+            ),
+            "effectieve_borg": str(primary.effectieve_borg),
             "groep": cel.groep,
             "primary_id": primary.pk,
             "is_primary": primary.pk == cel.pk,
@@ -372,12 +379,11 @@ def build_prijsopbouw(inschrijving):
             })
     for antwoord in inschrijving.antwoorden.select_related("vraag"):
         vraag = antwoord.vraag
+        # Borg-vragen: enkel in borg_melding, niet in prijsopbouw/totaal.
+        if vraag.is_borg:
+            continue
         if vraag.vraag_type == VraagType.MULTISELECT:
             for omschrijving, excl in antwoord.toeslag_regels():
-                if vraag.is_borg:
-                    omschrijving = gettext(
-                        "Niet-terugbetaalbare reservatie- en administratiekost"
-                    ) + f": {omschrijving.split(': ', 1)[-1]}"
                 _incl, btw = bedrag_met_btw(
                     excl,
                     vraag.prijs_toeslag_excl_btw,
@@ -405,11 +411,7 @@ def build_prijsopbouw(inschrijving):
                 vraag.prijs_toeslag_excl_btw,
                 vraag.prijs_toeslag_btw_percentage,
             )
-            omschrijving = (
-                gettext("Niet-terugbetaalbare reservatie- en administratiekost")
-                if vraag.is_borg
-                else vraag.tekst
-            )
+            omschrijving = vraag.tekst
             if vraag.prijs_toeslag_excl_btw:
                 omschrijving = met_excl_label(omschrijving)
             regels.append({

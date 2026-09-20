@@ -43,15 +43,19 @@
     {% endfor %}
     <tr><td><strong>{% trans 'Totaal' %}</strong></td><td><strong>€{{ totaal }}</strong></td></tr>
   </table>
+
+  {% include "pokemon/pages/standhouder/_borg_melding.html" %}
 </div>
 
 {% if online_betaling %}
 <div class="alert-standhouder warning mb-4">
-  {% trans "Bezoekers zouden na bevestiging naar Mollie gaan." %}
+  <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+  <div>{% trans "Bezoekers zouden na bevestiging naar Mollie gaan." %}</div>
 </div>
 {% else %}
 <div class="alert-standhouder warning mb-4">
-  {% trans "Bezoekers dienen een voorlopige aanvraag in (geen online betaling)." %}
+  <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+  <div>{% trans "Bezoekers dienen een voorlopige aanvraag in (geen online betaling)." %}</div>
 </div>
 {% endif %}
 

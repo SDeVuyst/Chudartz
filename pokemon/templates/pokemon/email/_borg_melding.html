@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if inschrijving.heeft_borg %}
+<p><em>
+  {% blocktrans with bedrag=inschrijving.borg_bedrag %}
+  Let op: €{{ bedrag }} betreft een niet-terugbetaalbare reservatie- en administratiekost:
+  {% endblocktrans %}
+</em></p>
+<ul>
+  {% for regel in inschrijving.borg_regels %}
+    <li><em>{{ regel.omschrijving }}: €{{ regel.bedrag }}</em></li>
+  {% endfor %}
+</ul>
+<p><em>{% trans "Dit bedrag wordt niet terugbetaald bij annulatie." %}</em></p>
+{% endif %}

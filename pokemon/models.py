@@ -101,6 +101,17 @@ class Evenement(models.Model):
         default=0,
         help_text=_("Enkel gebruikt wanneer het zaalplan uitstaat."),
     )
+    standhouder_borg_per_tafel = MoneyField(
+        verbose_name=_("Niet-terugbetaalbare reservatie- en administratiekost per tafel"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        help_text=_(
+            "Enkel zonder zaalplan. Deel van de prijs per tafel dat niet "
+            "wordt terugbetaald bij annulatie. 0 = geen borg."
+        ),
+    )
     standhouder_prijs_excl_btw = models.BooleanField(
         verbose_name=_("Prijs per tafel exclusief BTW"),
         default=False,
@@ -823,6 +834,18 @@ class ZaalplanCel(models.Model):
         blank=True,
         null=True,
     )
+    borg = MoneyField(
+        verbose_name=_("Niet-terugbetaalbare reservatie- en administratiekost"),
+        default_currency="EUR",
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        help_text=_(
+            "Deel van de tafelprijs dat niet wordt terugbetaald bij annulatie. "
+            "Leeg = geen borg."
+        ),
+    )
     groep = models.PositiveIntegerField(
         null=True,
         blank=True,
@@ -865,6 +888,14 @@ class ZaalplanCel(models.Model):
         if self.prijs is not None:
             return self.prijs
         return self.zaalplan.standaard_prijs
+
+    @property
+    def effectieve_borg(self):
+        """Niet-terugbetaalbaar deel van de tafelprijs; 0 als niet ingesteld."""
+        if self.borg is None:
+            return Decimal("0")
+        prijs = self.effectieve_prijs.amount
+        return min(Decimal(str(self.borg.amount)), Decimal(str(prijs)))
 
     @property
     def tafelgewicht(self):
@@ -1145,8 +1176,51 @@ class StandhouderInschrijving(models.Model):
             return self.gekozen_tafels.count()
         return self.aantal_tafels_manueel or 0
 
+    def _tafel_borg_excl(self):
+        """Excl. BTW tafelborg-bedrag (vóór BTW-opslag)."""
+        if self.zaalplan_actief:
+            totaal = Decimal("0")
+            for cel in self.gekozen_tafels.select_related("zaalplan"):
+                totaal += cel.effectieve_borg
+            return totaal
+        aantal = self.aantal_tafels_manueel or 0
+        if aantal <= 0:
+            return Decimal("0")
+        prijs = self.evenement.standhouder_prijs_per_tafel.amount
+        borg = self.evenement.standhouder_borg_per_tafel.amount
+        per_tafel = min(Decimal(str(borg or 0)), Decimal(str(prijs or 0)))
+        return aantal * per_tafel
+
     @property
-    def borg_bedrag(self):
+    def borg_bedrag_tafels(self):
+        excl = self._tafel_borg_excl()
+        if excl <= 0:
+            return Decimal("0")
+        if self.zaalplan_actief:
+            # Per cel BTW toepassen zodat mix van overrides correct blijft;
+            # alle cellen delen dezelfde zaalplan-BTW-instelling.
+            totaal = Decimal("0")
+            for cel in self.gekozen_tafels.select_related("zaalplan"):
+                borg_excl = cel.effectieve_borg
+                if borg_excl <= 0:
+                    continue
+                zaalplan = cel.zaalplan
+                incl, _ = bedrag_met_btw(
+                    borg_excl,
+                    zaalplan.prijs_excl_btw,
+                    zaalplan.btw_percentage,
+                )
+                totaal += incl
+            return totaal
+        incl, _ = bedrag_met_btw(
+            excl,
+            self.evenement.standhouder_prijs_excl_btw,
+            self.evenement.standhouder_prijs_btw_percentage,
+        )
+        return incl
+
+    @property
+    def borg_bedrag_vragen(self):
         totaal = Decimal("0")
         for antwoord in self.antwoorden.select_related("vraag"):
             if antwoord.vraag.is_borg and antwoord.heeft_toeslag():
@@ -1160,8 +1234,71 @@ class StandhouderInschrijving(models.Model):
         return totaal
 
     @property
+    def borg_bedrag(self):
+        return self.borg_bedrag_tafels + self.borg_bedrag_vragen
+
+    @property
     def heeft_borg(self):
         return self.borg_bedrag > 0
+
+    def borg_regels(self):
+        """Lijst van dicts {omschrijving, bedrag} voor de borg-breakdown (incl. BTW)."""
+        regels = []
+        if self.zaalplan_actief:
+            for cel in self.gekozen_tafels.select_related("zaalplan"):
+                borg_excl = cel.effectieve_borg
+                if borg_excl <= 0:
+                    continue
+                zaalplan = cel.zaalplan
+                incl, _ = bedrag_met_btw(
+                    borg_excl,
+                    zaalplan.prijs_excl_btw,
+                    zaalplan.btw_percentage,
+                )
+                if incl <= 0:
+                    continue
+                regels.append({
+                    "omschrijving": f"Tafel {cel.display_label}",
+                    "bedrag": incl,
+                    "bron": "tafel",
+                })
+        else:
+            tafels_incl = self.borg_bedrag_tafels
+            if tafels_incl > 0:
+                aantal = self.aantal_tafels_manueel or 0
+                regels.append({
+                    "omschrijving": f"{aantal} tafel(s)",
+                    "bedrag": tafels_incl,
+                    "bron": "tafel",
+                })
+
+        vragen = list(
+            self.evenement.standhouder_vragen.order_by("volgorde", "id").values_list(
+                "id", flat=True
+            )
+        )
+        nummer_map = {vraag_id: idx + 1 for idx, vraag_id in enumerate(vragen)}
+
+        for antwoord in self.antwoorden.select_related("vraag").order_by(
+            "vraag__volgorde", "vraag__id"
+        ):
+            vraag = antwoord.vraag
+            if not vraag.is_borg or not antwoord.heeft_toeslag():
+                continue
+            incl, _ = bedrag_met_btw(
+                antwoord.toeslag_bedrag(),
+                vraag.prijs_toeslag_excl_btw,
+                vraag.prijs_toeslag_btw_percentage,
+            )
+            if incl <= 0:
+                continue
+            nummer = nummer_map.get(vraag.id, vraag.volgorde)
+            regels.append({
+                "omschrijving": f"Vraag {nummer}",
+                "bedrag": incl,
+                "bron": "vraag",
+            })
+        return regels
 
     def bereken_totaal(self):
         totaal = Decimal("0")
@@ -1185,8 +1322,11 @@ class StandhouderInschrijving(models.Model):
             totaal += incl
 
         for antwoord in self.antwoorden.select_related("vraag"):
+            vraag = antwoord.vraag
+            # Borg-vragen tellen enkel mee in borg_melding, niet in de totaalprijs.
+            if vraag.is_borg:
+                continue
             if antwoord.heeft_toeslag():
-                vraag = antwoord.vraag
                 incl, _ = bedrag_met_btw(
                     antwoord.toeslag_bedrag(),
                     vraag.prijs_toeslag_excl_btw,
@@ -1278,6 +1418,8 @@ class StandhouderInschrijving(models.Model):
                     f"Niet-terugbetaalbare reservatie- en administratiekost: "
                     f"€{self.borg_bedrag}"
                 )
+                for regel in self.borg_regels():
+                    admin_lines.append(f"  - {regel['omschrijving']}: €{regel['bedrag']}")
             if self.opmerkingen:
                 admin_lines.append(f"Opmerkingen: {self.opmerkingen}")
 

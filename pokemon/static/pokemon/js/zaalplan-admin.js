@@ -374,9 +374,22 @@
     document.getElementById('cel-id').value = cel.id;
     document.getElementById('cel-label').textContent = cel.label;
     document.getElementById('cel-label-input').value = cel.tekst || '';
-    document.getElementById('cel-prijs-input').value = '';
+
+    const prijsInput = document.getElementById('cel-prijs-input');
+    const override = cel.prijs_override;
+    prijsInput.value = override != null && override !== '' ? override : '';
+    prijsInput.placeholder = gridData.standaard_prijs || '';
+
+    const borgInput = document.getElementById('cel-borg-input');
+    if (borgInput) {
+      borgInput.value = cel.borg != null && cel.borg !== '' ? cel.borg : '';
+      borgInput.placeholder = '';
+    }
+
     document.getElementById('cel-telt-input').value = cel.telt_als || 1;
     document.getElementById('cel-prijs-wrap').style.display = cel.type === 'tafel' ? '' : 'none';
+    const borgWrap = document.getElementById('cel-borg-wrap');
+    if (borgWrap) borgWrap.style.display = cel.type === 'tafel' ? '' : 'none';
     document.getElementById('cel-telt-wrap').style.display = cel.type === 'tafel' ? '' : 'none';
     detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
@@ -403,6 +416,8 @@
     const celId = parseInt(document.getElementById('cel-id').value, 10);
     const label = document.getElementById('cel-label-input').value;
     const prijs = document.getElementById('cel-prijs-input').value;
+    const borgEl = document.getElementById('cel-borg-input');
+    const borg = borgEl ? borgEl.value : '';
     const teltAls = parseInt(document.getElementById('cel-telt-input').value, 10);
     if (!teltAls || teltAls < 1) {
       alert('Een tafel moet voor minstens 1 tafel meetellen.');
@@ -412,6 +427,7 @@
       cel_id: celId,
       label: label,
       prijs: prijs || null,
+      borg: borg || null,
       telt_als_tafels: teltAls,
     })
       .then((data) => { gridData = data.grid; renderGrid(); detailEl.classList.add('hidden'); })

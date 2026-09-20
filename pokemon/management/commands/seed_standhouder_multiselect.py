@@ -73,6 +73,7 @@ class Command(BaseCommand):
             titel="MS Demo zonder zaalplan",
             standhouder_zaalplan_actief=False,
             standhouder_prijs_per_tafel=Money(Decimal("40.00"), "EUR"),
+            standhouder_borg_per_tafel=Money(Decimal("10.00"), "EUR"),
             standhouder_prijs_excl_btw=False,
         )
         vragen_a = _replace_vragen(
@@ -116,6 +117,13 @@ class Command(BaseCommand):
                     "tekst": "Akkoord huisregels",
                     "vraag_type": VraagType.CHECKBOX,
                     "verplicht": True,
+                },
+                {
+                    "tekst": "Niet-terugbetaalbare reservatiekost",
+                    "vraag_type": VraagType.BOOLEAN,
+                    "verplicht": False,
+                    "prijs_toeslag": Money(Decimal("15.00"), "EUR"),
+                    "is_borg": True,
                 },
             ],
         )
