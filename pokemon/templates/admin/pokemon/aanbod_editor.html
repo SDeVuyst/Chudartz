@@ -1,0 +1,413 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Aanbod beheren" %}: {{ evenement.titel }} | Chudartz Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<style>
+  #aanbod-editor {
+    --sh-bg: #f9fafb;
+    --sh-surface: #ffffff;
+    --sh-border: #e5e7eb;
+    --sh-text: #111827;
+    --sh-muted: #6b7280;
+    --sh-accent: #4f46e5;
+    --sh-accent-hover: #4338ca;
+    --sh-accent-soft: #eef2ff;
+    --sh-hover: #f3f4f6;
+    --sh-shadow: rgba(15, 23, 42, 0.08);
+    --sh-ok-bg: #f0fdf4;
+    --sh-ok-text: #166534;
+    --sh-ok-border: #bbf7d0;
+    color: var(--sh-text);
+    max-width: 100%;
+  }
+  .dark #aanbod-editor {
+    --sh-bg: #0f172a;
+    --sh-surface: #1e293b;
+    --sh-border: #334155;
+    --sh-text: #e2e8f0;
+    --sh-muted: #94a3b8;
+    --sh-accent: #6366f1;
+    --sh-accent-hover: #4f46e5;
+    --sh-accent-soft: #1b2540;
+    --sh-hover: #172033;
+    --sh-shadow: rgba(0, 0, 0, 0.22);
+    --sh-ok-bg: #14532d;
+    --sh-ok-text: #dcfce7;
+    --sh-ok-border: #166534;
+  }
+  #aanbod-editor * { box-sizing: border-box; }
+  #aanbod-editor .ae-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+  }
+  #aanbod-editor .ae-head h1 {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+  }
+  #aanbod-editor .ae-sub {
+    margin: 0.3rem 0 0;
+    color: var(--sh-muted);
+    font-size: 0.95rem;
+  }
+  #aanbod-editor .ae-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  #aanbod-editor .ae-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--sh-border);
+    background: var(--sh-surface);
+    color: var(--sh-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  #aanbod-editor .ae-btn:hover { background: var(--sh-hover); }
+  #aanbod-editor .ae-btn--primary {
+    background: var(--sh-accent);
+    border-color: var(--sh-accent);
+    color: #fff;
+  }
+  #aanbod-editor .ae-btn--primary:hover { background: var(--sh-accent-hover); }
+  #aanbod-editor .ae-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  #aanbod-editor .ae-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  @media (max-width: 960px) {
+    #aanbod-editor .ae-grid { grid-template-columns: 1fr; }
+  }
+  #aanbod-editor .ae-card {
+    background: var(--sh-surface);
+    border: 1px solid var(--sh-border);
+    border-radius: 14px;
+    padding: 1.05rem 1.15rem;
+    box-shadow: 0 1px 3px var(--sh-shadow);
+    min-height: 280px;
+  }
+  #aanbod-editor .ae-card__title {
+    margin: 0 0 0.35rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sh-muted);
+    font-weight: 700;
+  }
+  #aanbod-editor .ae-hint {
+    margin: 0 0 0.85rem;
+    color: var(--sh-muted);
+    font-size: 0.85rem;
+  }
+  #aanbod-editor .ae-catalog,
+  #aanbod-editor .ae-selected {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  #aanbod-editor .ae-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--sh-border);
+    border-radius: 10px;
+    background: var(--sh-bg);
+    cursor: pointer;
+    user-select: none;
+  }
+  #aanbod-editor .ae-item:hover { border-color: var(--sh-accent); }
+  #aanbod-editor .ae-item.is-selected {
+    background: var(--sh-accent-soft);
+    border-color: var(--sh-accent);
+  }
+  #aanbod-editor .ae-item__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  #aanbod-editor .ae-item__icon--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sh-muted);
+    font-size: 1.1rem;
+    background: var(--sh-hover);
+  }
+  #aanbod-editor .ae-item__name {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  #aanbod-editor .ae-item__edit {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border-radius: 6px;
+    border: 1px solid var(--sh-border);
+    background: var(--sh-surface);
+    color: var(--sh-muted);
+    text-decoration: none;
+    line-height: 0;
+  }
+  #aanbod-editor .ae-item__edit:hover {
+    color: var(--sh-accent);
+    border-color: var(--sh-accent);
+    background: var(--sh-accent-soft);
+  }
+  #aanbod-editor .ae-item__edit svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    display: block;
+  }
+  #aanbod-editor .ae-item__mark {
+    flex-shrink: 0;
+    color: var(--sh-muted);
+    font-weight: 700;
+    min-width: 1rem;
+    text-align: center;
+  }
+  #aanbod-editor .ae-item.is-selected .ae-item__mark {
+    color: var(--sh-accent);
+  }
+  #aanbod-editor .ae-item__handle {
+    color: var(--sh-muted);
+    cursor: grab;
+    font-size: 1.1rem;
+    padding: 0.25rem;
+  }
+  #aanbod-editor .ae-empty {
+    color: var(--sh-muted);
+    font-size: 0.9rem;
+    padding: 1rem 0.25rem;
+  }
+  #aanbod-editor .ae-status {
+    margin-top: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--sh-muted);
+  }
+  #aanbod-editor .ae-status.is-ok {
+    color: var(--sh-ok-text);
+  }
+  #aanbod-editor .ae-status.is-err {
+    color: #b91c1c;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="aanbod-editor">
+  <div class="ae-head">
+    <div>
+      <h1>{% trans "Aanbod beheren" %}</h1>
+      <p class="ae-sub">{{ evenement.titel }} — {% trans "Klik om te selecteren, sleep om te ordenen. Leeg = sectie verborgen op de site." %}</p>
+    </div>
+    <div class="ae-actions">
+      <a class="ae-btn" href="{% url 'admin:pokemon_evenement_change' evenement.pk %}">{% trans "Terug naar evenement" %}</a>
+      <a class="ae-btn" id="ae-add-item" href="{% url 'admin:pokemon_aanboditem_add' %}" target="_blank" rel="noopener">{% trans "Nieuw item" %}</a>
+      <button type="button" class="ae-btn ae-btn--primary" id="ae-save">{% trans "Opslaan" %}</button>
+    </div>
+  </div>
+
+  <div class="ae-grid">
+    <section class="ae-card">
+      <h2 class="ae-card__title">{% trans "Catalogus" %}</h2>
+      <p class="ae-hint">{% trans "Klik op een item om het toe te voegen of te verwijderen." %}</p>
+      <div class="ae-catalog" id="ae-catalog"></div>
+    </section>
+    <section class="ae-card">
+      <h2 class="ae-card__title">{% trans "Op dit evenement" %}</h2>
+      <p class="ae-hint">{% trans "Sleep om de volgorde te wijzigen. Deze volgorde zie je op de site." %}</p>
+      <div class="ae-selected" id="ae-selected"></div>
+    </section>
+  </div>
+  <p class="ae-status" id="ae-status" aria-live="polite"></p>
+</div>
+
+<script type="application/json" id="ae-boot">{{ boot_json|safe }}</script>
+<script>
+(function () {
+  var bootEl = document.getElementById("ae-boot");
+  var boot = JSON.parse(bootEl.textContent);
+  var catalogEl = document.getElementById("ae-catalog");
+  var selectedEl = document.getElementById("ae-selected");
+  var statusEl = document.getElementById("ae-status");
+  var saveBtn = document.getElementById("ae-save");
+  var selected = (boot.selected || []).slice();
+  var catalog = (boot.catalog || []).slice();
+  var sortable = null;
+
+  function selectedIds() {
+    return selected.map(function (item) { return item.id; });
+  }
+
+  function iconHtml(item) {
+    if (item.icoon) {
+      return '<img class="ae-item__icon" src="' + item.icoon + '" alt="">';
+    }
+    return '<div class="ae-item__icon ae-item__icon--fallback">◇</div>';
+  }
+
+  function renderCatalog() {
+    var ids = selectedIds();
+    var editLabel = "{% filter escapejs %}{% trans "Bewerken" %}{% endfilter %}";
+    var editIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+    if (!catalog.length) {
+      catalogEl.innerHTML = '<p class="ae-empty">{% filter escapejs %}{% trans "Nog geen catalogusitems. Maak er een aan via Nieuw item." %}{% endfilter %}</p>';
+      return;
+    }
+    catalogEl.innerHTML = catalog.map(function (item) {
+      var isSelected = ids.indexOf(item.id) !== -1;
+      var editHref = item.editUrl || ("#");
+      return (
+        '<div class="ae-item' + (isSelected ? ' is-selected' : '') + '" data-id="' + item.id + '" role="button" tabindex="0">' +
+          iconHtml(item) +
+          '<span class="ae-item__name">' + escapeHtml(item.naam) + '</span>' +
+          '<a class="ae-item__edit" href="' + escapeHtml(editHref) + '" target="_blank" rel="noopener" title="' + editLabel + '" aria-label="' + editLabel + '">' + editIcon + '</a>' +
+          '<span class="ae-item__mark">' + (isSelected ? "✓" : "+") + '</span>' +
+        '</div>'
+      );
+    }).join("");
+    catalogEl.querySelectorAll(".ae-item").forEach(function (el) {
+      el.addEventListener("click", function (ev) {
+        if (ev.target.closest(".ae-item__edit")) return;
+        toggleItem(parseInt(el.getAttribute("data-id"), 10));
+      });
+    });
+  }
+
+  function renderSelected() {
+    if (!selected.length) {
+      selectedEl.innerHTML = '<p class="ae-empty">{% filter escapejs %}{% trans "Nog niets geselecteerd — de sectie blijft verborgen." %}{% endfilter %}</p>';
+      if (sortable) { sortable.destroy(); sortable = null; }
+      return;
+    }
+    selectedEl.innerHTML = selected.map(function (item) {
+      return (
+        '<div class="ae-item is-selected" data-id="' + item.id + '">' +
+          '<span class="ae-item__handle" title="Sleep">⠿</span>' +
+          iconHtml(item) +
+          '<span class="ae-item__name">' + escapeHtml(item.naam) + '</span>' +
+        '</div>'
+      );
+    }).join("");
+    if (sortable) sortable.destroy();
+    sortable = Sortable.create(selectedEl, {
+      animation: 150,
+      handle: ".ae-item__handle",
+      draggable: ".ae-item",
+      onEnd: function () {
+        var ids = Array.prototype.map.call(
+          selectedEl.querySelectorAll(".ae-item"),
+          function (el) { return parseInt(el.getAttribute("data-id"), 10); }
+        );
+        selected = ids.map(function (id) {
+          return selected.find(function (item) { return item.id === id; });
+        }).filter(Boolean);
+        setStatus("{% filter escapejs %}{% trans "Volgorde aangepast — klik Opslaan." %}{% endfilter %}", "");
+      }
+    });
+  }
+
+  function toggleItem(id) {
+    var idx = selected.findIndex(function (item) { return item.id === id; });
+    if (idx >= 0) {
+      selected.splice(idx, 1);
+    } else {
+      var item = catalog.find(function (c) { return c.id === id; });
+      if (item) selected.push(item);
+    }
+    renderCatalog();
+    renderSelected();
+    setStatus("{% filter escapejs %}{% trans "Wijzigingen nog niet opgeslagen." %}{% endfilter %}", "");
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function setStatus(msg, cls) {
+    statusEl.textContent = msg || "";
+    statusEl.className = "ae-status" + (cls ? " " + cls : "");
+  }
+
+  function getCookie(name) {
+    var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    return match ? match[2] : "";
+  }
+
+  var saveLabel = "{% filter escapejs %}{% trans "Opslaan" %}{% endfilter %}";
+  var savedLabel = "{% filter escapejs %}{% trans "Opgeslaan!" %}{% endfilter %}";
+  var saveResetTimer = null;
+
+  saveBtn.addEventListener("click", function () {
+    saveBtn.disabled = true;
+    if (saveResetTimer) {
+      clearTimeout(saveResetTimer);
+      saveResetTimer = null;
+    }
+    saveBtn.textContent = saveLabel;
+    setStatus("{% filter escapejs %}{% trans "Opslaan…" %}{% endfilter %}", "");
+    fetch(boot.saveUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": boot.csrfToken || getCookie("csrftoken"),
+      },
+      body: JSON.stringify({ order: selectedIds() }),
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        saveBtn.disabled = false;
+        if (!data.success) {
+          setStatus(data.error || "{% filter escapejs %}{% trans "Opslaan mislukt." %}{% endfilter %}", "is-err");
+          return;
+        }
+        selected = data.selected || [];
+        catalog = data.catalog || catalog;
+        renderCatalog();
+        renderSelected();
+        setStatus("{% filter escapejs %}{% trans "Opgeslagen." %}{% endfilter %}", "is-ok");
+        saveBtn.textContent = savedLabel;
+        saveResetTimer = setTimeout(function () {
+          saveBtn.textContent = saveLabel;
+          saveResetTimer = null;
+        }, 2500);
+      })
+      .catch(function () {
+        saveBtn.disabled = false;
+        setStatus("{% filter escapejs %}{% trans "Opslaan mislukt." %}{% endfilter %}", "is-err");
+      });
+  });
+
+  renderCatalog();
+  renderSelected();
+})();
+</script>
+{% endblock %}

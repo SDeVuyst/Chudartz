@@ -6176,3 +6176,62 @@ msgstr "The invoice will follow after payment."
 #: pokemon/templates/pokemon/email/confirmation-mail-standhouder.html
 msgid "Factuur gewenst"
 msgstr "Invoice requested"
+
+#: pokemon/templates/pokemon/pages/evenement.html
+msgid "Datum & tijd"
+msgstr "Date & time"
+
+#: pokemon/templates/pokemon/pages/evenement.html
+msgid "Open in Google Maps"
+msgstr "Open in Google Maps"
+
+#: pokemon/templates/pokemon/pages/evenement.html
+#: pokemon/models.py
+msgid "Wat kan je vinden"
+msgstr "What you'll find"
+
+#: pokemon/admin.py
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Aanbod beheren"
+msgstr "Manage offerings"
+
+#: chudartz/settings.py
+#: pokemon/models.py
+msgid "Aanbod-items"
+msgstr "Offering items"
+
+#: pokemon/models.py
+msgid "Aanbod-item"
+msgstr "Offering item"
+
+#: pokemon/models.py
+msgid "Icoon / logo"
+msgstr "Icon / logo"
+
+#: pokemon/models.py
+msgid "Evenement-aanbod"
+msgstr "Event offering"
+
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Catalogus"
+msgstr "Catalog"
+
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Op dit evenement"
+msgstr "On this event"
+
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Nieuw item"
+msgstr "New item"
+
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Terug naar evenement"
+msgstr "Back to event"
+
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Opslaan"
+msgstr "Save"
+
+msgid "Opgeslaan!"
+msgstr "Saved!"
+

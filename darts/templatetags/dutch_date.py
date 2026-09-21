@@ -53,3 +53,18 @@ def dutch_time(value):
     value = timezone.localtime(value, timezone=pytz.timezone('Europe/Brussels'))
 
     return value.strftime('%H:%M')
+
+
+@register.filter
+def dutch_weekday_date(value):
+    """Weekday + date without time, localized to Brussels."""
+    if isinstance(value, datetime.datetime):
+        value = timezone.localtime(value, timezone=pytz.timezone('Europe/Brussels'))
+    elif not isinstance(value, datetime.date):
+        return value
+
+    day = value.day
+    month = MONTHS_DUTCH[value.month]
+    year = value.year
+    weekday = WEEKDAYS_DUTCH[value.weekday()]
+    return f"{weekday} {day} {month} {year}"

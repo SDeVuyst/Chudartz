@@ -62,6 +62,27 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class AanbodItem(models.Model):
+    """Herbruikbare catalogus voor 'Wat kan je vinden' op evenementpagina's."""
+
+    class Meta:
+        ordering = ["naam"]
+        verbose_name = _("Aanbod-item")
+        verbose_name_plural = _("Aanbod-items")
+
+    naam = models.CharField(max_length=80, verbose_name=_("Naam"))
+    icoon = models.ImageField(
+        upload_to="aanbod_iconen/",
+        blank=True,
+        null=True,
+        verbose_name=_("Icoon / logo"),
+    )
+    actief = models.BooleanField(default=True, verbose_name=_("Actief"))
+
+    def __str__(self) -> str:
+        return self.naam
     
 
 class Evenement(models.Model):
@@ -147,6 +168,21 @@ class Evenement(models.Model):
     )
     enable_inschrijvingen = models.BooleanField(verbose_name=_("Inschrijvingen Inschakelen"), default=False)
     partners = models.ManyToManyField(Partner, verbose_name=_("Partners"), blank=True, null=True)
+    aanbod = models.ManyToManyField(
+        AanbodItem,
+        through="EvenementAanbod",
+        blank=True,
+        related_name="evenementen",
+        verbose_name=_("Wat kan je vinden"),
+    )
+    aanbod_beschrijving = models.TextField(
+        blank=True,
+        verbose_name=_("Aanbod-beschrijving"),
+        help_text=_(
+            "Optionele korte tekst onder de titel 'Wat kan je vinden'. "
+            "Leeg laten = niet tonen."
+        ),
+    )
     toon_op_site = models.BooleanField(verbose_name=_("Toon op site"), default=False)
     highlight_event = models.BooleanField(verbose_name=_("Highlight Event"), default=False)
     volgorde = models.SmallIntegerField(verbose_name=_("Volgorde op pagina"), default=0)
@@ -223,6 +259,33 @@ class Evenement(models.Model):
         return _(
             "Wenst u meer dan %(max)s tafels? Boek alvast het maximale aantal tafels en neem dan contact met ons op."
         ) % {"max": self.standhouder_max_tafels}
+
+
+class EvenementAanbod(models.Model):
+    """Koppeling evenement ↔ aanbod-item met volgorde per evenement."""
+
+    class Meta:
+        ordering = ["volgorde", "pk"]
+        verbose_name = _("Evenement-aanbod")
+        verbose_name_plural = _("Evenement-aanbod")
+        unique_together = [("evenement", "item")]
+
+    evenement = models.ForeignKey(
+        Evenement,
+        on_delete=models.CASCADE,
+        related_name="aanbod_links",
+        verbose_name=_("Evenement"),
+    )
+    item = models.ForeignKey(
+        AanbodItem,
+        on_delete=models.CASCADE,
+        related_name="evenement_links",
+        verbose_name=_("Aanbod-item"),
+    )
+    volgorde = models.PositiveSmallIntegerField(default=0, verbose_name=_("Volgorde"))
+
+    def __str__(self) -> str:
+        return f"{self.evenement} — {self.item}"
 
 
 class Ticket(models.Model):

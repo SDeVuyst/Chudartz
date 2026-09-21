@@ -288,6 +288,33 @@ class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
         ]
 
 
+@admin.register(AanbodItem)
+class AanbodItemAdmin(ModelAdmin):
+    list_display = ("display_header", "actief")
+    list_filter = ("actief",)
+    search_fields = ("naam",)
+    ordering = ("naam",)
+
+    @display(description=_("Naam"), header=True)
+    def display_header(self, instance: AanbodItem):
+        header = [
+            instance.naam,
+            None,
+            instance.naam,
+        ]
+        if instance.icoon:
+            header.append(
+                {
+                    "path": instance.icoon.url,
+                    "height": 24,
+                    "width": 24,
+                    "borderless": True,
+                    "squared": True,
+                }
+            )
+        return header
+
+
 @admin.register(Participant)
 class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     import_form_class = ImportForm
@@ -433,18 +460,23 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
         TicketInline,
         EvenementFotoInline,
     ]
-    actions_detail = ["generate_qr_code", "beheer_zaalplan", "standhouder_studio"]
+    actions_detail = ["generate_qr_code", "beheer_zaalplan", "standhouder_studio", "beheer_aanbod"]
     list_filter = (EvenementEinddatumFilter,)
     list_filter_submit = True
 
-    search_fields = ('titel', 'beschrijving', 'start_datum', 'einde_datum', 'locatie_lang')
+    search_fields = ('titel', 'start_datum', 'einde_datum', 'locatie_lang')
 
     fieldsets = (
         (_("Algemeen"), {
             "fields": ("titel", "slug", "afbeelding", "intro_op_index"),
         }),
         (_("Pagina-inhoud"), {
-            "fields": ("titel_sectie_a", "tekst_sectie_a"),
+            "fields": ("titel_sectie_a", "tekst_sectie_a", "aanbod_beschrijving"),
+            "description": _(
+                "Het aanbod ('Wat kan je vinden') beheer je via de knop "
+                "'Aanbod beheren' bovenaan. Optionele beschrijving onder die sectie "
+                "vul je hier in."
+            ),
         }),
         (_("Datum & locatie"), {
             "fields": ("start_datum", "einde_datum", "max_deelnemers", "locatie_kort", "locatie_lang"),
@@ -573,6 +605,16 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 '<int:object_id>/standhouder-studio/copy/',
                 self.admin_site.admin_view(self.standhouder_studio_copy_save_view),
                 name='pokemon_standhouder_studio_copy',
+            ),
+            path(
+                '<int:object_id>/aanbod/',
+                self.admin_site.admin_view(self.aanbod_editor_view),
+                name='pokemon_aanbod_editor',
+            ),
+            path(
+                '<int:object_id>/aanbod/save/',
+                self.admin_site.admin_view(self.aanbod_save_view),
+                name='pokemon_aanbod_save',
             ),
         ]
         return custom_urls + urls
@@ -764,6 +806,111 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
     @action(description=_("Standhouder studio"))
     def standhouder_studio(self, request, object_id: int):
         return redirect(reverse('admin:pokemon_standhouder_studio', args=[object_id]))
+
+    @action(description=_("Aanbod beheren"))
+    def beheer_aanbod(self, request, object_id: int):
+        return redirect(reverse('admin:pokemon_aanbod_editor', args=[object_id]))
+
+    def _serialize_aanbod_item(self, item, selected_ids):
+        return {
+            "id": item.pk,
+            "naam": item.naam,
+            "icoon": item.icoon.url if item.icoon else None,
+            "selected": item.pk in selected_ids,
+            "editUrl": reverse("admin:pokemon_aanboditem_change", args=[item.pk]),
+        }
+
+    def aanbod_editor_view(self, request, object_id):
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        links = list(
+            EvenementAanbod.objects.filter(evenement=evenement)
+            .select_related("item")
+            .order_by("volgorde", "pk")
+        )
+        selected_ids = [link.item_id for link in links if link.item.actief]
+        selected = [
+            self._serialize_aanbod_item(link.item, selected_ids)
+            for link in links
+            if link.item.actief
+        ]
+        catalog = [
+            self._serialize_aanbod_item(item, selected_ids)
+            for item in AanbodItem.objects.filter(actief=True).order_by("naam")
+        ]
+        boot = {
+            "csrfToken": request.META.get("CSRF_COOKIE") or "",
+            "saveUrl": reverse("admin:pokemon_aanbod_save", args=[object_id]),
+            "addItemUrl": reverse("admin:pokemon_aanboditem_add"),
+            "catalog": catalog,
+            "selected": selected,
+        }
+        return render(request, "admin/pokemon/aanbod_editor.html", {
+            **self.admin_site.each_context(request),
+            "evenement": evenement,
+            "boot_json": json.dumps(boot),
+            "title": _("Aanbod beheren"),
+            "opts": self.model._meta,
+        })
+
+    def aanbod_save_view(self, request, object_id):
+        if request.method != "POST":
+            return JsonResponse({"success": False, "error": "POST required"}, status=405)
+        evenement = get_object_or_404(Evenement, pk=object_id)
+        try:
+            data = json.loads(request.body)
+            order = data.get("order") or []
+            if not isinstance(order, list):
+                return JsonResponse(
+                    {"success": False, "error": _("Ongeldige volgorde.")},
+                    status=400,
+                )
+            item_ids = []
+            for raw_id in order:
+                try:
+                    item_ids.append(int(raw_id))
+                except (TypeError, ValueError):
+                    continue
+            # Preserve unique order
+            seen = set()
+            unique_ids = []
+            for item_id in item_ids:
+                if item_id not in seen:
+                    seen.add(item_id)
+                    unique_ids.append(item_id)
+
+            valid_ids = set(
+                AanbodItem.objects.filter(pk__in=unique_ids, actief=True)
+                .values_list("pk", flat=True)
+            )
+            unique_ids = [i for i in unique_ids if i in valid_ids]
+
+            EvenementAanbod.objects.filter(evenement=evenement).delete()
+            EvenementAanbod.objects.bulk_create([
+                EvenementAanbod(evenement=evenement, item_id=item_id, volgorde=index)
+                for index, item_id in enumerate(unique_ids)
+            ])
+
+            links = (
+                EvenementAanbod.objects.filter(evenement=evenement)
+                .select_related("item")
+                .order_by("volgorde", "pk")
+            )
+            selected_ids = [link.item_id for link in links]
+            selected = [
+                self._serialize_aanbod_item(link.item, selected_ids)
+                for link in links
+            ]
+            catalog = [
+                self._serialize_aanbod_item(item, selected_ids)
+                for item in AanbodItem.objects.filter(actief=True).order_by("naam")
+            ]
+            return JsonResponse({
+                "success": True,
+                "selected": selected,
+                "catalog": catalog,
+            })
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)}, status=400)
 
     def standhouder_studio_view(self, request, object_id):
         evenement = get_object_or_404(Evenement, pk=object_id)

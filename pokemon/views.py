@@ -201,16 +201,16 @@ def evenementen(request):
 def _get_gerelateerde_evenementen(evenement, limit=3):
     today = timezone.now().date()
     return Evenement.objects.filter(toon_op_site=True).exclude(pk=evenement.pk).annotate(
-        is_future=Case(
-            When(start_datum__gte=today, then=Value(0)),
-            default=Value(1),
+        is_past=Case(
+            When(start_datum__date__lt=today, then=Value(1)),
+            default=Value(0),
             output_field=IntegerField(),
         ),
     ).order_by(
-        '-is_future',
+        'is_past',
         'volgorde',
         Case(
-            When(start_datum__gte=today, then=F('start_datum')),
+            When(start_datum__date__gte=today, then=F('start_datum')),
             output_field=DateTimeField(),
         ),
         F('start_datum').desc(),
@@ -223,6 +223,13 @@ def evenement(request, slug):
     if not evenement.toon_op_site:
         return HttpResponseNotFound()
 
+    aanbod = list(
+        evenement.aanbod_links
+        .select_related("item")
+        .filter(item__actief=True)
+        .order_by("volgorde", "pk")
+    )
+
     context = {
         "evenement": evenement,
         "fotos": EvenementFoto.objects.filter(evenement=evenement).order_by("-volgorde"),
@@ -231,6 +238,7 @@ def evenement(request, slug):
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
         "gerelateerde_evenementen": _get_gerelateerde_evenementen(evenement),
         "tickets_kopen_mogelijk": evenement.tickets_kopen_mogelijk,
+        "aanbod": aanbod,
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
 

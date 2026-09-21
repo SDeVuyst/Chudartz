@@ -416,6 +416,11 @@ UNFOLD = {
                         "link": "/admin/pokemon/partner",
                     },
                     {
+                        "title": _("Aanbod-items"),
+                        "icon": "category",
+                        "link": "/admin/pokemon/aanboditem",
+                    },
+                    {
                         "title": _("Sponsors"),
                         "icon": "checkbook",
                         "link": "/admin/pokemon/sponsor/"

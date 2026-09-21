@@ -85,6 +85,221 @@ ChudartZ Collectibles | {{ evenement.titel }}
 .pricing .pricing-item h4.ticket-price-gratis {
   font-size: 36px;
 }
+
+/* Event meta band — tijd & locatie */
+.evenement-meta {
+  margin-top: 2.75rem;
+}
+.evenement-meta__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+@media (max-width: 767px) {
+  .evenement-meta__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.evenement-meta__card {
+  display: flex;
+  gap: 1.15rem;
+  align-items: center;
+  padding: 1.5rem 1.5rem;
+  background: var(--surface-color, #fff);
+  border-radius: 15px;
+  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.evenement-meta__card:hover {
+  box-shadow: 0 8px 28px -6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+.evenement-meta__icon {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  font-size: 1.55rem;
+  line-height: 0;
+  background: transparent;
+  color: var(--accent-color);
+  transition: color 0.25s ease;
+}
+.evenement-meta__card:hover .evenement-meta__icon {
+  background: transparent;
+  color: var(--accent-color);
+}
+.evenement-meta__separator {
+  width: 80px;
+  height: 3px;
+  margin: 2.5rem auto 0;
+  border: 0;
+  border-radius: 2px;
+  background: var(--accent-color);
+  opacity: 0.85;
+}
+.evenement-meta__body {
+  min-width: 0;
+}
+.evenement-meta__label {
+  display: block;
+  margin: 0 0 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+}
+.evenement-meta__primary {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--heading-color);
+}
+.evenement-meta__secondary {
+  margin: 0.3rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+.evenement-meta__maps {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
+  border-radius: 4px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.evenement-meta__maps:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color, #fff);
+  text-decoration: none;
+}
+
+/* Wat kan je vinden — logo-tegels (zelfde taal als meta-kaarten) */
+.evenement-aanbod {
+  margin-top: 2.75rem;
+  text-align: center;
+}
+.evenement-aanbod__title {
+  margin: 0 0 0.65rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+.evenement-aanbod__beschrijving {
+  margin: 0 auto 1.5rem;
+  max-width: 40rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+}
+.evenement-aanbod__list {
+  --aanbod-gap: 1.15rem;
+  --aanbod-cols: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--aanbod-gap);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.evenement-aanbod__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-sizing: border-box;
+  flex: 0 0 calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
+  width: calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
+  max-width: calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
+  min-height: 168px;
+  padding: 1rem 0.75rem 0.9rem;
+  border: none;
+  border-radius: 15px;
+  background: var(--surface-color, #fff);
+  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--heading-color);
+  text-align: center;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.evenement-aanbod__item:hover {
+  box-shadow: 0 8px 28px -6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+}
+.evenement-aanbod__icon-wrap {
+  width: 100%;
+  max-width: none;
+  height: 118px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  box-shadow: none;
+}
+.evenement-aanbod__item:hover .evenement-aanbod__icon-wrap {
+  transform: none;
+  background: transparent;
+  box-shadow: none;
+}
+.evenement-aanbod__icon {
+  width: 92%;
+  height: 100%;
+  max-width: none;
+  max-height: 118px;
+  object-fit: contain;
+  border-radius: 0;
+}
+.evenement-aanbod__icon--fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 92%;
+  height: 100%;
+  color: var(--accent-color);
+  font-size: 2.5rem;
+}
+.evenement-aanbod__name {
+  display: block;
+  max-width: 100%;
+}
+@media (max-width: 991.98px) {
+  .evenement-aanbod__list {
+    --aanbod-cols: 3;
+  }
+}
+@media (max-width: 575.98px) {
+  .evenement-aanbod__list {
+    --aanbod-cols: 2;
+    --aanbod-gap: 0.85rem;
+  }
+  .evenement-aanbod__item {
+    min-height: 148px;
+    padding: 0.85rem 0.55rem 0.75rem;
+  }
+  .evenement-aanbod__icon-wrap {
+    height: 96px;
+  }
+  .evenement-aanbod__icon {
+    width: 94%;
+    max-height: 96px;
+  }
+}
 </style>
 {% endblock %}
 
@@ -124,17 +339,6 @@ ChudartZ Collectibles | {{ evenement.titel }}
               {% endif %}   
 
               <p>{{ evenement.tekst_sectie_a|safe }}</p>
-              <ul>
-                  <li><i class="bi bi-calendar-event"></i><span>
-                    {% if evenement.is_same_day %}
-                      {{ evenement.start_datum|dutch_datetime }} - {{ evenement.einde_datum|dutch_time }}
-                    {% else %}
-                      {{ evenement.start_datum|dutch_datetime }} - {{ evenement.einde_datum|dutch_datetime }}
-                    {% endif %}
-                  </span></li>
-
-                  <li><i class="bi bi-geo-alt"></i><span>{{ evenement.locatie_lang }}</span></li>
-              </ul>
               <div class="evenement-acties">
                 {% if tickets_kopen_mogelijk %}
                 <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="btn btn-get-started">{% trans 'Tickets kopen' %}</a>
@@ -153,6 +357,63 @@ ChudartZ Collectibles | {{ evenement.titel }}
             </div>
             </div>
         </div>
+
+        <div class="evenement-meta" data-aos="fade-up" data-aos-delay="150">
+          <div class="evenement-meta__grid">
+            <div class="evenement-meta__card">
+              <span class="evenement-meta__icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+              <div class="evenement-meta__body">
+                <span class="evenement-meta__label">{% trans "Datum & tijd" %}</span>
+                {% if evenement.is_same_day %}
+                  <p class="evenement-meta__primary">{{ evenement.start_datum|dutch_weekday_date|capfirst }}</p>
+                  <p class="evenement-meta__secondary">{{ evenement.start_datum|dutch_time }} – {{ evenement.einde_datum|dutch_time }}</p>
+                {% else %}
+                  <p class="evenement-meta__primary">{{ evenement.start_datum|dutch_weekday_date|capfirst }} – {{ evenement.einde_datum|dutch_weekday_date|capfirst }}</p>
+                  <p class="evenement-meta__secondary">{{ evenement.start_datum|dutch_time }} – {{ evenement.einde_datum|dutch_time }}</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="evenement-meta__card">
+              <span class="evenement-meta__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+              <div class="evenement-meta__body">
+                <span class="evenement-meta__label">{% trans "Locatie" %}</span>
+                <p class="evenement-meta__primary">{{ evenement.locatie_lang }}</p>
+                <a class="evenement-meta__maps"
+                   href="https://www.google.com/maps/search/?api=1&amp;query={{ evenement.locatie_lang|urlencode }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                  {% trans "Open in Google Maps" %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="evenement-meta__separator" aria-hidden="true" data-aos="fade-up" data-aos-delay="175">
+
+        {% if aanbod %}
+        <div class="evenement-aanbod" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="evenement-aanbod__title">{% trans "Wat kan je vinden" %}</h3>
+          {% if evenement.aanbod_beschrijving %}
+          <p class="evenement-aanbod__beschrijving">{{ evenement.aanbod_beschrijving|linebreaksbr }}</p>
+          {% endif %}
+          <ul class="evenement-aanbod__list">
+            {% for link in aanbod %}
+            <li class="evenement-aanbod__item">
+              <span class="evenement-aanbod__icon-wrap">
+                {% if link.item.icoon %}
+                <img class="evenement-aanbod__icon" src="{{ link.item.icoon.url }}" alt="" width="168" height="112">
+                {% else %}
+                <span class="evenement-aanbod__icon evenement-aanbod__icon--fallback" aria-hidden="true"><i class="bi bi-collection"></i></span>
+                {% endif %}
+              </span>
+              <span class="evenement-aanbod__name">{{ link.item.naam }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
     </section>
 
     <section id="pricing" class="pricing section light-background">

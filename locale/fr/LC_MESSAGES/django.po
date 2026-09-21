@@ -6306,3 +6306,46 @@ msgstr "Facture souhaitée"
 #~ msgstr ""
 #~ "Nous sommes également toujours ouverts aux cours privés, veuillez nous "
 #~ "contacter au"
+
+#: pokemon/templates/pokemon/pages/evenement.html
+msgid "Datum & tijd"
+msgstr "Date et heure"
+
+#: pokemon/templates/pokemon/pages/evenement.html
+msgid "Open in Google Maps"
+msgstr "Ouvrir dans Google Maps"
+
+#: pokemon/templates/pokemon/pages/evenement.html
+#: pokemon/models.py
+msgid "Wat kan je vinden"
+msgstr "Ce que vous trouverez"
+
+#: pokemon/admin.py
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Aanbod beheren"
+msgstr "Gérer l'offre"
+
+#: chudartz/settings.py
+#: pokemon/models.py
+msgid "Aanbod-items"
+msgstr "Articles d'offre"
+
+#: pokemon/models.py
+msgid "Aanbod-item"
+msgstr "Article d'offre"
+
+#: pokemon/models.py
+msgid "Icoon / logo"
+msgstr "Icône / logo"
+
+#: pokemon/models.py
+msgid "Evenement-aanbod"
+msgstr "Offre de l'événement"
+
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Op dit evenement"
+msgstr "Sur cet événement"
+
+#: pokemon/templates/admin/pokemon/aanbod_editor.html
+msgid "Terug naar evenement"
+msgstr "Retour à l'événement"
