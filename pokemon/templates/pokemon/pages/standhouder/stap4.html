@@ -48,12 +48,40 @@
   <h5>{% trans 'Prijsopbouw' %}</h5>
   <table class="prijsopbouw-table">
     {% for regel in prijsopbouw %}
-      <tr{% if regel.is_btw %} class="prijsopbouw-btw"{% endif %}><td>{{ regel.omschrijving }}</td><td>€{{ regel.bedrag }}</td></tr>
+      <tr{% if regel.is_btw %} class="prijsopbouw-btw"{% elif regel.is_korting %} class="prijsopbouw-korting"{% endif %}>
+        <td>{{ regel.omschrijving }}</td>
+        <td>{% if regel.is_korting %}−{% endif %}€{{ regel.bedrag }}</td>
+      </tr>
     {% endfor %}
     <tr><td><strong>{% trans 'Totaal' %}</strong></td><td><strong>€{{ totaal }}</strong></td></tr>
   </table>
 
   {% include "pokemon/pages/standhouder/_borg_melding.html" %}
+</div>
+
+<div class="mb-4">
+  <h5>{% trans 'Kortingscode' %}</h5>
+  <form method="post" class="d-flex gap-2 mb-2" id="kortingscode-form">
+    {% csrf_token %}
+    <input
+      type="text"
+      name="kortingscode"
+      class="form-control"
+      placeholder="{% trans 'Voer kortingscode in' %}"
+      value="{{ kortingscode }}"
+      autocomplete="off"
+      id="kortingscode-input"
+    >
+    <button type="submit" name="apply_kortingscode" class="btn btn-outline-secondary text-nowrap">
+      {% trans 'Toepassen' %}
+    </button>
+  </form>
+  {% if kortingscode and korting_bedrag %}
+    <p class="text-success small mb-0">
+      <i class="bi bi-check-circle"></i>
+      {% blocktrans with code=kortingscode bedrag=korting_bedrag %}Kortingscode "{{ code }}" toegepast (−€{{ bedrag }}){% endblocktrans %}
+    </p>
+  {% endif %}
 </div>
 
 {% if online_betaling %}
@@ -71,6 +99,7 @@
 <form method="post" id="confirm-form" class="register-form">
   {% csrf_token %}
   <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+  <input type="hidden" name="kortingscode" value="{{ kortingscode }}">
 
   <div class="col-md-12 mb-3">
     <div class="form-check">

@@ -15,7 +15,8 @@ logger = logging.getLogger(__name__)
 from django.core.mail import EmailMessage, send_mail
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, UniqueConstraint
+from django.db.models.functions import Lower
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -363,15 +364,45 @@ class KortingscodeType:
     ]
 
 
+class KortingscodeToepassingsgebied:
+    TICKETS = "tickets"
+    STANDHOUDERS = "standhouders"
+
+    CHOICES = [
+        (TICKETS, _("Tickets")),
+        (STANDHOUDERS, _("Standhouders")),
+    ]
+
+
 class Kortingscode(models.Model):
     class Meta:
         verbose_name = _("Kortingscode")
         verbose_name_plural = _("Kortingscodes")
+        constraints = [
+            UniqueConstraint(
+                Lower("code"),
+                "toepassingsgebied",
+                name="pokemon_kortingscode_code_toepassingsgebied_ci_uniq",
+            ),
+        ]
 
     def __str__(self):
         return self.code
 
-    code = models.CharField(_("Code"), max_length=50, unique=True)
+    code = models.CharField(
+        _("Code"),
+        max_length=50,
+        help_text=_(
+            "Zelfde code mag twee keer bestaan: één voor tickets en één voor standhouders."
+        ),
+    )
+    toepassingsgebied = models.CharField(
+        _("Toepassingsgebied"),
+        max_length=20,
+        choices=KortingscodeToepassingsgebied.CHOICES,
+        default=KortingscodeToepassingsgebied.TICKETS,
+        help_text=_("Geldt deze code voor ticketverkoop of standhouder-inschrijvingen?"),
+    )
     discount_type = models.CharField(
         _("Type korting"),
         max_length=10,
@@ -404,7 +435,10 @@ class Kortingscode(models.Model):
         Ticket,
         verbose_name=_("Tickets"),
         blank=True,
-        help_text=_("Leeg = geldig voor alle tickettypes."),
+        help_text=_(
+            "Alleen relevant bij toepassingsgebied Tickets. "
+            "Leeg = geldig voor alle tickettypes."
+        ),
     )
     min_bedrag = MoneyField(
         _("Minimum bestelbedrag"),

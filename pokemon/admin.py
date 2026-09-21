@@ -381,13 +381,25 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
 
 @admin.register(Kortingscode)
 class KortingscodeAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ("code", "discount_type", "amount", "actief", "aantal_gebruikt", "max_gebruik", "geldig_tot")
-    list_filter = ("actief", "discount_type")
+    list_display = (
+        "code",
+        "toepassingsgebied",
+        "discount_type",
+        "amount",
+        "actief",
+        "aantal_gebruikt",
+        "max_gebruik",
+        "geldig_tot",
+    )
+    list_filter = ("actief", "toepassingsgebied", "discount_type")
     search_fields = ("code",)
     filter_horizontal = ("evenementen", "tickets")
     fieldsets = (
         (None, {
-            "fields": ("code", "discount_type", "amount", "actief"),
+            "fields": ("code", "toepassingsgebied", "discount_type", "amount", "actief"),
+            "description": _(
+                "Zelfde code-string mag twee keer: één voor tickets en één voor standhouders."
+            ),
         }),
         (_("Geldigheid"), {
             "fields": ("geldig_van", "geldig_tot", "max_gebruik", "aantal_gebruikt"),

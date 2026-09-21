@@ -38,6 +38,26 @@ def studio_preview_session_key(evenement):
     return f"standhouder_studio_preview_{evenement.slug}"
 
 
+def kortingscode_session_key(evenement):
+    return f"standhouder_kortingscode_{evenement.slug}"
+
+
+def get_standhouder_kortingscode(request, evenement):
+    return (request.session.get(kortingscode_session_key(evenement)) or "").strip()
+
+
+def set_standhouder_kortingscode(request, evenement, code):
+    key = kortingscode_session_key(evenement)
+    if code:
+        request.session[key] = code.strip()
+    else:
+        request.session.pop(key, None)
+
+
+def clear_standhouder_kortingscode(request, evenement):
+    request.session.pop(kortingscode_session_key(evenement), None)
+
+
 STANDHOUDER_STAP_URLS = {
     "tafels": "standhouder",
     "gegevens": "standhouder_gegevens",
@@ -314,7 +334,7 @@ def save_vraag_antwoorden(inschrijving, cleaned_data, vragen):
         )
 
 
-def build_prijsopbouw(inschrijving):
+def build_prijsopbouw(inschrijving, kortingscode=None, korting_bedrag=None):
     from django.utils.translation import gettext
 
     def btw_label(percentage):
@@ -425,7 +445,15 @@ def build_prijsopbouw(inschrijving):
                     "bedrag": btw,
                     "is_btw": True,
                 })
-    totaal = sum((r["bedrag"] for r in regels), Decimal("0"))
+    subtotaal = sum((r["bedrag"] for r in regels), Decimal("0"))
+    if kortingscode and korting_bedrag and korting_bedrag > 0:
+        regels.append({
+            "omschrijving": gettext("Korting (%(code)s)") % {"code": kortingscode.code},
+            "bedrag": korting_bedrag,
+            "is_korting": True,
+            "is_btw": False,
+        })
+    totaal = max(subtotaal - (korting_bedrag or Decimal("0")), Decimal("0"))
     return regels, totaal
 
 

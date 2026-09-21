@@ -48,6 +48,7 @@ from pokemon.payment import MollieClient
 from pokemon.services.standhouder import (
     StandhouderValidationError,
     finalize_inschrijving,
+    validate_standhouder_kortingscode,
     verwerk_standhouder_betaling,
 )
 from pokemon.services.ticket import (
@@ -61,16 +62,19 @@ from pokemon.services.ticket import (
 from pokemon.standhouder_wizard import (
     build_prijsopbouw,
     clear_concept_inschrijving,
+    clear_standhouder_kortingscode,
     email_sent_session_key,
     get_applicable_vragen,
     get_concept_inschrijving,
     get_or_create_concept_inschrijving,
+    get_standhouder_kortingscode,
     get_zaalplan,
     heeft_gegevens,
     pending_inschrijving_session_key,
     save_tafel_keuzes,
     save_vraag_antwoorden,
     serialize_zaalplan_grid,
+    set_standhouder_kortingscode,
     standhouder_base_context,
     voorlopig_session_key,
 )
@@ -668,8 +672,7 @@ def standhouder_overzicht(request, slug):
         return redirect("standhouder_gegevens", slug=slug)
 
     try:
-        inschrijving.bereken_totaal()
-        regels, totaal = build_prijsopbouw(inschrijving)
+        subtotaal = inschrijving.bereken_totaal()
     except Exception:
         logger.exception(
             "Standhouder overzicht prijsberekening mislukt (inschrijving=%s, evenement=%s)",
@@ -677,9 +680,36 @@ def standhouder_overzicht(request, slug):
             evenement.slug,
         )
         raise
+
+    kortingscode_obj = None
+    korting_bedrag = Decimal("0")
+    code = get_standhouder_kortingscode(request, evenement)
+    if code:
+        try:
+            kortingscode_obj, korting_bedrag = validate_standhouder_kortingscode(
+                code, evenement, subtotaal
+            )
+        except StandhouderValidationError:
+            clear_standhouder_kortingscode(request, evenement)
+            code = ""
+
+    try:
+        regels, totaal = build_prijsopbouw(
+            inschrijving, kortingscode_obj, korting_bedrag
+        )
+    except Exception:
+        logger.exception(
+            "Standhouder overzicht prijsopbouw mislukt (inschrijving=%s, evenement=%s)",
+            inschrijving.pk,
+            evenement.slug,
+        )
+        raise
+
     context = standhouder_base_context(request, evenement, "overzicht")
     context["prijsopbouw"] = regels
     context["totaal"] = totaal
+    context["kortingscode"] = code
+    context["korting_bedrag"] = korting_bedrag
     context["antwoorden"] = inschrijving.antwoorden.select_related("vraag").order_by("vraag__volgorde")
     context["online_betaling"] = evenement.standhouder_betaling_verplicht
 
@@ -687,6 +717,22 @@ def standhouder_overzicht(request, slug):
         if not evenement.standhouder_inschrijving_mogelijk:
             context["error"] = "Standhouder inschrijvingen gesloten."
             return TemplateResponse(request, "pokemon/pages/standhouder/error.html", context)
+
+        if "apply_kortingscode" in request.POST:
+            code_input = request.POST.get("kortingscode", "").strip()
+            if code_input:
+                try:
+                    validate_standhouder_kortingscode(code_input, evenement, subtotaal)
+                    set_standhouder_kortingscode(request, evenement, code_input)
+                except StandhouderValidationError as exc:
+                    context["error"] = str(exc)
+                    context["kortingscode"] = code_input
+                    return TemplateResponse(
+                        request, "pokemon/pages/standhouder/stap4.html", context
+                    )
+            else:
+                clear_standhouder_kortingscode(request, evenement)
+            return redirect("standhouder_overzicht", slug=slug)
 
         form = StandhouderOverzichtForm(request.POST)
         if not form.is_valid():
@@ -698,8 +744,11 @@ def standhouder_overzicht(request, slug):
             return TemplateResponse(request, "pokemon/pages/standhouder/stap4.html", context)
 
         try:
-            result = finalize_inschrijving(inschrijving, request)
+            result = finalize_inschrijving(
+                inschrijving, request, kortingscode_str=code
+            )
             clear_concept_inschrijving(request, evenement)
+            clear_standhouder_kortingscode(request, evenement)
             request.session[pending_inschrijving_session_key(evenement)] = inschrijving.pk
             if result.redirect_url:
                 return redirect(result.redirect_url)

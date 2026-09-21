@@ -42,6 +42,16 @@ class TicketOverzichtForm(forms.Form):
 
 
 class StandhouderOverzichtForm(forms.Form):
+    kortingscode = forms.CharField(
+        label=_("Kortingscode"),
+        max_length=50,
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control",
+            "placeholder": "Kortingscode (optioneel)",
+            "autocomplete": "off",
+        }),
+    )
     terms_voorwaarden = forms.BooleanField(required=True)
     terms_privacy = forms.BooleanField(required=True)
     terms_wettelijk = forms.BooleanField(required=True)

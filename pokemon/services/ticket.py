@@ -6,6 +6,7 @@ from django.utils.translation import gettext as _
 
 from pokemon.models import (
     Kortingscode,
+    KortingscodeToepassingsgebied,
     Participant,
     Payment,
     PaymentStatus,
@@ -66,7 +67,10 @@ def validate_kortingscode(code, evenement, quantities):
     if not code or not code.strip():
         return None, Decimal("0")
 
-    kortingscode = Kortingscode.objects.filter(code__iexact=code.strip()).first()
+    kortingscode = Kortingscode.objects.filter(
+        code__iexact=code.strip(),
+        toepassingsgebied=KortingscodeToepassingsgebied.TICKETS,
+    ).first()
     if not kortingscode:
         raise TicketValidationError(_("Deze kortingscode is ongeldig."))
 
