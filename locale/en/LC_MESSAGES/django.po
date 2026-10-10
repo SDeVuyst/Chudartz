@@ -4250,7 +4250,7 @@ msgstr "Advantage"
 
 #: .\pokemon\templates\pokemon\blocks\footer.html:46
 msgid "Huisreglement"
-msgstr "Houuse rules"
+msgstr "House rules"
 
 #: .\pokemon\templates\pokemon\blocks\header.html:43
 #: .\pokemon\templates\pokemon\pages\evenement.html:70
