@@ -2,84 +2,1084 @@
 /*--------------------------------------------------------------
 # Team Section
 --------------------------------------------------------------*/
-.team {
-  .member {
+
+/*--------------------------------------------------------------
+# TCG cards - shared
+--------------------------------------------------------------*/
+// Flex i.p.v. grid: auto-fit telt kolommen op de max-breedte en een losse laatste kaart blijft gecentreerd.
+.tcg-grid {
+  --cols: 3;
+  --gap-x: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4rem var(--gap-x);
+
+  @media (max-width: 1199.98px) {
+    --cols: 2;
+  }
+
+  @media (max-width: 991.98px) {
+    --gap-x: 2rem;
+    row-gap: 3rem;
+  }
+
+  @media (max-width: 767.98px) {
+    --cols: 1;
+  }
+}
+
+.tcg-slot {
+  container-type: inline-size;
+  display: block;
+  flex: 0 0 min(370px, calc((100% - (var(--cols) - 1) * var(--gap-x)) / var(--cols)));
+}
+
+.tcg-groep + .tcg-groep {
+  margin-top: 4.5rem;
+}
+
+.tcg-groep-head {
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto 2.5rem;
+
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--heading-color);
+  }
+
+  p {
+    margin: 0;
+    color: var(--default-color);
+    line-height: 1.55;
+  }
+}
+
+.tcg-empty {
+  text-align: center;
+  color: var(--default-color);
+  margin: 2rem 0 0;
+}
+
+.tcg-slot-link {
+  color: inherit;
+
+  &:hover,
+  &:focus-visible {
+    color: inherit;
+
+    .tcg-caption-more {
+      gap: 0.6rem;
+      color: var(--accent-color);
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    .tcg-slab {
+      outline: 3px solid var(--accent-color);
+      outline-offset: 4px;
+    }
+  }
+}
+
+.tcg-caption {
+  text-align: center;
+  margin-top: 1.4rem;
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.2rem;
+  }
+
+  .tcg-caption-role {
+    font-family: var(--nav-font);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin: 0;
+  }
+
+  .tcg-caption-bio {
+    font-size: 0.9rem;
+    margin: 0.6rem 0 0;
+    color: color-mix(in srgb, var(--default-color), transparent 25%);
+  }
+
+  .tcg-caption-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.8rem;
+    font-family: var(--nav-font);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    transition: 0.3s;
+  }
+}
+
+.tcg-type--dart {
+  --t-strong: #c3111a;
+  --t-mid: #e2454c;
+  --t-pale: #fbe4e3;
+  --t-ink: #ffffff;
+}
+
+.tcg-type--electric {
+  --t-strong: #f2c014;
+  --t-mid: #ffdf5e;
+  --t-pale: #fff8d6;
+  --t-ink: #1b1b1b;
+}
+
+.tcg-type--fire {
+  --t-strong: #e8590c;
+  --t-mid: #ff8a3d;
+  --t-pale: #ffeadb;
+  --t-ink: #ffffff;
+}
+
+.tcg-type--water {
+  --t-strong: #1f78b4;
+  --t-mid: #4fa3d8;
+  --t-pale: #d8effc;
+  --t-ink: #ffffff;
+}
+
+.tcg-type--grass {
+  --t-strong: #3d8b3a;
+  --t-mid: #6cbc62;
+  --t-pale: #e2f5dc;
+  --t-ink: #ffffff;
+}
+
+.tcg-type--psychic {
+  --t-strong: #b83d9a;
+  --t-mid: #d66bbe;
+  --t-pale: #fbe4f5;
+  --t-ink: #ffffff;
+}
+
+.tcg-type--fighting {
+  --t-strong: #c45c2a;
+  --t-mid: #e88955;
+  --t-pale: #f8e4d6;
+  --t-ink: #ffffff;
+}
+
+.tcg-type--darkness {
+  --t-strong: #2c2a3a;
+  --t-mid: #5a5470;
+  --t-pale: #ece8f4;
+  --t-ink: #ffffff;
+}
+
+.tcg-type--metal {
+  --t-strong: #6f777f;
+  --t-mid: #a8b0b8;
+  --t-pale: #eef1f4;
+  --t-ink: #1b1b1b;
+}
+
+.tcg-type--colorless {
+  --t-strong: #b7b1a6;
+  --t-mid: #ddd7cc;
+  --t-pale: #f7f4ee;
+  --t-ink: #1b1b1b;
+}
+
+[data-tcg-tilt] {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  --glare: 0;
+  transform: perspective(var(--tcg-perspective, 1000px)) rotateX(var(--rx)) rotateY(var(--ry));
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(.2, .8, .2, 1), box-shadow 0.5s;
+
+  // Alleen tijdens hover een eigen laag: een permanente will-change houdt de rastering
+  // vast op de kleine schaal van de FLIP-animatie, waardoor de grote kaart wazig wordt.
+  &.is-tilting {
+    transition: transform 0.12s ease-out, box-shadow 0.5s;
+    will-change: transform;
+  }
+}
+
+.tcg-tilt-area {
+  display: block;
+}
+
+.tcg-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  font-size: 4.4cqi;
+  line-height: 1.25;
+  color: #1b1b1b;
+  border-radius: 4.5cqi;
+  overflow: hidden;
+  box-shadow: 0 1.2em 2.4em -1em rgba(0, 0, 0, 0.45), 0 0.2em 0.5em rgba(0, 0, 0, 0.15);
+
+  &[data-tcg-tilt]:hover {
+    box-shadow: 0 2em 3.5em -1.2em rgba(0, 0, 0, 0.55), 0 0.3em 0.8em rgba(0, 0, 0, 0.2);
+  }
+
+  h3 {
+    color: inherit;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.tcg-inner {
+  position: absolute;
+  inset: 0.9em;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.45em 0.6em 0.35em;
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+
+.tcg-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.6), transparent 50%);
+  mix-blend-mode: overlay;
+  opacity: var(--glare);
+  transition: opacity 0.3s;
+}
+
+.tcg-head {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+}
+
+.tcg-name {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: 1.2em;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tcg-hp {
+  font-weight: 800;
+  font-size: 1.05em;
+  white-space: nowrap;
+
+  small {
+    font-size: 0.6em;
+    margin: 0 0.1em;
+  }
+}
+
+.tcg-energy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.35em;
+  height: 1.35em;
+  border-radius: 50%;
+  align-self: center;
+  box-shadow: inset 0 -0.1em 0 rgba(0, 0, 0, 0.25), 0 0 0 0.07em rgba(0, 0, 0, 0.3);
+
+  i {
+    font-size: 0.75em;
+    line-height: 1;
+  }
+
+  &--dart {
+    background: radial-gradient(circle at 35% 30%, #ff6b70, #c3111a 60%, #7d0a10);
+    color: #fff;
+  }
+
+  &--electric {
+    background: radial-gradient(circle at 35% 30%, #fff59d, #f5c518 60%, #c79300);
+    color: #3a2a00;
+  }
+
+  &--fire {
+    background: radial-gradient(circle at 35% 30%, #ffb36b, #e8590c 60%, #a33c00);
+    color: #fff;
+  }
+
+  &--psychic {
+    background: radial-gradient(circle at 35% 30%, #e7a5ff, #9b4dca 60%, #5f2a85);
+    color: #fff;
+  }
+
+  &--colorless {
+    background: radial-gradient(circle at 35% 30%, #ffffff, #e6e6e6 60%, #b5b5b5);
+    color: #555;
+  }
+
+  &--water {
+    background: radial-gradient(circle at 35% 30%, #8fd4ff, #2b8fd0 60%, #145f92);
+    color: #fff;
+  }
+
+  &--grass {
+    background: radial-gradient(circle at 35% 30%, #b7ef9a, #4ca244 60%, #2a6a28);
+    color: #fff;
+  }
+
+  &--fighting {
+    background: radial-gradient(circle at 35% 30%, #ffc08a, #c45c2a 60%, #7a3010);
+    color: #fff;
+  }
+
+  &--darkness {
+    background: radial-gradient(circle at 35% 30%, #8a82a8, #3a3550 60%, #1b1826);
+    color: #fff;
+  }
+
+  &--metal {
+    background: radial-gradient(circle at 35% 30%, #f2f4f6, #9aa3ab 60%, #5c646c);
+    color: #2a2a2a;
+  }
+}
+
+.tcg-art {
+  position: relative;
+  flex: none;
+  aspect-ratio: 1.6;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--t-mid, #999), #fff 40%);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.tcg-art-placeholder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  i {
+    font-size: 7em;
+    line-height: 0.8;
+    color: rgba(0, 0, 0, 0.18);
+  }
+}
+
+.tcg-species {
+  font-size: 0.55em;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  margin: 0.35em auto 0.2em !important;
+  padding: 0.15em 0.9em;
+}
+
+.tcg-attacks {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35em;
+  padding: 0.2em 0.1em;
+  overflow: hidden;
+}
+
+.tcg-ability {
+  .tcg-ability-badge {
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    margin-right: 0.3em;
+    border-radius: 0.2em;
+    background: var(--accent-color);
+    color: #fff;
+    font-size: 0.55em;
+    font-weight: 800;
+    font-style: italic;
+    vertical-align: middle;
+  }
+
+  .tcg-ability-name {
+    font-size: 0.85em;
+    color: var(--accent-color);
+  }
+
+  p {
+    font-size: 0.58em;
+    margin-top: 0.15em;
+  }
+}
+
+.tcg-attack {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.35em;
+
+  & + .tcg-attack,
+  .tcg-ability + & {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding-top: 0.35em;
+  }
+}
+
+.tcg-attack-cost {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.06em;
+
+  .tcg-energy {
+    font-size: 0.72em;
+  }
+
+  &:has(.tcg-energy:nth-child(4)) .tcg-energy {
+    font-size: 0.58em;
+  }
+}
+
+.tcg-attack-name {
+  min-width: 0;
+  font-size: 0.92em;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.tcg-attack-damage {
+  min-width: 1.8em;
+  text-align: right;
+  font-size: 1.15em;
+  font-weight: 500;
+}
+
+.tcg-attack-text {
+  grid-column: 2 / -1;
+  font-size: 0.58em;
+  line-height: 1.3;
+  margin-top: 0.1em !important;
+}
+
+.tcg-stats {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3em 0.2em;
+  font-size: 0.52em;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.tcg-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+}
+
+.tcg-stat-label {
+  font-weight: 700;
+}
+
+.tcg-stat-value {
+  display: flex;
+  align-items: center;
+  gap: 0.1em;
+  min-height: 1.6em;
+
+  .tcg-energy {
+    font-size: 1.4em;
+  }
+
+  small {
+    font-size: 1.1em;
+    font-weight: 700;
+  }
+}
+
+.tcg-flavor {
+  margin: 0.15em 0 0.25em !important;
+  padding: 0.3em 0.5em;
+  font-size: 0.5em;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.tcg-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: auto;
+  font-size: 0.46em;
+  font-weight: 700;
+
+  i {
+    font-size: 0.8em;
+  }
+}
+
+/*--------------------------------------------------------------
+# Card - Klassiek (Base Set 1999)
+--------------------------------------------------------------*/
+.tcg-card--classic {
+  background: linear-gradient(135deg, #f8dc3d 0%, #f1c21f 40%, #fbe46e 55%, #e7b411 100%);
+
+  .tcg-inner {
+    background: linear-gradient(160deg, var(--t-pale) 0%, color-mix(in srgb, var(--t-mid), #fff 55%) 45%, var(--t-pale) 75%, color-mix(in srgb, var(--t-mid), #fff 40%) 100%);
+    box-shadow: inset 0 0 0 0.1em rgba(0, 0, 0, 0.15);
+    padding-top: 0.75em;
+  }
+
+  .tcg-stage {
+    position: absolute;
+    top: -0.75em;
+    left: 0;
+    font-size: 0.5em;
+    font-weight: 700;
+  }
+
+  .tcg-name {
+    font-family: "Gill Sans", "Gill Sans MT", var(--heading-font);
+  }
+
+  .tcg-hp {
+    color: var(--accent-color);
+  }
+
+  .tcg-art {
+    margin-top: 0.2em;
+    border: 0.28em solid transparent;
+    background:
+      linear-gradient(color-mix(in srgb, var(--t-mid), #fff 40%), color-mix(in srgb, var(--t-mid), #fff 40%)) padding-box,
+      linear-gradient(135deg, #b0b0b0, #f6f6f6 35%, #8f8f8f 60%, #e0e0e0) border-box;
+    box-shadow: 0.1em 0.15em 0.3em rgba(0, 0, 0, 0.35);
+  }
+
+  .tcg-species {
+    width: 90%;
+    color: #3a2a00;
+    background: linear-gradient(90deg, #b9932b, #f7e08b 30%, #d4ae45 70%, #a37f1f);
+  }
+
+  .tcg-flavor {
+    border: 0.12em solid #d4ae45;
+    background: rgba(255, 255, 255, 0.35);
+  }
+}
+
+/*--------------------------------------------------------------
+# Graded slab
+--------------------------------------------------------------*/
+.tcg-slab {
+  container-type: inline-size;
+  position: relative;
+  padding: 4cqi;
+  border-radius: 3cqi;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(222, 228, 234, 0.7) 45%, rgba(255, 255, 255, 0.9));
+  box-shadow:
+    0 1.5rem 3rem -1.2rem rgba(0, 0, 0, 0.45),
+    inset 0 0 0 0.4cqi rgba(255, 255, 255, 0.9),
+    inset 0 0 0 0.7cqi rgba(0, 0, 0, 0.05);
+
+  .tcg-glare {
+    mix-blend-mode: soft-light;
+  }
+
+  .tcg-card {
+    box-shadow: 0 0.3em 0.8em rgba(0, 0, 0, 0.2);
+
+    .tcg-glare {
+      display: none;
+    }
+  }
+}
+
+.tcg-slab-label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.3em 1em;
+  margin-bottom: 3.5cqi;
+  padding: 2.4cqi 3cqi;
+  font-family: var(--nav-font);
+  font-size: 3.4cqi;
+  line-height: 1.3;
+  color: #1b1b1b;
+  background: #fff;
+  border: 0.5cqi solid var(--accent-color);
+  border-radius: 1cqi;
+}
+
+.tcg-slab-brand {
+  display: block;
+  font-family: var(--logo-font);
+  font-size: 1.55em;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  color: var(--accent-color);
+}
+
+.tcg-slab-desc {
+  display: block;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tcg-slab-grade {
+  text-align: center;
+
+  small {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 700;
+  }
+
+  b {
+    font-size: 2.2em;
+    font-weight: 800;
+    line-height: 1;
+  }
+}
+
+.tcg-slab-cert {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65em;
+  letter-spacing: 0.08em;
+  color: #666;
+}
+
+.tcg-slab-barcode {
+  width: 9em;
+  height: 1.2em;
+  background: repeating-linear-gradient(90deg, #222 0 1px, transparent 1px 3px, #222 3px 5px, transparent 5px 6px, #222 6px 7px, transparent 7px 10px);
+}
+
+.tcg-slab-window {
+  container-type: inline-size;
+  padding: 3cqi;
+  border-radius: 2cqi;
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 0.3em 0.8em rgba(0, 0, 0, 0.12);
+}
+
+@media (hover: hover) {
+  .tcg-slot-link:hover .tcg-slab {
+    box-shadow:
+      0 2.2rem 3.5rem -1.4rem rgba(0, 0, 0, 0.55),
+      inset 0 0 0 0.4cqi rgba(255, 255, 255, 0.9),
+      inset 0 0 0 0.7cqi rgba(0, 0, 0, 0.05);
+  }
+}
+
+/*--------------------------------------------------------------
+# Teamlid info
+--------------------------------------------------------------*/
+.team-lid-info {
+  .team-lid-role {
+    font-family: var(--nav-font);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 0.4rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .team-lid-lead {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--heading-color);
+  }
+
+  > p {
+    line-height: 1.75;
+  }
+
+  .team-lid-quote {
     position: relative;
+    margin: 2rem 0;
+    padding: 0.4rem 0 0.4rem 1.5rem;
+    border-left: 3px solid var(--accent-color);
 
-    .member-img {
-      margin: 0 80px;
-      border-radius: 50%;
-      overflow: hidden;
+    i {
+      position: absolute;
+      top: -0.9rem;
+      left: 1.1rem;
+      font-size: 2.6rem;
+      line-height: 1;
+      color: color-mix(in srgb, var(--accent-color), transparent 80%);
+    }
+
+    p {
       position: relative;
-      border: 4px solid var(--background-color);
-      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.2);
+      margin: 0;
+      font-family: var(--heading-font);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--heading-color);
+    }
+  }
 
-      @media (max-width: 1024px) {
-        margin: 0 60px;
-      }
+  .team-lid-sheet {
+    margin: 2rem 0;
 
-      img {
-        position: relative;
-        z-index: 1;
-      }
+    dl {
+      margin: 0;
+      padding-top: 0.35rem;
 
-      .social {
-        position: absolute;
-        inset: 0;
-        background-color: rgba(0, 0, 0, .6);
+      > div {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2;
-        padding-bottom: 20px;
-        transition: 0.3s;
-        visibility: hidden;
-        opacity: 0;
-
-        a {
-          transition: 0.3s;
-          color: var(--contrast-color);
-          font-size: 20px;
-          margin: 0 8px;
-
-          &:hover {
-            color: var(--accent-color);
-          }
-        }
+        align-items: baseline;
+        gap: 0.75rem;
+        padding: 0.45rem 0;
       }
     }
 
-    .member-info {
-      margin-top: 30px;
+    dt {
+      display: flex;
+      flex: 1;
+      align-items: baseline;
+      gap: 0.75rem;
+      min-width: 0;
+      font-family: var(--nav-font);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
 
-      h4 {
-        font-weight: 700;
-        margin-bottom: 6px;
-        font-size: 18px;
-      }
-
-      span {
-        font-style: italic;
-        display: block;
-        font-size: 15px;
-        color: color-mix(in srgb, var(--default-color), transparent 40%);
-        margin-bottom: 10px;
-      }
-
-      p {
-        margin-bottom: 0;
-        font-size: 14px;
-      }
-    }
-
-    &:hover {
-      .member-img {
-        .social {
-          padding-bottom: 0;
-          visibility: visible;
-          opacity: 1;
-        }
+      &::after {
+        content: "";
+        flex: 1;
+        min-width: 1.5rem;
+        border-bottom: 2px dotted color-mix(in srgb, var(--default-color), transparent 78%);
       }
     }
+
+    dd {
+      max-width: 55%;
+      margin: 0;
+      font-family: var(--heading-font);
+      font-weight: 700;
+      text-align: right;
+      color: var(--heading-color);
+    }
+  }
+
+  .team-lid-sheet-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
+    white-space: nowrap;
+    padding-bottom: 0.55rem;
+    border-bottom: 2px solid var(--accent-color);
+    font-family: var(--nav-font);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: color-mix(in srgb, var(--default-color), transparent 50%);
+
+    span:first-child {
+      font-family: var(--logo-font);
+      font-size: 1.4rem;
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--accent-color);
+    }
+  }
+
+  .team-lid-socials {
+    display: flex;
+    gap: 0.6rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      color: var(--heading-color);
+      border: 1px solid color-mix(in srgb, var(--default-color), transparent 80%);
+      transition: 0.3s;
+
+      &:hover {
+        color: var(--contrast-color);
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+      }
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+# Teamlid modal
+--------------------------------------------------------------*/
+html.team-modal-open {
+  overflow: hidden;
+}
+
+.team-modal {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  &::backdrop {
+    background: transparent;
+  }
+}
+
+.team-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--accent-color), transparent 75%), transparent 55%),
+    rgba(12, 12, 14, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.team-modal-inner {
+  position: relative;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 440px) minmax(0, 520px);
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 5rem 6rem;
+
+  @media (max-height: 959.98px) {
+    align-items: start;
+  }
+
+  // Zijmarge laat ruimte voor de pijltjes, die verticaal gecentreerd aan de rand staan.
+  @media (max-width: 1199.98px) {
+    grid-template-columns: minmax(0, 420px) minmax(0, 480px);
+    align-items: start;
+    gap: 2.5rem;
+    padding: 5.5rem 5rem 4rem;
+  }
+
+  @media (max-width: 1199.98px) and (orientation: portrait) {
+    grid-template-columns: minmax(0, 600px);
+    justify-items: center;
+    gap: 2.5rem;
+  }
+
+  @media (max-width: 767.98px) {
+    grid-template-columns: minmax(0, 420px);
+    gap: 2rem;
+    padding: 5rem 1.75rem 3rem;
+  }
+}
+
+.team-modal-card {
+  container-type: inline-size;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  // Slab is ca. 0.63 zo breed als hoog: zo past de hele kaart op korte schermen in beeld.
+  max-width: min(440px, calc((100vh - 9rem) * 0.63));
+  max-width: min(440px, calc((100dvh - 9rem) * 0.63));
+  justify-self: center;
+
+  @media (max-height: 959.98px) {
+    position: sticky;
+    top: 5rem;
+  }
+
+  @media (max-width: 1199.98px) {
+    position: sticky;
+    top: 5.5rem;
+  }
+
+  @media (max-width: 1199.98px) and (orientation: portrait) {
+    position: relative;
+    top: auto;
+    max-width: min(440px, calc((100vh - 14rem) * 0.63));
+    max-width: min(440px, calc((100dvh - 14rem) * 0.63));
+  }
+
+  @media (max-width: 767.98px) {
+    max-width: min(290px, calc((100vh - 12rem) * 0.63));
+    max-width: min(290px, calc((100dvh - 12rem) * 0.63));
+  }
+
+  .tcg-slab {
+    box-shadow:
+      0 2.5rem 5rem -1.5rem rgba(0, 0, 0, 0.7),
+      inset 0 0 0 0.4cqi rgba(255, 255, 255, 0.9),
+      inset 0 0 0 0.7cqi rgba(0, 0, 0, 0.05);
+  }
+}
+
+.team-modal-info {
+  position: relative;
+  width: 100%;
+  padding: 2.25rem 2.5rem;
+  color: var(--default-color);
+  background: var(--surface-color);
+  border-top: 4px solid var(--accent-color);
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+
+  .team-lid-sheet {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 1199.98px) {
+    padding: 2rem;
+  }
+
+  @media (max-width: 767.98px) {
+    width: 100%;
+    padding: 1.75rem 1.4rem;
+
+    h2 {
+      font-size: 1.7rem;
+    }
+  }
+}
+
+// Onder desktopbreedte zweeft de sluitknop boven tekst: geef hem een donkere strook.
+@media (max-width: 1199.98px) {
+  .team-modal-controls::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: 5.5rem;
+    background: linear-gradient(to bottom, rgba(12, 12, 14, 0.92) 45%, transparent);
+    pointer-events: none;
+  }
+}
+
+.team-modal-controls button {
+  position: fixed;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  font-size: 1.2rem;
+  color: var(--heading-color);
+  background: var(--surface-color);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--contrast-color);
+    background: var(--accent-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--contrast-color);
+    outline-offset: 2px;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.team-modal-close {
+  top: 1.25rem;
+  right: 1.25rem;
+
+  @media (max-width: 767.98px) {
+    top: 0.9rem;
+    right: 0.9rem;
+  }
+}
+
+.team-modal-controls .team-modal-arrow {
+  top: 50%;
+  transform: translateY(-50%);
+
+  @media (max-width: 767.98px) {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+}
+
+.team-modal-prev {
+  left: 1.5rem;
+
+  @media (max-width: 1199.98px) {
+    left: 1.25rem;
+  }
+
+  @media (max-width: 767.98px) {
+    left: 0.35rem;
+  }
+}
+
+.team-modal-next {
+  right: 1.5rem;
+
+  @media (max-width: 1199.98px) {
+    right: 1.25rem;
+  }
+
+  @media (max-width: 767.98px) {
+    right: 0.35rem;
   }
 }

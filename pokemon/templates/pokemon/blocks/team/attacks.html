@@ -1,0 +1,17 @@
+<div class="tcg-attacks">
+  {% if person.ability %}
+  <div class="tcg-ability">
+    <span class="tcg-ability-badge">Ability</span>
+    <strong class="tcg-ability-name">{{ person.ability.naam }}</strong>
+    <p>{{ person.ability.tekst }}</p>
+  </div>
+  {% endif %}
+  {% for aanval in person.aanvallen %}
+  <div class="tcg-attack">
+    <span class="tcg-attack-cost">{% for kost_type in aanval.kost %}{% include 'pokemon/blocks/team/energy.html' with type=kost_type %}{% endfor %}</span>
+    <strong class="tcg-attack-name">{{ aanval.naam }}</strong>
+    <span class="tcg-attack-damage">{{ aanval.schade }}</span>
+    {% if aanval.tekst %}<p class="tcg-attack-text">{{ aanval.tekst }}</p>{% endif %}
+  </div>
+  {% endfor %}
+</div>

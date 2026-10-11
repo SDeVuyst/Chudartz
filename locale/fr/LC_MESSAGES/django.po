@@ -608,6 +608,107 @@ msgstr "Liens utiles"
 msgid "Over Ons"
 msgstr "Qui sommes-nous"
 
+msgid "Ons Team"
+msgstr "Notre équipe"
+
+msgid "De mensen achter ChudartZ Collectibles"
+msgstr "Les personnes derrière ChudartZ Collectibles"
+
+msgid "Maak kennis met het team achter ChudartZ Collectibles — de mensen die onze beurzen, events en community draaiende houden."
+msgstr "Découvrez l’équipe derrière ChudartZ Collectibles — les personnes qui font vivre nos salons, événements et communauté."
+
+msgid "Wie wij zijn"
+msgstr "Qui nous sommes"
+
+msgid ""
+"\n"
+"            ChudartZ Collectibles draait op een klein, gedreven team. Maak hier kennis met de mensen achter onze beurzen, events en community.\n"
+"            "
+msgstr ""
+"\n"
+"            ChudartZ Collectibles repose sur une petite équipe motivée. Découvrez ici les personnes derrière nos salons, événements et communauté.\n"
+"            "
+
+msgid "Het team wordt binnenkort voorgesteld."
+msgstr "L’équipe sera bientôt présentée."
+
+msgid "Organisator"
+msgstr "Organisateur"
+
+msgid ""
+"\n"
+"                Placeholder-tekst. Hier komt later een korte bio over Senne en zijn rol binnen ChudartZ Collectibles.\n"
+"                "
+msgstr ""
+"\n"
+"                Texte provisoire. Une courte bio sur Senne et son rôle au sein de ChudartZ Collectibles suivra plus tard.\n"
+"                "
+
+msgid "Rol"
+msgstr "Rôle"
+
+msgid "Naam Voornaam"
+msgstr "Prénom Nom"
+
+msgid ""
+"\n"
+"                Placeholder voor een tweede teamlid. Foto, naam, rol en bio worden later ingevuld.\n"
+"                "
+msgstr ""
+"\n"
+"                Placeholder pour un deuxième membre. Photo, nom, rôle et bio seront complétés plus tard.\n"
+"                "
+
+msgid ""
+"\n"
+"                Placeholder voor een derde teamlid. Dezelfde opbouw als hierboven, klaar voor echte content.\n"
+"                "
+msgstr ""
+"\n"
+"                Placeholder pour un troisième membre. Même structure que ci-dessus, prête pour le contenu réel.\n"
+"                "
+
+msgid "ons-team"
+msgstr "notre-equipe"
+
+msgid "Basis Teamlid"
+msgstr "Membre de base"
+
+
+msgid "Bekijk kaart"
+msgstr "Voir la carte"
+
+#, python-format
+msgid "Bekijk de kaart van %(naam)s"
+msgstr "Voir la carte de %(naam)s"
+
+
+msgid "Sluiten"
+msgstr "Fermer"
+
+msgid "Vorige teamlid"
+msgstr "Membre précédent"
+
+msgid "Volgende teamlid"
+msgstr "Membre suivant"
+
+msgid "Kaartgegevens"
+msgstr "Données de la carte"
+
+
+
+msgid "zwakte"
+msgstr "faiblesse"
+
+msgid "resistentie"
+msgstr "résistance"
+
+msgid "terugtrekken"
+msgstr "retraite"
+
+msgid "Je mag tijdens je beurt maar 1 Supporter-kaart spelen."
+msgstr "Vous ne pouvez jouer qu'une seule carte Supporter pendant votre tour."
+
 #: .\darts\templates\blocks\footer.html:46
 #: .\darts\templates\pages\algemene-voorwaarden.html:19
 #: .\pokemon\templates\pokemon\blocks\footer.html:42

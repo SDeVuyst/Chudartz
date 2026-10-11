@@ -13,12 +13,13 @@ from django.utils.translation import pgettext_lazy
 
 logger = logging.getLogger(__name__)
 from django.core.mail import EmailMessage, send_mail
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Q, UniqueConstraint
 from django.db.models.functions import Lower
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
@@ -1852,3 +1853,201 @@ class GateScanLog(models.Model):
     def __str__(self):
         outcome = _("accepted") if self.success else _("rejected")
         return f"{self.device.name} — {outcome} — {self.created_at:%Y-%m-%d %H:%M:%S}"
+
+
+class TeamKaartType(models.TextChoices):
+    DART = "dart", "Dart"
+    ELECTRIC = "electric", "Elektrisch"
+    FIRE = "fire", "Vuur"
+    WATER = "water", "Water"
+    GRASS = "grass", "Gras"
+    PSYCHIC = "psychic", "Psychisch"
+    FIGHTING = "fighting", "Vecht"
+    DARKNESS = "darkness", "Duister"
+    METAL = "metal", "Metaal"
+    COLORLESS = "colorless", "Kleurloos"
+
+
+class TeamSocialPlatform(models.TextChoices):
+    INSTAGRAM = "instagram", "Instagram"
+    FACEBOOK = "facebook", "Facebook"
+    TIKTOK = "tiktok", "TikTok"
+    YOUTUBE = "youtube", "YouTube"
+    TWITTER = "twitter-x", "X / Twitter"
+    LINKEDIN = "linkedin", "LinkedIn"
+    EMAIL = "envelope-fill", "E-mail"
+    WEBSITE = "globe", "Website"
+
+
+class TeamGroep(models.Model):
+    """Subgroep op de Ons Team-pagina (bv. Bestuur, Crew)."""
+
+    class Meta:
+        ordering = ["volgorde", "pk"]
+        verbose_name = "Teamgroep"
+        verbose_name_plural = "Teamgroepen"
+
+    naam = models.CharField(max_length=80, verbose_name="Naam")
+    beschrijving = models.TextField(blank=True, verbose_name="Beschrijving")
+    zichtbaar = models.BooleanField(default=True, verbose_name="Zichtbaar op de site")
+    volgorde = models.PositiveIntegerField(default=0, verbose_name="Volgorde")
+
+    def __str__(self) -> str:
+        return self.naam
+
+
+class TeamLid(models.Model):
+    """Een teamlid, weergegeven als customizable TCG-kaart in een slab."""
+
+    class Meta:
+        ordering = ["groep__volgorde", "groep_id", "volgorde", "pk"]
+        verbose_name = "Teamlid"
+        verbose_name_plural = "Teamleden"
+
+    groep = models.ForeignKey(
+        TeamGroep,
+        on_delete=models.PROTECT,
+        related_name="leden",
+        verbose_name="Groep",
+    )
+    volgorde = models.PositiveIntegerField(default=0, verbose_name="Volgorde in groep")
+    zichtbaar = models.BooleanField(default=True, verbose_name="Zichtbaar op de site")
+
+    naam = models.CharField(max_length=60, verbose_name="Naam")
+    slug = models.SlugField(max_length=70, unique=True, verbose_name="Slug")
+    rol = models.CharField(max_length=80, blank=True, verbose_name="Rol")
+    bio = models.TextField(
+        blank=True,
+        verbose_name="Korte bio",
+        help_text="Eén of twee zinnen, onder de kaart en bovenaan het detailvenster.",
+    )
+
+    kaart_type = models.CharField(
+        max_length=20,
+        choices=TeamKaartType.choices,
+        default=TeamKaartType.DART,
+        verbose_name="Kaarttype",
+    )
+    hp = models.PositiveSmallIntegerField(
+        default=100, validators=[MaxValueValidator(999)], verbose_name="HP"
+    )
+    fase = models.CharField(max_length=40, default="Basis Teamlid", verbose_name="Fase")
+    foto = models.ImageField(
+        upload_to="team/",
+        blank=True,
+        validators=[validate_image_max_size],
+        verbose_name="Foto",
+        help_text="Liggend formaat werkt het best (ongeveer 3:2).",
+    )
+    soort = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name="Soortregel",
+        help_text="De kleine regel onder de foto, bv. 'Organisator-Pokémon · Lengte 1,85 m'.",
+    )
+
+    ability_naam = models.CharField(max_length=40, blank=True, verbose_name="Ability naam")
+    ability_tekst = models.TextField(blank=True, verbose_name="Ability tekst")
+
+    zwakte = models.CharField(
+        max_length=20, choices=TeamKaartType.choices, blank=True, verbose_name="Zwakte"
+    )
+    zwakte_waarde = models.CharField(max_length=10, default="×2", blank=True, verbose_name="Zwakte waarde")
+    resistentie = models.CharField(
+        max_length=20, choices=TeamKaartType.choices, blank=True, verbose_name="Resistentie"
+    )
+    resistentie_waarde = models.CharField(
+        max_length=10, default="-30", blank=True, verbose_name="Resistentie waarde"
+    )
+    terugtrek = models.PositiveSmallIntegerField(
+        default=1, validators=[MaxValueValidator(5)], verbose_name="Terugtrekkosten"
+    )
+    flavor = models.TextField(blank=True, verbose_name="Flavortekst")
+    illustrator = models.CharField(max_length=40, default="ChudartZ", blank=True, verbose_name="Illustrator")
+
+    slab_label = models.CharField(max_length=20, default="GEM MT", blank=True, verbose_name="Grade label")
+    slab_grade = models.CharField(max_length=4, default="10", blank=True, verbose_name="Grade")
+
+    over = models.TextField(
+        blank=True,
+        verbose_name="Over",
+        help_text="Langere tekst in het detailvenster. Laat een lege regel tussen alinea's.",
+    )
+    quote = models.CharField(max_length=200, blank=True, verbose_name="Quote")
+
+    def __str__(self) -> str:
+        return self.naam
+
+    def get_absolute_url(self):
+        return f"{reverse('ons_team')}#{self.slug}"
+
+    def as_kaart(self, *, nummer: str, totaal: str) -> dict:
+        from pokemon.team import lid_to_kaart
+
+        return lid_to_kaart(self, nummer=nummer, totaal=totaal)
+
+
+class TeamLidAanval(models.Model):
+    class Meta:
+        ordering = ["volgorde", "pk"]
+        verbose_name = "Aanval"
+        verbose_name_plural = "Aanvallen"
+
+    teamlid = models.ForeignKey(TeamLid, on_delete=models.CASCADE, related_name="aanvallen")
+    naam = models.CharField(max_length=40, verbose_name="Naam")
+    kost = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name="Energiekosten",
+        help_text="Kommagescheiden kaarttypes.",
+    )
+    schade = models.CharField(max_length=10, blank=True, verbose_name="Schade")
+    tekst = models.TextField(blank=True, verbose_name="Tekst")
+    volgorde = models.PositiveIntegerField(default=0, verbose_name="Volgorde")
+
+    def __str__(self) -> str:
+        return self.naam
+
+    @property
+    def kost_lijst(self) -> list[str]:
+        return [k for k in (s.strip() for s in self.kost.split(",")) if k]
+
+
+class TeamLidWeetje(models.Model):
+    class Meta:
+        ordering = ["volgorde", "pk"]
+        verbose_name = "Kaartgegeven"
+        verbose_name_plural = "Kaartgegevens"
+
+    teamlid = models.ForeignKey(TeamLid, on_delete=models.CASCADE, related_name="weetjes")
+    label = models.CharField(max_length=40, verbose_name="Label")
+    waarde = models.CharField(max_length=120, verbose_name="Waarde")
+    volgorde = models.PositiveIntegerField(default=0, verbose_name="Volgorde")
+
+    def __str__(self) -> str:
+        return self.label
+
+
+class TeamLidSocial(models.Model):
+    class Meta:
+        ordering = ["volgorde", "pk"]
+        verbose_name = "Social link"
+        verbose_name_plural = "Social links"
+
+    teamlid = models.ForeignKey(TeamLid, on_delete=models.CASCADE, related_name="socials")
+    platform = models.CharField(max_length=20, choices=TeamSocialPlatform.choices, verbose_name="Platform")
+    url = models.CharField(
+        max_length=300,
+        verbose_name="Link",
+        help_text="Volledige URL, of een e-mailadres bij E-mail.",
+    )
+    volgorde = models.PositiveIntegerField(default=0, verbose_name="Volgorde")
+
+    def __str__(self) -> str:
+        return f"{self.get_platform_display()} — {self.url}"
+
+    @property
+    def href(self) -> str:
+        if self.platform == TeamSocialPlatform.EMAIL and not self.url.startswith("mailto:"):
+            return f"mailto:{self.url}"
+        return self.url

@@ -1,0 +1,21 @@
+{% if type == 'dart' %}
+<span class="tcg-energy tcg-energy--dart" aria-label="dart"><i class="bi bi-bullseye"></i></span>
+{% elif type == 'electric' %}
+<span class="tcg-energy tcg-energy--electric" aria-label="electric"><i class="bi bi-lightning-charge-fill"></i></span>
+{% elif type == 'fire' %}
+<span class="tcg-energy tcg-energy--fire" aria-label="fire"><i class="bi bi-fire"></i></span>
+{% elif type == 'water' %}
+<span class="tcg-energy tcg-energy--water" aria-label="water"><i class="bi bi-droplet-fill"></i></span>
+{% elif type == 'grass' %}
+<span class="tcg-energy tcg-energy--grass" aria-label="grass"><i class="bi bi-tree-fill"></i></span>
+{% elif type == 'psychic' %}
+<span class="tcg-energy tcg-energy--psychic" aria-label="psychic"><i class="bi bi-eye-fill"></i></span>
+{% elif type == 'fighting' %}
+<span class="tcg-energy tcg-energy--fighting" aria-label="fighting"><i class="bi bi-hammer"></i></span>
+{% elif type == 'darkness' %}
+<span class="tcg-energy tcg-energy--darkness" aria-label="darkness"><i class="bi bi-moon-fill"></i></span>
+{% elif type == 'metal' %}
+<span class="tcg-energy tcg-energy--metal" aria-label="metal"><i class="bi bi-gem"></i></span>
+{% else %}
+<span class="tcg-energy tcg-energy--colorless" aria-label="colorless"><i class="bi bi-star-fill"></i></span>
+{% endif %}

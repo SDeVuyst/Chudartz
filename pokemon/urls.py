@@ -25,7 +25,7 @@ urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path(_('over-ons'), views.over_ons, name="over_ons"),
-    path(_('contact'), views.contact, name='contact'),
+    path(_('ons-team'), views.ons_team, name="ons_team"),    path(_('contact'), views.contact, name='contact'),
 
     path(_('evenementen'), views.evenementen, name="evenementen"),
     path(_('evenement/<slug:slug>/'), views.evenement, name='evenement'),

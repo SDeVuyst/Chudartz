@@ -1,0 +1,24 @@
+{% now "Y" as jaar %}
+<div class="tcg-tilt-area" data-tcg-tilt-area>
+<div class="tcg-slab" data-tcg-tilt>
+  <div class="tcg-slab-label">
+    <div>
+      <span class="tcg-slab-brand">ChudartZ Grading</span>
+      <span class="tcg-slab-desc">{{ jaar }} ChudartZ Team #{{ person.nummer }}</span>
+      <span class="tcg-slab-desc">{{ person.naam }}{% if person.rol %} - {{ person.rol }}{% endif %}</span>
+    </div>
+    <div class="tcg-slab-grade">
+      <small>{{ person.slab_label|default:"GEM MT" }}</small>
+      <b>{{ person.slab_grade|default:"10" }}</b>
+    </div>
+    <div class="tcg-slab-cert">
+      <span>CERT CZ-{{ jaar }}-{{ person.nummer }}</span>
+      <span class="tcg-slab-barcode" aria-hidden="true"></span>
+    </div>
+  </div>
+  <div class="tcg-slab-window">
+    {% include 'pokemon/blocks/team/card-classic.html' with no_tilt=True %}
+  </div>
+  <span class="tcg-glare" aria-hidden="true"></span>
+</div>
+</div>

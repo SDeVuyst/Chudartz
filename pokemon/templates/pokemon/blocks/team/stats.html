@@ -1,0 +1,15 @@
+{% load i18n %}
+<div class="tcg-stats">
+  <div class="tcg-stat">
+    <span class="tcg-stat-label">{% trans 'zwakte' %}</span>
+    <span class="tcg-stat-value">{% if person.zwakte %}{% include 'pokemon/blocks/team/energy.html' with type=person.zwakte %}<small>{{ person.zwakte_waarde|default:"×2" }}</small>{% endif %}</span>
+  </div>
+  <div class="tcg-stat">
+    <span class="tcg-stat-label">{% trans 'resistentie' %}</span>
+    <span class="tcg-stat-value">{% if person.resistentie %}{% include 'pokemon/blocks/team/energy.html' with type=person.resistentie %}<small>{{ person.resistentie_waarde|default:"-30" }}</small>{% endif %}</span>
+  </div>
+  <div class="tcg-stat">
+    <span class="tcg-stat-label">{% trans 'terugtrekken' %}</span>
+    <span class="tcg-stat-value">{% for _ in ""|ljust:person.terugtrek %}{% include 'pokemon/blocks/team/energy.html' with type='colorless' %}{% endfor %}</span>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{% if person.afbeelding %}
+<img src="{{ person.afbeelding }}" alt="{{ person.naam }}" loading="lazy">
+{% else %}
+<div class="tcg-art-placeholder" aria-hidden="true">
+  <i class="bi bi-person-fill"></i>
+</div>
+{% endif %}

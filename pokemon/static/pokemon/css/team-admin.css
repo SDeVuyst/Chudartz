@@ -1,0 +1,224 @@
+.te-editor {
+  --te-bg: #f9fafb;
+  --te-surface: #ffffff;
+  --te-border: #e5e7eb;
+  --te-text: #111827;
+  --te-muted: #6b7280;
+  --te-accent: #c3111a;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.dark .te-editor {
+  --te-bg: #0f172a;
+  --te-surface: #1e293b;
+  --te-border: #334155;
+  --te-text: #e2e8f0;
+  --te-muted: #94a3b8;
+  --te-accent: #e2454c;
+}
+
+@media (max-width: 1280px) {
+  .te-editor {
+    grid-template-columns: 1fr;
+  }
+
+  .te-preview {
+    position: relative;
+    top: 0;
+    order: -1;
+  }
+}
+
+.te-preview {
+  position: sticky;
+  top: 5.5rem;
+  background: var(--te-surface);
+  border: 1px solid var(--te-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.te-preview-head {
+  padding: 0.85rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--te-border);
+}
+
+.te-preview-head strong {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--te-text);
+}
+
+.te-preview-head span {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--te-muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.te-preview-frame {
+  display: block;
+  width: 100%;
+  height: min(78vh, 920px);
+  border: 0;
+  background: #ececec;
+}
+
+.te-energy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 14rem;
+}
+
+.te-energy-value {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.te-energy-selected,
+.te-energy-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.te-energy-chip,
+.te-energy-add {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: inset 0 -0.1em 0 rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.te-energy-add {
+  opacity: 0.88;
+}
+
+.te-energy-add:hover,
+.te-energy-chip:hover {
+  opacity: 1;
+  filter: brightness(1.08);
+}
+
+.te-energy-chip {
+  position: relative;
+}
+
+.te-energy-chip::after {
+  content: "×";
+  position: absolute;
+  top: -0.35rem;
+  right: -0.3rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: #111827;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 0.9rem;
+  text-align: center;
+}
+
+.te-energy--dart { background: #c3111a; }
+.te-energy--electric { background: #d4a017; color: #1b1b1b; }
+.te-energy--fire { background: #e8590c; }
+.te-energy--water { background: #1f78b4; }
+.te-energy--grass { background: #3d8b3a; }
+.te-energy--psychic { background: #b83d9a; }
+.te-energy--fighting { background: #c45c2a; }
+.te-energy--darkness { background: #3a3550; }
+.te-energy--metal { background: #6f777f; }
+.te-energy--colorless { background: #b7b1a6; color: #1b1b1b; }
+
+#aanvallen-group:not(.te-step-show),
+#weetjes-group:not(.te-step-show),
+#socials-group:not(.te-step-show) {
+  display: none !important;
+}
+
+.te-step-bar {
+  display: flex;
+  margin: 0 0 1.25rem;
+}
+
+.te-step-hint {
+  margin: 0;
+  flex: 1 1 16rem;
+  color: var(--te-muted, #6b7280);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.te-step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.te-step-prev {
+  margin-right: auto;
+}
+
+.te-step-prev,
+.te-step-next {
+  appearance: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.te-step-prev {
+  border: 1px solid var(--te-border, #e5e7eb);
+  background: var(--te-surface, #fff);
+  color: var(--te-text, #111827);
+}
+
+.te-step-next {
+  border: 1px solid #c3111a;
+  background: #c3111a;
+  color: #fff;
+}
+
+.te-step-next:hover { background: #ae0f17; }
+
+.dark .te-step-bar {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.dark .te-step-prev {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}

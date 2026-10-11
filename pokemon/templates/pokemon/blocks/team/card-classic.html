@@ -1,0 +1,21 @@
+{% load i18n %}
+<article class="tcg-card tcg-card--classic tcg-type--{{ person.type }}"{% if not no_tilt %} data-tcg-tilt{% endif %}>
+  <div class="tcg-inner">
+    <header class="tcg-head">
+      <span class="tcg-stage">{{ person.fase|default:"Basis Teamlid" }}</span>
+      <h3 class="tcg-name">{{ person.naam }}</h3>
+      <span class="tcg-hp">{{ person.hp }} <small>HP</small></span>
+      {% include 'pokemon/blocks/team/energy.html' with type=person.type %}
+    </header>
+    <div class="tcg-art">{% include 'pokemon/blocks/team/art.html' %}</div>
+    <p class="tcg-species">{{ person.soort }}</p>
+    {% include 'pokemon/blocks/team/attacks.html' %}
+    {% include 'pokemon/blocks/team/stats.html' %}
+    <p class="tcg-flavor">{{ person.flavor }}</p>
+    <footer class="tcg-foot">
+      <span>{% if person.illustrator %}Illus. {{ person.illustrator }}{% endif %}</span>
+      <span>{{ person.nummer }}/{{ team_totaal }} <i class="bi bi-circle-fill"></i></span>
+    </footer>
+  </div>
+  <span class="tcg-glare" aria-hidden="true"></span>
+</article>

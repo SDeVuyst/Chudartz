@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib import admin
 from django import forms
+from django.forms.models import BaseInlineFormSet
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import HttpResponse, JsonResponse, QueryDict
@@ -13,7 +14,7 @@ import json
 from io import BytesIO
 import qrcode
 from simple_history.admin import SimpleHistoryAdmin
-from unfold.admin import ModelAdmin
+from unfold.admin import ModelAdmin, TabularInline
 from unfold.contrib.filters.admin import RelatedDropdownFilter, DropdownFilter
 from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
@@ -1618,3 +1619,260 @@ class GateScanLogAdmin(ModelAdmin):
     @display(description=_("Resultaat"), label=True)
     def outcome(self, obj):
         return _("Toegelaten") if obj.success else _("Geweigerd")
+
+
+class EnergyCostWidget(forms.TextInput):
+    template_name = "admin/pokemon/widgets/energy_cost.html"
+
+    def __init__(self, attrs=None):
+        super().__init__(attrs)
+        self.attrs.setdefault("class", "te-energy-value")
+        self.attrs.setdefault("tabindex", "-1")
+        self.attrs.setdefault("aria-hidden", "true")
+
+    ENERGY_ICONS = {
+        "dart": "bi-bullseye",
+        "electric": "bi-lightning-charge-fill",
+        "fire": "bi-fire",
+        "water": "bi-droplet-fill",
+        "grass": "bi-tree-fill",
+        "psychic": "bi-eye-fill",
+        "fighting": "bi-hammer",
+        "darkness": "bi-moon-fill",
+        "metal": "bi-gem",
+        "colorless": "bi-star-fill",
+    }
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        selected = [s.strip() for s in str(value or "").split(",") if s.strip()]
+        context["widget"]["selected"] = [
+            {"value": item, "icon": self.ENERGY_ICONS.get(item, "bi-star-fill")}
+            for item in selected
+        ]
+        context["widget"]["types"] = [
+            {"value": value, "label": label, "icon": self.ENERGY_ICONS.get(value, "bi-star-fill")}
+            for value, label in TeamKaartType.choices
+        ]
+        return context
+
+
+class TeamLidAanvalForm(forms.ModelForm):
+    class Meta:
+        model = TeamLidAanval
+        fields = "__all__"
+        widgets = {
+            "kost": EnergyCostWidget(),
+            "tekst": forms.Textarea(attrs={"rows": 2}),
+        }
+
+
+class _PrefixedInlineFormSet(BaseInlineFormSet):
+    prefix_name = ""
+
+    @classmethod
+    def get_default_prefix(cls):
+        return cls.prefix_name or super().get_default_prefix()
+
+
+class AanvalFormSet(_PrefixedInlineFormSet):
+    prefix_name = "aanvallen"
+
+
+class WeetjeFormSet(_PrefixedInlineFormSet):
+    prefix_name = "weetjes"
+
+
+class SocialFormSet(_PrefixedInlineFormSet):
+    prefix_name = "socials"
+
+
+class TeamLidAanvalInline(StackedInline):
+    model = TeamLidAanval
+    form = TeamLidAanvalForm
+    formset = AanvalFormSet
+    extra = 1
+    ordering = ("volgorde", "pk")
+    fields = ("naam", "kost", "schade", "tekst", "volgorde")
+    verbose_name = "Aanval"
+    verbose_name_plural = "Aanvallen"
+
+
+class TeamLidWeetjeInline(TabularInline):
+    model = TeamLidWeetje
+    formset = WeetjeFormSet
+    extra = 1
+    ordering = ("volgorde", "pk")
+    fields = ("label", "waarde", "volgorde")
+    verbose_name = "Kaartgegeven"
+    verbose_name_plural = "Kaartgegevens"
+
+
+class TeamLidSocialInline(TabularInline):
+    model = TeamLidSocial
+    formset = SocialFormSet
+    extra = 0
+    ordering = ("volgorde", "pk")
+    fields = ("platform", "url", "volgorde")
+    verbose_name = "Social link"
+    verbose_name_plural = "Social links"
+
+
+class TeamLidVolgordeInline(TabularInline):
+    model = TeamLid
+    extra = 0
+    ordering = ("volgorde", "pk")
+    fields = ("naam", "rol", "volgorde", "zichtbaar")
+    readonly_fields = ("naam", "rol")
+    show_change_link = True
+    verbose_name = "Teamlid"
+    verbose_name_plural = "Teamleden in deze groep"
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(TeamGroep)
+class TeamGroepAdmin(ModelAdmin):
+    list_display = ("naam", "zichtbaar", "volgorde", "leden_count")
+    list_editable = ("zichtbaar", "volgorde")
+    list_display_links = ("naam",)
+    search_fields = ("naam",)
+    ordering = ("volgorde", "pk")
+    inlines = [TeamLidVolgordeInline]
+    fields = ("naam", "beschrijving", "zichtbaar", "volgorde")
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(_leden=Count("leden"))
+
+    @display(description="Leden")
+    def leden_count(self, obj):
+        return obj._leden
+
+
+@admin.register(TeamLid)
+class TeamLidAdmin(ModelAdmin):
+    change_form_template = "admin/pokemon/teamlid/change_form.html"
+    list_display = ("display_header", "groep", "volgorde", "zichtbaar", "kaart_type")
+    list_editable = ("volgorde", "zichtbaar")
+    list_display_links = ("display_header",)
+    list_filter = ("groep", "zichtbaar", "kaart_type")
+    list_filter_submit = True
+    search_fields = ("naam", "rol", "slug")
+    ordering = ("groep__volgorde", "groep_id", "volgorde", "pk")
+    prepopulated_fields = {"slug": ("naam",)}
+    inlines = [TeamLidAanvalInline, TeamLidWeetjeInline, TeamLidSocialInline]
+    fieldsets = (
+        ("1. Lid", {
+            "classes": ["tab"],
+            "fields": ("groep", "volgorde", "zichtbaar", "naam", "slug", "rol", "bio"),
+        }),
+        ("2. Kaart", {
+            "classes": ["tab"],
+            "fields": (
+                "kaart_type",
+                "hp",
+                "fase",
+                "foto",
+                "soort",
+                "ability_naam",
+                "ability_tekst",
+                "flavor",
+                "illustrator",
+            ),
+        }),
+        ("3. Stats", {
+            "classes": ["tab"],
+            "fields": (
+                "zwakte",
+                "zwakte_waarde",
+                "resistentie",
+                "resistentie_waarde",
+                "terugtrek",
+            ),
+        }),
+        ("4. Slab", {
+            "classes": ["tab"],
+            "fields": ("slab_label", "slab_grade"),
+        }),
+        ("5. Detail", {
+            "classes": ["tab"],
+            "fields": ("over", "quote"),
+        }),
+    )
+
+    class Media:
+        css = {"all": (
+            "vendor/bootstrap-icons/bootstrap-icons.css",
+            "pokemon/css/team-admin.css",
+        )}
+
+    def get_urls(self):
+        urls = super().get_urls()
+        extra = [
+            path(
+                "preview/",
+                self.admin_site.admin_view(self.preview_view),
+                name="pokemon_teamlid_preview",
+            ),
+        ]
+        return extra + urls
+
+    def preview_view(self, request):
+        from pokemon.team import kaart_van_preview, lid_to_kaart
+
+        lid = None
+        object_id = request.POST.get("object_id") or request.GET.get("object_id")
+        if object_id:
+            lid = TeamLid.objects.filter(pk=object_id).prefetch_related(
+                "aanvallen", "weetjes", "socials"
+            ).first()
+
+        if request.method == "POST":
+            person = kaart_van_preview(request.POST, request.FILES, lid)
+            totaal = person.pop("team_totaal")
+        elif lid:
+            zichtbaar = list(
+                TeamLid.objects.filter(zichtbaar=True, groep__zichtbaar=True)
+                .values_list("pk", flat=True)
+            )
+            if lid.pk in zichtbaar:
+                nummer = f"{zichtbaar.index(lid.pk) + 1:03d}"
+                totaal = f"{len(zichtbaar):03d}"
+            else:
+                nummer = f"{len(zichtbaar) + 1:03d}"
+                totaal = f"{len(zichtbaar) + 1:03d}"
+            person = lid_to_kaart(lid, nummer=nummer, totaal=totaal)
+        else:
+            person = kaart_van_preview({}, None, None)
+            totaal = person.pop("team_totaal")
+
+        return render(request, "admin/pokemon/teamlid/preview.html", {
+            "person": person,
+            "team_totaal": totaal,
+            "verborgen": request.method == "POST" and not person.get("zichtbaar", True),
+        })
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if db_field.name in ("bio", "flavor", "ability_tekst"):
+            kwargs["widget"] = forms.Textarea(attrs={"rows": 3})
+        if db_field.name == "over":
+            kwargs["widget"] = forms.Textarea(attrs={"rows": 6})
+        if db_field.name == "beschrijving":
+            kwargs["widget"] = forms.Textarea(attrs={"rows": 3})
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+    @display(description="Naam", header=True)
+    def display_header(self, instance: TeamLid):
+        header = [instance.naam, instance.rol or None, instance.naam]
+        if instance.foto:
+            header.append(
+                {
+                    "path": instance.foto.url,
+                    "height": 24,
+                    "width": 24,
+                    "borderless": True,
+                    "squared": True,
+                }
+            )
+        return header

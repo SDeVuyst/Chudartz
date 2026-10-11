@@ -37,6 +37,7 @@ from pokemon.models import (
     Ticket,
     StandhouderInschrijving,
 )
+from pokemon.team import groepen_voor_site
 from pokemon.services.attendance import (
     AttendanceError,
     check_in_participant,
@@ -98,6 +99,15 @@ def index(request):
 
 def over_ons(request):
     return TemplateResponse(request, 'pokemon/pages/about.html', get_default_context())
+
+
+def ons_team(request):
+    groepen = groepen_voor_site()
+    context = get_default_context()
+    context["groepen"] = groepen
+    context["team_totaal"] = f"{sum(len(groep['leden']) for groep in groepen):03d}"
+    return TemplateResponse(request, 'pokemon/pages/team.html', context)
+
 
 def sponsors(request):
     context = get_default_context()

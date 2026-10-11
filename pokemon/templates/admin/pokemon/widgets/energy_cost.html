@@ -1,0 +1,15 @@
+{% with id=widget.attrs.id %}
+<div class="te-energy" data-energy-widget{% if id %} id="{{ id }}_widget"{% endif %}>
+  <input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+  <div class="te-energy-selected">
+    {% for item in widget.selected %}
+    <button type="button" class="te-energy-chip te-energy--{{ item.value }}" data-energy-remove="{{ item.value }}" title="{{ item.value }}"><i class="bi {{ item.icon }}"></i></button>
+    {% endfor %}
+  </div>
+  <div class="te-energy-palette">
+    {% for item in widget.types %}
+    <button type="button" class="te-energy-add te-energy--{{ item.value }}" data-energy="{{ item.value }}" title="{{ item.label }}" aria-label="{{ item.label }}"><i class="bi {{ item.icon }}"></i></button>
+    {% endfor %}
+  </div>
+</div>
+{% endwith %}

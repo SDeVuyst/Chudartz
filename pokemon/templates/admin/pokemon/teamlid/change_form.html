@@ -1,0 +1,21 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="{% static 'pokemon/js/team-admin.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div id="te-editor" class="te-editor" data-preview-url="{% url 'admin:pokemon_teamlid_preview' %}" data-object-id="{% if original.pk %}{{ original.pk }}{% endif %}">
+  <div class="te-form">
+    {{ block.super }}
+  </div>
+  <aside class="te-preview" aria-label="Live voorbeeld">
+    <div class="te-preview-head">
+      <strong>Live voorbeeld</strong>
+    </div>
+    <iframe class="te-preview-frame" title="Kaartvoorbeeld"></iframe>
+  </aside>
+</div>
+{% endblock %}

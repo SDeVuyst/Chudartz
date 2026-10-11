@@ -1,0 +1,44 @@
+{% load i18n %}
+<div class="team-lid-info">
+
+  <p class="team-lid-role">#{{ person.nummer }} &middot; {{ person.rol }}</p>
+  <h2 id="team-modal-title">{{ person.naam }}</h2>
+  <p class="team-lid-lead">{{ person.bio }}</p>
+
+  {% for alinea in person.over %}
+  <p>{{ alinea }}</p>
+  {% endfor %}
+
+  {% if person.quote %}
+  <blockquote class="team-lid-quote">
+    <i class="bi bi-quote"></i>
+    <p>{{ person.quote }}</p>
+  </blockquote>
+  {% endif %}
+
+  {% if person.weetjes %}
+  <div class="team-lid-sheet">
+    <div class="team-lid-sheet-head">
+      <span>{% trans 'Kaartgegevens' %}</span>
+      <span>CERT CZ-{% now "Y" %}-{{ person.nummer }}</span>
+    </div>
+    <dl>
+      {% for weetje in person.weetjes %}
+      <div>
+        <dt>{{ weetje.label }}</dt>
+        <dd>{{ weetje.waarde }}</dd>
+      </div>
+      {% endfor %}
+    </dl>
+  </div>
+  {% endif %}
+
+  {% if person.socials %}
+  <div class="team-lid-socials">
+    {% for social in person.socials %}
+    <a href="{{ social.url }}" target="_blank" rel="noopener" aria-label="{{ social.icoon }}"><i class="bi bi-{{ social.icoon }}"></i></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</div>

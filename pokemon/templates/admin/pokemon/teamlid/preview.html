@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'pokemon/css/main.css' %}">
+  <style>
+    body.team-preview {
+      margin: 0;
+      padding: 1.1rem 1rem 2rem;
+      background: #ececec;
+    }
+    .team-preview-card {
+      max-width: 320px;
+      margin: 0 auto 1.75rem;
+    }
+    .team-preview-info {
+      max-width: 360px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem 1.4rem 1.6rem;
+    }
+    .team-preview-info .team-lid-info > *:first-child { margin-top: 0; }
+    .team-preview-info .team-lid-sheet { margin-left: 0; margin-right: 0; }
+    .team-preview-hidden {
+      max-width: 320px;
+      margin: 0 auto 0.85rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 8px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .tcg-caption-more { display: none; }
+    .tcg-slot-link { pointer-events: none; }
+  </style>
+</head>
+<body class="team-preview ons-team-page">
+  {% if verborgen %}
+  <p class="team-preview-hidden">Verborgen op de site</p>
+  {% endif %}
+  <div class="team-preview-card">
+    {% include "pokemon/blocks/team/card-graded.html" %}
+    {% include "pokemon/blocks/team/caption.html" %}
+  </div>
+  <div class="team-preview-info">
+    {% include "pokemon/blocks/team/info.html" %}
+  </div>
+</body>
+</html>

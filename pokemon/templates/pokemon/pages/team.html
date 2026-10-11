@@ -1,0 +1,99 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ Collectibles | {% trans 'Ons Team' %}
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{% trans 'Maak kennis met het team achter ChudartZ Collectibles — de mensen die onze beurzen, events en community draaiende houden.' %}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="ChudartZ Collectibles | {% trans 'Ons Team' %}">
+<meta property="og:description" content="{% trans 'Maak kennis met het team achter ChudartZ Collectibles — de mensen die onze beurzen, events en community draaiende houden.' %}">
+<meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChudartZ Collectibles | {% trans 'Ons Team' %}">
+<meta name="twitter:description" content="{% trans 'Maak kennis met het team achter ChudartZ Collectibles — de mensen die onze beurzen, events en community draaiende houden.' %}">
+<meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
+{% endblock %}
+
+{% block head %}
+<script src="{% static 'pokemon/js/team-cards.js' %}" defer></script>
+{% endblock %}
+
+{% block body %}
+<body class="ons-team-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    {% trans "Ons Team" as page_name %}
+    {% trans "De mensen achter ChudartZ Collectibles" as page_description %}
+
+    {% include 'pokemon/blocks/page-title.html' with background="true" name=page_name description=page_description %}
+
+    <section id="team" class="team section">
+      <div class="container">
+
+        <div class="section-title pb-0" data-aos="fade-up">
+          <h2>{% trans 'Wie wij zijn' %}</h2>
+          <p>
+            {% blocktrans %}
+            ChudartZ Collectibles draait op een klein, gedreven team. Maak hier kennis met de mensen achter onze beurzen, events en community.
+            {% endblocktrans %}
+          </p>
+        </div>
+
+        {% if not groepen %}
+        <p class="tcg-empty">{% trans 'Het team wordt binnenkort voorgesteld.' %}</p>
+        {% endif %}
+
+        {% for groep in groepen %}
+        <section class="tcg-groep"{% if groep.groep.naam %} aria-labelledby="team-groep-{{ groep.groep.pk }}"{% endif %}>
+          <div class="tcg-groep-head" data-aos="fade-up">
+            <h3 id="team-groep-{{ groep.groep.pk }}">{{ groep.groep.naam }}</h3>
+            {% if groep.groep.beschrijving %}<p>{{ groep.groep.beschrijving }}</p>{% endif %}
+          </div>
+          <div class="tcg-grid">
+            {% for person in groep.leden %}
+            <a href="#{{ person.slug }}" class="tcg-slot tcg-slot-link" data-team-open="{{ person.slug }}" aria-haspopup="dialog" aria-label="{% blocktrans with naam=person.naam %}Bekijk de kaart van {{ naam }}{% endblocktrans %}" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+              {% include 'pokemon/blocks/team/card-graded.html' %}
+              {% include 'pokemon/blocks/team/caption.html' %}
+            </a>
+            {% endfor %}
+          </div>
+        </section>
+        {% endfor %}
+
+      </div>
+    </section>
+
+    {% for groep in groepen %}
+    {% for person in groep.leden %}
+    <template id="team-lid-{{ person.slug }}">
+      {% include 'pokemon/blocks/team/info.html' %}
+    </template>
+    {% endfor %}
+    {% endfor %}
+
+    <dialog id="team-modal" class="team-modal" aria-labelledby="team-modal-title">
+      <div class="team-modal-backdrop"></div>
+      <div class="team-modal-inner">
+        <div class="team-modal-card" data-tcg-tilt-area></div>
+        <div class="team-modal-info"></div>
+      </div>
+      <div class="team-modal-controls">
+        <button type="button" class="team-modal-close" data-team-close autofocus aria-label="{% trans 'Sluiten' %}"><i class="bi bi-x-lg"></i></button>
+        <button type="button" class="team-modal-arrow team-modal-prev" data-team-prev aria-label="{% trans 'Vorige teamlid' %}"><i class="bi bi-arrow-left"></i></button>
+        <button type="button" class="team-modal-arrow team-modal-next" data-team-next aria-label="{% trans 'Volgende teamlid' %}"><i class="bi bi-arrow-right"></i></button>
+      </div>
+    </dialog>
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

@@ -421,6 +421,16 @@ UNFOLD = {
                         "link": "/admin/pokemon/aanboditem",
                     },
                     {
+                        "title": _("Teamgroepen"),
+                        "icon": "folder",
+                        "link": "/admin/pokemon/teamgroep/",
+                    },
+                    {
+                        "title": _("Teamleden"),
+                        "icon": "groups",
+                        "link": "/admin/pokemon/teamlid/",
+                    },
+                    {
                         "title": _("Sponsors"),
                         "icon": "checkbook",
                         "link": "/admin/pokemon/sponsor/"
