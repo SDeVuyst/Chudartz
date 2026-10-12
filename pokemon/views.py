@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 from decimal import Decimal
 from email.utils import formataddr
 
@@ -1035,13 +1036,76 @@ def gate_heartbeat(request):
 
 ###### ERROR HANDLERS #######
 
+ERROR_GIFS_404_500 = [
+    "https://media.tenor.com/YrirqcgMBiUAAAAC/one-piece.gif",  # Log Pose
+    "https://media1.tenor.com/m/jJDPprSAqEUAAAAC/pout.gif", # Pikachu
+    "https://media1.tenor.com/m/o97_jXyjLV4AAAAC/guts-berserk-guts.gif", # Guts
+    "https://gifdb.com/images/high/thorfinn-wind-blows-hair-lmgpj4ls860638wa.gif", # thorfinn
+    "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDR5NXI2dGc3MG85ZjVtNXJ3OWI4ZHRraGRuMjU2ZHV6MjBwaHNqayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/40z9hF4Yerwh0O2pb1/giphy.gif", # gol d roger
+    "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHZpbTJ1cnVpbHExeXI3aGgwN213dm1qYTM1Zmx0MWhyY2tud2U4OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a6XLRYrDJvIhk4lSyd/giphy.gif", # luffy question
+
+]
+
+ERROR_GIFS_401_403 = [
+    "https://media.tenor.com/3odQw0NS2ZIAAAAC/one-piece-op.gif",  # Luffy stare / point
+    "https://media1.tenor.com/m/uIN4bqO3iTYAAAAd/charmander-mad-mander.gif", # Charmander mad
+
+]
+
+ERROR_COPY = {
+    401: {
+        "error_title": "Niet geautoriseerd",
+        "error_message": "Je bent niet gemachtigd om deze pagina te bekijken.",
+    },
+    403: {
+        "error_title": "Geen toegang",
+        "error_message": "Je hebt geen toegang tot deze pagina.",
+    },
+    404: {
+        "error_title": "Pagina niet gevonden",
+        "error_message": "De pagina die je zoekt bestaat niet of is verplaatst.",
+    },
+    500: {
+        "error_title": "Er is iets misgegaan",
+        "error_message": "Er ging iets mis aan onze kant. Probeer het later opnieuw.",
+    },
+}
+
+
+def _error_context(status, gif_list):
+    try:
+        context = get_default_context()
+    except Exception:
+        context = {}
+    context["error_code"] = status
+    context["error_gif"] = random.choice(gif_list)
+    context.update(ERROR_COPY[status])
+    return context
+
+
+def _render_error(request, status, gif_list):
+    return TemplateResponse(
+        request,
+        "pokemon/errors/error.html",
+        _error_context(status, gif_list),
+        status=status,
+    )
+
+
+def error_401(request, exception=None):
+    return _render_error(request, 401, ERROR_GIFS_401_403)
+
+
+def error_403(request, exception=None):
+    return _render_error(request, 403, ERROR_GIFS_401_403)
+
+
 def error_404(request, exception=None):
-    context = get_default_context()
-    return TemplateResponse(request, 'pokemon/errors/404.html', context, status=404)
+    return _render_error(request, 404, ERROR_GIFS_404_500)
+
 
 def error_500(request, exception=None):
-    context = get_default_context()
-    return TemplateResponse(request, 'pokemon/errors/500.html', context, status=500)
+    return _render_error(request, 500, ERROR_GIFS_404_500)
 
 ## HELPERS ##
 

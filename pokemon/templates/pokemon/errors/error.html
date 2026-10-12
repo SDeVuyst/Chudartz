@@ -1,0 +1,52 @@
+{% extends 'pokemon/main.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+ChudartZ Collectibles | {{ error_code }}
+{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="ChudartZ Collectibles | {{ error_code }}">
+{% endblock %}
+
+{% block body %}
+<body class="over-ons-page">
+
+  {% include 'pokemon/blocks/header-sticky.html' %}
+
+  <main class="main">
+
+    <section class="error-page section">
+      <div class="container">
+        <div class="row align-items-center gy-4" data-aos="fade-up">
+
+          <div class="col-lg-5 text-center text-lg-start">
+            <p class="error-page__code">{{ error_code }}</p>
+            <h1 class="error-page__title">{{ error_title }}</h1>
+            <p class="error-page__message">{{ error_message }}</p>
+            <a href="{% url 'index' %}" class="btn-back">{% trans 'Terug naar home' %}</a>
+          </div>
+
+          <div class="col-lg-7 d-flex justify-content-center">
+            {% if error_gif %}
+            <img
+              src="{{ error_gif }}"
+              alt="{{ error_title }}"
+              class="error-page__gif"
+              loading="eager"
+            >
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  {% include 'pokemon/blocks/footer.html' %}
+
+</body>
+{% endblock %}

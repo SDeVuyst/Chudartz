@@ -55,5 +55,6 @@ urlpatterns += i18n_patterns(
     path('i18n/', include('django.conf.urls.i18n')),
 )
 
+handler403 = 'pokemon.views.error_403'
 handler404 = 'pokemon.views.error_404'
 handler500 = 'pokemon.views.error_500'

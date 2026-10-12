@@ -3538,3 +3538,48 @@ html.team-modal-open {
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+
+/*--------------------------------------------------------------
+# Error pages
+--------------------------------------------------------------*/
+.error-page {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 260px);
+  padding-top: 48px;
+  padding-bottom: 72px;
+}
+.error-page__code {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: clamp(6rem, 18vw, 11rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--accent-color);
+}
+.error-page__gif {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 4px;
+}
+.error-page__title {
+  margin: 16px 0 12px;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+}
+.error-page__message {
+  margin: 0 0 28px;
+  max-width: 28rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+}
+@media (max-width: 991px) {
+  .error-page__message {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
