@@ -4741,9 +4741,65 @@ msgstr ""
 "afin que nous puissions chercher ensemble une solution appropriée."
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:100
+msgid "3. Overdracht van standplaatsen en vervanging van standhouders"
+msgstr "3. Cession d’emplacements et remplacement d’exposants"
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:101
+msgid ""
+"Het is standhouders niet toegestaan om hun gereserveerde standplaats, tafel "
+"of tafels geheel of gedeeltelijk door te verkopen, over te dragen of ter "
+"beschikking te stellen aan derden zonder voorafgaand overleg met en "
+"schriftelijke goedkeuring van de organisatie."
+msgstr ""
+"Il est interdit aux exposants de revendre, céder ou mettre à la disposition "
+"de tiers, en tout ou en partie, leur emplacement, table ou tables réservés, "
+"sans concertation préalable avec l’organisation et sans son approbation "
+"écrite."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:102
+msgid ""
+"Indien een standhouder verhinderd is om deel te nemen, dient dit steeds aan "
+"de organisatie te worden gemeld. De standhouder mag zelf een mogelijke "
+"vervanger voorstellen, maar deze vervanging kan uitsluitend plaatsvinden na "
+"uitdrukkelijke goedkeuring van de organisatie."
+msgstr ""
+"Si un exposant est empêché de participer, il doit toujours en informer "
+"l’organisation. L’exposant peut proposer un éventuel remplaçant, mais ce "
+"remplacement ne peut avoir lieu qu’après approbation explicite de "
+"l’organisation."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:103
+msgid ""
+"De organisatie behoudt zich het recht voor om een voorgestelde vervanger te "
+"weigeren en om, indien van toepassing, een kandidaat van de bestaande "
+"wachtlijst voorrang te geven. Dit beleid heeft als doel een eerlijke "
+"verdeling van de beschikbare standplaatsen te waarborgen en de organisatie "
+"in staat te stellen de bezetting van het evenement correct te beheren."
+msgstr ""
+"L’organisation se réserve le droit de refuser un remplaçant proposé et, le "
+"cas échéant, de donner la priorité à un candidat de la liste d’attente "
+"existante. Cette politique vise à garantir une répartition équitable des "
+"emplacements disponibles et à permettre à l’organisation de gérer "
+"correctement l’occupation de l’événement."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:104
+msgid ""
+"Het zelfstandig doorverkopen, overdragen of opnieuw invullen van een "
+"standplaats zonder voorafgaande goedkeuring van de organisatie wordt "
+"beschouwd als een inbreuk op deze algemene voorwaarden. In dat geval behoudt "
+"de organisatie zich het recht voor om passende maatregelen te nemen "
+"overeenkomstig de overige bepalingen van deze voorwaarden."
+msgstr ""
+"La revente, la cession ou le remplissage autonome d’un emplacement sans "
+"approbation préalable de l’organisation est considérée comme une infraction "
+"aux présentes conditions générales. Dans ce cas, l’organisation se réserve "
+"le droit de prendre les mesures appropriées conformément aux autres "
+"dispositions des présentes conditions."
+
+#: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:106
 #, fuzzy
 #| msgid "Regels en gedragscode"
-msgid "3. Regels en gedragscode"
+msgid "4. Regels en gedragscode"
 msgstr "Règles et code de conduite"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:104
@@ -4773,7 +4829,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:112
 #, fuzzy
 #| msgid "Gebruik van materiaal"
-msgid "4. Gebruik van materiaal"
+msgid "5. Gebruik van materiaal"
 msgstr "Utilisation des matériaux"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:116
@@ -4789,7 +4845,7 @@ msgstr ""
 #| msgid ""
 #| "Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand"
 msgid ""
-"5. Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand"
+"6. Verantwoordelijkheid, verzekering, aansprakelijkheid en rechtsbijstand"
 msgstr ""
 "Responsabilité, assurance, responsabilité civile et assistance juridique"
 
@@ -4872,13 +4928,13 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:159
 #, fuzzy
 #| msgid "Transacties en aankopen"
-msgid "6. Transacties en aankopen"
+msgid "7. Transacties en aankopen"
 msgstr "Transactions et achats"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:160
 #, fuzzy
 #| msgid "Verkoop en ruil"
-msgid "6.1 Verkoop en ruil"
+msgid "7.1 Verkoop en ruil"
 msgstr "Ventes et échanges"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:161
@@ -4894,7 +4950,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:165
 #, fuzzy
 #| msgid "Aankopen"
-msgid "6.2 Aankopen"
+msgid "7.2 Aankopen"
 msgstr "Acheter"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:166
@@ -4910,7 +4966,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:170
 #, fuzzy
 #| msgid "Ruilvoorwaarden met ChudartZ Collectibles"
-msgid "6.3 Ruilvoorwaarden met ChudartZ Collectibles"
+msgid "7.3 Ruilvoorwaarden met ChudartZ Collectibles"
 msgstr "Conditions d’échange avec ChudartZ Collectibles"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:171
@@ -4931,7 +4987,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:175
 #, fuzzy
 #| msgid "Retouren en klachten"
-msgid "6.4 Retouren en klachten"
+msgid "7.4 Retouren en klachten"
 msgstr "Retours et réclamations"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:176
@@ -4947,7 +5003,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:180
 #, fuzzy
 #| msgid "Privacy en gebruik van beeldmateriaal"
-msgid "7. Privacy en gebruik van beeldmateriaal"
+msgid "8. Privacy en gebruik van beeldmateriaal"
 msgstr "Confidentialité et utilisation des images"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:184
@@ -4978,7 +5034,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:195
 #, fuzzy
 #| msgid "Disputen"
-msgid "8. Disputen"
+msgid "9. Disputen"
 msgstr "Différends"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:199
@@ -4994,7 +5050,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:204
 #, fuzzy
 #| msgid "Wijzigingen en aanpassingen"
-msgid "9. Wijzigingen en aanpassingen"
+msgid "10. Wijzigingen en aanpassingen"
 msgstr "Changements et modifications"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:208
@@ -5013,7 +5069,7 @@ msgstr ""
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:213
 #, fuzzy
 #| msgid "Acceptatie van de voorwaarden"
-msgid "10. Acceptatie van de voorwaarden"
+msgid "11. Acceptatie van de voorwaarden"
 msgstr "Acceptation des Conditions"
 
 #: .\pokemon\templates\pokemon\pages\algemene_voorwaarden.html:217
@@ -5859,8 +5915,8 @@ msgstr ""
 "                    Pour les transactions dont la valeur, de l’avis du vendeur ou de l’organisation, ne peut être considérée comme un achat quotidien normal pour un mineur, le mineur doit être accompagné d’un parent, tuteur ou autre adulte responsable.\n"
 "                "
 
-msgid "6.5 Wettelijke en fiscale verantwoordelijkheid van de deelnemer"
-msgstr "6.5 Responsabilité légale et fiscale du participant"
+msgid "7.5 Wettelijke en fiscale verantwoordelijkheid van de deelnemer"
+msgstr "7.5 Responsabilité légale et fiscale du participant"
 
 msgid ""
 "\n"
@@ -5919,11 +5975,13 @@ msgstr ""
 #: pokemon/templates/pokemon/pages/standhouder/stap4.html:0
 #, python-format
 msgid ""
-"Ik ga akkoord met de <a href=\"%(av_url)s\">Algemene voorwaarden</a> met "
-"inbegrip van de annuleringsvoorwaarden van ChudartZ Collectibles."
+"Ik ga akkoord met de <a href=\"%(av_url)s\">Algemene voorwaarden</a> van "
+"ChudartZ Collectibles, met inbegrip van de annuleringsvoorwaarden en de "
+"bepalingen inzake de overdracht en vervanging van standplaatsen."
 msgstr ""
-"J’accepte les <a href=\"%(av_url)s\">conditions générales</a>, y compris les"
-" conditions d’annulation, de ChudartZ Collectibles."
+"J’accepte les <a href=\"%(av_url)s\">conditions générales</a> de ChudartZ "
+"Collectibles, y compris les conditions d’annulation et les dispositions "
+"relatives à la cession et au remplacement d’emplacements."
 
 #: pokemon/templates/pokemon/pages/standhouder/stap4.html:0
 msgid ""

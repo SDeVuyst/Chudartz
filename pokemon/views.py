@@ -1043,7 +1043,8 @@ ERROR_GIFS_404_500 = [
     "https://gifdb.com/images/high/thorfinn-wind-blows-hair-lmgpj4ls860638wa.gif", # thorfinn
     "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDR5NXI2dGc3MG85ZjVtNXJ3OWI4ZHRraGRuMjU2ZHV6MjBwaHNqayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/40z9hF4Yerwh0O2pb1/giphy.gif", # gol d roger
     "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHZpbTJ1cnVpbHExeXI3aGgwN213dm1qYTM1Zmx0MWhyY2tud2U4OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a6XLRYrDJvIhk4lSyd/giphy.gif", # luffy question
-
+    "https://media.tenor.com/oGQ5QYfUW94AAAAC/one-piece-luffy.gif",  # Luffy stare / point
+    
 ]
 
 ERROR_GIFS_401_403 = [
