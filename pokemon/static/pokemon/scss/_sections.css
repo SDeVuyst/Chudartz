@@ -207,6 +207,13 @@ section,
   margin-bottom: 0;
 }
 
+.over-ons .content .about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .over-ons .content .read-more {
   background: var(--accent-color);
   color: var(--contrast-color);
@@ -236,6 +243,17 @@ section,
 
 .over-ons .content .read-more:hover i {
   margin-left: 10px;
+}
+
+.over-ons .content .read-more.read-more-secondary {
+  background: transparent;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
+
+.over-ons .content .read-more.read-more-secondary:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
 }
 
 .over-ons .icon-box {
