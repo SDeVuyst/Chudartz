@@ -24,6 +24,7 @@ from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExpor
 
 
 from .models import *
+from pokemon.event_choices import evenement_admin_lookups, tickets_by_event_options
 from pokemon.standhouder_wizard import (
     clear_studio_preview_inschrijving,
     serialize_standhouder_vraag,
@@ -113,12 +114,11 @@ class StandhouderVraagInline(StackedInline):
 
 # FILTERS #
 class EvenementFilter(DropdownFilter):
-    title = 'Evenement'
+    title = _('Evenement')
     parameter_name = 'evenement'
 
     def lookups(self, request, model_admin):
-        events = Evenement.objects.all()
-        return [(event.pk, event.titel) for event in events]
+        return evenement_admin_lookups()
 
     def queryset(self, request, queryset):
         if self.value():
@@ -127,17 +127,37 @@ class EvenementFilter(DropdownFilter):
 
 
 class StandhouderEvenementFilter(DropdownFilter):
-    title = 'Evenement'
+    title = _('Evenement')
     parameter_name = 'evenement'
 
     def lookups(self, request, model_admin):
-        events = Evenement.objects.all()
-        return [(event.pk, event.titel) for event in events]
+        return evenement_admin_lookups()
 
     def queryset(self, request, queryset):
         if self.value():
             return queryset.filter(evenement__pk=self.value())
         return queryset
+
+
+class TicketVoorEvenementFilter(DropdownFilter):
+    title = _('Ticket')
+    parameter_name = 'ticket'
+
+    def lookups(self, request, model_admin):
+        event_id = request.GET.get('evenement')
+        if not event_id:
+            return []
+        tickets = Ticket.objects.filter(event_id=event_id).order_by('titel')
+        return [(ticket.pk, str(ticket)) for ticket in tickets]
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if not value:
+            return queryset
+        event_id = request.GET.get('evenement')
+        if not event_id:
+            return queryset
+        return queryset.filter(ticket_id=value, ticket__event_id=event_id)
 
 
 class StandhouderStatusFilter(DropdownFilter):
@@ -380,12 +400,23 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     list_filter = (
         EvenementFilter,
         ('attended', admin.BooleanFieldListFilter),
-        ('ticket', RelatedDropdownFilter),
+        TicketVoorEvenementFilter,
     )
 
     list_filter_submit = True
     actions_detail = ["generate_ticket", "send_confirmation_mail"]
-    
+    change_list_template = "admin/pokemon/participant_change_list.html"
+
+    class Media:
+        js = ("pokemon/js/admin-event-filters.js",)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["tickets_by_event_json"] = json.dumps(
+            tickets_by_event_options()
+        )
+        return super().changelist_view(request, extra_context=extra_context)
+
     @action(description=_("Genereer Ticket"))
     def generate_ticket(modeladmin, request, object_id: int):
         participant = get_object_or_404(Participant, pk=object_id)
@@ -1320,6 +1351,7 @@ class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
     list_filter = (StandhouderStatusFilter, StandhouderEvenementFilter)
     list_filter_submit = True
+
     search_fields = (
         'bedrijfsnaam', 'naam', 'email', 'telefoon',
         'btw_of_kvk_nummer', 'bedrijfsnummer',

@@ -392,14 +392,33 @@
   }
 
   function populateEventOptions(selectedId) {
+    const desired = selectedId ? String(selectedId) : '';
+    if (configEvent.dataset.populated === '1' && configEvent.value === desired) {
+      return;
+    }
+
     configEvent.innerHTML = '<option value="">Alle evenementen</option>';
-    configOptions.events.forEach(function (ev) {
+
+    const upcoming = document.createElement('optgroup');
+    upcoming.label = 'Aankomend';
+    const past = document.createElement('optgroup');
+    past.label = 'Voorbij';
+
+    (configOptions.events || []).forEach(function (ev) {
       const opt = document.createElement('option');
       opt.value = String(ev.id);
       opt.textContent = ev.label;
-      if (selectedId && ev.id === selectedId) opt.selected = true;
-      configEvent.appendChild(opt);
+      if (desired && String(ev.id) === desired) opt.selected = true;
+      if (ev.group === 'past') {
+        past.appendChild(opt);
+      } else {
+        upcoming.appendChild(opt);
+      }
     });
+
+    if (upcoming.children.length) configEvent.appendChild(upcoming);
+    if (past.children.length) configEvent.appendChild(past);
+    configEvent.dataset.populated = '1';
   }
 
   function ticketsForEvent(eventId) {

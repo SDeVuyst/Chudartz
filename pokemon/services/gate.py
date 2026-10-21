@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.dateparse import parse_date
 
+from pokemon.event_choices import evenement_choice_options
 from pokemon.models import Evenement, GateDevice, GateScanLog, Participant, Ticket
 
 FEED_LIMIT = 30
@@ -350,17 +351,14 @@ def apply_remote_gate_config(
 
 
 def gate_config_options() -> dict:
-    events_list = []
-    for ev in Evenement.objects.order_by("-start_datum"):
-        events_list.append(
-            {
-                "id": ev.id,
-                "label": (
-                    f"{ev.titel} — "
-                    f"{timezone.localtime(ev.start_datum).strftime('%d/%m/%Y')}"
-                ),
-            }
-        )
+    events_list = [
+        {
+            "id": option["id"],
+            "label": option["label"],
+            "group": option["group"],
+        }
+        for option in evenement_choice_options()
+    ]
 
     tickets_by_event: dict[int, list] = {}
     for ticket in Ticket.objects.select_related("event").order_by("titel"):
