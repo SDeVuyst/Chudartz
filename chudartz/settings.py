@@ -46,6 +46,7 @@ DBBACKUP_STORAGE_OPTIONS = {
     'location': 'backups',
     'region_name': os.environ.get('AWS_S3_REGION_NAME', default='us-east-1'),
 }
+DBBACKUP_CLEANUP_KEEP_MEDIA = 3
 
 # Application definition
 
