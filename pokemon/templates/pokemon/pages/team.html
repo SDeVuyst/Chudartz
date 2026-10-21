@@ -30,30 +30,21 @@ ChudartZ Collectibles | {% trans 'Ons Team' %}
   <main class="main">
 
     {% trans "Ons Team" as page_name %}
-    {% trans "De mensen achter ChudartZ Collectibles" as page_description %}
+    {% trans "ChudartZ Collectibles draait op een klein, gedreven team. Maak hier kennis met de mensen achter onze beurzen, events en community." as page_description %}
 
     {% include 'pokemon/blocks/page-title.html' with background="true" name=page_name description=page_description %}
 
     <section id="team" class="team section">
       <div class="container">
 
-        <div class="section-title pb-0" data-aos="fade-up">
-          <h2>{% trans 'Wie wij zijn' %}</h2>
-          <p>
-            {% blocktrans %}
-            ChudartZ Collectibles draait op een klein, gedreven team. Maak hier kennis met de mensen achter onze beurzen, events en community.
-            {% endblocktrans %}
-          </p>
-        </div>
-
         {% if not groepen %}
-        <p class="tcg-empty">{% trans 'Het team wordt binnenkort voorgesteld.' %}</p>
+        <h3 class="tcg-empty">{% trans 'Het team wordt binnenkort voorgesteld.' %}</h3>
         {% endif %}
 
         {% for groep in groepen %}
         <section class="tcg-groep"{% if groep.groep.naam %} aria-labelledby="team-groep-{{ groep.groep.pk }}"{% endif %}>
           <div class="tcg-groep-head" data-aos="fade-up">
-            <h3 id="team-groep-{{ groep.groep.pk }}">{{ groep.groep.naam }}</h3>
+            <h2 id="team-groep-{{ groep.groep.pk }}">{{ groep.groep.naam }}</h2>
             {% if groep.groep.beschrijving %}<p>{{ groep.groep.beschrijving }}</p>{% endif %}
           </div>
           <div class="tcg-grid">

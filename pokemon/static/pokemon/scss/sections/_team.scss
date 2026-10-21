@@ -35,10 +35,6 @@
   flex: 0 0 min(370px, calc((100% - (var(--cols) - 1) * var(--gap-x)) / var(--cols)));
 }
 
-.tcg-groep + .tcg-groep {
-  margin-top: 4.5rem;
-}
-
 .tcg-groep-head {
   text-align: center;
   max-width: 40rem;
