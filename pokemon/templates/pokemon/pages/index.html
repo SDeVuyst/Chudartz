@@ -165,34 +165,86 @@
     </section><!-- /About Section -->
 
 
-    <!-- Partner Section -->
-    <section id="partner" class="features section">
+    {% if fotos_selectie %}
+    <!-- Scrapbook / Fotowall Section -->
+    <section id="momenten" class="scrapbook section">
 
-      <div class="container" data-aos="fade-up">
-        <div class="row gy-4 align-items-center features-item">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>{% trans 'Momenten' %}</h2>
+        <p>{% trans 'Sfeerbeelden van beurzen, community en collectibles.' %}</p>
+      </div>
 
-          <div class="col-lg-5" data-aos="fade-up">
-            <h3>{% trans 'Partner' %}</h3>
-            <h2>{% trans 'In samenwerking met Blent' %}</h2>
-            <p>
-              {% blocktrans %}
-              Wij werken samen met Blent, jouw entertainment webshop voor popcultuur, collectibles en meer. Via deze samenwerking brengen we de beste ervaringen naar onze evenementen en community van verzamelaars.
-              {% endblocktrans %}
-            </p>
-            <a href="https://blent.be" target="_blank" rel="noopener noreferrer" class="btn btn-get-started">{% trans 'Bezoek Blent' %}</a>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <ul class="scrapbook-filters">
+          <li data-category="selectie" class="filter-active">{% trans 'Selectie' %}</li>
+          <li data-category="beurzen">{% trans 'Beurzen' %}</li>
+          <li data-category="community">{% trans 'Community' %}</li>
+          <li data-category="collectibles">{% trans 'Collectibles' %}</li>
+        </ul>
+
+        <div class="scrapbook-galleries">
+
+          <div class="scrapbook-gallery scrapbook-gallery-selectie is-active">
+            <div class="scrapbook-wall">
+              {% for image in fotos_selectie %}
+              <a href="{{ image.afbeelding.url }}" class="scrapbook-polaroid glightbox" data-gallery="index-fotowall" title="{{ image.titel }}">
+                <span class="scrapbook-tape" aria-hidden="true"></span>
+                <img src="{{ image.afbeelding.url }}" alt="{{ image.titel }}" loading="{% if forloop.counter > 4 %}lazy{% else %}eager{% endif %}">
+                <span class="scrapbook-caption">{{ image.titel }}</span>
+              </a>
+              {% endfor %}
+            </div>
           </div>
 
-          <div class="col-lg-6 offset-lg-1 text-center" data-aos="fade-up" data-aos-delay="100">
-            <a href="https://blent.be" target="_blank" rel="noopener noreferrer" class="d-inline-block partner-logo">
-              <img src="{% static 'pokemon/img/partner-blent.png' %}" class="img-fluid" alt="Blent - jouw entertainment webshop">
-            </a>
+          <div class="scrapbook-gallery scrapbook-gallery-beurzen d-none">
+            <div class="scrapbook-wall">
+              {% for image in fotos_beurzen %}
+              <a href="{{ image.afbeelding.url }}" class="scrapbook-polaroid glightbox" data-gallery="index-fotowall" title="{{ image.titel }}">
+                <span class="scrapbook-tape" aria-hidden="true"></span>
+                <img src="{{ image.afbeelding.url }}" alt="{{ image.titel }}" loading="lazy">
+                <span class="scrapbook-caption">{{ image.titel }}</span>
+              </a>
+              {% empty %}
+              <p class="scrapbook-empty">{% trans 'Nog geen foto’s in deze categorie.' %}</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="scrapbook-gallery scrapbook-gallery-community d-none">
+            <div class="scrapbook-wall">
+              {% for image in fotos_community %}
+              <a href="{{ image.afbeelding.url }}" class="scrapbook-polaroid glightbox" data-gallery="index-fotowall" title="{{ image.titel }}">
+                <span class="scrapbook-tape" aria-hidden="true"></span>
+                <img src="{{ image.afbeelding.url }}" alt="{{ image.titel }}" loading="lazy">
+                <span class="scrapbook-caption">{{ image.titel }}</span>
+              </a>
+              {% empty %}
+              <p class="scrapbook-empty">{% trans 'Nog geen foto’s in deze categorie.' %}</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="scrapbook-gallery scrapbook-gallery-collectibles d-none">
+            <div class="scrapbook-wall">
+              {% for image in fotos_collectibles %}
+              <a href="{{ image.afbeelding.url }}" class="scrapbook-polaroid glightbox" data-gallery="index-fotowall" title="{{ image.titel }}">
+                <span class="scrapbook-tape" aria-hidden="true"></span>
+                <img src="{{ image.afbeelding.url }}" alt="{{ image.titel }}" loading="lazy">
+                <span class="scrapbook-caption">{{ image.titel }}</span>
+              </a>
+              {% empty %}
+              <p class="scrapbook-empty">{% trans 'Nog geen foto’s in deze categorie.' %}</p>
+              {% endfor %}
+            </div>
           </div>
 
         </div>
+
       </div>
 
-    </section><!-- /Partner Section -->
-
+    </section><!-- /Scrapbook Section -->
+    {% endif %}
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
@@ -299,6 +351,85 @@
   {% include 'pokemon/blocks/footer.html' %}
 
   <script src="{% static "vendor/email-form/validate.js" %}" defer></script>
+
+  {% if fotos_selectie %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterButtons = document.querySelectorAll(".scrapbook-filters li");
+      const galleries = document.querySelectorAll(".scrapbook-gallery");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let switching = false;
+
+      function clearPolaroidAnimation(el) {
+        el.style.opacity = "1";
+        el.style.animation = "none";
+      }
+
+      function replayPolaroidAnimations(gallery) {
+        gallery.querySelectorAll(".scrapbook-polaroid").forEach(function (el, index) {
+          el.style.removeProperty("opacity");
+          el.style.animation = "none";
+          void el.offsetWidth;
+          el.style.removeProperty("animation");
+          el.style.setProperty("--enter-delay", (index * 0.05) + "s");
+          el.addEventListener("animationend", function onEnd(event) {
+            if (event.animationName !== "scrapbook-polaroid-in") return;
+            el.removeEventListener("animationend", onEnd);
+            clearPolaroidAnimation(el);
+          });
+        });
+      }
+
+      document.querySelectorAll(".scrapbook-gallery.is-active .scrapbook-polaroid").forEach(function (el) {
+        el.addEventListener("animationend", function onEnd(event) {
+          if (event.animationName !== "scrapbook-polaroid-in") return;
+          el.removeEventListener("animationend", onEnd);
+          clearPolaroidAnimation(el);
+        });
+      });
+
+      function showGallery(category) {
+        const next = document.querySelector(".scrapbook-gallery-" + category);
+        const current = document.querySelector(".scrapbook-gallery.is-active");
+        if (!next || next === current || switching) return;
+
+        filterButtons.forEach(function (btn) {
+          btn.classList.toggle("filter-active", btn.getAttribute("data-category") === category);
+        });
+
+        if (reduceMotion || !current) {
+          galleries.forEach(function (gallery) {
+            gallery.classList.toggle("d-none", gallery !== next);
+            gallery.classList.toggle("is-active", gallery === next);
+            gallery.classList.remove("is-exiting");
+          });
+          if (!reduceMotion) replayPolaroidAnimations(next);
+          return;
+        }
+
+        switching = true;
+        current.classList.add("is-exiting");
+        current.classList.remove("is-active");
+
+        window.setTimeout(function () {
+          current.classList.add("d-none");
+          current.classList.remove("is-exiting");
+          next.classList.remove("d-none");
+          void next.offsetWidth;
+          next.classList.add("is-active");
+          replayPolaroidAnimations(next);
+          switching = false;
+        }, 280);
+      }
+
+      filterButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          showGallery(button.getAttribute("data-category"));
+        });
+      });
+    });
+  </script>
+  {% endif %}
 
   <!-- MailerLite Universal -->
   <script>

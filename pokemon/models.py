@@ -795,6 +795,41 @@ class EvenementFoto(models.Model):
         return f"Foto voor {self.evenement.titel} ({self.id})"
 
 
+class IndexFotoCategory:
+    BEURZEN = "beurzen"
+    COMMUNITY = "community"
+    COLLECTIBLES = "collectibles"
+
+    CHOICES = [
+        (BEURZEN, pgettext_lazy("indexfoto category", "Beurzen")),
+        (COMMUNITY, pgettext_lazy("indexfoto category", "Community")),
+        (COLLECTIBLES, pgettext_lazy("indexfoto category", "Collectibles")),
+    ]
+
+
+class IndexFoto(models.Model):
+    titel = models.CharField(max_length=100, verbose_name=_("Titel"))
+    afbeelding = models.ImageField(
+        verbose_name=_("Afbeelding"),
+        upload_to="index_fotos",
+        validators=[validate_image_max_size],
+    )
+    category = models.CharField(
+        max_length=20,
+        choices=IndexFotoCategory.CHOICES,
+        default=IndexFotoCategory.BEURZEN,
+        verbose_name=_("Categorie"),
+    )
+    active = models.BooleanField(verbose_name=_("Actief"), default=True)
+
+    class Meta:
+        verbose_name = "Index Foto"
+        verbose_name_plural = "Index Foto's"
+
+    def __str__(self) -> str:
+        return self.titel
+
+
 class CelType:
     LEEG = "leeg"
     TAFEL = "tafel"

@@ -31,6 +31,8 @@ from pokemon.models import (
     Evenement,
     EvenementFoto,
     GateDevice,
+    IndexFoto,
+    IndexFotoCategory,
     Participant,
     Payment,
     PaymentStatus,
@@ -96,7 +98,9 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    return TemplateResponse(request, 'pokemon/pages/index.html', get_default_context())
+    context = get_default_context()
+    context.update(get_index_foto_context())
+    return TemplateResponse(request, 'pokemon/pages/index.html', context)
 
 def over_ons(request):
     return TemplateResponse(request, 'pokemon/pages/about.html', get_default_context())
@@ -1120,6 +1124,21 @@ def get_default_context():
 
     return {
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
-        "evenement": highlighted_event
+        "evenement": highlighted_event,
+    }
+
+
+def get_index_foto_context():
+    return {
+        "fotos_selectie": IndexFoto.objects.filter(active=True).order_by("?")[:8],
+        "fotos_beurzen": IndexFoto.objects.filter(
+            active=True, category=IndexFotoCategory.BEURZEN
+        ).order_by("?")[:10],
+        "fotos_community": IndexFoto.objects.filter(
+            active=True, category=IndexFotoCategory.COMMUNITY
+        ).order_by("?")[:10],
+        "fotos_collectibles": IndexFoto.objects.filter(
+            active=True, category=IndexFotoCategory.COLLECTIBLES
+        ).order_by("?")[:10],
     }
 

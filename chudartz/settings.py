@@ -437,6 +437,11 @@ UNFOLD = {
                         "link": "/admin/pokemon/sponsor/"
                     },
                     {
+                        "title": _("Sfeerfoto's"),
+                        "icon": "add_photo_alternate",
+                        "link": "/admin/pokemon/indexfoto/",
+                    },
+                    {
                         "title": _("Scanner"),
                         "icon": "qr_code_scanner",
                         "link": "https://chudartz-collectibles.com/pokemon/scanner/", #TODO reverse
