@@ -97,9 +97,33 @@ from pokemon.ticket_wizard import (
 logger = logging.getLogger(__name__)
 
 
+def homepage_evenement_selectie(now=None, exclude=None):
+    """Last finished visible event, plus the next two that have not ended yet.
+
+    `exclude` is the spotlight event, so the cards do not repeat it.
+    """
+    if now is None:
+        now = timezone.now()
+    zichtbaar = Evenement.objects.filter(toon_op_site=True)
+    if exclude is not None:
+        zichtbaar = zichtbaar.exclude(pk=exclude.pk)
+    voorbij = (
+        zichtbaar.filter(einde_datum__lt=now)
+        .order_by("-einde_datum", "-pk")
+        .first()
+    )
+    aankomend = list(
+        zichtbaar.filter(einde_datum__gte=now).order_by("start_datum", "pk")[:2]
+    )
+    return voorbij, aankomend
+
+
 def index(request):
     context = get_default_context()
     context.update(get_index_foto_context())
+    voorbij, aankomend = homepage_evenement_selectie(exclude=context.get("evenement"))
+    context["homepage_voorbij_evenement"] = voorbij
+    context["homepage_aankomende_evenementen"] = aankomend
     return TemplateResponse(request, 'pokemon/pages/index.html', context)
 
 def over_ons(request):

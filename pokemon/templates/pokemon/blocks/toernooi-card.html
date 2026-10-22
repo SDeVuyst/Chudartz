@@ -1,50 +1,53 @@
-{% load static dutch_date i18n %}
+{% load dutch_date i18n %}
 {% if not lg %}
 <div class="col-lg-4">
 {% endif %}
-  <article>
-
-    <div class="post-img">
-      <img src="{{ evenement.afbeelding.url }}" alt="" class="img-fluid">
-    </div>
-
-    <p class="post-category">{{ evenement.locatie_kort }}</p>
-
-    <h2 class="title">
-      <a href="{% url 'evenement' slug=evenement.slug %}">{{ evenement.titel }}</a>
-    </h2>
-
-    <div class="d-flex align-items-center">
-      <div class="post-meta">
-        <p class="post-author">
-          {% if evenement.is_same_day %}
-              {{ evenement.start_datum|dutch_datetime }} - {{ evenement.einde_datum|dutch_time }}
+  <article class="event-card">
+    <a class="event-card__link" href="{% url 'evenement' slug=evenement.slug %}">
+      <div class="event-card__media">
+        <img src="{{ evenement.afbeelding.url }}" alt="">
+        <span class="event-card__location">
+          <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+          {{ evenement.locatie_kort }}
+        </span>
+        <div class="event-card__status">
+          {% if evenement.is_in_future %}
+            {% if not evenement.enable_inschrijvingen %}
+              <span class="event-card__badge event-card__badge--closed"><i class="bi bi-x-circle" aria-hidden="true"></i> {% trans "Inschrijvingen gesloten" %}</span>
+            {% endif %}
+            {% if evenement.is_sold_out %}
+              <span class="event-card__badge event-card__badge--soldout"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> {% trans "Uitverkocht" %}</span>
+            {% endif %}
           {% else %}
-              {{ evenement.start_datum|dutch_datetime }} - {{ evenement.einde_datum|dutch_datetime }}
-          {% endif %}
-        </p>
-        
-        
-          {% if not evenement.enable_inschrijvingen %}
-            <p class="post-date"><i class="bi bi-x-circle"></i><span> Inschrijvingen Gesloten</span></p>
-          {% endif %}
-
-          {% if evenement.is_sold_out %}
-            <p class="post-date"><i class="bi bi-exclamation-circle"></i><span> Uitverkocht</span></p>
-          {% endif %}
-
-          {% if not evenement.is_in_future %}
             {% if evenement.is_bezig %}
-            <p class="post-date"><i class="bi bi-hourglass-split"></i><span> Bezig</span></p>
+              <span class="event-card__badge event-card__badge--live"><i class="bi bi-hourglass-split" aria-hidden="true"></i> {% trans "Bezig" %}</span>
             {% else %}
-            <p class="post-date"><i class="bi bi-clock-history"></i><span> Afgelopen</span></p>
+              <span class="event-card__badge event-card__badge--past"><i class="bi bi-clock-history" aria-hidden="true"></i> {% trans "Afgelopen" %}</span>
             {% endif %}
           {% endif %}
-        
-        
+        </div>
       </div>
-    </div>
 
+      <div class="event-card__body">
+        <h2 class="title">{{ evenement.titel }}</h2>
+        <p class="event-card__when">
+          <span class="event-card__date-icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+          <span>
+            {% if evenement.is_same_day %}
+              {{ evenement.start_datum|dutch_datetime|capfirst }} - {{ evenement.einde_datum|dutch_time }}
+            {% else %}
+              {{ evenement.start_datum|dutch_datetime|capfirst }} - {{ evenement.einde_datum|dutch_datetime|capfirst }}
+            {% endif %}
+          </span>
+        </p>
+      </div>
+    </a>
+    <div class="event-card__footer">
+      <a class="event-card__info" href="{% url 'evenement' slug=evenement.slug %}">{% trans "Meer info" %}</a>
+      {% if evenement.tickets_kopen_mogelijk %}
+      <a class="event-card__tickets" href="{% url 'ticket_kopen' slug=evenement.slug %}">{% trans "Koop ticket" %}</a>
+      {% endif %}
+    </div>
   </article>
 {% if not lg %}
 </div>
