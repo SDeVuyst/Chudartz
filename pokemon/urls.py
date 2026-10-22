@@ -42,6 +42,7 @@ urlpatterns += i18n_patterns(
     path(_('evenement/<slug:slug>/success'), views.evenement_success, name='evenement_success'),
 
     path(_('sponsors/'), views.sponsors, name='sponsors'),
+    path(_('partners/'), views.partners, name='partners'),
     path(_('algemene_voorwaarden/'), views.algemene_voorwaarden, name='algemene_voorwaarden'),
     path(_('privacybeleid/'), views.privacybeleid, name='privacybeleid'),
     path(_('disclaimer/'), views.disclaimer, name='disclaimer'),

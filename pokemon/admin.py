@@ -342,10 +342,26 @@ class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     import_form_class = ImportForm
     export_form_class = SelectableFieldsExportForm
 
-    list_display = ('display_header',)
-    ordering = ('id',)
+    list_display = (
+        'display_header',
+        'toon_op_pagina_display',
+        'toon_knop_display',
+        'volgorde',
+    )
+    list_filter = ('toon_op_pagina', 'toon_knop')
+    ordering = ('volgorde', 'name')
 
-    search_fields = ('name', )
+    search_fields = ('name', 'info')
+
+    fields = (
+        'name',
+        'logo',
+        'website_url',
+        'info',
+        'toon_op_pagina',
+        'toon_knop',
+        'volgorde',
+    )
 
     @display(description=_("Naam"), header=True)
     def display_header(self, instance: Partner):
@@ -361,6 +377,28 @@ class PartnerAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
                 "squared": True,
             },
         ]
+
+    @display(
+        description=_("Toon op partnerpagina"),
+        label={
+            True: "success",
+            False: "danger",
+        },
+    )
+    def toon_op_pagina_display(self, obj: Partner):
+        label = _("Ja") if obj.toon_op_pagina else _("Nee")
+        return obj.toon_op_pagina, label
+
+    @display(
+        description=_("Toon knop"),
+        label={
+            True: "success",
+            False: "danger",
+        },
+    )
+    def toon_knop_display(self, obj: Partner):
+        label = _("Ja") if obj.toon_knop else _("Nee")
+        return obj.toon_knop, label
 
 
 @admin.register(AanbodItem)

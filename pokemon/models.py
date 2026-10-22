@@ -60,6 +60,24 @@ class Partner(models.Model):
     name = models.CharField(max_length=100)
     logo = models.ImageField(upload_to='partner_logos/')
     website_url = models.URLField(verbose_name=_("Website URL"))
+    info = RichTextField(verbose_name=_("Info over Partner"), blank=True)
+    toon_op_pagina = models.BooleanField(
+        verbose_name=_("Toon op partnerpagina"),
+        default=True,
+    )
+    toon_knop = models.BooleanField(
+        verbose_name=_("Toon knop op partnerpagina"),
+        default=True,
+    )
+    volgorde = models.SmallIntegerField(
+        verbose_name=_("Volgorde op pagina"),
+        default=0,
+    )
+
+    class Meta:
+        ordering = ["volgorde", "name"]
+        verbose_name = _("Partner")
+        verbose_name_plural = _("Partners")
 
     def __str__(self):
         return self.name

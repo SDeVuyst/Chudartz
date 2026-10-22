@@ -37,6 +37,7 @@ from pokemon.models import (
     IndexFoto,
     IndexFotoCategory,
     Participant,
+    Partner,
     Payment,
     PaymentStatus,
     Sponsor,
@@ -144,6 +145,13 @@ def sponsors(request):
     context = get_default_context()
     context['sponsors_pagina'] = Sponsor.objects.all().order_by('-volgorde_pagina')
     return TemplateResponse(request, 'pokemon/pages/sponsors.html', context)
+
+
+def partners(request):
+    context = get_default_context()
+    context['partners'] = Partner.objects.filter(toon_op_pagina=True).order_by('volgorde', 'name')
+    return TemplateResponse(request, 'pokemon/pages/partners.html', context)
+
 
 def contact(request):
     # request must always be post

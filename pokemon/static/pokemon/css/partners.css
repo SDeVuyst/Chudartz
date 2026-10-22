@@ -1,0 +1,35 @@
+/*--------------------------------------------------------------
+# Partners Page
+--------------------------------------------------------------*/
+
+.partners-page .page-title .btn-get-started,
+.partners-page .features .features-item .btn-get-started {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 8px 30px 10px 30px;
+  border-radius: 4px;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.partners-page .page-title .btn-get-started:hover,
+.partners-page .features .features-item .btn-get-started:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  color: var(--contrast-color);
+}
+
+.partners-page .features .features-item {
+  align-items: center;
+}
+
+.partners-page .features .features-item .btn-get-started {
+  align-self: flex-start;
+  margin-top: 1.25rem;
+}
+
+.partners-page .features .features-item .partner-logo {
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+}

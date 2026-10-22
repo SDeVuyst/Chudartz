@@ -4293,9 +4293,40 @@ msgstr "contact/"
 msgid "sponsors/"
 msgstr "sponsors/"
 
+#: .\pokemon\urls.py
+msgid "partners/"
+msgstr "partners/"
+
 #: .\darts\urls.py:46 .\pokemon\urls.py:25
 msgid "faq/"
 msgstr "faq/"
+
+msgid "Info over Partner"
+msgstr "Info about Partner"
+
+msgid "Toon op partnerpagina"
+msgstr "Show on partners page"
+
+msgid "Toon knop op partnerpagina"
+msgstr "Show button on partners page"
+
+msgid "Toon knop"
+msgstr "Show button"
+
+msgid "Onze partners maken ChudartZ Collectibles-beurzen mogelijk. Ontdek met wie we samenwerken."
+msgstr "Our partners make ChudartZ Collectibles events possible. Discover who we work with."
+
+msgid "Samen met onze partners bouwen we aan beurzen waar verzamelaars, standhouders en fans elkaar vinden."
+msgstr "Together with our partners, we build events where collectors, vendors and fans meet."
+
+msgid "Word partner"
+msgstr "Become a partner"
+
+msgid "Onze partners verschijnen hier binnenkort."
+msgstr "Our partners will appear here soon."
+
+msgid "Logo %(naam)s"
+msgstr "Logo %(naam)s"
 
 #: .\darts\urls.py:48
 msgid "darts/scanner/"
