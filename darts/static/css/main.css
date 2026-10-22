@@ -2485,7 +2485,8 @@ section,
   transition: 0.3s;
 }
 
-.blog-pagination li a {
+.blog-pagination li a,
+.blog-pagination li span.is-active {
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   padding: 7px 16px;
   display: flex;
@@ -2493,12 +2494,9 @@ section,
   justify-content: center;
 }
 
-.blog-pagination li a.active, .blog-pagination li a:hover {
+.blog-pagination li a:hover,
+.blog-pagination li span.is-active {
   background: var(--accent-color);
-  color: var(--contrast-color);
-}
-
-.blog-pagination li a.active a, .blog-pagination li a:hover a {
   color: var(--contrast-color);
 }
 

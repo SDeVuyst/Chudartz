@@ -107,6 +107,37 @@ class Evenement(models.Model):
     max_deelnemers = models.IntegerField(verbose_name=_("Max Deelnemers"))
     locatie_kort = models.CharField(max_length=25, verbose_name=_("Locatie (kort)"))
     locatie_lang = models.TextField(verbose_name=_("Locatie (lang)"))
+    latitude = models.DecimalField(
+        verbose_name=_("Latitude"),
+        max_digits=9,
+        decimal_places=6,
+        null=True,
+        blank=True,
+        validators=[
+            MinValueValidator(Decimal("-90")),
+            MaxValueValidator(Decimal("90")),
+        ],
+        help_text=_(
+            "Breedtegraad van de locatie, bijvoorbeeld 51.209348. "
+            "Samen met longitude verschijnt er een pin op de kaart van de evenementenpagina. "
+            "Leeg laten = geen pin."
+        ),
+    )
+    longitude = models.DecimalField(
+        verbose_name=_("Longitude"),
+        max_digits=9,
+        decimal_places=6,
+        null=True,
+        blank=True,
+        validators=[
+            MinValueValidator(Decimal("-180")),
+            MaxValueValidator(Decimal("180")),
+        ],
+        help_text=_(
+            "Lengtegraad van de locatie, bijvoorbeeld 3.224700. "
+            "Beide velden zijn nodig voor een pin."
+        ),
+    )
     afbeelding = models.ImageField(verbose_name=_("afbeelding"), upload_to="darts")
     standhouder_inbegrepen = models.TextField(verbose_name=_("Inbegrepen Standhouder (Elk op een nieuwe lijn)"))
     standhouder_prijzen = models.TextField(verbose_name=_("Prijzen Standhouder (Elk op een nieuwe lijn)"))

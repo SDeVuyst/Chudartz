@@ -13,10 +13,13 @@ from django.db.models import Case, DateTimeField, F, IntegerField, Value, When
 from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
                          HttpResponseNotFound, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.template.response import TemplateResponse
 from django.utils import timezone
+from django.utils.text import capfirst
 from django.views.decorators.csrf import csrf_exempt
 
+from darts.templatetags.dutch_date import dutch_datetime, dutch_time
 from darts.utils import helpers
 from pokemon.forms import (
     ContactForm,
@@ -93,7 +96,6 @@ from pokemon.ticket_wizard import (
     set_wizard_data,
     ticket_base_context,
 )
-
 logger = logging.getLogger(__name__)
 
 
@@ -192,49 +194,76 @@ def contact(request):
         return JsonResponse({'success': False, 'error': str(e)})
 
 
+def _evenement_datum_label(evenement):
+    """Same date line as the event card."""
+    start = capfirst(str(dutch_datetime(evenement.start_datum)))
+    if evenement.is_same_day:
+        return f"{start} - {dutch_time(evenement.einde_datum)}"
+    einde = capfirst(str(dutch_datetime(evenement.einde_datum)))
+    return f"{start} - {einde}"
+
+
+def _evenement_kaart_pins():
+    """Pins for published events that have not ended yet."""
+    pins = []
+    evenementen = Evenement.objects.filter(
+        toon_op_site=True,
+        latitude__isnull=False,
+        longitude__isnull=False,
+        einde_datum__gte=timezone.now(),
+    ).order_by("start_datum")
+    for evenement in evenementen:
+        pins.append({
+            "titel": evenement.titel,
+            "locatie": evenement.locatie_kort,
+            "datum": _evenement_datum_label(evenement),
+            "lat": float(evenement.latitude),
+            "lng": float(evenement.longitude),
+            "url": reverse("evenement", kwargs={"slug": evenement.slug}),
+        })
+    return pins
+
+
 def evenementen(request):
     now = timezone.now()
     # Eerst de aankomende en lopende evenementen (dichtste startdatum eerst),
     # daarna de voorbije (recentste eerst). De sortering gebeurt in de database
     # zodat de volgorde ook over meerdere paginas correct blijft.
-    evenementen = Evenement.objects.filter(toon_op_site=True).annotate(
+    evenementen_qs = Evenement.objects.filter(toon_op_site=True).annotate(
         is_voorbij=Case(
             When(einde_datum__lt=now, then=Value(1)),
             default=Value(0),
             output_field=IntegerField(),
         ),
         aankomend_datum=Case(
-            When(einde_datum__gte=now, then=F('start_datum')),
+            When(einde_datum__gte=now, then=F("start_datum")),
             output_field=DateTimeField(),
         ),
         voorbij_datum=Case(
-            When(einde_datum__lt=now, then=F('start_datum')),
+            When(einde_datum__lt=now, then=F("start_datum")),
             output_field=DateTimeField(),
         ),
     ).order_by(
-        'is_voorbij',
-        'aankomend_datum',
-        F('voorbij_datum').desc(nulls_last=True),
-        'volgorde',
-        'pk',
+        "is_voorbij",
+        "aankomend_datum",
+        F("voorbij_datum").desc(nulls_last=True),
+        "volgorde",
+        "pk",
     )
 
-    paginator = Paginator(evenementen, 12)
-
+    paginator = Paginator(evenementen_qs, 12)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
+    page_events = list(page_obj)
 
     context = get_default_context()
     context["evenementen"] = page_obj
-    context["aankomende_evenementen"] = [
-        evenement for evenement in page_obj if not evenement.is_voorbij
-    ]
-    context["voorbije_evenementen"] = [
-        evenement for evenement in page_obj if evenement.is_voorbij
-    ]
+    context["aankomende_evenementen"] = [e for e in page_events if not e.is_voorbij]
+    context["voorbije_evenementen"] = [e for e in page_events if e.is_voorbij]
     context["enable_pagination"] = paginator.num_pages > 1
+    context["map_pins"] = _evenement_kaart_pins()
 
-    return TemplateResponse(request, 'pokemon/pages/evenementen.html', context)
+    return TemplateResponse(request, "pokemon/pages/evenementen.html", context)
 
 
 def _get_gerelateerde_evenementen(evenement, limit=3):

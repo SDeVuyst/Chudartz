@@ -5,25 +5,34 @@
     <div class="container">
         <div class="d-flex justify-content-center">
             <ul>
-                <!-- previous page -->
                 {% if page_obj.has_previous %}
-                    <li><a href="{% url pagination_url_name %}?page={{ page_obj.previous_page_number }}"><i class="bi bi-chevron-left"></i></a></li>
+                    <li>
+                        <a href="{% url pagination_url_name %}?{% if pagination_query %}{{ pagination_query }}&amp;{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
                 {% endif %}
 
-                <!-- elided numbers -->
                 {% for page_number in page_obj.paginator.get_elided_page_range %}
                     {% if page_number == page_obj.paginator.ELLIPSIS %}
-                        <li class="p-2 pagination">...</li>
+                        <li><span class="blog-pagination__ellipsis" aria-hidden="true">…</span></li>
+                    {% elif page_number == page_obj.number %}
+                        <li>
+                            <span class="is-active" aria-current="page">{{ page_number }}</span>
+                        </li>
                     {% else %}
-                        <a href="{% url pagination_url_name %}?page={{ page_number }}" class="{% if page_number == page_obj.number %}active{% endif %} p-2 pagination">
-                            {{ page_number }}
-                        </a>
+                        <li>
+                            <a href="{% url pagination_url_name %}?{% if pagination_query %}{{ pagination_query }}&amp;{% endif %}page={{ page_number }}">{{ page_number }}</a>
+                        </li>
                     {% endif %}
                 {% endfor %}
 
-                <!-- next page -->
                 {% if page_obj.has_next %}
-                    <li><a href="{% url pagination_url_name %}?page={{ page_obj.next_page_number }}"><i class="bi bi-chevron-right"></i></a></li>
+                    <li>
+                        <a href="{% url pagination_url_name %}?{% if pagination_query %}{{ pagination_query }}&amp;{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

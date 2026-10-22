@@ -17,22 +17,19 @@
     margin: 0 5px;
     transition: 0.3s;
 
-    a {
+    a,
+    span.is-active {
       color: color-mix(in srgb, var(--default-color), transparent 40%);
       padding: 7px 16px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
 
-      &.active,
-      &:hover {
-        background: var(--accent-color);
-        color: var(--contrast-color);
-
-        a {
-          color: var(--contrast-color);
-        }
-      }
+    a:hover,
+    span.is-active {
+      background: var(--accent-color);
+      color: var(--contrast-color);
     }
   }
 }

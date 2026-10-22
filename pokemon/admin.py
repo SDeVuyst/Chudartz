@@ -1,3 +1,6 @@
+import re
+from decimal import Decimal
+
 from django.contrib import messages
 from django.contrib import admin
 from django import forms
@@ -24,6 +27,57 @@ from unfold.contrib.import_export.forms import ImportForm, SelectableFieldsExpor
 
 
 from .models import *
+
+
+_COORDINATE_RE = re.compile(r"-?\d+(?:[.,]\d+)?")
+
+
+def coordinate_numbers(*values):
+    """Pull decimal coordinates out of one or more admin inputs.
+
+    Accepts a dot or comma as decimal mark, and a pasted pair such as
+    "51.209348, 3.224700" in a single field.
+    """
+    numbers = []
+    for value in values:
+        if value is None:
+            continue
+        for match in _COORDINATE_RE.findall(str(value)):
+            numbers.append(Decimal(match.replace(",", ".")))
+    return numbers
+
+
+class EvenementAdminForm(forms.ModelForm):
+    class Meta:
+        model = Evenement
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.is_bound:
+            self._apply_pasted_coordinate_pair()
+
+    def _apply_pasted_coordinate_pair(self):
+        numbers = coordinate_numbers(self.data.get("latitude"), self.data.get("longitude"))
+        if len(numbers) < 2:
+            return
+        data = self.data.copy()
+        data["latitude"] = format(numbers[0].quantize(Decimal("0.000001")), "f")
+        data["longitude"] = format(numbers[1].quantize(Decimal("0.000001")), "f")
+        self.data = data
+
+    def clean(self):
+        cleaned = super().clean()
+        latitude = cleaned.get("latitude")
+        longitude = cleaned.get("longitude")
+        if (latitude is None) != (longitude is None):
+            self.add_error(
+                "longitude" if latitude is not None else "latitude",
+                _("Vul zowel latitude als longitude in. Zonder beide coördinaten verschijnt er geen pin op de kaart."),
+            )
+        return cleaned
+
+
 from pokemon.event_choices import evenement_admin_lookups, tickets_by_event_options
 from pokemon.standhouder_wizard import (
     clear_studio_preview_inschrijving,
@@ -485,6 +539,7 @@ class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Evenement)
 class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
+    form = EvenementAdminForm
     list_display = ('display_header', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
     inlines = [
@@ -511,7 +566,20 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
             ),
         }),
         (_("Datum & locatie"), {
-            "fields": ("start_datum", "einde_datum", "max_deelnemers", "locatie_kort", "locatie_lang"),
+            "fields": (
+                "start_datum",
+                "einde_datum",
+                "max_deelnemers",
+                "locatie_kort",
+                "locatie_lang",
+                "latitude",
+                "longitude",
+            ),
+            "description": _(
+                "Een pin verschijnt op de evenementenkaart zolang het evenement niet afgelopen is, "
+                "en alleen als latitude én longitude zijn ingevuld. "
+                "Plak beide coördinaten in het latitude-veld (51.209348, 3.224700)."
+            ),
         }),
         (_("Weergave op de site"), {
             "fields": ("toon_op_site", "highlight_event", "volgorde", "partners"),
@@ -566,6 +634,8 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
                 amount_widget=forms.NumberInput(attrs={"step": "0.01"}),
                 choices=[("EUR", "Euro")],
             )
+        if db_field.name in ("latitude", "longitude"):
+            kwargs["widget"] = forms.TextInput(attrs={"inputmode": "decimal"})
         if db_field.name in ("voordelen_tekst", "nadelen_tekst"):
             kwargs["widget"] = forms.Textarea(attrs={"rows": 4})
         return super().formfield_for_dbfield(db_field, request, **kwargs)
