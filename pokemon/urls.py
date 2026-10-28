@@ -29,6 +29,7 @@ urlpatterns += i18n_patterns(
 
     path(_('evenementen'), views.evenementen, name="evenementen"),
     path(_('evenement/<slug:slug>/'), views.evenement, name='evenement'),
+    path('evenement/<slug:slug>/agenda.ics', views.evenement_agenda, name='evenement_agenda'),
     path(_('evenement/<slug:slug>/tickets/'), views.ticket_kopen, name='ticket_kopen'),
     path(_('evenement/<slug:slug>/tickets/gegevens/'), views.ticket_gegevens, name='ticket_gegevens'),
     path(_('evenement/<slug:slug>/tickets/overzicht/'), views.ticket_overzicht, name='ticket_overzicht'),

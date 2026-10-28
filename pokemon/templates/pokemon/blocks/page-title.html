@@ -1,7 +1,8 @@
 {% load i18n %}
 
 <!-- Page Title -->
-<div class="page-title" data-aos="fade">
+<div class="page-title{% if breadcrumbs_only %} page-title--breadcrumbs-only{% endif %}" data-aos="fade">
+    {% if not breadcrumbs_only %}
     <div class="heading
      {% if background %}background{% endif %} 
      {% if backgroundsecond %}background background2{% endif %}">
@@ -21,6 +22,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     <nav class="breadcrumbs">
       <div class="container">
         <ol>

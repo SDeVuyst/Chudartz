@@ -1,53 +1,53 @@
 {% load i18n %}
 
-<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-    <div class="pricing-item{% if ticket.disable_ticket %} pricing-item--disabled{% endif %}">
-        <h3>{{ ticket.titel }}</h3>
-        {% if ticket.subtitel %}
-        <p class="ticket-subtitel">{{ ticket.subtitel }}</p>
-        {% endif %}
-
-        <div class="icon">
-            <i class="bi bi-{{ ticket.icon }}"></i>
+<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+    <article class="ticket-card{% if ticket.disable_ticket %} ticket-card--disabled{% endif %}">
+        <div class="ticket-card__header">
+            <span class="ticket-card__icon" aria-hidden="true"><i class="bi bi-{{ ticket.icon }}"></i></span>
+            <div>
+                <h3 class="ticket-card__title">{{ ticket.titel }}</h3>
+                {% if ticket.subtitel %}
+                <p class="ticket-card__subtitle">{{ ticket.subtitel }}</p>
+                {% endif %}
+            </div>
         </div>
 
-        {% if ticket.is_gratis %}
-        <h4 class="mb-1 ticket-price-gratis">{% trans 'Gratis' %}</h4>
-        {% else %}
-        <h4 class="mb-1"><sup>€</sup>{{ ticket.price.amount }}</h4>
-        {% endif %}
+        <div class="ticket-card__price-row">
+            {% if ticket.is_gratis %}
+            <p class="ticket-card__price">{% trans 'Gratis' %}</p>
+            {% else %}
+            <p class="ticket-card__price"><span class="ticket-card__currency">€</span>{{ ticket.price.amount }}</p>
+            {% endif %}
 
-        {% if ticket.disable_ticket %}
-        <div class="text-center">
-            <span class="badge bg-secondary">{% trans 'Niet beschikbaar' %}</span>
+            {% if ticket.disable_ticket %}
+            <span class="evenement-status evenement-status--closed"><i class="bi bi-x-circle" aria-hidden="true"></i> {% trans 'Niet beschikbaar' %}</span>
+            {% elif ticket.is_sold_out %}
+            <span class="evenement-status evenement-status--soldout"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> {% trans 'Uitverkocht' %}</span>
+            {% endif %}
         </div>
-        {% elif ticket.is_sold_out %}
-        <div class="text-center">
-            <span class="badge bg-danger">{% trans 'Uitverkocht' %}</span>
-        </div>
-        {% endif %}
 
-        <ul>
+        <ul class="ticket-card__list">
             {% for voordeel in ticket.voordelen %}
-            <li><i class="bi bi-check"></i> <span>{{ voordeel }}</span></li>
+            <li><i class="bi bi-check" aria-hidden="true"></i> <span>{{ voordeel }}</span></li>
             {% endfor %}
 
             {% for nadeel in ticket.nadelen %}
-            <li class="na"><i class="bi bi-x"></i> <span>{{ nadeel }}</span></li>
+            <li class="na"><i class="bi bi-x" aria-hidden="true"></i> <span>{{ nadeel }}</span></li>
             {% endfor %}
         </ul>
-        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4">
+
+        <div class="ticket-card__footer">
             {% if ticket.disable_ticket %}
-            <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Niet beschikbaar' %}</span>
+            <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">{% trans 'Niet beschikbaar' %}</span>
             {% elif ticket.enkel_inkom %}
-            <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Ticket aan de deur' %}</span>
+            <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">{% trans 'Ticket aan de deur' %}</span>
             {% elif not evenement.enable_inschrijvingen %}
-            <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Inschrijvingen gesloten' %}</span>
+            <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">{% trans 'Inschrijvingen gesloten' %}</span>
             {% elif evenement.is_sold_out or ticket.is_sold_out %}
-            <span class="buy-btn text-center fw-bold text-nowrap disabled" aria-disabled="true">{% trans 'Uitverkocht' %}</span>
+            <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">{% trans 'Uitverkocht' %}</span>
             {% else %}
-            <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="buy-btn text-center fw-bold text-nowrap">{% trans 'Koop nu' %}</a>
+            <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="evenement-btn-primary">{% trans 'Koop nu' %}</a>
             {% endif %}
         </div>
-    </div>
+    </article>
 </div>

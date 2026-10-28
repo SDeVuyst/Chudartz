@@ -8,299 +8,24 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
+<meta name="description" content="{{ evenement.intro_op_index }}">
 <meta name="keywords" content="verzamelbeurs, ruilen, ruilbeurs, zeldzame items, verzamelaars, pokemon, standhouder, beleving, familievriendelijk, unieke vondsten, toegang voor iedereen">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ share_url }}">
 <meta property="og:title" content="ChudartZ Collectibles | {{ evenement.titel }}">
-<meta property="og:description" content="Onze beurs is dé ontmoetingsplek voor verzamelaars van o.a. Pokémon-kaarten en unieke objecten. Ontdek zeldzame 'schatten' in een gezellige sfeer waarin iedereen zich welkom voelt, van waar ook ter wereld.">
-<meta property="og:image" content="{% static 'pokemon/img/logo-black.png' %}">
+<meta property="og:description" content="{{ evenement.intro_op_index }}">
+<meta property="og:image" content="{% if og_image_url %}{{ og_image_url }}{% else %}{% static 'pokemon/img/logo-black.png' %}{% endif %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ChudartZ | {{ evenement.titel }}">
-<meta name="twitter:description" content="Onze beurs is dé ontmoetingsplek voor verzamelaars van o.a. Pokémon-kaarten en unieke objecten. Ontdek zeldzame 'schatten' in een gezellige sfeer waarin iedereen zich welkom voelt, van waar ook ter wereld.">
-<meta name="twitter:image" content="{% static 'pokemon/img/logo-black.png' %}">
+<meta name="twitter:description" content="{{ evenement.intro_op_index }}">
+<meta name="twitter:image" content="{% if og_image_url %}{{ og_image_url }}{% else %}{% static 'pokemon/img/logo-black.png' %}{% endif %}">
+
+<script type="application/ld+json">{{ event_jsonld|safe }}</script>
 {% endblock %}
 
 {% block head %}
-<style>
-.evenement-acties {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1.25rem;
-}
-.evenement-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 22px 10px 22px;
-  border-radius: 4px;
-  border: 1px solid #d5d9de;
-  background: #fff;
-  color: var(--heading-color);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.25;
-  text-decoration: none;
-  box-sizing: border-box;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-}
-.features .features-item .evenement-acties .btn-get-started {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1.25;
-}
-.evenement-btn-secondary:hover {
-  border-color: var(--accent-color);
-  color: var(--accent-color);
-  background: color-mix(in srgb, var(--accent-color), transparent 94%);
-}
-.evenement-pricing-notice {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  padding: 0.9rem 1.1rem;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-  font-size: 0.92rem;
-  line-height: 1.45;
-}
-.evenement-pricing-notice--info {
-  background: #eef4ff;
-  color: #3d4f6f;
-  border: 1px solid #d4e2f5;
-}
-.evenement-pricing-notice--warning {
-  background: #fff8e6;
-  color: #8a6d1b;
-  border: 1px solid #ffe8a8;
-}
-.evenement-pricing-notice .bi {
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-.pricing-item--disabled {
-  opacity: 0.72;
-}
-.pricing .pricing-item h4.ticket-price-gratis {
-  font-size: 36px;
-}
-
-/* Event meta band — tijd & locatie */
-.evenement-meta {
-  margin-top: 2.75rem;
-}
-.evenement-meta__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-@media (max-width: 767px) {
-  .evenement-meta__grid {
-    grid-template-columns: 1fr;
-  }
-}
-.evenement-meta__card {
-  display: flex;
-  gap: 1.15rem;
-  align-items: center;
-  padding: 1.5rem 1.5rem;
-  background: var(--surface-color, #fff);
-  border-radius: 15px;
-  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-.evenement-meta__card:hover {
-  box-shadow: 0 8px 28px -6px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
-}
-.evenement-meta__icon {
-  flex-shrink: 0;
-  width: 2.75rem;
-  height: 2.75rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0;
-  font-size: 1.55rem;
-  line-height: 0;
-  background: transparent;
-  color: var(--accent-color);
-  transition: color 0.25s ease;
-}
-.evenement-meta__card:hover .evenement-meta__icon {
-  background: transparent;
-  color: var(--accent-color);
-}
-.evenement-meta__separator {
-  width: 80px;
-  height: 3px;
-  margin: 2.5rem auto 0;
-  border: 0;
-  border-radius: 2px;
-  background: var(--accent-color);
-  opacity: 0.85;
-}
-.evenement-meta__body {
-  min-width: 0;
-}
-.evenement-meta__label {
-  display: block;
-  margin: 0 0 0.2rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
-}
-.evenement-meta__primary {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--heading-color);
-}
-.evenement-meta__secondary {
-  margin: 0.3rem 0 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--accent-color);
-}
-.evenement-meta__maps {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.55rem;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent-color);
-  text-decoration: none;
-  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
-  border-radius: 4px;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-.evenement-meta__maps:hover {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  color: var(--contrast-color, #fff);
-  text-decoration: none;
-}
-
-/* Wat kan je vinden — logo-tegels (zelfde taal als meta-kaarten) */
-.evenement-aanbod {
-  margin-top: 2.75rem;
-  text-align: center;
-}
-.evenement-aanbod__title {
-  margin: 0 0 0.65rem;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--heading-color);
-}
-.evenement-aanbod__beschrijving {
-  margin: 0 auto 1.5rem;
-  max-width: 40rem;
-  font-size: 0.98rem;
-  line-height: 1.55;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-}
-.evenement-aanbod__list {
-  --aanbod-gap: 1.15rem;
-  --aanbod-cols: 4;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--aanbod-gap);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-.evenement-aanbod__item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  box-sizing: border-box;
-  flex: 0 0 calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
-  width: calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
-  max-width: calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
-  min-height: 168px;
-  padding: 1rem 0.75rem 0.9rem;
-  border: none;
-  border-radius: 15px;
-  background: var(--surface-color, #fff);
-  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
-  font-size: 0.88rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--heading-color);
-  text-align: center;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-.evenement-aanbod__item:hover {
-  box-shadow: 0 8px 28px -6px rgba(0, 0, 0, 0.12);
-  transform: translateY(-3px);
-}
-.evenement-aanbod__icon-wrap {
-  width: 100%;
-  max-width: none;
-  height: 118px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  box-shadow: none;
-}
-.evenement-aanbod__item:hover .evenement-aanbod__icon-wrap {
-  transform: none;
-  background: transparent;
-  box-shadow: none;
-}
-.evenement-aanbod__icon {
-  width: 92%;
-  height: 100%;
-  max-width: none;
-  max-height: 118px;
-  object-fit: contain;
-  border-radius: 0;
-}
-.evenement-aanbod__icon--fallback {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 92%;
-  height: 100%;
-  color: var(--accent-color);
-  font-size: 2.5rem;
-}
-.evenement-aanbod__name {
-  display: block;
-  max-width: 100%;
-}
-@media (max-width: 991.98px) {
-  .evenement-aanbod__list {
-    --aanbod-cols: 3;
-  }
-}
-@media (max-width: 575.98px) {
-  .evenement-aanbod__list {
-    --aanbod-cols: 2;
-    --aanbod-gap: 0.85rem;
-  }
-  .evenement-aanbod__item {
-    min-height: 148px;
-    padding: 0.85rem 0.55rem 0.75rem;
-  }
-  .evenement-aanbod__icon-wrap {
-    height: 96px;
-  }
-  .evenement-aanbod__icon {
-    width: 94%;
-    max-height: 96px;
-  }
-}
-</style>
+<link href="{% static 'pokemon/css/evenement.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -313,90 +38,223 @@ ChudartZ Collectibles | {{ evenement.titel }}
     {% trans "/nl/evenementen" as page_previous_crumb_link %}
     {% trans "Evenementen" as page_previous_crumb %}
 
-    {% include 'blocks/page-title.html' with name=evenement.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
+    {% include 'pokemon/blocks/page-title.html' with name=evenement.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link breadcrumbs_only=True %}
 
-    <section id="intro" class="section features">
+    <section id="intro" class="section evenement-intro">
       <div class="container">
-        
-        <div class="row gy-4 align-items-center features-item">
-            <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-              <h3>{{ evenement.titel_sectie_a }}</h3>
 
+        <header class="evenement-header" data-aos="fade-up">
+          <div class="evenement-header__status">
+            {% if evenement.is_in_future %}
               {% if evenement.is_sold_out %}
-                <span class="badge bg-secondary">Uitverkocht</span>
+              <span class="evenement-status evenement-status--soldout"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> {% trans "Uitverkocht" %}</span>
               {% endif %}
-
               {% if not evenement.enable_inschrijvingen %}
-                <span class="badge bg-secondary">Inschrijvingen gesloten</span>
+              <span class="evenement-status evenement-status--closed"><i class="bi bi-x-circle" aria-hidden="true"></i> {% trans "Inschrijvingen gesloten" %}</span>
+              {% endif %}
+            {% elif evenement.is_bezig %}
+              <span class="evenement-status evenement-status--live"><i class="bi bi-hourglass-split" aria-hidden="true"></i> {% trans "Bezig" %}</span>
+            {% else %}
+              <span class="evenement-status evenement-status--past"><i class="bi bi-clock-history" aria-hidden="true"></i> {% trans "Afgelopen" %}</span>
+            {% endif %}
+          </div>
+          <h1>{{ evenement.titel }}</h1>
+          <ul class="evenement-header__chips">
+            <li><i class="bi bi-calendar-event" aria-hidden="true"></i> {{ evenement.start_datum|dutch_weekday_date|capfirst }}</li>
+            <li><i class="bi bi-geo-alt" aria-hidden="true"></i> {{ evenement.locatie_kort }}</li>
+          </ul>
+        </header>
+
+        <div class="row g-4 g-lg-5">
+
+          <div class="col-lg-4 order-lg-2">
+            <aside class="evenement-booking" id="booking" data-aos="fade-up" data-aos-delay="100" aria-label="{% trans 'Tickets' %}">
+              {% if evenement.afbeelding %}
+              <div class="evenement-booking__media">
+                <img src="{{ evenement.afbeelding.url }}" alt="{{ evenement.titel }}">
+              </div>
               {% endif %}
 
-              {% if not evenement.is_in_future %}
-                {% if evenement.is_bezig %}
-                <span class="badge bg-secondary">Bezig</span>
-                {% else %}
-                <span class="badge bg-secondary">Afgelopen</span>
-                {% endif %}
-              {% endif %}   
+              <div class="evenement-booking__body">
+                <ul class="evenement-booking__facts">
+                  <li>
+                    <span class="evenement-booking__fact-icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+                    <span>
+                      {% if evenement.is_same_day %}
+                        {{ evenement.start_datum|dutch_weekday_date|capfirst }}<br>{{ evenement.start_datum|dutch_time }} – {{ evenement.einde_datum|dutch_time }}
+                      {% else %}
+                        {{ evenement.start_datum|dutch_weekday_date|capfirst }} {{ evenement.start_datum|dutch_time }} –<br>{{ evenement.einde_datum|dutch_weekday_date|capfirst }} {{ evenement.einde_datum|dutch_time }}
+                      {% endif %}
+                    </span>
+                  </li>
+                  <li>
+                    <span class="evenement-booking__fact-icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+                    <span>{{ evenement.locatie_kort }}</span>
+                  </li>
+                </ul>
 
-              <p>{{ evenement.tekst_sectie_a|safe }}</p>
-              <div class="evenement-acties">
-                {% if tickets_kopen_mogelijk %}
-                <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="btn btn-get-started">{% trans 'Tickets kopen' %}</a>
+                {% if evenement.is_in_future %}
+                <div class="evenement-countdown" data-countdown="{{ evenement.start_datum|date:'c' }}" hidden aria-label="{% trans 'Aftellen tot het evenement' %}">
+                  <div class="evenement-countdown__unit">
+                    <span class="evenement-countdown__value" data-unit="days">0</span>
+                    <span class="evenement-countdown__label">{% trans "dagen" %}</span>
+                  </div>
+                  <div class="evenement-countdown__unit">
+                    <span class="evenement-countdown__value" data-unit="hours">0</span>
+                    <span class="evenement-countdown__label">{% trans "uur" %}</span>
+                  </div>
+                  <div class="evenement-countdown__unit">
+                    <span class="evenement-countdown__value" data-unit="minutes">0</span>
+                    <span class="evenement-countdown__label">{% trans "min" %}</span>
+                  </div>
+                  <div class="evenement-countdown__unit">
+                    <span class="evenement-countdown__value" data-unit="seconds">0</span>
+                    <span class="evenement-countdown__label">{% trans "sec" %}</span>
+                  </div>
+                </div>
                 {% endif %}
-                <a href="#pricing" class="evenement-btn-secondary">{% trans 'Bekijk tickets' %}</a>
-                {% if evenement.standhouder_inschrijving_mogelijk %}
-                <a href="{% url 'standhouder' slug=evenement.slug %}" class="evenement-btn-secondary">{% trans 'Standhouder worden' %}</a>
-                {% endif %}
-              </div>
-            </div>
-            
-            <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
-            <div class="image-stack">
-                <img src="{% static "pokemon/img/table.webp" %}" alt="{% trans "Oefenborden dartschool" %}" class="stack-front">
-                <img src="{% static "pokemon/img/comics.webp" %}" alt="{% trans "Comics tafel" %}" class="stack-back">
-            </div>
-            </div>
-        </div>
 
-        <div class="evenement-meta" data-aos="fade-up" data-aos-delay="150">
-          <div class="evenement-meta__grid">
-            <div class="evenement-meta__card">
-              <span class="evenement-meta__icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
-              <div class="evenement-meta__body">
-                <span class="evenement-meta__label">{% trans "Datum & tijd" %}</span>
-                {% if evenement.is_same_day %}
-                  <p class="evenement-meta__primary">{{ evenement.start_datum|dutch_weekday_date|capfirst }}</p>
-                  <p class="evenement-meta__secondary">{{ evenement.start_datum|dutch_time }} – {{ evenement.einde_datum|dutch_time }}</p>
-                {% else %}
-                  <p class="evenement-meta__primary">{{ evenement.start_datum|dutch_weekday_date|capfirst }} – {{ evenement.einde_datum|dutch_weekday_date|capfirst }}</p>
-                  <p class="evenement-meta__secondary">{{ evenement.start_datum|dutch_time }} – {{ evenement.einde_datum|dutch_time }}</p>
+                {% if vanaf_gratis or prijs_vanaf %}
+                <div class="evenement-booking__price">
+                  {% if vanaf_gratis %}
+                  <span class="evenement-booking__price-label">{% trans "Toegang" %}</span>
+                  <span class="evenement-booking__price-value">{% trans "Gratis" %}</span>
+                  {% else %}
+                  <span class="evenement-booking__price-label">{% trans "Tickets vanaf" %}</span>
+                  <span class="evenement-booking__price-value">€{{ prijs_vanaf.amount }}</span>
+                  {% endif %}
+                </div>
+                {% endif %}
+
+                <div class="evenement-booking__actions">
+                  {% if tickets_kopen_mogelijk %}
+                  <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="evenement-btn-primary">
+                    <i class="bi bi-ticket-perforated" aria-hidden="true"></i> {% trans "Koop tickets" %}
+                  </a>
+                  {% elif not evenement.is_in_future %}
+                  <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">
+                    {% if evenement.is_bezig %}{% trans "Evenement is bezig" %}{% else %}{% trans "Evenement afgelopen" %}{% endif %}
+                  </span>
+                  {% elif evenement.is_sold_out %}
+                  <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">{% trans "Uitverkocht" %}</span>
+                  {% elif not evenement.enable_inschrijvingen %}
+                  <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">{% trans "Inschrijvingen gesloten" %}</span>
+                  {% elif not tickets %}
+                  <span class="evenement-btn-primary evenement-btn--disabled" aria-disabled="true">{% trans "Nog geen tickets beschikbaar" %}</span>
+                  {% endif %}
+
+                  {% if tickets or evenement.standhouder_inschrijving_mogelijk %}
+                  <div class="evenement-booking__links">
+                    {% if tickets %}
+                    <a href="#pricing" class="evenement-btn-secondary">{% trans "Bekijk tickets" %}</a>
+                    {% endif %}
+                    {% if evenement.standhouder_inschrijving_mogelijk %}
+                    <a href="#standhouder" class="evenement-btn-secondary">{% trans "Standhouder worden" %}</a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                </div>
+
+                {% if evenement.is_in_future %}
+                <div class="evenement-booking__utility">
+                  <div class="dropdown">
+                    <button type="button" class="evenement-utility-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-calendar-plus" aria-hidden="true"></i> {% trans "Zet in agenda" %}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="{{ agenda_google_url }}" target="_blank" rel="noopener noreferrer">
+                          <i class="bi bi-google" aria-hidden="true"></i> {% trans "Google Agenda" %}
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'evenement_agenda' slug=evenement.slug %}">
+                          <i class="bi bi-calendar-event" aria-hidden="true"></i> {% trans "Apple / Outlook (.ics)" %}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown">
+                    <button type="button" class="evenement-utility-btn" data-bs-toggle="dropdown" aria-expanded="false"
+                            data-share-url="{{ share_url }}" data-share-title="{{ evenement.titel }}">
+                      <i class="bi bi-share" aria-hidden="true"></i> <span data-share-label>{% trans "Delen" %}</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <a class="dropdown-item" href="https://wa.me/?text={{ evenement.titel|urlencode:'' }}%20{{ share_url|urlencode:'' }}" target="_blank" rel="noopener noreferrer">
+                          <i class="bi bi-whatsapp" aria-hidden="true"></i> WhatsApp
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode:'' }}" target="_blank" rel="noopener noreferrer">
+                          <i class="bi bi-facebook" aria-hidden="true"></i> Facebook
+                        </a>
+                      </li>
+                      <li>
+                        <button type="button" class="dropdown-item" data-copy-url="{{ share_url }}">
+                          <i class="bi bi-link-45deg" aria-hidden="true"></i> {% trans "Kopieer link" %}
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
                 {% endif %}
               </div>
-            </div>
-            <div class="evenement-meta__card">
-              <span class="evenement-meta__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
-              <div class="evenement-meta__body">
-                <span class="evenement-meta__label">{% trans "Locatie" %}</span>
-                <p class="evenement-meta__primary">{{ evenement.locatie_lang }}</p>
-                <a class="evenement-meta__maps"
-                   href="https://www.google.com/maps/search/?api=1&amp;query={{ evenement.locatie_lang|urlencode }}"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-                  {% trans "Open in Google Maps" %}
-                </a>
-              </div>
-            </div>
+            </aside>
           </div>
+
+          <div class="col-lg-8 order-lg-1">
+            <div class="evenement-over" data-aos="fade-up">
+              <div class="evenement-section-title">
+                <h2>{{ evenement.titel_sectie_a }}</h2>
+              </div>
+              <div class="evenement-over__content">{{ evenement.tekst_sectie_a|safe }}</div>
+            </div>
+
+            <div class="evenement-meta" data-aos="fade-up" data-aos-delay="100">
+              <div class="evenement-meta__grid">
+                <div class="evenement-meta__card">
+                  <span class="evenement-meta__icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+                  <div class="evenement-meta__body">
+                    <span class="evenement-meta__label">{% trans "Datum & tijd" %}</span>
+                    {% if evenement.is_same_day %}
+                      <p class="evenement-meta__primary">{{ evenement.start_datum|dutch_weekday_date|capfirst }}</p>
+                      <p class="evenement-meta__secondary">{{ evenement.start_datum|dutch_time }} – {{ evenement.einde_datum|dutch_time }}</p>
+                    {% else %}
+                      <p class="evenement-meta__primary">{{ evenement.start_datum|dutch_weekday_date|capfirst }} – {{ evenement.einde_datum|dutch_weekday_date|capfirst }}</p>
+                      <p class="evenement-meta__secondary">{{ evenement.start_datum|dutch_time }} – {{ evenement.einde_datum|dutch_time }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="evenement-meta__card">
+                  <span class="evenement-meta__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+                  <div class="evenement-meta__body">
+                    <span class="evenement-meta__label">{% trans "Locatie" %}</span>
+                    <p class="evenement-meta__primary">{{ evenement.locatie_lang }}</p>
+                    <a class="evenement-meta__maps"
+                       href="https://www.google.com/maps/search/?api=1&amp;query={{ evenement.locatie_lang|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                      <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                      {% trans "Open in Google Maps" %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
-        <hr class="evenement-meta__separator" aria-hidden="true" data-aos="fade-up" data-aos-delay="175">
 
         {% if aanbod %}
-        <div class="evenement-aanbod" data-aos="fade-up" data-aos-delay="200">
-          <h3 class="evenement-aanbod__title">{% trans "Wat kan je vinden" %}</h3>
-          {% if evenement.aanbod_beschrijving %}
-          <p class="evenement-aanbod__beschrijving">{{ evenement.aanbod_beschrijving|linebreaksbr }}</p>
-          {% endif %}
+        <div class="evenement-aanbod" data-aos="fade-up" data-aos-delay="100">
+          <div class="evenement-section-title evenement-section-title--center">
+            <h2>{% trans "Wat kan je vinden" %}</h2>
+            {% if evenement.aanbod_beschrijving %}
+            <p>{{ evenement.aanbod_beschrijving|linebreaksbr }}</p>
+            {% endif %}
+          </div>
           <ul class="evenement-aanbod__list">
             {% for link in aanbod %}
             <li class="evenement-aanbod__item">
@@ -416,32 +274,40 @@ ChudartZ Collectibles | {{ evenement.titel }}
       </div>
     </section>
 
-    <section id="pricing" class="pricing section light-background">
+    <section id="pricing" class="evenement-tickets section light-background">
       <div class="container">
-        {% if tickets %}
-        {% if not evenement.enable_inschrijvingen %}
-        <div class="evenement-pricing-notice evenement-pricing-notice--info" data-aos="fade-up">
-          <i class="bi bi-info-circle"></i>
-          {% trans "Inschrijvingen zijn momenteel gesloten. Hieronder ziet u de beschikbare tickettypes en prijzen." %}
+        <div class="evenement-section-title evenement-section-title--center" data-aos="fade-up">
+          <h2>{% trans "Tickets" %}</h2>
         </div>
-        {% elif evenement.is_sold_out %}
-        <div class="evenement-pricing-notice evenement-pricing-notice--warning" data-aos="fade-up">
-          <i class="bi bi-exclamation-circle"></i>
-          {% trans "Dit evenement is uitverkocht. Hieronder ziet u nog steeds de ticketprijzen." %}
-        </div>
-        {% endif %}
 
+        {% if tickets %}
+        {% if online_tickets %}
         <div class="row g-4 justify-content-center">
-          {% for ticket in tickets %}
+          {% for ticket in online_tickets %}
           {% include 'pokemon/blocks/ticket.html' with ticket=ticket evenement=evenement %}
           {% endfor %}
         </div>
+        {% endif %}
+
+        {% if deur_tickets %}
+        <div class="ticket-deur-group">
+          {% if online_tickets %}
+          <p class="ticket-deur-group__divider" data-aos="fade-up">
+            <span>{% if deur_tickets_gratis %}{% trans "Of kom gewoon langs" %}{% else %}{% trans "Liever ter plaatse betalen?" %}{% endif %}</span>
+          </p>
+          {% endif %}
+          <div class="row g-4">
+            {% for ticket in deur_tickets %}
+            {% include 'pokemon/blocks/ticket-deur.html' with ticket=ticket %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
         {% else %}
         <p class="text-center text-muted mb-0">{% trans "Er zijn nog geen tickets geconfigureerd voor dit evenement." %}</p>
         {% endif %}
       </div>
     </section>
-
 
     <section id="call-to-action" class="call-to-action section dark-background">
 
@@ -502,31 +368,89 @@ ChudartZ Collectibles | {{ evenement.titel }}
 
     </section>
 
-    {% if partners %}
-    <!-- Sponsors Section -->
-    <section id="sponsors" class="sponsors section">
-
-      <div class="container" data-aos="fade-up">
-        <h3>{% trans "In samenwerking met" %}</h3>
-        <div class="row gy-4 justify-content-center">
-
-          {% for partner in partners %}
-          <div class="col-xl-2 col-md-3 col-6 sponsor-logo">
-            <a href="{{ partner.website_url }}">
-              <img src="{{ partner.logo.url }}" class="img-fluid" alt="Logo {{ partner.name }}">
-            </a>
+    {% if evenement.standhouder_inschrijving_mogelijk %}
+    <section id="standhouder" class="evenement-standhouder section {{ achtergrond.standhouder }}">
+      <div class="container">
+        <div class="evenement-standhouder__header" data-aos="fade-up">
+          <div class="evenement-section-title">
+            <h2>{% trans "Standhouder worden" %}</h2>
+            <p>{% blocktrans with titel=evenement.titel %}Wil je zelf verkopen, ruilen of je collectie tonen op {{ titel }}? Huur een tafel en bereik honderden verzamelaars.{% endblocktrans %}</p>
           </div>
-          {% endfor %}
-
+          <div class="evenement-standhouder__action">
+            {% if standhouder_uitverkocht %}
+            <div class="evenement-standhouder__soldout">
+              <span class="evenement-status evenement-status--soldout"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> {% trans "Standplaatsen uitverkocht" %}</span>
+              <p>
+                {% trans "Alle tafels zijn volzet. Wil je op de wachtlijst? Mail ons via" %}
+                <a href="mailto:{{ evenement.STANDHOUDER_CONTACT_EMAIL }}">{{ evenement.STANDHOUDER_CONTACT_EMAIL }}</a>.
+              </p>
+            </div>
+            {% else %}
+            <a href="{% url 'standhouder' slug=evenement.slug %}" class="evenement-btn-primary">
+              <i class="bi bi-shop" aria-hidden="true"></i> {% trans "Schrijf je in als standhouder" %}
+            </a>
+            {% endif %}
+          </div>
         </div>
-      </div>
 
-    </section><!-- Sponsors Section -->
+        {% with heeft_prijzen=evenement.standhouder_prijzen.strip heeft_inbegrepen=evenement.standhouder_inbegrepen.strip %}
+        {% if heeft_prijzen or heeft_inbegrepen %}
+        <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
+          {% if heeft_prijzen %}
+          <div class="{% if heeft_inbegrepen %}col-lg-8{% else %}col-12{% endif %}">
+            <div class="evenement-standhouder__card">
+              <div class="evenement-standhouder__card-head">
+                <span class="evenement-booking__fact-icon" aria-hidden="true"><i class="bi bi-tag"></i></span>
+                <h3>{% trans "Prijzen & voorwaarden" %}</h3>
+              </div>
+              <div class="evenement-standhouder__collapse" data-collapse>
+                <ul class="evenement-standhouder__list--columns">
+                  {% for prijs in evenement.standhouder_prijzen_lijst %}
+                  {% if prijs.strip %}
+                  <li><i class="bi bi-dot" aria-hidden="true"></i><span>{{ prijs }}</span></li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <button type="button" class="evenement-standhouder__toggle" data-collapse-toggle hidden aria-expanded="false">
+                <span data-collapse-more>{% trans "Toon alles" %}</span>
+                <span data-collapse-less hidden>{% trans "Toon minder" %}</span>
+                <i class="bi bi-chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if heeft_inbegrepen %}
+          <div class="{% if heeft_prijzen %}col-lg-4{% else %}col-12{% endif %}">
+            <div class="evenement-standhouder__card evenement-standhouder__card--inbegrepen">
+              <div class="evenement-standhouder__card-head">
+                <span class="evenement-booking__fact-icon" aria-hidden="true"><i class="bi bi-check2-circle"></i></span>
+                <h3>{% trans "Inbegrepen" %}</h3>
+              </div>
+              <ul{% if not heeft_prijzen %} class="evenement-standhouder__list--grid"{% endif %}>
+                {% for item in evenement.standhouder_inbegrepen_lijst %}
+                {% if item.strip %}
+                <li><i class="bi bi-check-lg" aria-hidden="true"></i><span>{{ item }}</span></li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </section>
     {% endif %}
 
     {% if fotos %}
-    <section id="fotos" class="evenement-fotos mb-4 section">
+    <section id="fotos" class="evenement-fotos section {{ achtergrond.fotos }}">
       <div class="container" data-aos="fade-up">
+        <div class="evenement-section-title evenement-section-title--center">
+          <h2>{% trans "Sfeerbeelden" %}</h2>
+        </div>
         <div class="row g-3">
           {% for foto in fotos %}
             <div 
@@ -556,13 +480,32 @@ ChudartZ Collectibles | {{ evenement.titel }}
     </section>
     {% endif %}
 
-    {% if gerelateerde_evenementen %}
-    <section id="andere-evenementen" class="blog-posts section light-background">
+    {% if partners %}
+    <section id="sponsors" class="sponsors evenement-partners section mt-5 {{ achtergrond.partners }}">
       <div class="container" data-aos="fade-up">
-        <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-          <div>
-            <h2 class="mb-1">{% trans "Andere evenementen" %}</h2>
-            <p class="text-muted mb-0">{% trans "Ontdek meer beurzen en activiteiten van ChudartZ Collectibles." %}</p>
+        <div class="evenement-section-title evenement-section-title--center">
+          <h2>{% trans "In samenwerking met" %}</h2>
+        </div>
+        <div class="row gy-4 justify-content-center">
+          {% for partner in partners %}
+          <div class="col-xl-3 col-md-4 col-6 sponsor-logo">
+            <a href="{{ partner.website_url }}">
+              <img src="{{ partner.logo.url }}" class="img-fluid" alt="Logo {{ partner.name }}">
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if gerelateerde_evenementen %}
+    <section id="andere-evenementen" class="blog-posts section {{ achtergrond.andere_evenementen }}">
+      <div class="container" data-aos="fade-up">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+          <div class="evenement-section-title mb-0">
+            <h2>{% trans "Andere evenementen" %}</h2>
+            <p>{% trans "Ontdek meer beurzen en activiteiten van ChudartZ Collectibles." %}</p>
           </div>
           <a href="{% url 'evenementen' %}" class="evenement-btn-secondary">{% trans "Alle evenementen" %}</a>
         </div>
@@ -574,10 +517,145 @@ ChudartZ Collectibles | {{ evenement.titel }}
       </div>
     </section>
     {% endif %}
-    
+
   </main>
 
+  {% if tickets_kopen_mogelijk %}
+  <div class="evenement-mobile-bar" id="evenement-mobile-bar">
+    <div class="evenement-mobile-bar__price">
+      {% if vanaf_gratis %}
+      <span class="evenement-mobile-bar__label">{% trans "Toegang" %}</span>
+      <span class="evenement-mobile-bar__value">{% trans "Gratis" %}</span>
+      {% elif prijs_vanaf %}
+      <span class="evenement-mobile-bar__label">{% trans "Tickets vanaf" %}</span>
+      <span class="evenement-mobile-bar__value">€{{ prijs_vanaf.amount }}</span>
+      {% else %}
+      <span class="evenement-mobile-bar__value">{{ evenement.titel }}</span>
+      {% endif %}
+    </div>
+    <a href="{% url 'ticket_kopen' slug=evenement.slug %}" class="evenement-btn-primary">{% trans "Koop tickets" %}</a>
+  </div>
+  {% endif %}
+
   {% include 'pokemon/blocks/footer.html' %}
+
+  {% trans "Gekopieerd" as gekopieerd_label %}
+  <script>
+  (function () {
+    var countdown = document.querySelector('[data-countdown]');
+    if (countdown) {
+      var start = new Date(countdown.dataset.countdown).getTime();
+      var units = ['days', 'hours', 'minutes', 'seconds'].map(function (name) {
+        return countdown.querySelector('[data-unit="' + name + '"]');
+      });
+      var pad = function (value) { return value < 10 ? '0' + value : String(value); };
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var roll = function (slot, char) {
+        var current = slot.lastElementChild;
+        if (current.textContent === char) return;
+        while (slot.firstElementChild !== current) slot.removeChild(slot.firstElementChild);
+        if (reduceMotion) {
+          current.textContent = char;
+          return;
+        }
+        var next = document.createElement('span');
+        next.textContent = char;
+        next.className = 'is-entering';
+        current.className = 'is-leaving';
+        current.addEventListener('animationend', function () { current.remove(); }, { once: true });
+        slot.appendChild(next);
+      };
+      var setUnit = function (element, value) {
+        if (element.children.length !== value.length) {
+          element.textContent = '';
+          value.split('').forEach(function (char) {
+            var slot = document.createElement('span');
+            var digit = document.createElement('span');
+            slot.className = 'evenement-countdown__digit';
+            digit.textContent = char;
+            slot.appendChild(digit);
+            element.appendChild(slot);
+          });
+          return;
+        }
+        value.split('').forEach(function (char, index) { roll(element.children[index], char); });
+      };
+      var tick = function () {
+        var diff = start - Date.now();
+        if (isNaN(diff) || diff <= 0) {
+          countdown.hidden = true;
+          return false;
+        }
+        var seconds = Math.floor(diff / 1000);
+        setUnit(units[0], String(Math.floor(seconds / 86400)));
+        setUnit(units[1], pad(Math.floor((seconds % 86400) / 3600)));
+        setUnit(units[2], pad(Math.floor((seconds % 3600) / 60)));
+        setUnit(units[3], pad(seconds % 60));
+        countdown.hidden = false;
+        return true;
+      };
+      if (tick()) {
+        var timer = setInterval(function () {
+          if (!tick()) clearInterval(timer);
+        }, 1000);
+      }
+    }
+
+    document.querySelectorAll('[data-collapse]').forEach(function (content) {
+      var toggle = content.parentElement.querySelector('[data-collapse-toggle]');
+      if (!toggle || content.scrollHeight <= 340) return;
+      content.classList.add('is-collapsed');
+      toggle.hidden = false;
+      toggle.addEventListener('click', function () {
+        var expanded = content.classList.toggle('is-collapsed') === false;
+        toggle.setAttribute('aria-expanded', String(expanded));
+        toggle.querySelector('[data-collapse-more]').hidden = expanded;
+        toggle.querySelector('[data-collapse-less]').hidden = !expanded;
+      });
+    });
+
+    document.querySelectorAll('[data-share-url]').forEach(function (button) {
+      if (!navigator.share) return;
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        navigator.share({ title: button.dataset.shareTitle, url: button.dataset.shareUrl }).catch(function () {});
+      });
+    });
+
+    document.querySelectorAll('[data-copy-url]').forEach(function (item) {
+      item.addEventListener('click', function () {
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(item.dataset.copyUrl).then(function () {
+          var label = document.querySelector('[data-share-label]');
+          if (!label) return;
+          var original = label.textContent;
+          label.textContent = '{{ gekopieerd_label|escapejs }}';
+          setTimeout(function () { label.textContent = original; }, 2000);
+        });
+      });
+    });
+
+    var bar = document.getElementById('evenement-mobile-bar');
+    if (bar && 'IntersectionObserver' in window) {
+      var targets = ['booking', 'pricing', 'footer']
+        .map(function (id) { return document.getElementById(id); })
+        .filter(Boolean);
+      var visible = new Set();
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            visible.add(entry.target);
+          } else {
+            visible.delete(entry.target);
+          }
+        });
+        bar.classList.toggle('is-visible', visible.size === 0);
+      });
+      targets.forEach(function (target) { observer.observe(target); });
+    }
+  })();
+  </script>
 
 </body>
 {% endblock %}

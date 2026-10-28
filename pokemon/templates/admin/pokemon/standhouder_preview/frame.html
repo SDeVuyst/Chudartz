@@ -37,12 +37,8 @@
 
   <section class="standhouder service-details section">
     <div class="container-fluid px-3">
-      <div class="row gy-4">
-        <div class="col-lg-4">
-          {% include 'pokemon/blocks/standhouder-prijzen.html' with prijzen=evenement.standhouder_prijzen_lijst %}
-          {% include 'pokemon/blocks/inbegrepen.html' with items=evenement.standhouder_inbegrepen_lijst %}
-        </div>
-        <div class="col-lg-8">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
           <div class="service-box register">
             {% if error %}
               <div class="alert-standhouder error">{{ error }}</div>

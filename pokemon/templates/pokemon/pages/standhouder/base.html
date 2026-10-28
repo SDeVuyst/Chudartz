@@ -12,12 +12,8 @@
 
     <section class="standhouder service-details section">
       <div class="container">
-        <div class="row gy-5">
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            {% include 'pokemon/blocks/standhouder-prijzen.html' with prijzen=evenement.standhouder_prijzen_lijst %}
-            {% include 'pokemon/blocks/inbegrepen.html' with items=evenement.standhouder_inbegrepen_lijst %}
-          </div>
-          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="row justify-content-center">
+          <div class="col-lg-10 col-xl-9" data-aos="fade-up" data-aos-delay="100">
             <div class="service-box register">
               {% with wizard_stappen=stappen %}
                 {% include 'pokemon/pages/standhouder/_wizard_nav.html' %}

@@ -323,6 +323,28 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   </tbody>
 </table>
 
+{% if agenda_google_url %}
+<table style="font-family:'Open Sans',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 25px 20px;font-family:'Open Sans',sans-serif;" align="left">
+        <p style="margin: 0 0 10px; font-size: 14px; line-height: 140%; color: #333333; font-family: Lato, sans-serif;"><strong>Zet in agenda</strong></p>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="padding: 0 8px 8px 0;">
+              <a href="{{ agenda_google_url }}" target="_blank" style="display: inline-block; padding: 10px 18px; background-color: #ffffff; border: 1px solid #c3111a; border-radius: 4px; color: #c3111a; font-family: Cabin, sans-serif; font-size: 14px; font-weight: 700; line-height: 120%; text-decoration: none;">Google Agenda</a>
+            </td>
+            <td style="padding: 0 8px 8px 0;">
+              <a href="{{ agenda_ics_url }}" target="_blank" style="display: inline-block; padding: 10px 18px; background-color: #ffffff; border: 1px solid #c3111a; border-radius: 4px; color: #c3111a; font-family: Cabin, sans-serif; font-size: 14px; font-weight: 700; line-height: 120%; text-decoration: none;">Apple / Outlook</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
   <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
   </div>
 </div>

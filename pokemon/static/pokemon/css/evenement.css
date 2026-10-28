@@ -1,0 +1,1070 @@
+/*--------------------------------------------------------------
+# Evenement detailpagina
+--------------------------------------------------------------*/
+
+/* Breadcrumbs zonder heading-banner */
+.page-title--breadcrumbs-only nav {
+  padding: 14px 0;
+  background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+.page-title--breadcrumbs-only nav ol {
+  font-size: 14px;
+}
+.page-title--breadcrumbs-only nav a {
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.page-title--breadcrumbs-only nav a:hover {
+  color: var(--accent-color);
+}
+
+/* Gedeelde sectietitel */
+.evenement-section-title {
+  margin-bottom: 1.75rem;
+}
+.evenement-section-title h2 {
+  margin: 0 0 0.4rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--heading-color);
+}
+.evenement-section-title p {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.evenement-section-title--center {
+  text-align: center;
+}
+.evenement-section-title--center p {
+  margin-inline: auto;
+}
+@media (max-width: 991.98px) {
+  .evenement-section-title h2 {
+    font-size: 1.65rem;
+  }
+}
+
+/* Knoppen */
+.evenement-btn-primary,
+.evenement-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: var(--heading-font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.evenement-btn-primary {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+.evenement-btn-primary:hover,
+.evenement-btn-primary:focus-visible {
+  background: color-mix(in srgb, var(--accent-color), transparent 18%);
+  color: var(--contrast-color);
+}
+.evenement-btn-secondary {
+  background: #fff;
+  border-color: color-mix(in srgb, var(--default-color), transparent 78%);
+  color: var(--heading-color);
+}
+.evenement-btn-secondary:hover,
+.evenement-btn-secondary:focus-visible {
+  background: #f7f7f7;
+  border-color: color-mix(in srgb, var(--default-color), transparent 55%);
+  color: var(--heading-color);
+}
+.evenement-btn-primary:focus-visible,
+.evenement-btn-secondary:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+}
+.evenement-btn--disabled,
+.evenement-btn--disabled:hover {
+  background: #eceef1;
+  border-color: #eceef1;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  cursor: not-allowed;
+}
+
+/* Statuspillen */
+.evenement-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+.evenement-status--closed {
+  background: #f4f5f7;
+  color: #32353a;
+}
+.evenement-status--soldout {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+.evenement-status--live {
+  background: #1f8a4c;
+  color: #fff;
+}
+.evenement-status--live i {
+  animation: evenement-pulse 1.4s ease-in-out infinite;
+}
+.evenement-status--past {
+  background: #f4f5f7;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+}
+@keyframes evenement-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/*--------------------------------------------------------------
+# Intro: header, inhoud en boekingskaart
+--------------------------------------------------------------*/
+.evenement-intro {
+  padding-top: 40px;
+}
+.evenement-header {
+  margin-bottom: 2.25rem;
+}
+.evenement-header__status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+.evenement-header h1 {
+  margin: 0 0 0.9rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--heading-color);
+}
+.evenement-header__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+.evenement-header__chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.evenement-header__chips i {
+  color: var(--accent-color);
+}
+@media (max-width: 767.98px) {
+  .evenement-header h1 {
+    font-size: 1.9rem;
+  }
+}
+
+/* Over dit evenement */
+.evenement-over__content {
+  max-width: 46rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--default-color), transparent 12%);
+}
+.evenement-over__content > :last-child {
+  margin-bottom: 0;
+}
+.evenement-over__content p,
+.evenement-over__content ul,
+.evenement-over__content ol {
+  margin: 0 0 1rem;
+}
+.evenement-over__content ul,
+.evenement-over__content ol {
+  padding-left: 1.25rem;
+}
+.evenement-over__content li + li {
+  margin-top: 0.3rem;
+}
+.evenement-over__content a {
+  color: var(--accent-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.evenement-over__content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.evenement-over__content h2,
+.evenement-over__content h3,
+.evenement-over__content h4 {
+  margin: 1.5rem 0 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Boekingskaart */
+.evenement-booking {
+  position: sticky;
+  top: 125px;
+  background: var(--surface-color, #fff);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+.evenement-booking__media {
+  aspect-ratio: 3 / 2;
+  background: #141414;
+  overflow: hidden;
+}
+.evenement-booking__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.evenement-booking__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 1.35rem;
+}
+.evenement-booking__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.evenement-booking__facts li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--default-color);
+}
+.evenement-booking__fact-icon {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
+  font-size: 16px;
+}
+.evenement-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+}
+.evenement-countdown[hidden] {
+  display: none;
+}
+.evenement-countdown__unit {
+  padding: 0.55rem 0.2rem 0.5rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--default-color), transparent 96%);
+  text-align: center;
+  overflow: hidden;
+}
+.evenement-countdown__value {
+  display: flex;
+  justify-content: center;
+  height: 1.1em;
+  font-family: var(--heading-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--heading-color);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+.evenement-countdown__digit {
+  position: relative;
+  display: block;
+  width: 1ch;
+  height: 100%;
+}
+.evenement-countdown__digit > span {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+}
+.evenement-countdown__digit > .is-entering {
+  animation: evenement-countdown-in 0.6s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+.evenement-countdown__digit > .is-leaving {
+  animation: evenement-countdown-out 0.6s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+@keyframes evenement-countdown-in {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+@keyframes evenement-countdown-out {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+.evenement-countdown__label {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+}
+.evenement-booking__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.15rem;
+}
+.evenement-booking__price-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.evenement-booking__price-value {
+  font-family: var(--heading-font);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-color);
+}
+.evenement-booking__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.evenement-booking__actions .evenement-btn-primary,
+.evenement-booking__actions .evenement-btn-secondary {
+  width: 100%;
+}
+.evenement-booking__links {
+  display: flex;
+  gap: 0.5rem;
+}
+.evenement-booking__links > * {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-inline: 0.6rem;
+}
+.evenement-booking__utility {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+.evenement-booking__utility > .dropdown {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.evenement-utility-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 82%);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--heading-color);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+.evenement-utility-btn:hover,
+.evenement-utility-btn:focus-visible,
+.evenement-utility-btn[aria-expanded="true"] {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 95%);
+}
+.evenement-booking .dropdown-menu {
+  min-width: 100%;
+  padding: 0.35rem;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+}
+.evenement-booking .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+}
+.evenement-booking .dropdown-item i {
+  color: var(--accent-color);
+}
+.evenement-booking .dropdown-item:active {
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+  color: var(--heading-color);
+}
+@media (max-width: 991.98px) {
+  .evenement-booking {
+    position: static;
+  }
+}
+
+/* Datum & locatie kaarten */
+.evenement-meta {
+  margin-top: 2.5rem;
+}
+.evenement-meta__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+@media (max-width: 767px) {
+  .evenement-meta__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.evenement-meta__card {
+  display: flex;
+  gap: 1.15rem;
+  align-items: center;
+  padding: 1.5rem 1.5rem;
+  background: var(--surface-color, #fff);
+  border-radius: 15px;
+  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.evenement-meta__card:hover {
+  box-shadow: 0 8px 28px -6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+.evenement-meta__icon {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.55rem;
+  line-height: 0;
+  color: var(--accent-color);
+}
+.evenement-meta__body {
+  min-width: 0;
+}
+.evenement-meta__label {
+  display: block;
+  margin: 0 0 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+}
+.evenement-meta__primary {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--heading-color);
+}
+.evenement-meta__secondary {
+  margin: 0.3rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+.evenement-meta__maps {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
+  border-radius: 4px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.evenement-meta__maps:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color, #fff);
+  text-decoration: none;
+}
+
+/* Wat kan je vinden */
+.evenement-aanbod {
+  margin-top: 4rem;
+}
+.evenement-aanbod__list {
+  --aanbod-gap: 1.15rem;
+  --aanbod-cols: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--aanbod-gap);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.evenement-aanbod__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-sizing: border-box;
+  flex: 0 0 calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
+  width: calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
+  max-width: calc((100% - (var(--aanbod-cols) - 1) * var(--aanbod-gap)) / var(--aanbod-cols));
+  min-height: 168px;
+  padding: 1rem 0.75rem 0.9rem;
+  border-radius: 15px;
+  background: var(--surface-color, #fff);
+  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--heading-color);
+  text-align: center;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.evenement-aanbod__item:hover {
+  box-shadow: 0 8px 28px -6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+}
+.evenement-aanbod__icon-wrap {
+  width: 100%;
+  height: 118px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.evenement-aanbod__icon {
+  width: 92%;
+  height: 100%;
+  max-height: 118px;
+  object-fit: contain;
+}
+.evenement-aanbod__icon--fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 92%;
+  height: 100%;
+  color: var(--accent-color);
+  font-size: 2.5rem;
+}
+.evenement-aanbod__name {
+  display: block;
+  max-width: 100%;
+}
+@media (max-width: 991.98px) {
+  .evenement-aanbod__list {
+    --aanbod-cols: 3;
+  }
+}
+@media (max-width: 575.98px) {
+  .evenement-aanbod__list {
+    --aanbod-cols: 2;
+    --aanbod-gap: 0.85rem;
+  }
+  .evenement-aanbod__item {
+    min-height: 148px;
+    padding: 0.85rem 0.55rem 0.75rem;
+  }
+  .evenement-aanbod__icon-wrap {
+    height: 96px;
+  }
+  .evenement-aanbod__icon {
+    width: 94%;
+    max-height: 96px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Tickets
+--------------------------------------------------------------*/
+.evenement-tickets {
+  padding-bottom: 80px;
+}
+.evenement-tickets .col-lg-4 {
+  display: flex;
+}
+.ticket-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--surface-color, #fff);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.ticket-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
+}
+.ticket-card--disabled {
+  opacity: 0.75;
+}
+.ticket-card--disabled:hover {
+  transform: none;
+}
+.ticket-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.35rem 1.35rem 0;
+}
+.ticket-card__icon {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
+  font-size: 20px;
+}
+.ticket-card__title {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--heading-color);
+}
+.ticket-card__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.ticket-card__price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 1.1rem 1.35rem 0;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+.ticket-card__price {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-color);
+}
+.ticket-card__currency {
+  margin-right: 0.15rem;
+  font-size: 1.3rem;
+  vertical-align: 0.55rem;
+}
+.ticket-card__list {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0.9rem 1.35rem 1.1rem;
+  list-style: none;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.ticket-card__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 0.3rem 0;
+}
+.ticket-card__list i {
+  flex: 0 0 auto;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  color: #059652;
+}
+.ticket-card__list .na {
+  color: color-mix(in srgb, var(--default-color), transparent 65%);
+}
+.ticket-card__list .na i {
+  color: inherit;
+}
+.ticket-card__list .na span {
+  text-decoration: line-through;
+}
+.ticket-card__footer {
+  padding: 0 1.35rem 1.35rem;
+}
+.ticket-card__footer > * {
+  width: 100%;
+}
+
+/* Tickets enkel aan de deur */
+.ticket-deur-group {
+  margin-top: 2.5rem;
+}
+.ticket-deur-group__divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+}
+.ticket-deur-group__divider::before,
+.ticket-deur-group__divider::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: color-mix(in srgb, var(--default-color), transparent 85%);
+}
+.ticket-deur {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.2rem 1.5rem;
+  border: 2px dashed color-mix(in srgb, var(--default-color), transparent 78%);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-color, #fff), transparent 35%);
+}
+.ticket-deur__icon {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--default-color), transparent 93%);
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  font-size: 22px;
+}
+.ticket-deur__main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ticket-deur__title {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+.ticket-deur__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.ticket-deur__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 1rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+}
+.ticket-deur__list li {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+.ticket-deur__list i {
+  color: #059652;
+  font-size: 1.1rem;
+  line-height: 1.1;
+}
+.ticket-deur__list .na {
+  color: color-mix(in srgb, var(--default-color), transparent 60%);
+}
+.ticket-deur__list .na i {
+  color: inherit;
+}
+.ticket-deur__list .na span {
+  text-decoration: line-through;
+}
+.ticket-deur__price-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  text-align: right;
+}
+.ticket-deur__price {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--heading-color);
+}
+.ticket-deur__note {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+}
+@media (max-width: 575.98px) {
+  .ticket-deur {
+    flex-wrap: wrap;
+    padding: 1.1rem;
+  }
+  .ticket-deur__price-wrap {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Partners
+--------------------------------------------------------------*/
+.evenement-partners .sponsor-logo img {
+  max-width: 100%;
+  max-height: 140px;
+  padding: 12px 20px;
+  object-fit: contain;
+}
+
+/*--------------------------------------------------------------
+# Standhouder worden
+--------------------------------------------------------------*/
+.evenement-standhouder__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-bottom: 1.75rem;
+}
+.evenement-standhouder__header .evenement-section-title {
+  flex: 1 1 26rem;
+  margin-bottom: 0;
+}
+.evenement-standhouder__action {
+  flex: 0 1 auto;
+  max-width: 24rem;
+}
+.evenement-standhouder__soldout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 75%);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent-color), transparent 95%);
+}
+.evenement-standhouder__soldout p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+}
+.evenement-standhouder__soldout a {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+.evenement-standhouder__card {
+  height: 100%;
+  padding: 1.5rem;
+  background: var(--surface-color, #fff);
+  border-radius: 15px;
+  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
+}
+.evenement-standhouder__card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+.evenement-standhouder__card-head h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+.evenement-standhouder__card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.evenement-standhouder__card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 0.45rem 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+  break-inside: avoid;
+}
+.evenement-standhouder__card li i {
+  flex: 0 0 auto;
+  color: var(--accent-color);
+  line-height: 1.4;
+}
+.evenement-standhouder__card--inbegrepen li i {
+  color: #059652;
+}
+@media (min-width: 768px) {
+  .evenement-standhouder__card .evenement-standhouder__list--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+}
+@media (min-width: 768px) {
+  .evenement-standhouder__list--columns {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+}
+.evenement-standhouder__collapse {
+  position: relative;
+}
+.evenement-standhouder__collapse.is-collapsed {
+  max-height: 300px;
+  overflow: hidden;
+}
+.evenement-standhouder__collapse.is-collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, transparent, var(--surface-color, #fff));
+  pointer-events: none;
+}
+.evenement-standhouder__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-color);
+  font-family: var(--heading-font);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.evenement-standhouder__toggle[hidden] {
+  display: none;
+}
+.evenement-standhouder__toggle i {
+  transition: transform 0.25s ease;
+}
+.evenement-standhouder__toggle[aria-expanded="true"] i {
+  transform: rotate(180deg);
+}
+
+/*--------------------------------------------------------------
+# Mobiele boekingsbalk
+--------------------------------------------------------------*/
+.evenement-mobile-bar {
+  display: none;
+}
+@media (max-width: 991.98px) {
+  .evenement-mobile-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 996;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.97);
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(110%);
+    transition: transform 0.3s ease;
+  }
+  .evenement-mobile-bar.is-visible {
+    transform: translateY(0);
+  }
+  .evenement-mobile-bar__price {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.2;
+  }
+  .evenement-mobile-bar__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--default-color), transparent 40%);
+  }
+  .evenement-mobile-bar__value {
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+  .evenement-mobile-bar .evenement-btn-primary {
+    flex: 0 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket-card,
+  .evenement-meta__card,
+  .evenement-aanbod__item,
+  .evenement-mobile-bar {
+    transition: none;
+  }
+  .ticket-card:hover,
+  .evenement-meta__card:hover,
+  .evenement-aanbod__item:hover {
+    transform: none;
+  }
+  .evenement-status--live i {
+    animation: none;
+  }
+}

@@ -51,6 +51,8 @@ from pokemon.services.attendance import (
     check_in_raw_qr,
     lookup_raw_qr,
 )
+from pokemon.services.calendar import build_ics, google_calendar_url
+from pokemon.services.evenement_seo import build_event_jsonld
 from pokemon.services.gate import log_gate_scan
 from pokemon.payment import MollieClient
 from pokemon.services.standhouder import (
@@ -306,17 +308,75 @@ def evenement(request, slug):
         .order_by("volgorde", "pk")
     )
 
+    tickets = list(Ticket.objects.filter(event=evenement).order_by("pk"))
+    vanaf_gratis, prijs_vanaf = _ticket_prijs_vanaf(tickets)
+    share_url = request.build_absolute_uri(reverse("evenement", kwargs={"slug": evenement.slug}))
+    og_image_url = request.build_absolute_uri(evenement.afbeelding.url) if evenement.afbeelding else None
+    deur_tickets = [ticket for ticket in tickets if ticket.enkel_inkom]
+    fotos = list(EvenementFoto.objects.filter(evenement=evenement).order_by("-volgorde"))
+    partners = list(evenement.partners.all())
+    gerelateerde_evenementen = _get_gerelateerde_evenementen(evenement)
+
     context = {
         "evenement": evenement,
-        "fotos": EvenementFoto.objects.filter(evenement=evenement).order_by("-volgorde"),
-        "tickets": Ticket.objects.filter(event=evenement).order_by("pk"),
-        "partners": evenement.partners.all(),
+        "fotos": fotos,
+        "tickets": tickets,
+        "online_tickets": [ticket for ticket in tickets if not ticket.enkel_inkom],
+        "deur_tickets": deur_tickets,
+        "deur_tickets_gratis": all(ticket.is_gratis for ticket in deur_tickets),
+        "partners": partners,
         'sponsors': Sponsor.objects.all().order_by('-volgorde_footer') or [],
-        "gerelateerde_evenementen": _get_gerelateerde_evenementen(evenement),
+        "gerelateerde_evenementen": gerelateerde_evenementen,
+        "achtergrond": _sectie_achtergronden(
+            standhouder=evenement.standhouder_inschrijving_mogelijk,
+            fotos=bool(fotos),
+            partners=bool(partners),
+            andere_evenementen=bool(gerelateerde_evenementen),
+        ),
         "tickets_kopen_mogelijk": evenement.tickets_kopen_mogelijk,
+        "standhouder_uitverkocht": (
+            evenement.standhouder_inschrijving_mogelijk and evenement.standhouder_tafels_uitverkocht
+        ),
         "aanbod": aanbod,
+        "vanaf_gratis": vanaf_gratis,
+        "prijs_vanaf": prijs_vanaf,
+        "share_url": share_url,
+        "og_image_url": og_image_url,
+        "agenda_google_url": google_calendar_url(evenement),
+        "event_jsonld": build_event_jsonld(evenement, tickets, request),
     }
     return TemplateResponse(request, 'pokemon/pages/evenement.html', context)
+
+
+def _sectie_achtergronden(**secties):
+    """Wissel wit en licht af over de zichtbare secties na de (donkere) CTA, zoals op de homepage."""
+    achtergronden = {}
+    licht = False
+    for naam, zichtbaar in secties.items():
+        if zichtbaar:
+            achtergronden[naam] = "light-background" if licht else ""
+            licht = not licht
+    return achtergronden
+
+
+def _ticket_prijs_vanaf(tickets):
+    """Return (vanaf_gratis, laagste prijs) over de tickets die bezoekers kunnen krijgen."""
+    beschikbaar = [ticket for ticket in tickets if not ticket.disable_ticket]
+    if not beschikbaar:
+        return False, None
+    if any(ticket.is_gratis for ticket in beschikbaar):
+        return True, None
+    return False, min(ticket.price for ticket in beschikbaar)
+
+
+def evenement_agenda(request, slug):
+    evenement = get_object_or_404(Evenement, slug=slug)
+    if not evenement.toon_op_site:
+        return HttpResponseNotFound()
+
+    response = HttpResponse(build_ics(evenement), content_type="text/calendar; charset=utf-8")
+    response["Content-Disposition"] = f'attachment; filename="{evenement.slug}.ics"'
+    return response
 
 
 def _get_ticket_evenement(slug):

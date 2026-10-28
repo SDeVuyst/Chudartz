@@ -29,6 +29,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from chudartz.ticket_renderer import render_ticket_pdf
 from darts.utils import helpers
 from darts.validators.image_validator import validate_image_max_size
+from pokemon.services.calendar import agenda_context, build_ics
 
 
 def bereken_btw(excl_bedrag, percentage):
@@ -302,6 +303,37 @@ class Evenement(models.Model):
     @property
     def standhouder_inschrijving_mogelijk(self):
         return self.enable_standhouder and self.is_in_future
+
+    @property
+    def standhouder_tafels_uitverkocht(self):
+        """True als het zaalplan actief is en elke tafel bezet is.
+
+        Zonder zaalplan is de capaciteit onbekend en is het nooit uitverkocht.
+        """
+        if not self.standhouder_zaalplan_actief:
+            return False
+        zaalplan = Zaalplan.objects.filter(evenement=self).first()
+        if zaalplan is None:
+            return False
+
+        primaire_cellen = {}
+        for cel in zaalplan.cellen.values("id", "groep", "rij", "kolom", "cel_type"):
+            sleutel = ("groep", cel["groep"]) if cel["groep"] else ("cel", cel["id"])
+            huidig = primaire_cellen.get(sleutel)
+            if huidig is None or (cel["rij"], cel["kolom"]) < (huidig["rij"], huidig["kolom"]):
+                primaire_cellen[sleutel] = cel
+
+        tafel_ids = {cel["id"] for cel in primaire_cellen.values() if cel["cel_type"] == CelType.TAFEL}
+        if not tafel_ids:
+            return False
+
+        bezet_ids = set(
+            StandhouderTafelKeuze.objects.filter(
+                cel_id__in=tafel_ids,
+                inschrijving__status__in=StandhouderInschrijvingStatus.BEZET,
+            ).values_list("cel_id", flat=True)
+        )
+        return tafel_ids <= bezet_ids
 
     STANDHOUDER_CONTACT_EMAIL = "chudartz@gmail.com"
 
@@ -693,6 +725,7 @@ class Payment(models.Model):
         
         email_body = render_to_string('pokemon/email/confirmation-mail-participant.html', {
             'evenement': event,
+            **agenda_context(event),
         })
 
         # Generate tickets PDF
@@ -709,6 +742,7 @@ class Payment(models.Model):
 
         # add tickets as attachment
         email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
+        email.attach('evenement.ics', build_ics(event), 'text/calendar')
 
         helpers.attach_image(email, "logo-black", from_pokemon=True)
 
@@ -783,6 +817,7 @@ class Participant(models.Model):
         
         email_body = render_to_string('pokemon/email/confirmation-mail-participant.html', {
             'evenement': event,
+            **agenda_context(event),
         })
 
         # Generate tickets PDF
@@ -799,6 +834,7 @@ class Participant(models.Model):
 
         # add tickets as attachment
         email.attach(f'ticket.pdf', tickets_pdf.getvalue(), 'application/pdf')
+        email.attach('evenement.ics', build_ics(event), 'text/calendar')
 
         helpers.attach_image(email, "logo-black", from_pokemon=True)
 

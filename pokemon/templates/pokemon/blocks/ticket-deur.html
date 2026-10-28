@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<div class="col-12" data-aos="fade-up" data-aos-delay="100">
+    <article class="ticket-deur{% if ticket.disable_ticket %} ticket-card--disabled{% endif %}">
+        <span class="ticket-deur__icon" aria-hidden="true"><i class="bi bi-{{ ticket.icon }}"></i></span>
+
+        <div class="ticket-deur__main">
+            <h3 class="ticket-deur__title">{{ ticket.titel }}</h3>
+            {% if ticket.subtitel %}
+            <p class="ticket-deur__subtitle">{{ ticket.subtitel }}</p>
+            {% endif %}
+            {% if ticket.voordelen or ticket.nadelen %}
+            <ul class="ticket-deur__list">
+                {% for voordeel in ticket.voordelen %}
+                <li><i class="bi bi-check" aria-hidden="true"></i> <span>{{ voordeel }}</span></li>
+                {% endfor %}
+                {% for nadeel in ticket.nadelen %}
+                <li class="na"><i class="bi bi-x" aria-hidden="true"></i> <span>{{ nadeel }}</span></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="ticket-deur__price-wrap">
+            {% if ticket.is_gratis %}
+            <p class="ticket-deur__price">{% trans 'Gratis' %}</p>
+            {% else %}
+            <p class="ticket-deur__price"><span class="ticket-card__currency">€</span>{{ ticket.price.amount }}</p>
+            {% endif %}
+            {% if ticket.disable_ticket %}
+            <span class="evenement-status evenement-status--closed">{% trans 'Niet beschikbaar' %}</span>
+            {% elif ticket.is_sold_out %}
+            <span class="evenement-status evenement-status--soldout">{% trans 'Uitverkocht' %}</span>
+            {% elif ticket.is_gratis %}
+            <span class="ticket-deur__note">{% trans "Aan de ingang" %}</span>
+            {% else %}
+            <span class="ticket-deur__note">{% trans "Betalen aan de kassa" %}</span>
+            {% endif %}
+        </div>
+    </article>
+</div>
