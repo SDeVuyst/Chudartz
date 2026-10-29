@@ -35,6 +35,16 @@
   flex: 0 0 min(370px, calc((100% - (var(--cols) - 1) * var(--gap-x)) / var(--cols)));
 }
 
+// Nested section: skip global section padding so groups aren't 120px apart.
+.tcg-groep {
+  padding: 0;
+  scroll-margin-top: inherit;
+
+  & + & {
+    margin-top: 3rem;
+  }
+}
+
 .tcg-groep-head {
   text-align: center;
   max-width: 40rem;

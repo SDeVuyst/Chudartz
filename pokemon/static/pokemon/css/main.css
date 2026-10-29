@@ -1845,6 +1845,14 @@ section,
   flex: 0 0 min(370px, (100% - (var(--cols) - 1) * var(--gap-x)) / var(--cols));
 }
 
+.tcg-groep {
+  padding: 0;
+  scroll-margin-top: inherit;
+}
+.tcg-groep + .tcg-groep {
+  margin-top: 3rem;
+}
+
 .tcg-groep-head {
   text-align: center;
   max-width: 40rem;
@@ -3682,6 +3690,7 @@ html.team-modal-open {
   position: relative;
   z-index: 1;
   background: var(--background-color);
+  color: var(--accent-color);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -3802,8 +3811,7 @@ html.team-modal-open {
   line-height: 1.3;
   color: var(--heading-color);
 }
-.event-map__popup-when,
-.event-map__popup-where {
+.event-map__popup-when, .event-map__popup-where {
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -3853,7 +3861,10 @@ html.team-modal-open {
   color: var(--heading-color);
   border-color: color-mix(in srgb, var(--default-color), transparent 55%);
 }
-.event-map__leaflet-popup a.event-map__popup-link, .event-map__leaflet-popup a.event-map__popup-link:hover, .event-map__leaflet-popup a.event-map__popup-link:focus-visible {
+.event-map__leaflet-popup a.event-map__popup-link {
+  color: var(--heading-color);
+}
+.event-map__leaflet-popup a.event-map__popup-link:hover, .event-map__leaflet-popup a.event-map__popup-link:focus-visible {
   color: var(--heading-color);
 }
 .event-map__fullscreen {
