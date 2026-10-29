@@ -18,3 +18,5 @@ django-lockdown==4.0.0
 pytz==2024.2
 django-dbbackup==4.2.1
 django-import-export==4.1
+cryptography==50.0.2
+PyJWT==2.15.1

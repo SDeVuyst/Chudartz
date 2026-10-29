@@ -51,6 +51,8 @@ from pokemon.services.attendance import (
     check_in_raw_qr,
     lookup_raw_qr,
 )
+from pokemon.services import wallet
+from pokemon.services import wallet_apple as wallet_apple_passes
 from pokemon.services.calendar import build_ics, google_calendar_url
 from pokemon.services.evenement_seo import build_event_jsonld
 from pokemon.services.gate import log_gate_scan
@@ -376,6 +378,27 @@ def evenement_agenda(request, slug):
 
     response = HttpResponse(build_ics(evenement), content_type="text/calendar; charset=utf-8")
     response["Content-Disposition"] = f'attachment; filename="{evenement.slug}.ics"'
+    return response
+
+
+def wallet_apple(request, token):
+    config = wallet.apple_config()
+    participants = wallet.participants_for_apple_token(token)
+    if config is None or not participants:
+        return HttpResponseNotFound()
+
+    if len(participants) == 1:
+        content = wallet_apple_passes.build_pkpass(participants[0], config)
+        content_type = wallet_apple_passes.PKPASS_CONTENT_TYPE
+        filename = f"ticket-{participants[0].pk}.pkpass"
+    else:
+        content = wallet_apple_passes.build_pkpasses(participants, config)
+        content_type = wallet_apple_passes.PKPASSES_CONTENT_TYPE
+        filename = "tickets.pkpasses"
+
+    response = HttpResponse(content, content_type=content_type)
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
+    response["Cache-Control"] = "no-store"
     return response
 
 

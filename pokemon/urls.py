@@ -14,6 +14,7 @@ urlpatterns = [
     path("pokemon/scan-ticket/", views.scan_ticket, name="scan_ticket"),
     path("pokemon/gate/check-in/", views.gate_check_in, name="gate_check_in"),
     path("pokemon/gate/heartbeat/", views.gate_heartbeat, name="gate_heartbeat"),
+    path("pokemon/wallet/apple/<str:token>/", views.wallet_apple, name="wallet_apple"),
 ]
 
 urlpatterns += i18n_patterns(

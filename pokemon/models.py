@@ -30,6 +30,7 @@ from chudartz.ticket_renderer import render_ticket_pdf
 from darts.utils import helpers
 from darts.validators.image_validator import validate_image_max_size
 from pokemon.services.calendar import agenda_context, build_ics
+from pokemon.services.wallet import attach_wallet_passes, wallet_context
 
 
 def bereken_btw(excl_bedrag, percentage):
@@ -717,15 +718,18 @@ class Payment(models.Model):
         return response
 
     def send_mail(self):
+        participants = list(
+            Participant.objects.filter(payment=self).select_related("ticket__event").order_by("pk")
+        )
         # we only need first because all info is the same for the matching participants
-        participant = Participant.objects.filter(payment=self).first()
-        print(participant)
+        participant = participants[0]
         event = participant.ticket.event
-        print(event)
-        
+
+        wallet_links = wallet_context(participants, payment=self)
         email_body = render_to_string('pokemon/email/confirmation-mail-participant.html', {
             'evenement': event,
             **agenda_context(event),
+            **wallet_links,
         })
 
         # Generate tickets PDF
@@ -743,6 +747,7 @@ class Payment(models.Model):
         # add tickets as attachment
         email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
         email.attach('evenement.ics', build_ics(event), 'text/calendar')
+        attach_wallet_passes(email, participants, wallet_links)
 
         helpers.attach_image(email, "logo-black", from_pokemon=True)
 
@@ -783,6 +788,10 @@ class Participant(models.Model):
         alphabet = string.ascii_letters + string.digits
         return ''.join(secrets.choice(alphabet) for _ in range(10))
     
+    @property
+    def qr_payload(self):
+        return f'{self.pk}{self.random_seed}'
+
     def generate_qr_code(self):
         qr = qrcode.QRCode(
             version=1,
@@ -790,7 +799,7 @@ class Participant(models.Model):
             box_size=10,
             border=4,
         )
-        qr.add_data(f'{self.pk}{self.random_seed}')
+        qr.add_data(self.qr_payload)
 
         qr.make(fit=True)
 
@@ -814,10 +823,12 @@ class Participant(models.Model):
     
     def send_mail(self):
         event = self.ticket.event
-        
+
+        wallet_links = wallet_context([self])
         email_body = render_to_string('pokemon/email/confirmation-mail-participant.html', {
             'evenement': event,
             **agenda_context(event),
+            **wallet_links,
         })
 
         # Generate tickets PDF
@@ -835,6 +846,7 @@ class Participant(models.Model):
         # add tickets as attachment
         email.attach(f'ticket.pdf', tickets_pdf.getvalue(), 'application/pdf')
         email.attach('evenement.ics', build_ics(event), 'text/calendar')
+        attach_wallet_passes(email, [self], wallet_links)
 
         helpers.attach_image(email, "logo-black", from_pokemon=True)
 
