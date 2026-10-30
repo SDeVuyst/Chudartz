@@ -13,6 +13,7 @@ from django.urls import path, reverse
 from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.utils.translation import gettext as _
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 import json
 from io import BytesIO
 import qrcode
@@ -1098,7 +1099,9 @@ class EvenementAdmin(SimpleHistoryAdmin, ModelAdmin):
             'event_change_url': reverse('admin:pokemon_evenement_change', args=[object_id]),
         })
 
+    @xframe_options_sameorigin
     def standhouder_studio_preview_view(self, request, object_id):
+        # Same-origin iframe on the studio page; override default X-Frame-Options: DENY.
         evenement = get_object_or_404(Evenement, pk=object_id)
         step = request.GET.get('step') or request.POST.get('step') or ''
 
