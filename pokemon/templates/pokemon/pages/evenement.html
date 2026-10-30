@@ -385,6 +385,13 @@ ChudartZ Collectibles | {{ evenement.titel }}
                 <a href="mailto:{{ evenement.STANDHOUDER_CONTACT_EMAIL }}">{{ evenement.STANDHOUDER_CONTACT_EMAIL }}</a>.
               </p>
             </div>
+            {% elif not evenement.standhouder_inschrijving_mogelijk %}
+            <div class="evenement-standhouder__soldout">
+              <span class="evenement-status evenement-status--soldout"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> {% trans "Standplaatsen uitverkocht" %}</span>
+              <p>
+                {% trans "Het is nu niet mogelijk om u in te schrijven als standhouder." %}
+              </p>
+            </div>
             {% else %}
             
             <a href="{% url 'standhouder' slug=evenement.slug %}" class="evenement-btn-primary">
