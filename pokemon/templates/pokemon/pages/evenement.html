@@ -375,6 +375,7 @@ ChudartZ Collectibles | {{ evenement.titel }}
             <h2>{% trans "Standhouder worden" %}</h2>
             <p>{% blocktrans with titel=evenement.titel %}Wil je zelf verkopen, ruilen of je collectie tonen op {{ titel }}? Huur een tafel en bereik honderden verzamelaars.{% endblocktrans %}</p>
           </div>
+          {% if evenement.standhouder_inschrijving_mogelijk %}
           <div class="evenement-standhouder__action">
             {% if standhouder_uitverkocht %}
             <div class="evenement-standhouder__soldout">
@@ -385,11 +386,13 @@ ChudartZ Collectibles | {{ evenement.titel }}
               </p>
             </div>
             {% else %}
+            
             <a href="{% url 'standhouder' slug=evenement.slug %}" class="evenement-btn-primary">
               <i class="bi bi-shop" aria-hidden="true"></i> {% trans "Schrijf je in als standhouder" %}
             </a>
             {% endif %}
           </div>
+          {% endif %}
         </div>
 
         {% with heeft_prijzen=evenement.standhouder_prijzen.strip heeft_inbegrepen=evenement.standhouder_inbegrepen.strip %}
