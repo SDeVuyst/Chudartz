@@ -1602,6 +1602,7 @@ class StandhouderInschrijving(models.Model):
                     "evenement": self.evenement,
                     "tafels": tafels,
                     "antwoorden": antwoorden,
+                    **agenda_context(self.evenement),
                 },
             )
             email = EmailMessage(
@@ -1611,6 +1612,8 @@ class StandhouderInschrijving(models.Model):
                 [self.email],
             )
             email.content_subtype = "html"
+            helpers.attach_image(email, "logo-black", from_pokemon=True)
+            email.attach("evenement.ics", build_ics(self.evenement), "text/calendar")
             email.send()
             user_sent = True
         except Exception:

@@ -1,14 +1,22 @@
 {% load i18n %}
 {% if inschrijving.heeft_borg %}
-<p><em>
-  {% blocktrans with bedrag=inschrijving.borg_bedrag %}
-  Let op: €{{ bedrag }} betreft een niet-terugbetaalbare reservatie- en administratiekost:
-  {% endblocktrans %}
-</em></p>
-<ul>
-  {% for regel in inschrijving.borg_regels %}
-    <li><em>{{ regel.omschrijving }}: €{{ regel.bedrag }}</em></li>
-  {% endfor %}
-</ul>
-<p><em>{% trans "Dit bedrag wordt niet terugbetaald bij annulatie." %}</em></p>
+<table style="font-family:'Open Sans',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 20px 20px;font-family:'Open Sans',sans-serif;" align="left">
+  <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word; background-color: #f7f6f4; padding: 14px 16px; border-left: 3px solid #c3111a;">
+    <p style="font-size: 14px; line-height: 140%; margin-bottom: 8px;"><em>
+      {% blocktrans with bedrag=inschrijving.borg_bedrag %}
+      Let op: €{{ bedrag }} betreft een niet-terugbetaalbare reservatie- en administratiekost:
+      {% endblocktrans %}
+    </em></p>
+    {% for regel in inschrijving.borg_regels %}
+    <p style="font-size: 14px; line-height: 140%; margin-bottom: 4px; color: #828080;"><em>• {{ regel.omschrijving }}: €{{ regel.bedrag }}</em></p>
+    {% endfor %}
+    <p style="font-size: 14px; line-height: 140%; margin-top: 8px;"><em>{% trans "Dit bedrag wordt niet terugbetaald bij annulatie." %}</em></p>
+  </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 {% endif %}
