@@ -443,9 +443,9 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
             reverse("admin:pokemon_evenement_change", args=(obj.ticket.event.pk,)),
             obj.ticket.event.titel
         ))
-    
+
     @display(
-        description=_('Status van Betaling'), 
+        description=_('Status van Betaling'),
         label={
             PaymentStatus.PAID: "success",
             PaymentStatus.OPEN: "warning",
@@ -457,26 +457,10 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
         header=True,
     )
     def payment_status(self, obj):
-        if obj.payment is None: return PaymentStatus.OPEN
-
+        if obj.payment is None:
+            return PaymentStatus.OPEN
         return obj.payment.status
 
-    @display(
-        description=_('Status van Betaling'), 
-        label={
-            PaymentStatus.PAID: "success",
-            PaymentStatus.OPEN: "warning",
-            PaymentStatus.CANCELED: "danger",
-            PaymentStatus.EXPIRED: "danger",
-            PaymentStatus.FAILED: "danger",
-        },
-        header=True,
-    )
-    def payment_status(self, obj):
-        if obj.payment is None: return PaymentStatus.OPEN
-
-        return obj.payment.status
-    
     @display(
         description=_("Attended"),
         label={
@@ -487,7 +471,6 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin, ImportExportModelAdmin):
     def attendance(self, obj):
         label = _("Yes") if obj.attended else _("No")
         return obj.attended, label
-    
 
     search_fields = ('mail',)
     list_filter = (
@@ -565,9 +548,24 @@ class KortingscodeAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Payment)
 class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ("mollie_id", "mail", "amount", "korting_bedrag", "kortingscode", "status")
+    list_display = ("mollie_id", "mail", "amount", "korting_bedrag", "kortingscode", "payment_status")
     list_filter = ("status",)
     actions_detail = ["generate_ticket",]
+
+    @display(
+        description=_("Status van Betaling"),
+        label={
+            PaymentStatus.PAID: "success",
+            PaymentStatus.OPEN: "warning",
+            PaymentStatus.CANCELED: "danger",
+            PaymentStatus.EXPIRED: "danger",
+            PaymentStatus.FAILED: "danger",
+            PaymentStatus.REFUNDED: "warning",
+        },
+        header=True,
+    )
+    def payment_status(self, obj):
+        return obj.status
 
     @action(description=_("Generate Ticket"))
     def generate_ticket(modeladmin, request, object_id: int):
@@ -1492,7 +1490,7 @@ class TicketEigenschapAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(StandhouderInschrijving)
 class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = (
-        'bedrijfsnaam', 'naam', 'evenement_link', 'status',
+        'bedrijfsnaam', 'naam', 'evenement_link', 'status', 'payment_status',
         'totaal_bedrag_display', 'tafels_display', 'aangemaakt_op',
     )
     list_filter = (StandhouderStatusFilter, StandhouderEvenementFilter)
@@ -1516,6 +1514,23 @@ class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
             reverse("admin:pokemon_evenement_change", args=(obj.evenement.pk,)),
             obj.evenement.titel,
         ))
+
+    @display(
+        description=_("Status van Betaling"),
+        label={
+            PaymentStatus.PAID: "success",
+            PaymentStatus.OPEN: "warning",
+            PaymentStatus.CANCELED: "danger",
+            PaymentStatus.EXPIRED: "danger",
+            PaymentStatus.FAILED: "danger",
+            PaymentStatus.REFUNDED: "warning",
+        },
+        header=True,
+    )
+    def payment_status(self, obj):
+        if obj.payment is None:
+            return PaymentStatus.OPEN
+        return obj.payment.status
 
     @display(description=_("Totaalbedrag"))
     def totaal_bedrag_display(self, obj):
