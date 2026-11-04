@@ -1492,8 +1492,8 @@ class TicketEigenschapAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(StandhouderInschrijving)
 class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = (
-        'bedrijfsnaam', 'naam', 'evenement_link', 'status', 'betaling_status',
-        'totaal_bedrag', 'tafels_display', 'aangemaakt_op',
+        'bedrijfsnaam', 'naam', 'evenement_link', 'status',
+        'totaal_bedrag_display', 'tafels_display', 'aangemaakt_op',
     )
     list_filter = (StandhouderStatusFilter, StandhouderEvenementFilter)
     list_filter_submit = True
@@ -1517,15 +1517,21 @@ class StandhouderInschrijvingAdmin(SimpleHistoryAdmin, ModelAdmin):
             obj.evenement.titel,
         ))
 
+    @display(description=_("Totaalbedrag"))
+    def totaal_bedrag_display(self, obj):
+        # Vermijd django-money + nl locale double-formatting (€ 127,05,00).
+        if obj.totaal_bedrag is None:
+            return "—"
+        return f"€{obj.totaal_bedrag.amount:.2f}"
+
     @display(description=_("Tafels"))
     def tafels_display(self, obj):
-        return ', '.join(c.display_label for c in obj.gekozen_tafels)
-
-    @display(description=_("Betaling"))
-    def betaling_status(self, obj):
-        if not obj.payment_id:
-            return "—"
-        return obj.payment.get_status_display()
+        if obj.zaalplan_actief:
+            labels = ', '.join(c.display_label for c in obj.gekozen_tafels)
+            if not labels:
+                return _("Zaalplan: —")
+            return _("Zaalplan: %(labels)s") % {"labels": labels}
+        return _("Aantal: %(n)s") % {"n": obj.aantal_tafels_manueel or 0}
 
 
 @admin.register(GateDevice)
