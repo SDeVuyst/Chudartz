@@ -4396,6 +4396,12 @@ msgstr "Nos partenaires apparaîtront bientôt ici."
 msgid "Logo %(naam)s"
 msgstr "Logo %(naam)s"
 
+msgid "Wanted-affiche van de ChudartZ-partners, dood of levend."
+msgstr "Avis de recherche des partenaires ChudartZ, mort ou vif."
+
+msgid "Wil je ook partner worden? Laat via het contactformulier op de homepagina weten wie je bent en hoe je wilt samenwerken. Mailen of bellen mag ook. Wij nemen daarna contact met je op."
+msgstr "Vous voulez aussi devenir partenaire ? Dites-nous qui vous êtes et comment vous souhaitez collaborer via le formulaire de contact sur la page d'accueil. Un e-mail ou un appel convient aussi. Nous vous recontactons ensuite."
+
 #: .\darts\urls.py:48
 msgid "darts/scanner/"
 msgstr "flechettes/scanner/"

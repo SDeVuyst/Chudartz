@@ -32,10 +32,7 @@ ChudartZ Collectibles | {% trans 'Partners' %}
     {% trans "Partners" as page_name %}
     {% trans "Samen met onze partners bouwen we aan beurzen waar verzamelaars, standhouders en fans elkaar vinden." as page_description %}
     {% trans "Word partner" as page_button_label %}
-    {% url 'index' as index_url %}
-    {% with button_url=index_url|add:"#contact" %}
-    {% include 'pokemon/blocks/page-title.html' with name=page_name description=page_description button_url=button_url button_label=page_button_label %}
-    {% endwith %}
+    {% include 'pokemon/blocks/page-title.html' with name=page_name description=page_description button_url="#word-partner" button_label=page_button_label %}
 
     <section id="portfolio-details" class="portfolio-details section">
 
@@ -87,6 +84,26 @@ ChudartZ Collectibles | {% trans 'Partners' %}
 
       </div>
 
+    </section>
+
+    <section id="word-partner" class="bounty-board section" aria-labelledby="bounty-board-title">
+      <div class="container">
+        <div class="row align-items-center justify-content-between gy-5">
+          <div class="col-lg-6 d-flex justify-content-center">
+            <div class="wanted-hanger">
+              <a href="{% static 'pokemon/img/wanted_partners.png' %}" class="wanted-poster glightbox" data-gallery="wanted-partners">
+                <img src="{% static 'pokemon/img/wanted_partners.png' %}" alt="{% trans 'Wanted-affiche van de ChudartZ-partners, dood of levend.' %}">
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h2 id="bounty-board-title">{% trans "Word partner" %}</h2>
+            <p>{% trans "Wil je ook partner worden? Laat via het contactformulier op de homepagina weten wie je bent en hoe je wilt samenwerken. Mailen of bellen mag ook. Wij nemen daarna contact met je op." %}</p>
+            {% url 'index' as bounty_index_url %}
+            <a href="{{ bounty_index_url }}#contact" class="btn btn-get-started">{% trans "Neem contact op" %}</a>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>

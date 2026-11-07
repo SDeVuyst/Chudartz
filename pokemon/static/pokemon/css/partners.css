@@ -3,7 +3,8 @@
 --------------------------------------------------------------*/
 
 .partners-page .page-title .btn-get-started,
-.partners-page .features .features-item .btn-get-started {
+.partners-page .features .features-item .btn-get-started,
+.partners-page .bounty-board .btn-get-started {
   background-color: var(--accent-color);
   color: var(--contrast-color);
   padding: 8px 30px 10px 30px;
@@ -14,7 +15,8 @@
 }
 
 .partners-page .page-title .btn-get-started:hover,
-.partners-page .features .features-item .btn-get-started:hover {
+.partners-page .features .features-item .btn-get-started:hover,
+.partners-page .bounty-board .btn-get-started:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
   color: var(--contrast-color);
 }
@@ -32,4 +34,71 @@
   width: 100%;
   max-width: 420px;
   margin-inline: auto;
+}
+
+.partners-page .bounty-board .btn-get-started {
+  margin-top: 0.5rem;
+}
+
+.partners-page .bounty-board {
+  overflow: visible;
+}
+
+.partners-page .bounty-board h2 {
+  margin-bottom: 1rem;
+}
+
+.partners-page .wanted-hanger {
+  position: relative;
+  width: min(100%, 460px);
+  margin-inline: auto;
+}
+
+.partners-page .wanted-poster {
+  display: block;
+  transform-origin: top center;
+  animation: wanted-sway 16s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  text-decoration: none;
+}
+
+.partners-page .wanted-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.partners-page .wanted-poster:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 6px;
+}
+
+@keyframes wanted-sway {
+  0% {
+    transform: rotate(-0.35deg);
+  }
+  22% {
+    transform: rotate(0.45deg);
+  }
+  41% {
+    transform: rotate(-0.15deg);
+  }
+  58% {
+    transform: rotate(0.85deg);
+  }
+  74% {
+    transform: rotate(-0.55deg);
+  }
+  88% {
+    transform: rotate(0.2deg);
+  }
+  100% {
+    transform: rotate(-0.35deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-page .wanted-poster {
+    animation: none;
+    transform: rotate(-0.4deg);
+  }
 }
