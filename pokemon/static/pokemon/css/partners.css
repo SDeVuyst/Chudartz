@@ -48,57 +48,72 @@
   margin-bottom: 1rem;
 }
 
-.partners-page .wanted-hanger {
+.partners-page .wanted-hanger,
+.home-partners .wanted-hanger {
   position: relative;
   width: min(100%, 460px);
   margin-inline: auto;
 }
 
-.partners-page .wanted-poster {
+.home-partners .wanted-hanger {
+  width: min(100%, 400px);
+}
+
+.partners-page .wanted-poster,
+.home-partners .wanted-poster {
   display: block;
-  transform-origin: top center;
-  animation: wanted-sway 16s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   text-decoration: none;
 }
 
-.partners-page .wanted-poster img {
+.partners-page .wanted-poster img,
+.home-partners .wanted-poster img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.partners-page .wanted-poster:focus-visible {
+.partners-page .wanted-poster:focus-visible,
+.home-partners .wanted-poster:focus-visible {
   outline: 3px solid var(--accent-color);
   outline-offset: 6px;
 }
 
-@keyframes wanted-sway {
-  0% {
-    transform: rotate(-0.35deg);
-  }
-  22% {
-    transform: rotate(0.45deg);
-  }
-  41% {
-    transform: rotate(-0.15deg);
-  }
-  58% {
-    transform: rotate(0.85deg);
-  }
-  74% {
-    transform: rotate(-0.55deg);
-  }
-  88% {
-    transform: rotate(0.2deg);
-  }
-  100% {
-    transform: rotate(-0.35deg);
-  }
+.home-partners {
+  overflow: visible;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .partners-page .wanted-poster {
-    animation: none;
-    transform: rotate(-0.4deg);
-  }
+.home-partners h2 {
+  margin-bottom: 1rem;
+}
+
+.home-partners-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.home-partners .btn-get-started {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 8px 30px 10px 30px;
+  border-radius: 4px;
+  border: 1px solid var(--accent-color);
+  display: inline-block;
+  text-decoration: none;
+}
+
+.home-partners .btn-get-started:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  color: var(--contrast-color);
+}
+
+.home-partners .btn-get-started--outline {
+  background: transparent;
+  color: var(--accent-color);
+}
+
+.home-partners .btn-get-started--outline:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
 }

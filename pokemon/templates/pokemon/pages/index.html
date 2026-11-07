@@ -3,6 +3,7 @@
 {% load static i18n sponsors %}
 
 {% block head %}
+<link href="{% static 'pokemon/css/partners.css' %}" rel="stylesheet">
 <script src="https://www.google.com/recaptcha/api.js?render=6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV"></script>
 {% endblock %}
 
@@ -72,7 +73,7 @@
     {% endif %}
        
     {% if evenement %}
-    <section id="spotlight" class="over-ons section blog-posts">
+    <section id="spotlight" class="over-ons section blog-posts{% if homepage_voorbij_evenement or homepage_aankomende_evenementen %} light-background{% endif %}">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row align-items-xl-center gy-5">
@@ -281,6 +282,29 @@
 
     </section><!-- /Scrapbook Section -->
     {% endif %}
+
+    <section id="partners" class="home-partners section{% if fotos_selectie %} light-background{% endif %}" aria-labelledby="home-partners-title">
+      <div class="container">
+        <div class="row align-items-center gy-5">
+          <div class="col-lg-6 d-flex justify-content-center">
+            <div class="wanted-hanger">
+              <a href="{% static 'pokemon/img/wanted_partners.png' %}" class="wanted-poster glightbox" data-gallery="home-wanted">
+                <img src="{% static 'pokemon/img/wanted_partners.png' %}" alt="{% trans 'Wanted-affiche van de ChudartZ-partners, dood of levend.' %}">
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h2 id="home-partners-title">{% trans "Partners" %}</h2>
+            <p>{% trans "Samen met onze partners bouwen we aan beurzen waar verzamelaars, standhouders en fans elkaar vinden." %}</p>
+            <p>{% trans "Onze partners maken ChudartZ Collectibles-beurzen mogelijk. Ontdek met wie we samenwerken." %}</p>
+            <div class="home-partners-actions">
+              <a href="{% url 'partners' %}" class="btn btn-get-started">{% trans "Bekijk onze partners" %}</a>
+              <a href="#contact" class="btn btn-get-started btn-get-started--outline">{% trans "Word partner" %}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">

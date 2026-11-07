@@ -1265,13 +1265,9 @@ section,
   }
 }
 .scrapbook {
-  --scrapbook-paper: #f9f9f9;
   --scrapbook-ink: #32353a;
   --scrapbook-shadow: rgba(50, 53, 58, 0.18);
   --scrapbook-font: "Caveat", cursive;
-  background-color: var(--scrapbook-paper);
-  background-image: radial-gradient(rgba(195, 17, 26, 0.045) 1px, transparent 1px), linear-gradient(180deg, #ffffff 0%, var(--scrapbook-paper) 55%, color-mix(in srgb, var(--scrapbook-paper), #ececec 40%) 100%);
-  background-size: 14px 14px, 100% 100%;
 }
 .scrapbook .section-title {
   padding-bottom: 1.5rem;
