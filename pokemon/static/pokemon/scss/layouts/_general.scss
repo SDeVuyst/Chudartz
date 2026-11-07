@@ -88,3 +88,31 @@ h6 {
     transform: rotate(360deg);
   }
 }
+
+.light-background {
+  position: relative;
+  isolation: isolate;
+
+  > :not(.mark-field) {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.mark-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  img {
+    position: absolute;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.034;
+    filter: grayscale(1);
+    mix-blend-mode: multiply;
+    user-select: none;
+  }
+}

@@ -1,4 +1,4 @@
-{% load static i18n sponsors %}
+{% load static i18n sponsors marks %}
 
 <footer id="footer" class="footer position-relative light-background">
 
@@ -84,3 +84,6 @@
 <!-- Main JS File -->
 <script src="{% static "js/main.js" %}"></script>
 <script src="{% static "js/lang_switcher.js" %}"></script>
+{% mark_assets as marks %}
+{{ marks|json_script:"mark-texture-data" }}
+<script src="{% static "pokemon/js/mark-texture.js" %}"></script>
