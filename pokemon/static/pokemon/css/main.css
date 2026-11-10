@@ -1755,6 +1755,11 @@ section,
 /*--------------------------------------------------------------
 # Faq Section
 --------------------------------------------------------------*/
+@media (min-width: 992px) {
+  .faq .faq-container {
+    padding-left: 1.5rem;
+  }
+}
 .faq .content h3 {
   font-weight: 400;
   font-size: 34px;
@@ -3159,6 +3164,140 @@ html.team-modal-open {
 }
 .contact .email-form button:disabled:hover, .contact .register-form button:disabled:hover, .register .email-form button:disabled:hover, .register .register-form button:disabled:hover {
   background: var(--accent-color-disabled);
+}
+.contact.light-background .info-item {
+  background: var(--surface-color);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+}
+.contact .contact-columns > .col-lg-6 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.contact .contact-columns .col-md-6 {
+  display: flex;
+}
+.contact .contact-columns .col-md-6 .info-item {
+  width: 100%;
+}
+.contact .contact-columns > .col-lg-6 > .info-item {
+  flex: 1 1 auto;
+  width: 100%;
+}
+.contact .info-item-embed > i {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.contact .info-item-embed .ml-form-embedContainer {
+  display: block !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+.contact .info-item-embed .ml-form-align-center,
+.contact .info-item-embed .ml-form-align-default {
+  display: block !important;
+  text-align: left !important;
+  vertical-align: top !important;
+}
+.contact .info-item-embed .ml-form-embedWrapper,
+.contact .info-item-embed .ml-form-embedWrapper.embedForm {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  display: block !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+.contact .info-item-embed .ml-form-embedBody,
+.contact .info-item-embed .ml-form-successBody {
+  padding: 0 !important;
+}
+.contact .info-item-embed .ml-form-embedContent,
+.contact .info-item-embed .ml-form-successContent {
+  margin: 0 0 20px 0 !important;
+}
+.contact .info-item-embed .ml-form-embedContent h4,
+.contact .info-item-embed .ml-form-successContent h4 {
+  color: var(--heading-color) !important;
+  font-family: var(--heading-font) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin: 0 0 10px 0 !important;
+  text-align: left !important;
+}
+.contact .info-item-embed .ml-form-embedContent p,
+.contact .info-item-embed .ml-form-successContent p {
+  color: var(--default-color) !important;
+  font-family: var(--default-font) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 24px !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+.contact .info-item-embed .ml-form-horizontalRow {
+  display: flex !important;
+  align-items: stretch;
+  gap: 10px;
+  float: none !important;
+}
+.contact .info-item-embed .ml-input-horizontal,
+.contact .info-item-embed .ml-button-horizontal,
+.contact .info-item-embed .horizontal-fields {
+  float: none !important;
+  width: auto !important;
+  padding-right: 0 !important;
+}
+.contact .info-item-embed .ml-input-horizontal {
+  flex: 1 1 auto;
+}
+.contact .info-item-embed .ml-button-horizontal {
+  flex: 0 0 auto;
+}
+.contact .info-item-embed .ml-form-horizontalRow input {
+  background-color: color-mix(in srgb, var(--background-color), transparent 50%) !important;
+  border-color: color-mix(in srgb, var(--default-color), transparent 80%) !important;
+  border-radius: 0 !important;
+  border-width: 1px !important;
+  box-shadow: none !important;
+  color: var(--default-color) !important;
+  font-family: var(--default-font) !important;
+  font-size: 14px !important;
+  height: 100%;
+  padding: 10px 15px !important;
+}
+.contact .info-item-embed .ml-form-horizontalRow input:focus {
+  border-color: var(--accent-color) !important;
+  outline: none;
+}
+.contact .info-item-embed .ml-form-horizontalRow input::placeholder {
+  color: color-mix(in srgb, var(--default-color), transparent 70%) !important;
+}
+.contact .info-item-embed .ml-form-horizontalRow button {
+  background: var(--accent-color) !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  color: var(--contrast-color) !important;
+  font-family: var(--default-font) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  height: 100%;
+  line-height: 20px !important;
+  margin: 0 !important;
+  padding: 10px 30px !important;
+  width: auto !important;
+}
+.contact .info-item-embed .ml-form-horizontalRow button:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+  border-color: transparent !important;
+}
+.contact .info-item-embed .ml-form-recaptcha {
+  clear: both;
+  float: none !important;
+  margin: 16px 0 0 0 !important;
 }
 
 /*--------------------------------------------------------------

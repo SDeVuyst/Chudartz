@@ -3,6 +3,12 @@
 # Faq Section
 --------------------------------------------------------------*/
 .faq {
+  @media (min-width: 992px) {
+    .faq-container {
+      padding-left: 1.5rem;
+    }
+  }
+
   .content {
     h3 {
       font-weight: 400;

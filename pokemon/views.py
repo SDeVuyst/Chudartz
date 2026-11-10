@@ -982,10 +982,6 @@ def disclaimer(request):
     return TemplateResponse(request, 'pokemon/pages/disclaimer.html', get_default_context())
 
 
-def faq(request):
-    return TemplateResponse(request, 'pokemon/pages/faq.html', get_default_context())
-
-
 def huisreglement(request):
     return TemplateResponse(request, 'pokemon/pages/huisreglement.html', get_default_context())
 
