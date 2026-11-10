@@ -1,0 +1,674 @@
+/*--------------------------------------------------------------
+# Dartskamp detailpagina
+--------------------------------------------------------------*/
+
+.page-title--breadcrumbs-only nav {
+  padding: 14px 0;
+  background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+.page-title--breadcrumbs-only nav ol {
+  font-size: 14px;
+}
+.page-title--breadcrumbs-only nav a {
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.page-title--breadcrumbs-only nav a:hover {
+  color: var(--accent-color);
+}
+
+.kamp-section-title {
+  margin-bottom: 1.75rem;
+}
+.kamp-section-title h2 {
+  margin: 0 0 0.4rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--heading-color);
+}
+.kamp-section-title p {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.kamp-section-title--center {
+  text-align: center;
+}
+.kamp-section-title--center p {
+  margin-inline: auto;
+}
+@media (max-width: 991.98px) {
+  .kamp-section-title h2 {
+    font-size: 1.65rem;
+  }
+}
+
+.kamp-btn-primary,
+.kamp-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: var(--heading-font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.kamp-btn-primary {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+.kamp-btn-primary:hover,
+.kamp-btn-primary:focus-visible {
+  background: color-mix(in srgb, var(--accent-color), transparent 18%);
+  color: var(--contrast-color);
+}
+.kamp-btn-secondary {
+  background: #fff;
+  border-color: color-mix(in srgb, var(--default-color), transparent 78%);
+  color: var(--heading-color);
+}
+.kamp-btn-secondary:hover,
+.kamp-btn-secondary:focus-visible {
+  background: #f7f7f7;
+  border-color: color-mix(in srgb, var(--default-color), transparent 55%);
+  color: var(--heading-color);
+}
+.kamp-btn-primary:focus-visible,
+.kamp-btn-secondary:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+}
+.kamp-btn--disabled,
+.kamp-btn--disabled:hover {
+  background: #eceef1;
+  border-color: #eceef1;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  cursor: not-allowed;
+}
+
+.kamp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+.kamp-status--closed {
+  background: #f4f5f7;
+  color: #32353a;
+}
+.kamp-status--soldout {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+.kamp-status--live {
+  background: #1f8a4c;
+  color: #fff;
+}
+.kamp-status--live i {
+  animation: kamp-pulse 1.4s ease-in-out infinite;
+}
+.kamp-status--past {
+  background: #f4f5f7;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+}
+@keyframes kamp-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.kamp-intro {
+  padding-top: 40px;
+}
+.kamp-header {
+  margin-bottom: 2.25rem;
+}
+.kamp-header__status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+.kamp-header__status:empty {
+  display: none;
+}
+.kamp-header h1 {
+  margin: 0 0 0.9rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--heading-color);
+}
+.kamp-header__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+.kamp-header__chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.kamp-header__chips i {
+  color: var(--accent-color);
+}
+@media (max-width: 767.98px) {
+  .kamp-header h1 {
+    font-size: 1.9rem;
+  }
+}
+
+.kamp-over__content {
+  max-width: 46rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--default-color), transparent 12%);
+}
+.kamp-over__content > :last-child {
+  margin-bottom: 0;
+}
+.kamp-over__content p,
+.kamp-over__content ul,
+.kamp-over__content ol {
+  margin: 0 0 1rem;
+}
+.kamp-over__content ul,
+.kamp-over__content ol {
+  padding-left: 1.25rem;
+}
+.kamp-over__content li + li {
+  margin-top: 0.3rem;
+}
+.kamp-over__content a {
+  color: var(--accent-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.kamp-over__content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.kamp-over__content h2,
+.kamp-over__content h3,
+.kamp-over__content h4 {
+  margin: 1.5rem 0 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.kamp-booking {
+  position: sticky;
+  top: 125px;
+  background: var(--surface-color, #fff);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+.kamp-booking__media {
+  aspect-ratio: 3 / 2;
+  background: #141414;
+  overflow: hidden;
+}
+.kamp-booking__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.kamp-booking__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 1.35rem;
+}
+.kamp-booking__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.kamp-booking__facts li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--default-color);
+}
+.kamp-booking__fact-icon {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
+  font-size: 16px;
+}
+.kamp-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+}
+.kamp-countdown[hidden] {
+  display: none;
+}
+.kamp-countdown__unit {
+  padding: 0.55rem 0.2rem 0.5rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--default-color), transparent 96%);
+  text-align: center;
+  overflow: hidden;
+}
+.kamp-countdown__value {
+  display: flex;
+  justify-content: center;
+  height: 1.1em;
+  font-family: var(--heading-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--heading-color);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+.kamp-countdown__digit {
+  position: relative;
+  display: block;
+  width: 1ch;
+  height: 100%;
+}
+.kamp-countdown__digit > span {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+}
+.kamp-countdown__digit > .is-entering {
+  animation: kamp-countdown-in 0.6s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+.kamp-countdown__digit > .is-leaving {
+  animation: kamp-countdown-out 0.6s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+@keyframes kamp-countdown-in {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+@keyframes kamp-countdown-out {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+.kamp-countdown__label {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+}
+.kamp-booking__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.15rem;
+}
+.kamp-booking__price-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+.kamp-booking__price-value {
+  font-family: var(--heading-font);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-color);
+}
+.kamp-booking__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.kamp-booking__actions .kamp-btn-primary,
+.kamp-booking__actions .kamp-btn-secondary {
+  width: 100%;
+}
+.kamp-booking__links {
+  display: flex;
+  gap: 0.5rem;
+}
+.kamp-booking__links > * {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-inline: 0.6rem;
+}
+.kamp-booking__utility {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+.kamp-booking__utility > .dropdown {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.kamp-utility-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 82%);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--heading-color);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+.kamp-utility-btn:hover,
+.kamp-utility-btn:focus-visible,
+.kamp-utility-btn[aria-expanded="true"] {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 95%);
+}
+.kamp-booking .dropdown-menu {
+  min-width: 100%;
+  padding: 0.35rem;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+}
+.kamp-booking .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+}
+.kamp-booking .dropdown-item i {
+  color: var(--accent-color);
+}
+.kamp-booking .dropdown-item:active {
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+  color: var(--heading-color);
+}
+@media (max-width: 991.98px) {
+  .kamp-booking {
+    position: static;
+  }
+}
+
+.kamp-meta {
+  margin-top: 2.5rem;
+}
+.kamp-meta__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+@media (max-width: 767px) {
+  .kamp-meta__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.kamp-meta__card {
+  display: flex;
+  gap: 1.15rem;
+  align-items: center;
+  padding: 1.5rem 1.5rem;
+  background: var(--surface-color, #fff);
+  border-radius: 15px;
+  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.kamp-meta__card:hover {
+  box-shadow: 0 8px 28px -6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+.kamp-meta__icon {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.55rem;
+  line-height: 0;
+  color: var(--accent-color);
+}
+.kamp-meta__body {
+  min-width: 0;
+}
+.kamp-meta__label {
+  display: block;
+  margin: 0 0 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+}
+.kamp-meta__primary {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--heading-color);
+}
+.kamp-meta__secondary {
+  margin: 0.3rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+.kamp-meta__maps {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
+  border-radius: 4px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.kamp-meta__maps:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color, #fff);
+  text-decoration: none;
+}
+
+.kamp-praktisch {
+  background-color: #f9f9f9;
+}
+.kamp-praktisch__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-bottom: 1.75rem;
+}
+.kamp-praktisch__header .kamp-section-title {
+  flex: 1 1 26rem;
+  margin-bottom: 0;
+}
+.kamp-praktisch__action {
+  flex: 0 1 auto;
+}
+.kamp-praktisch__card {
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
+}
+.kamp-praktisch__card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.kamp-praktisch__card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 0.45rem 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+  break-inside: avoid;
+}
+.kamp-praktisch__card li i {
+  flex: 0 0 auto;
+  color: var(--accent-color);
+  line-height: 1.4;
+}
+.kamp-praktisch__card--checks li i {
+  color: #059652;
+}
+@media (min-width: 768px) {
+  .kamp-praktisch__list--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+}
+.kamp-praktisch__collapse {
+  position: relative;
+}
+.kamp-praktisch__collapse.is-collapsed {
+  max-height: 300px;
+  overflow: hidden;
+}
+.kamp-praktisch__collapse.is-collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, transparent, #ffffff);
+  pointer-events: none;
+}
+.kamp-praktisch__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-color);
+  font-family: var(--heading-font);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.kamp-praktisch__toggle[hidden] {
+  display: none;
+}
+.kamp-praktisch__toggle i {
+  transition: transform 0.25s ease;
+}
+.kamp-praktisch__toggle[aria-expanded="true"] i {
+  transform: rotate(180deg);
+}
+
+.kamp-fotos {
+  padding-top: 60px;
+}
+
+.kamp-mobile-bar {
+  display: none;
+}
+@media (max-width: 991.98px) {
+  .kamp-mobile-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 996;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.97);
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(110%);
+    transition: transform 0.3s ease;
+  }
+  .kamp-mobile-bar.is-visible {
+    transform: translateY(0);
+  }
+  .kamp-mobile-bar__price {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.2;
+  }
+  .kamp-mobile-bar__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--default-color), transparent 40%);
+  }
+  .kamp-mobile-bar__value {
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+  .kamp-mobile-bar .kamp-btn-primary {
+    flex: 0 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kamp-meta__card,
+  .kamp-mobile-bar {
+    transition: none;
+  }
+  .kamp-meta__card:hover {
+    transform: none;
+  }
+  .kamp-status--live i {
+    animation: none;
+  }
+}

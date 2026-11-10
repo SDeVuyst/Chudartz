@@ -3,21 +3,32 @@
 {% load static dutch_date i18n %}
 
 {% block title %}
-ChudartZ | {{ kamp.titel}}
+ChudartZ | {{ kamp.titel }}
 {% endblock %}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
+<meta name="description" content="{{ meta_description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ share_url }}">
 <meta property="og:title" content="ChudartZ | {{ kamp.titel }}">
-<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:image" content="{% if og_image_url %}{{ og_image_url }}{% else %}{% static 'img/logo-black.png' %}{% endif %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ChudartZ | {{ kamp.titel }}">
-<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+<meta name="twitter:description" content="{{ meta_description }}">
+<meta name="twitter:image" content="{% if og_image_url %}{{ og_image_url }}{% else %}{% static 'img/logo-black.png' %}{% endif %}">
+
+<script type="application/ld+json">{{ event_jsonld|safe }}</script>
+{% endblock %}
+
+{% block head %}
+<link href="{% static 'css/dartskamp.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-<body class="services-details-page">
+<body class="dartskamp-page">
 
   {% include 'blocks/header-sticky.html' %}
 
@@ -26,90 +37,430 @@ ChudartZ | {{ kamp.titel}}
     {% trans "/nl/dartskampen" as page_previous_crumb_link %}
     {% trans "Dartskampen" as page_previous_crumb %}
 
-    {% include 'blocks/page-title.html' with name=kamp.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link background="true" %}
+    {% include 'blocks/page-title.html' with name=kamp.titel previous_crumb=page_previous_crumb previous_crumb_link=page_previous_crumb_link breadcrumbs_only=True %}
 
-    <section id="service-details" class="service-details section">
-
+    <section id="intro" class="section kamp-intro">
       <div class="container">
 
-        <div class="row gy-5">
+        <header class="kamp-header" data-aos="fade-up">
+          <div class="kamp-header__status">
+            {% if kamp.is_in_future %}
+              {% if kamp.is_sold_out %}
+              <span class="kamp-status kamp-status--soldout"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> {% trans "Volzet" %}</span>
+              {% endif %}
+              {% if not kamp.enable_inschrijvingen %}
+              <span class="kamp-status kamp-status--closed"><i class="bi bi-x-circle" aria-hidden="true"></i> {% trans "Inschrijvingen gesloten" %}</span>
+              {% endif %}
+            {% elif kamp.is_bezig %}
+              <span class="kamp-status kamp-status--live"><i class="bi bi-hourglass-split" aria-hidden="true"></i> {% trans "Bezig" %}</span>
+            {% else %}
+              <span class="kamp-status kamp-status--past"><i class="bi bi-clock-history" aria-hidden="true"></i> {% trans "Afgelopen" %}</span>
+            {% endif %}
+          </div>
+          <h1>{{ kamp.titel }}</h1>
+          <ul class="kamp-header__chips">
+            <li><i class="bi bi-calendar-event" aria-hidden="true"></i> {{ kamp.start_datum|dutch_weekday_date|capfirst }}</li>
+            <li><i class="bi bi-geo-alt" aria-hidden="true"></i> {{ kamp.locatie_kort }}</li>
+          </ul>
+        </header>
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-4 g-lg-5">
 
-            {% if kamp.resultaten %}
-            <div class="service-box">
-              <h4>Resultaten Beschikbaar</h4>
-              <div class="services-list">
-                <a href="{% url 'dartskamp_resultaat' slug=kamp.slug %}" class="btn btn-get-started align-self-start">{% blocktrans %}Bekijk Resultaten{% endblocktrans %}</a>
+          <div class="col-lg-4 order-lg-2">
+            <aside class="kamp-booking" id="booking" data-aos="fade-up" data-aos-delay="100" aria-label="{% trans 'Inschrijving' %}">
+              {% if kamp.afbeelding %}
+              <div class="kamp-booking__media">
+                <img src="{{ kamp.afbeelding.url }}" alt="{{ kamp.titel }}">
               </div>
-            </div>
-            {% endif %}
+              {% endif %}
 
-            {% include 'blocks/dartskamp-info.html' with kamp=kamp %}
-            
-            {% include 'blocks/tijd-en-locatie.html' with kamp=kamp %}
-
-            {% include 'blocks/vereisten.html' with vereisten=kamp.vereisten_lijst %}
-            
-            {% if kamp.afbeeldingen_download_url %}
-            {% include 'blocks/afbeeldingen-download.html' with afbeeldingen_download_url=kamp.afbeeldingen_download_url %}
-            {% endif %}
-
-          </div>  
-          
-          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-
-            {{ kamp.beschrijving|safe }}
-
-            {% if fotos %}
-            <div class="dartskamp-fotos mb-4">
-              <div class="row g-3">
-                {% for foto in fotos %}
-                  <div 
-                    class="
-                      {% if fotos|length <= 4 %}
-                        col-6
-                      {% elif fotos|length <= 6 %}
-                        col-6 col-md-4
+              <div class="kamp-booking__body">
+                <ul class="kamp-booking__facts">
+                  <li>
+                    <span class="kamp-booking__fact-icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+                    <span>
+                      {% if kamp.is_same_day %}
+                        {{ kamp.start_datum|dutch_weekday_date|capfirst }}<br>{{ kamp.start_datum|dutch_time }} – {{ kamp.einde_datum|dutch_time }}
                       {% else %}
-                        col-6 col-md-4 col-lg-3
+                        {{ kamp.start_datum|dutch_weekday_date|capfirst }} {{ kamp.start_datum|dutch_time }} –<br>{{ kamp.einde_datum|dutch_weekday_date|capfirst }} {{ kamp.einde_datum|dutch_time }}
                       {% endif %}
-                    ">
-                    <div class="card h-100 border-0 shadow-sm">
-                      <a href="{{ foto.afbeelding.url }}" class="glightbox dartskamp-foto-link" data-gallery="dartskamp-gallery" title="{{ foto.omschrijving|default:'Dartskamp foto' }}">
-                        <img src="{{ foto.afbeelding.url }}" class="card-img-top img-fluid rounded" alt="{{ foto.omschrijving|default:'Dartskamp foto' }}">
-                      </a>
-                      {% if foto.omschrijving %}
-                        <div class="card-body p-2">
-                          <p class="card-text small text-muted mb-0">{{ foto.omschrijving }}</p>
-                        </div>
-                      {% endif %}
-                    </div>
+                    </span>
+                  </li>
+                  <li>
+                    <span class="kamp-booking__fact-icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+                    <span>{{ kamp.locatie_kort }}</span>
+                  </li>
+                </ul>
+
+                {% if kamp.is_in_future %}
+                <div class="kamp-countdown" data-countdown="{{ kamp.start_datum|date:'c' }}" hidden aria-label="{% trans 'Aftellen tot het kamp' %}">
+                  <div class="kamp-countdown__unit">
+                    <span class="kamp-countdown__value" data-unit="days">0</span>
+                    <span class="kamp-countdown__label">{% trans "dagen" %}</span>
                   </div>
-                {% endfor %}
+                  <div class="kamp-countdown__unit">
+                    <span class="kamp-countdown__value" data-unit="hours">0</span>
+                    <span class="kamp-countdown__label">{% trans "uur" %}</span>
+                  </div>
+                  <div class="kamp-countdown__unit">
+                    <span class="kamp-countdown__value" data-unit="minutes">0</span>
+                    <span class="kamp-countdown__label">{% trans "min" %}</span>
+                  </div>
+                  <div class="kamp-countdown__unit">
+                    <span class="kamp-countdown__value" data-unit="seconds">0</span>
+                    <span class="kamp-countdown__label">{% trans "sec" %}</span>
+                  </div>
+                </div>
+                {% endif %}
+
+                <div class="kamp-booking__price">
+                  <span class="kamp-booking__price-label">{% trans "Deelname" %}</span>
+                  <span class="kamp-booking__price-value">€{{ kamp.prijs.amount }}</span>
+                </div>
+
+                <div class="kamp-booking__actions">
+                  {% if inschrijven_mogelijk %}
+                  <a href="{% url 'inschrijven_dartskamp' slug=kamp.slug %}" class="kamp-btn-primary">
+                    <i class="bi bi-pencil-square" aria-hidden="true"></i> {% trans "Schrijf je in" %}
+                  </a>
+                  {% elif not kamp.is_in_future %}
+                  <span class="kamp-btn-primary kamp-btn--disabled" aria-disabled="true">
+                    {% if kamp.is_bezig %}{% trans "Kamp is bezig" %}{% else %}{% trans "Kamp afgelopen" %}{% endif %}
+                  </span>
+                  {% elif kamp.is_sold_out %}
+                  <span class="kamp-btn-primary kamp-btn--disabled" aria-disabled="true">{% trans "Volzet" %}</span>
+                  {% else %}
+                  <span class="kamp-btn-primary kamp-btn--disabled" aria-disabled="true">{% trans "Inschrijvingen gesloten" %}</span>
+                  {% endif %}
+
+                  {% if kamp.resultaten or kamp.afbeeldingen_download_url %}
+                  <div class="kamp-booking__links">
+                    {% if kamp.resultaten %}
+                    <a href="{% url 'dartskamp_resultaat' slug=kamp.slug %}" class="kamp-btn-secondary">{% trans "Bekijk Resultaten" %}</a>
+                    {% endif %}
+                    {% if kamp.afbeeldingen_download_url %}
+                    <a href="{{ kamp.afbeeldingen_download_url }}" class="kamp-btn-secondary" target="_blank" rel="noopener noreferrer">
+                      <i class="bi bi-images" aria-hidden="true"></i> {% trans "Download afbeeldingen" %}
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                </div>
+
+                {% if kamp.is_in_future %}
+                <div class="kamp-booking__utility">
+                  <div class="dropdown">
+                    <button type="button" class="kamp-utility-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-calendar-plus" aria-hidden="true"></i> {% trans "Zet in agenda" %}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="{{ agenda_google_url }}" target="_blank" rel="noopener noreferrer">
+                          <i class="bi bi-google" aria-hidden="true"></i> {% trans "Google Agenda" %}
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'dartskamp_agenda' slug=kamp.slug %}">
+                          <i class="bi bi-calendar-event" aria-hidden="true"></i> {% trans "Apple / Outlook (.ics)" %}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown">
+                    <button type="button" class="kamp-utility-btn" data-bs-toggle="dropdown" aria-expanded="false"
+                            data-share-url="{{ share_url }}" data-share-title="{{ kamp.titel }}">
+                      <i class="bi bi-share" aria-hidden="true"></i> <span data-share-label>{% trans "Delen" %}</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <a class="dropdown-item" href="https://wa.me/?text={{ kamp.titel|urlencode:'' }}%20{{ share_url|urlencode:'' }}" target="_blank" rel="noopener noreferrer">
+                          <i class="bi bi-whatsapp" aria-hidden="true"></i> WhatsApp
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode:'' }}" target="_blank" rel="noopener noreferrer">
+                          <i class="bi bi-facebook" aria-hidden="true"></i> Facebook
+                        </a>
+                      </li>
+                      <li>
+                        <button type="button" class="dropdown-item" data-copy-url="{{ share_url }}">
+                          <i class="bi bi-link-45deg" aria-hidden="true"></i> {% trans "Kopieer link" %}
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </aside>
+          </div>
+
+          <div class="col-lg-8 order-lg-1">
+            <div class="kamp-over" data-aos="fade-up">
+              <div class="kamp-over__content">{{ kamp.beschrijving|safe }}</div>
+            </div>
+
+            <div class="kamp-meta" data-aos="fade-up" data-aos-delay="100">
+              <div class="kamp-meta__grid">
+                <div class="kamp-meta__card">
+                  <span class="kamp-meta__icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+                  <div class="kamp-meta__body">
+                    <span class="kamp-meta__label">{% trans "Datum & tijd" %}</span>
+                    {% if kamp.is_same_day %}
+                      <p class="kamp-meta__primary">{{ kamp.start_datum|dutch_weekday_date|capfirst }}</p>
+                      <p class="kamp-meta__secondary">{{ kamp.start_datum|dutch_time }} – {{ kamp.einde_datum|dutch_time }}</p>
+                    {% else %}
+                      <p class="kamp-meta__primary">{{ kamp.start_datum|dutch_weekday_date|capfirst }} – {{ kamp.einde_datum|dutch_weekday_date|capfirst }}</p>
+                      <p class="kamp-meta__secondary">{{ kamp.start_datum|dutch_time }} – {{ kamp.einde_datum|dutch_time }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="kamp-meta__card">
+                  <span class="kamp-meta__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+                  <div class="kamp-meta__body">
+                    <span class="kamp-meta__label">{% trans "Locatie" %}</span>
+                    <p class="kamp-meta__primary">{{ kamp.locatie_lang }}</p>
+                    <a class="kamp-meta__maps"
+                       href="https://www.google.com/maps/search/?api=1&amp;query={{ kamp.locatie_lang|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                      <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                      {% trans "Open in Google Maps" %}
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-            {% endif %}
 
-          </div>          
+          </div>
 
         </div>
 
       </div>
-
     </section>
-    
+
+    {% if kamp.vereisten.strip %}
+    <section id="praktisch" class="kamp-praktisch section light-background">
+      <div class="container">
+        <div class="kamp-praktisch__header" data-aos="fade-up">
+          <div class="kamp-section-title">
+            <h2>{% trans "Praktische informatie" %}</h2>
+          </div>
+          {% if inschrijven_mogelijk %}
+          <div class="kamp-praktisch__action">
+            <a href="{% url 'inschrijven_dartskamp' slug=kamp.slug %}" class="kamp-btn-primary">
+              <i class="bi bi-pencil-square" aria-hidden="true"></i> {% trans "Schrijf je in" %}
+            </a>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="kamp-praktisch__card kamp-praktisch__card--checks" data-aos="fade-up" data-aos-delay="100">
+          <div class="kamp-praktisch__collapse" data-collapse>
+            <ul class="kamp-praktisch__list--grid">
+              {% for vereiste in kamp.vereisten_lijst %}
+              {% if vereiste.strip %}
+              <li><i class="bi bi-check-lg" aria-hidden="true"></i><span>{{ vereiste }}</span></li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <button type="button" class="kamp-praktisch__toggle" data-collapse-toggle hidden aria-expanded="false">
+            <span data-collapse-more>{% trans "Toon alles" %}</span>
+            <span data-collapse-less hidden>{% trans "Toon minder" %}</span>
+            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if fotos %}
+    {% trans "Dartskamp foto" as foto_alt %}
+    <section id="fotos" class="kamp-fotos section">
+      <div class="container" data-aos="fade-up">
+        <div class="kamp-section-title kamp-section-title--center">
+          <h2>{% trans "Sfeerbeelden" %}</h2>
+        </div>
+        <div class="row g-3">
+          {% for foto in fotos %}
+            <div
+              class="
+                {% if fotos|length <= 4 %}
+                  col-6
+                {% elif fotos|length <= 6 %}
+                  col-6 col-md-4
+                {% else %}
+                  col-6 col-md-4 col-lg-3
+                {% endif %}
+              ">
+              <div class="card h-100 border-0 shadow-sm">
+                <a href="{{ foto.afbeelding.url }}" class="glightbox" data-gallery="dartskamp-gallery" title="{{ foto.omschrijving|default:foto_alt }}">
+                  <img src="{{ foto.afbeelding.url }}" class="card-img-top img-fluid rounded" alt="{{ foto.omschrijving|default:foto_alt }}">
+                </a>
+                {% if foto.omschrijving %}
+                  <div class="card-body p-2">
+                    <p class="card-text small text-muted mb-0">{{ foto.omschrijving }}</p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if gerelateerde_kampen %}
+    <section id="andere-kampen" class="blog-posts section">
+      <div class="container" data-aos="fade-up">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+          <div class="kamp-section-title mb-0">
+            <h2>{% trans "Andere dartskampen" %}</h2>
+            <p>{% trans "Ontdek meer kampen van ChudartZ." %}</p>
+          </div>
+          <a href="{% url 'dartskampen' %}" class="kamp-btn-secondary">{% trans "Alle dartskampen" %}</a>
+        </div>
+        <div class="row gy-4">
+          {% for gerelateerd in gerelateerde_kampen %}
+            {% include 'blocks/dartskamp-card.html' with kamp=gerelateerd %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
   </main>
+
+  {% if inschrijven_mogelijk %}
+  <div class="kamp-mobile-bar" id="kamp-mobile-bar">
+    <div class="kamp-mobile-bar__price">
+      <span class="kamp-mobile-bar__label">{% trans "Deelname" %}</span>
+      <span class="kamp-mobile-bar__value">€{{ kamp.prijs.amount }}</span>
+    </div>
+    <a href="{% url 'inschrijven_dartskamp' slug=kamp.slug %}" class="kamp-btn-primary">{% trans "Schrijf je in" %}</a>
+  </div>
+  {% endif %}
 
   {% include 'blocks/footer.html' %}
 
+  {% trans "Gekopieerd" as gekopieerd_label %}
+  <script>
+  (function () {
+    var countdown = document.querySelector('[data-countdown]');
+    if (countdown) {
+      var start = new Date(countdown.dataset.countdown).getTime();
+      var units = ['days', 'hours', 'minutes', 'seconds'].map(function (name) {
+        return countdown.querySelector('[data-unit="' + name + '"]');
+      });
+      var pad = function (value) { return value < 10 ? '0' + value : String(value); };
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var roll = function (slot, char) {
+        var current = slot.lastElementChild;
+        if (current.textContent === char) return;
+        while (slot.firstElementChild !== current) slot.removeChild(slot.firstElementChild);
+        if (reduceMotion) {
+          current.textContent = char;
+          return;
+        }
+        var next = document.createElement('span');
+        next.textContent = char;
+        next.className = 'is-entering';
+        current.className = 'is-leaving';
+        current.addEventListener('animationend', function () { current.remove(); }, { once: true });
+        slot.appendChild(next);
+      };
+      var setUnit = function (element, value) {
+        if (element.children.length !== value.length) {
+          element.textContent = '';
+          value.split('').forEach(function (char) {
+            var slot = document.createElement('span');
+            var digit = document.createElement('span');
+            slot.className = 'kamp-countdown__digit';
+            digit.textContent = char;
+            slot.appendChild(digit);
+            element.appendChild(slot);
+          });
+          return;
+        }
+        value.split('').forEach(function (char, index) { roll(element.children[index], char); });
+      };
+      var tick = function () {
+        var diff = start - Date.now();
+        if (isNaN(diff) || diff <= 0) {
+          countdown.hidden = true;
+          return false;
+        }
+        var seconds = Math.floor(diff / 1000);
+        setUnit(units[0], String(Math.floor(seconds / 86400)));
+        setUnit(units[1], pad(Math.floor((seconds % 86400) / 3600)));
+        setUnit(units[2], pad(Math.floor((seconds % 3600) / 60)));
+        setUnit(units[3], pad(seconds % 60));
+        countdown.hidden = false;
+        return true;
+      };
+      if (tick()) {
+        var timer = setInterval(function () {
+          if (!tick()) clearInterval(timer);
+        }, 1000);
+      }
+    }
+
+    document.querySelectorAll('[data-collapse]').forEach(function (content) {
+      var toggle = content.parentElement.querySelector('[data-collapse-toggle]');
+      if (!toggle || content.scrollHeight <= 340) return;
+      content.classList.add('is-collapsed');
+      toggle.hidden = false;
+      toggle.addEventListener('click', function () {
+        var expanded = content.classList.toggle('is-collapsed') === false;
+        toggle.setAttribute('aria-expanded', String(expanded));
+        toggle.querySelector('[data-collapse-more]').hidden = expanded;
+        toggle.querySelector('[data-collapse-less]').hidden = !expanded;
+      });
+    });
+
+    document.querySelectorAll('[data-share-url]').forEach(function (button) {
+      if (!navigator.share) return;
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        navigator.share({ title: button.dataset.shareTitle, url: button.dataset.shareUrl }).catch(function () {});
+      });
+    });
+
+    document.querySelectorAll('[data-copy-url]').forEach(function (item) {
+      item.addEventListener('click', function () {
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(item.dataset.copyUrl).then(function () {
+          var label = document.querySelector('[data-share-label]');
+          if (!label) return;
+          var original = label.textContent;
+          label.textContent = '{{ gekopieerd_label|escapejs }}';
+          setTimeout(function () { label.textContent = original; }, 2000);
+        });
+      });
+    });
+
+    var bar = document.getElementById('kamp-mobile-bar');
+    if (bar && 'IntersectionObserver' in window) {
+      var targets = ['booking', 'praktisch', 'footer']
+        .map(function (id) { return document.getElementById(id); })
+        .filter(Boolean);
+      var visible = new Set();
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            visible.add(entry.target);
+          } else {
+            visible.delete(entry.target);
+          }
+        });
+        bar.classList.toggle('is-visible', visible.size === 0);
+      });
+      targets.forEach(function (target) { observer.observe(target); });
+    }
+  })();
+  </script>
+
 </body>
 {% endblock %}
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    GLightbox({ selector: '.glightbox' });
-  });
-</script>

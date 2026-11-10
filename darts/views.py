@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.forms import ValidationError
-from django.db.models import Case, IntegerField, Prefetch, Q, Value, When
+from django.db.models import Case, DateTimeField, F, IntegerField, Prefetch, Q, Value, When
 from django.http import (BadHeaderError, HttpResponse, HttpResponseBadRequest,
                          HttpResponseNotFound, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect
@@ -24,7 +24,9 @@ from darts.kamp_wizard import (
     set_wizard_data,
 )
 from darts.payment import MollieClient
+from darts.services.calendar import build_ics, google_calendar_url, kamp_page_url
 from darts.services.kamp_inschrijving import KampValidationError, finalize_checkout
+from darts.services.kamp_seo import build_kamp_jsonld, plain_description
 
 from .forms import BeurtkaartForm, CodeForm, ContactForm, DartskampBetalenForm, DartskampForm
 from .models import *
@@ -278,17 +280,55 @@ def dartskampen(request):
     return TemplateResponse(request, 'pages/dartskampen.html', context)
 
 
+def _get_gerelateerde_kampen(kamp, limit=3):
+    today = timezone.now().date()
+    return Dartskamp.objects.filter(toon_op_site=True).exclude(pk=kamp.pk).annotate(
+        is_past=Case(
+            When(einde_datum__date__lt=today, then=Value(1)),
+            default=Value(0),
+            output_field=IntegerField(),
+        ),
+    ).order_by(
+        "is_past",
+        Case(
+            When(einde_datum__date__gte=today, then=F("start_datum")),
+            output_field=DateTimeField(),
+        ),
+        F("start_datum").desc(),
+    )[:limit]
+
+
 def dartskamp(request, slug):
     kamp = get_object_or_404(Dartskamp, slug=slug)
 
     if not kamp.toon_op_site:
         return HttpResponseNotFound()
 
+    share_url = kamp_page_url(kamp, request)
     context = get_default_context()
     context["kamp"] = kamp
     context["fotos"] = kamp.fotos.all().order_by('-volgorde')
+    context["share_url"] = share_url
+    context["og_image_url"] = request.build_absolute_uri(kamp.afbeelding.url) if kamp.afbeelding else None
+    context["agenda_google_url"] = google_calendar_url(kamp, share_url)
+    context["event_jsonld"] = build_kamp_jsonld(kamp, request)
+    context["inschrijven_mogelijk"] = (
+        kamp.enable_inschrijvingen and kamp.is_in_future and not kamp.is_sold_out
+    )
+    context["gerelateerde_kampen"] = _get_gerelateerde_kampen(kamp)
+    context["meta_description"] = plain_description(kamp)
 
     return TemplateResponse(request, 'pages/dartskamp.html', context)
+
+
+def dartskamp_agenda(request, slug):
+    kamp = get_object_or_404(Dartskamp, slug=slug)
+    if not kamp.toon_op_site:
+        return HttpResponseNotFound()
+
+    response = HttpResponse(build_ics(kamp, kamp_page_url(kamp, request)), content_type="text/calendar; charset=utf-8")
+    response["Content-Disposition"] = f'attachment; filename="{kamp.slug}.ics"'
+    return response
 
 
 def inschrijven_dartskamp(request, slug):

@@ -39,6 +39,7 @@ urlpatterns += i18n_patterns(
     path(_('dartskampen/'), views.dartskampen, name="dartskampen"),
     path(_('dartskampen/doelen/'), views.doelen, name="doelen"),
     path(_('dartskampen/<slug:slug>/'), views.dartskamp, name='dartskamp'),
+    path('dartskampen/<slug:slug>/agenda.ics', views.dartskamp_agenda, name='dartskamp_agenda'),
     path(_('dartskampen/<slug:slug>/inschrijven/'), views.inschrijven_dartskamp, name='inschrijven_dartskamp'),
     path(_('dartskampen/<slug:slug>/inschrijven/overzicht/'), views.inschrijven_dartskamp_overzicht, name='inschrijven_dartskamp_overzicht'),
     path(_('dartskampen/<slug:slug>/inschrijven/betalen/'), views.inschrijven_dartskamp_betalen, name='inschrijven_dartskamp_betalen'),

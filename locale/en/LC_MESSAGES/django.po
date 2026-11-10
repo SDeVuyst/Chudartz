@@ -6432,3 +6432,119 @@ msgstr "Save"
 msgid "Opgeslaan!"
 msgstr "Saved!"
 
+#: darts/templates/pages/dartskamp.html
+msgid "Inschrijvingen gesloten"
+msgstr "Registrations closed"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Volzet"
+msgstr "Full"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Bezig"
+msgstr "In progress"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Afgelopen"
+msgstr "Finished"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Inschrijving"
+msgstr "Registration"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Aftellen tot het kamp"
+msgstr "Countdown to the camp"
+
+#: darts/templates/pages/dartskamp.html
+msgid "dagen"
+msgstr "days"
+
+#: darts/templates/pages/dartskamp.html
+msgid "uur"
+msgstr "hrs"
+
+#: darts/templates/pages/dartskamp.html
+msgid "min"
+msgstr "min"
+
+#: darts/templates/pages/dartskamp.html
+msgid "sec"
+msgstr "sec"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Deelname"
+msgstr "Participation"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Kamp is bezig"
+msgstr "Camp is underway"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Kamp afgelopen"
+msgstr "Camp has ended"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Download afbeeldingen"
+msgstr "Download photos"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Zet in agenda"
+msgstr "Add to calendar"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Google Agenda"
+msgstr "Google Calendar"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Apple / Outlook (.ics)"
+msgstr "Apple / Outlook (.ics)"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Delen"
+msgstr "Share"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Kopieer link"
+msgstr "Copy link"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Gekopieerd"
+msgstr "Copied"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Praktische informatie"
+msgstr "Practical information"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Toon alles"
+msgstr "Show all"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Toon minder"
+msgstr "Show less"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Sfeerbeelden"
+msgstr "Photos"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Dartskamp foto"
+msgstr "Camp photo"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Andere dartskampen"
+msgstr "Other camps"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Ontdek meer kampen van ChudartZ."
+msgstr "Discover more camps from ChudartZ."
+
+#: darts/templates/pages/dartskamp.html
+msgid "Alle dartskampen"
+msgstr "All camps"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Dartskampen"
+msgstr "Dart camps"
+
