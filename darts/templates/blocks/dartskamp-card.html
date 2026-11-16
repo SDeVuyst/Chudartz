@@ -19,15 +19,15 @@
 
     <div class="d-flex align-items-center">
       <div class="post-meta">
-        <p class="post-author d-flex align-items-start">
+        <p class="post-author d-flex align-items-center">
           {% if kamp.is_same_day %}
-              <i class="bi bi-calendar4-event me-2"></i>
-              <span>{{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_time }}</span>
+              <span class="event-card__date-icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+              <span>{{ kamp.start_datum|dutch_datetime|capfirst }} - {{ kamp.einde_datum|dutch_time }}</span>
           {% else %}
-              <i class="bi bi-calendar4-week me-2"></i>
+              <span class="event-card__date-icon" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
               <span>
-                {{ kamp.start_datum|dutch_datetime }} -<br>
-                {{ kamp.einde_datum|dutch_datetime }}
+                {{ kamp.start_datum|dutch_datetime|capfirst }} -<br>
+                {{ kamp.einde_datum|dutch_datetime|capfirst }}
               </span>
           {% endif %}
         </p>
@@ -58,6 +58,9 @@
 
     <div class="post-footer">
       <a class="post-more" href="{% url 'dartskamp' slug=kamp.slug %}">{% trans "Meer info" %}</a>
+      {% if kamp.enable_inschrijvingen and kamp.is_in_future and not kamp.is_sold_out %}
+      <a class="post-signup" href="{% url 'inschrijven_dartskamp' slug=kamp.slug %}">{% trans "Inschrijven" %}</a>
+      {% endif %}
     </div>
 
   </article>

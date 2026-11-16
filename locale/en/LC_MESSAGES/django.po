@@ -2569,7 +2569,7 @@ msgstr "Membership fee: € 60/year"
 #: .\darts\templates\pages\toernooi-inschrijving.html:27
 #: .\darts\templates\pages\toernooi-inschrijving.html:183
 msgid "Inschrijven"
-msgstr "Subscribe"
+msgstr "Enroll"
 
 #: .\darts\templates\pages\disclaimer.html:30
 #: .\pokemon\templates\pokemon\pages\disclaimer.html:30

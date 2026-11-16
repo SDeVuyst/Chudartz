@@ -2461,8 +2461,49 @@ section,
 }
 
 .blog-posts .post-footer {
+  display: flex;
+  gap: 0.5rem;
   margin-top: auto;
   padding-top: 20px;
+}
+
+.blog-posts .post-footer .post-more {
+  flex: 2 1 0;
+  min-width: 0;
+}
+
+.blog-posts .post-footer .post-more:only-child {
+  flex: 1 1 100%;
+}
+
+.blog-posts .post-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  font-family: var(--heading-font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.7rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid var(--accent-color);
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.blog-posts .post-signup:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 18%);
+  color: var(--contrast-color);
+}
+
+.blog-posts .post-signup:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
 }
 
 .blog-posts .post-more {
@@ -2526,6 +2567,20 @@ section,
 .blog-posts .post-author {
   font-weight: 600;
   margin-bottom: 5px;
+}
+
+.blog-posts .event-card__date-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin-right: 0.7rem;
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
+  font-size: 16px;
 }
 
 .blog-posts .post-date {
