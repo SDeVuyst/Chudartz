@@ -1,4 +1,3 @@
-import os
 from datetime import timezone as dt_timezone
 from urllib.parse import urlencode
 
@@ -6,9 +5,8 @@ import pytz
 from django.urls import reverse
 from django.utils import timezone
 
-from darts.services.kamp_seo import plain_description
+from darts.services.kamp_seo import SITE_URL, plain_description
 
-SITE_URL = os.environ.get("SITE_URL", "https://chudartz.com").rstrip("/")
 PRODID = "-//ChudartZ//Dartskampen//NL"
 TZID = "Europe/Brussels"
 BRUSSELS = pytz.timezone(TZID)

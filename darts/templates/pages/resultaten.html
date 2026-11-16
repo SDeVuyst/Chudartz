@@ -1,24 +1,26 @@
 {% extends 'main.html' %}
 
-{% load static dutch_date i18n %}
+{% load static dutch_date i18n seo %}
 
-{% block title %}
-ChudartZ | Dartskampen
-{% endblock %}
+{% block title %}{% trans "Resultaten dartskampen" %} | ChudartZ{% endblock %}
 
 {% block meta %}
 <meta name="robots" content="index, follow">
 <meta name="keywords" content="dartskampen, kampen, darts, school, zedelgem, Loppem, Aartrijke, Veldegem">
 <meta name="description" content="{% blocktrans %}Bekijk de resultaten van onze dartskampen in West-Vlaanderen en ontdek wie er schitterde!{% endblocktrans %}">
+{% seo_links keep_page=True %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ChudartZ">
+<meta property="og:url" content="{% canonical_url %}">
 
 <meta property="og:title" content="ChudartZ | Resultaten">
 <meta property="og:description" content="{% blocktrans %}Bekijk de resultaten van onze dartskampen in West-Vlaanderen en ontdek wie er schitterde!{% endblocktrans %}">
-<meta property="og:image" content="{% static 'img/logo-black.png' %}">
+<meta property="og:image" content="{% absolute_static 'img/logo-black.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ChudartZ | Resultaten">
 <meta name="twitter:description" content="{% blocktrans %}Bekijk de resultaten van onze dartskampen in West-Vlaanderen en ontdek wie er schitterde!{% endblocktrans %}">
-<meta name="twitter:image" content="{% static 'img/logo-black.png' %}">
+<meta name="twitter:image" content="{% absolute_static 'img/logo-black.png' %}">
 {% endblock %}
 
 {% block body %}

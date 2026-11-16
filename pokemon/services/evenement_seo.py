@@ -3,6 +3,8 @@ import json
 from django.urls import reverse
 from django.utils import timezone
 
+from pokemon.services.calendar import SITE_URL
+
 ORGANIZER_NAME = "ChudartZ Collectibles"
 ORGANIZER_URL = "https://chudartz-collectibles.com"
 
@@ -28,9 +30,10 @@ def _offer_availability(evenement, ticket):
 
 
 def build_event_jsonld(evenement, tickets, request):
+    # request.build_absolute_uri geeft achter de proxy http://, dus SITE_URL gebruiken.
     slug = {"slug": evenement.slug}
-    event_url = request.build_absolute_uri(reverse("evenement", kwargs=slug, urlconf="pokemon.urls"))
-    tickets_url = request.build_absolute_uri(reverse("ticket_kopen", kwargs=slug, urlconf="pokemon.urls"))
+    event_url = SITE_URL + reverse("evenement", kwargs=slug, urlconf="pokemon.urls")
+    tickets_url = SITE_URL + reverse("ticket_kopen", kwargs=slug, urlconf="pokemon.urls")
 
     location = {
         "@type": "Place",
@@ -75,7 +78,7 @@ def build_event_jsonld(evenement, tickets, request):
         },
     }
     if evenement.afbeelding:
-        data["image"] = [request.build_absolute_uri(evenement.afbeelding.url)]
+        data["image"] = [SITE_URL + evenement.afbeelding.url]
     if offers:
         data["offers"] = offers
 

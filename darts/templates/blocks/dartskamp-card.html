@@ -1,13 +1,17 @@
 {% load static dutch_date i18n %}
 
 <div class="col-lg-4">
-  <article>
+  <article class="kamp-card">
 
     <div class="post-img">
-      <img src="{{ kamp.afbeelding.url }}" alt="{% trans "Afbeelding van dartskamp" %}" class="img-fluid">
+      <img src="{{ kamp.afbeelding.url }}" alt="{{ kamp.titel }}" loading="lazy" class="img-fluid">
+      {% if kamp.locatie_kort %}
+      <span class="post-location">
+        <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+        {{ kamp.locatie_kort }}
+      </span>
+      {% endif %}
     </div>
-
-    <p class="post-category">{{ kamp.locatie_kort }}</p>
 
     <h2 class="title">
       <a href="{% url 'dartskamp' slug=kamp.slug %}">{{ kamp.titel }}</a>
@@ -15,11 +19,16 @@
 
     <div class="d-flex align-items-center">
       <div class="post-meta">
-        <p class="post-author">
+        <p class="post-author d-flex align-items-start">
           {% if kamp.is_same_day %}
-              {{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_time }}
+              <i class="bi bi-calendar4-event me-2"></i>
+              <span>{{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_time }}</span>
           {% else %}
-              {{ kamp.start_datum|dutch_datetime }} - {{ kamp.einde_datum|dutch_datetime }}
+              <i class="bi bi-calendar4-week me-2"></i>
+              <span>
+                {{ kamp.start_datum|dutch_datetime }} -<br>
+                {{ kamp.einde_datum|dutch_datetime }}
+              </span>
           {% endif %}
         </p>
         
@@ -45,6 +54,10 @@
           {% endif %}
         
       </div>
+    </div>
+
+    <div class="post-footer">
+      <a class="post-more" href="{% url 'dartskamp' slug=kamp.slug %}">{% trans "Meer info" %}</a>
     </div>
 
   </article>

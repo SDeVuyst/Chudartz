@@ -3849,7 +3849,7 @@ html.team-modal-open {
   position: relative;
   z-index: 1;
   background: var(--background-color);
-  color: var(--accent-color);
+  color: #000;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;

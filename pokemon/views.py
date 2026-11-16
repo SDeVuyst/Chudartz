@@ -53,7 +53,7 @@ from pokemon.services.attendance import (
 )
 from pokemon.services import wallet
 from pokemon.services import wallet_apple as wallet_apple_passes
-from pokemon.services.calendar import build_ics, google_calendar_url
+from pokemon.services.calendar import SITE_URL, build_ics, google_calendar_url
 from pokemon.services.evenement_seo import build_event_jsonld
 from pokemon.services.gate import log_gate_scan
 from pokemon.payment import MollieClient
@@ -132,6 +132,20 @@ def index(request):
     context["homepage_voorbij_evenement"] = voorbij
     context["homepage_aankomende_evenementen"] = aankomend
     return TemplateResponse(request, 'pokemon/pages/index.html', context)
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Disallow: /*/admin/",
+        "Disallow: /pokemon/",
+        "Disallow: /*/pokemon/",
+        "Disallow: /mollie-webhook/",
+        "Disallow: /*/mollie-webhook/",
+        "",
+        f"Sitemap: {SITE_URL}/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines) + "\n", content_type="text/plain")
+
 
 def over_ons(request):
     return TemplateResponse(request, 'pokemon/pages/about.html', get_default_context())
@@ -312,8 +326,8 @@ def evenement(request, slug):
 
     tickets = list(Ticket.objects.filter(event=evenement).order_by("pk"))
     vanaf_gratis, prijs_vanaf = _ticket_prijs_vanaf(tickets)
-    share_url = request.build_absolute_uri(reverse("evenement", kwargs={"slug": evenement.slug}))
-    og_image_url = request.build_absolute_uri(evenement.afbeelding.url) if evenement.afbeelding else None
+    share_url = SITE_URL + reverse("evenement", kwargs={"slug": evenement.slug})
+    og_image_url = SITE_URL + evenement.afbeelding.url if evenement.afbeelding else None
     deur_tickets = [ticket for ticket in tickets if ticket.enkel_inkom]
     fotos = list(EvenementFoto.objects.filter(evenement=evenement).order_by("-volgorde"))
     partners = list(evenement.partners.all())

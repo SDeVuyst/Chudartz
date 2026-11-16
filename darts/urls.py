@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
 
@@ -7,6 +8,7 @@ from chudartz.admin_dashboard import mollie_stats_api
 from pokemon import views as pokemon_views
 
 from . import views
+from .sitemaps import sitemaps
 
 
 # Staff tools shared with the unified admin on chudartz.com (collectibles tab).
@@ -14,6 +16,8 @@ urlpatterns = [
     path("pokemon/set-attendance/", pokemon_views.set_attendance),
     path("pokemon/manual-check/", pokemon_views.manual_check, name="manual_check"),
     path("pokemon/scan-ticket/", pokemon_views.scan_ticket, name="scan_ticket"),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    path("robots.txt", views.robots_txt, name="robots_txt"),
 ]
 
 urlpatterns += i18n_patterns(

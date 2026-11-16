@@ -24,9 +24,10 @@ from darts.kamp_wizard import (
     set_wizard_data,
 )
 from darts.payment import MollieClient
-from darts.services.calendar import build_ics, google_calendar_url, kamp_page_url
+from darts.services.calendar import build_ics, google_calendar_url, kamp_page_url, kamp_path
 from darts.services.kamp_inschrijving import KampValidationError, finalize_checkout
-from darts.services.kamp_seo import build_kamp_jsonld, plain_description
+from darts.services.kamp_seo import (absolute_url, build_kamp_jsonld, default_image_url,
+                                     kamp_meta_description)
 
 from .forms import BeurtkaartForm, CodeForm, ContactForm, DartskampBetalenForm, DartskampForm
 from .models import *
@@ -251,6 +252,21 @@ def dartschool_lidgeld_success(request):
     return TemplateResponse(request, 'pages/dartschool-inschrijving-response.html', context)
 
 
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Disallow: /*/admin/",
+        "Disallow: /pokemon/",
+        "Disallow: /mollie-webhook/",
+        "Disallow: /*/mollie-webhook/",
+        "Disallow: /cal-webhook/",
+        "Disallow: /*/cal-webhook/",
+        "",
+        f"Sitemap: {absolute_url('/sitemap.xml')}",
+    ]
+    return HttpResponse("\n".join(lines) + "\n", content_type="text/plain")
+
+
 def doelen(request):
     context = get_default_context()
     return TemplateResponse(request, 'pages/doelen.html', context)
@@ -304,19 +320,19 @@ def dartskamp(request, slug):
     if not kamp.toon_op_site:
         return HttpResponseNotFound()
 
-    share_url = kamp_page_url(kamp, request)
+    share_url = absolute_url(kamp_path(kamp))
     context = get_default_context()
     context["kamp"] = kamp
     context["fotos"] = kamp.fotos.all().order_by('-volgorde')
     context["share_url"] = share_url
-    context["og_image_url"] = request.build_absolute_uri(kamp.afbeelding.url) if kamp.afbeelding else None
+    context["og_image_url"] = absolute_url(kamp.afbeelding.url) if kamp.afbeelding else default_image_url()
     context["agenda_google_url"] = google_calendar_url(kamp, share_url)
     context["event_jsonld"] = build_kamp_jsonld(kamp, request)
     context["inschrijven_mogelijk"] = (
         kamp.enable_inschrijvingen and kamp.is_in_future and not kamp.is_sold_out
     )
     context["gerelateerde_kampen"] = _get_gerelateerde_kampen(kamp)
-    context["meta_description"] = plain_description(kamp)
+    context["meta_description"] = kamp_meta_description(kamp)
 
     return TemplateResponse(request, 'pages/dartskamp.html', context)
 
@@ -326,7 +342,7 @@ def dartskamp_agenda(request, slug):
     if not kamp.toon_op_site:
         return HttpResponseNotFound()
 
-    response = HttpResponse(build_ics(kamp, kamp_page_url(kamp, request)), content_type="text/calendar; charset=utf-8")
+    response = HttpResponse(build_ics(kamp, kamp_page_url(kamp)), content_type="text/calendar; charset=utf-8")
     response["Content-Disposition"] = f'attachment; filename="{kamp.slug}.ics"'
     return response
 

@@ -6548,3 +6548,20 @@ msgstr "All camps"
 msgid "Dartskampen"
 msgstr "Dart camps"
 
+#: darts/templates/pages/dartskampen.html
+msgid "Dartskampen voor kinderen in West-Vlaanderen"
+msgstr "Dart camps for kids in West Flanders"
+
+#: darts/templates/pages/resultaten.html
+msgid "Resultaten dartskampen"
+msgstr "Dart camp results"
+
+#: darts/templates/pages/resultaat.html
+#, python-format
+msgid "Bekijk de resultaten van %(titel)s en ontdek wie er schitterde op dit dartskamp van ChudartZ."
+msgstr "View the results of %(titel)s and find out who shone at this ChudartZ dart camp."
+
+#: darts/services/kamp_seo.py
+#, python-format
+msgid "Dartskamp %(titel)s in %(locatie)s, georganiseerd door ChudartZ. Schrijf je nu in!"
+msgstr "Dart camp %(titel)s in %(locatie)s, organised by ChudartZ. Sign up now!"

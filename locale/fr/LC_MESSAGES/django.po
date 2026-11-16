@@ -6548,3 +6548,29 @@ msgstr "Sur cet événement"
 #: pokemon/templates/admin/pokemon/aanbod_editor.html
 msgid "Terug naar evenement"
 msgstr "Retour à l'événement"
+
+#: darts/templates/pages/dartskampen.html
+msgid "Dartskampen voor kinderen in West-Vlaanderen"
+msgstr "Camps de fléchettes pour enfants en Flandre-Occidentale"
+
+#: darts/templates/pages/resultaten.html
+msgid "Resultaten dartskampen"
+msgstr "Résultats des camps de fléchettes"
+
+#: darts/templates/pages/resultaat.html
+#, python-format
+msgid "Bekijk de resultaten van %(titel)s en ontdek wie er schitterde op dit dartskamp van ChudartZ."
+msgstr "Découvrez les résultats de %(titel)s et qui a brillé lors de ce camp de fléchettes ChudartZ."
+
+#: darts/services/kamp_seo.py
+#, python-format
+msgid "Dartskamp %(titel)s in %(locatie)s, georganiseerd door ChudartZ. Schrijf je nu in!"
+msgstr "Camp de fléchettes %(titel)s à %(locatie)s, organisé par ChudartZ. Inscrivez-vous dès maintenant !"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Dartskampen"
+msgstr "Camps de fléchettes"
+
+#: darts/templates/pages/dartskamp.html
+msgid "Deelname"
+msgstr "Participation"
