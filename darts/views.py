@@ -406,10 +406,10 @@ def inschrijven_dartskamp_betalen(request, slug):
 
     context = get_default_context()
     context.update(kamp_base_context(request, kamp, "betalen"))
-    context["form"] = DartskampBetalenForm()
+    context["form"] = DartskampBetalenForm(kamp=kamp)
 
     if request.method == 'POST':
-        form = DartskampBetalenForm(request.POST)
+        form = DartskampBetalenForm(request.POST, kamp=kamp)
         context["form"] = form
         if form.is_valid():
             try:

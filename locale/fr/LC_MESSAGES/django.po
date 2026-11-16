@@ -6574,3 +6574,89 @@ msgstr "Camps de fléchettes"
 #: darts/templates/pages/dartskamp.html
 msgid "Deelname"
 msgstr "Participation"
+
+#: darts/templates/pages/kampen/_wizard_nav.html
+msgid "Inschrijving stappen"
+msgstr "Étapes d’inscription"
+
+#: darts/kamp_wizard.py
+msgid "Kindgegevens"
+msgstr "Données de l’enfant"
+
+#: darts/kamp_wizard.py darts/templates/pages/kampen/stap2.html
+msgid "Overzicht"
+msgstr "Aperçu"
+
+#: darts/templates/pages/kampen/stap1.html
+msgid "Persoonlijke gegevens van het kind"
+msgstr "Données personnelles de l’enfant"
+
+#: darts/templates/pages/kampen/stap1.html
+msgid "Vul de gegevens van het kind in. U ontvangt een bevestiging per e-mail na betaling."
+msgstr "Remplissez les données de l’enfant. Vous recevrez une confirmation par e-mail après le paiement."
+
+#: darts/templates/pages/kampen/stap1.html
+msgid "Volgende: overzicht"
+msgstr "Suivant : aperçu"
+
+#: darts/forms.py
+msgid "Gsm-nummer"
+msgstr "Numéro de portable"
+
+#: darts/templates/pages/kampen/stap2.html
+msgid "Controleer de gegevens vóór u verdergaat naar betalen."
+msgstr "Vérifiez les données avant de passer au paiement."
+
+#: darts/templates/pages/kampen/stap2.html darts/models.py
+msgid "Dartskamp"
+msgstr "Camp de fléchettes"
+
+#: darts/templates/pages/kampen/stap2.html
+msgid "Kind"
+msgstr "Enfant"
+
+#: darts/templates/pages/kampen/stap2.html darts/models.py
+msgid "Prijs"
+msgstr "Prix"
+
+#: darts/templates/pages/kampen/stap2.html darts/templates/pages/kampen/stap3.html
+msgid "Totaal"
+msgstr "Total"
+
+#: darts/templates/pages/kampen/stap2.html darts/templates/pages/kampen/stap3.html
+msgid "Terug"
+msgstr "Retour"
+
+#: darts/templates/pages/kampen/stap2.html
+msgid "Volgende: betalen"
+msgstr "Suivant : paiement"
+
+#: darts/templates/pages/kampen/stap2.html
+#, python-format
+msgid "Geboren in %(jaar)s"
+msgstr "Né(e) en %(jaar)s"
+
+#: darts/templates/pages/kampen/stap3.html
+msgid "Aanvaard de voorwaarden en ga verder naar de beveiligde betaling."
+msgstr "Acceptez les conditions et passez au paiement sécurisé."
+
+#: darts/templates/pages/kampen/stap3.html
+msgid "Betaal nu"
+msgstr "Payer maintenant"
+
+#: darts/templates/pages/kampen/stap3.html
+#, python-format
+msgid "Ik ga akkoord met de <a href=\"%(av_url)s\">Algemene voorwaarden</a> en het <a href=\"%(p_url)s\">Privacybeleid</a>."
+msgstr "J’accepte les <a href=\"%(av_url)s\">conditions générales</a> et la <a href=\"%(p_url)s\">politique de confidentialité</a>."
+
+#: darts/templates/pages/kampen/stap3.html
+msgid "Als ouder/voogd geef ik toestemming aan mijn minderjarige kind om deel te nemen aan dit dartskamp en verklaar ik mij akkoord met het verwerken van diens persoonsgegevens in overeenstemming met de wet op de privacy."
+msgstr "En tant que parent/tuteur, j’autorise mon enfant mineur à participer à ce camp de fléchettes et j’accepte le traitement de ses données personnelles conformément à la législation sur la vie privée."
+
+#: darts/views.py
+msgid "Controleer de ingevulde gegevens."
+msgstr "Veuillez vérifier les données saisies."
+
+#: darts/views.py
+msgid "Gelieve alle voorwaarden te aanvaarden."
+msgstr "Veuillez accepter toutes les conditions."

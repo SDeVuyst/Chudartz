@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from  .models import Beurtkaart, LeagueDivisie, SkillLevel
 from phonenumber_field.formfields import PhoneNumberField
 from .utils.league_tables import (
@@ -16,56 +17,60 @@ class ContactForm(forms.Form):
     message = forms.CharField()
 
 class DartskampForm(forms.Form):
-    voornaam = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={
-        'placeholder': 'Voornaam',
+    voornaam = forms.CharField(label=_('Voornaam'), max_length=100, required=True, widget=forms.TextInput(attrs={
+        'placeholder': _('Voornaam'),
         'class': 'form-control',
     }))
     
-    achternaam = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={
-        'placeholder': 'Achternaam',
+    achternaam = forms.CharField(label=_('Achternaam'), max_length=100, required=True, widget=forms.TextInput(attrs={
+        'placeholder': _('Achternaam'),
         'class': 'form-control',
     }))
     
-    geboortejaar = forms.IntegerField(min_value=1900, max_value=2100, required=True, widget=forms.NumberInput(attrs={
-        'placeholder': 'Geboortejaar',
+    geboortejaar = forms.IntegerField(label=_('Geboortejaar'), min_value=1900, max_value=2100, required=True, widget=forms.NumberInput(attrs={
+        'placeholder': _('Geboortejaar'),
         'class': 'form-control',
     }))
     
-    email = forms.EmailField(max_length=254, required=True, widget=forms.EmailInput(attrs={
-        'placeholder': 'Email',
+    email = forms.EmailField(label=_('Email'), max_length=254, required=True, widget=forms.EmailInput(attrs={
+        'placeholder': _('Email'),
         'class': 'form-control',
     }))
     
-    gsm = PhoneNumberField(required=True, widget=forms.TextInput(attrs={
-        'placeholder': 'Gsm-nummer',
+    gsm = PhoneNumberField(label=_('GSM'), required=True, widget=forms.TextInput(attrs={
+        'placeholder': _('Gsm-nummer'),
         'class': 'form-control',
     }))
     
-    straatnaam = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={
-        'placeholder': 'Straatnaam',
+    straatnaam = forms.CharField(label=_('Straatnaam'), max_length=100, required=True, widget=forms.TextInput(attrs={
+        'placeholder': _('Straatnaam'),
         'class': 'form-control',
     }))
     
-    nummer = forms.CharField(max_length=6, required=True, widget=forms.TextInput(attrs={
-        'placeholder': 'Nummer',
+    nummer = forms.CharField(label=_('Nummer'), max_length=6, required=True, widget=forms.TextInput(attrs={
+        'placeholder': _('Nummer'),
         'class': 'form-control',
     }))
     
-    postcode = forms.IntegerField(min_value=0, max_value=9999, required=True, widget=forms.NumberInput(attrs={
-        'placeholder': 'Postcode',
+    postcode = forms.IntegerField(label=_('Postcode'), min_value=0, max_value=9999, required=True, widget=forms.NumberInput(attrs={
+        'placeholder': _('Postcode'),
         'class': 'form-control',
     }))
     
-    stad = forms.CharField(max_length=40, required=True, widget=forms.TextInput(attrs={
-        'placeholder': 'Stad',
+    stad = forms.CharField(label=_('Stad'), max_length=40, required=True, widget=forms.TextInput(attrs={
+        'placeholder': _('Stad'),
         'class': 'form-control',
     }))
 
 
 class DartskampBetalenForm(forms.Form):
     terms_voorwaarden = forms.BooleanField(required=True)
-    terms_privacy = forms.BooleanField(required=True)
-    terms_reglement = forms.BooleanField(required=True)
+    terms_voogd = forms.BooleanField(required=False)
+
+    def __init__(self, *args, kamp=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if kamp is not None and kamp.vereist_voogd_toestemming:
+            self.fields['terms_voogd'].required = True
 
 
 class BeurtkaartForm(forms.Form):

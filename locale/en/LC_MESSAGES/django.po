@@ -6565,3 +6565,89 @@ msgstr "View the results of %(titel)s and find out who shone at this ChudartZ da
 #, python-format
 msgid "Dartskamp %(titel)s in %(locatie)s, georganiseerd door ChudartZ. Schrijf je nu in!"
 msgstr "Dart camp %(titel)s in %(locatie)s, organised by ChudartZ. Sign up now!"
+
+#: darts/templates/pages/kampen/_wizard_nav.html
+msgid "Inschrijving stappen"
+msgstr "Registration steps"
+
+#: darts/kamp_wizard.py
+msgid "Kindgegevens"
+msgstr "Child details"
+
+#: darts/kamp_wizard.py darts/templates/pages/kampen/stap2.html
+msgid "Overzicht"
+msgstr "Overview"
+
+#: darts/templates/pages/kampen/stap1.html
+msgid "Persoonlijke gegevens van het kind"
+msgstr "Personal details of the child"
+
+#: darts/templates/pages/kampen/stap1.html
+msgid "Vul de gegevens van het kind in. U ontvangt een bevestiging per e-mail na betaling."
+msgstr "Fill in the child’s details. You will receive a confirmation by e-mail after payment."
+
+#: darts/templates/pages/kampen/stap1.html
+msgid "Volgende: overzicht"
+msgstr "Next: overview"
+
+#: darts/forms.py
+msgid "Gsm-nummer"
+msgstr "Mobile number"
+
+#: darts/templates/pages/kampen/stap2.html
+msgid "Controleer de gegevens vóór u verdergaat naar betalen."
+msgstr "Check the details before you continue to payment."
+
+#: darts/templates/pages/kampen/stap2.html darts/models.py
+msgid "Dartskamp"
+msgstr "Dart camp"
+
+#: darts/templates/pages/kampen/stap2.html
+msgid "Kind"
+msgstr "Child"
+
+#: darts/templates/pages/kampen/stap2.html darts/models.py
+msgid "Prijs"
+msgstr "Price"
+
+#: darts/templates/pages/kampen/stap2.html darts/templates/pages/kampen/stap3.html
+msgid "Totaal"
+msgstr "Total"
+
+#: darts/templates/pages/kampen/stap2.html darts/templates/pages/kampen/stap3.html
+msgid "Terug"
+msgstr "Back"
+
+#: darts/templates/pages/kampen/stap2.html
+msgid "Volgende: betalen"
+msgstr "Next: payment"
+
+#: darts/templates/pages/kampen/stap2.html
+#, python-format
+msgid "Geboren in %(jaar)s"
+msgstr "Born in %(jaar)s"
+
+#: darts/templates/pages/kampen/stap3.html
+msgid "Aanvaard de voorwaarden en ga verder naar de beveiligde betaling."
+msgstr "Accept the terms and continue to the secure payment."
+
+#: darts/templates/pages/kampen/stap3.html
+msgid "Betaal nu"
+msgstr "Pay now"
+
+#: darts/templates/pages/kampen/stap3.html
+#, python-format
+msgid "Ik ga akkoord met de <a href=\"%(av_url)s\">Algemene voorwaarden</a> en het <a href=\"%(p_url)s\">Privacybeleid</a>."
+msgstr "I agree with the <a href=\"%(av_url)s\">Terms and Conditions</a> and the <a href=\"%(p_url)s\">Privacy policy</a>."
+
+#: darts/templates/pages/kampen/stap3.html
+msgid "Als ouder/voogd geef ik toestemming aan mijn minderjarige kind om deel te nemen aan dit dartskamp en verklaar ik mij akkoord met het verwerken van diens persoonsgegevens in overeenstemming met de wet op de privacy."
+msgstr "As a parent/guardian, I give my minor child permission to take part in this dart camp and I agree to the processing of their personal data in accordance with privacy law."
+
+#: darts/views.py
+msgid "Controleer de ingevulde gegevens."
+msgstr "Please check the details you entered."
+
+#: darts/views.py
+msgid "Gelieve alle voorwaarden te aanvaarden."
+msgstr "Please accept all terms."
