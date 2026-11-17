@@ -1,3 +1,6 @@
+import qrcode
+from io import BytesIO
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib import admin
 from django.shortcuts import get_object_or_404, redirect
@@ -97,6 +100,18 @@ class DartskampAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     def view_on_site(self, obj):
         return obj.get_absolute_url()
+
+    actions_detail = ["generate_qr_code"]
+
+    @action(description=_("Genereer QR Code"))
+    def generate_qr_code(modeladmin, request, object_id: int):
+        kamp = get_object_or_404(Dartskamp, pk=object_id)
+        # get_absolute_url is already absolute on chudartz.com; don't use the admin request host.
+        buffer = BytesIO()
+        qrcode.make(kamp.get_absolute_url()).save(buffer, format="PNG")
+        response = HttpResponse(buffer.getvalue(), content_type="image/png")
+        response['Content-Disposition'] = f'attachment; filename=qr_{kamp.slug}.png'
+        return response
 
 
 @admin.register(Participant)
